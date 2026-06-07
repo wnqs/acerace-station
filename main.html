@@ -55,17 +55,12 @@
         .card-info { padding: 16px; background: rgba(20,20,31,0.9); }
         .car-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
         .car-name { font-size: 1.1rem; font-weight: 700; color: #e2e2e6; }
-        /* 动效品质文字 - 更高级 */
-        .quality-badge { font-size: 0.7rem; padding: 3px 10px; border-radius: 30px; font-weight: 700; letter-spacing: 1px; backdrop-filter: blur(4px); text-shadow: 0 1px 2px rgba(0,0,0,0.2); transition: all 0.2s ease; background-size: 200% auto; animation: shine 3s ease infinite; }
-        @keyframes shine {
-            0% { background-position: 0% center; }
-            50% { background-position: 100% center; }
-            100% { background-position: 0% center; }
-        }
-        .quality-badge.legendary { background: linear-gradient(90deg, #ffd700, #ffb347, #ffd700); color: #1a1a2e; box-shadow: 0 0 12px rgba(255,215,0,0.6); border: 1px solid rgba(255,215,0,0.8); }
-        .quality-badge.epic { background: linear-gradient(90deg, #b873ff, #e040fb, #b873ff); color: #ffffff; box-shadow: 0 0 10px rgba(156,39,176,0.6); border: 1px solid rgba(185,100,255,0.6); }
-        .quality-badge.rare { background: linear-gradient(90deg, #42a5f5, #29b6f6, #42a5f5); color: #ffffff; box-shadow: 0 0 8px rgba(33,150,243,0.5); border: 1px solid rgba(66,165,245,0.6); }
-        .quality-badge.normal { background: linear-gradient(90deg, #66bb6a, #81c784, #66bb6a); color: #ffffff; box-shadow: 0 0 6px rgba(76,175,80,0.4); border: 1px solid rgba(102,187,106,0.5); }
+        /* 重新设计的品质文字样式 - 静态高级金属质感 */
+        .quality-badge { font-size: 0.7rem; padding: 3px 12px; border-radius: 30px; font-weight: 800; letter-spacing: 1px; backdrop-filter: blur(2px); text-transform: uppercase; transition: all 0.2s ease; border-width: 1px; border-style: solid; }
+        .quality-badge.legendary { background: linear-gradient(135deg, #f0b90b, #d4a000); color: #1a1a1a; border-color: #ffd966; box-shadow: 0 2px 8px rgba(240,185,11,0.3); text-shadow: 0 1px 0 rgba(255,255,200,0.5); }
+        .quality-badge.epic { background: linear-gradient(135deg, #9b59b6, #8e44ad); color: #ffffff; border-color: #bb8fce; box-shadow: 0 2px 8px rgba(155,89,182,0.3); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
+        .quality-badge.rare { background: linear-gradient(135deg, #3498db, #2980b9); color: #ffffff; border-color: #6bb5e8; box-shadow: 0 2px 8px rgba(52,152,219,0.3); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
+        .quality-badge.normal { background: linear-gradient(135deg, #2ecc71, #27ae60); color: #ffffff; border-color: #7dcea0; box-shadow: 0 2px 8px rgba(46,204,113,0.3); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
         .car-meta { display: flex; gap: 12px; margin-bottom: 10px; }
         .meta-item { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 40px; font-size: 0.7rem; color: #a0a0b8; }
         .meta-item img { width: 18px; height: 18px; }
@@ -73,8 +68,7 @@
         .stats-text { text-align: center; padding: 16px; color: #8a8aa3; }
         
         .detail-container { background: #14141f; border-radius: 24px; border: 1px solid #2a2a3c; position: relative; padding-top: 70px; }
-        /* 返回列表按钮扩大两倍 */
-        .detail-back-btn { position: absolute; top: 20px; left: 24px; background: #1f1f2e; border: none; padding: 16px 40px; border-radius: 60px; cursor: pointer; color: #feca57; font-size: 1.3rem; font-weight: 800; letter-spacing: 2px; z-index: 20; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+        .detail-back-btn { position: absolute; top: 20px; left: 24px; background: #1f1f2e; border: none; padding: 12px 28px; border-radius: 50px; cursor: pointer; color: #feca57; font-size: 1rem; font-weight: 700; letter-spacing: 1px; z-index: 20; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
         .detail-back-btn:hover { background: #feca57; color: #1a1a2e; transform: scale(1.02); }
         .detail-header { display: flex; gap: 30px; padding: 30px 40px 20px 40px; flex-wrap: wrap; }
         .detail-image { flex: 2; min-width: 280px; border-radius: 24px; display: flex; align-items: center; justify-content: center; padding: 50px 40px; border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; }
@@ -92,9 +86,9 @@
         .detail-image.normal::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.1), transparent 70%); pointer-events: none; }
         .detail-image img { width: 100%; max-height: 420px; object-fit: contain; position: relative; z-index: 2; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5)); }
         
-        /* 获取方式区域 - 去掉黑框，只保留图标和文字 */
+        /* 获取方式区域 - 图标放大1.5倍，无黑框 */
         .detail-acquisition-area { position: absolute; top: 20px; left: 20px; display: flex; align-items: center; gap: 14px; background: transparent; backdrop-filter: none; padding: 0; border-radius: 0; border: none; z-index: 15; }
-        .detail-acquisition-icon { width: 72px; height: 72px; cursor: pointer; transition: transform 0.2s; background: transparent; border-radius: 0; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3)); }
+        .detail-acquisition-icon { width: 108px; height: 108px; cursor: pointer; transition: transform 0.2s; background: transparent; border-radius: 0; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3)); }
         .detail-acquisition-icon:hover { transform: scale(1.05); }
         .detail-acquisition-icon img { width: 100%; height: 100%; object-fit: contain; }
         .detail-acquisition-text { font-size: 0.95rem; color: #feca57; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap; text-shadow: 0 0 2px rgba(0,0,0,0.5); background: rgba(0,0,0,0.4); padding: 4px 12px; border-radius: 20px; backdrop-filter: blur(4px); }
@@ -104,8 +98,8 @@
         .detail-badges { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
         .badge { background: rgba(255,255,255,0.08); padding: 6px 14px; border-radius: 40px; font-size: 0.8rem; color: #a0a0b8; display: flex; align-items: center; gap: 8px; }
         .badge img { width: 18px; height: 18px; }
-        /* 详情页品质徽章高级动效 */
-        .quality-badge-large { background: linear-gradient(90deg, #ffd700, #ffb347, #ffd700); color: #1a1a2e; padding: 6px 16px; border-radius: 40px; font-weight: 800; font-size: 0.9rem; box-shadow: 0 0 15px rgba(255,215,0,0.5); border: 1px solid rgba(255,215,0,0.7); letter-spacing: 1px; animation: shine 3s ease infinite; background-size: 200% auto; }
+        /* 详情页品质徽章高级静态样式 */
+        .quality-badge-large { background: linear-gradient(135deg, #f0b90b, #d4a000); color: #1a1a1a; padding: 6px 16px; border-radius: 40px; font-weight: 800; font-size: 0.9rem; box-shadow: 0 2px 8px rgba(240,185,11,0.4); border: 1px solid #ffd966; letter-spacing: 1px; text-transform: uppercase; }
         
         .info-rows { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 18px; }
         .info-row { display: flex; background: rgba(0,0,0,0.3); padding: 10px 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.05); }
@@ -141,8 +135,8 @@
         .stat-card { background: rgba(0,0,0,0.3); padding: 12px 16px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.08); }
         .stat-card span:first-child { color: #8a8aa3; font-size: 0.8rem; }
         .stat-card span:last-child { color: #e2e2e6; font-weight: 600; font-size: 0.9rem; }
-        /* 氮气充能和起步充能数据字体放大2.5倍 */
-        .stat-card .gold-number { color: #feca57 !important; font-weight: 800; font-size: 2.2rem !important; text-shadow: 0 0 8px rgba(254,202,87,0.5); letter-spacing: 1px; }
+        /* 氮气充能和起步充能数据字体适中 (1.2倍) */
+        .stat-card .gold-number { color: #feca57 !important; font-weight: 800; font-size: 1.2rem !important; text-shadow: 0 0 4px rgba(254,202,87,0.4); letter-spacing: 1px; }
         .blue { color: #3b82f6 !important; font-weight: 600; }
         .purple { color: #a855f7 !important; font-weight: 600; }
         
@@ -166,7 +160,7 @@
             .car-card { min-width: 0; }
             .card-image { height: 140px; padding: 12px; }
             .car-name { font-size: 0.9rem; }
-            .quality-badge { font-size: 0.55rem; padding: 2px 6px; }
+            .quality-badge { font-size: 0.55rem; padding: 2px 8px; }
             .meta-item { font-size: 0.6rem; padding: 2px 6px; }
             .car-description { font-size: 0.65rem; }
             .detail-header { padding: 20px; }
@@ -175,8 +169,8 @@
             .detail-name { font-size: 1.3rem; }
             .features-section, .chip-slots, .vehicle-stats, .skills-section { padding: 12px 16px; }
             .chip-workshop { margin: 0 16px 12px 16px; }
-            .detail-acquisition-area { gap: 6px; top: 12px; left: 12px; }
-            .detail-acquisition-icon { width: 44px; height: 44px; }
+            .detail-acquisition-area { gap: 8px; top: 12px; left: 12px; }
+            .detail-acquisition-icon { width: 72px; height: 72px; }
             .detail-acquisition-text { font-size: 0.65rem; padding: 2px 8px; }
             .chip-icons { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 8px; padding-bottom: 4px; }
             .chip-icon { width: 44px; height: 44px; flex-shrink: 0; }
@@ -185,7 +179,7 @@
             .stats-grid { grid-template-columns: 1fr; gap: 8px; }
             .stat-card { padding: 8px 12px; }
             .stat-card span { font-size: 0.7rem; }
-            .stat-card .gold-number { font-size: 1.5rem !important; }
+            .stat-card .gold-number { font-size: 1rem !important; }
             .skill-icon { width: 44px; height: 44px; min-width: 44px; }
             .skill-title { font-size: 0.9rem; }
             .skill-desc { font-size: 0.75rem; padding: 10px 12px; }
@@ -195,14 +189,14 @@
             .filter-groups { gap: 8px; }
             .filter-group { gap: 4px; }
             .filter-btn { padding: 4px 10px; font-size: 0.65rem; }
-            .detail-back-btn { padding: 10px 24px; font-size: 1rem; }
+            .detail-back-btn { padding: 8px 20px; font-size: 0.85rem; }
         }
         
         @media (max-width: 480px) {
             .cars-grid { gap: 10px; }
             .card-image { height: 120px; }
             .acquisition-icon { width: 44px; height: 44px; bottom: 8px; right: 8px; }
-            .stat-card .gold-number { font-size: 1.2rem !important; }
+            .detail-acquisition-icon { width: 56px; height: 56px; }
         }
     </style>
 </head>
@@ -323,9 +317,14 @@
     function formatSkillText(text) {
         if (!text) return text;
         let result = highlightTerms(text);
-        // 特殊处理：将"越野车："后面的内容换行显示
+        // 特殊处理：将引号内的整段"越野车：在沙地、草地、雪地等特殊地形中减速效果减少50%，并且额外获得自动集气"另起一行显示
         if (text.includes("越野车")) {
-            result = result.replace(/(越野车[：:])/, '$1\n');
+            // 匹配从"越野车："开始到句号结束的完整句子
+            const match = text.match(/(越野车[：:][^。]*[。]?)/);
+            if (match) {
+                const quotedText = match[1];
+                result = result.replace(quotedText, '\n' + quotedText);
+            }
         }
         result = result.replace(/[；;]\s*/g, '\n');
         result = result.replace(/[：:]\s*(?=[^\n])/g, '：\n');
@@ -553,7 +552,7 @@
             let spDesc = formatSkillText(car.sp.desc);
             spBlockHtml = `<div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.sp.icon}"></div><div class="skill-title">SP：${car.sp.name}</div></div><div class="skill-desc"><div class="sp-cooltime">冷却时间：${car.sp.cooltime}</div>${spDesc}</div></div>`;
         }
-        // 金色高亮氮气充能和起步充能，字体放大2.5倍
+        // 金色高亮氮气充能和起步充能
         let nitroChargeHtml = `<span class="gold-number">${stats.nitroCharge}</span>`;
         let startChargeHtml = `<span class="gold-number">${stats.startCharge}</span>`;
         
