@@ -250,6 +250,7 @@
     let filters = { position: "all", specialty: "all", quality: "all", keyword: "" };
     let isDetail = false;
     let currentHistoryStateId = null;
+    let acqTooltipTimer = null;
     
     const CHIP_ICONS = {
         circle: "https://s3.bmp.ovh/2026/05/31/OnUTepDT.png",
@@ -385,11 +386,13 @@
     }
     function hideFeatureTooltip() { if (featureTooltip) { featureTooltip.remove(); featureTooltip = null; } }
     
-    function showAcqTooltip(e, text) {
-        if (featureTooltip) featureTooltip.remove();
+    // 获取方式浮层 - 无图钉图标，电脑端悬浮显示，手机端点击显示
+    let activeAcqTooltip = null;
+    function showAcqTooltip(e, text, isMobile) {
+        if (activeAcqTooltip) { activeAcqTooltip.remove(); activeAcqTooltip = null; }
         let tip = document.createElement('div');
         tip.className = 'feature-tooltip';
-        tip.innerHTML = `<div class="term-title">📌 获取方式</div><div class="term-desc-line">${text}</div>`;
+        tip.innerHTML = `<div class="term-desc-line" style="text-align:center;">${text}</div>`;
         document.body.appendChild(tip);
         let rect = e.currentTarget.getBoundingClientRect();
         let left = rect.left + rect.width/2 - tip.offsetWidth/2;
@@ -398,8 +401,16 @@
         if (top < 5) top = rect.bottom + 8;
         tip.style.left = left + 'px';
         tip.style.top = top + 'px';
-        featureTooltip = tip;
-        tip._timeout = setTimeout(() => { if (featureTooltip) { featureTooltip.remove(); featureTooltip = null; } }, 2500);
+        activeAcqTooltip = tip;
+        if (!isMobile) {
+            const hideHandler = () => { if (activeAcqTooltip) { activeAcqTooltip.remove(); activeAcqTooltip = null; } };
+            e.currentTarget.removeEventListener('mouseleave', hideHandler);
+            e.currentTarget.addEventListener('mouseleave', hideHandler);
+            tip._hideHandler = hideHandler;
+        }
+    }
+    function hideAcqTooltipOnMobile() {
+        if (activeAcqTooltip) { activeAcqTooltip.remove(); activeAcqTooltip = null; }
     }
     
     async function loadData() {
@@ -439,6 +450,10 @@
         });
     }
     
+    function isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    }
+    
     function renderList() {
         let filtered = filterVehicles();
         let grid = document.getElementById("carsGrid");
@@ -471,10 +486,22 @@
             `;
         }).join("");
         stats.innerText = `共 ${filtered.length} 辆车`;
+        
+        const mobile = isMobileDevice();
         document.querySelectorAll('.acquisition-icon').forEach(icon => {
+            icon.removeEventListener('mouseenter', icon._mouseEnterHandler);
+            icon.removeEventListener('mouseleave', icon._mouseLeaveHandler);
             icon.removeEventListener('click', icon._clickHandler);
-            icon._clickHandler = (e) => { e.stopPropagation(); showAcqTooltip(e, icon.dataset.acq); };
-            icon.addEventListener('click', icon._clickHandler);
+            const acqText = icon.dataset.acq;
+            if (!mobile) {
+                icon._mouseEnterHandler = (e) => { e.stopPropagation(); showAcqTooltip(e, acqText, false); };
+                icon._mouseLeaveHandler = () => { if (activeAcqTooltip) { activeAcqTooltip.remove(); activeAcqTooltip = null; } };
+                icon.addEventListener('mouseenter', icon._mouseEnterHandler);
+                icon.addEventListener('mouseleave', icon._mouseLeaveHandler);
+            } else {
+                icon._clickHandler = (e) => { e.stopPropagation(); showAcqTooltip(e, acqText, true); setTimeout(() => { hideAcqTooltipOnMobile(); }, 2000); };
+                icon.addEventListener('click', icon._clickHandler);
+            }
         });
         document.querySelectorAll('.car-card').forEach(card => {
             card.removeEventListener('click', card._clickHandler);
