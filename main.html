@@ -43,8 +43,9 @@
         .card-image.rare { background: linear-gradient(145deg, #0e1a2a 0%, #060d15 100%); }
         .card-image.rare::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(33,150,243,0.06) 2px, rgba(33,150,243,0.06) 4px); pointer-events: none; }
         .card-image.rare::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 40% 60%, rgba(33,150,243,0.12), transparent 70%); pointer-events: none; }
-        .card-image.normal { background: linear-gradient(145deg, #0e1a12 0%, #060d08 100%); }
-        .card-image.normal::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.08), transparent 70%); pointer-events: none; }
+        .card-image.normal { background: linear-gradient(145deg, #1a2a1a 0%, #0a1a0a 100%); }
+        .card-image.normal::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(76,175,80,0.08) 2px, rgba(76,175,80,0.08) 4px); pointer-events: none; }
+        .card-image.normal::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.12), transparent 70%); pointer-events: none; }
         .card-image img { max-width: 100%; max-height: 100%; object-fit: contain; position: relative; z-index: 2; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
         
         .acquisition-icon { position: absolute; bottom: 12px; right: 12px; width: 64px; height: 64px; cursor: pointer; z-index: 10; transition: transform 0.2s; background: transparent; border-radius: 0; }
@@ -78,8 +79,9 @@
         .detail-image.rare { background: linear-gradient(145deg, #0e1a2a 0%, #060d15 100%); }
         .detail-image.rare::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(33,150,243,0.06) 2px, rgba(33,150,243,0.06) 4px); pointer-events: none; }
         .detail-image.rare::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 40% 60%, rgba(33,150,243,0.1), transparent 70%); pointer-events: none; }
-        .detail-image.normal { background: linear-gradient(145deg, #0e1a12 0%, #060d08 100%); }
-        .detail-image.normal::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.06), transparent 70%); pointer-events: none; }
+        .detail-image.normal { background: linear-gradient(145deg, #1a2a1a 0%, #0a1a0a 100%); }
+        .detail-image.normal::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(76,175,80,0.08) 2px, rgba(76,175,80,0.08) 4px); pointer-events: none; }
+        .detail-image.normal::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.1), transparent 70%); pointer-events: none; }
         .detail-image img { width: 100%; max-height: 420px; object-fit: contain; position: relative; z-index: 2; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5)); }
         
         .detail-acquisition-area { position: absolute; top: 20px; left: 20px; display: flex; align-items: center; gap: 14px; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); padding: 8px 20px 8px 16px; border-radius: 60px; border: 1px solid rgba(255,255,255,0.2); z-index: 15; }
@@ -137,7 +139,6 @@
         .skill-icon { width: 56px; height: 56px; min-width: 56px; background: rgba(0,0,0,0.4); border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
         .skill-icon img { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; }
         .skill-title { font-size: 1rem; font-weight: 700; color: #e2e2e6; }
-        /* 修复技能描述文字颜色为白色 */
         .skill-desc { background: rgba(0,0,0,0.3); padding: 14px 18px; border-radius: 16px; color: #e2e2e6 !important; font-size: 0.85rem; line-height: 1.6; border: 1px solid rgba(255,255,255,0.08); white-space: pre-line; }
         .sub-skill { background: rgba(0,0,0,0.3); padding: 12px 16px; border-radius: 14px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.08); }
         .sub-skill-title { font-weight: 600; font-size: 0.8rem; color: #c0c0d0; margin-bottom: 6px; }
@@ -147,22 +148,15 @@
         .term-highlight:hover { color: #ffd700; }
         .sp-cooltime { color: #feca57; font-weight: 600; margin-bottom: 8px; display: block; }
         
-        /* 响应式布局 - 手机端适配 */
         @media (max-width: 768px) {
             .app-container { padding: 12px; }
-            /* 手机端：一排两辆车 */
-            .cars-grid { 
-                grid-template-columns: repeat(2, 1fr); 
-                gap: 12px;
-            }
+            .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .car-card { min-width: 0; }
             .card-image { height: 140px; padding: 12px; }
             .car-name { font-size: 0.9rem; }
             .quality-badge { font-size: 0.55rem; padding: 2px 6px; }
             .meta-item { font-size: 0.6rem; padding: 2px 6px; }
             .car-description { font-size: 0.65rem; }
-            
-            /* 详情页手机端适配 */
             .detail-header { padding: 20px; }
             .detail-image { padding: 30px; min-width: auto; }
             .detail-image img { max-height: 200px; }
@@ -172,20 +166,8 @@
             .detail-acquisition-area { padding: 4px 12px; gap: 8px; }
             .detail-acquisition-icon { width: 44px; height: 44px; }
             .detail-acquisition-text { font-size: 0.7rem; }
-            
-            /* 手机端芯片槽改为在同一行显示（flex-wrap: nowrap） */
-            .chip-icons { 
-                display: flex; 
-                flex-wrap: nowrap; 
-                overflow-x: auto; 
-                gap: 8px; 
-                padding-bottom: 4px;
-            }
-            .chip-icon { 
-                width: 44px; 
-                height: 44px; 
-                flex-shrink: 0;
-            }
+            .chip-icons { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 8px; padding-bottom: 4px; }
+            .chip-icon { width: 44px; height: 44px; flex-shrink: 0; }
             .feature-box { white-space: normal; font-size: 0.7rem; padding: 6px 12px; }
             .features-horizontal { gap: 8px; }
             .stats-grid { grid-template-columns: 1fr; gap: 8px; }
@@ -195,8 +177,6 @@
             .skill-title { font-size: 0.9rem; }
             .skill-desc { font-size: 0.75rem; padding: 10px 12px; }
             .sub-skill { padding: 8px 12px; }
-            
-            /* 导航栏手机端适配 */
             .nav-tabs { gap: 6px; }
             .tab-btn { padding: 6px 12px; font-size: 0.7rem; }
             .filter-groups { gap: 8px; }
@@ -208,10 +188,6 @@
             .cars-grid { gap: 10px; }
             .card-image { height: 120px; }
             .acquisition-icon { width: 44px; height: 44px; bottom: 8px; right: 8px; }
-        }
-        
-        @media (prefers-color-scheme: dark) {
-            .skill-desc { color: #e2e2e6 !important; }
         }
     </style>
 </head>
@@ -253,6 +229,7 @@
                     <button class="filter-btn" data-type="quality" data-value="传说">传说</button>
                     <button class="filter-btn" data-type="quality" data-value="史诗">史诗</button>
                     <button class="filter-btn" data-type="quality" data-value="稀有">稀有</button>
+                    <button class="filter-btn" data-type="quality" data-value="普通">普通</button>
                 </div>
             </div>
         </div>
@@ -307,7 +284,6 @@
         return "normal";
     }
     
-    // 高亮数字
     function applyNumberHighlight(text) {
         if (!text) return text;
         let result = text;
@@ -319,7 +295,6 @@
         return result;
     }
     
-    // 高亮专有名词
     function highlightTerms(text) {
         if (!text) return text;
         let result = text;
@@ -386,24 +361,60 @@
         return result;
     }
     
-    // ==================== 加载数据 ====================
+    let featureTooltip = null;
+    function showFeatureTooltip(e, name, desc) {
+        if (featureTooltip) featureTooltip.remove();
+        let formattedDesc = formatFeatureDesc(desc);
+        let descLines = formattedDesc.split('\n').filter(line => line.trim().length > 0);
+        let descHtml = '';
+        for (let line of descLines) {
+            descHtml += `<div class="term-desc-line">${line}</div>`;
+        }
+        let tip = document.createElement('div');
+        tip.className = 'feature-tooltip';
+        tip.innerHTML = `<div class="term-title">${name}</div>${descHtml}`;
+        document.body.appendChild(tip);
+        let rect = e.target.getBoundingClientRect();
+        let left = rect.left + rect.width/2 - tip.offsetWidth/2;
+        let top = rect.top - tip.offsetHeight - 8;
+        if (left < 5) left = 5;
+        if (top < 5) top = rect.bottom + 8;
+        tip.style.left = left + 'px';
+        tip.style.top = top + 'px';
+        featureTooltip = tip;
+    }
+    function hideFeatureTooltip() { if (featureTooltip) { featureTooltip.remove(); featureTooltip = null; } }
+    
+    function showAcqTooltip(e, text) {
+        if (featureTooltip) featureTooltip.remove();
+        let tip = document.createElement('div');
+        tip.className = 'feature-tooltip';
+        tip.innerHTML = `<div class="term-title">📌 获取方式</div><div class="term-desc-line">${text}</div>`;
+        document.body.appendChild(tip);
+        let rect = e.currentTarget.getBoundingClientRect();
+        let left = rect.left + rect.width/2 - tip.offsetWidth/2;
+        let top = rect.top - tip.offsetHeight - 8;
+        if (left < 5) left = 5;
+        if (top < 5) top = rect.bottom + 8;
+        tip.style.left = left + 'px';
+        tip.style.top = top + 'px';
+        featureTooltip = tip;
+        tip._timeout = setTimeout(() => { if (featureTooltip) { featureTooltip.remove(); featureTooltip = null; } }, 2500);
+    }
+    
     async function loadData() {
         try {
             const vehiclesResponse = await fetch('vehicles.json');
             const vehiclesDataObj = await vehiclesResponse.json();
             vehiclesData = vehiclesDataObj.vehicles;
-            
             const termsResponse = await fetch('terms.json');
             const termsDataObj = await termsResponse.json();
             termDefinitions = termsDataObj.terms;
-            
             for (const car of vehiclesData) {
                 car.chipSlots = sortChipSlots(car.chipSlots);
             }
-            
             renderList();
         } catch (error) {
-            console.error('加载数据失败:', error);
             document.getElementById("carsGrid").innerHTML = '<div style="text-align:center; padding:60px; color:#ff6b6b;">数据加载失败，请检查 vehicles.json 和 terms.json 文件是否存在</div>';
             document.getElementById("statsText").innerText = "加载失败";
         }
@@ -413,7 +424,7 @@
         if (!keyword) return true;
         const lowerKeyword = keyword.toLowerCase();
         if (car.name.toLowerCase().includes(lowerKeyword)) return true;
-        if (car.skillName.toLowerCase().includes(lowerKeyword)) return true;
+        if (car.skillName && car.skillName.toLowerCase().includes(lowerKeyword)) return true;
         if (car.searchKeywords && car.searchKeywords.some(k => k.toLowerCase().includes(lowerKeyword))) return true;
         return false;
     }
@@ -433,13 +444,11 @@
         let grid = document.getElementById("carsGrid");
         let stats = document.getElementById("statsText");
         if (!grid) return;
-        
         if (filtered.length === 0) {
             grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px; color:#8a8aa3;">暂无车辆数据</div>';
             stats.innerText = "共 0 辆车";
             return;
         }
-        
         grid.innerHTML = filtered.map(car => {
             let bgClass = getQualityClass(car.quality);
             let badgeClass = car.quality === "传说" ? "legendary" : (car.quality === "史诗" ? "epic" : (car.quality === "稀有" ? "rare" : "normal"));
@@ -449,7 +458,7 @@
                 <div class="car-card" data-id="${car.id}">
                     <div class="card-image ${bgClass}">
                         <img src="${car.imageUrl}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/400x200?text=Car'">
-                        <div class="acquisition-icon" data-acq="${car.acquisition}">
+                        <div class="acquisition-icon" data-acq="${car.acquisition.replace(/"/g, '&quot;')}">
                             <img src="${car.acquisitionIcon}" referrerpolicy="no-referrer">
                         </div>
                     </div>
@@ -462,17 +471,18 @@
             `;
         }).join("");
         stats.innerText = `共 ${filtered.length} 辆车`;
-        
         document.querySelectorAll('.acquisition-icon').forEach(icon => {
-            let text = icon.dataset.acq;
-            icon.addEventListener('click', (e) => { e.stopPropagation(); alert(`获取方式：${text}`); });
+            icon.removeEventListener('click', icon._clickHandler);
+            icon._clickHandler = (e) => { e.stopPropagation(); showAcqTooltip(e, icon.dataset.acq); };
+            icon.addEventListener('click', icon._clickHandler);
         });
         document.querySelectorAll('.car-card').forEach(card => {
-            card.addEventListener('click', (e) => { if (!e.target.closest('.acquisition-icon')) showDetail(card.dataset.id); });
+            card.removeEventListener('click', card._clickHandler);
+            card._clickHandler = (e) => { if (!e.target.closest('.acquisition-icon')) showDetail(card.dataset.id); };
+            card.addEventListener('click', card._clickHandler);
         });
     }
     
-    // 更新浏览器历史记录
     function pushHistoryState(carId) {
         const state = { page: 'detail', carId: carId };
         const url = new URL(window.location.href);
@@ -481,33 +491,34 @@
         currentHistoryStateId = carId;
     }
     
+    function replaceHistoryState(carId) {
+        const state = { page: 'detail', carId: carId };
+        const url = new URL(window.location.href);
+        url.searchParams.set('car', carId);
+        history.replaceState(state, '', url);
+        currentHistoryStateId = carId;
+    }
+    
     function showDetail(id) {
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
         isDetail = true;
-        
-        // 添加浏览器历史记录，支持返回键
-        pushHistoryState(id);
-        
+        replaceHistoryState(id);
         let stats = car.stats;
         let chipSlots = car.chipSlots.map(t => CHIP_ICONS[t]);
         let bgClass = getQualityClass(car.quality);
         let positionIcon = POSITION_ICONS[car.positionIcon] || POSITION_ICONS["辅助"];
         let specialtyIcon = SPECIALTY_ICONS[car.specialty] || SPECIALTY_ICONS["场地"];
-        
         let ultDesc = formatSkillText(car.skills.ult.desc);
         let recuDesc = formatSkillText(car.skills.ult.recu);
         let passiveDesc = formatSkillText(car.skills.passive.desc);
         let ultPassiveBlock = car.skills.ult.ultPassive ? `<div class="sub-skill"><div class="sub-skill-title">解锁大招被动</div><div class="sub-skill-desc">${formatSkillText(car.skills.ult.ultPassive)}</div></div>` : '';
-        
-        let featuresHtml = car.skills.features.map(f => `<div class="feature-box" data-color="${f.color || '默认'}">${f.name}</div>`).join('');
-        
+        let featuresHtml = (car.skills.features && car.skills.features.length) ? car.skills.features.map(f => `<div class="feature-box" data-desc="${(f.desc || '').replace(/"/g, '&quot;')}" data-name="${f.name}" data-color="${f.color || '默认'}">${f.name}</div>`).join('') : '<div style="color:#8a8aa3; padding:10px;">暂无特点数据</div>';
         let spBlockHtml = '';
         if (car.sp) {
             let spDesc = formatSkillText(car.sp.desc);
             spBlockHtml = `<div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.sp.icon}"></div><div class="skill-title">SP：${car.sp.name}</div></div><div class="skill-desc"><div class="sp-cooltime">冷却时间：${car.sp.cooltime}</div>${spDesc}</div></div>`;
         }
-        
         let html = `
             <div class="detail-container">
                 <button class="detail-back-btn" id="backBtn">← 返回列表</button>
@@ -522,7 +533,7 @@
                     <div class="detail-info-panel">
                         <div class="detail-name">${car.name}</div>
                         <div class="detail-badges"><span class="quality-badge-large">${car.quality}</span><div class="badge"><img src="${positionIcon}"> ${car.position}位</div><div class="badge"><img src="${specialtyIcon}"> ${car.specialty}</div></div>
-                        <div class="info-rows"><div class="info-row"><span class="info-label">注册日期</span><span class="info-value">${car.registerDate}</span></div><div class="info-row"><span class="info-label">车辆类型</span><span class="info-value">${car.vehicleType}</span></div><div class="info-row"><span class="info-label">厂商</span><span class="info-value">${car.manufacturer}</span></div></div>
+                        <div class="info-rows"><div class="info-row"><span class="info-label">注册日期</span><span class="info-value">${car.registerDate || '未知'}</span></div><div class="info-row"><span class="info-label">车辆类型</span><span class="info-value">${car.vehicleType || '未知'}</span></div><div class="info-row"><span class="info-label">厂商</span><span class="info-value">${car.manufacturer || '未知'}</span></div></div>
                     </div>
                 </div>
                 <div class="features-section"><div class="section-title">车辆特点</div><div class="features-horizontal">${featuresHtml}</div></div>
@@ -547,37 +558,39 @@
                 </div>
             </div>
         `;
-        
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = html;
         document.getElementById("backBtn")?.addEventListener("click", restoreList);
-        
         document.querySelectorAll('.feature-box').forEach(box => {
+            let name = box.dataset.name;
+            let desc = box.dataset.desc;
             let color = box.dataset.color;
             if (color && color !== '默认') box.setAttribute('data-color', color);
+            box.addEventListener('mouseenter', (e) => { showFeatureTooltip(e, name, desc); });
+            box.addEventListener('mouseleave', hideFeatureTooltip);
+            box.addEventListener('click', (e) => { showFeatureTooltip(e, name, desc); setTimeout(hideFeatureTooltip, 2000); });
         });
-        
         bindTermHighlights();
-        
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
     }
     
-    // 监听浏览器返回键
     window.addEventListener('popstate', function(event) {
         if (isDetail) {
-            // 如果当前在详情页，按返回键回到列表
             restoreList();
+        } else {
+            let carId = new URLSearchParams(window.location.search).get('car');
+            if (carId && vehiclesData.find(v => v.id === carId)) {
+                showDetail(carId);
+            }
         }
     });
     
     function restoreList() {
-        // 清除URL中的参数
         const url = new URL(window.location.href);
         url.searchParams.delete('car');
         history.pushState({ page: 'list' }, '', url);
         currentHistoryStateId = null;
-        
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = `
             <div class="filter-bar">
@@ -601,6 +614,7 @@
                         <button class="filter-btn" data-type="quality" data-value="传说">传说</button>
                         <button class="filter-btn" data-type="quality" data-value="史诗">史诗</button>
                         <button class="filter-btn" data-type="quality" data-value="稀有">稀有</button>
+                        <button class="filter-btn" data-type="quality" data-value="普通">普通</button>
                     </div>
                 </div>
             </div>
