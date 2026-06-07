@@ -137,31 +137,81 @@
         .skill-icon { width: 56px; height: 56px; min-width: 56px; background: rgba(0,0,0,0.4); border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
         .skill-icon img { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; }
         .skill-title { font-size: 1rem; font-weight: 700; color: #e2e2e6; }
-        .skill-desc { background: rgba(0,0,0,0.3); padding: 14px 18px; border-radius: 16px; color: #a0a0b8; font-size: 0.85rem; line-height: 1.6; border: 1px solid rgba(255,255,255,0.08); white-space: pre-line; }
+        /* 修复技能描述文字颜色为白色 */
+        .skill-desc { background: rgba(0,0,0,0.3); padding: 14px 18px; border-radius: 16px; color: #e2e2e6 !important; font-size: 0.85rem; line-height: 1.6; border: 1px solid rgba(255,255,255,0.08); white-space: pre-line; }
         .sub-skill { background: rgba(0,0,0,0.3); padding: 12px 16px; border-radius: 14px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.08); }
         .sub-skill-title { font-weight: 600; font-size: 0.8rem; color: #c0c0d0; margin-bottom: 6px; }
+        .sub-skill-desc { font-size: 0.75rem; color: #a0a0b8; white-space: pre-line; }
         .red-number { color: #ff6b6b !important; font-weight: 600; }
         .term-highlight { color: #feca57; cursor: pointer; border-bottom: 1px dashed #feca57; display: inline-block; }
         .term-highlight:hover { color: #ffd700; }
         .sp-cooltime { color: #feca57; font-weight: 600; margin-bottom: 8px; display: block; }
         
-        @media (max-width: 900px) {
-            .detail-header { flex-direction: column; padding: 20px; }
-            .chip-slots, .vehicle-stats, .skills-section, .features-section { padding: 12px 20px 20px 20px; }
-            .chip-workshop { margin: 0 20px 16px 20px; }
-            .detail-acquisition-area { padding: 6px 16px; gap: 10px; }
-            .detail-acquisition-icon { width: 56px; height: 56px; }
-            .detail-acquisition-text { font-size: 0.8rem; white-space: normal; }
-            .detail-image { padding: 30px; }
-            .detail-image img { max-height: 300px; }
-            .feature-box { white-space: normal; font-size: 0.75rem; padding: 8px 16px; }
-            .features-horizontal { gap: 12px; }
-        }
-        @media (max-width: 700px) {
+        /* 响应式布局 - 手机端适配 */
+        @media (max-width: 768px) {
             .app-container { padding: 12px; }
-            .cars-grid { grid-template-columns: 1fr; }
+            /* 手机端：一排两辆车 */
+            .cars-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 12px;
+            }
+            .car-card { min-width: 0; }
+            .card-image { height: 140px; padding: 12px; }
+            .car-name { font-size: 0.9rem; }
+            .quality-badge { font-size: 0.55rem; padding: 2px 6px; }
+            .meta-item { font-size: 0.6rem; padding: 2px 6px; }
+            .car-description { font-size: 0.65rem; }
+            
+            /* 详情页手机端适配 */
+            .detail-header { padding: 20px; }
+            .detail-image { padding: 30px; min-width: auto; }
+            .detail-image img { max-height: 200px; }
+            .detail-name { font-size: 1.3rem; }
+            .features-section, .chip-slots, .vehicle-stats, .skills-section { padding: 12px 16px; }
             .chip-workshop { margin: 0 16px 12px 16px; }
-            .acquisition-icon { width: 56px; height: 56px; }
+            .detail-acquisition-area { padding: 4px 12px; gap: 8px; }
+            .detail-acquisition-icon { width: 44px; height: 44px; }
+            .detail-acquisition-text { font-size: 0.7rem; }
+            
+            /* 手机端芯片槽改为在同一行显示（flex-wrap: nowrap） */
+            .chip-icons { 
+                display: flex; 
+                flex-wrap: nowrap; 
+                overflow-x: auto; 
+                gap: 8px; 
+                padding-bottom: 4px;
+            }
+            .chip-icon { 
+                width: 44px; 
+                height: 44px; 
+                flex-shrink: 0;
+            }
+            .feature-box { white-space: normal; font-size: 0.7rem; padding: 6px 12px; }
+            .features-horizontal { gap: 8px; }
+            .stats-grid { grid-template-columns: 1fr; gap: 8px; }
+            .stat-card { padding: 8px 12px; }
+            .stat-card span { font-size: 0.7rem; }
+            .skill-icon { width: 44px; height: 44px; min-width: 44px; }
+            .skill-title { font-size: 0.9rem; }
+            .skill-desc { font-size: 0.75rem; padding: 10px 12px; }
+            .sub-skill { padding: 8px 12px; }
+            
+            /* 导航栏手机端适配 */
+            .nav-tabs { gap: 6px; }
+            .tab-btn { padding: 6px 12px; font-size: 0.7rem; }
+            .filter-groups { gap: 8px; }
+            .filter-group { gap: 4px; }
+            .filter-btn { padding: 4px 10px; font-size: 0.65rem; }
+        }
+        
+        @media (max-width: 480px) {
+            .cars-grid { gap: 10px; }
+            .card-image { height: 120px; }
+            .acquisition-icon { width: 44px; height: 44px; bottom: 8px; right: 8px; }
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .skill-desc { color: #e2e2e6 !important; }
         }
     </style>
 </head>
@@ -222,6 +272,7 @@
     let termDefinitions = {};
     let filters = { position: "all", specialty: "all", quality: "all", keyword: "" };
     let isDetail = false;
+    let currentHistoryStateId = null;
     
     const CHIP_ICONS = {
         circle: "https://s3.bmp.ovh/2026/05/31/OnUTepDT.png",
@@ -338,17 +389,14 @@
     // ==================== 加载数据 ====================
     async function loadData() {
         try {
-            // 加载车辆数据
             const vehiclesResponse = await fetch('vehicles.json');
             const vehiclesDataObj = await vehiclesResponse.json();
             vehiclesData = vehiclesDataObj.vehicles;
             
-            // 加载专有名词数据
             const termsResponse = await fetch('terms.json');
             const termsDataObj = await termsResponse.json();
             termDefinitions = termsDataObj.terms;
             
-            // 标准化芯片槽顺序
             for (const car of vehiclesData) {
                 car.chipSlots = sortChipSlots(car.chipSlots);
             }
@@ -424,10 +472,22 @@
         });
     }
     
+    // 更新浏览器历史记录
+    function pushHistoryState(carId) {
+        const state = { page: 'detail', carId: carId };
+        const url = new URL(window.location.href);
+        url.searchParams.set('car', carId);
+        history.pushState(state, '', url);
+        currentHistoryStateId = carId;
+    }
+    
     function showDetail(id) {
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
         isDetail = true;
+        
+        // 添加浏览器历史记录，支持返回键
+        pushHistoryState(id);
         
         let stats = car.stats;
         let chipSlots = car.chipSlots.map(t => CHIP_ICONS[t]);
@@ -435,7 +495,6 @@
         let positionIcon = POSITION_ICONS[car.positionIcon] || POSITION_ICONS["辅助"];
         let specialtyIcon = SPECIALTY_ICONS[car.specialty] || SPECIALTY_ICONS["场地"];
         
-        // 格式化技能描述
         let ultDesc = formatSkillText(car.skills.ult.desc);
         let recuDesc = formatSkillText(car.skills.ult.recu);
         let passiveDesc = formatSkillText(car.skills.passive.desc);
@@ -504,7 +563,21 @@
         vehiclesPage.classList.add('active-page');
     }
     
+    // 监听浏览器返回键
+    window.addEventListener('popstate', function(event) {
+        if (isDetail) {
+            // 如果当前在详情页，按返回键回到列表
+            restoreList();
+        }
+    });
+    
     function restoreList() {
+        // 清除URL中的参数
+        const url = new URL(window.location.href);
+        url.searchParams.delete('car');
+        history.pushState({ page: 'list' }, '', url);
+        currentHistoryStateId = null;
+        
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = `
             <div class="filter-bar">
