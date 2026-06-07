@@ -1038,7 +1038,7 @@
         "turboSpeed": { "blue": "7.00 km/h", "purple": "10.50 km/h" },
         "ultPower": "5"
       },
-      "chipSlots": ["circle", "circle", "triangle", "vslot", "vslot", "hexagon"],
+      "chipSlots": ["circle", "circle", "triangle", "vslot", "hexagon", "hexagon"],
       "skills": {
         "ult": {
           "name": "喜事成双",
