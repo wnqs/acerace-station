@@ -250,7 +250,6 @@
     let filters = { position: "all", specialty: "all", quality: "all", keyword: "" };
     let isDetail = false;
     let currentHistoryStateId = null;
-    let acqTooltipTimer = null;
     
     const CHIP_ICONS = {
         circle: "https://s3.bmp.ovh/2026/05/31/OnUTepDT.png",
@@ -386,7 +385,7 @@
     }
     function hideFeatureTooltip() { if (featureTooltip) { featureTooltip.remove(); featureTooltip = null; } }
     
-    // 获取方式浮层 - 无图钉图标，电脑端悬浮显示，手机端点击显示
+    // 获取方式浮层 - 无图钉图标，电脑端悬浮，手机端点击
     let activeAcqTooltip = null;
     function showAcqTooltip(e, text, isMobile) {
         if (activeAcqTooltip) { activeAcqTooltip.remove(); activeAcqTooltip = null; }
@@ -402,15 +401,15 @@
         tip.style.left = left + 'px';
         tip.style.top = top + 'px';
         activeAcqTooltip = tip;
+        
         if (!isMobile) {
             const hideHandler = () => { if (activeAcqTooltip) { activeAcqTooltip.remove(); activeAcqTooltip = null; } };
             e.currentTarget.removeEventListener('mouseleave', hideHandler);
             e.currentTarget.addEventListener('mouseleave', hideHandler);
             tip._hideHandler = hideHandler;
+        } else {
+            setTimeout(() => { if (activeAcqTooltip) { activeAcqTooltip.remove(); activeAcqTooltip = null; } }, 2000);
         }
-    }
-    function hideAcqTooltipOnMobile() {
-        if (activeAcqTooltip) { activeAcqTooltip.remove(); activeAcqTooltip = null; }
     }
     
     async function loadData() {
@@ -499,7 +498,7 @@
                 icon.addEventListener('mouseenter', icon._mouseEnterHandler);
                 icon.addEventListener('mouseleave', icon._mouseLeaveHandler);
             } else {
-                icon._clickHandler = (e) => { e.stopPropagation(); showAcqTooltip(e, acqText, true); setTimeout(() => { hideAcqTooltipOnMobile(); }, 2000); };
+                icon._clickHandler = (e) => { e.stopPropagation(); showAcqTooltip(e, acqText, true); };
                 icon.addEventListener('click', icon._clickHandler);
             }
         });
@@ -508,14 +507,6 @@
             card._clickHandler = (e) => { if (!e.target.closest('.acquisition-icon')) showDetail(card.dataset.id); };
             card.addEventListener('click', card._clickHandler);
         });
-    }
-    
-    function pushHistoryState(carId) {
-        const state = { page: 'detail', carId: carId };
-        const url = new URL(window.location.href);
-        url.searchParams.set('car', carId);
-        history.pushState(state, '', url);
-        currentHistoryStateId = carId;
     }
     
     function replaceHistoryState(carId) {
