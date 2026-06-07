@@ -37,9 +37,10 @@
         .card-image.legendary { background: linear-gradient(145deg, #1a1208 0%, #0d0a05 100%); }
         .card-image.legendary::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,215,0,0.04) 2px, rgba(255,215,0,0.04) 4px); pointer-events: none; }
         .card-image.legendary::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 30%, rgba(255,215,0,0.12), transparent 70%); pointer-events: none; }
-        .card-image.epic { background: linear-gradient(145deg, #140d1f 0%, #0a0512 100%); }
-        .card-image.epic::before { content: ''; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(156,39,176,0.12) 0%, rgba(156,39,176,0) 50%); pointer-events: none; }
-        .card-image.epic::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 40%, rgba(156,39,176,0.08), transparent 70%); pointer-events: none; }
+        /* 史诗品质背景 - 模仿传说品质风格，使用紫色/金色渐变 */
+        .card-image.epic { background: linear-gradient(145deg, #1a0f1a 0%, #0d050d 100%); }
+        .card-image.epic::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(156,39,176,0.08) 2px, rgba(156,39,176,0.08) 4px); pointer-events: none; }
+        .card-image.epic::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 25% 35%, rgba(156,39,176,0.15), rgba(255,215,0,0.05) 60%, transparent 80%); pointer-events: none; }
         .card-image.rare { background: linear-gradient(145deg, #0e1a2a 0%, #060d15 100%); }
         .card-image.rare::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(33,150,243,0.06) 2px, rgba(33,150,243,0.06) 4px); pointer-events: none; }
         .card-image.rare::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 40% 60%, rgba(33,150,243,0.12), transparent 70%); pointer-events: none; }
@@ -74,8 +75,9 @@
         .detail-image.legendary { background: linear-gradient(145deg, #1a1208 0%, #0d0a05 100%); }
         .detail-image.legendary::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,215,0,0.04) 2px, rgba(255,215,0,0.04) 4px); pointer-events: none; }
         .detail-image.legendary::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 30%, rgba(255,215,0,0.1), transparent 70%); pointer-events: none; }
-        .detail-image.epic { background: linear-gradient(145deg, #140d1f 0%, #0a0512 100%); }
-        .detail-image.epic::before { content: ''; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(156,39,176,0.1) 0%, rgba(156,39,176,0) 50%); pointer-events: none; }
+        .detail-image.epic { background: linear-gradient(145deg, #1a0f1a 0%, #0d050d 100%); }
+        .detail-image.epic::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(156,39,176,0.08) 2px, rgba(156,39,176,0.08) 4px); pointer-events: none; }
+        .detail-image.epic::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 25% 35%, rgba(156,39,176,0.15), rgba(255,215,0,0.05) 60%, transparent 80%); pointer-events: none; }
         .detail-image.rare { background: linear-gradient(145deg, #0e1a2a 0%, #060d15 100%); }
         .detail-image.rare::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(33,150,243,0.06) 2px, rgba(33,150,243,0.06) 4px); pointer-events: none; }
         .detail-image.rare::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 40% 60%, rgba(33,150,243,0.1), transparent 70%); pointer-events: none; }
@@ -507,7 +509,6 @@
         });
     }
     
-    // 核心修复：使用 pushState 而不是 replaceState，并正确维护历史记录
     function pushHistoryState(carId) {
         const state = { page: 'detail', carId: carId };
         const url = new URL(window.location.href);
@@ -591,7 +592,6 @@
         vehiclesPage.classList.add('active-page');
     }
     
-    // 监听浏览器返回按钮 - 关键修复：检测状态变化并正确恢复列表
     window.addEventListener('popstate', function(event) {
         if (isDetail) {
             restoreList();
