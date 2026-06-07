@@ -249,7 +249,6 @@
     let termDefinitions = {};
     let filters = { position: "all", specialty: "all", quality: "all", keyword: "" };
     let isDetail = false;
-    let currentHistoryStateId = null;
     
     const CHIP_ICONS = {
         circle: "https://s3.bmp.ovh/2026/05/31/OnUTepDT.png",
@@ -385,7 +384,6 @@
     }
     function hideFeatureTooltip() { if (featureTooltip) { featureTooltip.remove(); featureTooltip = null; } }
     
-    // 获取方式浮层 - 无图钉图标，电脑端悬浮，手机端点击
     let activeAcqTooltip = null;
     function showAcqTooltip(e, text, isMobile) {
         if (activeAcqTooltip) { activeAcqTooltip.remove(); activeAcqTooltip = null; }
@@ -509,19 +507,19 @@
         });
     }
     
-    function replaceHistoryState(carId) {
+    // 核心修复：使用 pushState 而不是 replaceState，并正确维护历史记录
+    function pushHistoryState(carId) {
         const state = { page: 'detail', carId: carId };
         const url = new URL(window.location.href);
         url.searchParams.set('car', carId);
-        history.replaceState(state, '', url);
-        currentHistoryStateId = carId;
+        history.pushState(state, '', url);
     }
     
     function showDetail(id) {
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
         isDetail = true;
-        replaceHistoryState(id);
+        pushHistoryState(id);
         let stats = car.stats;
         let chipSlots = car.chipSlots.map(t => CHIP_ICONS[t]);
         let bgClass = getQualityClass(car.quality);
@@ -593,6 +591,7 @@
         vehiclesPage.classList.add('active-page');
     }
     
+    // 监听浏览器返回按钮 - 关键修复：检测状态变化并正确恢复列表
     window.addEventListener('popstate', function(event) {
         if (isDetail) {
             restoreList();
@@ -608,7 +607,6 @@
         const url = new URL(window.location.href);
         url.searchParams.delete('car');
         history.pushState({ page: 'list' }, '', url);
-        currentHistoryStateId = null;
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = `
             <div class="filter-bar">
