@@ -474,29 +474,33 @@
                 padding-left: 4px; 
                 font-weight: 700; 
             }
+            /* 手机端筛选选项铺满整行 - 使用flex + 等分布局 */
             .filter-options { 
                 display: flex; 
                 flex-wrap: wrap; 
-                gap: 6px; 
+                gap: 8px; 
                 justify-content: flex-start;
             }
             .filter-option, .quality-option { 
                 background: #2a2a3c; 
                 border-radius: 30px; 
-                padding: 4px 10px; 
-                font-size: 0.65rem; 
+                padding: 6px 12px; 
+                font-size: 0.7rem; 
                 cursor: pointer; 
                 color: #a0a0b8; 
                 transition: 0.2s; 
                 display: inline-flex; 
                 align-items: center; 
-                gap: 4px; 
+                gap: 6px; 
                 white-space: nowrap;
                 border: none;
                 font-weight: 600;
+                flex: 1 0 auto;
+                justify-content: center;
+                min-width: 70px;
             }
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
-            .filter-option img { width: 12px; height: 12px; }
+            .filter-option img { width: 14px; height: 14px; }
             
             /* 主内容区 - 为固定头部留出空间 */
             .main-content { margin-left: 0; margin-top: 145px; padding: 12px; width: 100%; }
@@ -573,7 +577,7 @@
             .card-image { height: 110px; }
             .car-name { font-size: 0.75rem; }
             .meta-item { font-size: 0.5rem; padding: 2px 4px; }
-            .filter-option, .quality-option { padding: 3px 8px; font-size: 0.6rem; }
+            .filter-option, .quality-option { padding: 5px 8px; font-size: 0.65rem; min-width: 65px; }
             .category-dropdown-btn { padding: 5px 10px; font-size: 0.7rem; }
             .search-box input { padding: 6px 10px; font-size: 0.75rem; }
             .main-content { margin-top: 140px; }
@@ -811,7 +815,6 @@
     }
     function formatSkillText(text) {
         if (!text) return text;
-        // 先进行术语高亮，只把专有名词包上 span，其他文字保持原样
         let result = highlightTerms(text);
         result = result.replace(/(越野车[：:])\s*\n/g, '$1 ');
         let sentences = [], current = '';
@@ -827,7 +830,7 @@
         return formatted;
     }
     
-    // 通用提示函数 - 使用带边框的样式
+    // 通用提示函数
     function showTooltip(e, title, content, isMobile) {
         if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
         if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
@@ -874,11 +877,8 @@
         }
     }
     
-    // 绑定高亮术语和特点的交互 (仅绑定到具体的高亮span，不会影响整个段落)
     function bindTermAndFeatureEvents(isMobile) {
-        // 绑定术语高亮 (仅 .term-highlight 元素)
         document.querySelectorAll('.term-highlight').forEach(el => {
-            // 移除旧事件避免重复
             el.removeEventListener(isMobile ? 'click' : 'mouseenter', el._handler);
             const term = el.dataset.term;
             let def = termDefinitions[term] || '暂无详细解释';
@@ -896,7 +896,6 @@
                 el.addEventListener('click', el._handler);
             }
         });
-        // 绑定车辆特点 (feature-box)
         document.querySelectorAll('.feature-box').forEach(box => {
             box.removeEventListener(isMobile ? 'click' : 'mouseenter', box._handler);
             const name = box.dataset.name;
@@ -954,6 +953,26 @@
         }
     }
     
+    // 全局跳转搜索：从详情页搜索框触发，跳回主界面并筛选
+    function performGlobalSearch(searchValue) {
+        if (!searchValue.trim()) return;
+        // 如果当前在详情页，先返回到列表页
+        if (isDetail) {
+            restoreList();
+        }
+        // 等待列表页渲染完成后，设置关键词并刷新列表
+        setTimeout(() => {
+            keyword = searchValue.trim();
+            const mobileSearchInput = document.getElementById('searchInputMobile');
+            const desktopSearchInput = document.getElementById('searchInputDesktop');
+            if (mobileSearchInput) mobileSearchInput.value = keyword;
+            if (desktopSearchInput) desktopSearchInput.value = keyword;
+            renderList();
+            // 滚动到顶部并清空搜索框的值（方便下次输入）
+            window.scrollTo(0, 0);
+        }, 50);
+    }
+    
     async function loadData() {
         try {
             const vehiclesResponse = await fetch('vehicles.json');
@@ -989,6 +1008,28 @@
     }
     
     function isMobileDevice() { return window.innerWidth <= 768; }
+    
+    // 详情页专用的搜索框处理（复用顶部的 searchInputMobile，添加回车跳转逻辑）
+    function attachDetailSearchHandler() {
+        const searchInput = document.getElementById('searchInputMobile');
+        if (!searchInput) return;
+        // 移除旧的监听器，避免重复绑定
+        if (searchInput._detailHandler) {
+            searchInput.removeEventListener('keypress', searchInput._detailHandler);
+        }
+        searchInput._detailHandler = (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const val = searchInput.value.trim();
+                if (val) {
+                    performGlobalSearch(val);
+                    // 清空搜索框，方便下次输入
+                    searchInput.value = '';
+                }
+            }
+        };
+        searchInput.addEventListener('keypress', searchInput._detailHandler);
+    }
     
     function initFilters() {
         const isMobile = isMobileDevice();
@@ -1187,7 +1228,6 @@
             card._clickHandler = (e) => { if (!e.target.closest('.acquisition-icon')) showDetail(card.dataset.id); };
             card.addEventListener('click', card._clickHandler);
         });
-        // 列表页没有高亮术语，无需额外绑定
     }
     
     function showDetail(id) {
@@ -1224,11 +1264,13 @@
             <div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.passiveIcon}"></div><div class="skill-title">被动：${car.skills.passive.name}</div></div><div class="skill-desc">${passiveDesc}</div></div>${spBlockHtml}</div></div>`;
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = html;
-        // 绑定返回按钮事件，确保点击后返回车辆列表主界面（而不是退出整个网站）
         document.getElementById("backBtn")?.addEventListener("click", restoreList);
         const mobile = isMobileDevice();
-        // 绑定高亮术语和特点的交互 (仅绑定高亮元素)
         bindTermAndFeatureEvents(mobile);
+        // 手机端详情页附加搜索框跳转功能（共用顶部搜索框）
+        if (mobile) {
+            attachDetailSearchHandler();
+        }
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
         window.scrollTo(0, 0);
