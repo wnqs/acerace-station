@@ -15,10 +15,10 @@
         /* 左侧导航栏 - 固定列（电脑端） */
         .sidebar { width: 240px; background: #0f0f17; border-right: 1px solid #2a2a3c; padding: 24px 0; position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto; z-index: 100; }
         .sidebar .logo-area { padding: 0 16px 20px 16px; border-bottom: 1px solid #2a2a3c; margin-bottom: 20px; cursor: pointer; }
-        .sidebar .logo-area h1 { font-size: 1.2rem; background: linear-gradient(135deg, #ff6b6b, #feca57); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .sidebar .logo-area p { font-size: 0.6rem; color: #8a8aa3; margin-top: 4px; }
+        .sidebar .logo-area h1 { font-size: 1.2rem; background: linear-gradient(135deg, #ff6b6b, #feca57); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
+        .sidebar .logo-area p { font-size: 0.6rem; color: #8a8aa3; margin-top: 4px; font-weight: 500; }
         .nav-tabs { display: flex; flex-direction: column; gap: 6px; padding: 0 12px; width: 100%; }
-        .tab-btn { padding: 12px 16px; border: none; background: transparent; border-radius: 12px; font-size: 0.9rem; cursor: pointer; color: #a0a0b8; transition: 0.2s; text-align: left; font-weight: 500; width: 100%; }
+        .tab-btn { padding: 12px 16px; border: none; background: transparent; border-radius: 12px; font-size: 0.9rem; cursor: pointer; color: #a0a0b8; transition: 0.2s; text-align: left; font-weight: 700; width: 100%; }
         .tab-btn.active { background: #2a2a3c; color: #feca57; }
         .tab-btn:hover:not(.active) { background: #1f1f2e; color: #e2e2e6; }
         
@@ -31,7 +31,7 @@
         /* 电脑端筛选栏样式 - 平铺分类，无下拉框，无全部选项 */
         .filter-bar { background: #14141f; border-radius: 20px; padding: 16px 20px; margin-bottom: 24px; }
         .search-box { margin-bottom: 16px; }
-        .search-box input { width: 100%; max-width: 400px; padding: 10px 16px; border-radius: 40px; border: 1px solid #2a2a3c; background: #1f1f2e; color: #e2e2e6; font-size: 0.9rem; }
+        .search-box input { width: 100%; max-width: 400px; padding: 10px 16px; border-radius: 40px; border: 1px solid #2a2a3c; background: #1f1f2e; color: #e2e2e6; font-size: 0.9rem; font-weight: 500; }
         .desktop-filter-sections {
             display: flex;
             flex-wrap: wrap;
@@ -45,7 +45,7 @@
         .desktop-filter-section-title {
             font-size: 0.75rem;
             color: #feca57;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 0.5px;
         }
         .desktop-filter-options {
@@ -65,6 +65,7 @@
             align-items: center;
             gap: 6px;
             white-space: nowrap;
+            font-weight: 600;
         }
         .desktop-filter-option.active {
             background: #feca57;
@@ -74,28 +75,24 @@
             width: 16px;
             height: 16px;
         }
-        /* 品质选项特殊样式 */
+        /* 品质选项 - 统一使用定位/专精分类的样式（普通文字框，不加粗） */
         .desktop-quality-option {
             background: #2a2a3c;
             border-radius: 30px;
             padding: 6px 14px;
             font-size: 0.75rem;
-            font-weight: 800;
-            letter-spacing: 1px;
             cursor: pointer;
+            color: #a0a0b8;
             transition: 0.2s;
             display: inline-flex;
             align-items: center;
             white-space: nowrap;
+            font-weight: 400;
         }
         .desktop-quality-option.active {
             background: #feca57;
             color: #1a1a2e;
         }
-        .desktop-quality-option.legendary { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #fff; }
-        .desktop-quality-option.epic { background: linear-gradient(135deg, #aa6dc9, #8b5aaf); color: #fff; }
-        .desktop-quality-option.rare { background: linear-gradient(135deg, #4a9eff, #2d7fd1); color: #fff; }
-        .desktop-quality-option.normal { background: linear-gradient(135deg, #40c468, #2f9e52); color: #fff; }
         
         .cars-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
         .car-card { background: #14141f; border-radius: 24px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; will-change: transform; position: relative; display: flex; flex-direction: column; }
@@ -137,10 +134,10 @@
         .car-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px; flex-wrap: wrap; }
         .car-name { font-size: 1.1rem; font-weight: 700; color: #e2e2e6; flex-shrink: 1; min-width: 0; word-break: break-word; }
         .car-meta { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; align-items: center; }
-        .meta-item { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 40px; font-size: 0.7rem; color: #a0a0b8; }
+        .meta-item { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 40px; font-size: 0.7rem; color: #a0a0b8; font-weight: 500; }
         .meta-item img { width: 18px; height: 18px; }
-        .car-description { font-size: 0.75rem; color: #8a8aa3; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; line-height: 1.4; }
-        .stats-text { text-align: center; padding: 16px; color: #8a8aa3; }
+        .car-description { font-size: 0.75rem; color: #8a8aa3; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; line-height: 1.4; font-weight: 400; }
+        .stats-text { text-align: center; padding: 16px; color: #8a8aa3; font-weight: 500; }
         
         .detail-container { background: #14141f; border-radius: 24px; border: 1px solid #2a2a3c; position: relative; overflow: visible; margin-bottom: 24px; }
         .detail-back-btn { display: inline-block; background: #1f1f2e; border: none; padding: 12px 28px; border-radius: 50px; cursor: pointer; color: #feca57; font-size: 1rem; font-weight: 700; letter-spacing: 1px; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.3); margin: 20px 0 0 24px; }
@@ -170,13 +167,13 @@
         .detail-info-panel { flex: 1; min-width: 260px; background: rgba(15,15,26,0.8); backdrop-filter: blur(10px); border-radius: 24px; padding: 20px; border: 1px solid rgba(255,255,255,0.08); }
         .detail-name { font-size: 1.7rem; font-weight: 800; color: #e2e2e6; margin-bottom: 16px; letter-spacing: -0.2px; word-break: break-word; }
         .detail-badges { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
-        .badge { background: rgba(255,255,255,0.08); padding: 6px 14px; border-radius: 40px; font-size: 0.8rem; color: #a0a0b8; display: flex; align-items: center; gap: 8px; }
+        .badge { background: rgba(255,255,255,0.08); padding: 6px 14px; border-radius: 40px; font-size: 0.8rem; color: #a0a0b8; display: flex; align-items: center; gap: 8px; font-weight: 500; }
         .badge img { width: 18px; height: 18px; }
         .quality-badge-large { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #ffffff; padding: 6px 16px; border-radius: 40px; font-weight: 800; font-size: 0.9rem; box-shadow: 0 2px 12px rgba(230,180,34,0.5); border: 1px solid #ffd966; letter-spacing: 1px; text-transform: uppercase; }
         
         .info-rows { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 18px; }
         .info-row { display: flex; background: rgba(0,0,0,0.3); padding: 10px 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.05); }
-        .info-label { width: 90px; color: #8a8aa3; font-size: 0.75rem; }
+        .info-label { width: 90px; color: #8a8aa3; font-size: 0.75rem; font-weight: 600; }
         .info-value { color: #e2e2e6; font-size: 0.8rem; font-weight: 500; }
         
         .features-section, .chip-slots, .vehicle-stats, .skills-section, .chip-workshop { position: relative; background: #14141f; }
@@ -196,7 +193,7 @@
         .feature-box[data-color="默认"] { border-color: #feca57; color: #feca57; background: rgba(30,30,50,0.9); }
         .feature-box:hover { transform: translateY(-2px); background: rgba(254,202,87,0.2); box-shadow: 0 4px 12px rgba(254,202,87,0.2); }
         
-        .feature-tooltip { position: fixed; background: #1e1e2e; border: 1px solid #feca57; border-radius: 12px; padding: 10px 16px; font-size: 0.75rem; color: #e2e2e6; max-width: 280px; z-index: 1000; pointer-events: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); backdrop-filter: blur(8px); white-space: normal; word-break: break-word; line-height: 1.5; }
+        .feature-tooltip { position: fixed; background: #1e1e2e; border: 1px solid #feca57; border-radius: 12px; padding: 10px 16px; font-size: 0.75rem; color: #e2e2e6; max-width: 280px; z-index: 1000; pointer-events: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); backdrop-filter: blur(8px); white-space: normal; word-break: break-word; line-height: 1.5; font-weight: 400; }
         .feature-tooltip .term-title { display: block; text-align: center; color: #feca57; font-weight: bold; margin-bottom: 8px; font-size: 0.85rem; }
         .feature-tooltip .term-desc-line { text-align: left; margin-bottom: 4px; padding-left: 0; }
         
@@ -206,12 +203,12 @@
         .chip-icon img { width: 100%; height: 100%; object-fit: cover; }
         
         .chip-workshop { margin: 0 40px 20px 40px; background: rgba(0,0,0,0.3); border-radius: 20px; padding: 16px 20px; border: 1px solid rgba(255,255,255,0.08); }
-        .workshop-placeholder { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 28px 20px; text-align: center; color: #6a6a82; border: 1px dashed rgba(255,255,255,0.15); font-size: 0.8rem; }
+        .workshop-placeholder { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 28px 20px; text-align: center; color: #6a6a82; border: 1px dashed rgba(255,255,255,0.15); font-size: 0.8rem; font-weight: 400; }
         
         .vehicle-stats, .skills-section { padding: 12px 40px 24px 40px; border-top: 1px solid rgba(255,255,255,0.08); }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
         .stat-card { background: rgba(0,0,0,0.3); padding: 12px 16px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.08); }
-        .stat-card span:first-child { color: #8a8aa3; font-size: 0.8rem; }
+        .stat-card span:first-child { color: #8a8aa3; font-size: 0.8rem; font-weight: 500; }
         .stat-card span:last-child { color: #e2e2e6; font-weight: 600; font-size: 0.9rem; }
         .stat-card .gold-number { color: #feca57 !important; font-weight: 800; font-size: 1.2rem !important; text-shadow: 0 0 4px rgba(254,202,87,0.4); letter-spacing: 1px; }
         .blue { color: #3b82f6 !important; font-weight: 600; }
@@ -222,18 +219,18 @@
         .skill-icon { width: 56px; height: 56px; min-width: 56px; background: rgba(0,0,0,0.4); border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
         .skill-icon img { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; }
         .skill-title { font-size: 1rem; font-weight: 700; color: #e2e2e6; }
-        .skill-desc { background: rgba(0,0,0,0.3); padding: 14px 18px; border-radius: 16px; color: #e2e2e6 !important; font-size: 0.85rem; line-height: 1.6; border: 1px solid rgba(255,255,255,0.08); white-space: pre-line; }
+        .skill-desc { background: rgba(0,0,0,0.3); padding: 14px 18px; border-radius: 16px; color: #e2e2e6 !important; font-size: 0.85rem; line-height: 1.6; border: 1px solid rgba(255,255,255,0.08); white-space: pre-line; font-weight: 400; }
         .sub-skill { background: rgba(0,0,0,0.3); padding: 12px 16px; border-radius: 14px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.08); }
         .sub-skill-title { font-weight: 600; font-size: 0.8rem; color: #c0c0d0; margin-bottom: 6px; }
-        .sub-skill-desc { font-size: 0.75rem; color: #a0a0b8; white-space: pre-line; }
+        .sub-skill-desc { font-size: 0.75rem; color: #a0a0b8; white-space: pre-line; font-weight: 400; }
         .red-number { color: #ff6b6b !important; font-weight: 600; }
-        .term-highlight { color: #feca57; cursor: pointer; border-bottom: 1px dashed #feca57; display: inline-block; }
+        .term-highlight { color: #feca57; cursor: pointer; border-bottom: 1px dashed #feca57; display: inline-block; font-weight: 500; }
         .term-highlight:hover { color: #ffd700; }
         .sp-cooltime { color: #feca57; font-weight: 600; margin-bottom: 8px; display: block; }
         
         /* 游戏壁纸页面样式 */
         .wallpapers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; padding: 20px; }
-        .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; }
+        .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; font-weight: 500; }
         .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
         
         /* ========== 手机端专用样式 ========== */
@@ -269,10 +266,12 @@
                 -webkit-background-clip: text;
                 background-clip: text;
                 color: transparent;
+                font-weight: 800;
             }
             .mobile-logo-area p {
                 font-size: 0.5rem;
                 color: #8a8aa3;
+                font-weight: 500;
             }
             .mobile-nav-tabs {
                 display: grid;
@@ -290,7 +289,7 @@
                 cursor: pointer;
                 color: #a0a0b8;
                 transition: 0.2s;
-                font-weight: 500;
+                font-weight: 700;
             }
             .mobile-tab-btn.active {
                 background: #feca57;
@@ -323,6 +322,7 @@
                 color: #e2e2e6;
                 outline: none;
                 box-sizing: border-box;
+                font-weight: 500;
             }
             .search-box input:focus { border-color: #feca57; }
             .search-box input::placeholder { color: #8a8aa3; font-size: 0.75rem; }
@@ -340,7 +340,7 @@
                 justify-content: center;
                 gap: 5px;
                 white-space: nowrap;
-                font-weight: 500;
+                font-weight: 700;
                 flex-shrink: 0;
             }
             .category-dropdown-btn .arrow { font-size: 0.6rem; transition: transform 0.2s; }
@@ -368,7 +368,7 @@
                 color: #feca57; 
                 margin-bottom: 5px; 
                 padding-left: 4px; 
-                font-weight: 600; 
+                font-weight: 700; 
             }
             .filter-options { 
                 display: flex; 
@@ -389,6 +389,7 @@
                 gap: 4px; 
                 white-space: nowrap;
                 border: none;
+                font-weight: 600;
             }
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
             .filter-option img { width: 12px; height: 12px; }
@@ -399,12 +400,12 @@
             /* 车辆卡片网格 */
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card-image { height: 130px; padding: 12px; }
-            .car-name { font-size: 0.85rem; }
+            .car-name { font-size: 0.85rem; font-weight: 700; }
             .quality-badge-wrapper { position: absolute; top: 8px; right: 8px; bottom: auto; left: auto; }
-            .quality-badge { font-size: 0.5rem; padding: 2px 6px; }
+            .quality-badge { font-size: 0.5rem; padding: 2px 6px; font-weight: 800; }
             .acquisition-icon { width: 40px; height: 40px; bottom: 6px; right: 6px; }
-            .meta-item { font-size: 0.55rem; padding: 2px 6px; }
-            .car-description { font-size: 0.6rem; }
+            .meta-item { font-size: 0.55rem; padding: 2px 6px; font-weight: 500; }
+            .car-description { font-size: 0.6rem; font-weight: 400; }
             .car-card { border: none; }
             
             /* 详情页适配 */
@@ -413,14 +414,14 @@
             .detail-image { padding: 16px !important; min-width: auto; width: 100%; border-radius: 16px; }
             .detail-image img { max-height: 180px; width: auto; max-width: 100%; margin: 0 auto; object-fit: contain; }
             .detail-info-panel { width: 100%; padding: 16px !important; }
-            .detail-name { font-size: 1.2rem !important; }
+            .detail-name { font-size: 1.2rem !important; font-weight: 800; }
             .features-section, .chip-slots, .vehicle-stats, .skills-section { padding: 12px 16px !important; }
-            .section-title { font-size: 1.1rem !important; }
+            .section-title { font-size: 1.1rem !important; font-weight: 800; }
             .detail-acquisition-area { top: 12px; left: 12px; gap: 6px; }
             .detail-acquisition-icon { width: 55px; height: 55px; }
-            .detail-acquisition-text { font-size: 0.65rem; white-space: normal; max-width: 120px; text-shadow: 0 0 4px rgba(0,0,0,0.8); }
-            .detail-back-btn { margin: 12px 0 0 12px; padding: 8px 16px; font-size: 0.85rem; }
-            .stats-text { font-size: 0.75rem; }
+            .detail-acquisition-text { font-size: 0.65rem; white-space: normal; max-width: 120px; text-shadow: 0 0 4px rgba(0,0,0,0.8); font-weight: 600; }
+            .detail-back-btn { margin: 12px 0 0 12px; padding: 8px 16px; font-size: 0.85rem; font-weight: 700; }
+            .stats-text { font-size: 0.75rem; font-weight: 500; }
         }
         
         @media (max-width: 480px) {
@@ -521,7 +522,7 @@
                 <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、技能..."></div>
                 <div class="desktop-filter-sections">
                     <div class="desktop-filter-section">
-                        <div class="desktop-filter-section-title">🏷️ 定位</div>
+                        <div class="desktop-filter-section-title">定位</div>
                         <div class="desktop-filter-options" id="desktopPositionOptions">
                             <div class="desktop-filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
                             <div class="desktop-filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
@@ -530,7 +531,7 @@
                         </div>
                     </div>
                     <div class="desktop-filter-section">
-                        <div class="desktop-filter-section-title">🎯 专精</div>
+                        <div class="desktop-filter-section-title">专精</div>
                         <div class="desktop-filter-options" id="desktopSpecialtyOptions">
                             <div class="desktop-filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
                             <div class="desktop-filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
@@ -538,12 +539,12 @@
                         </div>
                     </div>
                     <div class="desktop-filter-section">
-                        <div class="desktop-filter-section-title">✨ 品质</div>
+                        <div class="desktop-filter-section-title">品质</div>
                         <div class="desktop-filter-options" id="desktopQualityOptions">
-                            <div class="desktop-quality-option legendary" data-type="quality" data-value="传说">传说</div>
-                            <div class="desktop-quality-option epic" data-type="quality" data-value="史诗">史诗</div>
-                            <div class="desktop-quality-option rare" data-type="quality" data-value="稀有">稀有</div>
-                            <div class="desktop-quality-option normal" data-type="quality" data-value="普通">普通</div>
+                            <div class="desktop-quality-option" data-type="quality" data-value="传说">传说</div>
+                            <div class="desktop-quality-option" data-type="quality" data-value="史诗">史诗</div>
+                            <div class="desktop-quality-option" data-type="quality" data-value="稀有">稀有</div>
+                            <div class="desktop-quality-option" data-type="quality" data-value="普通">普通</div>
                         </div>
                     </div>
                 </div>
@@ -557,7 +558,7 @@
         <div id="newsPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">爆料信息 - 开发中</div></div>
         <div id="wallpaperPage" class="page">
             <div style="padding: 20px;">
-                <h2 style="color: #e2e2e6; margin-bottom: 20px;">游戏壁纸</h2>
+                <h2 style="color: #e2e2e6; margin-bottom: 20px; font-weight: 800;">游戏壁纸</h2>
                 <div class="wallpapers-grid" id="wallpapersGrid">
                     <div class="wallpaper-placeholder">精美壁纸即将上线...</div>
                 </div>
@@ -745,7 +746,7 @@
     function showAcqTooltip(e, text, isMobile) {
         if (activeAcqTooltip) activeAcqTooltip.remove();
         let tip = document.createElement('div');
-        tip.style.cssText = 'position: fixed; background: rgba(0,0,0,0.7); color: #feca57; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; z-index: 1000; white-space: nowrap; backdrop-filter: blur(4px); pointer-events: none;';
+        tip.style.cssText = 'position: fixed; background: rgba(0,0,0,0.7); color: #feca57; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; z-index: 1000; white-space: nowrap; backdrop-filter: blur(4px); pointer-events: none; font-weight: 500;';
         tip.textContent = text;
         document.body.appendChild(tip);
         let rect = e.currentTarget.getBoundingClientRect();
@@ -1064,22 +1065,22 @@
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = `<div class="filter-bar desktop-filter"><div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、技能..."></div>
             <div class="desktop-filter-sections">
-                <div class="desktop-filter-section"><div class="desktop-filter-section-title">🏷️ 定位</div><div class="desktop-filter-options" id="desktopPositionOptions">
+                <div class="desktop-filter-section"><div class="desktop-filter-section-title">定位</div><div class="desktop-filter-options" id="desktopPositionOptions">
                     <div class="desktop-filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
                     <div class="desktop-filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
                     <div class="desktop-filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
                     <div class="desktop-filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
                 </div></div>
-                <div class="desktop-filter-section"><div class="desktop-filter-section-title">🎯 专精</div><div class="desktop-filter-options" id="desktopSpecialtyOptions">
+                <div class="desktop-filter-section"><div class="desktop-filter-section-title">专精</div><div class="desktop-filter-options" id="desktopSpecialtyOptions">
                     <div class="desktop-filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
                     <div class="desktop-filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
                     <div class="desktop-filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
                 </div></div>
-                <div class="desktop-filter-section"><div class="desktop-filter-section-title">✨ 品质</div><div class="desktop-filter-options" id="desktopQualityOptions">
-                    <div class="desktop-quality-option legendary" data-type="quality" data-value="传说">传说</div>
-                    <div class="desktop-quality-option epic" data-type="quality" data-value="史诗">史诗</div>
-                    <div class="desktop-quality-option rare" data-type="quality" data-value="稀有">稀有</div>
-                    <div class="desktop-quality-option normal" data-type="quality" data-value="普通">普通</div>
+                <div class="desktop-filter-section"><div class="desktop-filter-section-title">品质</div><div class="desktop-filter-options" id="desktopQualityOptions">
+                    <div class="desktop-quality-option" data-type="quality" data-value="传说">传说</div>
+                    <div class="desktop-quality-option" data-type="quality" data-value="史诗">史诗</div>
+                    <div class="desktop-quality-option" data-type="quality" data-value="稀有">稀有</div>
+                    <div class="desktop-quality-option" data-type="quality" data-value="普通">普通</div>
                 </div></div>
             </div></div>
             <div class="mobile-fixed-header" id="mobileFixedHeader" style="display: none;">
