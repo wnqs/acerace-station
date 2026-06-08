@@ -1519,6 +1519,263 @@
       },
       "ultIcon": "https://s3.bmp.ovh/2026/06/07/ViPACyry.png",
       "passiveIcon": "https://s3.bmp.ovh/2026/06/03/fW8wsXnG.png"
+    },
+    {    
+      "id": "tengshi_n7",
+      "name": "腾势N7",
+      "quality": "史诗",
+      "position": "辅助",
+      "specialty": "城市",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/n7lge5rw.png",
+      "positionIcon": "辅助",
+      "specialtyIcon": "城市",
+      "description": "为大招已经就绪的队友提供额外增益",
+      "skillName": "锦上添花",
+      "searchKeywords": ["腾势N7", "锦上添花", "砥砺前行"],
+      "registerDate": "2024-09-27",
+      "vehicleType": "真实阵营",
+      "manufacturer": "腾势",
+      "acquisition": "限时活动",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/07/nhDt9vVx.png",
+      "stats": {
+        "topSpeed": "215.0 km/h",
+        "power": "7.81",
+        "durability": "95",
+        "nitroCharge": "41.0%",
+        "startCharge": "41.0%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "21.00 km/h", "purple": "31.50 km/h" },
+        "turboDuration": { "blue": "0.73 s", "purple": "2.19 s" },
+        "turboSpeed": { "blue": "5.00 km/h", "purple": "7.50 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "vslot"],
+      "skills": {
+        "ult": {
+          "name": "锦上添花",
+          "desc": "加速推进，极速提升33km/h，持续7秒。开启大招时为1000米范围内非辅助位车辆提供27%大招能量，若队友收到辅助能量前大招已就绪，则额外为队友提供15%向前闪现距离加成和15km/h的加速，持续7秒",
+          "recu": "锦上添花可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "砥砺前行",
+          "desc": "队友向前闪现距离加成15%。越野车：在沙地、草地、雪地等特殊地形中减速效果减少50%，并且额外获得自动集气"
+        },
+        "features": [
+          { "name": "越野车", "desc": "越野车在特殊地形中获得减速减免和额外集气", "color": "紫" },
+          { "name": "多段充能", "desc": "为友方提供多段辅助充能", "color": "蓝" },
+          { "name": "友方加速", "desc": "提高队友的极速", "color": "蓝" },
+          { "name": "增强闪现", "desc": "提升自身或友方的闪现距离", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/07/fe5W3Cry.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/07/0plM7fxX.png"
+    },
+    {
+      "id": "tuanzi",
+      "name": "团子",
+      "quality": "史诗",
+      "position": "辅助",
+      "specialty": "城市",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/zUoQqVpq.png",
+      "positionIcon": "辅助",
+      "specialtyIcon": "城市",
+      "description": "团子力场，持续充能",
+      "skillName": "团子力场",
+      "searchKeywords": ["团子", "团子力场", "团子出击"],
+      "registerDate": "2024-08-23",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "开拓者",
+      "acquisition": "限时活动",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/07/nhDt9vVx.png",
+      "stats": {
+        "topSpeed": "212.0 km/h",
+        "power": "7.52",
+        "durability": "90",
+        "nitroCharge": "40.0%",
+        "startCharge": "40.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "21.00 km/h", "purple": "31.50 km/h" },
+        "turboDuration": { "blue": "0.81 s", "purple": "2.43 s" },
+        "turboSpeed": { "blue": "5.00 km/h", "purple": "7.50 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "团子力场",
+          "desc": "加速推进，极速提升30km/h，加速持续5.5秒。开启大招时自身周围生成一个团子力场：力场内的非辅助位友方车辆每秒可获得10%大招能量并隐身1秒；力场以团子为中心并跟随移动，辅助范围为辅助范围400米，持续5.5秒",
+          "recu": "团子力场可以充能两次。解锁大招被动：团子力场同时会为力场内的非辅助位队友提供15km/h的加速",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "团子出击",
+          "desc": "未处于第一名时，极速+20km/h"
+        },
+        "features": [
+          { "name": "持续充能", "desc": "为友方提供持续性辅助充能", "color": "蓝" },
+          { "name": "极速提升", "desc": "为友方提供持续性辅助充能", "color": "蓝" },
+          { "name": "友方加速", "desc": "提高队友的极速", "color": "蓝" },
+          { "name": "友方隐身", "desc": "为队友提供隐身效果", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/07/Y11WXk4Q.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/07/Bdo86dPJ.png"
+    },
+    {
+      "id": "jindouyun",
+      "name": "筋斗云",
+      "quality": "史诗",
+      "position": "辅助",
+      "specialty": "城市",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/Z888HeEl.png",
+      "positionIcon": "辅助",
+      "specialtyIcon": "城市",
+      "description": "腾云驾雾，空中充能",
+      "skillName": "腾云驾雾",
+      "searchKeywords": ["筋斗云", "腾云驾雾", "翻筋斗"],
+      "registerDate": "2024-08-16",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "混沌",
+      "acquisition": "商城购买",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/0xuTbssO.png",
+      "stats": {
+        "topSpeed": "216.0 km/h",
+        "power": "7.62",
+        "durability": "90",
+        "nitroCharge": "39.0%",
+        "startCharge": "39.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "22.00 km/h", "purple": "33.00 km/h" },
+        "turboDuration": { "blue": "0.65 s", "purple": "1.95 s" },
+        "turboSpeed": { "blue": "7.00 km/h", "purple": "10.50 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "腾云驾雾",
+          "desc": "腾云飞行，极速提升33km/h并自动巡航，持续7秒。开启大招时：为1000米范围内非辅助位队友提供25%大招能量；收到辅助能量的队友在下一次腾空时额外获得15%大招能量",
+          "recu": "腾云驾雾可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "翻筋斗",
+          "desc": "当场上有4台赛车完成比赛时，有40%概率直接完成比赛"
+        },
+        "features": [
+          { "name": "瞬间冲线", "desc": "有几率直接冲线完成比赛", "color": "紫" },
+          { "name": "多段充能", "desc": "为友方提供多段辅助充能", "color": "蓝" },
+          { "name": "飞空", "desc": "大招期间会飞到空中", "color": "蓝" },
+          { "name": "自动巡航", "desc": "沿预设路线自动行驶/通过弯道时会失速/不会脱离预设路线", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/07/K515WLhv.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/07/6unWYM7m.png"
+    },
+    {
+      "id": "bmw_x5",
+      "name": "宝马 X5",
+      "quality": "稀有",
+      "position": "辅助",
+      "specialty": "城市",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/vllzw4G3.png",
+      "positionIcon": "辅助",
+      "specialtyIcon": "城市",
+      "description": "放置光墙使全体加速",
+      "skillName": "加速映射",
+      "searchKeywords": ["宝马 X5", "加速映射", "充能补偿"],
+      "registerDate": "2021-09-03",
+      "vehicleType": "真实阵营",
+      "manufacturer": "宝马",
+      "acquisition": "补给箱 / 赛车学院",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/05/31/rK9Tjs84.png",
+      "stats": {
+        "topSpeed": "208.5 km/h",
+        "power": "6.92",
+        "durability": "105",
+        "nitroCharge": "37.0%",
+        "startCharge": "37.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "17.50 km/h", "purple": "26.25 km/h" },
+        "turboDuration": { "blue": "0.66 s", "purple": "1.98 s" },
+        "turboSpeed": { "blue": "8.80 km/h", "purple": "13.20 km/h" },
+        "ultPower": "-"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "hexagon", "hexagon", "vslot"],
+      "skills": {
+        "ult": {
+          "name": "加速映射",
+          "desc": "立即给500米内的友方非辅助车辆提供30%大招充能，同时在前方映射一个加速光墙：自己和队友穿过时可获得加速效果；自身穿过光墙时，加速效果更为强力",
+          "recu": "加速映射可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "充能补偿",
+          "desc": "开局10秒后，处于第5名及以后名次时，每秒自充能2%。越野车：在沙地、草地、雪地等特殊地形中减速效果减少50%，并且额外获得自动集气"
+        },
+        "features": [
+          { "name": "越野车", "desc": "越野车在特殊地形中获得减速减免和额外集气", "color": "紫" },
+          { "name": "放置物", "desc": "技能可在赛道中创建放置物", "color": "黄" },
+          { "name": "单次充能", "desc": "为友方提供单次辅助充能", "color": "蓝" },
+          { "name": "友方加速", "desc": "提高队友的极速", "color": "蓝" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/06/hHXkkZTn.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/07/GMoQrGts.png"
+    },
+    {
+      "id": "volkswagen_beetle",
+      "name": "大众 Beetle",
+      "quality": "普通",
+      "position": "辅助",
+      "specialty": "城市",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/0PAhdjPa.png",
+      "positionIcon": "辅助",
+      "specialtyIcon": "城市",
+      "description": "发生碰撞时向前弹跳",
+      "skillName": "杂耍戏法",
+      "searchKeywords": ["大众 Beetle", "杂耍戏法", "超越涡轮"],
+      "registerDate": "2021-07-23",
+      "vehicleType": "真实阵营",
+      "manufacturer": "大众",
+      "acquisition": "训练计划 / 赛车学院",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/02/fdT6vCPZ.png",
+      "stats": {
+        "topSpeed": "230.4 km/h",
+        "power": "7.16",
+        "durability": "80",
+        "nitroCharge": "41.0%",
+        "startCharge": "41.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "20.00 km/h", "purple": "30.00 km/h" },
+        "turboDuration": { "blue": "0.72 s", "purple": "2.16 s" },
+        "turboSpeed": { "blue": "9.80 km/h", "purple": "14.70 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "杂耍戏法",
+          "desc": "加速推进，并使队友获得隐身。加速期间如果发生碰撞（车墙或者车车），将会结束加速，并且旋转跳跃到路面前方位置，同时给1200米内全体非辅助位队友补充35%大招能量",
+          "recu": "杂耍戏法可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "超越涡轮",
+          "desc": "超车或被超车时激活涡轮"
+        },
+        "features": [
+          { "name": "单次充能", "desc": "为友方提供单次辅助充能", "color": "蓝" },
+          { "name": "氮气延长", "desc": "技能效果会延长氮气时间", "color": "蓝" },
+          { "name": "高速过弯", "desc": "巡航通过弯道时速度损失极小", "color": "蓝" },
+          { "name": "漂移强化", "desc": "拥有特殊强化的漂移手感", "color": "蓝" },
+          { "name": "友方隐身", "desc": "为友方提供隐身效果", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/07/b7y5bV7J.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/07/y1OFfyWj.png"
     }
   ]
 }
