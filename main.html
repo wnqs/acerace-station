@@ -184,9 +184,7 @@
             .sidebar .logo-area p { font-size: 0.5rem; }
             .nav-tabs { flex-direction: row; flex-wrap: wrap; gap: 6px; padding: 0; justify-content: flex-start; }
             .tab-btn { padding: 6px 12px; font-size: 0.7rem; border-radius: 20px; text-align: center; width: auto; flex: 0 0 auto; }
-            /* 手机端主内容区增加顶部安全距离，避免被固定导航栏遮挡 */
             .main-content { margin-left: 0; margin-top: 115px; padding: 12px; width: 100%; }
-            /* 详情页返回按钮增加顶部间距，避免被遮挡 */
             .detail-back-btn { margin-top: 10px; margin-left: 16px; }
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card-image { height: 140px; padding: 12px; }
@@ -208,16 +206,21 @@
                 padding: 16px !important;
                 gap: 16px !important;
             }
+            /* 手机端车辆图片优化 - 确保完整显示且比例合适 */
             .detail-image {
-                padding: 20px !important;
+                padding: 16px !important;
                 min-width: auto;
                 width: 100%;
+                max-width: 100%;
                 margin: 0 auto;
+                border-radius: 16px;
             }
             .detail-image img {
-                max-height: 180px;
+                max-height: 200px;
                 width: auto;
+                max-width: 100%;
                 margin: 0 auto;
+                object-fit: contain;
             }
             .detail-info-panel {
                 width: 100%;
@@ -303,21 +306,28 @@
             .sub-skill {
                 padding: 8px 12px;
             }
+            /* 手机端获取方式区域优化 - 避免遮挡重叠，调整大小和位置 */
             .detail-acquisition-area {
                 top: 12px;
                 left: 12px;
-                gap: 6px;
+                gap: 8px;
+                background: rgba(0,0,0,0.5);
+                border-radius: 40px;
+                padding: 4px 12px 4px 8px;
+                backdrop-filter: blur(8px);
             }
             .detail-acquisition-icon {
-                width: 48px;
-                height: 48px;
+                width: 40px;
+                height: 40px;
             }
             .detail-acquisition-text {
-                font-size: 0.65rem;
+                font-size: 0.7rem;
                 padding: 2px 8px;
                 white-space: normal;
-                max-width: 180px;
+                max-width: 160px;
                 line-height: 1.3;
+                background: transparent;
+                backdrop-filter: none;
             }
         }
         
@@ -327,7 +337,9 @@
             .acquisition-icon { width: 40px; height: 40px; bottom: 6px; right: 6px; }
             .quality-badge-wrapper { top: 8px; right: 8px; }
             .quality-badge { font-size: 0.5rem; padding: 2px 6px; }
-            .detail-acquisition-icon { width: 48px; height: 48px; }
+            .detail-acquisition-icon { width: 36px; height: 36px; }
+            .detail-acquisition-text { font-size: 0.65rem; max-width: 140px; }
+            .detail-image img { max-height: 160px; }
         }
         
         /* 电脑端额外微调：获取方式图标再往下移一点点，避免覆盖车辆图片 */
@@ -404,6 +416,9 @@
     let filters = { position: "all", specialty: "all", quality: "all", keyword: "" };
     let isDetail = false;
     let scrollPositions = { list: 0 };
+    // 用于管理浮层定时器
+    let activeTooltipTimer = null;
+    let currentTooltipElement = null;
     
     const EXTRA_RACING_ICON_CARS = ["女武神"];
     const RACING_ICON_URL = "https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png";
@@ -507,41 +522,54 @@
         return result;
     }
     
-    // 越野车文字格式：将"越野车："与后面的描述放在同一行，并且整段另起一行
+    // 越野车文字格式优化：以句号为分段依据
     function formatSkillText(text) {
         if (!text) return text;
         let result = highlightTerms(text);
         result = result.replace(/(越野车[：:])\s*\n/g, '$1 ');
-        const regex = /(越野车[：:][^。]*[。]?)/g;
-        result = result.replace(regex, (match) => {
-            if (result.indexOf('\n' + match) !== -1 || result.indexOf(match + '\n') !== -1) {
-                return match;
+        let sentences = [];
+        let currentSentence = '';
+        for (let i = 0; i < result.length; i++) {
+            currentSentence += result[i];
+            if (result[i] === '。' || result[i] === '．') {
+                sentences.push(currentSentence);
+                currentSentence = '';
             }
-            return '\n' + match;
-        });
-        result = result.replace(/[；;]\s*/g, '\n');
-        result = result.replace(/[：:]\s*(?=[^\n])/g, '：\n');
-        result = applyNumberHighlight(result);
-        return result;
+        }
+        if (currentSentence.trim().length > 0) {
+            sentences.push(currentSentence);
+        }
+        let formatted = sentences.join('\n');
+        formatted = formatted.replace(/\n{2,}/g, '\n');
+        formatted = formatted.replace(/[；;]\s*/g, '\n');
+        formatted = formatted.replace(/[：:]\s*(?=[^\n])/g, '：');
+        formatted = applyNumberHighlight(formatted);
+        return formatted;
     }
     
-    function showTermTooltip(e, term) {
-        let existing = document.querySelector('.feature-tooltip');
-        if (existing) existing.remove();
+    // 通用浮层显示函数（支持自动关闭、触摸/滚动关闭）
+    function showSmartTooltip(e, title, content, isMobile) {
+        // 清除已有定时器和浮层
+        if (activeTooltipTimer) {
+            clearTimeout(activeTooltipTimer);
+            activeTooltipTimer = null;
+        }
+        if (currentTooltipElement && currentTooltipElement.remove) {
+            currentTooltipElement.remove();
+            currentTooltipElement = null;
+        }
+        
         let tip = document.createElement('div');
         tip.className = 'feature-tooltip';
-        let def = termDefinitions[term];
-        if (def) {
-            let lines = def.split(/\n/).filter(line => line.trim().length > 0);
-            let descHtml = '';
-            for (let line of lines) {
-                descHtml += `<div class="term-desc-line">${line.trim()}</div>`;
-            }
-            tip.innerHTML = `<div class="term-title">${term}</div>${descHtml}`;
-        } else {
-            tip.innerHTML = `<div class="term-title">${term}</div><div class="term-desc-line">暂无详细解释</div>`;
+        // 处理内容换行
+        let contentLines = content.split(/\n/).filter(line => line.trim().length > 0);
+        let descHtml = '';
+        for (let line of contentLines) {
+            descHtml += `<div class="term-desc-line">${line.trim()}</div>`;
         }
+        tip.innerHTML = `<div class="term-title">${title}</div>${descHtml}`;
         document.body.appendChild(tip);
+        
         let rect = e.target.getBoundingClientRect();
         let left = rect.left + rect.width/2 - tip.offsetWidth/2;
         let top = rect.top - tip.offsetHeight - 8;
@@ -549,19 +577,116 @@
         if (top < 5) top = rect.bottom + 8;
         tip.style.left = left + 'px';
         tip.style.top = top + 'px';
-        tip._timeout = setTimeout(() => { if (tip && tip.remove) tip.remove(); }, 2500);
+        
+        currentTooltipElement = tip;
+        
+        // 设置5秒后自动关闭
+        activeTooltipTimer = setTimeout(() => {
+            if (currentTooltipElement && currentTooltipElement.remove) {
+                currentTooltipElement.remove();
+                currentTooltipElement = null;
+            }
+            activeTooltipTimer = null;
+        }, 5000);
+        
+        // 移动端：绑定触摸/滚动关闭事件
+        if (isMobile) {
+            const closeTooltip = () => {
+                if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
+                if (currentTooltipElement && currentTooltipElement.remove) {
+                    currentTooltipElement.remove();
+                    currentTooltipElement = null;
+                }
+                activeTooltipTimer = null;
+                document.removeEventListener('touchstart', closeTooltip);
+                document.removeEventListener('scroll', closeTooltip);
+            };
+            document.addEventListener('touchstart', closeTooltip, { once: true });
+            document.addEventListener('scroll', closeTooltip, { once: true });
+        }
     }
     
-    function bindTermHighlights() {
+    function bindMobileFriendlyHighlights(isMobile) {
+        // 绑定专有名词点击事件（手机端点击显示5秒）
         document.querySelectorAll('.term-highlight').forEach(el => {
-            el.removeEventListener('mouseenter', el._termHandler);
-            el.removeEventListener('mouseleave', el._termLeaveHandler);
+            el.removeEventListener('click', el._clickHandler);
             const term = el.dataset.term;
-            el._termHandler = (e) => { e.stopPropagation(); showTermTooltip(e, term); };
-            el._termLeaveHandler = () => { let tip = document.querySelector('.feature-tooltip'); if (tip) { if (tip._timeout) clearTimeout(tip._timeout); tip.remove(); } };
-            el.addEventListener('mouseenter', el._termHandler);
-            el.addEventListener('mouseleave', el._termLeaveHandler);
+            let def = termDefinitions[term] || '暂无详细解释';
+            el._clickHandler = (e) => {
+                e.stopPropagation();
+                showSmartTooltip(e, term, def, isMobile);
+            };
+            el.addEventListener('click', el._clickHandler);
         });
+        
+        // 绑定车辆特点点击事件（手机端点击显示5秒）
+        document.querySelectorAll('.feature-box').forEach(box => {
+            box.removeEventListener('click', box._clickHandler);
+            const name = box.dataset.name;
+            const desc = box.dataset.desc;
+            box._clickHandler = (e) => {
+                e.stopPropagation();
+                showSmartTooltip(e, name, desc, isMobile);
+            };
+            box.addEventListener('click', box._clickHandler);
+        });
+    }
+    
+    function bindTermHighlights(isMobile) {
+        // 电脑端使用原来的悬浮效果，手机端使用点击效果（已在上面处理）
+        if (!isMobile) {
+            document.querySelectorAll('.term-highlight').forEach(el => {
+                el.removeEventListener('mouseenter', el._mouseEnterHandler);
+                el.removeEventListener('mouseleave', el._mouseLeaveHandler);
+                const term = el.dataset.term;
+                let def = termDefinitions[term] || '暂无详细解释';
+                el._mouseEnterHandler = (e) => { 
+                    e.stopPropagation(); 
+                    showSmartTooltip(e, term, def, false); 
+                };
+                el._mouseLeaveHandler = () => { 
+                    if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
+                    if (currentTooltipElement && currentTooltipElement.remove) {
+                        currentTooltipElement.remove();
+                        currentTooltipElement = null;
+                    }
+                    activeTooltipTimer = null;
+                };
+                el.addEventListener('mouseenter', el._mouseEnterHandler);
+                el.addEventListener('mouseleave', el._mouseLeaveHandler);
+            });
+            
+            document.querySelectorAll('.feature-box').forEach(box => {
+                box.removeEventListener('mouseenter', box._mouseEnterHandler);
+                box.removeEventListener('mouseleave', box._mouseLeaveHandler);
+                const name = box.dataset.name;
+                const desc = box.dataset.desc;
+                box._mouseEnterHandler = (e) => { 
+                    e.stopPropagation(); 
+                    showSmartTooltip(e, name, desc, false); 
+                };
+                box._mouseLeaveHandler = () => {
+                    if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
+                    if (currentTooltipElement && currentTooltipElement.remove) {
+                        currentTooltipElement.remove();
+                        currentTooltipElement = null;
+                    }
+                    activeTooltipTimer = null;
+                };
+                box.addEventListener('mouseenter', box._mouseEnterHandler);
+                box.addEventListener('mouseleave', box._mouseLeaveHandler);
+            });
+        } else {
+            // 手机端不需要悬浮事件，清理掉避免干扰
+            document.querySelectorAll('.term-highlight').forEach(el => {
+                el.removeEventListener('mouseenter', el._mouseEnterHandler);
+                el.removeEventListener('mouseleave', el._mouseLeaveHandler);
+            });
+            document.querySelectorAll('.feature-box').forEach(box => {
+                box.removeEventListener('mouseenter', box._mouseEnterHandler);
+                box.removeEventListener('mouseleave', box._mouseLeaveHandler);
+            });
+        }
     }
     
     function formatFeatureDesc(desc) {
@@ -570,30 +695,6 @@
         result = result.split('\n').map(line => line.trim()).join('\n');
         return result;
     }
-    
-    let featureTooltip = null;
-    function showFeatureTooltip(e, name, desc) {
-        if (featureTooltip) featureTooltip.remove();
-        let formattedDesc = formatFeatureDesc(desc);
-        let descLines = formattedDesc.split('\n').filter(line => line.trim().length > 0);
-        let descHtml = '';
-        for (let line of descLines) {
-            descHtml += `<div class="term-desc-line">${line}</div>`;
-        }
-        let tip = document.createElement('div');
-        tip.className = 'feature-tooltip';
-        tip.innerHTML = `<div class="term-title">${name}</div>${descHtml}`;
-        document.body.appendChild(tip);
-        let rect = e.target.getBoundingClientRect();
-        let left = rect.left + rect.width/2 - tip.offsetWidth/2;
-        let top = rect.top - tip.offsetHeight - 8;
-        if (left < 5) left = 5;
-        if (top < 5) top = rect.bottom + 8;
-        tip.style.left = left + 'px';
-        tip.style.top = top + 'px';
-        featureTooltip = tip;
-    }
-    function hideFeatureTooltip() { if (featureTooltip) { featureTooltip.remove(); featureTooltip = null; } }
     
     let activeAcqTooltip = null;
     function showAcqTooltip(e, text, isMobile) {
@@ -804,16 +905,12 @@
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = html;
         document.getElementById("backBtn")?.addEventListener("click", restoreList);
-        document.querySelectorAll('.feature-box').forEach(box => {
-            let name = box.dataset.name;
-            let desc = box.dataset.desc;
-            let color = box.dataset.color;
-            if (color && color !== '默认') box.setAttribute('data-color', color);
-            box.addEventListener('mouseenter', (e) => { showFeatureTooltip(e, name, desc); });
-            box.addEventListener('mouseleave', hideFeatureTooltip);
-            box.addEventListener('click', (e) => { showFeatureTooltip(e, name, desc); setTimeout(hideFeatureTooltip, 2000); });
-        });
-        bindTermHighlights();
+        
+        const mobile = isMobileDevice();
+        // 重新绑定点击事件（手机端点击显示，电脑端悬浮显示）
+        bindMobileFriendlyHighlights(mobile);
+        bindTermHighlights(mobile);
+        
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
         window.scrollTo(0, 0);
