@@ -542,7 +542,7 @@
                 flex-shrink: 0;
             }
             
-            /* 详情页适配 */
+            /* 详情页适配 - 统一标题字体大小与“车辆特点”一致 */
             .detail-container { overflow-x: hidden; padding-bottom: 20px; }
             .detail-header { flex-direction: column; padding: 16px !important; gap: 16px !important; }
             .detail-image { padding: 16px !important; min-width: auto; width: 100%; border-radius: 16px; }
@@ -550,7 +550,15 @@
             .detail-info-panel { width: 100%; padding: 16px !important; }
             .detail-name { font-size: 1.2rem !important; font-weight: 800; }
             .features-section, .chip-slots, .vehicle-stats, .skills-section { padding: 12px 16px !important; }
-            .section-title { font-size: 1.1rem !important; font-weight: 800; }
+            /* 统一所有区块标题字体大小（车辆特点、芯片槽、车辆基础数据、芯片要求搭配） */
+            .section-title, 
+            .chip-slots .section-title, 
+            .vehicle-stats .section-title, 
+            .skills-section .section-title,
+            .workshop-title {
+                font-size: 1.25rem !important;
+                font-weight: 800;
+            }
             .detail-acquisition-area { top: 12px; left: 12px; gap: 6px; }
             .detail-acquisition-icon { width: 55px; height: 55px; }
             .detail-acquisition-text { font-size: 0.65rem; white-space: normal; max-width: 120px; text-shadow: 0 0 4px rgba(0,0,0,0.8); font-weight: 600; }
@@ -570,6 +578,14 @@
             .search-box input { padding: 6px 10px; font-size: 0.75rem; }
             .main-content { margin-top: 140px; }
             .feature-box { font-size: 0.7rem; padding: 5px 10px; }
+            /* 进一步确保手机端小屏下标题大小一致 */
+            .section-title, 
+            .chip-slots .section-title, 
+            .vehicle-stats .section-title, 
+            .skills-section .section-title,
+            .workshop-title {
+                font-size: 1.2rem !important;
+            }
         }
         
         /* 电脑端额外微调 */
@@ -1208,6 +1224,7 @@
             <div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.passiveIcon}"></div><div class="skill-title">被动：${car.skills.passive.name}</div></div><div class="skill-desc">${passiveDesc}</div></div>${spBlockHtml}</div></div>`;
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = html;
+        // 绑定返回按钮事件，确保点击后返回车辆列表主界面（而不是退出整个网站）
         document.getElementById("backBtn")?.addEventListener("click", restoreList);
         const mobile = isMobileDevice();
         // 绑定高亮术语和特点的交互 (仅绑定高亮元素)
