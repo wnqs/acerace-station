@@ -38,14 +38,16 @@
         .filter-btn.active { background: #feca57; color: #1a1a2e; font-weight: 500; }
         
         .cars-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
-        /* 基础卡片样式 */
-        .car-card { background: #14141f; border-radius: 24px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s, border-color 0.2s; will-change: transform; position: relative; display: flex; flex-direction: column; }
+        /* 基础卡片样式 - 默认无边框，悬浮时显示品质浮层边框 */
+        .car-card { background: #14141f; border-radius: 24px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; will-change: transform; position: relative; display: flex; flex-direction: column; }
         .car-card:hover { transform: translateY(-4px); }
-        /* 品质边框颜色 */
-        .car-card.legendary-border { border-color: #e6b422; box-shadow: 0 0 12px rgba(230,180,34,0.3); }
-        .car-card.epic-border { border-color: #aa6dc9; box-shadow: 0 0 10px rgba(170,109,201,0.25); }
-        .car-card.rare-border { border-color: #4a9eff; box-shadow: 0 0 8px rgba(74,158,255,0.2); }
-        .car-card.normal-border { border-color: #40c468; box-shadow: 0 0 6px rgba(64,196,104,0.15); }
+        /* 电脑端悬浮边框效果 - 根据品质不同显示不同颜色，手机端无此效果（通过媒体查询移除） */
+        @media (hover: hover) and (pointer: fine) {
+            .car-card.legendary-border:hover { border-color: #e6b422; box-shadow: 0 0 16px rgba(230,180,34,0.4); }
+            .car-card.epic-border:hover { border-color: #aa6dc9; box-shadow: 0 0 14px rgba(170,109,201,0.35); }
+            .car-card.rare-border:hover { border-color: #4a9eff; box-shadow: 0 0 12px rgba(74,158,255,0.3); }
+            .car-card.normal-border:hover { border-color: #40c468; box-shadow: 0 0 10px rgba(64,196,104,0.25); }
+        }
         
         .card-image { height: 180px; display: flex; align-items: center; justify-content: center; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; flex-shrink: 0; }
         .card-image.legendary { background: linear-gradient(145deg, #1a1208 0%, #0d0a05 100%); }
@@ -178,7 +180,7 @@
         .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; }
         .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
         
-        /* 响应式：移动端 */
+        /* 响应式：移动端 - 移除悬浮边框效果 */
         @media (max-width: 768px) {
             .sidebar { width: 100%; position: fixed; top: 0; left: 0; right: 0; bottom: auto; height: auto; background: #0f0f17; border-right: none; border-bottom: 1px solid #2a2a3c; padding: 12px 16px; z-index: 200; }
             .sidebar .logo-area { padding: 0 0 8px 0; margin-bottom: 8px; border-bottom: 1px solid #2a2a3c; }
@@ -190,11 +192,16 @@
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card-image { height: 140px; padding: 12px; }
             .car-name { font-size: 0.9rem; }
+            /* 手机端品质文字框移到右上角 */
             .quality-badge-wrapper { position: absolute; top: 12px; right: 12px; bottom: auto; left: auto; }
             .quality-badge { font-size: 0.55rem; padding: 2px 8px; }
             .acquisition-icon { width: 44px; height: 44px; bottom: 8px; right: 8px; }
             .meta-item { font-size: 0.6rem; padding: 2px 6px; }
             .car-description { font-size: 0.65rem; }
+            /* 手机端移除悬浮边框效果 */
+            .car-card { border: none; }
+            .car-card:hover { border: none; box-shadow: none; }
+            .car-card.legendary-border:hover, .car-card.epic-border:hover, .car-card.rare-border:hover, .car-card.normal-border:hover { border-color: transparent; box-shadow: none; }
             .detail-header { padding: 20px; flex-direction: column; }
             .detail-image { padding: 20px; min-width: auto; }
             .detail-image img { max-height: 180px; }
