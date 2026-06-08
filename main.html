@@ -193,29 +193,36 @@
         .feature-box[data-color="默认"] { border-color: #feca57; color: #feca57; background: rgba(30,30,50,0.9); }
         .feature-box:hover { transform: translateY(-2px); background: rgba(254,202,87,0.2); box-shadow: 0 4px 12px rgba(254,202,87,0.2); }
         
-        /* 通用纯文字提示样式（无边框，但有良好的排版） */
+        /* 通用纯文字提示样式（无边框无背景，只显示文字） */
         .plain-text-tooltip { 
+            position: fixed; 
+            background: rgba(0,0,0,0.7); 
+            color: #feca57; 
+            padding: 4px 12px; 
+            border-radius: 20px; 
+            font-size: 0.7rem; 
+            z-index: 1000; 
+            white-space: nowrap; 
+            backdrop-filter: blur(4px); 
+            pointer-events: none; 
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        .plain-text-tooltip-mobile { 
             position: fixed; 
             background: rgba(0,0,0,0.85); 
             color: #feca57; 
-            padding: 10px 16px; 
-            border-radius: 12px; 
-            font-size: 0.8rem; 
+            padding: 6px 14px; 
+            border-radius: 24px; 
+            font-size: 0.7rem; 
             z-index: 1000; 
             backdrop-filter: blur(8px); 
             pointer-events: none; 
             font-weight: 500;
-            max-width: 300px;
+            max-width: 220px;
             white-space: normal;
-            word-break: break-word;
-            line-height: 1.5;
-            text-align: left;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-        .plain-text-tooltip .term-desc-line {
-            margin-bottom: 4px;
-            white-space: pre-line;
-            text-align: left;
+            text-align: center;
+            line-height: 1.4;
         }
         
         .chip-slots { padding: 20px 40px 12px 40px; border-top: 1px solid rgba(255,255,255,0.08); }
@@ -256,7 +263,10 @@
         
         /* ========== 手机端专用样式 ========== */
         @media (max-width: 768px) {
+            /* 手机端：隐藏左侧边栏 */
             .sidebar { display: none; }
+            
+            /* 手机端固定头部区域 */
             .mobile-fixed-header {
                 position: fixed;
                 top: 0;
@@ -268,6 +278,7 @@
                 display: flex;
                 flex-direction: column;
             }
+            
             .mobile-top-bar {
                 padding: 8px 12px;
                 border-bottom: 1px solid #2a2a3c;
@@ -312,6 +323,8 @@
                 background: #feca57;
                 color: #1a1a2e;
             }
+            
+            /* 手机端筛选栏 */
             .mobile-filter-sticky {
                 padding: 8px 12px;
                 background: #0a0a0f;
@@ -341,6 +354,7 @@
             }
             .search-box input:focus { border-color: #feca57; }
             .search-box input::placeholder { color: #8a8aa3; font-size: 0.75rem; }
+            
             .category-dropdown-btn { 
                 background: #1f1f2e; 
                 border: 1px solid #2a2a3c; 
@@ -359,6 +373,7 @@
             }
             .category-dropdown-btn .arrow { font-size: 0.6rem; transition: transform 0.2s; }
             .category-dropdown-btn.active .arrow { transform: rotate(180deg); }
+            
             .category-dropdown-panel { 
                 background: #1a1a2a; 
                 border-radius: 16px; 
@@ -373,6 +388,7 @@
                 z-index: 210;
             }
             .category-dropdown-panel.show { display: block; }
+            
             .filter-section { margin-bottom: 12px; }
             .filter-section:last-child { margin-bottom: 0; }
             .filter-section-title { 
@@ -405,7 +421,11 @@
             }
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
             .filter-option img { width: 12px; height: 12px; }
+            
+            /* 主内容区 - 为固定头部留出空间，避免与搜索框重叠 */
             .main-content { margin-left: 0; margin-top: 145px; padding: 12px; width: 100%; }
+            
+            /* 车辆卡片网格 */
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card-image { height: 130px; padding: 12px; }
             .car-name { font-size: 0.85rem; font-weight: 700; }
@@ -415,6 +435,8 @@
             .meta-item { font-size: 0.55rem; padding: 2px 6px; font-weight: 500; }
             .car-description { font-size: 0.6rem; font-weight: 400; }
             .car-card { border: none; }
+            
+            /* 详情页适配 */
             .detail-container { overflow-x: hidden; padding-bottom: 20px; }
             .detail-header { flex-direction: column; padding: 16px !important; gap: 16px !important; }
             .detail-image { padding: 16px !important; min-width: auto; width: 100%; border-radius: 16px; }
@@ -428,7 +450,6 @@
             .detail-acquisition-text { font-size: 0.65rem; white-space: normal; max-width: 120px; text-shadow: 0 0 4px rgba(0,0,0,0.8); font-weight: 600; }
             .detail-back-btn { margin: 12px 0 0 12px; padding: 8px 16px; font-size: 0.85rem; font-weight: 700; }
             .stats-text { font-size: 0.75rem; font-weight: 500; }
-            .plain-text-tooltip { max-width: 260px; font-size: 0.75rem; padding: 8px 12px; }
         }
         
         @media (max-width: 480px) {
@@ -442,6 +463,7 @@
             .main-content { margin-top: 140px; }
         }
         
+        /* 电脑端额外微调 */
         @media (min-width: 769px) {
             .acquisition-icon { bottom: 2px; width: 70px; height: 70px; }
             .mobile-fixed-header { display: none; }
@@ -523,7 +545,7 @@
     
     <div class="main-content">
         <div id="vehiclesPage" class="page active-page">
-            <!-- 电脑端筛选栏 -->
+            <!-- 电脑端筛选栏 - 平铺分类 -->
             <div class="filter-bar desktop-filter">
                 <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、技能..."></div>
                 <div class="desktop-filter-sections">
@@ -662,45 +684,33 @@
         }
         return result;
     }
-    // 格式化技能文本：处理越野车换行、句号分割、/换行、左顶格
     function formatSkillText(text) {
         if (!text) return text;
         let result = highlightTerms(text);
-        // 处理越野车
         result = result.replace(/(越野车[：:])\s*\n/g, '$1 ');
-        // 处理斜杠换行
-        result = result.replace(/[\/／]/g, '\n');
-        // 按句号分割成独立行
         let sentences = [], current = '';
         for (let i = 0; i < result.length; i++) {
             current += result[i];
-            if (result[i] === '。' || result[i] === '．') { sentences.push(current.trim()); current = ''; }
+            if (result[i] === '。' || result[i] === '．') { sentences.push(current); current = ''; }
         }
-        if (current.trim().length > 0) sentences.push(current.trim());
+        if (current.trim().length > 0) sentences.push(current);
         let formatted = sentences.join('\n');
-        formatted = formatted.replace(/\n{2,}/g, '\n').replace(/[；;]\s*/g, '\n');
-        formatted = formatted.replace(/[：:]\s*(?=[^\n])/g, '：');
+        formatted = formatted.replace(/\n{2,}/g, '\n').replace(/[；;]\s*/g, '\n').replace(/[：:]\s*(?=[^\n])/g, '：');
         formatted = applyNumberHighlight(formatted);
         return formatted;
     }
     
-    // 通用纯文字提示（保留排版格式）
-    function showFormattedTooltip(e, content, isMobile) {
+    function showPlainTextTooltip(e, text, isMobile) {
         if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
         if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
-        // 处理内容格式：按原有换行和斜杠换行
-        let displayContent = content;
-        // 替换斜杠为换行
-        displayContent = displayContent.replace(/[\/／]/g, '\n');
-        // 分割行并过滤空行
-        let lines = displayContent.split(/\n/).filter(line => line.trim().length > 0);
-        let descHtml = '';
-        for (let line of lines) {
-            descHtml += `<div class="term-desc-line" style="white-space: pre-line; text-align: left;">${line.trim()}</div>`;
-        }
         let tip = document.createElement('div');
-        tip.className = 'plain-text-tooltip';
-        tip.innerHTML = descHtml;
+        if (isMobile) {
+            tip.className = 'plain-text-tooltip-mobile';
+            tip.textContent = text;
+        } else {
+            tip.className = 'plain-text-tooltip';
+            tip.textContent = text;
+        }
         document.body.appendChild(tip);
         let rect = e.target.getBoundingClientRect();
         let left = rect.left + rect.width/2 - tip.offsetWidth/2;
@@ -710,37 +720,35 @@
         tip.style.left = left + 'px';
         tip.style.top = top + 'px';
         currentTooltipElement = tip;
-        
-        // 设置自动关闭定时器（电脑端悬浮也有定时关闭）
         activeTooltipTimer = setTimeout(() => {
             if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
             currentTooltipElement = null;
             activeTooltipTimer = null;
-        }, 3000);
-        
-        // 手机端：滑动页面或点击空白处关闭
+        }, 2000);
+        // 手机端额外绑定滑动和点击空白关闭
         if (isMobile) {
-            const closeTooltip = () => {
+            const closeHandler = () => {
                 if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
                 if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
                 currentTooltipElement = null;
                 activeTooltipTimer = null;
-                document.removeEventListener('touchstart', closeTooltip);
-                document.removeEventListener('scroll', closeTooltip);
+                document.removeEventListener('touchstart', closeHandler);
+                document.removeEventListener('scroll', closeHandler);
+                document.removeEventListener('click', closeHandler);
             };
-            document.addEventListener('touchstart', closeTooltip, { once: true });
-            document.addEventListener('scroll', closeTooltip, { once: true });
+            document.addEventListener('touchstart', closeHandler, { once: true });
+            document.addEventListener('scroll', closeHandler, { once: true });
+            document.addEventListener('click', closeHandler, { once: true });
         }
     }
     
-    // 电脑端术语悬浮绑定
     function bindDesktopTermHighlights() {
         document.querySelectorAll('.term-highlight').forEach(el => {
             el.removeEventListener('mouseenter', el._mouseEnterHandler);
             el.removeEventListener('mouseleave', el._mouseLeaveHandler);
             const term = el.dataset.term;
             let def = termDefinitions[term] || '暂无详细解释';
-            el._mouseEnterHandler = (e) => { e.stopPropagation(); showFormattedTooltip(e, def, false); };
+            el._mouseEnterHandler = (e) => { e.stopPropagation(); showPlainTextTooltip(e, def, false); };
             el._mouseLeaveHandler = () => { 
                 if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
                 if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
@@ -754,8 +762,8 @@
             box.removeEventListener('mouseenter', box._mouseEnterHandler);
             box.removeEventListener('mouseleave', box._mouseLeaveHandler);
             const name = box.dataset.name;
-            const desc = box.dataset.desc || '';
-            box._mouseEnterHandler = (e) => { e.stopPropagation(); showFormattedTooltip(e, desc, false); };
+            const desc = box.dataset.desc;
+            box._mouseEnterHandler = (e) => { e.stopPropagation(); showPlainTextTooltip(e, desc, false); };
             box._mouseLeaveHandler = () => {
                 if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
                 if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
@@ -767,20 +775,18 @@
         });
     }
     
-    // 手机端术语点击绑定
     function bindMobileTermHighlights() {
         document.querySelectorAll('.term-highlight').forEach(el => {
             el.removeEventListener('click', el._clickHandler);
             const term = el.dataset.term;
             let def = termDefinitions[term] || '暂无详细解释';
-            el._clickHandler = (e) => { e.stopPropagation(); showFormattedTooltip(e, def, true); };
+            el._clickHandler = (e) => { e.stopPropagation(); showPlainTextTooltip(e, def, true); };
             el.addEventListener('click', el._clickHandler);
         });
         document.querySelectorAll('.feature-box').forEach(box => {
             box.removeEventListener('click', box._clickHandler);
-            const name = box.dataset.name;
-            const desc = box.dataset.desc || '';
-            box._clickHandler = (e) => { e.stopPropagation(); showFormattedTooltip(e, desc, true); };
+            const name = box.dataset.name, desc = box.dataset.desc;
+            box._clickHandler = (e) => { e.stopPropagation(); showPlainTextTooltip(e, desc, true); };
             box.addEventListener('click', box._clickHandler);
         });
     }
@@ -790,7 +796,7 @@
         if (activeAcqTooltip) activeAcqTooltip.remove();
         let tip = document.createElement('div');
         tip.className = 'plain-text-tooltip';
-        tip.innerHTML = `<div class="term-desc-line" style="text-align:center;">${text}</div>`;
+        tip.textContent = text;
         document.body.appendChild(tip);
         let rect = e.currentTarget.getBoundingClientRect();
         let left = rect.left + rect.width/2 - tip.offsetWidth/2;
@@ -800,7 +806,14 @@
         tip.style.left = left + 'px';
         tip.style.top = top + 'px';
         activeAcqTooltip = tip;
-        setTimeout(() => { if (activeAcqTooltip) activeAcqTooltip.remove(); activeAcqTooltip = null; }, 1500);
+        if (!isMobile) {
+            const hideHandler = () => { if (activeAcqTooltip) activeAcqTooltip.remove(); activeAcqTooltip = null; };
+            e.currentTarget.removeEventListener('mouseleave', hideHandler);
+            e.currentTarget.addEventListener('mouseleave', hideHandler);
+            tip._hideHandler = hideHandler;
+        } else {
+            setTimeout(() => { if (activeAcqTooltip) activeAcqTooltip.remove(); activeAcqTooltip = null; }, 1500);
+        }
     }
     
     async function loadData() {
