@@ -787,13 +787,12 @@
         if (!text) return text;
         let result = highlightTerms(text);
         result = result.replace(/(越野车[：:])\s*\n/g, '$1 ');
-        result = result.replace(/[\/／]/g, '\n');
         let sentences = [], current = '';
         for (let i = 0; i < result.length; i++) {
             current += result[i];
             if (result[i] === '。' || result[i] === '．') { sentences.push(current.trim()); current = ''; }
         }
-        if (current.trim().length > 0) sentences.push(current.trim());
+        if (current.trim().length > 0) sentences.push(current);
         let formatted = sentences.join('\n');
         formatted = formatted.replace(/\n{2,}/g, '\n').replace(/[；;]\s*/g, '\n');
         formatted = formatted.replace(/[：:]\s*(?=[^\n])/g, '：');
@@ -801,7 +800,7 @@
         return formatted;
     }
     
-    // 通用提示函数 - 使用带边框的样式
+    // 通用提示函数 - 使用带边框的样式 (整合老版本优雅的tooltip逻辑)
     function showTooltip(e, title, content, isMobile) {
         if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
         if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
@@ -830,7 +829,7 @@
             if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
             currentTooltipElement = null;
             activeTooltipTimer = null;
-        }, 3000);
+        }, 4000);
         
         if (isMobile) {
             const closeHandler = () => {
@@ -848,58 +847,48 @@
         }
     }
     
-    // 电脑端术语悬浮绑定
-    function bindDesktopTermHighlights() {
+    // 绑定高亮术语和特点的交互事件 (整合电脑端悬浮和手机端点击)
+    function bindTermAndFeatureEvents(isMobile) {
+        // 绑定术语高亮
         document.querySelectorAll('.term-highlight').forEach(el => {
-            el.removeEventListener('mouseenter', el._mouseEnterHandler);
-            el.removeEventListener('mouseleave', el._mouseLeaveHandler);
+            el.removeEventListener(isMobile ? 'click' : 'mouseenter', el._handler);
             const term = el.dataset.term;
             let def = termDefinitions[term] || '暂无详细解释';
-            el._mouseEnterHandler = (e) => { e.stopPropagation(); showTooltip(e, term, def, false); };
-            el._mouseLeaveHandler = () => { 
-                if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
-                if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
-                currentTooltipElement = null;
-                activeTooltipTimer = null;
-            };
-            el.addEventListener('mouseenter', el._mouseEnterHandler);
-            el.addEventListener('mouseleave', el._mouseLeaveHandler);
+            if (!isMobile) {
+                el._handler = (e) => { e.stopPropagation(); showTooltip(e, term, def, false); };
+                el.addEventListener('mouseenter', el._handler);
+                el.addEventListener('mouseleave', () => {
+                    if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
+                    if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
+                    currentTooltipElement = null;
+                    activeTooltipTimer = null;
+                });
+            } else {
+                el._handler = (e) => { e.stopPropagation(); showTooltip(e, term, def, true); };
+                el.addEventListener('click', el._handler);
+            }
         });
+        // 绑定车辆特点
         document.querySelectorAll('.feature-box').forEach(box => {
-            box.removeEventListener('mouseenter', box._mouseEnterHandler);
-            box.removeEventListener('mouseleave', box._mouseLeaveHandler);
+            box.removeEventListener(isMobile ? 'click' : 'mouseenter', box._handler);
             const name = box.dataset.name;
             const desc = box.dataset.desc;
-            box._mouseEnterHandler = (e) => { e.stopPropagation(); showTooltip(e, name, desc, false); };
-            box._mouseLeaveHandler = () => {
-                if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
-                if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
-                currentTooltipElement = null;
-                activeTooltipTimer = null;
-            };
-            box.addEventListener('mouseenter', box._mouseEnterHandler);
-            box.addEventListener('mouseleave', box._mouseLeaveHandler);
+            if (!isMobile) {
+                box._handler = (e) => { e.stopPropagation(); showTooltip(e, name, desc, false); };
+                box.addEventListener('mouseenter', box._handler);
+                box.addEventListener('mouseleave', () => {
+                    if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
+                    if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
+                    currentTooltipElement = null;
+                    activeTooltipTimer = null;
+                });
+            } else {
+                box._handler = (e) => { e.stopPropagation(); showTooltip(e, name, desc, true); };
+                box.addEventListener('click', box._handler);
+            }
         });
     }
     
-    // 手机端术语点击绑定
-    function bindMobileTermHighlights() {
-        document.querySelectorAll('.term-highlight').forEach(el => {
-            el.removeEventListener('click', el._clickHandler);
-            const term = el.dataset.term;
-            let def = termDefinitions[term] || '暂无详细解释';
-            el._clickHandler = (e) => { e.stopPropagation(); showTooltip(e, term, def, true); };
-            el.addEventListener('click', el._clickHandler);
-        });
-        document.querySelectorAll('.feature-box').forEach(box => {
-            box.removeEventListener('click', box._clickHandler);
-            const name = box.dataset.name, desc = box.dataset.desc;
-            box._clickHandler = (e) => { e.stopPropagation(); showTooltip(e, name, desc, true); };
-            box.addEventListener('click', box._clickHandler);
-        });
-    }
-    
-    // 手机端获取方式图标点击显示
     let activeAcqTooltip = null;
     function showAcqTooltip(e, text, isMobile) {
         if (activeAcqTooltip) activeAcqTooltip.remove();
@@ -922,7 +911,6 @@
             e.currentTarget.addEventListener('mouseleave', hideHandler);
             tip._hideHandler = hideHandler;
         } else {
-            // 手机端：滑动页面或点击空白处关闭
             const closeHandler = () => {
                 if (activeAcqTooltip) activeAcqTooltip.remove();
                 activeAcqTooltip = null;
@@ -1171,8 +1159,7 @@
             card._clickHandler = (e) => { if (!e.target.closest('.acquisition-icon')) showDetail(card.dataset.id); };
             card.addEventListener('click', card._clickHandler);
         });
-        if (!mobile) bindDesktopTermHighlights();
-        else bindMobileTermHighlights();
+        // 列表页没有高亮术语，无需额外绑定
     }
     
     function showDetail(id) {
@@ -1211,8 +1198,8 @@
         vehiclesPage.innerHTML = html;
         document.getElementById("backBtn")?.addEventListener("click", restoreList);
         const mobile = isMobileDevice();
-        if (!mobile) bindDesktopTermHighlights();
-        else bindMobileTermHighlights();
+        // 绑定高亮术语和特点的交互 (整合老版本完整逻辑)
+        bindTermAndFeatureEvents(mobile);
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
         window.scrollTo(0, 0);
