@@ -192,7 +192,6 @@
             .car-name { font-size: 0.9rem; }
             .quality-badge-wrapper { position: absolute; top: 12px; right: 12px; bottom: auto; left: auto; }
             .quality-badge { font-size: 0.55rem; padding: 2px 8px; }
-            /* 手机端获取方式图标位置保持原样（不额外下移） */
             .acquisition-icon { width: 44px; height: 44px; bottom: 8px; right: 8px; }
             .meta-item { font-size: 0.6rem; padding: 2px 6px; }
             .car-description { font-size: 0.65rem; }
@@ -424,17 +423,15 @@
         return result;
     }
     
-    // 被动中的越野车文字另起一行显示
+    // 修改越野车文字格式：将冒号前面的“越野车”三个字和冒号后面的内容放在一行
     function formatSkillText(text) {
         if (!text) return text;
         let result = highlightTerms(text);
-        const regex = /(越野车[：:][^。]*[。]?)/g;
-        result = result.replace(regex, (match) => {
-            if (result.indexOf('\n' + match) !== -1 || result.indexOf(match + '\n') !== -1) {
-                return match;
-            }
-            return '\n' + match;
-        });
+        // 匹配“越野车：”开头的句子，将“越野车：”与其后面的内容合并为一行（移除中间的换行）
+        const regex = /\n(越野车[：:][^\n]*)/g;
+        result = result.replace(regex, ' $1');
+        // 处理可能存在的其他换行情况
+        result = result.replace(/(越野车[：:])[\s]*\n/g, '$1 ');
         result = result.replace(/[；;]\s*/g, '\n');
         result = result.replace(/[：:]\s*(?=[^\n])/g, '：\n');
         result = applyNumberHighlight(result);
