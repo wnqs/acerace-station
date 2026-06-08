@@ -62,10 +62,12 @@
         .card-image.normal::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.12), transparent 70%); pointer-events: none; }
         .card-image img { max-width: 100%; max-height: 100%; object-fit: contain; position: relative; z-index: 2; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
         
+        /* 获取方式图标 - 电脑端再往下移一点，但仍在背景图内 */
         .acquisition-icon { position: absolute; bottom: 12px; right: 12px; width: 64px; height: 64px; cursor: pointer; z-index: 10; transition: transform 0.2s; background: transparent; border-radius: 0; }
         .acquisition-icon:hover { transform: scale(1.08); }
         .acquisition-icon img { width: 100%; height: 100%; object-fit: contain; }
         
+        /* 品质文字框 - 电脑端右下角，手机端右上角（通过媒体查询） */
         .quality-badge-wrapper { position: absolute; bottom: 12px; right: 12px; z-index: 15; }
         .quality-badge { font-size: 0.7rem; padding: 3px 12px; border-radius: 30px; font-weight: 800; letter-spacing: 1px; backdrop-filter: blur(2px); text-transform: uppercase; transition: none; border-width: 1px; border-style: solid; display: inline-block; transform: translateZ(0); -webkit-transform: translateZ(0); white-space: nowrap; }
         .quality-badge.legendary { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #ffffff !important; border-color: #ffd966; box-shadow: 0 2px 12px rgba(230,180,34,0.4); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
@@ -101,11 +103,13 @@
         .detail-image.normal::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.1), transparent 70%); pointer-events: none; }
         .detail-image img { width: 100%; max-height: 420px; object-fit: contain; position: relative; z-index: 2; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5)); }
         
+        /* 详情页获取方式区域 - 统一无黑框样式 */
         .detail-acquisition-area { position: absolute; top: 20px; left: 20px; display: flex; align-items: center; gap: 14px; background: transparent; backdrop-filter: none; padding: 0; border-radius: 0; border: none; z-index: 15; }
+        /* 放大首发限定图标（电脑端和手机端都放大） */
         .detail-acquisition-icon { width: 108px; height: 108px; cursor: pointer; transition: transform 0.2s; background: transparent; border-radius: 0; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3)); }
         .detail-acquisition-icon:hover { transform: scale(1.05); }
         .detail-acquisition-icon img { width: 100%; height: 100%; object-fit: contain; }
-        .detail-acquisition-text { font-size: 0.95rem; color: #feca57; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap; text-shadow: 0 0 2px rgba(0,0,0,0.5); background: rgba(0,0,0,0.4); padding: 4px 12px; border-radius: 20px; backdrop-filter: blur(4px); }
+        .detail-acquisition-text { font-size: 0.95rem; color: #feca57; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap; text-shadow: 0 0 2px rgba(0,0,0,0.5); background: transparent; padding: 4px 0; border-radius: 0; backdrop-filter: none; }
         
         .detail-info-panel { flex: 1; min-width: 260px; background: rgba(15,15,26,0.8); backdrop-filter: blur(10px); border-radius: 24px; padding: 20px; border: 1px solid rgba(255,255,255,0.08); }
         .detail-name { font-size: 1.7rem; font-weight: 800; color: #e2e2e6; margin-bottom: 16px; letter-spacing: -0.2px; word-break: break-word; }
@@ -191,7 +195,8 @@
             .car-name { font-size: 0.9rem; }
             .quality-badge-wrapper { position: absolute; top: 12px; right: 12px; bottom: auto; left: auto; }
             .quality-badge { font-size: 0.55rem; padding: 2px 8px; }
-            .acquisition-icon { width: 44px; height: 44px; bottom: 8px; right: 8px; }
+            /* 手机端获取方式图标也放大一点 */
+            .acquisition-icon { width: 50px; height: 50px; bottom: 8px; right: 8px; }
             .meta-item { font-size: 0.6rem; padding: 2px 6px; }
             .car-description { font-size: 0.65rem; }
             .car-card { border: none; }
@@ -206,7 +211,6 @@
                 padding: 16px !important;
                 gap: 16px !important;
             }
-            /* 手机端车辆图片优化 - 确保完整显示且比例合适 */
             .detail-image {
                 padding: 16px !important;
                 min-width: auto;
@@ -306,45 +310,47 @@
             .sub-skill {
                 padding: 8px 12px;
             }
-            /* 手机端获取方式区域优化 - 避免遮挡重叠，调整大小和位置 */
+            /* 手机端获取方式区域优化 - 无黑框，图标放大 */
             .detail-acquisition-area {
                 top: 12px;
                 left: 12px;
                 gap: 8px;
-                background: rgba(0,0,0,0.5);
-                border-radius: 40px;
-                padding: 4px 12px 4px 8px;
-                backdrop-filter: blur(8px);
+                background: transparent;
+                padding: 0;
+                backdrop-filter: none;
             }
             .detail-acquisition-icon {
-                width: 40px;
-                height: 40px;
+                width: 80px;
+                height: 80px;
             }
             .detail-acquisition-text {
-                font-size: 0.7rem;
-                padding: 2px 8px;
+                font-size: 0.8rem;
+                padding: 0;
                 white-space: normal;
                 max-width: 160px;
                 line-height: 1.3;
                 background: transparent;
                 backdrop-filter: none;
+                text-shadow: 0 0 4px rgba(0,0,0,0.8);
             }
         }
         
         @media (max-width: 480px) {
             .cars-grid { gap: 10px; }
             .card-image { height: 120px; }
-            .acquisition-icon { width: 40px; height: 40px; bottom: 6px; right: 6px; }
+            .acquisition-icon { width: 44px; height: 44px; bottom: 6px; right: 6px; }
             .quality-badge-wrapper { top: 8px; right: 8px; }
             .quality-badge { font-size: 0.5rem; padding: 2px 6px; }
-            .detail-acquisition-icon { width: 36px; height: 36px; }
-            .detail-acquisition-text { font-size: 0.65rem; max-width: 140px; }
+            .detail-acquisition-icon { width: 60px; height: 60px; }
+            .detail-acquisition-text { font-size: 0.7rem; max-width: 140px; }
             .detail-image img { max-height: 160px; }
         }
         
-        /* 电脑端额外微调：获取方式图标再往下移一点点，避免覆盖车辆图片 */
+        /* 电脑端额外微调：获取方式图标再往下移一点，避免覆盖车辆图片，但仍在背景图内 */
         @media (min-width: 769px) {
-            .acquisition-icon { bottom: 4px; }
+            .acquisition-icon { bottom: 2px; }
+            /* 电脑端首页获取方式图标也稍微放大 */
+            .acquisition-icon { width: 70px; height: 70px; }
         }
     </style>
 </head>
@@ -416,7 +422,6 @@
     let filters = { position: "all", specialty: "all", quality: "all", keyword: "" };
     let isDetail = false;
     let scrollPositions = { list: 0 };
-    // 用于管理浮层定时器
     let activeTooltipTimer = null;
     let currentTooltipElement = null;
     
@@ -522,7 +527,6 @@
         return result;
     }
     
-    // 越野车文字格式优化：以句号为分段依据
     function formatSkillText(text) {
         if (!text) return text;
         let result = highlightTerms(text);
@@ -547,26 +551,15 @@
         return formatted;
     }
     
-    // 通用浮层显示函数（支持自动关闭、触摸/滚动关闭）
     function showSmartTooltip(e, title, content, isMobile) {
-        // 清除已有定时器和浮层
-        if (activeTooltipTimer) {
-            clearTimeout(activeTooltipTimer);
-            activeTooltipTimer = null;
-        }
-        if (currentTooltipElement && currentTooltipElement.remove) {
-            currentTooltipElement.remove();
-            currentTooltipElement = null;
-        }
+        if (activeTooltipTimer) { clearTimeout(activeTooltipTimer); activeTooltipTimer = null; }
+        if (currentTooltipElement && currentTooltipElement.remove) { currentTooltipElement.remove(); currentTooltipElement = null; }
         
         let tip = document.createElement('div');
         tip.className = 'feature-tooltip';
-        // 处理内容换行
         let contentLines = content.split(/\n/).filter(line => line.trim().length > 0);
         let descHtml = '';
-        for (let line of contentLines) {
-            descHtml += `<div class="term-desc-line">${line.trim()}</div>`;
-        }
+        for (let line of contentLines) { descHtml += `<div class="term-desc-line">${line.trim()}</div>`; }
         tip.innerHTML = `<div class="term-title">${title}</div>${descHtml}`;
         document.body.appendChild(tip);
         
@@ -577,26 +570,17 @@
         if (top < 5) top = rect.bottom + 8;
         tip.style.left = left + 'px';
         tip.style.top = top + 'px';
-        
         currentTooltipElement = tip;
         
-        // 设置5秒后自动关闭
         activeTooltipTimer = setTimeout(() => {
-            if (currentTooltipElement && currentTooltipElement.remove) {
-                currentTooltipElement.remove();
-                currentTooltipElement = null;
-            }
+            if (currentTooltipElement && currentTooltipElement.remove) { currentTooltipElement.remove(); currentTooltipElement = null; }
             activeTooltipTimer = null;
         }, 5000);
         
-        // 移动端：绑定触摸/滚动关闭事件
         if (isMobile) {
             const closeTooltip = () => {
                 if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
-                if (currentTooltipElement && currentTooltipElement.remove) {
-                    currentTooltipElement.remove();
-                    currentTooltipElement = null;
-                }
+                if (currentTooltipElement && currentTooltipElement.remove) { currentTooltipElement.remove(); currentTooltipElement = null; }
                 activeTooltipTimer = null;
                 document.removeEventListener('touchstart', closeTooltip);
                 document.removeEventListener('scroll', closeTooltip);
@@ -607,77 +591,53 @@
     }
     
     function bindMobileFriendlyHighlights(isMobile) {
-        // 绑定专有名词点击事件（手机端点击显示5秒）
         document.querySelectorAll('.term-highlight').forEach(el => {
             el.removeEventListener('click', el._clickHandler);
             const term = el.dataset.term;
             let def = termDefinitions[term] || '暂无详细解释';
-            el._clickHandler = (e) => {
-                e.stopPropagation();
-                showSmartTooltip(e, term, def, isMobile);
-            };
+            el._clickHandler = (e) => { e.stopPropagation(); showSmartTooltip(e, term, def, isMobile); };
             el.addEventListener('click', el._clickHandler);
         });
-        
-        // 绑定车辆特点点击事件（手机端点击显示5秒）
         document.querySelectorAll('.feature-box').forEach(box => {
             box.removeEventListener('click', box._clickHandler);
             const name = box.dataset.name;
             const desc = box.dataset.desc;
-            box._clickHandler = (e) => {
-                e.stopPropagation();
-                showSmartTooltip(e, name, desc, isMobile);
-            };
+            box._clickHandler = (e) => { e.stopPropagation(); showSmartTooltip(e, name, desc, isMobile); };
             box.addEventListener('click', box._clickHandler);
         });
     }
     
     function bindTermHighlights(isMobile) {
-        // 电脑端使用原来的悬浮效果，手机端使用点击效果（已在上面处理）
         if (!isMobile) {
             document.querySelectorAll('.term-highlight').forEach(el => {
                 el.removeEventListener('mouseenter', el._mouseEnterHandler);
                 el.removeEventListener('mouseleave', el._mouseLeaveHandler);
                 const term = el.dataset.term;
                 let def = termDefinitions[term] || '暂无详细解释';
-                el._mouseEnterHandler = (e) => { 
-                    e.stopPropagation(); 
-                    showSmartTooltip(e, term, def, false); 
-                };
+                el._mouseEnterHandler = (e) => { e.stopPropagation(); showSmartTooltip(e, term, def, false); };
                 el._mouseLeaveHandler = () => { 
                     if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
-                    if (currentTooltipElement && currentTooltipElement.remove) {
-                        currentTooltipElement.remove();
-                        currentTooltipElement = null;
-                    }
+                    if (currentTooltipElement && currentTooltipElement.remove) { currentTooltipElement.remove(); currentTooltipElement = null; }
                     activeTooltipTimer = null;
                 };
                 el.addEventListener('mouseenter', el._mouseEnterHandler);
                 el.addEventListener('mouseleave', el._mouseLeaveHandler);
             });
-            
             document.querySelectorAll('.feature-box').forEach(box => {
                 box.removeEventListener('mouseenter', box._mouseEnterHandler);
                 box.removeEventListener('mouseleave', box._mouseLeaveHandler);
                 const name = box.dataset.name;
                 const desc = box.dataset.desc;
-                box._mouseEnterHandler = (e) => { 
-                    e.stopPropagation(); 
-                    showSmartTooltip(e, name, desc, false); 
-                };
+                box._mouseEnterHandler = (e) => { e.stopPropagation(); showSmartTooltip(e, name, desc, false); };
                 box._mouseLeaveHandler = () => {
                     if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
-                    if (currentTooltipElement && currentTooltipElement.remove) {
-                        currentTooltipElement.remove();
-                        currentTooltipElement = null;
-                    }
+                    if (currentTooltipElement && currentTooltipElement.remove) { currentTooltipElement.remove(); currentTooltipElement = null; }
                     activeTooltipTimer = null;
                 };
                 box.addEventListener('mouseenter', box._mouseEnterHandler);
                 box.addEventListener('mouseleave', box._mouseLeaveHandler);
             });
         } else {
-            // 手机端不需要悬浮事件，清理掉避免干扰
             document.querySelectorAll('.term-highlight').forEach(el => {
                 el.removeEventListener('mouseenter', el._mouseEnterHandler);
                 el.removeEventListener('mouseleave', el._mouseLeaveHandler);
@@ -687,13 +647,6 @@
                 box.removeEventListener('mouseleave', box._mouseLeaveHandler);
             });
         }
-    }
-    
-    function formatFeatureDesc(desc) {
-        if (!desc) return '';
-        let result = desc.replace(/[\/／]/g, '\n');
-        result = result.split('\n').map(line => line.trim()).join('\n');
-        return result;
     }
     
     let activeAcqTooltip = null;
@@ -727,16 +680,11 @@
             const vehiclesResponse = await fetch('vehicles.json');
             const vehiclesDataObj = await vehiclesResponse.json();
             vehiclesData = vehiclesDataObj.vehicles;
-            vehiclesData.forEach(car => {
-                car.originalQuality = car.quality;
-                car.quality = getCorrectedQuality(car.name, car.quality);
-            });
+            vehiclesData.forEach(car => { car.originalQuality = car.quality; car.quality = getCorrectedQuality(car.name, car.quality); });
             const termsResponse = await fetch('terms.json');
             const termsDataObj = await termsResponse.json();
             termDefinitions = termsDataObj.terms;
-            for (const car of vehiclesData) {
-                car.chipSlots = sortChipSlots(car.chipSlots);
-            }
+            for (const car of vehiclesData) { car.chipSlots = sortChipSlots(car.chipSlots); }
             renderList();
         } catch (error) {
             document.getElementById("carsGrid").innerHTML = '<div style="text-align:center; padding:60px; color:#ff6b6b;">数据加载失败，请检查 vehicles.json 和 terms.json 文件是否存在</div>';
@@ -764,55 +712,39 @@
         return sortVehicles(filtered);
     }
     
-    function isMobileDevice() {
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
-    }
+    function isMobileDevice() { return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768; }
     
     function renderList() {
         let filtered = filterAndSortVehicles();
         let grid = document.getElementById("carsGrid");
         let stats = document.getElementById("statsText");
         if (!grid) return;
-        if (filtered.length === 0) {
-            grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px; color:#8a8aa3;">暂无车辆数据</div>';
-            stats.innerText = "共 0 辆车";
-            return;
-        }
+        if (filtered.length === 0) { grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px; color:#8a8aa3;">暂无车辆数据</div>'; stats.innerText = "共 0 辆车"; return; }
         grid.innerHTML = filtered.map(car => {
             let bgClass = getQualityClass(car.quality);
             let borderClass = getBorderClass(car.quality);
             let badgeClass = car.quality === "传说" ? "legendary" : (car.quality === "史诗" ? "epic" : (car.quality === "稀有" ? "rare" : "normal"));
             let positionIcon = POSITION_ICONS[car.positionIcon] || POSITION_ICONS["辅助"];
             let specialtyIcon = SPECIALTY_ICONS[car.specialty] || SPECIALTY_ICONS["场地"];
-            
             let extraRacingHtml = '';
-            if (EXTRA_RACING_ICON_CARS.includes(car.name)) {
-                extraRacingHtml = `<div class="meta-item"><img src="${RACING_ICON_URL}"><span>竞速</span></div>`;
-            }
-            
-            return `
-                <div class="car-card ${borderClass}" data-id="${car.id}">
-                    <div class="card-image ${bgClass}">
-                        <img src="${car.imageUrl}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/400x200?text=Car'">
-                        <div class="acquisition-icon" data-acq="${car.acquisition.replace(/"/g, '&quot;')}">
-                            <img src="${car.acquisitionIcon}" referrerpolicy="no-referrer">
+            if (EXTRA_RACING_ICON_CARS.includes(car.name)) { extraRacingHtml = `<div class="meta-item"><img src="${RACING_ICON_URL}"><span>竞速</span></div>`; }
+            return `<div class="car-card ${borderClass}" data-id="${car.id}">
+                        <div class="card-image ${bgClass}">
+                            <img src="${car.imageUrl}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/400x200?text=Car'">
+                            <div class="acquisition-icon" data-acq="${car.acquisition.replace(/"/g, '&quot;')}"><img src="${car.acquisitionIcon}" referrerpolicy="no-referrer"></div>
                         </div>
-                    </div>
-                    <div class="card-info">
-                        <div class="car-title"><span class="car-name">${car.name}</span></div>
-                        <div class="car-meta">
-                            <div class="meta-item"><img src="${positionIcon}"><span>${car.position}</span></div>
-                            ${extraRacingHtml}
-                            <div class="meta-item"><img src="${specialtyIcon}"><span>${car.specialty}</span></div>
+                        <div class="card-info">
+                            <div class="car-title"><span class="car-name">${car.name}</span></div>
+                            <div class="car-meta">
+                                <div class="meta-item"><img src="${positionIcon}"><span>${car.position}</span></div>${extraRacingHtml}
+                                <div class="meta-item"><img src="${specialtyIcon}"><span>${car.specialty}</span></div>
+                            </div>
+                            <div class="car-description">${car.description}</div>
                         </div>
-                        <div class="car-description">${car.description}</div>
-                    </div>
-                    <div class="quality-badge-wrapper"><span class="quality-badge ${badgeClass}">${car.quality}</span></div>
-                </div>
-            `;
+                        <div class="quality-badge-wrapper"><span class="quality-badge ${badgeClass}">${car.quality}</span></div>
+                    </div>`;
         }).join("");
         stats.innerText = `共 ${filtered.length} 辆车`;
-        
         const mobile = isMobileDevice();
         document.querySelectorAll('.acquisition-icon').forEach(icon => {
             icon.removeEventListener('mouseenter', icon._mouseEnterHandler);
@@ -856,75 +788,56 @@
         let ultPassiveBlock = car.skills.ult.ultPassive ? `<div class="sub-skill"><div class="sub-skill-title">解锁大招被动</div><div class="sub-skill-desc">${formatSkillText(car.skills.ult.ultPassive)}</div></div>` : '';
         let featuresHtml = (car.skills.features && car.skills.features.length) ? car.skills.features.map(f => `<div class="feature-box" data-desc="${(f.desc || '').replace(/"/g, '&quot;')}" data-name="${f.name}" data-color="${f.color || '默认'}">${f.name}</div>`).join('') : '<div style="color:#8a8aa3; padding:10px;">暂无特点数据</div>';
         let spBlockHtml = '';
-        if (car.sp) {
-            let spDesc = formatSkillText(car.sp.desc);
-            spBlockHtml = `<div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.sp.icon}"></div><div class="skill-title">SP：${car.sp.name}</div></div><div class="skill-desc"><div class="sp-cooltime">冷却时间：${car.sp.cooltime}</div>${spDesc}</div></div>`;
-        }
+        if (car.sp) { let spDesc = formatSkillText(car.sp.desc); spBlockHtml = `<div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.sp.icon}"></div><div class="skill-title">SP：${car.sp.name}</div></div><div class="skill-desc"><div class="sp-cooltime">冷却时间：${car.sp.cooltime}</div>${spDesc}</div></div>`; }
         let nitroChargeHtml = `<span class="gold-number">${stats.nitroCharge}</span>`;
         let startChargeHtml = `<span class="gold-number">${stats.startCharge}</span>`;
         
-        let html = `
-            <div class="detail-container">
-                <button class="detail-back-btn" id="backBtn">← 返回列表</button>
-                <div class="detail-header">
-                    <div class="detail-image ${bgClass}">
-                        <img src="${car.imageUrl}" onerror="this.src='https://placehold.co/600x400?text=Car'">
-                        <div class="detail-acquisition-area">
-                            <div class="detail-acquisition-icon"><img src="${car.acquisitionIcon}"></div>
-                            <span class="detail-acquisition-text">${car.acquisition}</span>
+        let html = `<div class="detail-container">
+                        <button class="detail-back-btn" id="backBtn">← 返回列表</button>
+                        <div class="detail-header">
+                            <div class="detail-image ${bgClass}">
+                                <img src="${car.imageUrl}" onerror="this.src='https://placehold.co/600x400?text=Car'">
+                                <div class="detail-acquisition-area">
+                                    <div class="detail-acquisition-icon"><img src="${car.acquisitionIcon}"></div>
+                                    <span class="detail-acquisition-text">${car.acquisition}</span>
+                                </div>
+                            </div>
+                            <div class="detail-info-panel">
+                                <div class="detail-name">${car.name}</div>
+                                <div class="detail-badges"><span class="quality-badge-large">${car.quality}</span><div class="badge"><img src="${positionIcon}"> ${car.position}位</div><div class="badge"><img src="${specialtyIcon}"> ${car.specialty}</div></div>
+                                <div class="info-rows"><div class="info-row"><span class="info-label">注册日期</span><span class="info-value">${car.registerDate || '未知'}</span></div><div class="info-row"><span class="info-label">车辆类型</span><span class="info-value">${car.vehicleType || '未知'}</span></div><div class="info-row"><span class="info-label">厂商</span><span class="info-value">${car.manufacturer || '未知'}</span></div></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="detail-info-panel">
-                        <div class="detail-name">${car.name}</div>
-                        <div class="detail-badges"><span class="quality-badge-large">${car.quality}</span><div class="badge"><img src="${positionIcon}"> ${car.position}位</div><div class="badge"><img src="${specialtyIcon}"> ${car.specialty}</div></div>
-                        <div class="info-rows"><div class="info-row"><span class="info-label">注册日期</span><span class="info-value">${car.registerDate || '未知'}</span></div><div class="info-row"><span class="info-label">车辆类型</span><span class="info-value">${car.vehicleType || '未知'}</span></div><div class="info-row"><span class="info-label">厂商</span><span class="info-value">${car.manufacturer || '未知'}</span></div></div>
-                    </div>
-                </div>
-                <div class="features-section"><div class="section-title">车辆特点</div><div class="features-horizontal">${featuresHtml}</div></div>
-                <div class="chip-slots"><div class="section-title">芯片槽</div><div class="chip-icons">${chipSlots.map(icon => `<div class="chip-icon"><img src="${icon}"></div>`).join('')}</div></div>
-                <div class="chip-workshop"><div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder">芯片要求搭配（配合赋能版）预留区<p>后续版本将展示社区高玩芯片组合、赋能推荐以及AI智能搭配方案</p></div></div>
-                <div class="vehicle-stats"><div class="section-title">车辆基础数据</div><div class="stats-grid">
-                    <div class="stat-card"><span>极速</span><span>${stats.topSpeed}</span></div>
-                    <div class="stat-card"><span>动力</span><span>${stats.power}</span></div>
-                    <div class="stat-card"><span>耐久</span><span>${stats.durability}</span></div>
-                    <div class="stat-card"><span>氮气充能</span><span>${nitroChargeHtml}</span></div>
-                    <div class="stat-card"><span>起步充能</span><span>${startChargeHtml}</span></div>
-                    <div class="stat-card"><span>氮气时长</span><span>${stats.nitroDuration}</span></div>
-                    <div class="stat-card"><span>氮气极速</span><span><span class="blue">${stats.nitroSpeed.blue}</span> / <span class="purple">${stats.nitroSpeed.purple}</span></span></div>
-                    <div class="stat-card"><span>涡轮时长</span><span><span class="blue">${stats.turboDuration.blue}</span> / <span class="purple">${stats.turboDuration.purple}</span></span></div>
-                    <div class="stat-card"><span>涡轮极速</span><span><span class="blue">${stats.turboSpeed.blue}</span> / <span class="purple">${stats.turboSpeed.purple}</span></span></div>
-                    <div class="stat-card"><span>大招动力</span><span>${stats.ultPower}</span></div>
-                </div></div>
-                <div class="skills-section">
-                    <div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.ultIcon}"></div><div class="skill-title">大招：${car.skills.ult.name}</div></div><div class="skill-desc">${ultDesc}</div><div class="sub-skill"><div class="sub-skill-title">RECU限制解除（8级解锁）</div><div class="sub-skill-desc">${recuDesc}</div></div>${ultPassiveBlock}</div>
-                    <div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.passiveIcon}"></div><div class="skill-title">被动：${car.skills.passive.name}</div></div><div class="skill-desc">${passiveDesc}</div></div>
-                    ${spBlockHtml}
-                </div>
-            </div>
-        `;
+                        <div class="features-section"><div class="section-title">车辆特点</div><div class="features-horizontal">${featuresHtml}</div></div>
+                        <div class="chip-slots"><div class="section-title">芯片槽</div><div class="chip-icons">${chipSlots.map(icon => `<div class="chip-icon"><img src="${icon}"></div>`).join('')}</div></div>
+                        <div class="chip-workshop"><div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder">芯片要求搭配（配合赋能版）预留区<p>后续版本将展示社区高玩芯片组合、赋能推荐以及AI智能搭配方案</p></div></div>
+                        <div class="vehicle-stats"><div class="section-title">车辆基础数据</div><div class="stats-grid">
+                            <div class="stat-card"><span>极速</span><span>${stats.topSpeed}</span></div><div class="stat-card"><span>动力</span><span>${stats.power}</span></div><div class="stat-card"><span>耐久</span><span>${stats.durability}</span></div>
+                            <div class="stat-card"><span>氮气充能</span><span>${nitroChargeHtml}</span></div><div class="stat-card"><span>起步充能</span><span>${startChargeHtml}</span></div><div class="stat-card"><span>氮气时长</span><span>${stats.nitroDuration}</span></div>
+                            <div class="stat-card"><span>氮气极速</span><span><span class="blue">${stats.nitroSpeed.blue}</span> / <span class="purple">${stats.nitroSpeed.purple}</span></span></div>
+                            <div class="stat-card"><span>涡轮时长</span><span><span class="blue">${stats.turboDuration.blue}</span> / <span class="purple">${stats.turboDuration.purple}</span></span></div>
+                            <div class="stat-card"><span>涡轮极速</span><span><span class="blue">${stats.turboSpeed.blue}</span> / <span class="purple">${stats.turboSpeed.purple}</span></span></div>
+                            <div class="stat-card"><span>大招动力</span><span>${stats.ultPower}</span></div>
+                        </div></div>
+                        <div class="skills-section">
+                            <div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.ultIcon}"></div><div class="skill-title">大招：${car.skills.ult.name}</div></div><div class="skill-desc">${ultDesc}</div><div class="sub-skill"><div class="sub-skill-title">RECU限制解除（8级解锁）</div><div class="sub-skill-desc">${recuDesc}</div></div>${ultPassiveBlock}</div>
+                            <div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.passiveIcon}"></div><div class="skill-title">被动：${car.skills.passive.name}</div></div><div class="skill-desc">${passiveDesc}</div></div>${spBlockHtml}
+                        </div>
+                    </div>`;
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = html;
         document.getElementById("backBtn")?.addEventListener("click", restoreList);
-        
         const mobile = isMobileDevice();
-        // 重新绑定点击事件（手机端点击显示，电脑端悬浮显示）
         bindMobileFriendlyHighlights(mobile);
         bindTermHighlights(mobile);
-        
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
         window.scrollTo(0, 0);
     }
     
     window.addEventListener('popstate', function(event) {
-        if (isDetail) {
-            restoreList();
-        } else {
-            let carId = new URLSearchParams(window.location.search).get('car');
-            if (carId && vehiclesData.find(v => v.id === carId)) {
-                showDetail(carId);
-            }
-        }
+        if (isDetail) { restoreList(); } 
+        else { let carId = new URLSearchParams(window.location.search).get('car'); if (carId && vehiclesData.find(v => v.id === carId)) { showDetail(carId); } }
     });
     
     function restoreList() {
@@ -932,43 +845,18 @@
         url.searchParams.delete('car');
         history.pushState({ page: 'list' }, '', url);
         let vehiclesPage = document.getElementById("vehiclesPage");
-        vehiclesPage.innerHTML = `
-            <div class="filter-bar">
-                <div class="search-box"><input type="text" id="searchInput" placeholder="搜索车辆名称、技能..."></div>
-                <div class="filter-groups">
-                    <div class="filter-group"><span class="filter-label">定位：</span>
-                        <button class="filter-btn active" data-type="position" data-value="all">全部</button>
-                        <button class="filter-btn" data-type="position" data-value="辅助">辅助</button>
-                        <button class="filter-btn" data-type="position" data-value="竞速">竞速</button>
-                        <button class="filter-btn" data-type="position" data-value="干扰">干扰</button>
-                        <button class="filter-btn" data-type="position" data-value="天平">天平</button>
-                    </div>
-                    <div class="filter-group"><span class="filter-label">专精：</span>
-                        <button class="filter-btn active" data-type="specialty" data-value="all">全部</button>
-                        <button class="filter-btn" data-type="specialty" data-value="城市">城市</button>
-                        <button class="filter-btn" data-type="specialty" data-value="山路">山路</button>
-                        <button class="filter-btn" data-type="specialty" data-value="场地">场地</button>
-                    </div>
-                    <div class="filter-group"><span class="filter-label">品质：</span>
-                        <button class="filter-btn active" data-type="quality" data-value="all">全部</button>
-                        <button class="filter-btn" data-type="quality" data-value="传说">传说</button>
-                        <button class="filter-btn" data-type="quality" data-value="史诗">史诗</button>
-                        <button class="filter-btn" data-type="quality" data-value="稀有">稀有</button>
-                        <button class="filter-btn" data-type="quality" data-value="普通">普通</button>
-                    </div>
-                </div>
-            </div>
-            <div class="cars-grid" id="carsGrid"></div>
-            <div class="stats-text" id="statsText">加载中...</div>
-        `;
+        vehiclesPage.innerHTML = `<div class="filter-bar"><div class="search-box"><input type="text" id="searchInput" placeholder="搜索车辆名称、技能..."></div>
+            <div class="filter-groups">
+                <div class="filter-group"><span class="filter-label">定位：</span><button class="filter-btn active" data-type="position" data-value="all">全部</button><button class="filter-btn" data-type="position" data-value="辅助">辅助</button><button class="filter-btn" data-type="position" data-value="竞速">竞速</button><button class="filter-btn" data-type="position" data-value="干扰">干扰</button><button class="filter-btn" data-type="position" data-value="天平">天平</button></div>
+                <div class="filter-group"><span class="filter-label">专精：</span><button class="filter-btn active" data-type="specialty" data-value="all">全部</button><button class="filter-btn" data-type="specialty" data-value="城市">城市</button><button class="filter-btn" data-type="specialty" data-value="山路">山路</button><button class="filter-btn" data-type="specialty" data-value="场地">场地</button></div>
+                <div class="filter-group"><span class="filter-label">品质：</span><button class="filter-btn active" data-type="quality" data-value="all">全部</button><button class="filter-btn" data-type="quality" data-value="传说">传说</button><button class="filter-btn" data-type="quality" data-value="史诗">史诗</button><button class="filter-btn" data-type="quality" data-value="稀有">稀有</button><button class="filter-btn" data-type="quality" data-value="普通">普通</button></div>
+            </div></div><div class="cars-grid" id="carsGrid"></div><div class="stats-text" id="statsText">加载中...</div>`;
         bindFilters();
         renderList();
         isDetail = false;
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
-        setTimeout(() => {
-            window.scrollTo(0, scrollPositions.list || 0);
-        }, 50);
+        setTimeout(() => { window.scrollTo(0, scrollPositions.list || 0); }, 50);
     }
     
     function bindFilters() {
