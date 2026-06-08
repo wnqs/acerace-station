@@ -177,94 +177,144 @@
         .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; }
         .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
         
-        /* ========== 手机端分类筛选样式 ========== */
+        /* ========== 手机端专用样式 - 修复搜索框和筛选下拉 ========== */
         @media (max-width: 768px) {
+            /* 左侧导航栏移动端适配 */
             .sidebar { width: 100%; position: fixed; top: 0; left: 0; right: 0; bottom: auto; height: auto; background: #0f0f17; border-right: none; border-bottom: 1px solid #2a2a3c; padding: 12px 16px; z-index: 200; }
             .sidebar .logo-area { padding: 0 0 8px 0; margin-bottom: 8px; border-bottom: 1px solid #2a2a3c; }
             .sidebar .logo-area h1 { font-size: 1rem; }
             .sidebar .logo-area p { font-size: 0.5rem; }
-            .nav-tabs { flex-direction: row; flex-wrap: wrap; gap: 8px; padding: 0; justify-content: center; }
-            .tab-btn { padding: 8px 12px; font-size: 0.75rem; border-radius: 30px; text-align: center; width: auto; flex: 1 0 auto; background: #1a1a2a; margin: 2px; font-weight: 600; }
+            .nav-tabs { flex-direction: row; flex-wrap: wrap; gap: 6px; padding: 0; justify-content: flex-start; }
+            .tab-btn { padding: 6px 12px; font-size: 0.7rem; border-radius: 20px; text-align: center; width: auto; flex: 0 0 auto; background: #1a1a2a; margin: 2px; }
             .tab-btn.active { background: #feca57; color: #1a1a2e; }
-            .main-content { margin-left: 0; margin-top: 0; padding: 12px; width: 100%; }
             
-            /* 固定顶部筛选栏 */
-            .mobile-filter-sticky { position: sticky; top: 0; z-index: 150; background: #0a0a0f; padding: 12px 0 8px 0; margin-bottom: 16px; border-bottom: 1px solid #2a2a3c; }
-            .search-box { margin-bottom: 10px; }
-            .search-box input { width: 100%; padding: 10px 14px; font-size: 0.85rem; background: #1f1f2e; border: 1px solid #2a2a3c; border-radius: 30px; color: #e2e2e6; }
+            /* 主内容区 - 为顶部导航栏留出空间 */
+            .main-content { margin-left: 0; margin-top: 95px; padding: 12px; width: 100%; }
+            
+            /* 固定顶部筛选栏 - 正确显示在导航栏下方 */
+            .mobile-filter-sticky { 
+                position: sticky; 
+                top: 80px;  /* 导航栏高度约80px，筛选栏紧贴其下 */
+                z-index: 150; 
+                background: #0a0a0f; 
+                padding: 12px 0 12px 0; 
+                margin-bottom: 16px; 
+                border-bottom: 1px solid #2a2a3c;
+            }
+            .search-box { margin-bottom: 12px; }
+            .search-box input { 
+                width: 100%; 
+                padding: 10px 14px; 
+                font-size: 0.85rem; 
+                background: #1f1f2e; 
+                border: 1px solid #2a2a3c; 
+                border-radius: 30px; 
+                color: #e2e2e6;
+                outline: none;
+            }
+            .search-box input:focus { border-color: #feca57; }
             
             /* 分类下拉按钮 */
-            .category-dropdown-btn { background: #1f1f2e; border: 1px solid #2a2a3c; border-radius: 30px; padding: 8px 16px; font-size: 0.85rem; cursor: pointer; color: #e2e2e6; display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom: 8px; font-weight: 500; }
+            .category-dropdown-btn { 
+                background: #1f1f2e; 
+                border: 1px solid #2a2a3c; 
+                border-radius: 30px; 
+                padding: 10px 16px; 
+                font-size: 0.85rem; 
+                cursor: pointer; 
+                color: #e2e2e6; 
+                display: flex; 
+                align-items: center; 
+                justify-content: space-between; 
+                width: 100%; 
+                font-weight: 500;
+                transition: 0.2s;
+            }
+            .category-dropdown-btn:active { background: #2a2a3c; }
             .category-dropdown-btn .arrow { font-size: 0.7rem; transition: transform 0.2s; }
             .category-dropdown-btn.active .arrow { transform: rotate(180deg); }
             
             /* 下拉面板 */
-            .category-dropdown-panel { background: #1a1a2a; border-radius: 16px; margin-top: 8px; padding: 12px; border: 1px solid #2a2a3c; display: none; margin-bottom: 12px; }
+            .category-dropdown-panel { 
+                background: #1a1a2a; 
+                border-radius: 16px; 
+                margin-top: 8px; 
+                padding: 12px; 
+                border: 1px solid #2a2a3c; 
+                display: none;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            }
             .category-dropdown-panel.show { display: block; }
+            
+            /* 分类区块 */
             .filter-section { margin-bottom: 16px; }
-            .filter-section-title { font-size: 0.75rem; color: #feca57; margin-bottom: 8px; padding-left: 4px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+            .filter-section:last-child { margin-bottom: 0; }
+            .filter-section-title { 
+                font-size: 0.75rem; 
+                color: #feca57; 
+                margin-bottom: 8px; 
+                padding-left: 4px; 
+                font-weight: 600; 
+                display: flex; 
+                align-items: center; 
+                gap: 6px; 
+            }
             .filter-options { display: flex; flex-wrap: wrap; gap: 10px; }
-            .filter-option { background: #2a2a3c; border-radius: 30px; padding: 6px 14px; font-size: 0.75rem; cursor: pointer; color: #a0a0b8; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+            .filter-option { 
+                background: #2a2a3c; 
+                border-radius: 30px; 
+                padding: 6px 14px; 
+                font-size: 0.75rem; 
+                cursor: pointer; 
+                color: #a0a0b8; 
+                transition: 0.2s; 
+                display: inline-flex; 
+                align-items: center; 
+                gap: 6px; 
+            }
             .filter-option.active { background: #feca57; color: #1a1a2e; }
-            .filter-option img { width: 16px; height: 16px; }
+            .filter-option img { width: 14px; height: 14px; }
             .quality-dot { width: 10px; height: 10px; border-radius: 10px; display: inline-block; }
             .quality-dot.legendary { background: #e6b422; box-shadow: 0 0 4px #e6b422; }
             .quality-dot.epic { background: #aa6dc9; box-shadow: 0 0 4px #aa6dc9; }
             .quality-dot.rare { background: #4a9eff; box-shadow: 0 0 4px #4a9eff; }
             .quality-dot.normal { background: #40c468; box-shadow: 0 0 4px #40c468; }
             
+            /* 车辆卡片网格 */
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .card-image { height: 140px; padding: 12px; }
-            .car-name { font-size: 0.9rem; }
-            .quality-badge-wrapper { position: absolute; top: 12px; right: 12px; bottom: auto; left: auto; }
-            .quality-badge { font-size: 0.55rem; padding: 2px 8px; }
-            .acquisition-icon { width: 44px; height: 44px; bottom: 8px; right: 8px; }
-            .meta-item { font-size: 0.6rem; padding: 2px 6px; }
-            .car-description { font-size: 0.65rem; }
+            .card-image { height: 130px; padding: 12px; }
+            .car-name { font-size: 0.85rem; }
+            .quality-badge-wrapper { position: absolute; top: 8px; right: 8px; bottom: auto; left: auto; }
+            .quality-badge { font-size: 0.5rem; padding: 2px 6px; }
+            .acquisition-icon { width: 40px; height: 40px; bottom: 6px; right: 6px; }
+            .meta-item { font-size: 0.55rem; padding: 2px 6px; }
+            .car-description { font-size: 0.6rem; }
             .car-card { border: none; }
+            
+            /* 详情页适配 */
             .detail-container { overflow-x: hidden; padding-bottom: 20px; }
             .detail-header { flex-direction: column; padding: 16px !important; gap: 16px !important; }
-            .detail-image { padding: 16px !important; min-width: auto; width: 100%; max-width: 100%; margin: 0 auto; border-radius: 16px; }
-            .detail-image img { max-height: 200px; width: auto; max-width: 100%; margin: 0 auto; object-fit: contain; }
-            .detail-info-panel { width: 100%; margin-top: 0; padding: 16px !important; }
-            .detail-name { font-size: 1.3rem !important; margin-bottom: 8px; }
-            .detail-badges { flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-            .info-rows { gap: 8px; }
-            .info-row { padding: 8px 12px; }
-            .info-label { width: 80px; font-size: 0.7rem; }
-            .info-value { font-size: 0.75rem; }
+            .detail-image { padding: 16px !important; min-width: auto; width: 100%; border-radius: 16px; }
+            .detail-image img { max-height: 180px; width: auto; max-width: 100%; margin: 0 auto; object-fit: contain; }
+            .detail-info-panel { width: 100%; padding: 16px !important; }
+            .detail-name { font-size: 1.2rem !important; }
             .features-section, .chip-slots, .vehicle-stats, .skills-section { padding: 12px 16px !important; }
-            .section-title { font-size: 1.2rem !important; margin-bottom: 12px; }
-            .features-horizontal { gap: 8px; }
-            .feature-box { padding: 4px 12px; font-size: 0.7rem; }
-            .chip-icons { gap: 8px; flex-wrap: wrap; }
-            .chip-icon { width: 44px; height: 44px; }
-            .stats-grid { gap: 8px; }
-            .stat-card { padding: 8px 12px; }
-            .stat-card span:first-child { font-size: 0.7rem; }
-            .stat-card span:last-child { font-size: 0.75rem; }
-            .stat-card .gold-number { font-size: 1rem !important; }
-            .skill-block { margin-bottom: 20px; }
-            .skill-header { gap: 8px; }
-            .skill-icon { width: 44px; height: 44px; }
-            .skill-title { font-size: 0.9rem; }
-            .skill-desc { font-size: 0.75rem; padding: 10px 12px; }
-            .sub-skill { padding: 8px 12px; }
-            .detail-acquisition-area { top: 12px; left: 12px; gap: 8px; background: transparent; padding: 0; }
-            .detail-acquisition-icon { width: 70px; height: 70px; }
-            .detail-acquisition-text { font-size: 0.75rem; padding: 0; white-space: normal; max-width: 150px; line-height: 1.3; background: transparent; text-shadow: 0 0 4px rgba(0,0,0,0.8); }
-            .detail-back-btn { margin-top: 10px; margin-left: 16px; }
+            .section-title { font-size: 1.1rem !important; }
+            .detail-acquisition-area { top: 12px; left: 12px; gap: 6px; }
+            .detail-acquisition-icon { width: 55px; height: 55px; }
+            .detail-acquisition-text { font-size: 0.65rem; white-space: normal; max-width: 120px; text-shadow: 0 0 4px rgba(0,0,0,0.8); }
+            .detail-back-btn { margin: 12px 0 0 12px; padding: 8px 16px; font-size: 0.85rem; }
+            .stats-text { font-size: 0.75rem; }
         }
         
         @media (max-width: 480px) {
             .cars-grid { gap: 10px; }
-            .card-image { height: 120px; }
-            .acquisition-icon { width: 40px; height: 40px; bottom: 6px; right: 6px; }
-            .quality-badge-wrapper { top: 8px; right: 8px; }
-            .quality-badge { font-size: 0.5rem; padding: 2px 6px; }
-            .detail-acquisition-icon { width: 55px; height: 55px; }
-            .detail-acquisition-text { font-size: 0.65rem; max-width: 120px; }
-            .detail-image img { max-height: 150px; }
+            .card-image { height: 110px; }
+            .quality-badge { font-size: 0.45rem; padding: 2px 5px; }
+            .car-name { font-size: 0.75rem; }
+            .meta-item { font-size: 0.5rem; padding: 2px 4px; }
+            .filter-option { padding: 4px 10px; font-size: 0.7rem; }
+            .category-dropdown-btn { padding: 8px 14px; font-size: 0.8rem; }
         }
         
         /* 电脑端额外微调 */
@@ -291,7 +341,7 @@
     </div>
     <div class="main-content">
         <div id="vehiclesPage" class="page active-page">
-            <!-- 电脑端筛选栏 -->
+            <!-- 电脑端筛选栏（桌面端显示） -->
             <div class="filter-bar desktop-filter">
                 <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、技能..."></div>
                 <div class="filter-groups">
@@ -317,7 +367,7 @@
                     </div>
                 </div>
             </div>
-            <!-- 手机端筛选栏 -->
+            <!-- 手机端固定筛选栏（移动端显示） -->
             <div class="mobile-filter-sticky" id="mobileFilterSticky" style="display: none;">
                 <div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车型 / 技能 / 关键字..."></div>
                 <div class="category-dropdown-btn" id="categoryDropdownBtn">
@@ -328,17 +378,17 @@
                     <div class="filter-section">
                         <div class="filter-section-title">🏷️ 定位</div>
                         <div class="filter-options" id="positionOptions">
-                            <div class="filter-option" data-type="position" data-value="all">📌 全部</div>
+                            <div class="filter-option active" data-type="position" data-value="all">📌 全部</div>
                             <div class="filter-option" data-type="position" data-value="辅助">🛡️ 辅助</div>
-                            <div class="filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" style="width:14px;height:14px;"> 竞速</div>
-                            <div class="filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" style="width:14px;height:14px;"> 干扰</div>
+                            <div class="filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
+                            <div class="filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
                             <div class="filter-option" data-type="position" data-value="天平">⚖️ 天平</div>
                         </div>
                     </div>
                     <div class="filter-section">
                         <div class="filter-section-title">🎯 专精</div>
                         <div class="filter-options" id="specialtyOptions">
-                            <div class="filter-option" data-type="specialty" data-value="all">🌍 全部</div>
+                            <div class="filter-option active" data-type="specialty" data-value="all">🌍 全部</div>
                             <div class="filter-option" data-type="specialty" data-value="城市">🏙️ 城市</div>
                             <div class="filter-option" data-type="specialty" data-value="山路">⛰️ 山路</div>
                             <div class="filter-option" data-type="specialty" data-value="场地">🏟️ 场地</div>
@@ -347,7 +397,7 @@
                     <div class="filter-section">
                         <div class="filter-section-title">✨ 品质</div>
                         <div class="filter-options" id="qualityOptions">
-                            <div class="filter-option" data-type="quality" data-value="all">🎨 全部</div>
+                            <div class="filter-option active" data-type="quality" data-value="all">🎨 全部</div>
                             <div class="filter-option" data-type="quality" data-value="传说"><span class="quality-dot legendary"></span> 传说</div>
                             <div class="filter-option" data-type="quality" data-value="史诗"><span class="quality-dot epic"></span> 史诗</div>
                             <div class="filter-option" data-type="quality" data-value="稀有"><span class="quality-dot rare"></span> 稀有</div>
@@ -378,8 +428,8 @@
     // ==================== 全局变量 ====================
     let vehiclesData = [];
     let termDefinitions = {};
-    // 手机端分类筛选状态：未选择时值为"all"，选择具体项时存具体值（单选模式）
-    let mobileFilters = { position: "all", specialty: "all", quality: "all" };
+    // 筛选状态
+    let activeFilters = { position: "all", specialty: "all", quality: "all" };
     let keyword = "";
     let isDetail = false;
     let scrollPositions = { list: 0 };
@@ -594,9 +644,9 @@
     
     function filterAndSortVehicles() {
         const isMobile = window.innerWidth <= 768;
-        let posFilter = isMobile ? mobileFilters.position : filters?.position || "all";
-        let specFilter = isMobile ? mobileFilters.specialty : filters?.specialty || "all";
-        let qualFilter = isMobile ? mobileFilters.quality : filters?.quality || "all";
+        let posFilter = isMobile ? activeFilters.position : (window.desktopFilters?.position || "all");
+        let specFilter = isMobile ? activeFilters.specialty : (window.desktopFilters?.specialty || "all");
+        let qualFilter = isMobile ? activeFilters.quality : (window.desktopFilters?.quality || "all");
         let filtered = vehiclesData.filter(v => {
             if (posFilter !== "all" && v.position !== posFilter) return false;
             if (specFilter !== "all" && v.specialty !== specFilter) return false;
@@ -616,20 +666,20 @@
     
     function updateMobileFilterUI() {
         document.querySelectorAll('#positionOptions .filter-option').forEach(opt => {
-            if (opt.dataset.value === mobileFilters.position) opt.classList.add('active');
+            if (opt.dataset.value === activeFilters.position) opt.classList.add('active');
             else opt.classList.remove('active');
         });
         document.querySelectorAll('#specialtyOptions .filter-option').forEach(opt => {
-            if (opt.dataset.value === mobileFilters.specialty) opt.classList.add('active');
+            if (opt.dataset.value === activeFilters.specialty) opt.classList.add('active');
             else opt.classList.remove('active');
         });
         document.querySelectorAll('#qualityOptions .filter-option').forEach(opt => {
-            if (opt.dataset.value === mobileFilters.quality) opt.classList.add('active');
+            if (opt.dataset.value === activeFilters.quality) opt.classList.add('active');
             else opt.classList.remove('active');
         });
         const btn = document.getElementById('categoryDropdownBtn');
         if (btn) {
-            let activeCount = (mobileFilters.position !== 'all' ? 1 : 0) + (mobileFilters.specialty !== 'all' ? 1 : 0) + (mobileFilters.quality !== 'all' ? 1 : 0);
+            let activeCount = (activeFilters.position !== 'all' ? 1 : 0) + (activeFilters.specialty !== 'all' ? 1 : 0) + (activeFilters.quality !== 'all' ? 1 : 0);
             if (activeCount > 0) btn.classList.add('active');
             else btn.classList.remove('active');
         }
@@ -639,44 +689,51 @@
         const isMobile = isMobileDevice();
         const desktopFilter = document.querySelector('.desktop-filter');
         const mobileSticky = document.getElementById('mobileFilterSticky');
+        
         if (isMobile) {
             if (desktopFilter) desktopFilter.style.display = 'none';
             if (mobileSticky) mobileSticky.style.display = 'block';
+            
+            // 搜索框绑定
             const searchInput = document.getElementById('searchInputMobile');
             if (searchInput) {
                 searchInput.value = keyword;
                 searchInput.removeEventListener('input', searchInput._listener);
                 searchInput.addEventListener('input', searchInput._listener = (e) => { keyword = e.target.value; renderList(); });
             }
-            // 绑定分类选项点击
+            
+            // 定位选项绑定
             document.querySelectorAll('#positionOptions .filter-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
                 opt.addEventListener('click', opt._clickHandler = () => {
                     let val = opt.dataset.value;
-                    mobileFilters.position = (mobileFilters.position === val && val !== 'all') ? 'all' : val;
+                    activeFilters.position = (activeFilters.position === val && val !== 'all') ? 'all' : val;
                     updateMobileFilterUI();
                     renderList();
                 });
             });
+            // 专精选项绑定
             document.querySelectorAll('#specialtyOptions .filter-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
                 opt.addEventListener('click', opt._clickHandler = () => {
                     let val = opt.dataset.value;
-                    mobileFilters.specialty = (mobileFilters.specialty === val && val !== 'all') ? 'all' : val;
+                    activeFilters.specialty = (activeFilters.specialty === val && val !== 'all') ? 'all' : val;
                     updateMobileFilterUI();
                     renderList();
                 });
             });
+            // 品质选项绑定
             document.querySelectorAll('#qualityOptions .filter-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
                 opt.addEventListener('click', opt._clickHandler = () => {
                     let val = opt.dataset.value;
-                    mobileFilters.quality = (mobileFilters.quality === val && val !== 'all') ? 'all' : val;
+                    activeFilters.quality = (activeFilters.quality === val && val !== 'all') ? 'all' : val;
                     updateMobileFilterUI();
                     renderList();
                 });
             });
-            // 下拉按钮
+            
+            // 下拉按钮交互
             const dropdownBtn = document.getElementById('categoryDropdownBtn');
             const dropdownPanel = document.getElementById('categoryDropdownPanel');
             if (dropdownBtn && dropdownPanel) {
@@ -686,6 +743,7 @@
                     dropdownPanel.classList.toggle('show');
                     dropdownBtn.classList.toggle('active');
                 });
+                // 点击页面其他地方关闭下拉面板
                 document.removeEventListener('click', document._closeDropdown);
                 document._closeDropdown = () => {
                     dropdownPanel.classList.remove('show');
@@ -709,13 +767,13 @@
     }
     
     function bindDesktopFilters() {
+        window.desktopFilters = { position: "all", specialty: "all", quality: "all" };
         document.querySelectorAll('#vehiclesPage .filter-btn').forEach(btn => {
             btn.removeEventListener('click', btn._listener);
             btn.addEventListener('click', btn._listener = () => {
                 let type = btn.dataset.type, value = btn.dataset.value;
                 if (type && value) {
-                    if (!filters) window.filters = { position: "all", specialty: "all", quality: "all", keyword: "" };
-                    window.filters[type] = value;
+                    window.desktopFilters[type] = value;
                     document.querySelectorAll(`#vehiclesPage .filter-btn[data-type="${type}"]`).forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     renderList();
@@ -831,7 +889,8 @@
     });
     
     function restoreList() {
-        history.pushState({ page: 'list' }, '', window.location.pathname);
+        const cleanUrl = window.location.pathname;
+        history.pushState({ page: 'list' }, '', cleanUrl);
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = `<div class="filter-bar desktop-filter"><div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、技能..."></div>
             <div class="filter-groups"><div class="filter-group"><span class="filter-label">定位：</span><button class="filter-btn active" data-type="position" data-value="all">全部</button><button class="filter-btn" data-type="position" data-value="辅助">辅助</button><button class="filter-btn" data-type="position" data-value="竞速">竞速</button><button class="filter-btn" data-type="position" data-value="干扰">干扰</button><button class="filter-btn" data-type="position" data-value="天平">天平</button></div>
@@ -840,9 +899,9 @@
             <div class="mobile-filter-sticky" id="mobileFilterSticky" style="display: none;"><div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车型 / 技能 / 关键字..."></div>
             <div class="category-dropdown-btn" id="categoryDropdownBtn"><span>📋 选择分类</span><span class="arrow">▼</span></div>
             <div class="category-dropdown-panel" id="categoryDropdownPanel">
-                <div class="filter-section"><div class="filter-section-title">🏷️ 定位</div><div class="filter-options" id="positionOptions"><div class="filter-option" data-type="position" data-value="all">📌 全部</div><div class="filter-option" data-type="position" data-value="辅助">🛡️ 辅助</div><div class="filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" style="width:14px;height:14px;"> 竞速</div><div class="filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" style="width:14px;height:14px;"> 干扰</div><div class="filter-option" data-type="position" data-value="天平">⚖️ 天平</div></div></div>
-                <div class="filter-section"><div class="filter-section-title">🎯 专精</div><div class="filter-options" id="specialtyOptions"><div class="filter-option" data-type="specialty" data-value="all">🌍 全部</div><div class="filter-option" data-type="specialty" data-value="城市">🏙️ 城市</div><div class="filter-option" data-type="specialty" data-value="山路">⛰️ 山路</div><div class="filter-option" data-type="specialty" data-value="场地">🏟️ 场地</div></div></div>
-                <div class="filter-section"><div class="filter-section-title">✨ 品质</div><div class="filter-options" id="qualityOptions"><div class="filter-option" data-type="quality" data-value="all">🎨 全部</div><div class="filter-option" data-type="quality" data-value="传说"><span class="quality-dot legendary"></span> 传说</div><div class="filter-option" data-type="quality" data-value="史诗"><span class="quality-dot epic"></span> 史诗</div><div class="filter-option" data-type="quality" data-value="稀有"><span class="quality-dot rare"></span> 稀有</div><div class="filter-option" data-type="quality" data-value="普通"><span class="quality-dot normal"></span> 普通</div></div></div>
+                <div class="filter-section"><div class="filter-section-title">🏷️ 定位</div><div class="filter-options" id="positionOptions"><div class="filter-option active" data-type="position" data-value="all">📌 全部</div><div class="filter-option" data-type="position" data-value="辅助">🛡️ 辅助</div><div class="filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" style="width:14px;height:14px;"> 竞速</div><div class="filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" style="width:14px;height:14px;"> 干扰</div><div class="filter-option" data-type="position" data-value="天平">⚖️ 天平</div></div></div>
+                <div class="filter-section"><div class="filter-section-title">🎯 专精</div><div class="filter-options" id="specialtyOptions"><div class="filter-option active" data-type="specialty" data-value="all">🌍 全部</div><div class="filter-option" data-type="specialty" data-value="城市">🏙️ 城市</div><div class="filter-option" data-type="specialty" data-value="山路">⛰️ 山路</div><div class="filter-option" data-type="specialty" data-value="场地">🏟️ 场地</div></div></div>
+                <div class="filter-section"><div class="filter-section-title">✨ 品质</div><div class="filter-options" id="qualityOptions"><div class="filter-option active" data-type="quality" data-value="all">🎨 全部</div><div class="filter-option" data-type="quality" data-value="传说"><span class="quality-dot legendary"></span> 传说</div><div class="filter-option" data-type="quality" data-value="史诗"><span class="quality-dot epic"></span> 史诗</div><div class="filter-option" data-type="quality" data-value="稀有"><span class="quality-dot rare"></span> 稀有</div><div class="filter-option" data-type="quality" data-value="普通"><span class="quality-dot normal"></span> 普通</div></div></div>
             </div></div><div class="cars-grid" id="carsGrid"></div><div class="stats-text" id="statsText">加载中...</div>`;
         initMobileFilter();
         renderList();
