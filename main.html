@@ -177,7 +177,7 @@
         .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; }
         .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
         
-        /* ========== 手机端专用样式 - 修复搜索框完整显示和固定 ========== */
+        /* ========== 手机端专用样式 - 确保搜索框完整显示 ========== */
         @media (max-width: 768px) {
             /* 左侧导航栏移动端适配 */
             .sidebar { width: 100%; position: fixed; top: 0; left: 0; right: 0; bottom: auto; height: auto; background: #0f0f17; border-right: none; border-bottom: 1px solid #2a2a3c; padding: 12px 16px; z-index: 200; }
@@ -202,7 +202,7 @@
                 border-bottom: 1px solid #2a2a3c;
             }
             /* 搜索框完整显示 - 确保宽度100%且不被裁剪 */
-            .search-box { margin-bottom: 12px; width: 100%; }
+            .search-box { margin-bottom: 12px; width: 100%; display: block; }
             .search-box input { 
                 width: 100%; 
                 padding: 12px 16px; 
@@ -216,8 +216,9 @@
                 display: block;
             }
             .search-box input:focus { border-color: #feca57; }
+            .search-box input::placeholder { color: #8a8aa3; }
             
-            /* 分类下拉按钮 - 去掉左侧图标 */
+            /* 分类下拉按钮 */
             .category-dropdown-btn { 
                 background: #1f1f2e; 
                 border: 1px solid #2a2a3c; 
@@ -373,7 +374,7 @@
                     </div>
                 </div>
             </div>
-            <!-- 手机端固定筛选栏（移动端显示） - 确保搜索框完整显示 -->
+            <!-- 手机端固定筛选栏（移动端显示） - 确保搜索框存在且可见 -->
             <div class="mobile-filter-sticky" id="mobileFilterSticky" style="display: none;">
                 <div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车型 / 技能 / 关键字..."></div>
                 <div class="category-dropdown-btn" id="categoryDropdownBtn">
@@ -381,7 +382,6 @@
                     <span class="arrow">▼</span>
                 </div>
                 <div class="category-dropdown-panel" id="categoryDropdownPanel">
-                    <!-- 定位分类 -->
                     <div class="filter-section">
                         <div class="filter-section-title">定位</div>
                         <div class="filter-options" id="positionOptions">
@@ -391,7 +391,6 @@
                             <div class="filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
                         </div>
                     </div>
-                    <!-- 专精分类 -->
                     <div class="filter-section">
                         <div class="filter-section-title">专精</div>
                         <div class="filter-options" id="specialtyOptions">
@@ -400,7 +399,6 @@
                             <div class="filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
                         </div>
                     </div>
-                    <!-- 品质分类 -->
                     <div class="filter-section">
                         <div class="filter-section-title">品质</div>
                         <div class="filter-options" id="qualityOptions">
@@ -434,7 +432,6 @@
     // ==================== 全局变量 ====================
     let vehiclesData = [];
     let termDefinitions = {};
-    // 手机端分类筛选状态：未选择时值为空字符串""，表示该分类下的所有车辆；选择具体项时存具体值
     let mobileFilters = { position: "", specialty: "", quality: "" };
     let keyword = "";
     let isDetail = false;
@@ -703,7 +700,7 @@
             if (desktopFilter) desktopFilter.style.display = 'none';
             if (mobileSticky) mobileSticky.style.display = 'block';
             
-            // 关键修复：确保手机端搜索框存在且绑定事件
+            // 确保手机端搜索框存在且绑定事件
             const searchInput = document.getElementById('searchInputMobile');
             if (searchInput) {
                 searchInput.value = keyword;
@@ -714,7 +711,7 @@
                 });
             }
             
-            // 定位选项绑定
+            // 绑定分类选项
             document.querySelectorAll('#positionOptions .filter-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
                 opt.addEventListener('click', opt._clickHandler = () => {
@@ -724,7 +721,6 @@
                     renderList();
                 });
             });
-            // 专精选项绑定
             document.querySelectorAll('#specialtyOptions .filter-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
                 opt.addEventListener('click', opt._clickHandler = () => {
@@ -734,7 +730,6 @@
                     renderList();
                 });
             });
-            // 品质选项绑定
             document.querySelectorAll('#qualityOptions .quality-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
                 opt.addEventListener('click', opt._clickHandler = () => {
@@ -745,7 +740,6 @@
                 });
             });
             
-            // 下拉按钮交互
             const dropdownBtn = document.getElementById('categoryDropdownBtn');
             const dropdownPanel = document.getElementById('categoryDropdownPanel');
             if (dropdownBtn && dropdownPanel) {
