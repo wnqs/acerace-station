@@ -53,24 +53,26 @@
         .acquisition-icon img { width: 100%; height: 100%; object-fit: contain; }
         
         .card-info { padding: 16px; background: rgba(20,20,31,0.9); }
-        .car-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .car-name { font-size: 1.1rem; font-weight: 700; color: #e2e2e6; }
-        /* 高级品质文字样式 - 更精致、无动画、金属质感 */
-        .quality-badge { font-size: 0.7rem; padding: 3px 12px; border-radius: 30px; font-weight: 800; letter-spacing: 1px; backdrop-filter: blur(2px); text-transform: uppercase; transition: none; border-width: 1px; border-style: solid; display: inline-block; transform: translateZ(0); -webkit-transform: translateZ(0); }
-        .quality-badge.legendary { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #1a1a1a; border-color: #ffd966; box-shadow: 0 2px 12px rgba(230,180,34,0.4); text-shadow: 0 1px 0 rgba(255,255,200,0.6); }
+        .car-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px; flex-wrap: wrap; }
+        .car-name { font-size: 1.1rem; font-weight: 700; color: #e2e2e6; flex-shrink: 1; min-width: 0; word-break: break-word; }
+        /* 高级品质文字样式 - 传说品质文字白色，其他保持不变，保证框体不变形 */
+        .quality-badge { font-size: 0.7rem; padding: 3px 12px; border-radius: 30px; font-weight: 800; letter-spacing: 1px; backdrop-filter: blur(2px); text-transform: uppercase; transition: none; border-width: 1px; border-style: solid; display: inline-block; transform: translateZ(0); -webkit-transform: translateZ(0); flex-shrink: 0; white-space: nowrap; }
+        .quality-badge.legendary { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #ffffff !important; border-color: #ffd966; box-shadow: 0 2px 12px rgba(230,180,34,0.4); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
         .quality-badge.epic { background: linear-gradient(135deg, #aa6dc9, #8b5aaf); color: #ffffff; border-color: #c99eff; box-shadow: 0 2px 12px rgba(170,109,201,0.4); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
         .quality-badge.rare { background: linear-gradient(135deg, #4a9eff, #2d7fd1); color: #ffffff; border-color: #8bcbff; box-shadow: 0 2px 12px rgba(74,158,255,0.35); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
         .quality-badge.normal { background: linear-gradient(135deg, #40c468, #2f9e52); color: #ffffff; border-color: #8fdfaa; box-shadow: 0 2px 12px rgba(64,196,104,0.3); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
-        .car-meta { display: flex; gap: 12px; margin-bottom: 10px; }
+        .car-meta { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
         .meta-item { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 40px; font-size: 0.7rem; color: #a0a0b8; }
         .meta-item img { width: 18px; height: 18px; }
         .car-description { font-size: 0.75rem; color: #8a8aa3; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; line-height: 1.4; }
         .stats-text { text-align: center; padding: 16px; color: #8a8aa3; }
         
-        .detail-container { background: #14141f; border-radius: 24px; border: 1px solid #2a2a3c; position: relative; padding-top: 70px; }
-        .detail-back-btn { position: absolute; top: 20px; left: 24px; background: #1f1f2e; border: none; padding: 12px 28px; border-radius: 50px; cursor: pointer; color: #feca57; font-size: 1rem; font-weight: 700; letter-spacing: 1px; z-index: 20; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+        .detail-container { background: #14141f; border-radius: 24px; border: 1px solid #2a2a3c; position: relative; overflow: visible; }
+        /* 修复详情页滚动问题 - 固定顶部区域 */
+        .detail-sticky-top { position: sticky; top: 0; background: #14141f; z-index: 25; padding-top: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 0; }
+        .detail-back-btn { display: inline-block; background: #1f1f2e; border: none; padding: 12px 28px; border-radius: 50px; cursor: pointer; color: #feca57; font-size: 1rem; font-weight: 700; letter-spacing: 1px; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.3); margin: 0 0 16px 24px; }
         .detail-back-btn:hover { background: #feca57; color: #1a1a2e; transform: scale(1.02); }
-        .detail-header { display: flex; gap: 30px; padding: 30px 40px 20px 40px; flex-wrap: wrap; }
+        .detail-header { display: flex; gap: 30px; padding: 20px 40px 20px 40px; flex-wrap: wrap; }
         .detail-image { flex: 2; min-width: 280px; border-radius: 24px; display: flex; align-items: center; justify-content: center; padding: 50px 40px; border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; }
         .detail-image.legendary { background: linear-gradient(145deg, #1a1208 0%, #0d0a05 100%); }
         .detail-image.legendary::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,215,0,0.04) 2px, rgba(255,215,0,0.04) 4px); pointer-events: none; }
@@ -93,20 +95,23 @@
         .detail-acquisition-text { font-size: 0.95rem; color: #feca57; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap; text-shadow: 0 0 2px rgba(0,0,0,0.5); background: rgba(0,0,0,0.4); padding: 4px 12px; border-radius: 20px; backdrop-filter: blur(4px); }
         
         .detail-info-panel { flex: 1; min-width: 260px; background: rgba(15,15,26,0.8); backdrop-filter: blur(10px); border-radius: 24px; padding: 20px; border: 1px solid rgba(255,255,255,0.08); }
-        .detail-name { font-size: 1.7rem; font-weight: 800; color: #e2e2e6; margin-bottom: 16px; letter-spacing: -0.2px; }
+        .detail-name { font-size: 1.7rem; font-weight: 800; color: #e2e2e6; margin-bottom: 16px; letter-spacing: -0.2px; word-break: break-word; }
         .detail-badges { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
         .badge { background: rgba(255,255,255,0.08); padding: 6px 14px; border-radius: 40px; font-size: 0.8rem; color: #a0a0b8; display: flex; align-items: center; gap: 8px; }
         .badge img { width: 18px; height: 18px; }
-        .quality-badge-large { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #1a1a1a; padding: 6px 16px; border-radius: 40px; font-weight: 800; font-size: 0.9rem; box-shadow: 0 2px 12px rgba(230,180,34,0.5); border: 1px solid #ffd966; letter-spacing: 1px; text-transform: uppercase; }
+        .quality-badge-large { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #ffffff; padding: 6px 16px; border-radius: 40px; font-weight: 800; font-size: 0.9rem; box-shadow: 0 2px 12px rgba(230,180,34,0.5); border: 1px solid #ffd966; letter-spacing: 1px; text-transform: uppercase; }
         
         .info-rows { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 18px; }
         .info-row { display: flex; background: rgba(0,0,0,0.3); padding: 10px 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.05); }
         .info-label { width: 90px; color: #8a8aa3; font-size: 0.75rem; }
         .info-value { color: #e2e2e6; font-size: 0.8rem; font-weight: 500; }
         
-        /* 车辆特点、芯片槽等标题字体加大1.5倍 */
-        .features-section .section-title, .chip-slots .section-title, .vehicle-stats .section-title, .skills-section .section-title, .chip-workshop .workshop-title { font-size: 1.65rem !important; font-weight: 800; letter-spacing: 1px; margin-bottom: 24px; }
+        .features-section, .chip-slots, .vehicle-stats, .skills-section, .chip-workshop { position: relative; background: #14141f; }
+        .features-section { padding: 20px 40px 12px 40px; border-top: 1px solid rgba(255,255,255,0.08); }
         .section-title { font-size: 1.65rem !important; font-weight: 800; color: #e2e2e6; margin-bottom: 20px; padding-left: 12px; border-left: 4px solid #feca57; }
+        .chip-slots .section-title { font-size: 1.65rem !important; font-weight: 800; }
+        .vehicle-stats .section-title { font-size: 1.65rem !important; font-weight: 800; }
+        .skills-section .section-title { font-size: 1.65rem !important; font-weight: 800; }
         .workshop-title { font-size: 1.65rem !important; font-weight: 800; color: #e2e2e6; margin-bottom: 20px; }
         
         .features-horizontal { display: flex; flex-wrap: wrap; gap: 16px; justify-content: flex-start; align-items: center; }
@@ -191,7 +196,8 @@
             .filter-groups { gap: 8px; }
             .filter-group { gap: 4px; }
             .filter-btn { padding: 4px 10px; font-size: 0.65rem; }
-            .detail-back-btn { padding: 8px 20px; font-size: 0.85rem; }
+            .detail-back-btn { padding: 8px 20px; font-size: 0.85rem; margin: 0 0 12px 16px; }
+            .detail-sticky-top { padding-top: 12px; }
         }
         
         @media (max-width: 480px) {
@@ -260,8 +266,9 @@
     let termDefinitions = {};
     let filters = { position: "all", specialty: "all", quality: "all", keyword: "" };
     let isDetail = false;
+    let scrollPositions = { list: 0 };
     
-    // 品质修正映射：mini jcw -> 稀有，风神和幻蝶 -> 传说
+    // 品质修正映射
     const qualityOverrides = {
         "mini jcw": "稀有",
         "风神": "传说",
@@ -450,7 +457,6 @@
             const vehiclesResponse = await fetch('vehicles.json');
             const vehiclesDataObj = await vehiclesResponse.json();
             vehiclesData = vehiclesDataObj.vehicles;
-            // 应用品质修正
             vehiclesData.forEach(car => {
                 car.originalQuality = car.quality;
                 car.quality = getCorrectedQuality(car.name, car.quality);
@@ -555,6 +561,9 @@
     }
     
     function showDetail(id) {
+        // 保存当前滚动位置
+        scrollPositions.list = window.scrollY;
+        
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
         isDetail = true;
@@ -579,19 +588,21 @@
         
         let html = `
             <div class="detail-container">
-                <button class="detail-back-btn" id="backBtn">← 返回列表</button>
-                <div class="detail-header">
-                    <div class="detail-image ${bgClass}">
-                        <img src="${car.imageUrl}" onerror="this.src='https://placehold.co/600x400?text=Car'">
-                        <div class="detail-acquisition-area">
-                            <div class="detail-acquisition-icon"><img src="${car.acquisitionIcon}"></div>
-                            <span class="detail-acquisition-text">${car.acquisition}</span>
+                <div class="detail-sticky-top">
+                    <button class="detail-back-btn" id="backBtn">← 返回列表</button>
+                    <div class="detail-header">
+                        <div class="detail-image ${bgClass}">
+                            <img src="${car.imageUrl}" onerror="this.src='https://placehold.co/600x400?text=Car'">
+                            <div class="detail-acquisition-area">
+                                <div class="detail-acquisition-icon"><img src="${car.acquisitionIcon}"></div>
+                                <span class="detail-acquisition-text">${car.acquisition}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="detail-info-panel">
-                        <div class="detail-name">${car.name}</div>
-                        <div class="detail-badges"><span class="quality-badge-large">${car.quality}</span><div class="badge"><img src="${positionIcon}"> ${car.position}位</div><div class="badge"><img src="${specialtyIcon}"> ${car.specialty}</div></div>
-                        <div class="info-rows"><div class="info-row"><span class="info-label">注册日期</span><span class="info-value">${car.registerDate || '未知'}</span></div><div class="info-row"><span class="info-label">车辆类型</span><span class="info-value">${car.vehicleType || '未知'}</span></div><div class="info-row"><span class="info-label">厂商</span><span class="info-value">${car.manufacturer || '未知'}</span></div></div>
+                        <div class="detail-info-panel">
+                            <div class="detail-name">${car.name}</div>
+                            <div class="detail-badges"><span class="quality-badge-large">${car.quality}</span><div class="badge"><img src="${positionIcon}"> ${car.position}位</div><div class="badge"><img src="${specialtyIcon}"> ${car.specialty}</div></div>
+                            <div class="info-rows"><div class="info-row"><span class="info-label">注册日期</span><span class="info-value">${car.registerDate || '未知'}</span></div><div class="info-row"><span class="info-label">车辆类型</span><span class="info-value">${car.vehicleType || '未知'}</span></div><div class="info-row"><span class="info-label">厂商</span><span class="info-value">${car.manufacturer || '未知'}</span></div></div>
+                        </div>
                     </div>
                 </div>
                 <div class="features-section"><div class="section-title">车辆特点</div><div class="features-horizontal">${featuresHtml}</div></div>
@@ -631,8 +642,11 @@
         bindTermHighlights();
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
+        // 重置滚动位置到顶部，确保从“返回列表”开始显示
+        window.scrollTo(0, 0);
     }
     
+    // 修复手机端返回键逻辑 - 使用统一的历史记录处理
     window.addEventListener('popstate', function(event) {
         if (isDetail) {
             restoreList();
@@ -683,6 +697,10 @@
         isDetail = false;
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
+        // 恢复列表滚动位置
+        setTimeout(() => {
+            window.scrollTo(0, scrollPositions.list || 0);
+        }, 50);
     }
     
     function bindFilters() {
