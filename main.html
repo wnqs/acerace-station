@@ -28,15 +28,74 @@
         .page { display: none; }
         .page.active-page { display: block; }
         
-        /* 电脑端筛选栏样式 */
+        /* 电脑端筛选栏样式 - 平铺分类，无下拉框，无全部选项 */
         .filter-bar { background: #14141f; border-radius: 20px; padding: 16px 20px; margin-bottom: 24px; }
         .search-box { margin-bottom: 16px; }
         .search-box input { width: 100%; max-width: 400px; padding: 10px 16px; border-radius: 40px; border: 1px solid #2a2a3c; background: #1f1f2e; color: #e2e2e6; font-size: 0.9rem; }
-        .filter-groups { display: flex; flex-wrap: wrap; gap: 20px; }
-        .filter-group { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-        .filter-label { font-size: 0.75rem; color: #8a8aa3; margin-right: 4px; }
-        .filter-btn { padding: 5px 14px; border-radius: 30px; background: #1f1f2e; border: none; font-size: 0.75rem; cursor: pointer; color: #a0a0b8; }
-        .filter-btn.active { background: #feca57; color: #1a1a2e; font-weight: 500; }
+        .desktop-filter-sections {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .desktop-filter-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .desktop-filter-section-title {
+            font-size: 0.75rem;
+            color: #feca57;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .desktop-filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .desktop-filter-option {
+            background: #2a2a3c;
+            border-radius: 30px;
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            color: #a0a0b8;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+        .desktop-filter-option.active {
+            background: #feca57;
+            color: #1a1a2e;
+        }
+        .desktop-filter-option img {
+            width: 16px;
+            height: 16px;
+        }
+        /* 品质选项特殊样式 */
+        .desktop-quality-option {
+            background: #2a2a3c;
+            border-radius: 30px;
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        .desktop-quality-option.active {
+            background: #feca57;
+            color: #1a1a2e;
+        }
+        .desktop-quality-option.legendary { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #fff; }
+        .desktop-quality-option.epic { background: linear-gradient(135deg, #aa6dc9, #8b5aaf); color: #fff; }
+        .desktop-quality-option.rare { background: linear-gradient(135deg, #4a9eff, #2d7fd1); color: #fff; }
+        .desktop-quality-option.normal { background: linear-gradient(135deg, #40c468, #2f9e52); color: #fff; }
         
         .cars-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
         .car-card { background: #14141f; border-radius: 24px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; will-change: transform; position: relative; display: flex; flex-direction: column; }
@@ -177,12 +236,12 @@
         .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; }
         .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
         
-        /* ========== 手机端专用样式 - 标题栏和筛选栏完全固定 ========== */
+        /* ========== 手机端专用样式 ========== */
         @media (max-width: 768px) {
             /* 手机端：隐藏左侧边栏 */
             .sidebar { display: none; }
             
-            /* 手机端顶部固定区域（包含标题和筛选栏） */
+            /* 手机端固定头部区域 */
             .mobile-fixed-header {
                 position: fixed;
                 top: 0;
@@ -195,7 +254,6 @@
                 flex-direction: column;
             }
             
-            /* 标题区域 */
             .mobile-top-bar {
                 padding: 8px 12px;
                 border-bottom: 1px solid #2a2a3c;
@@ -239,13 +297,12 @@
                 color: #1a1a2e;
             }
             
-            /* 筛选栏区域（搜索框+选择分类）紧贴标题下方 */
+            /* 手机端筛选栏 */
             .mobile-filter-sticky {
                 padding: 8px 12px;
                 background: #0a0a0f;
                 border-bottom: 1px solid #2a2a3c;
             }
-            
             .filter-row {
                 display: flex;
                 gap: 8px;
@@ -270,7 +327,6 @@
             .search-box input:focus { border-color: #feca57; }
             .search-box input::placeholder { color: #8a8aa3; font-size: 0.75rem; }
             
-            /* 选择分类按钮 */
             .category-dropdown-btn { 
                 background: #1f1f2e; 
                 border: 1px solid #2a2a3c; 
@@ -285,13 +341,11 @@
                 gap: 5px;
                 white-space: nowrap;
                 font-weight: 500;
-                transition: 0.2s;
                 flex-shrink: 0;
             }
             .category-dropdown-btn .arrow { font-size: 0.6rem; transition: transform 0.2s; }
             .category-dropdown-btn.active .arrow { transform: rotate(180deg); }
             
-            /* 下拉面板 */
             .category-dropdown-panel { 
                 background: #1a1a2a; 
                 border-radius: 16px; 
@@ -307,7 +361,6 @@
             }
             .category-dropdown-panel.show { display: block; }
             
-            /* 分类区块 */
             .filter-section { margin-bottom: 12px; }
             .filter-section:last-child { margin-bottom: 0; }
             .filter-section-title { 
@@ -340,8 +393,8 @@
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
             .filter-option img { width: 12px; height: 12px; }
             
-            /* 主内容区 - 为固定头部留出空间 */
-            .main-content { margin-left: 0; margin-top: 130px; padding: 12px; width: 100%; }
+            /* 主内容区 - 为固定头部留出空间，避免与搜索框重叠 */
+            .main-content { margin-left: 0; margin-top: 145px; padding: 12px; width: 100%; }
             
             /* 车辆卡片网格 */
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -378,14 +431,13 @@
             .filter-option, .quality-option { padding: 3px 8px; font-size: 0.6rem; }
             .category-dropdown-btn { padding: 5px 10px; font-size: 0.7rem; }
             .search-box input { padding: 6px 10px; font-size: 0.75rem; }
-            .main-content { margin-top: 125px; }
+            .main-content { margin-top: 140px; }
         }
         
         /* 电脑端额外微调 */
         @media (min-width: 769px) {
             .acquisition-icon { bottom: 2px; width: 70px; height: 70px; }
             .mobile-fixed-header { display: none; }
-            .mobile-filter-sticky { display: none; }
         }
     </style>
 </head>
@@ -407,7 +459,7 @@
         </div>
     </div>
     
-    <!-- 手机端固定头部区域（标题 + 筛选栏） -->
+    <!-- 手机端固定头部区域 -->
     <div class="mobile-fixed-header" id="mobileFixedHeader" style="display: none;">
         <div class="mobile-top-bar">
             <div class="mobile-logo-area" onclick="location.reload()">
@@ -464,29 +516,35 @@
     
     <div class="main-content">
         <div id="vehiclesPage" class="page active-page">
-            <!-- 电脑端筛选栏（桌面端显示） -->
+            <!-- 电脑端筛选栏 - 平铺分类，无下拉框，无全部选项 -->
             <div class="filter-bar desktop-filter">
                 <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、技能..."></div>
-                <div class="filter-groups">
-                    <div class="filter-group"><span class="filter-label">定位：</span>
-                        <button class="filter-btn active" data-type="position" data-value="all">全部</button>
-                        <button class="filter-btn" data-type="position" data-value="辅助">辅助</button>
-                        <button class="filter-btn" data-type="position" data-value="竞速">竞速</button>
-                        <button class="filter-btn" data-type="position" data-value="干扰">干扰</button>
-                        <button class="filter-btn" data-type="position" data-value="天平">天平</button>
+                <div class="desktop-filter-sections">
+                    <div class="desktop-filter-section">
+                        <div class="desktop-filter-section-title">🏷️ 定位</div>
+                        <div class="desktop-filter-options" id="desktopPositionOptions">
+                            <div class="desktop-filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
+                            <div class="desktop-filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
+                            <div class="desktop-filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
+                            <div class="desktop-filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
+                        </div>
                     </div>
-                    <div class="filter-group"><span class="filter-label">专精：</span>
-                        <button class="filter-btn active" data-type="specialty" data-value="all">全部</button>
-                        <button class="filter-btn" data-type="specialty" data-value="城市">城市</button>
-                        <button class="filter-btn" data-type="specialty" data-value="山路">山路</button>
-                        <button class="filter-btn" data-type="specialty" data-value="场地">场地</button>
+                    <div class="desktop-filter-section">
+                        <div class="desktop-filter-section-title">🎯 专精</div>
+                        <div class="desktop-filter-options" id="desktopSpecialtyOptions">
+                            <div class="desktop-filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
+                            <div class="desktop-filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
+                            <div class="desktop-filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
+                        </div>
                     </div>
-                    <div class="filter-group"><span class="filter-label">品质：</span>
-                        <button class="filter-btn active" data-type="quality" data-value="all">全部</button>
-                        <button class="filter-btn" data-type="quality" data-value="传说">传说</button>
-                        <button class="filter-btn" data-type="quality" data-value="史诗">史诗</button>
-                        <button class="filter-btn" data-type="quality" data-value="稀有">稀有</button>
-                        <button class="filter-btn" data-type="quality" data-value="普通">普通</button>
+                    <div class="desktop-filter-section">
+                        <div class="desktop-filter-section-title">✨ 品质</div>
+                        <div class="desktop-filter-options" id="desktopQualityOptions">
+                            <div class="desktop-quality-option legendary" data-type="quality" data-value="传说">传说</div>
+                            <div class="desktop-quality-option epic" data-type="quality" data-value="史诗">史诗</div>
+                            <div class="desktop-quality-option rare" data-type="quality" data-value="稀有">稀有</div>
+                            <div class="desktop-quality-option normal" data-type="quality" data-value="普通">普通</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -512,7 +570,8 @@
     // ==================== 全局变量 ====================
     let vehiclesData = [];
     let termDefinitions = {};
-    let mobileFilters = { position: "", specialty: "", quality: "" };
+    // 筛选状态
+    let activeFilters = { position: "", specialty: "", quality: "" };
     let keyword = "";
     let isDetail = false;
     let scrollPositions = { list: 0 };
@@ -710,7 +769,7 @@
             const termsDataObj = await termsResponse.json();
             termDefinitions = termsDataObj.terms;
             for (const car of vehiclesData) car.chipSlots = sortChipSlots(car.chipSlots);
-            initMobileFilter();
+            initFilters();
             renderList();
         } catch (error) {
             document.getElementById("carsGrid").innerHTML = '<div style="text-align:center; padding:60px; color:#ff6b6b;">数据加载失败</div>';
@@ -719,24 +778,10 @@
     }
     
     function filterAndSortVehicles() {
-        const isMobile = window.innerWidth <= 768;
-        let posFilter = "", specFilter = "", qualFilter = "";
-        if (isMobile) {
-            posFilter = mobileFilters.position;
-            specFilter = mobileFilters.specialty;
-            qualFilter = mobileFilters.quality;
-        } else {
-            posFilter = window.desktopFilters?.position || "all";
-            specFilter = window.desktopFilters?.specialty || "all";
-            qualFilter = window.desktopFilters?.quality || "all";
-            if (posFilter === "all") posFilter = "";
-            if (specFilter === "all") specFilter = "";
-            if (qualFilter === "all") qualFilter = "";
-        }
         let filtered = vehiclesData.filter(v => {
-            if (posFilter && v.position !== posFilter) return false;
-            if (specFilter && v.specialty !== specFilter) return false;
-            if (qualFilter && v.quality !== qualFilter) return false;
+            if (activeFilters.position && v.position !== activeFilters.position) return false;
+            if (activeFilters.specialty && v.specialty !== activeFilters.specialty) return false;
+            if (activeFilters.quality && v.quality !== activeFilters.quality) return false;
             if (keyword) {
                 const lowerKeyword = keyword.toLowerCase();
                 if (!v.name.toLowerCase().includes(lowerKeyword) &&
@@ -750,28 +795,7 @@
     
     function isMobileDevice() { return window.innerWidth <= 768; }
     
-    function updateMobileFilterUI() {
-        document.querySelectorAll('#positionOptions .filter-option').forEach(opt => {
-            if (opt.dataset.value === mobileFilters.position) opt.classList.add('active');
-            else opt.classList.remove('active');
-        });
-        document.querySelectorAll('#specialtyOptions .filter-option').forEach(opt => {
-            if (opt.dataset.value === mobileFilters.specialty) opt.classList.add('active');
-            else opt.classList.remove('active');
-        });
-        document.querySelectorAll('#qualityOptions .quality-option').forEach(opt => {
-            if (opt.dataset.value === mobileFilters.quality) opt.classList.add('active');
-            else opt.classList.remove('active');
-        });
-        const btn = document.getElementById('categoryDropdownBtn');
-        if (btn) {
-            let activeCount = (mobileFilters.position ? 1 : 0) + (mobileFilters.specialty ? 1 : 0) + (mobileFilters.quality ? 1 : 0);
-            if (activeCount > 0) btn.classList.add('active');
-            else btn.classList.remove('active');
-        }
-    }
-    
-    function initMobileFilter() {
+    function initFilters() {
         const isMobile = isMobileDevice();
         const desktopFilter = document.querySelector('.desktop-filter');
         const mobileFixedHeader = document.getElementById('mobileFixedHeader');
@@ -812,8 +836,8 @@
                 opt.removeEventListener('click', opt._clickHandler);
                 opt.addEventListener('click', opt._clickHandler = () => {
                     let val = opt.dataset.value;
-                    mobileFilters.position = (mobileFilters.position === val) ? "" : val;
-                    updateMobileFilterUI();
+                    activeFilters.position = (activeFilters.position === val) ? "" : val;
+                    updateFilterUI();
                     renderList();
                 });
             });
@@ -821,8 +845,8 @@
                 opt.removeEventListener('click', opt._clickHandler);
                 opt.addEventListener('click', opt._clickHandler = () => {
                     let val = opt.dataset.value;
-                    mobileFilters.specialty = (mobileFilters.specialty === val) ? "" : val;
-                    updateMobileFilterUI();
+                    activeFilters.specialty = (activeFilters.specialty === val) ? "" : val;
+                    updateFilterUI();
                     renderList();
                 });
             });
@@ -830,8 +854,8 @@
                 opt.removeEventListener('click', opt._clickHandler);
                 opt.addEventListener('click', opt._clickHandler = () => {
                     let val = opt.dataset.value;
-                    mobileFilters.quality = (mobileFilters.quality === val) ? "" : val;
-                    updateMobileFilterUI();
+                    activeFilters.quality = (activeFilters.quality === val) ? "" : val;
+                    updateFilterUI();
                     renderList();
                 });
             });
@@ -854,33 +878,77 @@
                 document.addEventListener('click', document._closeDropdown);
                 dropdownPanel.addEventListener('click', (e) => e.stopPropagation());
             }
-            updateMobileFilterUI();
+            updateFilterUI();
         } else {
             if (mobileFixedHeader) mobileFixedHeader.style.display = 'none';
             if (desktopFilter) desktopFilter.style.display = 'block';
+            
             const desktopSearch = document.getElementById('searchInputDesktop');
             if (desktopSearch) {
                 desktopSearch.value = keyword;
                 desktopSearch.removeEventListener('input', desktopSearch._listener);
                 desktopSearch.addEventListener('input', desktopSearch._listener = (e) => { keyword = e.target.value; renderList(); });
             }
-            bindDesktopFilters();
+            
+            // 电脑端平铺分类选项绑定
+            document.querySelectorAll('#desktopPositionOptions .desktop-filter-option').forEach(opt => {
+                opt.removeEventListener('click', opt._clickHandler);
+                opt.addEventListener('click', opt._clickHandler = () => {
+                    let val = opt.dataset.value;
+                    activeFilters.position = (activeFilters.position === val) ? "" : val;
+                    updateDesktopFilterUI();
+                    renderList();
+                });
+            });
+            document.querySelectorAll('#desktopSpecialtyOptions .desktop-filter-option').forEach(opt => {
+                opt.removeEventListener('click', opt._clickHandler);
+                opt.addEventListener('click', opt._clickHandler = () => {
+                    let val = opt.dataset.value;
+                    activeFilters.specialty = (activeFilters.specialty === val) ? "" : val;
+                    updateDesktopFilterUI();
+                    renderList();
+                });
+            });
+            document.querySelectorAll('#desktopQualityOptions .desktop-quality-option').forEach(opt => {
+                opt.removeEventListener('click', opt._clickHandler);
+                opt.addEventListener('click', opt._clickHandler = () => {
+                    let val = opt.dataset.value;
+                    activeFilters.quality = (activeFilters.quality === val) ? "" : val;
+                    updateDesktopFilterUI();
+                    renderList();
+                });
+            });
+            updateDesktopFilterUI();
         }
     }
     
-    function bindDesktopFilters() {
-        window.desktopFilters = { position: "all", specialty: "all", quality: "all" };
-        document.querySelectorAll('#vehiclesPage .filter-btn').forEach(btn => {
-            btn.removeEventListener('click', btn._listener);
-            btn.addEventListener('click', btn._listener = () => {
-                let type = btn.dataset.type, value = btn.dataset.value;
-                if (type && value) {
-                    window.desktopFilters[type] = value;
-                    document.querySelectorAll(`#vehiclesPage .filter-btn[data-type="${type}"]`).forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    renderList();
-                }
-            });
+    function updateFilterUI() {
+        document.querySelectorAll('#positionOptions .filter-option').forEach(opt => {
+            if (opt.dataset.value === activeFilters.position) opt.classList.add('active');
+            else opt.classList.remove('active');
+        });
+        document.querySelectorAll('#specialtyOptions .filter-option').forEach(opt => {
+            if (opt.dataset.value === activeFilters.specialty) opt.classList.add('active');
+            else opt.classList.remove('active');
+        });
+        document.querySelectorAll('#qualityOptions .quality-option').forEach(opt => {
+            if (opt.dataset.value === activeFilters.quality) opt.classList.add('active');
+            else opt.classList.remove('active');
+        });
+    }
+    
+    function updateDesktopFilterUI() {
+        document.querySelectorAll('#desktopPositionOptions .desktop-filter-option').forEach(opt => {
+            if (opt.dataset.value === activeFilters.position) opt.classList.add('active');
+            else opt.classList.remove('active');
+        });
+        document.querySelectorAll('#desktopSpecialtyOptions .desktop-filter-option').forEach(opt => {
+            if (opt.dataset.value === activeFilters.specialty) opt.classList.add('active');
+            else opt.classList.remove('active');
+        });
+        document.querySelectorAll('#desktopQualityOptions .desktop-quality-option').forEach(opt => {
+            if (opt.dataset.value === activeFilters.quality) opt.classList.add('active');
+            else opt.classList.remove('active');
         });
     }
     
@@ -995,47 +1063,59 @@
         history.pushState({ page: 'list' }, '', cleanUrl);
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = `<div class="filter-bar desktop-filter"><div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、技能..."></div>
-            <div class="filter-groups"><div class="filter-group"><span class="filter-label">定位：</span><button class="filter-btn active" data-type="position" data-value="all">全部</button><button class="filter-btn" data-type="position" data-value="辅助">辅助</button><button class="filter-btn" data-type="position" data-value="竞速">竞速</button><button class="filter-btn" data-type="position" data-value="干扰">干扰</button><button class="filter-btn" data-type="position" data-value="天平">天平</button></div>
-            <div class="filter-group"><span class="filter-label">专精：</span><button class="filter-btn active" data-type="specialty" data-value="all">全部</button><button class="filter-btn" data-type="specialty" data-value="城市">城市</button><button class="filter-btn" data-type="specialty" data-value="山路">山路</button><button class="filter-btn" data-type="specialty" data-value="场地">场地</button></div>
-            <div class="filter-group"><span class="filter-label">品质：</span><button class="filter-btn active" data-type="quality" data-value="all">全部</button><button class="filter-btn" data-type="quality" data-value="传说">传说</button><button class="filter-btn" data-type="quality" data-value="史诗">史诗</button><button class="filter-btn" data-type="quality" data-value="稀有">稀有</button><button class="filter-btn" data-type="quality" data-value="普通">普通</button></div></div></div>
+            <div class="desktop-filter-sections">
+                <div class="desktop-filter-section"><div class="desktop-filter-section-title">🏷️ 定位</div><div class="desktop-filter-options" id="desktopPositionOptions">
+                    <div class="desktop-filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
+                    <div class="desktop-filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
+                    <div class="desktop-filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
+                    <div class="desktop-filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
+                </div></div>
+                <div class="desktop-filter-section"><div class="desktop-filter-section-title">🎯 专精</div><div class="desktop-filter-options" id="desktopSpecialtyOptions">
+                    <div class="desktop-filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
+                    <div class="desktop-filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
+                    <div class="desktop-filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
+                </div></div>
+                <div class="desktop-filter-section"><div class="desktop-filter-section-title">✨ 品质</div><div class="desktop-filter-options" id="desktopQualityOptions">
+                    <div class="desktop-quality-option legendary" data-type="quality" data-value="传说">传说</div>
+                    <div class="desktop-quality-option epic" data-type="quality" data-value="史诗">史诗</div>
+                    <div class="desktop-quality-option rare" data-type="quality" data-value="稀有">稀有</div>
+                    <div class="desktop-quality-option normal" data-type="quality" data-value="普通">普通</div>
+                </div></div>
+            </div></div>
             <div class="mobile-fixed-header" id="mobileFixedHeader" style="display: none;">
-                <div class="mobile-top-bar">
-                    <div class="mobile-logo-area" onclick="location.reload()"><h1>王牌竞速 · 情报站</h1><p>核心档案 · 赛车数据</p></div>
-                    <div class="mobile-nav-tabs" id="mobileNavTabs">
-                        <button class="mobile-tab-btn active" data-page="vehicles">车辆数据</button>
-                        <button class="mobile-tab-btn" data-page="chip">芯片架构</button>
-                        <button class="mobile-tab-btn" data-page="energy">赋能系统</button>
-                        <button class="mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
-                        <button class="mobile-tab-btn" data-page="news">爆料信息</button>
-                        <button class="mobile-tab-btn" data-page="wallpaper">游戏壁纸</button>
-                    </div>
-                </div>
-                <div class="mobile-filter-sticky">
-                    <div class="filter-row"><div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车型/技能..."></div>
-                    <div class="category-dropdown-btn" id="categoryDropdownBtn"><span>选择分类</span><span class="arrow">▼</span></div></div>
-                    <div class="category-dropdown-panel" id="categoryDropdownPanel">
-                        <div class="filter-section"><div class="filter-section-title">定位</div><div class="filter-options" id="positionOptions">
-                            <div class="filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
-                            <div class="filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
-                            <div class="filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
-                            <div class="filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
-                        </div></div>
-                        <div class="filter-section"><div class="filter-section-title">专精</div><div class="filter-options" id="specialtyOptions">
-                            <div class="filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
-                            <div class="filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
-                            <div class="filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
-                        </div></div>
-                        <div class="filter-section"><div class="filter-section-title">品质</div><div class="filter-options" id="qualityOptions">
-                            <div class="quality-option" data-type="quality" data-value="传说">传说</div>
-                            <div class="quality-option" data-type="quality" data-value="史诗">史诗</div>
-                            <div class="quality-option" data-type="quality" data-value="稀有">稀有</div>
-                            <div class="quality-option" data-type="quality" data-value="普通">普通</div>
-                        </div></div>
-                    </div>
-                </div>
+                <div class="mobile-top-bar"><div class="mobile-logo-area" onclick="location.reload()"><h1>王牌竞速 · 情报站</h1><p>核心档案 · 赛车数据</p></div>
+                <div class="mobile-nav-tabs" id="mobileNavTabs">
+                    <button class="mobile-tab-btn active" data-page="vehicles">车辆数据</button>
+                    <button class="mobile-tab-btn" data-page="chip">芯片架构</button>
+                    <button class="mobile-tab-btn" data-page="energy">赋能系统</button>
+                    <button class="mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
+                    <button class="mobile-tab-btn" data-page="news">爆料信息</button>
+                    <button class="mobile-tab-btn" data-page="wallpaper">游戏壁纸</button>
+                </div></div>
+                <div class="mobile-filter-sticky"><div class="filter-row"><div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车型/技能..."></div>
+                <div class="category-dropdown-btn" id="categoryDropdownBtn"><span>选择分类</span><span class="arrow">▼</span></div></div>
+                <div class="category-dropdown-panel" id="categoryDropdownPanel">
+                    <div class="filter-section"><div class="filter-section-title">定位</div><div class="filter-options" id="positionOptions">
+                        <div class="filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
+                        <div class="filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
+                        <div class="filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
+                        <div class="filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
+                    </div></div>
+                    <div class="filter-section"><div class="filter-section-title">专精</div><div class="filter-options" id="specialtyOptions">
+                        <div class="filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
+                        <div class="filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
+                        <div class="filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
+                    </div></div>
+                    <div class="filter-section"><div class="filter-section-title">品质</div><div class="filter-options" id="qualityOptions">
+                        <div class="quality-option" data-type="quality" data-value="传说">传说</div>
+                        <div class="quality-option" data-type="quality" data-value="史诗">史诗</div>
+                        <div class="quality-option" data-type="quality" data-value="稀有">稀有</div>
+                        <div class="quality-option" data-type="quality" data-value="普通">普通</div>
+                    </div></div>
+                </div></div>
             </div>
             <div class="cars-grid" id="carsGrid"></div><div class="stats-text" id="statsText">加载中...</div>`;
-        initMobileFilter();
+        initFilters();
         renderList();
         isDetail = false;
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
