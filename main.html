@@ -38,8 +38,14 @@
         .filter-btn.active { background: #feca57; color: #1a1a2e; font-weight: 500; }
         
         .cars-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
-        .car-card { background: #14141f; border-radius: 24px; overflow: hidden; cursor: pointer; border: 1px solid #2a2a3c; transition: transform 0.2s, border-color 0.2s; will-change: transform; position: relative; display: flex; flex-direction: column; }
-        .car-card:hover { transform: translateY(-4px); border-color: #feca57; }
+        /* 基础卡片样式 */
+        .car-card { background: #14141f; border-radius: 24px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s, border-color 0.2s; will-change: transform; position: relative; display: flex; flex-direction: column; }
+        .car-card:hover { transform: translateY(-4px); }
+        /* 品质边框颜色 */
+        .car-card.legendary-border { border-color: #e6b422; box-shadow: 0 0 12px rgba(230,180,34,0.3); }
+        .car-card.epic-border { border-color: #aa6dc9; box-shadow: 0 0 10px rgba(170,109,201,0.25); }
+        .car-card.rare-border { border-color: #4a9eff; box-shadow: 0 0 8px rgba(74,158,255,0.2); }
+        .car-card.normal-border { border-color: #40c468; box-shadow: 0 0 6px rgba(64,196,104,0.15); }
         
         .card-image { height: 180px; display: flex; align-items: center; justify-content: center; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; flex-shrink: 0; }
         .card-image.legendary { background: linear-gradient(145deg, #1a1208 0%, #0d0a05 100%); }
@@ -351,6 +357,13 @@
         return "normal";
     }
     
+    function getBorderClass(quality) {
+        if (quality === "传说") return "legendary-border";
+        if (quality === "史诗") return "epic-border";
+        if (quality === "稀有") return "rare-border";
+        return "normal-border";
+    }
+    
     function getCorrectedQuality(carName, originalQuality) {
         const lowerName = carName.toLowerCase();
         for (const [key, value] of Object.entries(qualityOverrides)) {
@@ -364,19 +377,16 @@
     // 车辆排序函数：按注册日期（越晚越靠前）、品质、定位
     function sortVehicles(vehicles) {
         return [...vehicles].sort((a, b) => {
-            // 1. 按注册日期排序（越晚越靠前）
             const dateA = new Date(a.registerDate);
             const dateB = new Date(b.registerDate);
             if (dateA.getTime() !== dateB.getTime()) {
                 return dateB.getTime() - dateA.getTime();
             }
-            // 2. 日期相同，按品质排序（传说 > 史诗 > 稀有 > 普通）
             const qualityA = qualityWeight[a.quality] || 0;
             const qualityB = qualityWeight[b.quality] || 0;
             if (qualityA !== qualityB) {
                 return qualityB - qualityA;
             }
-            // 3. 品质相同，按定位排序（竞速 > 辅助 > 干扰 > 天平）
             const posA = positionWeight[a.position] || 0;
             const posB = positionWeight[b.position] || 0;
             return posB - posA;
@@ -575,6 +585,7 @@
         }
         grid.innerHTML = filtered.map(car => {
             let bgClass = getQualityClass(car.quality);
+            let borderClass = getBorderClass(car.quality);
             let badgeClass = car.quality === "传说" ? "legendary" : (car.quality === "史诗" ? "epic" : (car.quality === "稀有" ? "rare" : "normal"));
             let positionIcon = POSITION_ICONS[car.positionIcon] || POSITION_ICONS["辅助"];
             let specialtyIcon = SPECIALTY_ICONS[car.specialty] || SPECIALTY_ICONS["场地"];
@@ -585,7 +596,7 @@
             }
             
             return `
-                <div class="car-card" data-id="${car.id}">
+                <div class="car-card ${borderClass}" data-id="${car.id}">
                     <div class="card-image ${bgClass}">
                         <img src="${car.imageUrl}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/400x200?text=Car'">
                         <div class="acquisition-icon" data-acq="${car.acquisition.replace(/"/g, '&quot;')}">
@@ -635,7 +646,6 @@
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
         isDetail = true;
-        // 更新URL但不触发popstate
         const url = new URL(window.location.href);
         url.searchParams.set('car', id);
         history.pushState({ page: 'detail', carId: id }, '', url);
@@ -715,7 +725,7 @@
         window.scrollTo(0, 0);
     }
     
-    // 监听浏览器返回按钮 - 关键修复：确保从详情页返回列表页
+    // 监听浏览器返回按钮 - 电脑端和手机端统一使用 popstate
     window.addEventListener('popstate', function(event) {
         if (isDetail) {
             restoreList();
