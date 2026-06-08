@@ -28,6 +28,7 @@
         .page { display: none; }
         .page.active-page { display: block; }
         
+        /* 电脑端原有筛选栏样式 */
         .filter-bar { background: #14141f; border-radius: 20px; padding: 16px 20px; margin-bottom: 24px; }
         .search-box { margin-bottom: 16px; }
         .search-box input { width: 100%; max-width: 400px; padding: 10px 16px; border-radius: 40px; border: 1px solid #2a2a3c; background: #1f1f2e; color: #e2e2e6; }
@@ -62,12 +63,10 @@
         .card-image.normal::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.12), transparent 70%); pointer-events: none; }
         .card-image img { max-width: 100%; max-height: 100%; object-fit: contain; position: relative; z-index: 2; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
         
-        /* 获取方式图标 - 电脑端再往下移一点，但仍在背景图内 */
         .acquisition-icon { position: absolute; bottom: 12px; right: 12px; width: 64px; height: 64px; cursor: pointer; z-index: 10; transition: transform 0.2s; background: transparent; border-radius: 0; }
         .acquisition-icon:hover { transform: scale(1.08); }
         .acquisition-icon img { width: 100%; height: 100%; object-fit: contain; }
         
-        /* 品质文字框 - 电脑端右下角，手机端右上角（通过媒体查询） */
         .quality-badge-wrapper { position: absolute; bottom: 12px; right: 12px; z-index: 15; }
         .quality-badge { font-size: 0.7rem; padding: 3px 12px; border-radius: 30px; font-weight: 800; letter-spacing: 1px; backdrop-filter: blur(2px); text-transform: uppercase; transition: none; border-width: 1px; border-style: solid; display: inline-block; transform: translateZ(0); -webkit-transform: translateZ(0); white-space: nowrap; }
         .quality-badge.legendary { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #ffffff !important; border-color: #ffd966; box-shadow: 0 2px 12px rgba(230,180,34,0.4); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
@@ -103,9 +102,7 @@
         .detail-image.normal::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.1), transparent 70%); pointer-events: none; }
         .detail-image img { width: 100%; max-height: 420px; object-fit: contain; position: relative; z-index: 2; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5)); }
         
-        /* 详情页获取方式区域 - 统一无黑框样式 */
         .detail-acquisition-area { position: absolute; top: 20px; left: 20px; display: flex; align-items: center; gap: 14px; background: transparent; backdrop-filter: none; padding: 0; border-radius: 0; border: none; z-index: 15; }
-        /* 放大首发限定图标（电脑端和手机端都放大） */
         .detail-acquisition-icon { width: 108px; height: 108px; cursor: pointer; transition: transform 0.2s; background: transparent; border-radius: 0; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3)); }
         .detail-acquisition-icon:hover { transform: scale(1.05); }
         .detail-acquisition-icon img { width: 100%; height: 100%; object-fit: contain; }
@@ -186,153 +183,71 @@
             .sidebar .logo-area { padding: 0 0 8px 0; margin-bottom: 8px; border-bottom: 1px solid #2a2a3c; }
             .sidebar .logo-area h1 { font-size: 1rem; }
             .sidebar .logo-area p { font-size: 0.5rem; }
-            .nav-tabs { flex-direction: row; flex-wrap: wrap; gap: 6px; padding: 0; justify-content: flex-start; }
-            .tab-btn { padding: 6px 12px; font-size: 0.7rem; border-radius: 20px; text-align: center; width: auto; flex: 0 0 auto; }
-            .main-content { margin-left: 0; margin-top: 115px; padding: 12px; width: 100%; }
-            .detail-back-btn { margin-top: 10px; margin-left: 16px; }
+            /* 手机端导航栏字体放大，上方三个下方三个分布 */
+            .nav-tabs { flex-direction: row; flex-wrap: wrap; gap: 8px; padding: 0; justify-content: center; }
+            .tab-btn { padding: 10px 16px; font-size: 0.85rem; border-radius: 30px; text-align: center; width: auto; flex: 1 0 auto; background: #1a1a2a; margin: 2px; font-weight: 600; }
+            .tab-btn.active { background: #feca57; color: #1a1a2e; }
+            .main-content { margin-left: 0; margin-top: 95px; padding: 12px; width: 100%; }
+            
+            /* 手机端固定顶部筛选栏 */
+            .mobile-filter-sticky { position: sticky; top: 95px; z-index: 150; background: #0a0a0f; padding-top: 8px; margin-bottom: 16px; }
+            .search-box { margin-bottom: 12px; }
+            .search-box input { width: 100%; padding: 10px 16px; font-size: 0.9rem; }
+            /* 手机端下拉筛选区域 */
+            .mobile-filter-row { display: flex; gap: 12px; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+            .filter-select { background: #1f1f2e; border: 1px solid #2a2a3c; border-radius: 40px; padding: 8px 12px; color: #e2e2e6; font-size: 0.8rem; cursor: pointer; flex: 1; min-width: 100px; text-align: center; }
+            .filter-select option { background: #1f1f2e; color: #e2e2e6; }
+            .quality-icons { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-start; }
+            .quality-icon-btn { background: #1f1f2e; border: 1px solid #2a2a3c; border-radius: 30px; padding: 6px 12px; font-size: 0.7rem; cursor: pointer; color: #a0a0b8; transition: 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+            .quality-icon-btn.active { background: #feca57; color: #1a1a2e; border-color: #feca57; }
+            .quality-icon-btn .quality-dot { width: 10px; height: 10px; border-radius: 10px; display: inline-block; }
+            .quality-dot.legendary { background: #e6b422; box-shadow: 0 0 4px #e6b422; }
+            .quality-dot.epic { background: #aa6dc9; box-shadow: 0 0 4px #aa6dc9; }
+            .quality-dot.rare { background: #4a9eff; box-shadow: 0 0 4px #4a9eff; }
+            .quality-dot.normal { background: #40c468; box-shadow: 0 0 4px #40c468; }
+            
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card-image { height: 140px; padding: 12px; }
             .car-name { font-size: 0.9rem; }
             .quality-badge-wrapper { position: absolute; top: 12px; right: 12px; bottom: auto; left: auto; }
             .quality-badge { font-size: 0.55rem; padding: 2px 8px; }
-            /* 手机端获取方式图标也放大一点 */
             .acquisition-icon { width: 50px; height: 50px; bottom: 8px; right: 8px; }
             .meta-item { font-size: 0.6rem; padding: 2px 6px; }
             .car-description { font-size: 0.65rem; }
             .car-card { border: none; }
             .car-card:hover { border: none; box-shadow: none; }
-            .car-card.legendary-border:hover, .car-card.epic-border:hover, .car-card.rare-border:hover, .car-card.normal-border:hover { border-color: transparent; box-shadow: none; }
-            .detail-container {
-                overflow-x: hidden;
-                padding-bottom: 20px;
-            }
-            .detail-header {
-                flex-direction: column;
-                padding: 16px !important;
-                gap: 16px !important;
-            }
-            .detail-image {
-                padding: 16px !important;
-                min-width: auto;
-                width: 100%;
-                max-width: 100%;
-                margin: 0 auto;
-                border-radius: 16px;
-            }
-            .detail-image img {
-                max-height: 200px;
-                width: auto;
-                max-width: 100%;
-                margin: 0 auto;
-                object-fit: contain;
-            }
-            .detail-info-panel {
-                width: 100%;
-                margin-top: 0;
-                padding: 16px !important;
-            }
-            .detail-name {
-                font-size: 1.3rem !important;
-                margin-bottom: 8px;
-            }
-            .detail-badges {
-                flex-wrap: wrap;
-                gap: 8px;
-                margin-bottom: 16px;
-            }
-            .info-rows {
-                gap: 8px;
-            }
-            .info-row {
-                padding: 8px 12px;
-            }
-            .info-label {
-                width: 80px;
-                font-size: 0.7rem;
-            }
-            .info-value {
-                font-size: 0.75rem;
-            }
-            .features-section, .chip-slots, .vehicle-stats, .skills-section {
-                padding: 12px 16px !important;
-            }
-            .section-title {
-                font-size: 1.2rem !important;
-                margin-bottom: 12px;
-            }
-            .features-horizontal {
-                gap: 8px;
-            }
-            .feature-box {
-                padding: 4px 12px;
-                font-size: 0.7rem;
-            }
-            .chip-icons {
-                gap: 8px;
-                flex-wrap: wrap;
-            }
-            .chip-icon {
-                width: 44px;
-                height: 44px;
-            }
-            .stats-grid {
-                gap: 8px;
-            }
-            .stat-card {
-                padding: 8px 12px;
-            }
-            .stat-card span:first-child {
-                font-size: 0.7rem;
-            }
-            .stat-card span:last-child {
-                font-size: 0.75rem;
-            }
-            .stat-card .gold-number {
-                font-size: 1rem !important;
-            }
-            .skill-block {
-                margin-bottom: 20px;
-            }
-            .skill-header {
-                gap: 8px;
-            }
-            .skill-icon {
-                width: 44px;
-                height: 44px;
-            }
-            .skill-title {
-                font-size: 0.9rem;
-            }
-            .skill-desc {
-                font-size: 0.75rem;
-                padding: 10px 12px;
-            }
-            .sub-skill {
-                padding: 8px 12px;
-            }
-            /* 手机端获取方式区域优化 - 无黑框，图标放大 */
-            .detail-acquisition-area {
-                top: 12px;
-                left: 12px;
-                gap: 8px;
-                background: transparent;
-                padding: 0;
-                backdrop-filter: none;
-            }
-            .detail-acquisition-icon {
-                width: 80px;
-                height: 80px;
-            }
-            .detail-acquisition-text {
-                font-size: 0.8rem;
-                padding: 0;
-                white-space: normal;
-                max-width: 160px;
-                line-height: 1.3;
-                background: transparent;
-                backdrop-filter: none;
-                text-shadow: 0 0 4px rgba(0,0,0,0.8);
-            }
+            .detail-container { overflow-x: hidden; padding-bottom: 20px; }
+            .detail-header { flex-direction: column; padding: 16px !important; gap: 16px !important; }
+            .detail-image { padding: 16px !important; min-width: auto; width: 100%; max-width: 100%; margin: 0 auto; border-radius: 16px; }
+            .detail-image img { max-height: 200px; width: auto; max-width: 100%; margin: 0 auto; object-fit: contain; }
+            .detail-info-panel { width: 100%; margin-top: 0; padding: 16px !important; }
+            .detail-name { font-size: 1.3rem !important; margin-bottom: 8px; }
+            .detail-badges { flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+            .info-rows { gap: 8px; }
+            .info-row { padding: 8px 12px; }
+            .info-label { width: 80px; font-size: 0.7rem; }
+            .info-value { font-size: 0.75rem; }
+            .features-section, .chip-slots, .vehicle-stats, .skills-section { padding: 12px 16px !important; }
+            .section-title { font-size: 1.2rem !important; margin-bottom: 12px; }
+            .features-horizontal { gap: 8px; }
+            .feature-box { padding: 4px 12px; font-size: 0.7rem; }
+            .chip-icons { gap: 8px; flex-wrap: wrap; }
+            .chip-icon { width: 44px; height: 44px; }
+            .stats-grid { gap: 8px; }
+            .stat-card { padding: 8px 12px; }
+            .stat-card span:first-child { font-size: 0.7rem; }
+            .stat-card span:last-child { font-size: 0.75rem; }
+            .stat-card .gold-number { font-size: 1rem !important; }
+            .skill-block { margin-bottom: 20px; }
+            .skill-header { gap: 8px; }
+            .skill-icon { width: 44px; height: 44px; }
+            .skill-title { font-size: 0.9rem; }
+            .skill-desc { font-size: 0.75rem; padding: 10px 12px; }
+            .sub-skill { padding: 8px 12px; }
+            .detail-acquisition-area { top: 12px; left: 12px; gap: 8px; background: transparent; padding: 0; }
+            .detail-acquisition-icon { width: 80px; height: 80px; }
+            .detail-acquisition-text { font-size: 0.8rem; padding: 0; white-space: normal; max-width: 160px; line-height: 1.3; background: transparent; text-shadow: 0 0 4px rgba(0,0,0,0.8); }
+            .detail-back-btn { margin-top: 10px; margin-left: 16px; }
         }
         
         @media (max-width: 480px) {
@@ -344,13 +259,14 @@
             .detail-acquisition-icon { width: 60px; height: 60px; }
             .detail-acquisition-text { font-size: 0.7rem; max-width: 140px; }
             .detail-image img { max-height: 160px; }
+            .mobile-filter-row { gap: 8px; }
+            .filter-select { padding: 6px 10px; font-size: 0.7rem; min-width: 80px; }
+            .quality-icon-btn { padding: 4px 10px; font-size: 0.65rem; }
         }
         
-        /* 电脑端额外微调：获取方式图标再往下移一点，避免覆盖车辆图片，但仍在背景图内 */
+        /* 电脑端额外微调 */
         @media (min-width: 769px) {
-            .acquisition-icon { bottom: 2px; }
-            /* 电脑端首页获取方式图标也稍微放大 */
-            .acquisition-icon { width: 70px; height: 70px; }
+            .acquisition-icon { bottom: 2px; width: 70px; height: 70px; }
         }
     </style>
 </head>
@@ -372,8 +288,9 @@
     </div>
     <div class="main-content">
         <div id="vehiclesPage" class="page active-page">
-            <div class="filter-bar">
-                <div class="search-box"><input type="text" id="searchInput" placeholder="搜索车辆名称、技能..."></div>
+            <!-- 电脑端原有筛选栏（电脑端显示，手机端会被替换） -->
+            <div class="filter-bar desktop-filter">
+                <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、技能..."></div>
                 <div class="filter-groups">
                     <div class="filter-group"><span class="filter-label">定位：</span>
                         <button class="filter-btn active" data-type="position" data-value="all">全部</button>
@@ -395,6 +312,32 @@
                         <button class="filter-btn" data-type="quality" data-value="稀有">稀有</button>
                         <button class="filter-btn" data-type="quality" data-value="普通">普通</button>
                     </div>
+                </div>
+            </div>
+            <!-- 手机端固定筛选栏（动态生成） -->
+            <div class="mobile-filter-sticky" id="mobileFilterSticky" style="display: none;">
+                <div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车辆名称、技能..."></div>
+                <div class="mobile-filter-row">
+                    <select id="positionSelect" class="filter-select">
+                        <option value="all">📌 全部定位</option>
+                        <option value="辅助">🛡️ 辅助</option>
+                        <option value="竞速">🏁 竞速</option>
+                        <option value="干扰">⚡ 干扰</option>
+                        <option value="天平">⚖️ 天平</option>
+                    </select>
+                    <select id="specialtySelect" class="filter-select">
+                        <option value="all">🌍 全部专精</option>
+                        <option value="城市">🏙️ 城市</option>
+                        <option value="山路">⛰️ 山路</option>
+                        <option value="场地">🏟️ 场地</option>
+                    </select>
+                </div>
+                <div class="quality-icons" id="qualityIcons">
+                    <div class="quality-icon-btn" data-quality="all"><span class="quality-dot" style="background:#aaa;"></span> 全部</div>
+                    <div class="quality-icon-btn" data-quality="传说"><span class="quality-dot legendary"></span> 传说</div>
+                    <div class="quality-icon-btn" data-quality="史诗"><span class="quality-dot epic"></span> 史诗</div>
+                    <div class="quality-icon-btn" data-quality="稀有"><span class="quality-dot rare"></span> 稀有</div>
+                    <div class="quality-icon-btn" data-quality="普通"><span class="quality-dot normal"></span> 普通</div>
                 </div>
             </div>
             <div class="cars-grid" id="carsGrid"></div>
@@ -685,6 +628,7 @@
             const termsDataObj = await termsResponse.json();
             termDefinitions = termsDataObj.terms;
             for (const car of vehiclesData) { car.chipSlots = sortChipSlots(car.chipSlots); }
+            initMobileFilter();
             renderList();
         } catch (error) {
             document.getElementById("carsGrid").innerHTML = '<div style="text-align:center; padding:60px; color:#ff6b6b;">数据加载失败，请检查 vehicles.json 和 terms.json 文件是否存在</div>';
@@ -713,6 +657,68 @@
     }
     
     function isMobileDevice() { return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768; }
+    
+    function initMobileFilter() {
+        const isMobile = isMobileDevice();
+        const desktopFilter = document.querySelector('.desktop-filter');
+        const mobileSticky = document.getElementById('mobileFilterSticky');
+        if (isMobile) {
+            if (desktopFilter) desktopFilter.style.display = 'none';
+            if (mobileSticky) mobileSticky.style.display = 'block';
+            
+            const searchInput = document.getElementById('searchInputMobile');
+            const positionSelect = document.getElementById('positionSelect');
+            const specialtySelect = document.getElementById('specialtySelect');
+            const qualityBtns = document.querySelectorAll('.quality-icon-btn');
+            
+            if (searchInput) {
+                searchInput.value = filters.keyword;
+                searchInput.removeEventListener('input', searchInput._listener);
+                searchInput.addEventListener('input', searchInput._listener = (e) => { filters.keyword = e.target.value; renderList(); });
+            }
+            if (positionSelect) {
+                positionSelect.value = filters.position;
+                positionSelect.removeEventListener('change', positionSelect._listener);
+                positionSelect.addEventListener('change', positionSelect._listener = (e) => { filters.position = e.target.value; renderList(); });
+            }
+            if (specialtySelect) {
+                specialtySelect.value = filters.specialty;
+                specialtySelect.removeEventListener('change', specialtySelect._listener);
+                specialtySelect.addEventListener('change', specialtySelect._listener = (e) => { filters.specialty = e.target.value; renderList(); });
+            }
+            qualityBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.quality === filters.quality) btn.classList.add('active');
+                btn.removeEventListener('click', btn._clickHandler);
+                btn.addEventListener('click', btn._clickHandler = () => {
+                    filters.quality = btn.dataset.quality;
+                    qualityBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderList();
+                });
+            });
+        } else {
+            if (desktopFilter) desktopFilter.style.display = 'block';
+            if (mobileSticky) mobileSticky.style.display = 'none';
+            const desktopSearch = document.getElementById('searchInputDesktop');
+            if (desktopSearch) {
+                desktopSearch.value = filters.keyword;
+                desktopSearch.removeEventListener('input', desktopSearch._listener);
+                desktopSearch.addEventListener('input', desktopSearch._listener = (e) => { filters.keyword = e.target.value; renderList(); });
+            }
+            bindDesktopFilters();
+        }
+    }
+    
+    function bindDesktopFilters() {
+        document.querySelectorAll('#vehiclesPage .filter-btn').forEach(btn => {
+            btn.removeEventListener('click', btn._listener);
+            btn.addEventListener('click', btn._listener = () => {
+                let type = btn.dataset.type, value = btn.dataset.value;
+                if (type && value) { filters[type] = value; document.querySelectorAll(`#vehiclesPage .filter-btn[data-type="${type}"]`).forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderList(); }
+            });
+        });
+    }
     
     function renderList() {
         let filtered = filterAndSortVehicles();
@@ -845,30 +851,33 @@
         url.searchParams.delete('car');
         history.pushState({ page: 'list' }, '', url);
         let vehiclesPage = document.getElementById("vehiclesPage");
-        vehiclesPage.innerHTML = `<div class="filter-bar"><div class="search-box"><input type="text" id="searchInput" placeholder="搜索车辆名称、技能..."></div>
+        vehiclesPage.innerHTML = `<div class="filter-bar desktop-filter"><div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、技能..."></div>
             <div class="filter-groups">
                 <div class="filter-group"><span class="filter-label">定位：</span><button class="filter-btn active" data-type="position" data-value="all">全部</button><button class="filter-btn" data-type="position" data-value="辅助">辅助</button><button class="filter-btn" data-type="position" data-value="竞速">竞速</button><button class="filter-btn" data-type="position" data-value="干扰">干扰</button><button class="filter-btn" data-type="position" data-value="天平">天平</button></div>
                 <div class="filter-group"><span class="filter-label">专精：</span><button class="filter-btn active" data-type="specialty" data-value="all">全部</button><button class="filter-btn" data-type="specialty" data-value="城市">城市</button><button class="filter-btn" data-type="specialty" data-value="山路">山路</button><button class="filter-btn" data-type="specialty" data-value="场地">场地</button></div>
                 <div class="filter-group"><span class="filter-label">品质：</span><button class="filter-btn active" data-type="quality" data-value="all">全部</button><button class="filter-btn" data-type="quality" data-value="传说">传说</button><button class="filter-btn" data-type="quality" data-value="史诗">史诗</button><button class="filter-btn" data-type="quality" data-value="稀有">稀有</button><button class="filter-btn" data-type="quality" data-value="普通">普通</button></div>
-            </div></div><div class="cars-grid" id="carsGrid"></div><div class="stats-text" id="statsText">加载中...</div>`;
-        bindFilters();
+            </div></div>
+            <div class="mobile-filter-sticky" id="mobileFilterSticky" style="display: none;">
+                <div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车辆名称、技能..."></div>
+                <div class="mobile-filter-row">
+                    <select id="positionSelect" class="filter-select"><option value="all">📌 全部定位</option><option value="辅助">🛡️ 辅助</option><option value="竞速">🏁 竞速</option><option value="干扰">⚡ 干扰</option><option value="天平">⚖️ 天平</option></select>
+                    <select id="specialtySelect" class="filter-select"><option value="all">🌍 全部专精</option><option value="城市">🏙️ 城市</option><option value="山路">⛰️ 山路</option><option value="场地">🏟️ 场地</option></select>
+                </div>
+                <div class="quality-icons" id="qualityIcons">
+                    <div class="quality-icon-btn" data-quality="all"><span class="quality-dot" style="background:#aaa;"></span> 全部</div>
+                    <div class="quality-icon-btn" data-quality="传说"><span class="quality-dot legendary"></span> 传说</div>
+                    <div class="quality-icon-btn" data-quality="史诗"><span class="quality-dot epic"></span> 史诗</div>
+                    <div class="quality-icon-btn" data-quality="稀有"><span class="quality-dot rare"></span> 稀有</div>
+                    <div class="quality-icon-btn" data-quality="普通"><span class="quality-dot normal"></span> 普通</div>
+                </div>
+            </div>
+            <div class="cars-grid" id="carsGrid"></div><div class="stats-text" id="statsText">加载中...</div>`;
+        initMobileFilter();
         renderList();
         isDetail = false;
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
         setTimeout(() => { window.scrollTo(0, scrollPositions.list || 0); }, 50);
-    }
-    
-    function bindFilters() {
-        document.querySelectorAll('#vehiclesPage .filter-btn').forEach(btn => {
-            btn.removeEventListener('click', btn._listener);
-            btn.addEventListener('click', btn._listener = () => {
-                let type = btn.dataset.type, value = btn.dataset.value;
-                if (type && value) { filters[type] = value; document.querySelectorAll(`#vehiclesPage .filter-btn[data-type="${type}"]`).forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderList(); }
-            });
-        });
-        let si = document.getElementById('searchInput');
-        if (si) { si.removeEventListener('input', si._listener); si.addEventListener('input', si._listener = (e) => { filters.keyword = e.target.value; renderList(); }); }
     }
     
     function initTabs() {
@@ -887,7 +896,6 @@
     }
     
     initTabs();
-    bindFilters();
     loadData();
 </script>
 </body>
