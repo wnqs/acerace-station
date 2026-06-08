@@ -13,7 +13,8 @@
         .header { background: #14141f; border-radius: 20px; padding: 16px 24px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
         .logo-area h1 { font-size: 1.5rem; background: linear-gradient(135deg, #ff6b6b, #feca57); -webkit-background-clip: text; background-clip: text; color: transparent; cursor: pointer; }
         .logo-area p { font-size: 0.7rem; color: #8a8aa3; }
-        .nav-tabs { display: flex; gap: 12px; background: #1f1f2e; padding: 4px; border-radius: 48px; flex-wrap: wrap; }
+        /* 导航栏靠左显示 */
+        .nav-tabs { display: flex; gap: 12px; background: #1f1f2e; padding: 4px; border-radius: 48px; flex-wrap: wrap; justify-content: flex-start; margin-top: 8px; }
         .tab-btn { padding: 8px 20px; border: none; background: transparent; border-radius: 40px; font-size: 0.85rem; cursor: pointer; color: #a0a0b8; transition: 0.2s; }
         .tab-btn.active { background: #2a2a3c; color: white; }
         
@@ -30,7 +31,7 @@
         .filter-btn.active { background: #feca57; color: #1a1a2e; font-weight: 500; }
         
         .cars-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
-        .car-card { background: #14141f; border-radius: 24px; overflow: hidden; cursor: pointer; border: 1px solid #2a2a3c; transition: transform 0.2s, border-color 0.2s; will-change: transform; }
+        .car-card { background: #14141f; border-radius: 24px; overflow: hidden; cursor: pointer; border: 1px solid #2a2a3c; transition: transform 0.2s, border-color 0.2s; will-change: transform; position: relative; }
         .car-card:hover { transform: translateY(-4px); border-color: #feca57; }
         
         .card-image { height: 180px; display: flex; align-items: center; justify-content: center; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; }
@@ -48,19 +49,21 @@
         .card-image.normal::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.12), transparent 70%); pointer-events: none; }
         .card-image img { max-width: 100%; max-height: 100%; object-fit: contain; position: relative; z-index: 2; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
         
-        .acquisition-icon { position: absolute; bottom: 12px; right: 12px; width: 64px; height: 64px; cursor: pointer; z-index: 10; transition: transform 0.2s; background: transparent; border-radius: 0; }
+        /* 品质文字框固定在图片右下角，不受卡片内容影响 */
+        .quality-badge-wrapper { position: absolute; bottom: 12px; right: 12px; z-index: 15; }
+        .quality-badge { font-size: 0.7rem; padding: 3px 12px; border-radius: 30px; font-weight: 800; letter-spacing: 1px; backdrop-filter: blur(2px); text-transform: uppercase; transition: none; border-width: 1px; border-style: solid; display: inline-block; transform: translateZ(0); -webkit-transform: translateZ(0); white-space: nowrap; }
+        .quality-badge.legendary { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #ffffff !important; border-color: #ffd966; box-shadow: 0 2px 12px rgba(230,180,34,0.4); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
+        .quality-badge.epic { background: linear-gradient(135deg, #aa6dc9, #8b5aaf); color: #ffffff; border-color: #c99eff; box-shadow: 0 2px 12px rgba(170,109,201,0.4); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
+        .quality-badge.rare { background: linear-gradient(135deg, #4a9eff, #2d7fd1); color: #ffffff; border-color: #8bcbff; box-shadow: 0 2px 12px rgba(74,158,255,0.35); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
+        .quality-badge.normal { background: linear-gradient(135deg, #40c468, #2f9e52); color: #ffffff; border-color: #8fdfaa; box-shadow: 0 2px 12px rgba(64,196,104,0.3); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
+        
+        .acquisition-icon { position: absolute; bottom: 12px; left: 12px; width: 64px; height: 64px; cursor: pointer; z-index: 10; transition: transform 0.2s; background: transparent; border-radius: 0; }
         .acquisition-icon:hover { transform: scale(1.08); }
         .acquisition-icon img { width: 100%; height: 100%; object-fit: contain; }
         
         .card-info { padding: 16px; background: rgba(20,20,31,0.9); }
         .car-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px; flex-wrap: wrap; }
         .car-name { font-size: 1.1rem; font-weight: 700; color: #e2e2e6; flex-shrink: 1; min-width: 0; word-break: break-word; }
-        /* 高级品质文字样式 - 传说品质文字白色，其他保持不变，保证框体不变形 */
-        .quality-badge { font-size: 0.7rem; padding: 3px 12px; border-radius: 30px; font-weight: 800; letter-spacing: 1px; backdrop-filter: blur(2px); text-transform: uppercase; transition: none; border-width: 1px; border-style: solid; display: inline-block; transform: translateZ(0); -webkit-transform: translateZ(0); flex-shrink: 0; white-space: nowrap; }
-        .quality-badge.legendary { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #ffffff !important; border-color: #ffd966; box-shadow: 0 2px 12px rgba(230,180,34,0.4); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
-        .quality-badge.epic { background: linear-gradient(135deg, #aa6dc9, #8b5aaf); color: #ffffff; border-color: #c99eff; box-shadow: 0 2px 12px rgba(170,109,201,0.4); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
-        .quality-badge.rare { background: linear-gradient(135deg, #4a9eff, #2d7fd1); color: #ffffff; border-color: #8bcbff; box-shadow: 0 2px 12px rgba(74,158,255,0.35); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
-        .quality-badge.normal { background: linear-gradient(135deg, #40c468, #2f9e52); color: #ffffff; border-color: #8fdfaa; box-shadow: 0 2px 12px rgba(64,196,104,0.3); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
         .car-meta { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
         .meta-item { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 40px; font-size: 0.7rem; color: #a0a0b8; }
         .meta-item img { width: 18px; height: 18px; }
@@ -68,7 +71,6 @@
         .stats-text { text-align: center; padding: 16px; color: #8a8aa3; }
         
         .detail-container { background: #14141f; border-radius: 24px; border: 1px solid #2a2a3c; position: relative; overflow: visible; }
-        /* 修复详情页滚动问题 - 固定顶部区域 */
         .detail-sticky-top { position: sticky; top: 0; background: #14141f; z-index: 25; padding-top: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 0; }
         .detail-back-btn { display: inline-block; background: #1f1f2e; border: none; padding: 12px 28px; border-radius: 50px; cursor: pointer; color: #feca57; font-size: 1rem; font-weight: 700; letter-spacing: 1px; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.3); margin: 0 0 16px 24px; }
         .detail-back-btn:hover { background: #feca57; color: #1a1a2e; transform: scale(1.02); }
@@ -165,6 +167,8 @@
             .card-image { height: 140px; padding: 12px; }
             .car-name { font-size: 0.9rem; }
             .quality-badge { font-size: 0.55rem; padding: 2px 8px; }
+            .quality-badge-wrapper { bottom: 8px; right: 8px; }
+            .acquisition-icon { width: 44px; height: 44px; bottom: 8px; left: 8px; }
             .meta-item { font-size: 0.6rem; padding: 2px 6px; }
             .car-description { font-size: 0.65rem; }
             .detail-header { padding: 20px; }
@@ -203,7 +207,6 @@
         @media (max-width: 480px) {
             .cars-grid { gap: 10px; }
             .card-image { height: 120px; }
-            .acquisition-icon { width: 44px; height: 44px; bottom: 8px; right: 8px; }
             .detail-acquisition-icon { width: 56px; height: 56px; }
         }
     </style>
@@ -215,13 +218,13 @@
             <h1>王牌竞速 · 情报站</h1>
             <p>核心档案 · 赛车数据</p>
         </div>
-        <div class="nav-tabs">
-            <button class="tab-btn active" data-page="vehicles">车辆数据</button>
-            <button class="tab-btn" data-page="chip">芯片架构</button>
-            <button class="tab-btn" data-page="energy">赋能系统</button>
-            <button class="tab-btn" data-page="calculator">芯片要求计算器</button>
-            <button class="tab-btn" data-page="news">爆料信息</button>
-        </div>
+    </div>
+    <div class="nav-tabs">
+        <button class="tab-btn active" data-page="vehicles">车辆数据</button>
+        <button class="tab-btn" data-page="chip">芯片架构</button>
+        <button class="tab-btn" data-page="energy">赋能系统</button>
+        <button class="tab-btn" data-page="calculator">芯片要求计算器</button>
+        <button class="tab-btn" data-page="news">爆料信息</button>
     </div>
 
     <div id="vehiclesPage" class="page active-page">
@@ -268,7 +271,6 @@
     let isDetail = false;
     let scrollPositions = { list: 0 };
     
-    // 品质修正映射
     const qualityOverrides = {
         "mini jcw": "稀有",
         "风神": "传说",
@@ -516,12 +518,13 @@
                 <div class="car-card" data-id="${car.id}">
                     <div class="card-image ${bgClass}">
                         <img src="${car.imageUrl}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/400x200?text=Car'">
+                        <div class="quality-badge-wrapper"><span class="quality-badge ${badgeClass}">${car.quality}</span></div>
                         <div class="acquisition-icon" data-acq="${car.acquisition.replace(/"/g, '&quot;')}">
                             <img src="${car.acquisitionIcon}" referrerpolicy="no-referrer">
                         </div>
                     </div>
                     <div class="card-info">
-                        <div class="car-title"><span class="car-name">${car.name}</span><span class="quality-badge ${badgeClass}">${car.quality}</span></div>
+                        <div class="car-title"><span class="car-name">${car.name}</span></div>
                         <div class="car-meta"><div class="meta-item"><img src="${positionIcon}"><span>${car.position}</span></div><div class="meta-item"><img src="${specialtyIcon}"><span>${car.specialty}</span></div></div>
                         <div class="car-description">${car.description}</div>
                     </div>
@@ -553,21 +556,11 @@
         });
     }
     
-    function pushHistoryState(carId) {
-        const state = { page: 'detail', carId: carId };
-        const url = new URL(window.location.href);
-        url.searchParams.set('car', carId);
-        history.pushState(state, '', url);
-    }
-    
     function showDetail(id) {
-        // 保存当前滚动位置
         scrollPositions.list = window.scrollY;
-        
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
         isDetail = true;
-        pushHistoryState(id);
         let stats = car.stats;
         let chipSlots = car.chipSlots.map(t => CHIP_ICONS[t]);
         let bgClass = getQualityClass(car.quality);
@@ -642,26 +635,11 @@
         bindTermHighlights();
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
-        // 重置滚动位置到顶部，确保从“返回列表”开始显示
+        // 强制滚动到顶部，确保从页面最上方开始显示
         window.scrollTo(0, 0);
     }
     
-    // 修复手机端返回键逻辑 - 使用统一的历史记录处理
-    window.addEventListener('popstate', function(event) {
-        if (isDetail) {
-            restoreList();
-        } else {
-            let carId = new URLSearchParams(window.location.search).get('car');
-            if (carId && vehiclesData.find(v => v.id === carId)) {
-                showDetail(carId);
-            }
-        }
-    });
-    
     function restoreList() {
-        const url = new URL(window.location.href);
-        url.searchParams.delete('car');
-        history.pushState({ page: 'list' }, '', url);
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = `
             <div class="filter-bar">
@@ -697,7 +675,6 @@
         isDetail = false;
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
-        // 恢复列表滚动位置
         setTimeout(() => {
             window.scrollTo(0, scrollPositions.list || 0);
         }, 50);
@@ -725,6 +702,7 @@
                 document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
                 btn.classList.add('active');
                 if (pageId !== 'vehicles') isDetail = false;
+                if (pageId === 'vehicles') window.scrollTo(0, scrollPositions.list || 0);
             });
         });
     }
