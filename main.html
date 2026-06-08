@@ -177,12 +177,12 @@
         .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; }
         .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
         
-        /* ========== 手机端专用样式 ========== */
+        /* ========== 手机端专用样式 - 搜索框完全固定不被遮挡 ========== */
         @media (max-width: 768px) {
             /* 手机端：隐藏左侧边栏 */
             .sidebar { display: none; }
             
-            /* 手机端顶部导航栏 - 标题每排3个 */
+            /* 手机端顶部导航栏 */
             .mobile-top-bar {
                 position: fixed;
                 top: 0;
@@ -212,7 +212,6 @@
                 font-size: 0.55rem;
                 color: #8a8aa3;
             }
-            /* 手机端导航标签 - 每行3个 */
             .mobile-nav-tabs {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
@@ -235,21 +234,27 @@
                 color: #1a1a2e;
             }
             
-            /* 主内容区 - 为顶部导航栏留出空间 */
-            .main-content { margin-left: 0; margin-top: 110px; padding: 12px; width: 100%; }
+            /* 主内容区 - 为顶部导航栏留出足够空间 */
+            .main-content { margin-left: 0; margin-top: 100px; padding: 12px; width: 100%; }
             
-            /* 固定顶部筛选栏 - 完全固定不随滚动消失 */
+            /* 固定顶部筛选栏 - 完全固定不随滚动移动 */
             .mobile-filter-sticky { 
-                position: sticky; 
-                top: 110px;
+                position: fixed;
+                top: 100px;
+                left: 0;
+                right: 0;
                 z-index: 150; 
                 background: #0a0a0f; 
-                padding: 10px 0 12px 0; 
-                margin-bottom: 16px; 
+                padding: 10px 12px 12px 12px;
                 border-bottom: 1px solid #2a2a3c;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             }
             
-            /* 搜索框和选择分类同一行，搜索框长度变短，选择分类选项更短 */
+            /* 为固定筛选栏下方的内容预留占位空间 */
+            .filter-placeholder {
+                height: 70px;
+            }
+            
             .filter-row {
                 display: flex;
                 gap: 10px;
@@ -304,6 +309,10 @@
                 border: 1px solid #2a2a3c; 
                 display: none;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                position: absolute;
+                left: 12px;
+                right: 12px;
+                z-index: 160;
             }
             .category-dropdown-panel.show { display: block; }
             
@@ -375,14 +384,17 @@
             .filter-option, .quality-option { padding: 4px 10px; font-size: 0.65rem; }
             .category-dropdown-btn { padding: 6px 12px; font-size: 0.75rem; }
             .search-box input { padding: 8px 12px; font-size: 0.8rem; }
-            .main-content { margin-top: 105px; }
-            .mobile-filter-sticky { top: 105px; }
+            .main-content { margin-top: 95px; }
+            .mobile-filter-sticky { top: 95px; }
+            .filter-placeholder { height: 65px; }
         }
         
         /* 电脑端额外微调 */
         @media (min-width: 769px) {
             .acquisition-icon { bottom: 2px; width: 70px; height: 70px; }
             .mobile-top-bar { display: none; }
+            .mobile-filter-sticky { display: none !important; }
+            .filter-placeholder { display: none; }
         }
     </style>
 </head>
@@ -448,7 +460,7 @@
                     </div>
                 </div>
             </div>
-            <!-- 手机端固定筛选栏 -->
+            <!-- 手机端固定筛选栏 - 完全固定 -->
             <div class="mobile-filter-sticky" id="mobileFilterSticky" style="display: none;">
                 <div class="filter-row">
                     <div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车型/技能..."></div>
@@ -486,6 +498,8 @@
                     </div>
                 </div>
             </div>
+            <!-- 占位元素，防止固定筛选栏遮挡内容 -->
+            <div class="filter-placeholder" id="filterPlaceholder" style="display: none;"></div>
             <div class="cars-grid" id="carsGrid"></div>
             <div class="stats-text" id="statsText">加载中...</div>
         </div>
@@ -772,11 +786,13 @@
         const desktopFilter = document.querySelector('.desktop-filter');
         const mobileSticky = document.getElementById('mobileFilterSticky');
         const mobileTopBar = document.getElementById('mobileTopBar');
+        const filterPlaceholder = document.getElementById('filterPlaceholder');
         
         if (isMobile) {
             if (mobileTopBar) mobileTopBar.style.display = 'flex';
             if (desktopFilter) desktopFilter.style.display = 'none';
             if (mobileSticky) mobileSticky.style.display = 'block';
+            if (filterPlaceholder) filterPlaceholder.style.display = 'block';
             
             // 手机端标签切换
             const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn');
@@ -857,6 +873,7 @@
             if (mobileTopBar) mobileTopBar.style.display = 'none';
             if (desktopFilter) desktopFilter.style.display = 'block';
             if (mobileSticky) mobileSticky.style.display = 'none';
+            if (filterPlaceholder) filterPlaceholder.style.display = 'none';
             const desktopSearch = document.getElementById('searchInputDesktop');
             if (desktopSearch) {
                 desktopSearch.value = keyword;
@@ -1021,7 +1038,9 @@
                         <div class="quality-option" data-type="quality" data-value="普通">普通</div>
                     </div></div>
                 </div>
-            </div><div class="cars-grid" id="carsGrid"></div><div class="stats-text" id="statsText">加载中...</div>`;
+            </div>
+            <div class="filter-placeholder" id="filterPlaceholder" style="display: none;"></div>
+            <div class="cars-grid" id="carsGrid"></div><div class="stats-text" id="statsText">加载中...</div>`;
         initMobileFilter();
         renderList();
         isDetail = false;
