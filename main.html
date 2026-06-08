@@ -8,15 +8,22 @@
         /* ========== 完整样式保持不变 ========== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: #0a0a0f; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
-        .app-container { max-width: 1400px; margin: 0 auto; padding: 20px 24px; }
         
-        .header { background: #14141f; border-radius: 20px; padding: 16px 24px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-        .logo-area h1 { font-size: 1.5rem; background: linear-gradient(135deg, #ff6b6b, #feca57); -webkit-background-clip: text; background-clip: text; color: transparent; cursor: pointer; }
-        .logo-area p { font-size: 0.7rem; color: #8a8aa3; }
-        /* 导航栏靠左显示 */
-        .nav-tabs { display: flex; gap: 12px; background: #1f1f2e; padding: 4px; border-radius: 48px; flex-wrap: wrap; justify-content: flex-start; margin-top: 8px; }
-        .tab-btn { padding: 8px 20px; border: none; background: transparent; border-radius: 40px; font-size: 0.85rem; cursor: pointer; color: #a0a0b8; transition: 0.2s; }
-        .tab-btn.active { background: #2a2a3c; color: white; }
+        /* 左侧固定导航布局 */
+        .app-layout { display: flex; max-width: 1600px; margin: 0 auto; min-height: 100vh; }
+        
+        /* 左侧导航栏 - 固定列 */
+        .sidebar { width: 200px; background: #0f0f17; border-right: 1px solid #2a2a3c; padding: 24px 0; position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto; z-index: 100; }
+        .sidebar .logo-area { padding: 0 16px 20px 16px; border-bottom: 1px solid #2a2a3c; margin-bottom: 20px; cursor: pointer; }
+        .sidebar .logo-area h1 { font-size: 1.2rem; background: linear-gradient(135deg, #ff6b6b, #feca57); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .sidebar .logo-area p { font-size: 0.6rem; color: #8a8aa3; margin-top: 4px; }
+        .nav-tabs { display: flex; flex-direction: column; gap: 8px; padding: 0 12px; }
+        .tab-btn { padding: 12px 16px; border: none; background: transparent; border-radius: 12px; font-size: 0.9rem; cursor: pointer; color: #a0a0b8; transition: 0.2s; text-align: left; font-weight: 500; }
+        .tab-btn.active { background: #2a2a3c; color: #feca57; }
+        .tab-btn:hover:not(.active) { background: #1f1f2e; color: #e2e2e6; }
+        
+        /* 右侧主内容区 - 需要左侧留白 */
+        .main-content { flex: 1; margin-left: 200px; padding: 20px 24px; width: calc(100% - 200px); }
         
         .page { display: none; }
         .page.active-page { display: block; }
@@ -49,7 +56,6 @@
         .card-image.normal::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.12), transparent 70%); pointer-events: none; }
         .card-image img { max-width: 100%; max-height: 100%; object-fit: contain; position: relative; z-index: 2; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
         
-        /* 品质文字框固定在图片右下角，不受卡片内容影响 */
         .quality-badge-wrapper { position: absolute; bottom: 12px; right: 12px; z-index: 15; }
         .quality-badge { font-size: 0.7rem; padding: 3px 12px; border-radius: 30px; font-weight: 800; letter-spacing: 1px; backdrop-filter: blur(2px); text-transform: uppercase; transition: none; border-width: 1px; border-style: solid; display: inline-block; transform: translateZ(0); -webkit-transform: translateZ(0); white-space: nowrap; }
         .quality-badge.legendary { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #ffffff !important; border-color: #ffd966; box-shadow: 0 2px 12px rgba(230,180,34,0.4); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
@@ -70,9 +76,8 @@
         .car-description { font-size: 0.75rem; color: #8a8aa3; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; line-height: 1.4; }
         .stats-text { text-align: center; padding: 16px; color: #8a8aa3; }
         
-        .detail-container { background: #14141f; border-radius: 24px; border: 1px solid #2a2a3c; position: relative; overflow: visible; }
-        .detail-sticky-top { position: sticky; top: 0; background: #14141f; z-index: 25; padding-top: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 0; }
-        .detail-back-btn { display: inline-block; background: #1f1f2e; border: none; padding: 12px 28px; border-radius: 50px; cursor: pointer; color: #feca57; font-size: 1rem; font-weight: 700; letter-spacing: 1px; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.3); margin: 0 0 16px 24px; }
+        .detail-container { background: #14141f; border-radius: 24px; border: 1px solid #2a2a3c; position: relative; overflow: visible; margin-bottom: 24px; }
+        .detail-back-btn { display: inline-block; background: #1f1f2e; border: none; padding: 12px 28px; border-radius: 50px; cursor: pointer; color: #feca57; font-size: 1rem; font-weight: 700; letter-spacing: 1px; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.3); margin: 20px 0 0 24px; }
         .detail-back-btn:hover { background: #feca57; color: #1a1a2e; transform: scale(1.02); }
         .detail-header { display: flex; gap: 30px; padding: 20px 40px 20px 40px; flex-wrap: wrap; }
         .detail-image { flex: 2; min-width: 280px; border-radius: 24px; display: flex; align-items: center; justify-content: center; padding: 50px 40px; border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; }
@@ -160,10 +165,16 @@
         .term-highlight:hover { color: #ffd700; }
         .sp-cooltime { color: #feca57; font-weight: 600; margin-bottom: 8px; display: block; }
         
+        /* 响应式：移动端左侧导航变为顶部栏 */
         @media (max-width: 768px) {
-            .app-container { padding: 12px; }
+            .sidebar { width: 100%; position: fixed; top: 0; left: 0; right: 0; bottom: auto; height: auto; background: #0f0f17; border-right: none; border-bottom: 1px solid #2a2a3c; padding: 12px 16px; z-index: 200; }
+            .sidebar .logo-area { padding: 0 0 8px 0; margin-bottom: 8px; border-bottom: 1px solid #2a2a3c; }
+            .sidebar .logo-area h1 { font-size: 1rem; }
+            .sidebar .logo-area p { font-size: 0.5rem; }
+            .nav-tabs { flex-direction: row; flex-wrap: wrap; gap: 6px; padding: 0; }
+            .tab-btn { padding: 6px 12px; font-size: 0.7rem; border-radius: 20px; text-align: center; }
+            .main-content { margin-left: 0; margin-top: 100px; padding: 12px; width: 100%; }
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .car-card { min-width: 0; }
             .card-image { height: 140px; padding: 12px; }
             .car-name { font-size: 0.9rem; }
             .quality-badge { font-size: 0.55rem; padding: 2px 8px; }
@@ -195,13 +206,10 @@
             .skill-title { font-size: 0.9rem; }
             .skill-desc { font-size: 0.75rem; padding: 10px 12px; }
             .sub-skill { padding: 8px 12px; }
-            .nav-tabs { gap: 6px; }
-            .tab-btn { padding: 6px 12px; font-size: 0.7rem; }
             .filter-groups { gap: 8px; }
             .filter-group { gap: 4px; }
             .filter-btn { padding: 4px 10px; font-size: 0.65rem; }
-            .detail-back-btn { padding: 8px 20px; font-size: 0.85rem; margin: 0 0 12px 16px; }
-            .detail-sticky-top { padding-top: 12px; }
+            .detail-back-btn { padding: 8px 20px; font-size: 0.85rem; margin: 16px 0 0 16px; }
         }
         
         @media (max-width: 480px) {
@@ -212,55 +220,59 @@
     </style>
 </head>
 <body>
-<div class="app-container">
-    <div class="header">
+<div class="app-layout">
+    <!-- 左侧固定导航栏 -->
+    <div class="sidebar">
         <div class="logo-area" onclick="location.reload()">
             <h1>王牌竞速 · 情报站</h1>
             <p>核心档案 · 赛车数据</p>
         </div>
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-page="vehicles">车辆数据</button>
+            <button class="tab-btn" data-page="chip">芯片架构</button>
+            <button class="tab-btn" data-page="energy">赋能系统</button>
+            <button class="tab-btn" data-page="calculator">芯片要求计算器</button>
+            <button class="tab-btn" data-page="news">爆料信息</button>
+        </div>
     </div>
-    <div class="nav-tabs">
-        <button class="tab-btn active" data-page="vehicles">车辆数据</button>
-        <button class="tab-btn" data-page="chip">芯片架构</button>
-        <button class="tab-btn" data-page="energy">赋能系统</button>
-        <button class="tab-btn" data-page="calculator">芯片要求计算器</button>
-        <button class="tab-btn" data-page="news">爆料信息</button>
-    </div>
-
-    <div id="vehiclesPage" class="page active-page">
-        <div class="filter-bar">
-            <div class="search-box"><input type="text" id="searchInput" placeholder="搜索车辆名称、技能..."></div>
-            <div class="filter-groups">
-                <div class="filter-group"><span class="filter-label">定位：</span>
-                    <button class="filter-btn active" data-type="position" data-value="all">全部</button>
-                    <button class="filter-btn" data-type="position" data-value="辅助">辅助</button>
-                    <button class="filter-btn" data-type="position" data-value="竞速">竞速</button>
-                    <button class="filter-btn" data-type="position" data-value="干扰">干扰</button>
-                    <button class="filter-btn" data-type="position" data-value="天平">天平</button>
-                </div>
-                <div class="filter-group"><span class="filter-label">专精：</span>
-                    <button class="filter-btn active" data-type="specialty" data-value="all">全部</button>
-                    <button class="filter-btn" data-type="specialty" data-value="城市">城市</button>
-                    <button class="filter-btn" data-type="specialty" data-value="山路">山路</button>
-                    <button class="filter-btn" data-type="specialty" data-value="场地">场地</button>
-                </div>
-                <div class="filter-group"><span class="filter-label">品质：</span>
-                    <button class="filter-btn active" data-type="quality" data-value="all">全部</button>
-                    <button class="filter-btn" data-type="quality" data-value="传说">传说</button>
-                    <button class="filter-btn" data-type="quality" data-value="史诗">史诗</button>
-                    <button class="filter-btn" data-type="quality" data-value="稀有">稀有</button>
-                    <button class="filter-btn" data-type="quality" data-value="普通">普通</button>
+    
+    <!-- 右侧主内容区 -->
+    <div class="main-content">
+        <div id="vehiclesPage" class="page active-page">
+            <div class="filter-bar">
+                <div class="search-box"><input type="text" id="searchInput" placeholder="搜索车辆名称、技能..."></div>
+                <div class="filter-groups">
+                    <div class="filter-group"><span class="filter-label">定位：</span>
+                        <button class="filter-btn active" data-type="position" data-value="all">全部</button>
+                        <button class="filter-btn" data-type="position" data-value="辅助">辅助</button>
+                        <button class="filter-btn" data-type="position" data-value="竞速">竞速</button>
+                        <button class="filter-btn" data-type="position" data-value="干扰">干扰</button>
+                        <button class="filter-btn" data-type="position" data-value="天平">天平</button>
+                    </div>
+                    <div class="filter-group"><span class="filter-label">专精：</span>
+                        <button class="filter-btn active" data-type="specialty" data-value="all">全部</button>
+                        <button class="filter-btn" data-type="specialty" data-value="城市">城市</button>
+                        <button class="filter-btn" data-type="specialty" data-value="山路">山路</button>
+                        <button class="filter-btn" data-type="specialty" data-value="场地">场地</button>
+                    </div>
+                    <div class="filter-group"><span class="filter-label">品质：</span>
+                        <button class="filter-btn active" data-type="quality" data-value="all">全部</button>
+                        <button class="filter-btn" data-type="quality" data-value="传说">传说</button>
+                        <button class="filter-btn" data-type="quality" data-value="史诗">史诗</button>
+                        <button class="filter-btn" data-type="quality" data-value="稀有">稀有</button>
+                        <button class="filter-btn" data-type="quality" data-value="普通">普通</button>
+                    </div>
                 </div>
             </div>
+            <div class="cars-grid" id="carsGrid"></div>
+            <div class="stats-text" id="statsText">加载中...</div>
         </div>
-        <div class="cars-grid" id="carsGrid"></div>
-        <div class="stats-text" id="statsText">加载中...</div>
-    </div>
 
-    <div id="chipPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">芯片架构 - 开发中</div></div>
-    <div id="energyPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">赋能系统 - 开发中</div></div>
-    <div id="calculatorPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">芯片要求计算器 - 即将上线</div></div>
-    <div id="newsPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">爆料信息 - 开发中</div></div>
+        <div id="chipPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">芯片架构 - 开发中</div></div>
+        <div id="energyPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">赋能系统 - 开发中</div></div>
+        <div id="calculatorPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">芯片要求计算器 - 即将上线</div></div>
+        <div id="newsPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">爆料信息 - 开发中</div></div>
+    </div>
 </div>
 
 <script>
@@ -581,21 +593,19 @@
         
         let html = `
             <div class="detail-container">
-                <div class="detail-sticky-top">
-                    <button class="detail-back-btn" id="backBtn">← 返回列表</button>
-                    <div class="detail-header">
-                        <div class="detail-image ${bgClass}">
-                            <img src="${car.imageUrl}" onerror="this.src='https://placehold.co/600x400?text=Car'">
-                            <div class="detail-acquisition-area">
-                                <div class="detail-acquisition-icon"><img src="${car.acquisitionIcon}"></div>
-                                <span class="detail-acquisition-text">${car.acquisition}</span>
-                            </div>
+                <button class="detail-back-btn" id="backBtn">← 返回列表</button>
+                <div class="detail-header">
+                    <div class="detail-image ${bgClass}">
+                        <img src="${car.imageUrl}" onerror="this.src='https://placehold.co/600x400?text=Car'">
+                        <div class="detail-acquisition-area">
+                            <div class="detail-acquisition-icon"><img src="${car.acquisitionIcon}"></div>
+                            <span class="detail-acquisition-text">${car.acquisition}</span>
                         </div>
-                        <div class="detail-info-panel">
-                            <div class="detail-name">${car.name}</div>
-                            <div class="detail-badges"><span class="quality-badge-large">${car.quality}</span><div class="badge"><img src="${positionIcon}"> ${car.position}位</div><div class="badge"><img src="${specialtyIcon}"> ${car.specialty}</div></div>
-                            <div class="info-rows"><div class="info-row"><span class="info-label">注册日期</span><span class="info-value">${car.registerDate || '未知'}</span></div><div class="info-row"><span class="info-label">车辆类型</span><span class="info-value">${car.vehicleType || '未知'}</span></div><div class="info-row"><span class="info-label">厂商</span><span class="info-value">${car.manufacturer || '未知'}</span></div></div>
-                        </div>
+                    </div>
+                    <div class="detail-info-panel">
+                        <div class="detail-name">${car.name}</div>
+                        <div class="detail-badges"><span class="quality-badge-large">${car.quality}</span><div class="badge"><img src="${positionIcon}"> ${car.position}位</div><div class="badge"><img src="${specialtyIcon}"> ${car.specialty}</div></div>
+                        <div class="info-rows"><div class="info-row"><span class="info-label">注册日期</span><span class="info-value">${car.registerDate || '未知'}</span></div><div class="info-row"><span class="info-label">车辆类型</span><span class="info-value">${car.vehicleType || '未知'}</span></div><div class="info-row"><span class="info-label">厂商</span><span class="info-value">${car.manufacturer || '未知'}</span></div></div>
                     </div>
                 </div>
                 <div class="features-section"><div class="section-title">车辆特点</div><div class="features-horizontal">${featuresHtml}</div></div>
@@ -635,7 +645,7 @@
         bindTermHighlights();
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
-        // 强制滚动到顶部，确保从页面最上方开始显示
+        // 滚动到顶部，从页面最上方开始显示
         window.scrollTo(0, 0);
     }
     
