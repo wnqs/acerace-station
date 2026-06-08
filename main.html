@@ -512,18 +512,20 @@
             .car-description { font-size: 0.6rem; font-weight: 400; }
             .car-card { border: none; }
             
-            /* 手机端车辆特点 - 一排三个 */
+            /* 手机端车辆特点 - 调整字体大小和内边距，让标签框更紧凑贴合文字 */
             .features-horizontal {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
+                display: flex;
+                flex-wrap: wrap;
                 gap: 8px;
             }
             .feature-box {
-                white-space: normal;
-                font-size: 0.65rem;
-                padding: 6px 4px;
+                white-space: nowrap;
+                font-size: 0.75rem;
+                padding: 6px 12px;
                 text-align: center;
                 word-break: keep-all;
+                display: inline-block;
+                width: auto;
             }
             
             /* 手机端芯片槽 - 一行显示（横向滚动） */
@@ -567,7 +569,7 @@
             .category-dropdown-btn { padding: 5px 10px; font-size: 0.7rem; }
             .search-box input { padding: 6px 10px; font-size: 0.75rem; }
             .main-content { margin-top: 140px; }
-            .feature-box { font-size: 0.6rem; padding: 4px 2px; }
+            .feature-box { font-size: 0.7rem; padding: 5px 10px; }
         }
         
         /* 电脑端额外微调 */
