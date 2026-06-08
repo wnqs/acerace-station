@@ -75,34 +75,24 @@
             width: 16px;
             height: 16px;
         }
-        /* 品质选项 - 使用车辆模块右下角品质文字一样的字体样式（加粗、渐变背景） */
+        /* 品质选项 - 透明背景，和其他分类显示一样 */
         .desktop-quality-option {
             background: #2a2a3c;
             border-radius: 30px;
             padding: 6px 14px;
             font-size: 0.75rem;
-            font-weight: 800;
-            letter-spacing: 1px;
+            font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
             display: inline-flex;
             align-items: center;
             white-space: nowrap;
-            backdrop-filter: blur(2px);
-            text-transform: uppercase;
-            border: 1px solid transparent;
+            color: #a0a0b8;
         }
         .desktop-quality-option.active {
             background: #feca57;
             color: #1a1a2e;
-            border-color: #feca57;
         }
-        .desktop-quality-option.legendary-style { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #ffffff; border-color: #ffd966; text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
-        .desktop-quality-option.epic-style { background: linear-gradient(135deg, #aa6dc9, #8b5aaf); color: #ffffff; border-color: #c99eff; text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
-        .desktop-quality-option.rare-style { background: linear-gradient(135deg, #4a9eff, #2d7fd1); color: #ffffff; border-color: #8bcbff; text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
-        .desktop-quality-option.normal-style { background: linear-gradient(135deg, #40c468, #2f9e52); color: #ffffff; border-color: #8fdfaa; text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
-        /* 激活状态覆盖 */
-        .desktop-quality-option.active { background: #feca57 !important; color: #1a1a2e !important; border-color: #feca57 !important; text-shadow: none !important; }
         
         .cars-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
         .car-card { background: #14141f; border-radius: 24px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; will-change: transform; position: relative; display: flex; flex-direction: column; }
@@ -203,20 +193,29 @@
         .feature-box[data-color="默认"] { border-color: #feca57; color: #feca57; background: rgba(30,30,50,0.9); }
         .feature-box:hover { transform: translateY(-2px); background: rgba(254,202,87,0.2); box-shadow: 0 4px 12px rgba(254,202,87,0.2); }
         
-        /* 通用文字提示样式 - 无边框无背景，只显示文字（与主界面车辆获取方式效果一致） */
+        /* 通用纯文字提示样式（无边框，但有良好的排版） */
         .plain-text-tooltip { 
             position: fixed; 
-            background: rgba(0,0,0,0.7); 
+            background: rgba(0,0,0,0.85); 
             color: #feca57; 
-            padding: 4px 12px; 
-            border-radius: 20px; 
-            font-size: 0.7rem; 
+            padding: 10px 16px; 
+            border-radius: 12px; 
+            font-size: 0.8rem; 
             z-index: 1000; 
-            white-space: nowrap; 
-            backdrop-filter: blur(4px); 
+            backdrop-filter: blur(8px); 
             pointer-events: none; 
             font-weight: 500;
-            letter-spacing: 0.3px;
+            max-width: 300px;
+            white-space: normal;
+            word-break: break-word;
+            line-height: 1.5;
+            text-align: left;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .plain-text-tooltip .term-desc-line {
+            margin-bottom: 4px;
+            white-space: pre-line;
+            text-align: left;
         }
         
         .chip-slots { padding: 20px 40px 12px 40px; border-top: 1px solid rgba(255,255,255,0.08); }
@@ -257,10 +256,7 @@
         
         /* ========== 手机端专用样式 ========== */
         @media (max-width: 768px) {
-            /* 手机端：隐藏左侧边栏 */
             .sidebar { display: none; }
-            
-            /* 手机端固定头部区域 */
             .mobile-fixed-header {
                 position: fixed;
                 top: 0;
@@ -272,7 +268,6 @@
                 display: flex;
                 flex-direction: column;
             }
-            
             .mobile-top-bar {
                 padding: 8px 12px;
                 border-bottom: 1px solid #2a2a3c;
@@ -317,8 +312,6 @@
                 background: #feca57;
                 color: #1a1a2e;
             }
-            
-            /* 手机端筛选栏 */
             .mobile-filter-sticky {
                 padding: 8px 12px;
                 background: #0a0a0f;
@@ -348,7 +341,6 @@
             }
             .search-box input:focus { border-color: #feca57; }
             .search-box input::placeholder { color: #8a8aa3; font-size: 0.75rem; }
-            
             .category-dropdown-btn { 
                 background: #1f1f2e; 
                 border: 1px solid #2a2a3c; 
@@ -367,7 +359,6 @@
             }
             .category-dropdown-btn .arrow { font-size: 0.6rem; transition: transform 0.2s; }
             .category-dropdown-btn.active .arrow { transform: rotate(180deg); }
-            
             .category-dropdown-panel { 
                 background: #1a1a2a; 
                 border-radius: 16px; 
@@ -382,7 +373,6 @@
                 z-index: 210;
             }
             .category-dropdown-panel.show { display: block; }
-            
             .filter-section { margin-bottom: 12px; }
             .filter-section:last-child { margin-bottom: 0; }
             .filter-section-title { 
@@ -415,11 +405,7 @@
             }
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
             .filter-option img { width: 12px; height: 12px; }
-            
-            /* 主内容区 - 为固定头部留出空间，避免与搜索框重叠 */
             .main-content { margin-left: 0; margin-top: 145px; padding: 12px; width: 100%; }
-            
-            /* 车辆卡片网格 */
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card-image { height: 130px; padding: 12px; }
             .car-name { font-size: 0.85rem; font-weight: 700; }
@@ -429,8 +415,6 @@
             .meta-item { font-size: 0.55rem; padding: 2px 6px; font-weight: 500; }
             .car-description { font-size: 0.6rem; font-weight: 400; }
             .car-card { border: none; }
-            
-            /* 详情页适配 */
             .detail-container { overflow-x: hidden; padding-bottom: 20px; }
             .detail-header { flex-direction: column; padding: 16px !important; gap: 16px !important; }
             .detail-image { padding: 16px !important; min-width: auto; width: 100%; border-radius: 16px; }
@@ -444,24 +428,7 @@
             .detail-acquisition-text { font-size: 0.65rem; white-space: normal; max-width: 120px; text-shadow: 0 0 4px rgba(0,0,0,0.8); font-weight: 600; }
             .detail-back-btn { margin: 12px 0 0 12px; padding: 8px 16px; font-size: 0.85rem; font-weight: 700; }
             .stats-text { font-size: 0.75rem; font-weight: 500; }
-            /* 手机端术语点击效果（使用带背景的提示） */
-            .plain-text-tooltip-mobile { 
-                position: fixed; 
-                background: rgba(0,0,0,0.85); 
-                color: #feca57; 
-                padding: 6px 14px; 
-                border-radius: 24px; 
-                font-size: 0.7rem; 
-                z-index: 1000; 
-                white-space: nowrap; 
-                backdrop-filter: blur(8px); 
-                pointer-events: none; 
-                font-weight: 500;
-                max-width: 220px;
-                white-space: normal;
-                text-align: center;
-                line-height: 1.4;
-            }
+            .plain-text-tooltip { max-width: 260px; font-size: 0.75rem; padding: 8px 12px; }
         }
         
         @media (max-width: 480px) {
@@ -475,7 +442,6 @@
             .main-content { margin-top: 140px; }
         }
         
-        /* 电脑端额外微调 */
         @media (min-width: 769px) {
             .acquisition-icon { bottom: 2px; width: 70px; height: 70px; }
             .mobile-fixed-header { display: none; }
@@ -557,7 +523,7 @@
     
     <div class="main-content">
         <div id="vehiclesPage" class="page active-page">
-            <!-- 电脑端筛选栏 - 平铺分类 -->
+            <!-- 电脑端筛选栏 -->
             <div class="filter-bar desktop-filter">
                 <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、技能..."></div>
                 <div class="desktop-filter-sections">
@@ -581,10 +547,10 @@
                     <div class="desktop-filter-section">
                         <div class="desktop-filter-section-title">品质</div>
                         <div class="desktop-filter-options" id="desktopQualityOptions">
-                            <div class="desktop-quality-option legendary-style" data-type="quality" data-value="传说">传说</div>
-                            <div class="desktop-quality-option epic-style" data-type="quality" data-value="史诗">史诗</div>
-                            <div class="desktop-quality-option rare-style" data-type="quality" data-value="稀有">稀有</div>
-                            <div class="desktop-quality-option normal-style" data-type="quality" data-value="普通">普通</div>
+                            <div class="desktop-quality-option" data-type="quality" data-value="传说">传说</div>
+                            <div class="desktop-quality-option" data-type="quality" data-value="史诗">史诗</div>
+                            <div class="desktop-quality-option" data-type="quality" data-value="稀有">稀有</div>
+                            <div class="desktop-quality-option" data-type="quality" data-value="普通">普通</div>
                         </div>
                     </div>
                 </div>
@@ -611,25 +577,17 @@
     // ==================== 全局变量 ====================
     let vehiclesData = [];
     let termDefinitions = {};
-    // 筛选状态
     let activeFilters = { position: "", specialty: "", quality: "" };
     let keyword = "";
     let isDetail = false;
-    let scrollPositions = { list: 0 };
     let activeTooltipTimer = null;
     let currentTooltipElement = null;
     
     const EXTRA_RACING_ICON_CARS = ["女武神"];
     const RACING_ICON_URL = "https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png";
-    
     const qualityWeight = { "传说": 4, "史诗": 3, "稀有": 2, "普通": 1 };
     const positionWeight = { "竞速": 3, "辅助": 2, "干扰": 1, "天平": 2 };
-    
-    const qualityOverrides = {
-        "mini jcw": "稀有",
-        "风神": "传说",
-        "幻蝶": "传说"
-    };
+    const qualityOverrides = { "mini jcw": "稀有", "风神": "传说", "幻蝶": "传说" };
     
     const CHIP_ICONS = {
         circle: "https://s3.bmp.ovh/2026/05/31/OnUTepDT.png",
@@ -638,14 +596,12 @@
         hexagon: "https://s3.bmp.ovh/2026/05/31/2vWKj9Ev.png",
         vslot: "https://s3.bmp.ovh/2026/05/31/Guvt6llt.png"
     };
-    
     const POSITION_ICONS = {
         "辅助": "https://s3.bmp.ovh/2026/05/31/mtc05q5R.png",
         "竞速": "https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png",
         "干扰": "https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png",
         "天平": "https://s3.bmp.ovh/2026/05/31/S38JRfCL.png"
     };
-    
     const SPECIALTY_ICONS = {
         "城市": "https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png",
         "山路": "https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png",
@@ -656,21 +612,18 @@
         const order = { "circle": 0, "triangle": 1, "rhombus": 2, "hexagon": 3, "vslot": 4 };
         return [...slots].sort((a, b) => (order[a] ?? 5) - (order[b] ?? 5));
     }
-    
     function getQualityClass(quality) {
         if (quality === "传说") return "legendary";
         if (quality === "史诗") return "epic";
         if (quality === "稀有") return "rare";
         return "normal";
     }
-    
     function getBorderClass(quality) {
         if (quality === "传说") return "legendary-border";
         if (quality === "史诗") return "epic-border";
         if (quality === "稀有") return "rare-border";
         return "normal-border";
     }
-    
     function getCorrectedQuality(carName, originalQuality) {
         const lowerName = carName.toLowerCase();
         for (const [key, value] of Object.entries(qualityOverrides)) {
@@ -678,7 +631,6 @@
         }
         return originalQuality;
     }
-    
     function sortVehicles(vehicles) {
         return [...vehicles].sort((a, b) => {
             const dateA = new Date(a.registerDate);
@@ -692,7 +644,6 @@
             return posB - posA;
         });
     }
-    
     function applyNumberHighlight(text) {
         if (!text) return text;
         let result = text;
@@ -701,7 +652,6 @@
         result = result.replace(/<span class="red-number"><span class="red-number">(.*?)<\/span><\/span>/g, '<span class="red-number">$1</span>');
         return result;
     }
-    
     function highlightTerms(text) {
         if (!text) return text;
         let result = text;
@@ -712,35 +662,45 @@
         }
         return result;
     }
-    
+    // 格式化技能文本：处理越野车换行、句号分割、/换行、左顶格
     function formatSkillText(text) {
         if (!text) return text;
         let result = highlightTerms(text);
+        // 处理越野车
         result = result.replace(/(越野车[：:])\s*\n/g, '$1 ');
+        // 处理斜杠换行
+        result = result.replace(/[\/／]/g, '\n');
+        // 按句号分割成独立行
         let sentences = [], current = '';
         for (let i = 0; i < result.length; i++) {
             current += result[i];
-            if (result[i] === '。' || result[i] === '．') { sentences.push(current); current = ''; }
+            if (result[i] === '。' || result[i] === '．') { sentences.push(current.trim()); current = ''; }
         }
-        if (current.trim().length > 0) sentences.push(current);
+        if (current.trim().length > 0) sentences.push(current.trim());
         let formatted = sentences.join('\n');
-        formatted = formatted.replace(/\n{2,}/g, '\n').replace(/[；;]\s*/g, '\n').replace(/[：:]\s*(?=[^\n])/g, '：');
+        formatted = formatted.replace(/\n{2,}/g, '\n').replace(/[；;]\s*/g, '\n');
+        formatted = formatted.replace(/[：:]\s*(?=[^\n])/g, '：');
         formatted = applyNumberHighlight(formatted);
         return formatted;
     }
     
-    // 通用文字提示函数（无边框无背景浮层效果，与主界面车辆获取方式一致）
-    function showPlainTextTooltip(e, text, isMobile) {
+    // 通用纯文字提示（保留排版格式）
+    function showFormattedTooltip(e, content, isMobile) {
         if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
         if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
-        let tip = document.createElement('div');
-        if (isMobile) {
-            tip.className = 'plain-text-tooltip-mobile';
-            tip.textContent = text;
-        } else {
-            tip.className = 'plain-text-tooltip';
-            tip.textContent = text;
+        // 处理内容格式：按原有换行和斜杠换行
+        let displayContent = content;
+        // 替换斜杠为换行
+        displayContent = displayContent.replace(/[\/／]/g, '\n');
+        // 分割行并过滤空行
+        let lines = displayContent.split(/\n/).filter(line => line.trim().length > 0);
+        let descHtml = '';
+        for (let line of lines) {
+            descHtml += `<div class="term-desc-line" style="white-space: pre-line; text-align: left;">${line.trim()}</div>`;
         }
+        let tip = document.createElement('div');
+        tip.className = 'plain-text-tooltip';
+        tip.innerHTML = descHtml;
         document.body.appendChild(tip);
         let rect = e.target.getBoundingClientRect();
         let left = rect.left + rect.width/2 - tip.offsetWidth/2;
@@ -750,21 +710,37 @@
         tip.style.left = left + 'px';
         tip.style.top = top + 'px';
         currentTooltipElement = tip;
+        
+        // 设置自动关闭定时器（电脑端悬浮也有定时关闭）
         activeTooltipTimer = setTimeout(() => {
             if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
             currentTooltipElement = null;
             activeTooltipTimer = null;
-        }, 2000);
+        }, 3000);
+        
+        // 手机端：滑动页面或点击空白处关闭
+        if (isMobile) {
+            const closeTooltip = () => {
+                if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
+                if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
+                currentTooltipElement = null;
+                activeTooltipTimer = null;
+                document.removeEventListener('touchstart', closeTooltip);
+                document.removeEventListener('scroll', closeTooltip);
+            };
+            document.addEventListener('touchstart', closeTooltip, { once: true });
+            document.addEventListener('scroll', closeTooltip, { once: true });
+        }
     }
     
-    // 电脑端术语悬浮绑定（使用普通文字提示）
+    // 电脑端术语悬浮绑定
     function bindDesktopTermHighlights() {
         document.querySelectorAll('.term-highlight').forEach(el => {
             el.removeEventListener('mouseenter', el._mouseEnterHandler);
             el.removeEventListener('mouseleave', el._mouseLeaveHandler);
             const term = el.dataset.term;
             let def = termDefinitions[term] || '暂无详细解释';
-            el._mouseEnterHandler = (e) => { e.stopPropagation(); showPlainTextTooltip(e, def, false); };
+            el._mouseEnterHandler = (e) => { e.stopPropagation(); showFormattedTooltip(e, def, false); };
             el._mouseLeaveHandler = () => { 
                 if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
                 if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
@@ -778,8 +754,8 @@
             box.removeEventListener('mouseenter', box._mouseEnterHandler);
             box.removeEventListener('mouseleave', box._mouseLeaveHandler);
             const name = box.dataset.name;
-            const desc = box.dataset.desc;
-            box._mouseEnterHandler = (e) => { e.stopPropagation(); showPlainTextTooltip(e, desc, false); };
+            const desc = box.dataset.desc || '';
+            box._mouseEnterHandler = (e) => { e.stopPropagation(); showFormattedTooltip(e, desc, false); };
             box._mouseLeaveHandler = () => {
                 if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
                 if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
@@ -797,13 +773,14 @@
             el.removeEventListener('click', el._clickHandler);
             const term = el.dataset.term;
             let def = termDefinitions[term] || '暂无详细解释';
-            el._clickHandler = (e) => { e.stopPropagation(); showPlainTextTooltip(e, def, true); };
+            el._clickHandler = (e) => { e.stopPropagation(); showFormattedTooltip(e, def, true); };
             el.addEventListener('click', el._clickHandler);
         });
         document.querySelectorAll('.feature-box').forEach(box => {
             box.removeEventListener('click', box._clickHandler);
-            const name = box.dataset.name, desc = box.dataset.desc;
-            box._clickHandler = (e) => { e.stopPropagation(); showPlainTextTooltip(e, desc, true); };
+            const name = box.dataset.name;
+            const desc = box.dataset.desc || '';
+            box._clickHandler = (e) => { e.stopPropagation(); showFormattedTooltip(e, desc, true); };
             box.addEventListener('click', box._clickHandler);
         });
     }
@@ -813,7 +790,7 @@
         if (activeAcqTooltip) activeAcqTooltip.remove();
         let tip = document.createElement('div');
         tip.className = 'plain-text-tooltip';
-        tip.textContent = text;
+        tip.innerHTML = `<div class="term-desc-line" style="text-align:center;">${text}</div>`;
         document.body.appendChild(tip);
         let rect = e.currentTarget.getBoundingClientRect();
         let left = rect.left + rect.width/2 - tip.offsetWidth/2;
@@ -823,14 +800,7 @@
         tip.style.left = left + 'px';
         tip.style.top = top + 'px';
         activeAcqTooltip = tip;
-        if (!isMobile) {
-            const hideHandler = () => { if (activeAcqTooltip) activeAcqTooltip.remove(); activeAcqTooltip = null; };
-            e.currentTarget.removeEventListener('mouseleave', hideHandler);
-            e.currentTarget.addEventListener('mouseleave', hideHandler);
-            tip._hideHandler = hideHandler;
-        } else {
-            setTimeout(() => { if (activeAcqTooltip) activeAcqTooltip.remove(); activeAcqTooltip = null; }, 1500);
-        }
+        setTimeout(() => { if (activeAcqTooltip) activeAcqTooltip.remove(); activeAcqTooltip = null; }, 1500);
     }
     
     async function loadData() {
@@ -873,12 +843,9 @@
         const isMobile = isMobileDevice();
         const desktopFilter = document.querySelector('.desktop-filter');
         const mobileFixedHeader = document.getElementById('mobileFixedHeader');
-        
         if (isMobile) {
             if (mobileFixedHeader) mobileFixedHeader.style.display = 'flex';
             if (desktopFilter) desktopFilter.style.display = 'none';
-            
-            // 手机端标签切换
             const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn');
             mobileTabBtns.forEach(btn => {
                 btn.removeEventListener('click', btn._clickHandler);
@@ -893,14 +860,12 @@
                     if (pageId === 'vehicles') window.scrollTo(0, 0);
                 });
             });
-            
             const searchInput = document.getElementById('searchInputMobile');
             if (searchInput) {
                 searchInput.value = keyword;
                 searchInput.removeEventListener('input', searchInput._listener);
                 searchInput.addEventListener('input', searchInput._listener = (e) => { keyword = e.target.value; renderList(); });
             }
-            
             document.querySelectorAll('#positionOptions .filter-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
                 opt.addEventListener('click', opt._clickHandler = () => {
@@ -928,7 +893,6 @@
                     renderList();
                 });
             });
-            
             const dropdownBtn = document.getElementById('categoryDropdownBtn');
             const dropdownPanel = document.getElementById('categoryDropdownPanel');
             if (dropdownBtn && dropdownPanel) {
@@ -950,14 +914,12 @@
         } else {
             if (mobileFixedHeader) mobileFixedHeader.style.display = 'none';
             if (desktopFilter) desktopFilter.style.display = 'block';
-            
             const desktopSearch = document.getElementById('searchInputDesktop');
             if (desktopSearch) {
                 desktopSearch.value = keyword;
                 desktopSearch.removeEventListener('input', desktopSearch._listener);
                 desktopSearch.addEventListener('input', desktopSearch._listener = (e) => { keyword = e.target.value; renderList(); });
             }
-            
             document.querySelectorAll('#desktopPositionOptions .desktop-filter-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
                 opt.addEventListener('click', opt._clickHandler = () => {
@@ -1003,7 +965,6 @@
             else opt.classList.remove('active');
         });
     }
-    
     function updateDesktopFilterUI() {
         document.querySelectorAll('#desktopPositionOptions .desktop-filter-option').forEach(opt => {
             if (opt.dataset.value === activeFilters.position) opt.classList.add('active');
@@ -1075,16 +1036,11 @@
             card._clickHandler = (e) => { if (!e.target.closest('.acquisition-icon')) showDetail(card.dataset.id); };
             card.addEventListener('click', card._clickHandler);
         });
-        // 绑定术语提示（电脑端悬浮，手机端点击）
-        if (!mobile) {
-            bindDesktopTermHighlights();
-        } else {
-            bindMobileTermHighlights();
-        }
+        if (!mobile) bindDesktopTermHighlights();
+        else bindMobileTermHighlights();
     }
     
     function showDetail(id) {
-        scrollPositions.list = window.scrollY;
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
         isDetail = true;
@@ -1120,12 +1076,8 @@
         vehiclesPage.innerHTML = html;
         document.getElementById("backBtn")?.addEventListener("click", restoreList);
         const mobile = isMobileDevice();
-        // 绑定术语提示
-        if (!mobile) {
-            bindDesktopTermHighlights();
-        } else {
-            bindMobileTermHighlights();
-        }
+        if (!mobile) bindDesktopTermHighlights();
+        else bindMobileTermHighlights();
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
         window.scrollTo(0, 0);
@@ -1154,10 +1106,10 @@
                     <div class="desktop-filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
                 </div></div>
                 <div class="desktop-filter-section"><div class="desktop-filter-section-title">品质</div><div class="desktop-filter-options" id="desktopQualityOptions">
-                    <div class="desktop-quality-option legendary-style" data-type="quality" data-value="传说">传说</div>
-                    <div class="desktop-quality-option epic-style" data-type="quality" data-value="史诗">史诗</div>
-                    <div class="desktop-quality-option rare-style" data-type="quality" data-value="稀有">稀有</div>
-                    <div class="desktop-quality-option normal-style" data-type="quality" data-value="普通">普通</div>
+                    <div class="desktop-quality-option" data-type="quality" data-value="传说">传说</div>
+                    <div class="desktop-quality-option" data-type="quality" data-value="史诗">史诗</div>
+                    <div class="desktop-quality-option" data-type="quality" data-value="稀有">稀有</div>
+                    <div class="desktop-quality-option" data-type="quality" data-value="普通">普通</div>
                 </div></div>
             </div></div>
             <div class="mobile-fixed-header" id="mobileFixedHeader" style="display: none;">
