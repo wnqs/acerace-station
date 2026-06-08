@@ -177,7 +177,7 @@
         .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; }
         .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
         
-        /* ========== 手机端专用样式 - 搜索框完全固定不被遮挡 ========== */
+        /* ========== 手机端专用样式 - 修复搜索框被遮挡 ========== */
         @media (max-width: 768px) {
             /* 手机端：隐藏左侧边栏 */
             .sidebar { display: none; }
@@ -190,37 +190,37 @@
                 right: 0;
                 background: #0f0f17;
                 border-bottom: 1px solid #2a2a3c;
-                padding: 10px 12px;
+                padding: 8px 12px;
                 z-index: 200;
                 display: flex;
                 flex-direction: column;
-                gap: 8px;
+                gap: 6px;
             }
             .mobile-logo-area {
                 text-align: center;
                 cursor: pointer;
-                padding-bottom: 4px;
+                padding-bottom: 2px;
             }
             .mobile-logo-area h1 {
-                font-size: 1.1rem;
+                font-size: 1rem;
                 background: linear-gradient(135deg, #ff6b6b, #feca57);
                 -webkit-background-clip: text;
                 background-clip: text;
                 color: transparent;
             }
             .mobile-logo-area p {
-                font-size: 0.55rem;
+                font-size: 0.5rem;
                 color: #8a8aa3;
             }
             .mobile-nav-tabs {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
-                gap: 6px;
+                gap: 4px;
             }
             .mobile-tab-btn {
-                padding: 8px 4px;
-                font-size: 0.7rem;
-                border-radius: 20px;
+                padding: 6px 2px;
+                font-size: 0.65rem;
+                border-radius: 16px;
                 text-align: center;
                 background: #1a1a2a;
                 border: none;
@@ -234,30 +234,30 @@
                 color: #1a1a2e;
             }
             
-            /* 主内容区 - 为顶部导航栏留出足够空间 */
-            .main-content { margin-left: 0; margin-top: 100px; padding: 12px; width: 100%; }
+            /* 主内容区 - 为顶部导航栏留出空间 */
+            .main-content { margin-left: 0; margin-top: 85px; padding: 12px; width: 100%; }
             
-            /* 固定顶部筛选栏 - 完全固定不随滚动移动 */
+            /* 固定顶部筛选栏 - 紧贴导航栏下方 */
             .mobile-filter-sticky { 
                 position: fixed;
-                top: 100px;
+                top: 85px;
                 left: 0;
                 right: 0;
                 z-index: 150; 
                 background: #0a0a0f; 
-                padding: 10px 12px 12px 12px;
+                padding: 8px 12px 10px 12px;
                 border-bottom: 1px solid #2a2a3c;
                 box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             }
             
             /* 为固定筛选栏下方的内容预留占位空间 */
             .filter-placeholder {
-                height: 70px;
+                height: 62px;
             }
             
             .filter-row {
                 display: flex;
-                gap: 10px;
+                gap: 8px;
                 align-items: center;
             }
             .search-box { 
@@ -267,8 +267,8 @@
             }
             .search-box input { 
                 width: 100%; 
-                padding: 10px 14px; 
-                font-size: 0.85rem; 
+                padding: 8px 12px; 
+                font-size: 0.8rem; 
                 background: #1f1f2e; 
                 border: 1px solid #2a2a3c; 
                 border-radius: 30px; 
@@ -277,27 +277,27 @@
                 box-sizing: border-box;
             }
             .search-box input:focus { border-color: #feca57; }
-            .search-box input::placeholder { color: #8a8aa3; font-size: 0.8rem; }
+            .search-box input::placeholder { color: #8a8aa3; font-size: 0.75rem; }
             
-            /* 选择分类按钮 - 只包含文字和下拉符号 */
+            /* 选择分类按钮 */
             .category-dropdown-btn { 
                 background: #1f1f2e; 
                 border: 1px solid #2a2a3c; 
                 border-radius: 30px; 
-                padding: 8px 16px; 
-                font-size: 0.8rem; 
+                padding: 6px 14px; 
+                font-size: 0.75rem; 
                 cursor: pointer; 
                 color: #e2e2e6; 
                 display: flex; 
                 align-items: center; 
                 justify-content: center;
-                gap: 6px;
+                gap: 5px;
                 white-space: nowrap;
                 font-weight: 500;
                 transition: 0.2s;
                 flex-shrink: 0;
             }
-            .category-dropdown-btn .arrow { font-size: 0.65rem; transition: transform 0.2s; }
+            .category-dropdown-btn .arrow { font-size: 0.6rem; transition: transform 0.2s; }
             .category-dropdown-btn.active .arrow { transform: rotate(180deg); }
             
             /* 下拉面板 */
@@ -305,7 +305,7 @@
                 background: #1a1a2a; 
                 border-radius: 16px; 
                 margin-top: 8px; 
-                padding: 12px; 
+                padding: 10px; 
                 border: 1px solid #2a2a3c; 
                 display: none;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -317,37 +317,37 @@
             .category-dropdown-panel.show { display: block; }
             
             /* 分类区块 */
-            .filter-section { margin-bottom: 14px; }
+            .filter-section { margin-bottom: 12px; }
             .filter-section:last-child { margin-bottom: 0; }
             .filter-section-title { 
-                font-size: 0.7rem; 
+                font-size: 0.65rem; 
                 color: #feca57; 
-                margin-bottom: 6px; 
+                margin-bottom: 5px; 
                 padding-left: 4px; 
                 font-weight: 600; 
             }
             .filter-options { 
                 display: flex; 
                 flex-wrap: wrap; 
-                gap: 8px; 
+                gap: 6px; 
                 justify-content: flex-start;
             }
             .filter-option, .quality-option { 
                 background: #2a2a3c; 
                 border-radius: 30px; 
-                padding: 5px 12px; 
-                font-size: 0.7rem; 
+                padding: 4px 10px; 
+                font-size: 0.65rem; 
                 cursor: pointer; 
                 color: #a0a0b8; 
                 transition: 0.2s; 
                 display: inline-flex; 
                 align-items: center; 
-                gap: 5px; 
+                gap: 4px; 
                 white-space: nowrap;
                 border: none;
             }
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
-            .filter-option img { width: 14px; height: 14px; }
+            .filter-option img { width: 12px; height: 12px; }
             
             /* 车辆卡片网格 */
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -381,12 +381,12 @@
             .card-image { height: 110px; }
             .car-name { font-size: 0.75rem; }
             .meta-item { font-size: 0.5rem; padding: 2px 4px; }
-            .filter-option, .quality-option { padding: 4px 10px; font-size: 0.65rem; }
-            .category-dropdown-btn { padding: 6px 12px; font-size: 0.75rem; }
-            .search-box input { padding: 8px 12px; font-size: 0.8rem; }
-            .main-content { margin-top: 95px; }
-            .mobile-filter-sticky { top: 95px; }
-            .filter-placeholder { height: 65px; }
+            .filter-option, .quality-option { padding: 3px 8px; font-size: 0.6rem; }
+            .category-dropdown-btn { padding: 5px 10px; font-size: 0.7rem; }
+            .search-box input { padding: 6px 10px; font-size: 0.75rem; }
+            .main-content { margin-top: 78px; }
+            .mobile-filter-sticky { top: 78px; }
+            .filter-placeholder { height: 56px; }
         }
         
         /* 电脑端额外微调 */
@@ -460,7 +460,7 @@
                     </div>
                 </div>
             </div>
-            <!-- 手机端固定筛选栏 - 完全固定 -->
+            <!-- 手机端固定筛选栏 -->
             <div class="mobile-filter-sticky" id="mobileFilterSticky" style="display: none;">
                 <div class="filter-row">
                     <div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车型/技能..."></div>
@@ -498,7 +498,7 @@
                     </div>
                 </div>
             </div>
-            <!-- 占位元素，防止固定筛选栏遮挡内容 -->
+            <!-- 占位元素 -->
             <div class="filter-placeholder" id="filterPlaceholder" style="display: none;"></div>
             <div class="cars-grid" id="carsGrid"></div>
             <div class="stats-text" id="statsText">加载中...</div>
@@ -806,7 +806,7 @@
                     mobileTabBtns.forEach(t => t.classList.remove('active'));
                     btn.classList.add('active');
                     if (pageId !== 'vehicles') isDetail = false;
-                    if (pageId === 'vehicles') window.scrollTo(0, scrollPositions.list || 0);
+                    if (pageId === 'vehicles') window.scrollTo(0, 0);
                 });
             });
             
@@ -1046,7 +1046,7 @@
         isDetail = false;
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
-        setTimeout(() => { window.scrollTo(0, scrollPositions.list || 0); }, 50);
+        window.scrollTo(0, 0);
     }
     
     function initTabs() {
@@ -1059,7 +1059,7 @@
                 document.querySelectorAll('.sidebar .tab-btn').forEach(t => t.classList.remove('active'));
                 btn.classList.add('active');
                 if (pageId !== 'vehicles') isDetail = false;
-                if (pageId === 'vehicles') window.scrollTo(0, scrollPositions.list || 0);
+                if (pageId === 'vehicles') window.scrollTo(0, 0);
             });
         });
     }
