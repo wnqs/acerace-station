@@ -184,7 +184,10 @@
             .sidebar .logo-area p { font-size: 0.5rem; }
             .nav-tabs { flex-direction: row; flex-wrap: wrap; gap: 6px; padding: 0; justify-content: flex-start; }
             .tab-btn { padding: 6px 12px; font-size: 0.7rem; border-radius: 20px; text-align: center; width: auto; flex: 0 0 auto; }
-            .main-content { margin-left: 0; margin-top: 105px; padding: 12px; width: 100%; }
+            /* 手机端主内容区增加顶部安全距离，避免被固定导航栏遮挡 */
+            .main-content { margin-left: 0; margin-top: 115px; padding: 12px; width: 100%; }
+            /* 详情页返回按钮增加顶部间距，避免被遮挡 */
+            .detail-back-btn { margin-top: 10px; margin-left: 16px; }
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card-image { height: 140px; padding: 12px; }
             .car-name { font-size: 0.9rem; }
@@ -196,8 +199,6 @@
             .car-card { border: none; }
             .car-card:hover { border: none; box-shadow: none; }
             .car-card.legendary-border:hover, .car-card.epic-border:hover, .car-card.rare-border:hover, .car-card.normal-border:hover { border-color: transparent; box-shadow: none; }
-            
-            /* ========== 手机端详情页显示修复 ========== */
             .detail-container {
                 overflow-x: hidden;
                 padding-bottom: 20px;
@@ -301,11 +302,6 @@
             }
             .sub-skill {
                 padding: 8px 12px;
-            }
-            .detail-back-btn {
-                margin: 16px 0 0 16px;
-                padding: 8px 20px;
-                font-size: 0.9rem;
             }
             .detail-acquisition-area {
                 top: 12px;
@@ -511,12 +507,18 @@
         return result;
     }
     
+    // 越野车文字格式：将"越野车："与后面的描述放在同一行，并且整段另起一行
     function formatSkillText(text) {
         if (!text) return text;
         let result = highlightTerms(text);
-        const regex = /\n(越野车[：:][^\n]*)/g;
-        result = result.replace(regex, ' $1');
-        result = result.replace(/(越野车[：:])[\s]*\n/g, '$1 ');
+        result = result.replace(/(越野车[：:])\s*\n/g, '$1 ');
+        const regex = /(越野车[：:][^。]*[。]?)/g;
+        result = result.replace(regex, (match) => {
+            if (result.indexOf('\n' + match) !== -1 || result.indexOf(match + '\n') !== -1) {
+                return match;
+            }
+            return '\n' + match;
+        });
         result = result.replace(/[；;]\s*/g, '\n');
         result = result.replace(/[：:]\s*(?=[^\n])/g, '：\n');
         result = applyNumberHighlight(result);
