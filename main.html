@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -266,7 +265,7 @@
                 gap: 10px; 
                 justify-content: flex-start;
             }
-            /* 所有分类选项统一样式：透明背景（与上面两个分类一致） */
+            /* 所有分类选项统一样式 */
             .filter-option, .quality-option { 
                 background: #2a2a3c; 
                 border-radius: 30px; 
@@ -374,7 +373,7 @@
                     </div>
                 </div>
             </div>
-            <!-- 手机端固定筛选栏（移动端显示） -->
+            <!-- 手机端固定筛选栏（移动端显示） - 确保搜索框完整显示 -->
             <div class="mobile-filter-sticky" id="mobileFilterSticky" style="display: none;">
                 <div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车型 / 技能 / 关键字..."></div>
                 <div class="category-dropdown-btn" id="categoryDropdownBtn">
@@ -401,7 +400,7 @@
                             <div class="filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
                         </div>
                     </div>
-                    <!-- 品质分类 - 统一透明背景样式 -->
+                    <!-- 品质分类 -->
                     <div class="filter-section">
                         <div class="filter-section-title">品质</div>
                         <div class="filter-options" id="qualityOptions">
@@ -607,7 +606,6 @@
     }
     
     let activeAcqTooltip = null;
-    // 获取方式提示：只显示文字，不要边框浮层效果
     function showAcqTooltip(e, text, isMobile) {
         if (activeAcqTooltip) activeAcqTooltip.remove();
         let tip = document.createElement('div');
@@ -705,11 +703,15 @@
             if (desktopFilter) desktopFilter.style.display = 'none';
             if (mobileSticky) mobileSticky.style.display = 'block';
             
+            // 关键修复：确保手机端搜索框存在且绑定事件
             const searchInput = document.getElementById('searchInputMobile');
             if (searchInput) {
                 searchInput.value = keyword;
                 searchInput.removeEventListener('input', searchInput._listener);
-                searchInput.addEventListener('input', searchInput._listener = (e) => { keyword = e.target.value; renderList(); });
+                searchInput.addEventListener('input', searchInput._listener = (e) => { 
+                    keyword = e.target.value; 
+                    renderList(); 
+                });
             }
             
             // 定位选项绑定
