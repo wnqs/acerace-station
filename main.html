@@ -177,24 +177,28 @@
         .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; }
         .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
         
-        /* ========== 手机端专用样式 - 修复搜索框被遮挡 ========== */
+        /* ========== 手机端专用样式 - 标题栏和筛选栏完全固定 ========== */
         @media (max-width: 768px) {
             /* 手机端：隐藏左侧边栏 */
             .sidebar { display: none; }
             
-            /* 手机端顶部导航栏 */
-            .mobile-top-bar {
+            /* 手机端顶部固定区域（包含标题和筛选栏） */
+            .mobile-fixed-header {
                 position: fixed;
                 top: 0;
                 left: 0;
                 right: 0;
                 background: #0f0f17;
                 border-bottom: 1px solid #2a2a3c;
-                padding: 8px 12px;
                 z-index: 200;
                 display: flex;
                 flex-direction: column;
-                gap: 6px;
+            }
+            
+            /* 标题区域 */
+            .mobile-top-bar {
+                padding: 8px 12px;
+                border-bottom: 1px solid #2a2a3c;
             }
             .mobile-logo-area {
                 text-align: center;
@@ -216,6 +220,7 @@
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 4px;
+                margin-top: 4px;
             }
             .mobile-tab-btn {
                 padding: 6px 2px;
@@ -234,25 +239,11 @@
                 color: #1a1a2e;
             }
             
-            /* 主内容区 - 为顶部导航栏留出空间 */
-            .main-content { margin-left: 0; margin-top: 85px; padding: 12px; width: 100%; }
-            
-            /* 固定顶部筛选栏 - 紧贴导航栏下方 */
-            .mobile-filter-sticky { 
-                position: fixed;
-                top: 85px;
-                left: 0;
-                right: 0;
-                z-index: 150; 
-                background: #0a0a0f; 
-                padding: 8px 12px 10px 12px;
+            /* 筛选栏区域（搜索框+选择分类）紧贴标题下方 */
+            .mobile-filter-sticky {
+                padding: 8px 12px;
+                background: #0a0a0f;
                 border-bottom: 1px solid #2a2a3c;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-            
-            /* 为固定筛选栏下方的内容预留占位空间 */
-            .filter-placeholder {
-                height: 62px;
             }
             
             .filter-row {
@@ -312,7 +303,7 @@
                 position: absolute;
                 left: 12px;
                 right: 12px;
-                z-index: 160;
+                z-index: 210;
             }
             .category-dropdown-panel.show { display: block; }
             
@@ -349,6 +340,9 @@
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
             .filter-option img { width: 12px; height: 12px; }
             
+            /* 主内容区 - 为固定头部留出空间 */
+            .main-content { margin-left: 0; margin-top: 130px; padding: 12px; width: 100%; }
+            
             /* 车辆卡片网格 */
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card-image { height: 130px; padding: 12px; }
@@ -384,17 +378,14 @@
             .filter-option, .quality-option { padding: 3px 8px; font-size: 0.6rem; }
             .category-dropdown-btn { padding: 5px 10px; font-size: 0.7rem; }
             .search-box input { padding: 6px 10px; font-size: 0.75rem; }
-            .main-content { margin-top: 78px; }
-            .mobile-filter-sticky { top: 78px; }
-            .filter-placeholder { height: 56px; }
+            .main-content { margin-top: 125px; }
         }
         
         /* 电脑端额外微调 */
         @media (min-width: 769px) {
             .acquisition-icon { bottom: 2px; width: 70px; height: 70px; }
-            .mobile-top-bar { display: none; }
-            .mobile-filter-sticky { display: none !important; }
-            .filter-placeholder { display: none; }
+            .mobile-fixed-header { display: none; }
+            .mobile-filter-sticky { display: none; }
         }
     </style>
 </head>
@@ -416,19 +407,58 @@
         </div>
     </div>
     
-    <!-- 手机端顶部导航栏 -->
-    <div class="mobile-top-bar" id="mobileTopBar" style="display: none;">
-        <div class="mobile-logo-area" onclick="location.reload()">
-            <h1>王牌竞速 · 情报站</h1>
-            <p>核心档案 · 赛车数据</p>
+    <!-- 手机端固定头部区域（标题 + 筛选栏） -->
+    <div class="mobile-fixed-header" id="mobileFixedHeader" style="display: none;">
+        <div class="mobile-top-bar">
+            <div class="mobile-logo-area" onclick="location.reload()">
+                <h1>王牌竞速 · 情报站</h1>
+                <p>核心档案 · 赛车数据</p>
+            </div>
+            <div class="mobile-nav-tabs" id="mobileNavTabs">
+                <button class="mobile-tab-btn active" data-page="vehicles">车辆数据</button>
+                <button class="mobile-tab-btn" data-page="chip">芯片架构</button>
+                <button class="mobile-tab-btn" data-page="energy">赋能系统</button>
+                <button class="mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
+                <button class="mobile-tab-btn" data-page="news">爆料信息</button>
+                <button class="mobile-tab-btn" data-page="wallpaper">游戏壁纸</button>
+            </div>
         </div>
-        <div class="mobile-nav-tabs" id="mobileNavTabs">
-            <button class="mobile-tab-btn active" data-page="vehicles">车辆数据</button>
-            <button class="mobile-tab-btn" data-page="chip">芯片架构</button>
-            <button class="mobile-tab-btn" data-page="energy">赋能系统</button>
-            <button class="mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
-            <button class="mobile-tab-btn" data-page="news">爆料信息</button>
-            <button class="mobile-tab-btn" data-page="wallpaper">游戏壁纸</button>
+        <div class="mobile-filter-sticky">
+            <div class="filter-row">
+                <div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车型/技能..."></div>
+                <div class="category-dropdown-btn" id="categoryDropdownBtn">
+                    <span>选择分类</span>
+                    <span class="arrow">▼</span>
+                </div>
+            </div>
+            <div class="category-dropdown-panel" id="categoryDropdownPanel">
+                <div class="filter-section">
+                    <div class="filter-section-title">定位</div>
+                    <div class="filter-options" id="positionOptions">
+                        <div class="filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
+                        <div class="filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
+                        <div class="filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
+                        <div class="filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <div class="filter-section-title">专精</div>
+                    <div class="filter-options" id="specialtyOptions">
+                        <div class="filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
+                        <div class="filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
+                        <div class="filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <div class="filter-section-title">品质</div>
+                    <div class="filter-options" id="qualityOptions">
+                        <div class="quality-option" data-type="quality" data-value="传说">传说</div>
+                        <div class="quality-option" data-type="quality" data-value="史诗">史诗</div>
+                        <div class="quality-option" data-type="quality" data-value="稀有">稀有</div>
+                        <div class="quality-option" data-type="quality" data-value="普通">普通</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -460,46 +490,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 手机端固定筛选栏 -->
-            <div class="mobile-filter-sticky" id="mobileFilterSticky" style="display: none;">
-                <div class="filter-row">
-                    <div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车型/技能..."></div>
-                    <div class="category-dropdown-btn" id="categoryDropdownBtn">
-                        <span>选择分类</span>
-                        <span class="arrow">▼</span>
-                    </div>
-                </div>
-                <div class="category-dropdown-panel" id="categoryDropdownPanel">
-                    <div class="filter-section">
-                        <div class="filter-section-title">定位</div>
-                        <div class="filter-options" id="positionOptions">
-                            <div class="filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
-                            <div class="filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
-                            <div class="filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
-                            <div class="filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
-                        </div>
-                    </div>
-                    <div class="filter-section">
-                        <div class="filter-section-title">专精</div>
-                        <div class="filter-options" id="specialtyOptions">
-                            <div class="filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
-                            <div class="filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
-                            <div class="filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
-                        </div>
-                    </div>
-                    <div class="filter-section">
-                        <div class="filter-section-title">品质</div>
-                        <div class="filter-options" id="qualityOptions">
-                            <div class="quality-option" data-type="quality" data-value="传说">传说</div>
-                            <div class="quality-option" data-type="quality" data-value="史诗">史诗</div>
-                            <div class="quality-option" data-type="quality" data-value="稀有">稀有</div>
-                            <div class="quality-option" data-type="quality" data-value="普通">普通</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 占位元素 -->
-            <div class="filter-placeholder" id="filterPlaceholder" style="display: none;"></div>
             <div class="cars-grid" id="carsGrid"></div>
             <div class="stats-text" id="statsText">加载中...</div>
         </div>
@@ -784,15 +774,11 @@
     function initMobileFilter() {
         const isMobile = isMobileDevice();
         const desktopFilter = document.querySelector('.desktop-filter');
-        const mobileSticky = document.getElementById('mobileFilterSticky');
-        const mobileTopBar = document.getElementById('mobileTopBar');
-        const filterPlaceholder = document.getElementById('filterPlaceholder');
+        const mobileFixedHeader = document.getElementById('mobileFixedHeader');
         
         if (isMobile) {
-            if (mobileTopBar) mobileTopBar.style.display = 'flex';
+            if (mobileFixedHeader) mobileFixedHeader.style.display = 'flex';
             if (desktopFilter) desktopFilter.style.display = 'none';
-            if (mobileSticky) mobileSticky.style.display = 'block';
-            if (filterPlaceholder) filterPlaceholder.style.display = 'block';
             
             // 手机端标签切换
             const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn');
@@ -870,10 +856,8 @@
             }
             updateMobileFilterUI();
         } else {
-            if (mobileTopBar) mobileTopBar.style.display = 'none';
+            if (mobileFixedHeader) mobileFixedHeader.style.display = 'none';
             if (desktopFilter) desktopFilter.style.display = 'block';
-            if (mobileSticky) mobileSticky.style.display = 'none';
-            if (filterPlaceholder) filterPlaceholder.style.display = 'none';
             const desktopSearch = document.getElementById('searchInputDesktop');
             if (desktopSearch) {
                 desktopSearch.value = keyword;
@@ -1014,32 +998,42 @@
             <div class="filter-groups"><div class="filter-group"><span class="filter-label">定位：</span><button class="filter-btn active" data-type="position" data-value="all">全部</button><button class="filter-btn" data-type="position" data-value="辅助">辅助</button><button class="filter-btn" data-type="position" data-value="竞速">竞速</button><button class="filter-btn" data-type="position" data-value="干扰">干扰</button><button class="filter-btn" data-type="position" data-value="天平">天平</button></div>
             <div class="filter-group"><span class="filter-label">专精：</span><button class="filter-btn active" data-type="specialty" data-value="all">全部</button><button class="filter-btn" data-type="specialty" data-value="城市">城市</button><button class="filter-btn" data-type="specialty" data-value="山路">山路</button><button class="filter-btn" data-type="specialty" data-value="场地">场地</button></div>
             <div class="filter-group"><span class="filter-label">品质：</span><button class="filter-btn active" data-type="quality" data-value="all">全部</button><button class="filter-btn" data-type="quality" data-value="传说">传说</button><button class="filter-btn" data-type="quality" data-value="史诗">史诗</button><button class="filter-btn" data-type="quality" data-value="稀有">稀有</button><button class="filter-btn" data-type="quality" data-value="普通">普通</button></div></div></div>
-            <div class="mobile-filter-sticky" id="mobileFilterSticky" style="display: none;">
-                <div class="filter-row">
-                    <div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车型/技能..."></div>
-                    <div class="category-dropdown-btn" id="categoryDropdownBtn"><span>选择分类</span><span class="arrow">▼</span></div>
+            <div class="mobile-fixed-header" id="mobileFixedHeader" style="display: none;">
+                <div class="mobile-top-bar">
+                    <div class="mobile-logo-area" onclick="location.reload()"><h1>王牌竞速 · 情报站</h1><p>核心档案 · 赛车数据</p></div>
+                    <div class="mobile-nav-tabs" id="mobileNavTabs">
+                        <button class="mobile-tab-btn active" data-page="vehicles">车辆数据</button>
+                        <button class="mobile-tab-btn" data-page="chip">芯片架构</button>
+                        <button class="mobile-tab-btn" data-page="energy">赋能系统</button>
+                        <button class="mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
+                        <button class="mobile-tab-btn" data-page="news">爆料信息</button>
+                        <button class="mobile-tab-btn" data-page="wallpaper">游戏壁纸</button>
+                    </div>
                 </div>
-                <div class="category-dropdown-panel" id="categoryDropdownPanel">
-                    <div class="filter-section"><div class="filter-section-title">定位</div><div class="filter-options" id="positionOptions">
-                        <div class="filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
-                        <div class="filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
-                        <div class="filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
-                        <div class="filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
-                    </div></div>
-                    <div class="filter-section"><div class="filter-section-title">专精</div><div class="filter-options" id="specialtyOptions">
-                        <div class="filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
-                        <div class="filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
-                        <div class="filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
-                    </div></div>
-                    <div class="filter-section"><div class="filter-section-title">品质</div><div class="filter-options" id="qualityOptions">
-                        <div class="quality-option" data-type="quality" data-value="传说">传说</div>
-                        <div class="quality-option" data-type="quality" data-value="史诗">史诗</div>
-                        <div class="quality-option" data-type="quality" data-value="稀有">稀有</div>
-                        <div class="quality-option" data-type="quality" data-value="普通">普通</div>
-                    </div></div>
+                <div class="mobile-filter-sticky">
+                    <div class="filter-row"><div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车型/技能..."></div>
+                    <div class="category-dropdown-btn" id="categoryDropdownBtn"><span>选择分类</span><span class="arrow">▼</span></div></div>
+                    <div class="category-dropdown-panel" id="categoryDropdownPanel">
+                        <div class="filter-section"><div class="filter-section-title">定位</div><div class="filter-options" id="positionOptions">
+                            <div class="filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
+                            <div class="filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
+                            <div class="filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
+                            <div class="filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
+                        </div></div>
+                        <div class="filter-section"><div class="filter-section-title">专精</div><div class="filter-options" id="specialtyOptions">
+                            <div class="filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
+                            <div class="filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
+                            <div class="filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
+                        </div></div>
+                        <div class="filter-section"><div class="filter-section-title">品质</div><div class="filter-options" id="qualityOptions">
+                            <div class="quality-option" data-type="quality" data-value="传说">传说</div>
+                            <div class="quality-option" data-type="quality" data-value="史诗">史诗</div>
+                            <div class="quality-option" data-type="quality" data-value="稀有">稀有</div>
+                            <div class="quality-option" data-type="quality" data-value="普通">普通</div>
+                        </div></div>
+                    </div>
                 </div>
             </div>
-            <div class="filter-placeholder" id="filterPlaceholder" style="display: none;"></div>
             <div class="cars-grid" id="carsGrid"></div><div class="stats-text" id="statsText">加载中...</div>`;
         initMobileFilter();
         renderList();
