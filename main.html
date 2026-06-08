@@ -12,7 +12,7 @@
         /* 左侧固定导航布局 */
         .app-layout { display: flex; max-width: 1600px; margin: 0 auto; min-height: 100vh; }
         
-        /* 左侧导航栏 - 固定列，铺满左边一列 */
+        /* 左侧导航栏 - 固定列 */
         .sidebar { width: 240px; background: #0f0f17; border-right: 1px solid #2a2a3c; padding: 24px 0; position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto; z-index: 100; }
         .sidebar .logo-area { padding: 0 16px 20px 16px; border-bottom: 1px solid #2a2a3c; margin-bottom: 20px; cursor: pointer; }
         .sidebar .logo-area h1 { font-size: 1.2rem; background: linear-gradient(135deg, #ff6b6b, #feca57); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -184,7 +184,6 @@
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card-image { height: 140px; padding: 12px; }
             .car-name { font-size: 0.9rem; }
-            /* 手机端品质文字框改到车辆模块图的右上角 */
             .quality-badge-wrapper { position: absolute; top: 12px; right: 12px; bottom: auto; left: auto; }
             .quality-badge { font-size: 0.55rem; padding: 2px 8px; }
             .acquisition-icon { width: 44px; height: 44px; bottom: 8px; right: 8px; }
@@ -308,6 +307,11 @@
     const EXTRA_RACING_ICON_CARS = ["女武神"];
     const RACING_ICON_URL = "https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png";
     
+    // 品质权重映射（数值越高越优先）
+    const qualityWeight = { "传说": 4, "史诗": 3, "稀有": 2, "普通": 1 };
+    // 定位权重映射（竞速优先，辅助次之，干扰最后）
+    const positionWeight = { "竞速": 3, "辅助": 2, "干扰": 1, "天平": 2 };
+    
     const qualityOverrides = {
         "mini jcw": "稀有",
         "风神": "传说",
@@ -355,6 +359,28 @@
             }
         }
         return originalQuality;
+    }
+    
+    // 车辆排序函数：按注册日期（越晚越靠前）、品质、定位
+    function sortVehicles(vehicles) {
+        return [...vehicles].sort((a, b) => {
+            // 1. 按注册日期排序（越晚越靠前）
+            const dateA = new Date(a.registerDate);
+            const dateB = new Date(b.registerDate);
+            if (dateA.getTime() !== dateB.getTime()) {
+                return dateB.getTime() - dateA.getTime();
+            }
+            // 2. 日期相同，按品质排序（传说 > 史诗 > 稀有 > 普通）
+            const qualityA = qualityWeight[a.quality] || 0;
+            const qualityB = qualityWeight[b.quality] || 0;
+            if (qualityA !== qualityB) {
+                return qualityB - qualityA;
+            }
+            // 3. 品质相同，按定位排序（竞速 > 辅助 > 干扰 > 天平）
+            const posA = positionWeight[a.position] || 0;
+            const posB = positionWeight[b.position] || 0;
+            return posB - posA;
+        });
     }
     
     function applyNumberHighlight(text) {
@@ -522,14 +548,15 @@
         return false;
     }
     
-    function filterVehicles() {
-        return vehiclesData.filter(v => {
+    function filterAndSortVehicles() {
+        let filtered = vehiclesData.filter(v => {
             if (filters.position !== "all" && v.position !== filters.position) return false;
             if (filters.specialty !== "all" && v.specialty !== filters.specialty) return false;
             if (filters.quality !== "all" && v.quality !== filters.quality) return false;
             if (!matchesSearch(v, filters.keyword)) return false;
             return true;
         });
+        return sortVehicles(filtered);
     }
     
     function isMobileDevice() {
@@ -537,7 +564,7 @@
     }
     
     function renderList() {
-        let filtered = filterVehicles();
+        let filtered = filterAndSortVehicles();
         let grid = document.getElementById("carsGrid");
         let stats = document.getElementById("statsText");
         if (!grid) return;
@@ -608,6 +635,11 @@
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
         isDetail = true;
+        // 更新URL但不触发popstate
+        const url = new URL(window.location.href);
+        url.searchParams.set('car', id);
+        history.pushState({ page: 'detail', carId: id }, '', url);
+        
         let stats = car.stats;
         let chipSlots = car.chipSlots.map(t => CHIP_ICONS[t]);
         let bgClass = getQualityClass(car.quality);
@@ -680,11 +712,25 @@
         bindTermHighlights();
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
-        // 强制滚动到顶部，确保所有内容正常显示
         window.scrollTo(0, 0);
     }
     
+    // 监听浏览器返回按钮 - 关键修复：确保从详情页返回列表页
+    window.addEventListener('popstate', function(event) {
+        if (isDetail) {
+            restoreList();
+        } else {
+            let carId = new URLSearchParams(window.location.search).get('car');
+            if (carId && vehiclesData.find(v => v.id === carId)) {
+                showDetail(carId);
+            }
+        }
+    });
+    
     function restoreList() {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('car');
+        history.pushState({ page: 'list' }, '', url);
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = `
             <div class="filter-bar">
