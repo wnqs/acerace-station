@@ -193,7 +193,7 @@
         .feature-box[data-color="默认"] { border-color: #feca57; color: #feca57; background: rgba(30,30,50,0.9); }
         .feature-box:hover { transform: translateY(-2px); background: rgba(254,202,87,0.2); box-shadow: 0 4px 12px rgba(254,202,87,0.2); }
         
-        /* 技能描述样式 - 专有名词高亮，其他文字正常 */
+        /* 技能描述样式 - 专有名词高亮，其他文字正常（白色/浅色） */
         .skill-desc {
             background: rgba(0,0,0,0.3);
             padding: 14px 18px;
@@ -320,7 +320,15 @@
         .sub-skill { background: rgba(0,0,0,0.3); padding: 12px 16px; border-radius: 14px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.08); }
         .sub-skill-title { font-weight: 600; font-size: 0.8rem; color: #c0c0d0; margin-bottom: 6px; }
         .red-number { color: #ff6b6b !important; font-weight: 600; }
-        .term-highlight { color: #feca57; cursor: pointer; border-bottom: 1px dashed #feca57; display: inline-block; font-weight: 500; background: transparent; }
+        /* 关键修复：.term-highlight 默认样式仅高亮文字颜色和边框，不改变背景，不导致整个段落变色 */
+        .term-highlight { 
+            color: #feca57 !important; 
+            cursor: pointer; 
+            border-bottom: 1px dashed #feca57; 
+            display: inline-block; 
+            font-weight: 500; 
+            background: transparent;
+        }
         .term-highlight:hover { color: #ffd700; }
         .sp-cooltime { color: #feca57; font-weight: 600; margin-bottom: 8px; display: block; }
         
@@ -785,6 +793,7 @@
     }
     function formatSkillText(text) {
         if (!text) return text;
+        // 先进行术语高亮，只把专有名词包上 span，其他文字保持原样
         let result = highlightTerms(text);
         result = result.replace(/(越野车[：:])\s*\n/g, '$1 ');
         let sentences = [], current = '';
@@ -800,7 +809,7 @@
         return formatted;
     }
     
-    // 通用提示函数 - 使用带边框的样式 (整合老版本优雅的tooltip逻辑)
+    // 通用提示函数 - 使用带边框的样式
     function showTooltip(e, title, content, isMobile) {
         if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
         if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
@@ -847,10 +856,11 @@
         }
     }
     
-    // 绑定高亮术语和特点的交互事件 (整合电脑端悬浮和手机端点击)
+    // 绑定高亮术语和特点的交互 (仅绑定到具体的高亮span，不会影响整个段落)
     function bindTermAndFeatureEvents(isMobile) {
-        // 绑定术语高亮
+        // 绑定术语高亮 (仅 .term-highlight 元素)
         document.querySelectorAll('.term-highlight').forEach(el => {
+            // 移除旧事件避免重复
             el.removeEventListener(isMobile ? 'click' : 'mouseenter', el._handler);
             const term = el.dataset.term;
             let def = termDefinitions[term] || '暂无详细解释';
@@ -868,7 +878,7 @@
                 el.addEventListener('click', el._handler);
             }
         });
-        // 绑定车辆特点
+        // 绑定车辆特点 (feature-box)
         document.querySelectorAll('.feature-box').forEach(box => {
             box.removeEventListener(isMobile ? 'click' : 'mouseenter', box._handler);
             const name = box.dataset.name;
@@ -1198,7 +1208,7 @@
         vehiclesPage.innerHTML = html;
         document.getElementById("backBtn")?.addEventListener("click", restoreList);
         const mobile = isMobileDevice();
-        // 绑定高亮术语和特点的交互 (整合老版本完整逻辑)
+        // 绑定高亮术语和特点的交互 (仅绑定高亮元素)
         bindTermAndFeatureEvents(mobile);
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
