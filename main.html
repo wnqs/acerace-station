@@ -9,10 +9,10 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: #0a0a0f; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
         
-        /* 左侧固定导航布局 */
+        /* 左侧固定导航布局（电脑端） */
         .app-layout { display: flex; max-width: 1600px; margin: 0 auto; min-height: 100vh; }
         
-        /* 左侧导航栏 - 固定列 */
+        /* 左侧导航栏 - 固定列（电脑端） */
         .sidebar { width: 240px; background: #0f0f17; border-right: 1px solid #2a2a3c; padding: 24px 0; position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto; z-index: 100; }
         .sidebar .logo-area { padding: 0 16px 20px 16px; border-bottom: 1px solid #2a2a3c; margin-bottom: 20px; cursor: pointer; }
         .sidebar .logo-area h1 { font-size: 1.2rem; background: linear-gradient(135deg, #ff6b6b, #feca57); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -22,7 +22,7 @@
         .tab-btn.active { background: #2a2a3c; color: #feca57; }
         .tab-btn:hover:not(.active) { background: #1f1f2e; color: #e2e2e6; }
         
-        /* 右侧主内容区 - 需要左侧留白 */
+        /* 右侧主内容区 - 需要左侧留白（电脑端） */
         .main-content { flex: 1; margin-left: 240px; padding: 20px 24px; width: calc(100% - 240px); }
         
         .page { display: none; }
@@ -177,24 +177,71 @@
         .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; }
         .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
         
-        /* ========== 手机端专用样式 - 确保搜索框完整显示 ========== */
+        /* ========== 手机端专用样式 - 顶部横铺导航 + 固定筛选栏 ========== */
         @media (max-width: 768px) {
-            /* 左侧导航栏移动端适配 */
-            .sidebar { width: 100%; position: fixed; top: 0; left: 0; right: 0; bottom: auto; height: auto; background: #0f0f17; border-right: none; border-bottom: 1px solid #2a2a3c; padding: 12px 16px; z-index: 200; }
-            .sidebar .logo-area { padding: 0 0 8px 0; margin-bottom: 8px; border-bottom: 1px solid #2a2a3c; }
-            .sidebar .logo-area h1 { font-size: 1rem; }
-            .sidebar .logo-area p { font-size: 0.5rem; }
-            .nav-tabs { flex-direction: row; flex-wrap: wrap; gap: 6px; padding: 0; justify-content: flex-start; }
-            .tab-btn { padding: 6px 12px; font-size: 0.7rem; border-radius: 20px; text-align: center; width: auto; flex: 0 0 auto; background: #1a1a2a; margin: 2px; }
-            .tab-btn.active { background: #feca57; color: #1a1a2e; }
+            /* 手机端：隐藏左侧边栏，改用顶部导航 */
+            .sidebar { display: none; }
+            
+            /* 手机端：新建顶部导航栏（铺满全宽） */
+            .mobile-top-bar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: #0f0f17;
+                border-bottom: 1px solid #2a2a3c;
+                padding: 12px 16px;
+                z-index: 200;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .mobile-logo-area {
+                text-align: center;
+                cursor: pointer;
+            }
+            .mobile-logo-area h1 {
+                font-size: 1.2rem;
+                background: linear-gradient(135deg, #ff6b6b, #feca57);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+            }
+            .mobile-logo-area p {
+                font-size: 0.6rem;
+                color: #8a8aa3;
+            }
+            .mobile-nav-tabs {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+                justify-content: center;
+            }
+            .mobile-tab-btn {
+                padding: 6px 12px;
+                font-size: 0.7rem;
+                border-radius: 20px;
+                text-align: center;
+                background: #1a1a2a;
+                border: none;
+                cursor: pointer;
+                color: #a0a0b8;
+                transition: 0.2s;
+                flex: 1 0 auto;
+                font-weight: 500;
+            }
+            .mobile-tab-btn.active {
+                background: #feca57;
+                color: #1a1a2e;
+            }
             
             /* 主内容区 - 为顶部导航栏留出足够空间 */
-            .main-content { margin-left: 0; margin-top: 80px; padding: 12px; width: 100%; }
+            .main-content { margin-left: 0; margin-top: 105px; padding: 12px; width: 100%; }
             
             /* 固定顶部筛选栏 - 位置固定不随滚动消失 */
             .mobile-filter-sticky { 
                 position: sticky; 
-                top: 65px;
+                top: 105px;
                 z-index: 150; 
                 background: #0a0a0f; 
                 padding: 12px 0 12px 0; 
@@ -320,18 +367,20 @@
             .meta-item { font-size: 0.5rem; padding: 2px 4px; }
             .filter-option, .quality-option { padding: 4px 10px; font-size: 0.7rem; }
             .category-dropdown-btn { padding: 8px 14px; font-size: 0.8rem; }
-            .main-content { margin-top: 75px; }
-            .mobile-filter-sticky { top: 60px; }
+            .main-content { margin-top: 100px; }
+            .mobile-filter-sticky { top: 100px; }
         }
         
         /* 电脑端额外微调 */
         @media (min-width: 769px) {
             .acquisition-icon { bottom: 2px; width: 70px; height: 70px; }
+            .mobile-top-bar { display: none; }
         }
     </style>
 </head>
 <body>
 <div class="app-layout">
+    <!-- 电脑端左侧导航栏 -->
     <div class="sidebar">
         <div class="logo-area" onclick="location.reload()">
             <h1>王牌竞速 · 情报站</h1>
@@ -346,6 +395,23 @@
             <button class="tab-btn" data-page="wallpaper">游戏壁纸</button>
         </div>
     </div>
+    
+    <!-- 手机端顶部导航栏（动态生成） -->
+    <div class="mobile-top-bar" id="mobileTopBar" style="display: none;">
+        <div class="mobile-logo-area" onclick="location.reload()">
+            <h1>王牌竞速 · 情报站</h1>
+            <p>核心档案 · 赛车数据</p>
+        </div>
+        <div class="mobile-nav-tabs" id="mobileNavTabs">
+            <button class="mobile-tab-btn active" data-page="vehicles">车辆数据</button>
+            <button class="mobile-tab-btn" data-page="chip">芯片架构</button>
+            <button class="mobile-tab-btn" data-page="energy">赋能系统</button>
+            <button class="mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
+            <button class="mobile-tab-btn" data-page="news">爆料信息</button>
+            <button class="mobile-tab-btn" data-page="wallpaper">游戏壁纸</button>
+        </div>
+    </div>
+    
     <div class="main-content">
         <div id="vehiclesPage" class="page active-page">
             <!-- 电脑端筛选栏（桌面端显示） -->
@@ -374,7 +440,7 @@
                     </div>
                 </div>
             </div>
-            <!-- 手机端固定筛选栏（移动端显示） - 确保搜索框存在且可见 -->
+            <!-- 手机端固定筛选栏（移动端显示） -->
             <div class="mobile-filter-sticky" id="mobileFilterSticky" style="display: none;">
                 <div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车型 / 技能 / 关键字..."></div>
                 <div class="category-dropdown-btn" id="categoryDropdownBtn">
@@ -695,12 +761,31 @@
         const isMobile = isMobileDevice();
         const desktopFilter = document.querySelector('.desktop-filter');
         const mobileSticky = document.getElementById('mobileFilterSticky');
+        const mobileTopBar = document.getElementById('mobileTopBar');
         
         if (isMobile) {
+            // 显示手机端顶部导航栏
+            if (mobileTopBar) mobileTopBar.style.display = 'flex';
             if (desktopFilter) desktopFilter.style.display = 'none';
             if (mobileSticky) mobileSticky.style.display = 'block';
             
-            // 确保手机端搜索框存在且绑定事件
+            // 手机端标签切换
+            const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn');
+            mobileTabBtns.forEach(btn => {
+                btn.removeEventListener('click', btn._clickHandler);
+                btn.addEventListener('click', btn._clickHandler = () => {
+                    const pageId = btn.dataset.page;
+                    if (pageId === 'vehicles' && isDetail) restoreList();
+                    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                    document.getElementById(pageId + 'Page')?.classList.add('active-page');
+                    mobileTabBtns.forEach(t => t.classList.remove('active'));
+                    btn.classList.add('active');
+                    if (pageId !== 'vehicles') isDetail = false;
+                    if (pageId === 'vehicles') window.scrollTo(0, scrollPositions.list || 0);
+                });
+            });
+            
+            // 手机端搜索框
             const searchInput = document.getElementById('searchInputMobile');
             if (searchInput) {
                 searchInput.value = keyword;
@@ -740,6 +825,7 @@
                 });
             });
             
+            // 下拉按钮交互
             const dropdownBtn = document.getElementById('categoryDropdownBtn');
             const dropdownPanel = document.getElementById('categoryDropdownPanel');
             if (dropdownBtn && dropdownPanel) {
@@ -759,6 +845,7 @@
             }
             updateMobileFilterUI();
         } else {
+            if (mobileTopBar) mobileTopBar.style.display = 'none';
             if (desktopFilter) desktopFilter.style.display = 'block';
             if (mobileSticky) mobileSticky.style.display = 'none';
             const desktopSearch = document.getElementById('searchInputDesktop');
@@ -931,13 +1018,14 @@
     }
     
     function initTabs() {
-        document.querySelectorAll('.tab-btn').forEach(btn => {
+        // 电脑端标签切换
+        document.querySelectorAll('.sidebar .tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 let pageId = btn.dataset.page;
                 if (pageId === 'vehicles' && isDetail) restoreList();
                 document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                 document.getElementById(pageId + 'Page')?.classList.add('active-page');
-                document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.sidebar .tab-btn').forEach(t => t.classList.remove('active'));
                 btn.classList.add('active');
                 if (pageId !== 'vehicles') isDetail = false;
                 if (pageId === 'vehicles') window.scrollTo(0, scrollPositions.list || 0);
