@@ -32,7 +32,7 @@
         .tab-btn.active { background: #2a2a3c; color: #feca57; }
         .tab-btn:hover:not(.active) { background: #1f1f2e; color: #e2e2e6; }
         
-        /* 右侧主内容区 - 需要左侧留白（电脑端），顶部不留空白，让筛选栏紧贴顶部 */
+        /* 右侧主内容区 - 需要左侧留白（电脑端） */
         .main-content { 
             flex: 1; 
             margin-left: 240px; 
@@ -43,82 +43,49 @@
         .page { display: none; }
         .page.active-page { display: block; }
         
-        /* 电脑端筛选栏样式 - 紧贴顶部滚动 */
+        /* 电脑端固定顶部导航栏 - 主界面和详情页共用 */
+        .desktop-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #0f0f17;
+            padding-top: 12px;
+        }
         .desktop-filter-bar {
             background: #14141f;
             border-radius: 20px;
             padding: 16px 20px;
             margin-bottom: 24px;
-            position: sticky;
-            top: 0;
-            z-index: 90;
             backdrop-filter: blur(8px);
             background: rgba(20,20,31,0.95);
             border: 1px solid rgba(42,42,60,0.5);
         }
-        .detail-search-bar {
-            background: #14141f;
-            border-radius: 16px;
-            padding: 12px 16px;
-            margin: 0 40px 16px 40px;
-            border: 1px solid rgba(42,42,60,0.5);
-        }
-        .detail-search-bar .search-box {
-            margin-bottom: 12px;
-        }
-        .detail-search-bar .search-box input {
-            width: 100%;
-            padding: 8px 14px;
-            border-radius: 40px;
-            border: 1px solid #2a2a3c;
-            background: #1f1f2e;
-            color: #e2e2e6;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        .detail-search-bar .desktop-filter-sections {
+        /* 返回按钮区域 - 放在筛选栏上方 */
+        .desktop-header-top {
             display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-        .detail-search-bar .desktop-filter-section {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .detail-search-bar .desktop-filter-section-title {
-            font-size: 0.7rem;
-            color: #feca57;
-            font-weight: 700;
-        }
-        .detail-search-bar .desktop-filter-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .detail-search-bar .desktop-filter-option,
-        .detail-search-bar .desktop-quality-option {
-            background: #2a2a3c;
-            border-radius: 30px;
-            padding: 4px 12px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            color: #a0a0b8;
-            transition: 0.2s;
-            display: inline-flex;
             align-items: center;
-            gap: 4px;
-            white-space: nowrap;
-            font-weight: 600;
+            gap: 16px;
+            padding: 0 0 12px 0;
         }
-        .detail-search-bar .desktop-filter-option.active,
-        .detail-search-bar .desktop-quality-option.active {
+        .detail-back-btn-header {
+            display: inline-block;
+            background: #1f1f2e;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            color: #feca57;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+        .detail-back-btn-header:hover {
             background: #feca57;
             color: #1a1a2e;
+            transform: scale(1.02);
         }
-        .detail-search-bar .desktop-filter-option img {
-            width: 14px;
-            height: 14px;
+        .header-placeholder {
+            flex: 1;
         }
         
         .search-box { margin-bottom: 16px; }
@@ -184,7 +151,7 @@
             color: #1a1a2e;
         }
         
-        /* 电脑端车辆网格：固定每行3辆车，确保卡片高度自适应 */
+        /* 电脑端车辆网格：固定每行3辆车 */
         .cars-grid { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
@@ -235,51 +202,6 @@
         .stats-text { text-align: center; padding: 16px; color: #8a8aa3; font-weight: 500; }
         
         .detail-container { background: #14141f; border-radius: 24px; border: 1px solid #2a2a3c; position: relative; overflow: visible; margin-bottom: 24px; }
-        .detail-header-actions {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
-            padding: 20px 40px 0 40px;
-        }
-        .detail-back-btn { 
-            display: inline-block; 
-            background: #1f1f2e; 
-            border: none; 
-            padding: 10px 24px; 
-            border-radius: 50px; 
-            cursor: pointer; 
-            color: #feca57; 
-            font-size: 0.9rem; 
-            font-weight: 700; 
-            transition: 0.2s; 
-            flex-shrink: 0;
-        }
-        .detail-back-btn:hover { background: #feca57; color: #1a1a2e; transform: scale(1.02); }
-        .detail-search-wrapper {
-            flex: 1;
-            min-width: 260px;
-        }
-        .detail-search-wrapper .detail-search-bar {
-            margin: 0;
-            padding: 8px 12px;
-        }
-        .detail-search-wrapper .search-box {
-            margin-bottom: 8px;
-        }
-        .detail-search-wrapper .search-box input {
-            padding: 6px 12px;
-            font-size: 0.8rem;
-        }
-        .detail-search-wrapper .desktop-filter-options {
-            gap: 6px;
-        }
-        .detail-search-wrapper .desktop-filter-option,
-        .detail-search-wrapper .desktop-quality-option {
-            padding: 3px 10px;
-            font-size: 0.65rem;
-        }
         .detail-header { display: flex; gap: 30px; padding: 20px 40px 20px 40px; flex-wrap: wrap; }
         .detail-image { flex: 2; min-width: 280px; border-radius: 24px; display: flex; align-items: center; justify-content: center; padding: 50px 40px; border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; }
         .detail-image.legendary { background: linear-gradient(145deg, #1a1208 0%, #0d0a05 100%); }
@@ -625,12 +547,9 @@
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
             .filter-option img { width: 14px; height: 14px; }
             
-            /* 手机端主内容区 - 紧跟顶部搜索框，无空白 */
             .main-content { margin-left: 0; margin-top: 0; padding: 12px; width: 100%; }
-            /* 手机端需要额外为固定头部留出空间 */
             body.has-fixed-header .main-content { margin-top: 145px; }
             
-            /* 手机端车辆网格：固定每行2辆车 */
             .cars-grid { 
                 grid-template-columns: repeat(2, 1fr); 
                 gap: 12px; 
@@ -670,9 +589,6 @@
                 flex-shrink: 0;
             }
             .detail-container { overflow-x: hidden; padding-bottom: 20px; }
-            .detail-search-wrapper { display: none; }
-            .detail-header-actions { padding: 12px 16px 0 16px; justify-content: flex-start; }
-            .detail-back-btn { margin: 0; font-size: 0.8rem; padding: 8px 16px; }
             .detail-header { flex-direction: column; padding: 16px !important; gap: 16px !important; }
             .detail-image { padding: 16px !important; min-width: auto; width: 100%; border-radius: 16px; }
             .detail-image img { max-height: 180px; width: auto; max-width: 100%; margin: 0 auto; object-fit: contain; }
@@ -689,7 +605,7 @@
             .stats-text { font-size: 0.75rem; font-weight: 500; }
             .skill-desc { font-size: 0.75rem; padding: 10px 12px; }
             .sub-skill-desc { font-size: 0.7rem; }
-            .desktop-filter-bar { display: none; }
+            .desktop-header { display: none; }
         }
         
         @media (max-width: 480px) {
@@ -784,8 +700,16 @@
     </div>
     
     <div class="main-content">
-        <div id="vehiclesPage" class="page active-page">
-            <div class="desktop-filter-bar" id="desktopGlobalFilterBar">
+        <!-- 电脑端固定顶部导航栏（主界面和详情页共用） -->
+        <div class="desktop-header" id="desktopHeader">
+            <div class="desktop-header-top" id="desktopHeaderTop">
+                <!-- 返回按钮区域，详情页时显示，主界面时隐藏 -->
+                <div id="headerBackBtn" style="display: none;">
+                    <button class="detail-back-btn-header" id="headerBackButton">← 返回列表</button>
+                </div>
+                <div class="header-placeholder"></div>
+            </div>
+            <div class="desktop-filter-bar">
                 <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
                 <div class="desktop-filter-sections">
                     <div class="desktop-filter-section">
@@ -816,6 +740,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <div id="vehiclesPage" class="page active-page">
             <div class="cars-grid" id="carsGrid"></div>
             <div class="stats-text" id="statsText">加载中...</div>
         </div>
@@ -842,7 +769,7 @@
     let keyword = "";
     let activeTooltipTimer = null;
     let currentTooltipElement = null;
-    let isDetail = false;  // 标识当前是否在详情页
+    let isDetail = false;
     
     const EXTRA_RACING_ICON_CARS = ["女武神"];
     const RACING_ICON_URL = "https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png";
@@ -869,7 +796,6 @@
         "场地": "https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png"
     };
     
-    // ========== 辅助函数 ==========
     function sortChipSlots(slots) {
         const order = { "circle": 0, "triangle": 1, "rhombus": 2, "hexagon": 3, "vslot": 4 };
         return [...slots].sort((a, b) => (order[a] ?? 5) - (order[b] ?? 5));
@@ -1026,7 +952,6 @@
         }
     }
     
-    // 清除所有筛选
     function clearAllFilters() {
         activeFilters = { position: "", specialty: "", quality: "" };
         keyword = "";
@@ -1046,8 +971,7 @@
         return !!(activeFilters.position || activeFilters.specialty || activeFilters.quality);
     }
     
-    // 主界面搜索事件处理
-    function performMainSearch(searchValue) {
+    function performSearch(searchValue) {
         if (isDetail) {
             clearAllFilters();
             goToList();
@@ -1063,24 +987,6 @@
         }, 30);
     }
     
-    // 详情页搜索事件处理 - 只触发搜索，不重新渲染详情页
-    function performDetailSearch(searchValue) {
-        // 清除筛选
-        clearAllFilters();
-        // 设置关键词
-        keyword = searchValue.trim();
-        // 返回列表页并显示搜索结果
-        goToList();
-        setTimeout(() => {
-            const mobileInput = document.getElementById('searchInputMobile');
-            const desktopInput = document.getElementById('searchInputDesktop');
-            if (mobileInput && mobileInput.value !== keyword) mobileInput.value = keyword;
-            if (desktopInput && desktopInput.value !== keyword) desktopInput.value = keyword;
-            renderList();
-            window.scrollTo(0, 0);
-        }, 50);
-    }
-    
     function clearAllSearchBoxes() {
         keyword = "";
         const mobileInput = document.getElementById('searchInputMobile');
@@ -1092,37 +998,33 @@
     function attachSearchInputEvents() {
         const mobileInput = document.getElementById('searchInputMobile');
         const desktopInput = document.getElementById('searchInputDesktop');
-        const handler = (e) => { performMainSearch(e.target.value); };
+        const handler = (e) => { performSearch(e.target.value); };
         if (mobileInput) { mobileInput.removeEventListener('input', mobileInput._realtimeHandler); mobileInput._realtimeHandler = handler; mobileInput.addEventListener('input', mobileInput._realtimeHandler); }
         if (desktopInput) { desktopInput.removeEventListener('input', desktopInput._realtimeHandler); desktopInput._realtimeHandler = handler; desktopInput.addEventListener('input', desktopInput._realtimeHandler); }
     }
     
-    // 核心返回键处理函数
     function handleBackButton() {
         if (isDetail) {
-            // 在详情页：清除筛选并返回列表页顶部
             clearAllFilters();
             goToList();
         } else {
-            // 在主界面：如果有选中的分类或搜索关键词，则清除分类；否则退出网站（不弹窗）
             if (hasAnyFilterActive() || keyword !== "") {
                 clearAllFilters();
-                // 清除后刷新列表，保持在顶部
                 renderList();
                 window.scrollTo(0, 0);
             } else {
-                // 无任何筛选，退出网站
                 window.close();
-                // 降级方案：尝试后退
                 setTimeout(() => { history.back(); }, 100);
             }
         }
     }
     
-    // 跳转到列表页（保留历史记录，用于浏览器返回键）
     function goToList() {
         if (isDetail) {
             isDetail = false;
+            // 隐藏顶部返回按钮
+            const headerBackBtn = document.getElementById('headerBackBtn');
+            if (headerBackBtn) headerBackBtn.style.display = 'none';
             const newUrl = window.location.pathname;
             history.pushState(null, '', newUrl);
             restoreList();
@@ -1158,7 +1060,12 @@
             initFilters();
             attachSearchInputEvents();
             
-            // 检查URL参数
+            // 绑定顶部返回按钮
+            const headerBackButton = document.getElementById('headerBackButton');
+            if (headerBackButton) {
+                headerBackButton.addEventListener('click', handleBackButton);
+            }
+            
             const urlParams = new URLSearchParams(window.location.search);
             const carId = urlParams.get('car');
             if (carId) {
@@ -1173,32 +1080,25 @@
                 renderList();
             }
             
-            // 监听popstate事件处理浏览器返回键（手机端和电脑端通用）
             window.addEventListener('popstate', function(e) {
-                // 检查当前URL是否还有car参数
                 const currentCarId = new URLSearchParams(window.location.search).get('car');
-                if (currentCarId && isDetail === false) {
-                    // 从历史记录恢复详情页
+                if (currentCarId && !isDetail) {
                     const car = vehiclesData.find(v => v.id === currentCarId);
                     if (car) {
                         isDetail = true;
                         renderDetailById(currentCarId);
                     }
-                } else if (!currentCarId && isDetail === true) {
-                    // 从详情页返回列表页
+                } else if (!currentCarId && isDetail) {
                     isDetail = false;
                     clearAllFilters();
                     restoreList();
                 } else {
-                    // 处理返回键
                     handleBackButton();
                 }
             });
             
-            // 添加初始历史记录
             history.pushState(null, '', window.location.href);
             
-            // 手机端添加body类用于调整边距
             if (isMobileDevice()) {
                 document.body.classList.add('has-fixed-header');
             }
@@ -1212,7 +1112,7 @@
                     <strong>数据加载失败</strong><br>
                     ${error.message}<br>
                     请确保 vehicles.json 和 terms.json 文件存在于当前目录，<br>
-                    并且通过 HTTP 服务器访问（不要直接双击打开 HTML 文件）。
+                    并且通过 HTTP 服务器访问。
                 </div>`;
             }
             if (statsEl) statsEl.innerText = "加载失败，请查看控制台(F12)";
@@ -1239,11 +1139,9 @@
     
     function initFilters() {
         const isMobile = isMobileDevice();
-        const desktopFilterBar = document.getElementById('desktopGlobalFilterBar');
         const mobileFixedHeader = document.getElementById('mobileFixedHeader');
         if (isMobile) {
             if (mobileFixedHeader) mobileFixedHeader.style.display = 'flex';
-            if (desktopFilterBar) desktopFilterBar.style.display = 'none';
             const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn');
             mobileTabBtns.forEach(btn => {
                 btn.removeEventListener('click', btn._clickHandler);
@@ -1286,7 +1184,6 @@
             updateFilterUI();
         } else {
             if (mobileFixedHeader) mobileFixedHeader.style.display = 'none';
-            if (desktopFilterBar) desktopFilterBar.style.display = 'block';
             document.querySelectorAll('#desktopPositionOptions .desktop-filter-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
                 opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.position = (activeFilters.position === val) ? "" : val; updateDesktopFilterUI(); renderList(); });
@@ -1368,67 +1265,17 @@
         window.scrollTo(0, 0);
     }
     
-    function buildDetailSearchBarHTML() {
-        return `<div class="detail-search-bar">
-            <div class="search-box"><input type="text" id="detailSearchInput" placeholder="搜索车辆名称、简称、技能..."></div>
-            <div class="desktop-filter-sections">
-                <div class="desktop-filter-section"><div class="desktop-filter-section-title">定位</div><div class="desktop-filter-options" id="detailPositionOptions">
-                    <div class="desktop-filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
-                    <div class="desktop-filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
-                    <div class="desktop-filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
-                    <div class="desktop-filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
-                </div></div>
-                <div class="desktop-filter-section"><div class="desktop-filter-section-title">专精</div><div class="desktop-filter-options" id="detailSpecialtyOptions">
-                    <div class="desktop-filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
-                    <div class="desktop-filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
-                    <div class="desktop-filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
-                </div></div>
-                <div class="desktop-filter-section"><div class="desktop-filter-section-title">品质</div><div class="desktop-filter-options" id="detailQualityOptions">
-                    <div class="desktop-quality-option" data-type="quality" data-value="传说">传说</div>
-                    <div class="desktop-quality-option" data-type="quality" data-value="史诗">史诗</div>
-                    <div class="desktop-quality-option" data-type="quality" data-value="稀有">稀有</div>
-                    <div class="desktop-quality-option" data-type="quality" data-value="普通">普通</div>
-                </div></div>
-            </div>
-        </div>`;
-    }
-    
-    function bindDetailFilters() {
-        document.querySelectorAll('#detailPositionOptions .desktop-filter-option').forEach(opt => {
-            opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.position = (activeFilters.position === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) goToList(); });
-        });
-        document.querySelectorAll('#detailSpecialtyOptions .desktop-filter-option').forEach(opt => {
-            opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.specialty = (activeFilters.specialty === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) goToList(); });
-        });
-        document.querySelectorAll('#detailQualityOptions .desktop-quality-option').forEach(opt => {
-            opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.quality = (activeFilters.quality === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) goToList(); });
-        });
-        const detailSearchInput = document.getElementById('detailSearchInput');
-        if (detailSearchInput) {
-            detailSearchInput.removeEventListener('input', detailSearchInput._detailHandler);
-            // 使用独立的详情页搜索处理函数
-            detailSearchInput._detailHandler = (e) => { performDetailSearch(e.target.value); };
-            detailSearchInput.addEventListener('input', detailSearchInput._detailHandler);
-        }
-    }
-    
-    function updateDetailFilterUI() {
-        document.querySelectorAll('#detailPositionOptions .desktop-filter-option').forEach(opt => { if (opt.dataset.value === activeFilters.position) opt.classList.add('active'); else opt.classList.remove('active'); });
-        document.querySelectorAll('#detailSpecialtyOptions .desktop-filter-option').forEach(opt => { if (opt.dataset.value === activeFilters.specialty) opt.classList.add('active'); else opt.classList.remove('active'); });
-        document.querySelectorAll('#detailQualityOptions .desktop-quality-option').forEach(opt => { if (opt.dataset.value === activeFilters.quality) opt.classList.add('active'); else opt.classList.remove('active'); });
-    }
-    
     function showDetail(id) {
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
         
-        // 添加历史记录
         const newUrl = window.location.pathname + '?car=' + id;
         history.pushState({ carId: id }, '', newUrl);
         isDetail = true;
+        
+        // 显示顶部返回按钮
+        const headerBackBtn = document.getElementById('headerBackBtn');
+        if (headerBackBtn) headerBackBtn.style.display = 'block';
         
         renderDetailById(id);
     }
@@ -1446,10 +1293,6 @@
         let spBlockHtml = '';
         if (car.sp) { let spDesc = formatSkillText(car.sp.desc); spBlockHtml = `<div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.sp.icon}"></div><div class="skill-title">SP：${car.sp.name}</div></div><div class="skill-desc"><div class="sp-cooltime">冷却时间：${car.sp.cooltime}</div>${spDesc}</div></div>`; }
         let html = `<div class="detail-container">
-            <div class="detail-header-actions">
-                <button class="detail-back-btn" id="backBtn">← 返回列表</button>
-                <div class="detail-search-wrapper">${buildDetailSearchBarHTML()}</div>
-            </div>
             <div class="detail-header"><div class="detail-image ${bgClass}"><img src="${car.imageUrl}" onerror="this.src='https://placehold.co/600x400?text=Car'"><div class="detail-acquisition-area"><div class="detail-acquisition-icon"><img src="${car.acquisitionIcon}"></div><span class="detail-acquisition-text">${car.acquisition}</span></div></div>
             <div class="detail-info-panel"><div class="detail-name">${car.name}</div><div class="detail-badges"><span class="quality-badge-large">${car.quality}</span><div class="badge"><img src="${positionIcon}"> ${car.position}位</div><div class="badge"><img src="${specialtyIcon}"> ${car.specialty}</div></div>
             <div class="info-rows"><div class="info-row"><span class="info-label">注册日期</span><span class="info-value">${car.registerDate || '未知'}</span></div><div class="info-row"><span class="info-label">车辆类型</span><span class="info-value">${car.vehicleType || '未知'}</span></div><div class="info-row"><span class="info-label">厂商</span><span class="info-value">${car.manufacturer || '未知'}</span></div></div></div></div>
@@ -1468,12 +1311,7 @@
             <div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.passiveIcon}"></div><div class="skill-title">被动：${car.skills.passive.name}</div></div><div class="skill-desc">${passiveDesc}</div></div>${spBlockHtml}</div></div>`;
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = html;
-        document.getElementById("backBtn")?.addEventListener("click", function() {
-            // 页面内返回按钮：清除筛选并返回列表页
-            clearAllFilters();
-            goToList();
-        });
-        bindDetailFilters();
+        
         const mobile = isMobileDevice();
         bindTermAndFeatureEvents(mobile);
         clearAllSearchBoxes();
@@ -1484,63 +1322,7 @@
     
     function restoreList() {
         let vehiclesPage = document.getElementById("vehiclesPage");
-        vehiclesPage.innerHTML = `<div class="desktop-filter-bar" id="desktopGlobalFilterBar">
-                <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
-                <div class="desktop-filter-sections">
-                    <div class="desktop-filter-section"><div class="desktop-filter-section-title">定位</div><div class="desktop-filter-options" id="desktopPositionOptions">
-                        <div class="desktop-filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
-                        <div class="desktop-filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
-                        <div class="desktop-filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
-                        <div class="desktop-filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
-                    </div></div>
-                    <div class="desktop-filter-section"><div class="desktop-filter-section-title">专精</div><div class="desktop-filter-options" id="desktopSpecialtyOptions">
-                        <div class="desktop-filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
-                        <div class="desktop-filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
-                        <div class="desktop-filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
-                    </div></div>
-                    <div class="desktop-filter-section"><div class="desktop-filter-section-title">品质</div><div class="desktop-filter-options" id="desktopQualityOptions">
-                        <div class="desktop-quality-option" data-type="quality" data-value="传说">传说</div>
-                        <div class="desktop-quality-option" data-type="quality" data-value="史诗">史诗</div>
-                        <div class="desktop-quality-option" data-type="quality" data-value="稀有">稀有</div>
-                        <div class="desktop-quality-option" data-type="quality" data-value="普通">普通</div>
-                    </div></div>
-                </div>
-            </div>
-            <div class="mobile-fixed-header" id="mobileFixedHeader" style="display: none;">
-                <div class="mobile-top-bar"><div class="mobile-logo-area" onclick="location.reload()"><h1>王牌竞速 · 情报站</h1><p>核心档案 · 赛车数据</p></div>
-                <div class="mobile-nav-tabs" id="mobileNavTabs">
-                    <button class="mobile-tab-btn active" data-page="vehicles">车辆数据</button>
-                    <button class="mobile-tab-btn" data-page="chip">芯片架构</button>
-                    <button class="mobile-tab-btn" data-page="energy">赋能系统</button>
-                    <button class="mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
-                    <button class="mobile-tab-btn" data-page="news">爆料信息</button>
-                    <button class="mobile-tab-btn" data-page="wallpaper">游戏壁纸</button>
-                </div></div>
-                <div class="mobile-filter-sticky"><div class="filter-row"><div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车辆名称、简称、技能..."></div>
-                <div class="category-dropdown-btn" id="categoryDropdownBtn"><span>选择分类</span><span class="arrow">▼</span></div></div>
-                <div class="category-dropdown-panel" id="categoryDropdownPanel">
-                    <div class="filter-section"><div class="filter-section-title">定位</div><div class="filter-options" id="positionOptions">
-                        <div class="filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
-                        <div class="filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
-                        <div class="filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
-                        <div class="filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
-                    </div></div>
-                    <div class="filter-section"><div class="filter-section-title">专精</div><div class="filter-options" id="specialtyOptions">
-                        <div class="filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
-                        <div class="filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
-                        <div class="filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
-                    </div></div>
-                    <div class="filter-section"><div class="filter-section-title">品质</div><div class="filter-options" id="qualityOptions">
-                        <div class="quality-option" data-type="quality" data-value="传说">传说</div>
-                        <div class="quality-option" data-type="quality" data-value="史诗">史诗</div>
-                        <div class="quality-option" data-type="quality" data-value="稀有">稀有</div>
-                        <div class="quality-option" data-type="quality" data-value="普通">普通</div>
-                    </div></div>
-                </div></div>
-            </div>
-            <div class="cars-grid" id="carsGrid"></div><div class="stats-text" id="statsText">加载中...</div>`;
-        initFilters();
-        attachSearchInputEvents();
+        vehiclesPage.innerHTML = `<div class="cars-grid" id="carsGrid"></div><div class="stats-text" id="statsText">加载中...</div>`;
         renderList();
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
