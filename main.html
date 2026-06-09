@@ -1110,7 +1110,9 @@
         const searchTerm = searchValue;
         const currentCarId = new URLSearchParams(window.location.search).get('car');
         if (currentCarId) {
+            // 从详情页执行搜索，先清除筛选回到列表
             clearAllFilters();
+            // 使用 pushState 添加新记录，保留返回功能
             const newUrl = window.location.pathname;
             history.pushState(null, '', newUrl);
             restoreList();
@@ -1189,7 +1191,9 @@
             const headerBackButton = document.getElementById('headerBackButton');
             if (headerBackButton) {
                 headerBackButton.addEventListener('click', () => {
+                    // 返回列表：清除筛选和搜索，跳转到无参数URL（列表页）
                     clearAllFilters();
+                    clearAllSearchBoxes();
                     const newUrl = window.location.pathname;
                     history.pushState(null, '', newUrl);
                     restoreList();
@@ -1197,6 +1201,7 @@
                 });
             }
             
+            // 初始化：根据URL参数决定显示列表还是详情
             const urlParams = new URLSearchParams(window.location.search);
             const carId = urlParams.get('car');
             if (carId) {
@@ -1212,6 +1217,7 @@
                 renderList();
             }
             
+            // popstate 回调：根据 URL 中的 car 参数判断是列表页还是详情页，完全取代 isDetail 状态
             window.addEventListener('popstate', function(e) {
                 const currentCarId = new URLSearchParams(window.location.search).get('car');
                 if (currentCarId) {
@@ -1221,11 +1227,17 @@
                         if (headerBackBtn) headerBackBtn.style.display = 'block';
                         renderDetailById(currentCarId);
                     } else {
-                        renderList();
+                        // 无效车辆ID，回到列表
+                        const headerBackBtn = document.getElementById('headerBackBtn');
+                        if (headerBackBtn) headerBackBtn.style.display = 'none';
+                        clearAllFilters();
+                        restoreList();
                     }
                 } else {
+                    // 无 car 参数：显示列表页，重置筛选和搜索框
                     const headerBackBtn = document.getElementById('headerBackBtn');
                     if (headerBackBtn) headerBackBtn.style.display = 'none';
+                    // 不清除搜索关键词，但为了体验，清除筛选并展示列表即可
                     clearAllFilters();
                     restoreList();
                 }
@@ -1410,7 +1422,7 @@
     function showDetail(id) {
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
-        
+        // 使用 pushState 添加新历史记录，确保返回键正确回到列表页
         const newUrl = window.location.pathname + '?car=' + id;
         history.pushState({ carId: id }, '', newUrl);
         
