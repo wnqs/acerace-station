@@ -809,7 +809,6 @@
     let currentTooltipElement = null;
     let isDetail = false;
     let searchDebounceTimer = null;
-    let pendingSearchValue = "";
     
     const EXTRA_RACING_ICON_CARS = ["女武神"];
     const RACING_ICON_URL = "https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png";
@@ -995,7 +994,6 @@
     
     function clearAllFilters() {
         activeFilters = { position: "", specialty: "", quality: "" };
-        // 注意：不清空 keyword，因为搜索框的值应该保留
         if (isMobileDevice()) {
             updateFilterUI();
         } else {
@@ -1008,26 +1006,22 @@
         return !!(activeFilters.position || activeFilters.specialty || activeFilters.quality);
     }
     
-    // 核心搜索逻辑：使用防抖，确保在详情页搜索时先跳转再执行
+    // 核心搜索逻辑：使用防抖，确保在详情页搜索时先跳转再执行，不会丢失首字母
     function executeSearch(searchValue) {
-        const searchTerm = searchValue.trim();
-        // 如果当前在详情页，先返回列表页（不清除筛选，但要清除搜索关键词记录? 逻辑：先跳转再搜索）
+        const searchTerm = searchValue;
+        // 如果当前在详情页，先返回列表页
         if (isDetail) {
-            // 临时保存要搜索的值
-            pendingSearchValue = searchTerm;
             // 清除筛选并返回主界面
             clearAllFilters();
-            // 返回列表页（不触发额外渲染）
+            // 返回列表页
             goToList(false);
             // 等待 DOM 更新后再设置关键词并刷新列表
             setTimeout(() => {
-                keyword = pendingSearchValue;
-                // 同步搜索框的值
+                keyword = searchTerm;
                 const desktopInput = document.getElementById('searchInputDesktop');
                 if (desktopInput && desktopInput.value !== keyword) desktopInput.value = keyword;
                 renderList();
                 window.scrollTo(0, 0);
-                pendingSearchValue = "";
             }, 50);
         } else {
             // 主界面直接搜索
