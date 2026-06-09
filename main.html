@@ -522,6 +522,33 @@
         .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; font-weight: 500; }
         .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
         
+        /* 动态壁纸样式 - 作为列表页背景 */
+        .dynamic-wallpaper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -2;
+            object-fit: cover;
+            opacity: 0.9;
+        }
+        
+        /* 确保列表页内容在视频上方 */
+        #vehiclesPage {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 手机端不显示动态壁纸（节省流量和性能） */
+        @media (max-width: 768px) {
+            .dynamic-wallpaper {
+                display: none;
+            }
+        }
+        
         /* ========== 手机端专用样式（完全保持不变） ========== */
         @media (max-width: 768px) {
             .sidebar { display: none; }
@@ -1114,16 +1141,11 @@
         const currentCarId = new URLSearchParams(window.location.search).get('car');
         
         if (currentCarId) {
-            // 从详情页执行搜索，需要跳转到列表页
-            // 使用一个标志防止重复执行
             if (isExecutingSearch) return;
             isExecutingSearch = true;
             
             clearAllFilters();
             const newUrl = window.location.pathname;
-            // 关键修复：使用 replaceState 替换当前的详情页记录为列表页记录
-            // 这样历史栈中就只会有：初始列表页 + 当前列表页（原来的详情页被替换）
-            // 按一次返回键回到初始列表页，再按一次退出网站
             history.replaceState(null, '', newUrl);
             const headerBackBtn = document.getElementById('headerBackBtn');
             if (headerBackBtn) headerBackBtn.style.display = 'none';
@@ -1201,11 +1223,12 @@
             initFilters();
             attachSearchInputEvents();
             
-            // 隐藏返回按钮（初始状态）
             const headerBackBtn = document.getElementById('headerBackBtn');
             if (headerBackBtn) headerBackBtn.style.display = 'none';
             
-            // 初始化：根据URL参数决定显示列表还是详情
+            // 添加动态壁纸到 vehiclesPage
+            addDynamicWallpaper();
+            
             const urlParams = new URLSearchParams(window.location.search);
             const carId = urlParams.get('car');
             if (carId) {
@@ -1220,7 +1243,6 @@
                 renderList();
             }
             
-            // popstate 回调：根据 URL 中的 car 参数判断当前应该显示列表页还是详情页
             window.addEventListener('popstate', function(e) {
                 const currentCarId = new URLSearchParams(window.location.search).get('car');
                 const headerBackBtnElem = document.getElementById('headerBackBtn');
@@ -1230,13 +1252,11 @@
                         if (headerBackBtnElem) headerBackBtnElem.style.display = 'block';
                         renderDetailById(currentCarId);
                     } else {
-                        // 无效车辆ID，回到列表
                         if (headerBackBtnElem) headerBackBtnElem.style.display = 'none';
                         clearAllFilters();
                         restoreList();
                     }
                 } else {
-                    // 无 car 参数：显示列表页，这是主界面状态，隐藏返回按钮
                     if (headerBackBtnElem) headerBackBtnElem.style.display = 'none';
                     restoreList();
                 }
@@ -1260,6 +1280,30 @@
             }
             if (statsEl) statsEl.innerText = "加载失败，请查看控制台(F12)";
         }
+    }
+    
+    // 添加动态壁纸的函数
+    function addDynamicWallpaper() {
+        const vehiclesPage = document.getElementById('vehiclesPage');
+        if (!vehiclesPage) return;
+        
+        // 检查是否已经存在壁纸
+        let existingVideo = vehiclesPage.querySelector('.dynamic-wallpaper');
+        if (existingVideo) return;
+        
+        const videoBg = document.createElement('video');
+        videoBg.className = 'dynamic-wallpaper';
+        videoBg.src = 'wallpaper.mp4';
+        videoBg.autoplay = true;
+        videoBg.loop = true;
+        videoBg.muted = true;
+        videoBg.playsInline = true;
+        
+        // 尝试播放
+        videoBg.play().catch(e => console.log('壁纸自动播放被阻止:', e));
+        
+        // 将视频添加到 vehiclesPage 的最前面
+        vehiclesPage.insertBefore(videoBg, vehiclesPage.firstChild);
     }
     
     function filterAndSortVehicles() {
@@ -1422,20 +1466,16 @@
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
         
-        // 检查当前是否已经在详情页，并且已经是同一辆车
         const currentCarId = new URLSearchParams(window.location.search).get('car');
         
         if (currentCarId === id) {
-            // 已经是当前车辆，不需要重复操作
             return;
         }
         
         if (currentCarId) {
-            // 已经在详情页，切换车辆时使用 replaceState 替换当前记录（保持只有一条详情页记录）
             const newUrl = window.location.pathname + '?car=' + id;
             history.replaceState({ carId: id }, '', newUrl);
         } else {
-            // 从列表页进入详情页，使用 pushState 添加新记录
             const newUrl = window.location.pathname + '?car=' + id;
             history.pushState({ carId: id }, '', newUrl);
         }
@@ -1489,6 +1529,8 @@
     function restoreList() {
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = `<div class="cars-grid" id="carsGrid"></div><div class="stats-text" id="statsText">加载中...</div>`;
+        // 恢复列表页时重新添加动态壁纸
+        addDynamicWallpaper();
         renderList();
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
