@@ -617,7 +617,7 @@
         </div>
     </div>
     
-    <!-- 手机端固定头部区域 -->
+    <!-- 手机端固定头部区域 (电脑端也会显示但会被隐藏，但为了统一搜索行为，电脑端的搜索框和筛选也在顶部) -->
     <div class="mobile-fixed-header" id="mobileFixedHeader" style="display: none;">
         <div class="mobile-top-bar">
             <div class="mobile-logo-area" onclick="location.reload()">
@@ -635,7 +635,7 @@
         </div>
         <div class="mobile-filter-sticky">
             <div class="filter-row">
-                <div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车型/技能..."></div>
+                <div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车辆名称、简称、技能..."></div>
                 <div class="category-dropdown-btn" id="categoryDropdownBtn">
                     <span>选择分类</span>
                     <span class="arrow">▼</span>
@@ -674,9 +674,9 @@
     
     <div class="main-content">
         <div id="vehiclesPage" class="page active-page">
-            <!-- 电脑端筛选栏 - 平铺分类 -->
+            <!-- 电脑端筛选栏 - 平铺分类，提示语优化 -->
             <div class="filter-bar desktop-filter">
-                <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、技能..."></div>
+                <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
                 <div class="desktop-filter-sections">
                     <div class="desktop-filter-section">
                         <div class="desktop-filter-section-title">定位</div>
@@ -830,7 +830,6 @@
         return formatted;
     }
     
-    // 通用提示函数
     function showTooltip(e, title, content, isMobile) {
         if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
         if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
@@ -953,24 +952,51 @@
         }
     }
     
-    // 全局跳转搜索：从详情页搜索框触发，跳回主界面并筛选
-    function performGlobalSearch(searchValue) {
-        if (!searchValue.trim()) return;
-        // 如果当前在详情页，先返回到列表页
+    // 实时搜索跳转函数：从详情页或列表页输入时，回到主界面并筛选
+    function performRealtimeSearch(searchValue) {
         if (isDetail) {
-            restoreList();
+            restoreList(); // 先回到主界面
         }
-        // 等待列表页渲染完成后，设置关键词并刷新列表
+        // 等待列表页渲染完成，设置关键词并刷新
         setTimeout(() => {
             keyword = searchValue.trim();
             const mobileSearchInput = document.getElementById('searchInputMobile');
             const desktopSearchInput = document.getElementById('searchInputDesktop');
-            if (mobileSearchInput) mobileSearchInput.value = keyword;
-            if (desktopSearchInput) desktopSearchInput.value = keyword;
+            if (mobileSearchInput && mobileSearchInput.value !== keyword) mobileSearchInput.value = keyword;
+            if (desktopSearchInput && desktopSearchInput.value !== keyword) desktopSearchInput.value = keyword;
             renderList();
-            // 滚动到顶部并清空搜索框的值（方便下次输入）
             window.scrollTo(0, 0);
-        }, 50);
+        }, 30);
+    }
+    
+    // 清空所有搜索框内容（进入详情页后调用）
+    function clearAllSearchBoxes() {
+        keyword = "";
+        const mobileSearchInput = document.getElementById('searchInputMobile');
+        const desktopSearchInput = document.getElementById('searchInputDesktop');
+        if (mobileSearchInput) mobileSearchInput.value = "";
+        if (desktopSearchInput) desktopSearchInput.value = "";
+    }
+    
+    // 为搜索框绑定实时搜索事件（input事件，实时跳转）
+    function attachSearchInputEvents() {
+        const mobileSearchInput = document.getElementById('searchInputMobile');
+        const desktopSearchInput = document.getElementById('searchInputDesktop');
+        
+        const handler = (e) => {
+            performRealtimeSearch(e.target.value);
+        };
+        
+        if (mobileSearchInput) {
+            mobileSearchInput.removeEventListener('input', mobileSearchInput._realtimeHandler);
+            mobileSearchInput._realtimeHandler = handler;
+            mobileSearchInput.addEventListener('input', mobileSearchInput._realtimeHandler);
+        }
+        if (desktopSearchInput) {
+            desktopSearchInput.removeEventListener('input', desktopSearchInput._realtimeHandler);
+            desktopSearchInput._realtimeHandler = handler;
+            desktopSearchInput.addEventListener('input', desktopSearchInput._realtimeHandler);
+        }
     }
     
     async function loadData() {
@@ -984,6 +1010,7 @@
             termDefinitions = termsDataObj.terms;
             for (const car of vehiclesData) car.chipSlots = sortChipSlots(car.chipSlots);
             initFilters();
+            attachSearchInputEvents(); // 绑定实时搜索事件
             renderList();
         } catch (error) {
             document.getElementById("carsGrid").innerHTML = '<div style="text-align:center; padding:60px; color:#ff6b6b;">数据加载失败</div>';
@@ -1009,28 +1036,6 @@
     
     function isMobileDevice() { return window.innerWidth <= 768; }
     
-    // 详情页专用的搜索框处理（复用顶部的 searchInputMobile，添加回车跳转逻辑）
-    function attachDetailSearchHandler() {
-        const searchInput = document.getElementById('searchInputMobile');
-        if (!searchInput) return;
-        // 移除旧的监听器，避免重复绑定
-        if (searchInput._detailHandler) {
-            searchInput.removeEventListener('keypress', searchInput._detailHandler);
-        }
-        searchInput._detailHandler = (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                const val = searchInput.value.trim();
-                if (val) {
-                    performGlobalSearch(val);
-                    // 清空搜索框，方便下次输入
-                    searchInput.value = '';
-                }
-            }
-        };
-        searchInput.addEventListener('keypress', searchInput._detailHandler);
-    }
-    
     function initFilters() {
         const isMobile = isMobileDevice();
         const desktopFilter = document.querySelector('.desktop-filter');
@@ -1052,12 +1057,6 @@
                     if (pageId === 'vehicles') window.scrollTo(0, 0);
                 });
             });
-            const searchInput = document.getElementById('searchInputMobile');
-            if (searchInput) {
-                searchInput.value = keyword;
-                searchInput.removeEventListener('input', searchInput._listener);
-                searchInput.addEventListener('input', searchInput._listener = (e) => { keyword = e.target.value; renderList(); });
-            }
             document.querySelectorAll('#positionOptions .filter-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
                 opt.addEventListener('click', opt._clickHandler = () => {
@@ -1106,12 +1105,6 @@
         } else {
             if (mobileFixedHeader) mobileFixedHeader.style.display = 'none';
             if (desktopFilter) desktopFilter.style.display = 'block';
-            const desktopSearch = document.getElementById('searchInputDesktop');
-            if (desktopSearch) {
-                desktopSearch.value = keyword;
-                desktopSearch.removeEventListener('input', desktopSearch._listener);
-                desktopSearch.addEventListener('input', desktopSearch._listener = (e) => { keyword = e.target.value; renderList(); });
-            }
             document.querySelectorAll('#desktopPositionOptions .desktop-filter-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
                 opt.addEventListener('click', opt._clickHandler = () => {
@@ -1267,10 +1260,8 @@
         document.getElementById("backBtn")?.addEventListener("click", restoreList);
         const mobile = isMobileDevice();
         bindTermAndFeatureEvents(mobile);
-        // 手机端详情页附加搜索框跳转功能（共用顶部搜索框）
-        if (mobile) {
-            attachDetailSearchHandler();
-        }
+        // 重要: 进入详情页后清空所有搜索框内容 (需求2)
+        clearAllSearchBoxes();
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
         window.scrollTo(0, 0);
@@ -1285,7 +1276,7 @@
         const cleanUrl = window.location.pathname;
         history.pushState({ page: 'list' }, '', cleanUrl);
         let vehiclesPage = document.getElementById("vehiclesPage");
-        vehiclesPage.innerHTML = `<div class="filter-bar desktop-filter"><div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、技能..."></div>
+        vehiclesPage.innerHTML = `<div class="filter-bar desktop-filter"><div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
             <div class="desktop-filter-sections">
                 <div class="desktop-filter-section"><div class="desktop-filter-section-title">定位</div><div class="desktop-filter-options" id="desktopPositionOptions">
                     <div class="desktop-filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
@@ -1315,7 +1306,7 @@
                     <button class="mobile-tab-btn" data-page="news">爆料信息</button>
                     <button class="mobile-tab-btn" data-page="wallpaper">游戏壁纸</button>
                 </div></div>
-                <div class="mobile-filter-sticky"><div class="filter-row"><div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车型/技能..."></div>
+                <div class="mobile-filter-sticky"><div class="filter-row"><div class="search-box"><input type="text" id="searchInputMobile" placeholder="搜索车辆名称、简称、技能..."></div>
                 <div class="category-dropdown-btn" id="categoryDropdownBtn"><span>选择分类</span><span class="arrow">▼</span></div></div>
                 <div class="category-dropdown-panel" id="categoryDropdownPanel">
                     <div class="filter-section"><div class="filter-section-title">定位</div><div class="filter-options" id="positionOptions">
@@ -1339,6 +1330,7 @@
             </div>
             <div class="cars-grid" id="carsGrid"></div><div class="stats-text" id="statsText">加载中...</div>`;
         initFilters();
+        attachSearchInputEvents(); // 重新绑定搜索事件
         renderList();
         isDetail = false;
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
