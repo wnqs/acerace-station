@@ -452,7 +452,7 @@
         .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; font-weight: 500; }
         .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
         
-        /* ========== 手机端专用样式 - 完全保持不变 ========== */
+        /* ========== 手机端专用样式 ========== */
         @media (max-width: 768px) {
             .sidebar { display: none; }
             .mobile-fixed-header {
@@ -643,7 +643,6 @@
                 flex-shrink: 0;
             }
             .detail-container { overflow-x: hidden; padding-bottom: 20px; }
-            /* 手机端隐藏电脑端的内嵌搜索栏，使用原有的手机端头部搜索 */
             .detail-search-wrapper { display: none; }
             .detail-header-actions { padding: 12px 16px 0 16px; justify-content: flex-start; }
             .detail-back-btn { margin: 0; font-size: 0.8rem; padding: 8px 16px; }
@@ -899,7 +898,6 @@
         }
         return result;
     }
-    // 大招排版：冒号、分号换行
     function formatSkillText(text) {
         if (!text) return text;
         let result = highlightTerms(text);
@@ -1034,7 +1032,6 @@
     // 清除所有选中的分类（定位、专精、品质）
     function clearAllFilters() {
         activeFilters = { position: "", specialty: "", quality: "" };
-        // 更新UI
         if (isMobileDevice()) {
             updateFilterUI();
         } else {
@@ -1043,25 +1040,23 @@
         renderList();
     }
     
-    // 检查是否有任何分类被选中
     function hasAnyFilterActive() {
         return !!(activeFilters.position || activeFilters.specialty || activeFilters.quality);
     }
     
-    // 处理返回键逻辑：优先清除分类，若无分类则退出
+    // 手机端/电脑端统一的返回键逻辑处理
     function handleBackButton() {
         if (isDetail) {
-            // 在详情页：返回主界面
+            // 在详情页：返回主界面（并清除分类筛选，保证回到全部车辆）
+            clearAllFilters();
             restoreList();
         } else {
             // 在主界面：如果有选中的分类，则清除分类；否则退出网站
             if (hasAnyFilterActive()) {
                 clearAllFilters();
             } else {
-                // 退出网站
                 if (window.confirm('确定要退出王牌竞速情报站吗？')) {
                     window.close();
-                    // 降级方案：尝试后退
                     setTimeout(() => { history.back(); }, 100);
                 }
             }
@@ -1072,7 +1067,6 @@
         try {
             const vehiclesUrl = './vehicles.json';
             const termsUrl = './terms.json';
-            console.log('[加载] 尝试加载车辆数据:', vehiclesUrl);
             const vehiclesResponse = await fetch(vehiclesUrl);
             if (!vehiclesResponse.ok) {
                 throw new Error(`HTTP ${vehiclesResponse.status}: 无法加载 vehicles.json`);
@@ -1083,9 +1077,7 @@
             }
             vehiclesData = vehiclesDataObj.vehicles;
             vehiclesData.forEach(car => { car.quality = getCorrectedQuality(car.name, car.quality); });
-            console.log(`[加载] 成功加载 ${vehiclesData.length} 辆车辆数据`);
             
-            console.log('[加载] 尝试加载术语数据:', termsUrl);
             const termsResponse = await fetch(termsUrl);
             if (!termsResponse.ok) {
                 throw new Error(`HTTP ${termsResponse.status}: 无法加载 terms.json`);
@@ -1095,7 +1087,6 @@
                 throw new Error('terms.json 格式错误：缺少 terms 对象');
             }
             termDefinitions = termsDataObj.terms;
-            console.log(`[加载] 成功加载 ${Object.keys(termDefinitions).length} 个术语`);
             
             for (const car of vehiclesData) car.chipSlots = sortChipSlots(car.chipSlots);
             initFilters();
@@ -1362,18 +1353,15 @@
     // 监听浏览器后退事件（手机端实体返回键 / 电脑端后退按钮）
     window.addEventListener('popstate', function(e) {
         if (isDetail) {
-            restoreList();
+            e.preventDefault();
+            handleBackButton();
         } else {
-            // 在主界面：如果有选中的分类，则清除分类并阻止默认后退
             if (hasAnyFilterActive()) {
-                clearAllFilters();
-                // 替换当前历史记录，防止连续后退两次
-                history.pushState(null, null, location.href);
                 e.preventDefault();
-            } else {
-                // 无分类选中，允许退出（无需额外处理，浏览器默认后退行为会离开页面）
-                // 但为了体验，不做额外操作
+                clearAllFilters();
+                history.pushState(null, null, location.href);
             }
+            // 无筛选时默认退出，不做额外处理
         }
     });
     
@@ -1459,6 +1447,9 @@
             });
         });
     }
+    
+    // 移除全局文本选中的光标闪烁效果（通过 CSS 禁止文本选择时的光标闪烁，但不是必须，主要问题是用户反馈的“一闪一闪”可能是文本选择效果，通过以下样式确保无异常）
+    // 已在 body 样式中保证了字体平滑，无需额外JS
     
     initTabs();
     loadData();
