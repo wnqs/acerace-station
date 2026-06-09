@@ -1106,15 +1106,24 @@
         if (mobileInput) mobileInput.value = "";
     }
     
+    // 标记是否正在执行搜索跳转，避免重复操作
+    let isExecutingSearch = false;
+    
     function executeSearch(searchValue) {
         const searchTerm = searchValue;
         const currentCarId = new URLSearchParams(window.location.search).get('car');
+        
         if (currentCarId) {
-            // 从详情页执行搜索，需要跳转到列表页并清除URL参数，同时隐藏返回按钮
+            // 从详情页执行搜索，需要跳转到列表页
+            // 使用一个标志防止重复执行
+            if (isExecutingSearch) return;
+            isExecutingSearch = true;
+            
             clearAllFilters();
             const newUrl = window.location.pathname;
-            // 使用 replaceState 替换当前的详情页记录为列表页记录
-            // 这样历史栈中就只有列表页记录（原来的详情页记录被覆盖）
+            // 关键修复：使用 replaceState 替换当前的详情页记录为列表页记录
+            // 这样历史栈中就只会有：初始列表页 + 当前列表页（原来的详情页被替换）
+            // 按一次返回键回到初始列表页，再按一次退出网站
             history.replaceState(null, '', newUrl);
             const headerBackBtn = document.getElementById('headerBackBtn');
             if (headerBackBtn) headerBackBtn.style.display = 'none';
@@ -1127,6 +1136,7 @@
                 if (mobileInput && mobileInput.value !== keyword) mobileInput.value = keyword;
                 renderList();
                 window.scrollTo(0, 0);
+                isExecutingSearch = false;
             }, 50);
         } else {
             keyword = searchTerm;
