@@ -17,20 +17,43 @@
             user-select: text;
             caret-color: auto;
         }
-        body { background: #0a0a0f; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+        
+        /* 背景改为深色动态渐变，不再纯黑 */
+        body {
+            background: linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 25%, #141425 50%, #0f0f1a 75%, #0a0a0f 100%);
+            background-attachment: fixed;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+        }
+        
+        /* 可选：添加微妙的网格纹理，增加质感 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
         
         /* 左侧固定导航布局（电脑端） */
-        .app-layout { display: flex; max-width: 1600px; margin: 0 auto; min-height: 100vh; }
+        .app-layout { display: flex; max-width: 1600px; margin: 0 auto; min-height: 100vh; position: relative; z-index: 1; }
         
-        /* 左侧导航栏 - 固定列（电脑端） */
-        .sidebar { width: 240px; background: #0f0f17; border-right: 1px solid #2a2a3c; padding: 24px 0; position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto; z-index: 100; }
-        .sidebar .logo-area { padding: 0 16px 20px 16px; border-bottom: 1px solid #2a2a3c; margin-bottom: 20px; cursor: pointer; }
+        /* 左侧导航栏 - 固定列（电脑端）- 增加半透明毛玻璃效果 */
+        .sidebar { width: 240px; background: rgba(15, 15, 23, 0.75); backdrop-filter: blur(10px); border-right: 1px solid rgba(42, 42, 60, 0.6); padding: 24px 0; position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto; z-index: 100; }
+        .sidebar .logo-area { padding: 0 16px 20px 16px; border-bottom: 1px solid rgba(42, 42, 60, 0.6); margin-bottom: 20px; cursor: pointer; }
         .sidebar .logo-area h1 { font-size: 1.2rem; background: linear-gradient(135deg, #ff6b6b, #feca57); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
         .sidebar .logo-area p { font-size: 0.6rem; color: #8a8aa3; margin-top: 4px; font-weight: 500; }
         .nav-tabs { display: flex; flex-direction: column; gap: 6px; padding: 0 12px; width: 100%; }
         .tab-btn { padding: 12px 16px; border: none; background: transparent; border-radius: 12px; font-size: 0.9rem; cursor: pointer; color: #a0a0b8; transition: 0.2s; text-align: left; font-weight: 700; width: 100%; }
-        .tab-btn.active { background: #2a2a3c; color: #feca57; }
-        .tab-btn:hover:not(.active) { background: #1f1f2e; color: #e2e2e6; }
+        .tab-btn.active { background: rgba(42, 42, 60, 0.8); color: #feca57; }
+        .tab-btn:hover:not(.active) { background: rgba(31, 31, 46, 0.6); color: #e2e2e6; }
         
         /* 右侧主内容区 - 需要左侧留白（电脑端） */
         .main-content { 
@@ -48,11 +71,12 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(15, 15, 23, 0.85);
+            background: rgba(15, 15, 23, 0.7);
             backdrop-filter: blur(12px);
             padding: 4px 0 0 0;
             border-bottom: 1px solid rgba(42, 42, 60, 0.5);
             margin-bottom: 24px;
+            border-radius: 0 0 20px 20px;
         }
         .desktop-header-top {
             display: flex;
@@ -98,7 +122,7 @@
         }
         
         .desktop-filter-bar {
-            background: rgba(20, 20, 31, 0.7);
+            background: rgba(20, 20, 31, 0.6);
             border-radius: 20px;
             padding: 16px 20px;
             backdrop-filter: blur(8px);
@@ -111,8 +135,8 @@
             max-width: 400px; 
             padding: 10px 16px; 
             border-radius: 40px; 
-            border: 1px solid #2a2a3c; 
-            background: #1f1f2e; 
+            border: 1px solid rgba(42, 42, 60, 0.8); 
+            background: rgba(31, 31, 46, 0.8); 
             color: #e2e2e6; 
             font-size: 0.9rem; 
             font-weight: 500;
@@ -143,7 +167,7 @@
             gap: 10px;
         }
         .desktop-filter-option {
-            background: rgba(42, 42, 60, 0.8);
+            background: rgba(42, 42, 60, 0.7);
             border-radius: 30px;
             padding: 6px 14px;
             font-size: 0.75rem;
@@ -165,7 +189,7 @@
             height: 16px;
         }
         .desktop-quality-option {
-            background: rgba(42, 42, 60, 0.8);
+            background: rgba(42, 42, 60, 0.7);
             border-radius: 30px;
             padding: 6px 14px;
             font-size: 0.75rem;
@@ -187,8 +211,8 @@
             grid-template-columns: repeat(3, 1fr); 
             gap: 24px; 
         }
-        .car-card { background: #14141f; border-radius: 24px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; will-change: transform; position: relative; display: flex; flex-direction: column; }
-        .car-card:hover { transform: translateY(-4px); }
+        .car-card { background: rgba(20, 20, 31, 0.85); backdrop-filter: blur(4px); border-radius: 24px; overflow: hidden; cursor: pointer; border: 2px solid rgba(42, 42, 60, 0.5); transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; will-change: transform; position: relative; display: flex; flex-direction: column; }
+        .car-card:hover { transform: translateY(-4px); border-color: rgba(254, 202, 87, 0.4); }
         @media (hover: hover) and (pointer: fine) {
             .car-card.legendary-border:hover { border-color: #e6b422; box-shadow: 0 0 16px rgba(230,180,34,0.4); }
             .car-card.epic-border:hover { border-color: #aa6dc9; box-shadow: 0 0 14px rgba(170,109,201,0.35); }
@@ -197,16 +221,16 @@
         }
         
         .card-image { height: 180px; display: flex; align-items: center; justify-content: center; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; flex-shrink: 0; }
-        .card-image.legendary { background: linear-gradient(145deg, #1a1208 0%, #0d0a05 100%); }
+        .card-image.legendary { background: linear-gradient(145deg, rgba(26,18,8,0.7) 0%, rgba(13,10,5,0.7) 100%); }
         .card-image.legendary::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,215,0,0.04) 2px, rgba(255,215,0,0.04) 4px); pointer-events: none; }
         .card-image.legendary::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 30%, rgba(255,215,0,0.12), transparent 70%); pointer-events: none; }
-        .card-image.epic { background: linear-gradient(145deg, #1a0f1a 0%, #0d050d 100%); }
+        .card-image.epic { background: linear-gradient(145deg, rgba(26,15,26,0.7) 0%, rgba(13,5,13,0.7) 100%); }
         .card-image.epic::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(156,39,176,0.08) 2px, rgba(156,39,176,0.08) 4px); pointer-events: none; }
         .card-image.epic::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 25% 35%, rgba(156,39,176,0.15), rgba(255,215,0,0.05) 60%, transparent 80%); pointer-events: none; }
-        .card-image.rare { background: linear-gradient(145deg, #0e1a2a 0%, #060d15 100%); }
+        .card-image.rare { background: linear-gradient(145deg, rgba(14,26,42,0.7) 0%, rgba(6,13,21,0.7) 100%); }
         .card-image.rare::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(33,150,243,0.06) 2px, rgba(33,150,243,0.06) 4px); pointer-events: none; }
         .card-image.rare::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 40% 60%, rgba(33,150,243,0.12), transparent 70%); pointer-events: none; }
-        .card-image.normal { background: linear-gradient(145deg, #1a2a1a 0%, #0a1a0a 100%); }
+        .card-image.normal { background: linear-gradient(145deg, rgba(26,42,26,0.7) 0%, rgba(10,26,10,0.7) 100%); }
         .card-image.normal::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(76,175,80,0.08) 2px, rgba(76,175,80,0.08) 4px); pointer-events: none; }
         .card-image.normal::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.12), transparent 70%); pointer-events: none; }
         .card-image img { max-width: 100%; max-height: 100%; object-fit: contain; position: relative; z-index: 2; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
@@ -222,7 +246,7 @@
         .quality-badge.rare { background: linear-gradient(135deg, #4a9eff, #2d7fd1); color: #ffffff; border-color: #8bcbff; box-shadow: 0 2px 12px rgba(74,158,255,0.35); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
         .quality-badge.normal { background: linear-gradient(135deg, #40c468, #2f9e52); color: #ffffff; border-color: #8fdfaa; box-shadow: 0 2px 12px rgba(64,196,104,0.3); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
         
-        .card-info { padding: 16px; background: rgba(20,20,31,0.9); }
+        .card-info { padding: 16px; background: rgba(20,20,31,0.7); backdrop-filter: blur(4px); }
         .car-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px; flex-wrap: wrap; }
         .car-name { font-size: 1.1rem; font-weight: 700; color: #e2e2e6; flex-shrink: 1; min-width: 0; word-break: break-word; }
         .car-meta { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; align-items: center; }
@@ -231,19 +255,19 @@
         .car-description { font-size: 0.75rem; color: #8a8aa3; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; line-height: 1.4; font-weight: 400; }
         .stats-text { text-align: center; padding: 16px; color: #8a8aa3; font-weight: 500; }
         
-        .detail-container { background: #14141f; border-radius: 24px; border: 1px solid #2a2a3c; position: relative; overflow: visible; margin-bottom: 24px; }
+        .detail-container { background: rgba(20, 20, 31, 0.85); backdrop-filter: blur(10px); border-radius: 24px; border: 1px solid rgba(42, 42, 60, 0.6); position: relative; overflow: visible; margin-bottom: 24px; }
         .detail-header { display: flex; gap: 30px; padding: 20px 40px 20px 40px; flex-wrap: wrap; }
         .detail-image { flex: 2; min-width: 280px; border-radius: 24px; display: flex; align-items: center; justify-content: center; padding: 50px 40px; border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; }
-        .detail-image.legendary { background: linear-gradient(145deg, #1a1208 0%, #0d0a05 100%); }
+        .detail-image.legendary { background: linear-gradient(145deg, rgba(26,18,8,0.8) 0%, rgba(13,10,5,0.8) 100%); }
         .detail-image.legendary::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,215,0,0.04) 2px, rgba(255,215,0,0.04) 4px); pointer-events: none; }
         .detail-image.legendary::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 30%, rgba(255,215,0,0.1), transparent 70%); pointer-events: none; }
-        .detail-image.epic { background: linear-gradient(145deg, #1a0f1a 0%, #0d050d 100%); }
+        .detail-image.epic { background: linear-gradient(145deg, rgba(26,15,26,0.8) 0%, rgba(13,5,13,0.8) 100%); }
         .detail-image.epic::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(156,39,176,0.08) 2px, rgba(156,39,176,0.08) 4px); pointer-events: none; }
         .detail-image.epic::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 25% 35%, rgba(156,39,176,0.15), rgba(255,215,0,0.05) 60%, transparent 80%); pointer-events: none; }
-        .detail-image.rare { background: linear-gradient(145deg, #0e1a2a 0%, #060d15 100%); }
+        .detail-image.rare { background: linear-gradient(145deg, rgba(14,26,42,0.8) 0%, rgba(6,13,21,0.8) 100%); }
         .detail-image.rare::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(33,150,243,0.06) 2px, rgba(33,150,243,0.06) 4px); pointer-events: none; }
         .detail-image.rare::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 40% 60%, rgba(33,150,243,0.1), transparent 70%); pointer-events: none; }
-        .detail-image.normal { background: linear-gradient(145deg, #1a2a1a 0%, #0a1a0a 100%); }
+        .detail-image.normal { background: linear-gradient(145deg, rgba(26,42,26,0.8) 0%, rgba(10,26,10,0.8) 100%); }
         .detail-image.normal::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(76,175,80,0.08) 2px, rgba(76,175,80,0.08) 4px); pointer-events: none; }
         .detail-image.normal::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.1), transparent 70%); pointer-events: none; }
         .detail-image img { width: 100%; max-height: 420px; object-fit: contain; position: relative; z-index: 2; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5)); }
@@ -254,7 +278,7 @@
         .detail-acquisition-icon img { width: 100%; height: 100%; object-fit: contain; }
         .detail-acquisition-text { font-size: 0.95rem; color: #feca57; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap; text-shadow: 0 0 2px rgba(0,0,0,0.5); background: transparent; padding: 4px 0; border-radius: 0; backdrop-filter: none; }
         
-        .detail-info-panel { flex: 1; min-width: 260px; background: rgba(15,15,26,0.8); backdrop-filter: blur(10px); border-radius: 24px; padding: 20px; border: 1px solid rgba(255,255,255,0.08); }
+        .detail-info-panel { flex: 1; min-width: 260px; background: rgba(15,15,26,0.7); backdrop-filter: blur(10px); border-radius: 24px; padding: 20px; border: 1px solid rgba(255,255,255,0.08); }
         .detail-name { font-size: 1.7rem; font-weight: 800; color: #e2e2e6; margin-bottom: 16px; letter-spacing: -0.2px; word-break: break-word; }
         .detail-badges { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
         .badge { background: rgba(255,255,255,0.08); padding: 6px 14px; border-radius: 40px; font-size: 0.8rem; color: #a0a0b8; display: flex; align-items: center; gap: 8px; font-weight: 500; }
@@ -266,7 +290,7 @@
         .info-label { width: 90px; color: #8a8aa3; font-size: 0.75rem; font-weight: 600; }
         .info-value { color: #e2e2e6; font-size: 0.8rem; font-weight: 500; }
         
-        .features-section, .chip-slots, .vehicle-stats, .skills-section, .chip-workshop { position: relative; background: #14141f; }
+        .features-section, .chip-slots, .vehicle-stats, .skills-section, .chip-workshop { position: relative; background: transparent; }
         .features-section { padding: 20px 40px 12px 40px; border-top: 1px solid rgba(255,255,255,0.08); }
         .section-title { font-size: 1.65rem !important; font-weight: 800; color: #e2e2e6; margin-bottom: 20px; padding-left: 12px; border-left: 4px solid #feca57; }
         .chip-slots .section-title { font-size: 1.65rem !important; font-weight: 800; }
@@ -275,12 +299,12 @@
         .workshop-title { font-size: 1.65rem !important; font-weight: 800; color: #e2e2e6; margin-bottom: 20px; }
         
         .features-horizontal { display: flex; flex-wrap: wrap; gap: 16px; justify-content: flex-start; align-items: center; }
-        .feature-box { background: rgba(30,30,50,0.9); border-radius: 40px; padding: 10px 24px; text-align: center; cursor: pointer; transition: all 0.2s ease; font-weight: 600; font-size: 0.85rem; white-space: nowrap; }
+        .feature-box { background: rgba(30,30,50,0.8); border-radius: 40px; padding: 10px 24px; text-align: center; cursor: pointer; transition: all 0.2s ease; font-weight: 600; font-size: 0.85rem; white-space: nowrap; }
         .feature-box[data-color="蓝"] { border-color: #2196f3; color: #90caf9; background: rgba(33,150,243,0.15); }
         .feature-box[data-color="紫"] { border-color: #9c27b0; color: #ce93d8; background: rgba(156,39,176,0.15); }
         .feature-box[data-color="红"] { border-color: #f44336; color: #ff8a80; background: rgba(244,67,54,0.15); }
         .feature-box[data-color="黄"] { border-color: #ffc107; color: #ffd54f; background: rgba(255,193,7,0.15); }
-        .feature-box[data-color="默认"] { border-color: #feca57; color: #feca57; background: rgba(30,30,50,0.9); }
+        .feature-box[data-color="默认"] { border-color: #feca57; color: #feca57; background: rgba(30,30,50,0.8); }
         .feature-box:hover { transform: translateY(-2px); background: rgba(254,202,87,0.2); box-shadow: 0 4px 12px rgba(254,202,87,0.2); }
         
         .skill-desc {
@@ -430,15 +454,16 @@
                 top: 0;
                 left: 0;
                 right: 0;
-                background: #0f0f17;
-                border-bottom: 1px solid #2a2a3c;
+                background: rgba(15, 15, 23, 0.95);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid rgba(42, 42, 60, 0.5);
                 z-index: 200;
                 display: flex;
                 flex-direction: column;
             }
             .mobile-top-bar {
                 padding: 8px 12px;
-                border-bottom: 1px solid #2a2a3c;
+                border-bottom: 1px solid rgba(42, 42, 60, 0.5);
             }
             .mobile-logo-area {
                 text-align: center;
@@ -469,7 +494,7 @@
                 font-size: 0.65rem;
                 border-radius: 16px;
                 text-align: center;
-                background: #1a1a2a;
+                background: rgba(26, 26, 42, 0.8);
                 border: none;
                 cursor: pointer;
                 color: #a0a0b8;
@@ -482,8 +507,9 @@
             }
             .mobile-filter-sticky {
                 padding: 8px 12px;
-                background: #0a0a0f;
-                border-bottom: 1px solid #2a2a3c;
+                background: rgba(10, 10, 15, 0.8);
+                backdrop-filter: blur(8px);
+                border-bottom: 1px solid rgba(42, 42, 60, 0.5);
             }
             .filter-row {
                 display: flex;
@@ -499,8 +525,8 @@
                 width: 100%; 
                 padding: 8px 12px; 
                 font-size: 0.8rem; 
-                background: #1f1f2e; 
-                border: 1px solid #2a2a3c; 
+                background: rgba(31, 31, 46, 0.9); 
+                border: 1px solid rgba(42, 42, 60, 0.8); 
                 border-radius: 30px; 
                 color: #e2e2e6;
                 outline: none;
@@ -510,8 +536,8 @@
             .search-box input:focus { border-color: #feca57; }
             .search-box input::placeholder { color: #8a8aa3; font-size: 0.75rem; }
             .category-dropdown-btn { 
-                background: #1f1f2e; 
-                border: 1px solid #2a2a3c; 
+                background: rgba(31, 31, 46, 0.9); 
+                border: 1px solid rgba(42, 42, 60, 0.8); 
                 border-radius: 30px; 
                 padding: 6px 14px; 
                 font-size: 0.75rem; 
@@ -528,11 +554,12 @@
             .category-dropdown-btn .arrow { font-size: 0.6rem; transition: transform 0.2s; }
             .category-dropdown-btn.active .arrow { transform: rotate(180deg); }
             .category-dropdown-panel { 
-                background: #1a1a2a; 
+                background: rgba(26, 26, 42, 0.95); 
+                backdrop-filter: blur(8px);
                 border-radius: 16px; 
                 margin-top: 8px; 
                 padding: 10px; 
-                border: 1px solid #2a2a3c; 
+                border: 1px solid rgba(42, 42, 60, 0.8); 
                 display: none;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.3);
                 position: absolute;
@@ -557,7 +584,7 @@
                 justify-content: flex-start;
             }
             .filter-option, .quality-option { 
-                background: #2a2a3c; 
+                background: rgba(42, 42, 60, 0.8); 
                 border-radius: 30px; 
                 padding: 6px 12px; 
                 font-size: 0.7rem; 
@@ -1011,12 +1038,9 @@
         // 如果当前在详情页，先返回主界面再执行搜索
         const currentCarId = new URLSearchParams(window.location.search).get('car');
         if (currentCarId) {
-            // 清除筛选并返回主界面
             clearAllFilters();
-            // 使用 pushState 添加新记录后立即返回
             const newUrl = window.location.pathname;
             history.pushState(null, '', newUrl);
-            // 更新 UI 到列表页
             restoreList();
             setTimeout(() => {
                 keyword = searchTerm;
@@ -1093,7 +1117,6 @@
             const headerBackButton = document.getElementById('headerBackButton');
             if (headerBackButton) {
                 headerBackButton.addEventListener('click', () => {
-                    // 返回列表按钮：清除筛选，返回到主界面
                     clearAllFilters();
                     const newUrl = window.location.pathname;
                     history.pushState(null, '', newUrl);
@@ -1117,11 +1140,9 @@
                 renderList();
             }
             
-            // 监听 popstate 事件 - 手机端返回键核心逻辑
             window.addEventListener('popstate', function(e) {
                 const currentCarId = new URLSearchParams(window.location.search).get('car');
                 if (currentCarId) {
-                    // 有 car 参数，显示详情页
                     const car = vehiclesData.find(v => v.id === currentCarId);
                     if (car) {
                         const headerBackBtn = document.getElementById('headerBackBtn');
@@ -1131,17 +1152,10 @@
                         renderList();
                     }
                 } else {
-                    // 没有 car 参数，显示列表页
                     const headerBackBtn = document.getElementById('headerBackBtn');
                     if (headerBackBtn) headerBackBtn.style.display = 'none';
-                    // 清除筛选
                     clearAllFilters();
                     restoreList();
-                    // 检查是否需要退出网站
-                    if (!hasAnyFilterActive() && keyword === "") {
-                        // 如果历史记录栈只有当前这一条，用户按返回键会退出
-                        // 这里不做额外处理，让浏览器自然退出
-                    }
                 }
             });
             
@@ -1196,7 +1210,6 @@
                     if (pageId === 'vehicles') {
                         const currentCarId = new URLSearchParams(window.location.search).get('car');
                         if (currentCarId) {
-                            // 如果在详情页，返回到列表页
                             const newUrl = window.location.pathname;
                             history.pushState(null, '', newUrl);
                             restoreList();
@@ -1326,7 +1339,6 @@
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
         
-        // 使用 pushState 添加新历史记录，让返回键可以回到上一页
         const newUrl = window.location.pathname + '?car=' + id;
         history.pushState({ carId: id }, '', newUrl);
         
