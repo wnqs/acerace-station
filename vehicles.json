@@ -2643,6 +2643,519 @@
       },
       "ultIcon": "https://s3.bmp.ovh/2026/06/07/b7y5bV7J.png",
       "passiveIcon": "https://s3.bmp.ovh/2026/06/08/qk5aweJK.png"
+     },
+    { 
+      "id": "audi_rs7_sportback",
+      "name": "奥迪 RS7 Sportback",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "城市",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/5T0FJvXY.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "城市",
+      "description": "爆发期间无法被干扰和辅助",
+      "skillName": "奔逸绝尘",
+      "searchKeywords": ["奥迪 RS7", "Sportback", "奔逸绝尘", "环环相扣", "西装暴徒"],
+      "registerDate": "2022-11-11",
+      "vehicleType": "真实阵营",
+      "manufacturer": "奥迪",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/09/jrVujgS7.png",
+      "stats": {
+        "topSpeed": "230.0 km/h",
+        "power": "7.71",
+        "durability": "125",
+        "nitroCharge": "29.0%",
+        "startCharge": "41.0%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "26.00 km/h", "purple": "39.00 km/h" },
+        "turboDuration": { "blue": "0.74 s", "purple": "2.22 s" },
+        "turboSpeed": { "blue": "7.00 km/h", "purple": "10.50 km/h" },
+        "ultPower": "8"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "vslot", "hexagon", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "奔逸绝尘",
+          "desc": "获得爆发加速，极速提升75km/h，持续6秒。加速期间车辆无法选中",
+          "recu": "奔逸绝尘可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "环环相扣",
+          "desc": "每4次点击涡轮、氮气或大招时，刷新第4次点击的按键的使用机会"
+        },
+        "features": [
+          { "name": "按键刷新", "desc": "直接获得按键对应的大招、氮气、涡轮", "color": "紫" },
+          { "name": "无法选中", "desc": "无法成为干扰或者辅助效果的目标", "color": "黄" },
+          { "name": "高极速", "desc": "技能提供大量极速加成", "color": "蓝" },
+          { "name": "续航", "desc": "单人比赛时续航能力强", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/08/0vSlLkJB.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/08/Q1HKt362.png"
+    },
+    {
+      "id": "weilai_ep9",
+      "name": "蔚来 EP9",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/QriLhNvR.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "加速推进，每秒集气",
+      "skillName": "闪充",
+      "searchKeywords": ["蔚来 EP9", "闪充", "可再生能源"],
+      "registerDate": "2024-07-12",
+      "vehicleType": "真实阵营",
+      "manufacturer": "蔚来",
+      "acquisition": "补给箱",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/05/31/rK9Tjs84.png",
+      "stats": {
+        "topSpeed": "224.0 km/h",
+        "power": "7.65",
+        "durability": "110",
+        "nitroCharge": "26.0%",
+        "startCharge": "26.0%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "24.00 km/h", "purple": "36.00 km/h" },
+        "turboDuration": { "blue": "0.64 s", "purple": "1.92 s" },
+        "turboSpeed": { "blue": "5.00 km/h", "purple": "7.50 km/h" },
+        "ultPower": "9"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "闪充",
+          "desc": "加速推进，极速提升14km/h，持续14秒。加速期间每秒自动获得2000点集气。使用大招后首次集满一管氮气时自身负面效果。",
+          "recu": "闪充可以充能两次且持续时间延长",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "可再生能源",
+          "desc": "每次大招结束时本局内极速+8km/h（上限叠加至40km/h）并自充能20%"
+        },
+        "features": [
+          { "name": "持久", "desc": "大招持续时间长", "color": "蓝" },
+          { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" },
+          { "name": "续航", "desc": "单人比赛时续航能力强", "color": "蓝" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" },
+          { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/08/OfuF0MX7.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/06/cQ2gBPxj.png"
+    },
+    {
+      "id": "mclaren_p1",
+      "name": "迈凯伦 P1",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/2J3FLI0o.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "漂移以延长大招时间",
+      "skillName": "超级马力",
+      "searchKeywords": ["迈凯伦 P1", "超级马力", "氮王之王"],
+      "registerDate": "2021-07-23",
+      "vehicleType": "真实阵营",
+      "manufacturer": "迈凯伦",
+      "acquisition": "累计充值",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/0xuTbssO.png",
+      "stats": {
+        "topSpeed": "229.3 km/h",
+        "power": "7.53",
+        "durability": "100",
+        "nitroCharge": "33.0%",
+        "startCharge": "53.0%",
+        "nitroDuration": "5.80 s",
+        "nitroSpeed": { "blue": "30.00 km/h", "purple": "45.00 km/h" },
+        "turboDuration": { "blue": "0.59 s", "purple": "1.77 s" },
+        "turboSpeed": { "blue": "4.70 km/h", "purple": "7.10 km/h" },
+        "ultPower": "14"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "rhombus", "vslot", "vslot"],
+      "skills": {
+        "ult": {
+          "name": "超级马力",
+          "desc": "获得长时间的加速推进，极速提升14km/h同时动力大幅度提升，持续14秒。大招期间无法选中且每次漂移会延长1秒大招时间并使本局内极速+5km/h（上限叠加至45km/h）",
+          "recu": "超级马力可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "氮王之王",
+          "desc": "氮气速度+50%且集气量未满一管氮气时也可释放氮气（氮气时间由当前集气量百分比决定）"
+        },
+        "features": [
+          { "name": "自由氮气", "desc": "未满一管氮气时可提前释放/漂移中提前释放不会消耗全部集气量", "color": "紫" },
+          { "name": "无法选中", "desc": "无法成为干扰或者辅助效果的目标", "color": "黄" },
+          { "name": "持久", "desc": "大招持续时间长", "color": "蓝" },
+          { "name": "氮气增强", "desc": "氮气获得特殊强化效果", "color": "蓝" },
+          { "name": "动力提升", "desc": "提升赛车的加速能力", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/08/rsgLEQWR.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/08/Vrv9KE3L.png"
+    },
+    {
+      "id": "porsche_935",
+      "name": "保时捷 935",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/oaFteRdo.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "养精蓄锐以恢复耐久",
+      "skillName": "养精蓄锐",
+      "searchKeywords": ["保时捷 935", "养精蓄锐", "稳扎稳打"],
+      "registerDate": "2021-12-27",
+      "vehicleType": "真实阵营",
+      "manufacturer": "保时捷",
+      "acquisition": "黑金会员",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/a8Du85YQ.png",
+      "stats": {
+        "topSpeed": "219.0 km/h",
+        "power": "7.47",
+        "durability": "90",
+        "nitroCharge": "26.0%",
+        "startCharge": "26.0%",
+        "nitroDuration": "5.40 s",
+        "nitroSpeed": { "blue": "22.80 km/h", "purple": "34.20 km/h" },
+        "turboDuration": { "blue": "0.62 s", "purple": "1.86 s" },
+        "turboSpeed": { "blue": "6.00 km/h", "purple": "9.00 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "triangle", "rhombus", "vslot"],
+      "skills": {
+        "ult": {
+          "name": "养精蓄锐",
+          "desc": "加速推进并进入长达16秒的养精蓄锐模式：极速提升16km/h；每秒恢复4点耐久；开启时净化自身负面效果；加速结束时获得5000集气量",
+          "recu": "养精蓄锐可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "稳扎稳打",
+          "desc": "每次使用大招本局内极速+4km/h。大招能量达到50%即可使用。（大招持续时间随能量百分比变化，极速提升最高叠加至40km/h）"
+        },
+        "features": [
+          { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" },
+          { "name": "耐久恢复", "desc": "技能可恢复自身耐久值", "color": "蓝" },
+          { "name": "续航", "desc": "技能可恢复自身耐久值", "color": "蓝" },
+          { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/08/LW7fz4Ho.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/08/pAQTo1Ed.png"
+    },
+    {
+      "id": "bugatti_divo",
+      "name": "布加迪 Divo",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "城市",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/9uGmpEeX.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "城市",
+      "description": "透支车辆，爆发加速",
+      "skillName": "能量透支",
+      "searchKeywords": ["布加迪 Divo", "能量透支", "伺机待发"],
+      "registerDate": "2022-07-29",
+      "vehicleType": "真实阵营",
+      "manufacturer": "布加迪",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/09/jrVujgS7.png",
+      "stats": {
+        "topSpeed": "222.0 km/h",
+        "power": "7.62",
+        "durability": "200",
+        "nitroCharge": "30.0%",
+        "startCharge": "30.0%",
+        "nitroDuration": "5.80 s",
+        "nitroSpeed": { "blue": "27.10 km/h", "purple": "40.65 km/h" },
+        "turboDuration": { "blue": "0.66 s", "purple": "1.98 s" },
+        "turboSpeed": { "blue": "7.00 km/h", "purple": "10.50 km/h" },
+        "ultPower": "8"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "vslot", "hexagon", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "能量透支",
+          "desc": "获得持续加速时间12秒的长时间爆发加速，极速提升95km/h。爆发结束后进入4.5秒透支状态，处于透支状态时无法使用大招",
+          "recu": "能量透支可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "伺机待发",
+          "desc": "首次使用大招前，每秒使本局内极速+3km/h（上限叠加至30km/h）并进入隐身状态"
+        },
+        "features": [
+          { "name": "持久", "desc": "大招持续时间长", "color": "蓝" },
+          { "name": "高极速", "desc": "技能提供大量极速加成", "color": "蓝" },
+          { "name": "隐身", "desc": "无视车辆间的碰撞/不会被锁定类、触碰类干扰命中", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/08/Ty6evr0L.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/08/LkbqaAh7.png"
+    },
+    {
+      "id": "bugatti_lvn",
+      "name": "布加迪 LVN",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "城市",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/yp94Y5hX.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "城市",
+      "description": "根据漂移次数获取不同增益并进入黑夜领域",
+      "skillName": "黑夜领域",
+      "searchKeywords": ["布加迪 LVN", "黑夜领域", "极致漂移", "黑夜之声"],
+      "registerDate": "2021-07-23",
+      "vehicleType": "真实阵营",
+      "manufacturer": "布加迪",
+      "acquisition": "俱乐部商店/王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/09/qvShzBMX.png",
+      "stats": {
+        "topSpeed": "220.8 km/h",
+        "power": "7.61",
+        "durability": "100",
+        "nitroCharge": "27.0%",
+        "startCharge": "27.0%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "19.90 km/h", "purple": "29.85 km/h" },
+        "turboDuration": { "blue": "0.56 s", "purple": "1.68 s" },
+        "turboSpeed": { "blue": "5.00 km/h", "purple": "7.50 km/h" },
+        "ultPower": "7"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "黑夜领域",
+          "desc": "加速推进，极速提升50km/h，持续10秒。加速期间：每2次进入漂移时自充能6%；若大招期间漂移达到4次，则大招结束后进入10秒黑夜领域；在黑夜领域中大招键消失，极速+50km/h且每次使用氮气时获得一个氮气",
+          "recu": "黑夜领域可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "极致漂移",
+          "desc": "漂移最低速度+20km/h且漂移获取涡轮角度降低，每次进入漂移本局内极速+5km/h（上限叠加至40km/h），每次进入漂移后1.5秒内可闪避锁定类干扰效果一次"
+        },
+        "features": [
+          { "name": "大招连发", "desc": "大招结束后会自动释放一个大招并隐藏按键", "color": "紫" },
+          { "name": "闪避", "desc": "可以躲避敌方的锁定类干扰", "color": "蓝" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" },
+          { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/08/8uRPnhOL.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/08/xJN8BJ6W.png"
+    },
+    {
+      "id": "ultimate_yixing",
+      "name": "终极·异形",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "城市",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/UWNtKgpR.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "城市",
+      "description": "根据大招使用次数不断进化",
+      "skillName": "进化",
+      "searchKeywords": ["终极·异形", "进化", "适应力"],
+      "registerDate": "2022-06-24",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "进化",
+      "acquisition": "黑金会员",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/a8Du85YQ.png",
+      "stats": {
+        "topSpeed": "224.0 km/h",
+        "power": "7.47",
+        "durability": "120",
+        "nitroCharge": "33.0%",
+        "startCharge": "33.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "23.00 km/h", "purple": "34.50 km/h" },
+        "turboDuration": { "blue": "0.63 s", "purple": "1.89 s" },
+        "turboSpeed": { "blue": "7.20 km/h", "purple": "10.80 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "进化",
+          "desc": "获得持续3秒的爆发加速，极速提升80km/h，大招效果将随使用次数的增加而进化：一阶进化：从第2次使用大招起，大招时间延长3秒；二阶进化：从第3次使用大招起，6秒内极速+35km/h并获得隐身效果；终阶进化：从第5次使用大招起，6秒内每秒自充能8%",
+          "recu": "进化可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "适应力",
+          "desc": "大招能量达到50%时即可使用"
+        },
+        "features": [
+          { "name": "高极速", "desc": "技能提供大量极速加成", "color": "蓝" },
+          { "name": "隐身", "desc": "无视车辆间的碰撞/不会被锁定类、触碰类干扰命中", "color": "蓝" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/08/WtxhNZhM.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/08/Kcwn2gFx.png"
+    },
+    {
+      "id": "mclaren_senna",
+      "name": "迈凯伦 Senna",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "山路",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/44rOO5Rx.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "山路",
+      "description": "不朽传奇，瞬间提速",
+      "skillName": "不朽传奇",
+      "searchKeywords": ["迈凯伦 Senna", "不朽传奇", "动力源泉", "塞纳"],
+      "registerDate": "2025-07-04",
+      "vehicleType": "真实阵营",
+      "manufacturer": "迈凯伦",
+      "acquisition": "珍宝阁",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/02/1qgQyYDz.png",
+      "stats": {
+        "topSpeed": "213.0 km/h",
+        "power": "8.00",
+        "durability": "110",
+        "nitroCharge": "28.0%",
+        "startCharge": "28.0%",
+        "nitroDuration": "5.00 s",
+        "nitroSpeed": { "blue": "24.00 km/h", "purple": "36.00 km/h" },
+        "turboDuration": { "blue": "0.70 s", "purple": "2.10 s" },
+        "turboSpeed": { "blue": "6.60 km/h", "purple": "9.90 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "不朽传奇",
+          "desc": "加速推进，极速提升45km/h，持续8秒。加速期间进入隐身状态且在每次漂移结束时立即到达当前速度上限。被动：开启大招后首次进入漂移前极速+30km/h。",
+          "recu": "不朽传奇可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "动力源泉",
+          "desc": "漂移无法获得集气量，每秒自动获得2400集气量和2%大招能量"
+        },
+        "features": [
+          { "name": "瞬间提速", "desc": "退出漂移时立刻提速至上限", "color": "紫" },
+          { "name": "隐身", "desc": "无视车辆间的碰撞/不会被锁定类、触碰类干扰命中", "color": "蓝" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" },
+          { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/07/WrbR652S.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/07/4OsD4f8k.png"
+    },
+    {
+      "id": "aston_martin_db11",
+      "name": "阿斯顿马丁 DB11",
+      "quality": "史诗",
+      "position": "竞速",
+      "specialty": "山路",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/05/PO5y16OC.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "山路",
+      "description": "运动不息，氮气不断",
+      "skillName": "闪充",
+      "searchKeywords": ["阿斯顿马丁 DB11", "闪充", "充能追击", "叙利亚战车"],
+      "registerDate": "2021-07-23",
+      "vehicleType": "真实阵营",
+      "manufacturer": "阿斯顿·马丁",
+      "acquisition": "补给箱 / 赛车学院",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/05/31/rK9Tjs84.png",
+      "stats": {
+        "topSpeed": "221.7 km/h",
+        "power": "7.48",
+        "durability": "100",
+        "nitroCharge": "27.0%",
+        "startCharge": "27.0%",
+        "nitroDuration": "5.40 s",
+        "nitroSpeed": { "blue": "20.00 km/h", "purple": "30.00 km/h" },
+        "turboDuration": { "blue": "0.58 s", "purple": "1.74 s" },
+        "turboSpeed": { "blue": "5.20 km/h", "purple": "7.80 km/h" },
+        "ultPower": "9"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "vslot", "hexagon", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "闪充",
+          "desc": "加速推进，极速提升14km/h，持续14秒。加速期间每秒自动获得2000点集气。使用大招后首次集满一管氮气时自身负面效果。",
+          "recu": "闪充可以充能两次且持续时间延长",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "充能追击",
+          "desc": "开局10秒后，处于第3名及以后名次时，每秒自充能1.5%"
+        },
+        "features": [
+          { "name": "持久", "desc": "大招持续时间长", "color": "蓝" },
+          { "name": "后追", "desc": "落后时有额外技能效果", "color": "蓝" },
+          { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" },
+          { "name": "续航", "desc": "单人比赛时续航能力强", "color": "蓝" },
+          { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/08/OfuF0MX7.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/08/lvRysrG1.png"
+    },
+    {
+      "id": "fengxingzhe",
+      "name": "风行者",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "山路",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/05/tdSuSg8P.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "山路",
+      "description": "乘风而起，自由起飞和降落",
+      "skillName": "御风而行",
+      "searchKeywords": ["风行者", "御风而行", "风行术"],
+      "registerDate": "2025-10-17",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "元素",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/gsI0LDZl.png",
+      "stats": {
+        "topSpeed": "231.0 km/h",
+        "power": "8.23",
+        "durability": "110",
+        "nitroCharge": "31.0%",
+        "startCharge": "31.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "22.80 km/h", "purple": "34.20 km/h" },
+        "turboDuration": { "blue": "0.68 s", "purple": "2.04 s" },
+        "turboSpeed": { "blue": "7.40 km/h", "purple": "11.10 km/h" },
+        "ultPower": "6"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "triangle", "rhombus", "vslot"],
+      "skills": {
+        "ult": {
+          "name": "御风而行",
+          "desc": "加速推进并净化自身负面效果，极速提升65km/h，持续9秒：加速期间长按大招0.3秒可进入飞行状态；飞行时自动巡航，氮气按键消失且每秒额外消耗4%大招能量",
+          "recu": "御风而行可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "风行术",
+          "desc": "开局时获得3500集气量，每次使用氮气时额外获得7%大招能量"
+        },
+        "features": [
+          { "name": "长按大招", "desc": "长按大招触发额外效果", "color": "紫" },
+          { "name": "飞空", "desc": "大招期间会飞到空中", "color": "蓝" },
+          { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" },
+          { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" },
+          { "name": "自动巡航", "desc": "沿预设路线自动行驶/通过弯道时会失速/不会脱离预设路线", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/05/5kMmUosL.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/05/iPuKErvD.png"
     }
   ]
 }
