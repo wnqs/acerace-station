@@ -2307,7 +2307,7 @@
       "vehicleType": "真实阵营",
       "manufacturer": "福特",
       "acquisition": "",
-      "acquisitionIcon": "",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/09/aKaS8UN8.png",
       "stats": {
         "topSpeed": "211.1 km/h",
         "power": "7.16",
@@ -2348,7 +2348,7 @@
       "quality": "传说",
       "position": "辅助",
       "specialty": "场地",
-      "imageUrl": "https://s3.bmp.ovh/2026/06/09/aKaS8UN8.png",
+      "imageUrl": "",
       "positionIcon": "辅助",
       "specialtyIcon": "场地",
       "description": "放置果冻使友方弹飞加速",
@@ -2358,7 +2358,7 @@
       "vehicleType": "幻想阵营",
       "manufacturer": "开拓者",
       "acquisition": "俱乐部商店/王牌补给",
-      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/09/qvShzBMX.png",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/04/4K00W1ft.png",
       "stats": {
         "topSpeed": "216.0 km/h",
         "power": "7.86",
