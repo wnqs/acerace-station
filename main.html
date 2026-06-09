@@ -6,7 +6,6 @@
     <title>王牌竞速 · 情报站</title>
     <style>
         /* ========== 基础样式保持不变 ========== */
-        /* 禁用全局闪烁光标效果（电脑端鼠标点击文本时不会有光标闪动） */
         * {
             margin: 0;
             padding: 0;
@@ -14,7 +13,6 @@
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
-        /* 允许输入框正常显示光标，保证搜索体验 */
         input, textarea {
             user-select: text;
             caret-color: auto;
@@ -53,7 +51,6 @@
             background: rgba(20,20,31,0.95);
             border: 1px solid rgba(42,42,60,0.5);
         }
-        /* 详情页内嵌的搜索栏样式 - 仅电脑端使用，紧凑且位于返回按钮右侧 */
         .detail-search-bar {
             background: #14141f;
             border-radius: 16px;
@@ -1061,18 +1058,20 @@
         return !!(activeFilters.position || activeFilters.specialty || activeFilters.quality);
     }
     
-    // 统一的返回键处理逻辑（手机端和电脑端通用）
+    // 核心：处理浏览器返回键
     function handleBackButton() {
         if (isDetail) {
-            // 详情页：清除筛选并返回列表页
+            // 在详情页：清除筛选并返回列表页，然后替换历史记录避免重复返回
             clearAllFilters();
             restoreList();
+            // 替换当前历史记录，防止再次返回时又触发返回逻辑
+            history.replaceState(null, null, location.pathname);
         } else {
-            // 列表页：有筛选则清除筛选，否则退出网站
+            // 在列表页：如果有选中的分类，则清除分类并替换历史记录；否则退出网站
             if (hasAnyFilterActive()) {
                 clearAllFilters();
-                // 阻止默认后退行为，只清除筛选
-                history.pushState(null, null, location.href);
+                // 替换历史记录，防止清除筛选后再次触发返回导致退出
+                history.replaceState(null, null, location.pathname);
             } else {
                 if (confirm('确定要退出王牌竞速情报站吗？')) {
                     window.close();
@@ -1112,7 +1111,7 @@
             attachSearchInputEvents();
             renderList();
             
-            // 监听popstate事件处理返回键（手机端和电脑端通用）
+            // 监听popstate事件处理浏览器返回键
             window.addEventListener('popstate', function(e) {
                 handleBackButton();
                 e.preventDefault();
@@ -1166,9 +1165,15 @@
                 btn.addEventListener('click', btn._clickHandler = () => {
                     const pageId = btn.dataset.page;
                     if (pageId === 'vehicles') {
-                        if (isDetail) restoreList();
+                        if (isDetail) {
+                            clearAllFilters();
+                            restoreList();
+                        }
                     } else {
-                        if (isDetail) restoreList();
+                        if (isDetail) {
+                            clearAllFilters();
+                            restoreList();
+                        }
                         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                         document.getElementById(pageId + 'Page')?.classList.add('active-page');
                         isDetail = false;
@@ -1339,7 +1344,11 @@
     function showDetail(id) {
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
+        
+        // 进入详情页：添加历史记录
+        history.pushState({ detail: true }, '', location.pathname + '?car=' + id);
         isDetail = true;
+        
         let stats = car.stats, chipSlots = car.chipSlots.map(t => CHIP_ICONS[t]), bgClass = getQualityClass(car.quality);
         let positionIcon = POSITION_ICONS[car.position] || POSITION_ICONS["辅助"];
         let specialtyIcon = SPECIALTY_ICONS[car.specialty] || SPECIALTY_ICONS["场地"];
@@ -1371,7 +1380,9 @@
             <div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.passiveIcon}"></div><div class="skill-title">被动：${car.skills.passive.name}</div></div><div class="skill-desc">${passiveDesc}</div></div>${spBlockHtml}</div></div>`;
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = html;
-        document.getElementById("backBtn")?.addEventListener("click", handleBackButton);
+        document.getElementById("backBtn")?.addEventListener("click", function() {
+            handleBackButton();
+        });
         bindDetailFilters();
         const mobile = isMobileDevice();
         bindTermAndFeatureEvents(mobile);
@@ -1452,9 +1463,15 @@
             btn.addEventListener('click', () => {
                 let pageId = btn.dataset.page;
                 if (pageId === 'vehicles') {
-                    if (isDetail) restoreList();
+                    if (isDetail) {
+                        clearAllFilters();
+                        restoreList();
+                    }
                 } else {
-                    if (isDetail) restoreList();
+                    if (isDetail) {
+                        clearAllFilters();
+                        restoreList();
+                    }
                     document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                     document.getElementById(pageId + 'Page')?.classList.add('active-page');
                     isDetail = false;
