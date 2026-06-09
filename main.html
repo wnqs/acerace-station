@@ -28,8 +28,19 @@
         .page { display: none; }
         .page.active-page { display: block; }
         
-        /* 电脑端筛选栏样式 - 平铺分类，无下拉框，无全部选项 */
-        .filter-bar { background: #14141f; border-radius: 20px; padding: 16px 20px; margin-bottom: 24px; }
+        /* 电脑端筛选栏样式 - 平铺分类，固定顶部 */
+        .desktop-filter-bar {
+            background: #14141f;
+            border-radius: 20px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            position: sticky;
+            top: 20px;
+            z-index: 90;
+            backdrop-filter: blur(8px);
+            background: rgba(20,20,31,0.95);
+            border: 1px solid rgba(42,42,60,0.5);
+        }
         .search-box { margin-bottom: 16px; }
         .search-box input { width: 100%; max-width: 400px; padding: 10px 16px; border-radius: 40px; border: 1px solid #2a2a3c; background: #1f1f2e; color: #e2e2e6; font-size: 0.9rem; font-weight: 500; }
         .desktop-filter-sections {
@@ -193,7 +204,6 @@
         .feature-box[data-color="默认"] { border-color: #feca57; color: #feca57; background: rgba(30,30,50,0.9); }
         .feature-box:hover { transform: translateY(-2px); background: rgba(254,202,87,0.2); box-shadow: 0 4px 12px rgba(254,202,87,0.2); }
         
-        /* 技能描述样式 - 专有名词高亮，其他文字正常（白色/浅色） */
         .skill-desc {
             background: rgba(0,0,0,0.3);
             padding: 14px 18px;
@@ -227,7 +237,6 @@
             font-weight: 500;
         }
         
-        /* 通用文字提示样式 - 与车辆特点显示样式一致（带框） */
         .feature-tooltip {
             position: fixed;
             background: #1e1e2e;
@@ -261,7 +270,6 @@
             white-space: pre-line;
         }
         
-        /* 手机端专用提示样式 */
         .feature-tooltip-mobile {
             position: fixed;
             background: #1e1e2e;
@@ -320,7 +328,6 @@
         .sub-skill { background: rgba(0,0,0,0.3); padding: 12px 16px; border-radius: 14px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.08); }
         .sub-skill-title { font-weight: 600; font-size: 0.8rem; color: #c0c0d0; margin-bottom: 6px; }
         .red-number { color: #ff6b6b !important; font-weight: 600; }
-        /* 关键修复：.term-highlight 默认样式仅高亮文字颜色和边框，不改变背景，不导致整个段落变色 */
         .term-highlight { 
             color: #feca57 !important; 
             cursor: pointer; 
@@ -332,17 +339,13 @@
         .term-highlight:hover { color: #ffd700; }
         .sp-cooltime { color: #feca57; font-weight: 600; margin-bottom: 8px; display: block; }
         
-        /* 游戏壁纸页面样式 */
         .wallpapers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; padding: 20px; }
         .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; font-weight: 500; }
         .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
         
         /* ========== 手机端专用样式 ========== */
         @media (max-width: 768px) {
-            /* 手机端：隐藏左侧边栏 */
             .sidebar { display: none; }
-            
-            /* 手机端固定头部区域 */
             .mobile-fixed-header {
                 position: fixed;
                 top: 0;
@@ -354,7 +357,6 @@
                 display: flex;
                 flex-direction: column;
             }
-            
             .mobile-top-bar {
                 padding: 8px 12px;
                 border-bottom: 1px solid #2a2a3c;
@@ -399,8 +401,6 @@
                 background: #feca57;
                 color: #1a1a2e;
             }
-            
-            /* 手机端筛选栏 */
             .mobile-filter-sticky {
                 padding: 8px 12px;
                 background: #0a0a0f;
@@ -430,7 +430,6 @@
             }
             .search-box input:focus { border-color: #feca57; }
             .search-box input::placeholder { color: #8a8aa3; font-size: 0.75rem; }
-            
             .category-dropdown-btn { 
                 background: #1f1f2e; 
                 border: 1px solid #2a2a3c; 
@@ -449,7 +448,6 @@
             }
             .category-dropdown-btn .arrow { font-size: 0.6rem; transition: transform 0.2s; }
             .category-dropdown-btn.active .arrow { transform: rotate(180deg); }
-            
             .category-dropdown-panel { 
                 background: #1a1a2a; 
                 border-radius: 16px; 
@@ -464,7 +462,6 @@
                 z-index: 210;
             }
             .category-dropdown-panel.show { display: block; }
-            
             .filter-section { margin-bottom: 12px; }
             .filter-section:last-child { margin-bottom: 0; }
             .filter-section-title { 
@@ -474,7 +471,6 @@
                 padding-left: 4px; 
                 font-weight: 700; 
             }
-            /* 手机端筛选选项铺满整行 - 使用flex + 等分布局 */
             .filter-options { 
                 display: flex; 
                 flex-wrap: wrap; 
@@ -501,11 +497,7 @@
             }
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
             .filter-option img { width: 14px; height: 14px; }
-            
-            /* 主内容区 - 为固定头部留出空间 */
             .main-content { margin-left: 0; margin-top: 145px; padding: 12px; width: 100%; }
-            
-            /* 车辆卡片网格 */
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card-image { height: 130px; padding: 12px; }
             .car-name { font-size: 0.85rem; font-weight: 700; }
@@ -515,8 +507,6 @@
             .meta-item { font-size: 0.55rem; padding: 2px 6px; font-weight: 500; }
             .car-description { font-size: 0.6rem; font-weight: 400; }
             .car-card { border: none; }
-            
-            /* 手机端车辆特点 - 调整字体大小和内边距，让标签框更紧凑贴合文字 */
             .features-horizontal {
                 display: flex;
                 flex-wrap: wrap;
@@ -531,8 +521,6 @@
                 display: inline-block;
                 width: auto;
             }
-            
-            /* 手机端芯片槽 - 一行显示（横向滚动） */
             .chip-icons {
                 display: flex;
                 flex-wrap: nowrap;
@@ -545,8 +533,6 @@
                 height: 44px;
                 flex-shrink: 0;
             }
-            
-            /* 详情页适配 - 统一标题字体大小与“车辆特点”一致 */
             .detail-container { overflow-x: hidden; padding-bottom: 20px; }
             .detail-header { flex-direction: column; padding: 16px !important; gap: 16px !important; }
             .detail-image { padding: 16px !important; min-width: auto; width: 100%; border-radius: 16px; }
@@ -554,7 +540,6 @@
             .detail-info-panel { width: 100%; padding: 16px !important; }
             .detail-name { font-size: 1.2rem !important; font-weight: 800; }
             .features-section, .chip-slots, .vehicle-stats, .skills-section { padding: 12px 16px !important; }
-            /* 统一所有区块标题字体大小（车辆特点、芯片槽、车辆基础数据、芯片要求搭配） */
             .section-title, 
             .chip-slots .section-title, 
             .vehicle-stats .section-title, 
@@ -582,7 +567,6 @@
             .search-box input { padding: 6px 10px; font-size: 0.75rem; }
             .main-content { margin-top: 140px; }
             .feature-box { font-size: 0.7rem; padding: 5px 10px; }
-            /* 进一步确保手机端小屏下标题大小一致 */
             .section-title, 
             .chip-slots .section-title, 
             .vehicle-stats .section-title, 
@@ -592,7 +576,6 @@
             }
         }
         
-        /* 电脑端额外微调 */
         @media (min-width: 769px) {
             .acquisition-icon { bottom: 2px; width: 70px; height: 70px; }
             .mobile-fixed-header { display: none; }
@@ -601,7 +584,6 @@
 </head>
 <body>
 <div class="app-layout">
-    <!-- 电脑端左侧导航栏 -->
     <div class="sidebar">
         <div class="logo-area" onclick="location.reload()">
             <h1>王牌竞速 · 情报站</h1>
@@ -617,7 +599,6 @@
         </div>
     </div>
     
-    <!-- 手机端固定头部区域 (电脑端也会显示但会被隐藏，但为了统一搜索行为，电脑端的搜索框和筛选也在顶部) -->
     <div class="mobile-fixed-header" id="mobileFixedHeader" style="display: none;">
         <div class="mobile-top-bar">
             <div class="mobile-logo-area" onclick="location.reload()">
@@ -674,8 +655,8 @@
     
     <div class="main-content">
         <div id="vehiclesPage" class="page active-page">
-            <!-- 电脑端筛选栏 - 平铺分类，提示语优化 -->
-            <div class="filter-bar desktop-filter">
+            <!-- 电脑端全局固定搜索栏（也用于详情页） -->
+            <div class="desktop-filter-bar" id="desktopGlobalFilterBar">
                 <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
                 <div class="desktop-filter-sections">
                     <div class="desktop-filter-section">
@@ -952,50 +933,43 @@
         }
     }
     
-    // 实时搜索跳转函数：从详情页或列表页输入时，回到主界面并筛选
+    // 实时搜索：从任何页面输入时，跳回主界面并筛选
     function performRealtimeSearch(searchValue) {
         if (isDetail) {
-            restoreList(); // 先回到主界面
+            restoreList();
         }
-        // 等待列表页渲染完成，设置关键词并刷新
         setTimeout(() => {
             keyword = searchValue.trim();
-            const mobileSearchInput = document.getElementById('searchInputMobile');
-            const desktopSearchInput = document.getElementById('searchInputDesktop');
-            if (mobileSearchInput && mobileSearchInput.value !== keyword) mobileSearchInput.value = keyword;
-            if (desktopSearchInput && desktopSearchInput.value !== keyword) desktopSearchInput.value = keyword;
+            const mobileInput = document.getElementById('searchInputMobile');
+            const desktopInput = document.getElementById('searchInputDesktop');
+            if (mobileInput && mobileInput.value !== keyword) mobileInput.value = keyword;
+            if (desktopInput && desktopInput.value !== keyword) desktopInput.value = keyword;
             renderList();
             window.scrollTo(0, 0);
         }, 30);
     }
     
-    // 清空所有搜索框内容（进入详情页后调用）
     function clearAllSearchBoxes() {
         keyword = "";
-        const mobileSearchInput = document.getElementById('searchInputMobile');
-        const desktopSearchInput = document.getElementById('searchInputDesktop');
-        if (mobileSearchInput) mobileSearchInput.value = "";
-        if (desktopSearchInput) desktopSearchInput.value = "";
+        const mobileInput = document.getElementById('searchInputMobile');
+        const desktopInput = document.getElementById('searchInputDesktop');
+        if (mobileInput) mobileInput.value = "";
+        if (desktopInput) desktopInput.value = "";
     }
     
-    // 为搜索框绑定实时搜索事件（input事件，实时跳转）
     function attachSearchInputEvents() {
-        const mobileSearchInput = document.getElementById('searchInputMobile');
-        const desktopSearchInput = document.getElementById('searchInputDesktop');
-        
-        const handler = (e) => {
-            performRealtimeSearch(e.target.value);
-        };
-        
-        if (mobileSearchInput) {
-            mobileSearchInput.removeEventListener('input', mobileSearchInput._realtimeHandler);
-            mobileSearchInput._realtimeHandler = handler;
-            mobileSearchInput.addEventListener('input', mobileSearchInput._realtimeHandler);
+        const mobileInput = document.getElementById('searchInputMobile');
+        const desktopInput = document.getElementById('searchInputDesktop');
+        const handler = (e) => { performRealtimeSearch(e.target.value); };
+        if (mobileInput) {
+            mobileInput.removeEventListener('input', mobileInput._realtimeHandler);
+            mobileInput._realtimeHandler = handler;
+            mobileInput.addEventListener('input', mobileInput._realtimeHandler);
         }
-        if (desktopSearchInput) {
-            desktopSearchInput.removeEventListener('input', desktopSearchInput._realtimeHandler);
-            desktopSearchInput._realtimeHandler = handler;
-            desktopSearchInput.addEventListener('input', desktopSearchInput._realtimeHandler);
+        if (desktopInput) {
+            desktopInput.removeEventListener('input', desktopInput._realtimeHandler);
+            desktopInput._realtimeHandler = handler;
+            desktopInput.addEventListener('input', desktopInput._realtimeHandler);
         }
     }
     
@@ -1010,7 +984,7 @@
             termDefinitions = termsDataObj.terms;
             for (const car of vehiclesData) car.chipSlots = sortChipSlots(car.chipSlots);
             initFilters();
-            attachSearchInputEvents(); // 绑定实时搜索事件
+            attachSearchInputEvents();
             renderList();
         } catch (error) {
             document.getElementById("carsGrid").innerHTML = '<div style="text-align:center; padding:60px; color:#ff6b6b;">数据加载失败</div>';
@@ -1038,11 +1012,11 @@
     
     function initFilters() {
         const isMobile = isMobileDevice();
-        const desktopFilter = document.querySelector('.desktop-filter');
+        const desktopFilterBar = document.getElementById('desktopGlobalFilterBar');
         const mobileFixedHeader = document.getElementById('mobileFixedHeader');
         if (isMobile) {
             if (mobileFixedHeader) mobileFixedHeader.style.display = 'flex';
-            if (desktopFilter) desktopFilter.style.display = 'none';
+            if (desktopFilterBar) desktopFilterBar.style.display = 'none';
             const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn');
             mobileTabBtns.forEach(btn => {
                 btn.removeEventListener('click', btn._clickHandler);
@@ -1104,7 +1078,7 @@
             updateFilterUI();
         } else {
             if (mobileFixedHeader) mobileFixedHeader.style.display = 'none';
-            if (desktopFilter) desktopFilter.style.display = 'block';
+            if (desktopFilterBar) desktopFilterBar.style.display = 'block';
             document.querySelectorAll('#desktopPositionOptions .desktop-filter-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
                 opt.addEventListener('click', opt._clickHandler = () => {
@@ -1260,7 +1234,6 @@
         document.getElementById("backBtn")?.addEventListener("click", restoreList);
         const mobile = isMobileDevice();
         bindTermAndFeatureEvents(mobile);
-        // 重要: 进入详情页后清空所有搜索框内容 (需求2)
         clearAllSearchBoxes();
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
@@ -1276,26 +1249,28 @@
         const cleanUrl = window.location.pathname;
         history.pushState({ page: 'list' }, '', cleanUrl);
         let vehiclesPage = document.getElementById("vehiclesPage");
-        vehiclesPage.innerHTML = `<div class="filter-bar desktop-filter"><div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
-            <div class="desktop-filter-sections">
-                <div class="desktop-filter-section"><div class="desktop-filter-section-title">定位</div><div class="desktop-filter-options" id="desktopPositionOptions">
-                    <div class="desktop-filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
-                    <div class="desktop-filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
-                    <div class="desktop-filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
-                    <div class="desktop-filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
-                </div></div>
-                <div class="desktop-filter-section"><div class="desktop-filter-section-title">专精</div><div class="desktop-filter-options" id="desktopSpecialtyOptions">
-                    <div class="desktop-filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
-                    <div class="desktop-filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
-                    <div class="desktop-filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
-                </div></div>
-                <div class="desktop-filter-section"><div class="desktop-filter-section-title">品质</div><div class="desktop-filter-options" id="desktopQualityOptions">
-                    <div class="desktop-quality-option" data-type="quality" data-value="传说">传说</div>
-                    <div class="desktop-quality-option" data-type="quality" data-value="史诗">史诗</div>
-                    <div class="desktop-quality-option" data-type="quality" data-value="稀有">稀有</div>
-                    <div class="desktop-quality-option" data-type="quality" data-value="普通">普通</div>
-                </div></div>
-            </div></div>
+        vehiclesPage.innerHTML = `<div class="desktop-filter-bar" id="desktopGlobalFilterBar">
+                <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
+                <div class="desktop-filter-sections">
+                    <div class="desktop-filter-section"><div class="desktop-filter-section-title">定位</div><div class="desktop-filter-options" id="desktopPositionOptions">
+                        <div class="desktop-filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
+                        <div class="desktop-filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
+                        <div class="desktop-filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
+                        <div class="desktop-filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
+                    </div></div>
+                    <div class="desktop-filter-section"><div class="desktop-filter-section-title">专精</div><div class="desktop-filter-options" id="desktopSpecialtyOptions">
+                        <div class="desktop-filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
+                        <div class="desktop-filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
+                        <div class="desktop-filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
+                    </div></div>
+                    <div class="desktop-filter-section"><div class="desktop-filter-section-title">品质</div><div class="desktop-filter-options" id="desktopQualityOptions">
+                        <div class="desktop-quality-option" data-type="quality" data-value="传说">传说</div>
+                        <div class="desktop-quality-option" data-type="quality" data-value="史诗">史诗</div>
+                        <div class="desktop-quality-option" data-type="quality" data-value="稀有">稀有</div>
+                        <div class="desktop-quality-option" data-type="quality" data-value="普通">普通</div>
+                    </div></div>
+                </div>
+            </div>
             <div class="mobile-fixed-header" id="mobileFixedHeader" style="display: none;">
                 <div class="mobile-top-bar"><div class="mobile-logo-area" onclick="location.reload()"><h1>王牌竞速 · 情报站</h1><p>核心档案 · 赛车数据</p></div>
                 <div class="mobile-nav-tabs" id="mobileNavTabs">
@@ -1330,7 +1305,7 @@
             </div>
             <div class="cars-grid" id="carsGrid"></div><div class="stats-text" id="statsText">加载中...</div>`;
         initFilters();
-        attachSearchInputEvents(); // 重新绑定搜索事件
+        attachSearchInputEvents();
         renderList();
         isDetail = false;
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
