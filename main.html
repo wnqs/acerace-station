@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            user-select: none; /* 避免点击时产生选中闪烁 */
+            user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
         /* 允许输入框正常显示光标，保证搜索体验 */
@@ -250,7 +250,6 @@
             flex-shrink: 0;
         }
         .detail-back-btn:hover { background: #feca57; color: #1a1a2e; transform: scale(1.02); }
-        /* 电脑端详情页内嵌搜索栏容器 - 与返回按钮同行右侧 */
         .detail-search-wrapper {
             flex: 1;
             min-width: 260px;
@@ -771,7 +770,6 @@
     
     <div class="main-content">
         <div id="vehiclesPage" class="page active-page">
-            <!-- 电脑端主界面固定置顶搜索栏 -->
             <div class="desktop-filter-bar" id="desktopGlobalFilterBar">
                 <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
                 <div class="desktop-filter-sections">
@@ -1014,9 +1012,8 @@
     
     function performRealtimeSearch(searchValue) {
         if (isDetail) {
-            // 如果当前在详情页，先清除分类并返回列表页
             clearAllFilters();
-            showList();
+            restoreList();
         }
         setTimeout(() => {
             keyword = searchValue.trim();
@@ -1045,10 +1042,9 @@
         if (desktopInput) { desktopInput.removeEventListener('input', desktopInput._realtimeHandler); desktopInput._realtimeHandler = handler; desktopInput.addEventListener('input', desktopInput._realtimeHandler); }
     }
     
-    // 清除所有选中的分类（定位、专精、品质）
     function clearAllFilters() {
         activeFilters = { position: "", specialty: "", quality: "" };
-        keyword = ""; // 同时清空搜索关键词
+        keyword = "";
         const mobileInput = document.getElementById('searchInputMobile');
         const desktopInput = document.getElementById('searchInputDesktop');
         if (mobileInput) mobileInput.value = "";
@@ -1065,27 +1061,25 @@
         return !!(activeFilters.position || activeFilters.specialty || activeFilters.quality);
     }
     
-    // 显示列表页
-    function showList() {
+    // 统一的返回键处理逻辑（手机端和电脑端通用）
+    function handleBackButton() {
         if (isDetail) {
-            isDetail = false;
+            // 详情页：清除筛选并返回列表页
+            clearAllFilters();
             restoreList();
+        } else {
+            // 列表页：有筛选则清除筛选，否则退出网站
+            if (hasAnyFilterActive()) {
+                clearAllFilters();
+                // 阻止默认后退行为，只清除筛选
+                history.pushState(null, null, location.href);
+            } else {
+                if (confirm('确定要退出王牌竞速情报站吗？')) {
+                    window.close();
+                    setTimeout(() => { history.back(); }, 100);
+                }
+            }
         }
-        // 更新hash，用于手机端返回键判断
-        if (window.location.hash !== '#list') {
-            window.location.hash = '#list';
-        }
-    }
-    
-    // 显示详情页
-    function showDetailById(carId) {
-        let car = vehiclesData.find(v => v.id === carId);
-        if (!car) return;
-        isDetail = true;
-        if (window.location.hash !== `#detail-${carId}`) {
-            window.location.hash = `#detail-${carId}`;
-        }
-        renderDetail(car);
     }
     
     async function loadData() {
@@ -1116,21 +1110,15 @@
             for (const car of vehiclesData) car.chipSlots = sortChipSlots(car.chipSlots);
             initFilters();
             attachSearchInputEvents();
+            renderList();
             
-            // 根据hash判断初始显示哪个页面
-            let hash = window.location.hash;
-            if (hash && hash.startsWith('#detail-')) {
-                let carId = hash.replace('#detail-', '');
-                let car = vehiclesData.find(v => v.id === carId);
-                if (car) {
-                    isDetail = true;
-                    renderDetail(car);
-                } else {
-                    renderList();
-                }
-            } else {
-                renderList();
-            }
+            // 监听popstate事件处理返回键（手机端和电脑端通用）
+            window.addEventListener('popstate', function(e) {
+                handleBackButton();
+                e.preventDefault();
+            });
+            // 添加初始历史记录，确保返回键能正确触发
+            history.pushState(null, null, location.href);
         } catch (error) {
             console.error('[加载错误]', error);
             const gridEl = document.getElementById("carsGrid");
@@ -1178,9 +1166,9 @@
                 btn.addEventListener('click', btn._clickHandler = () => {
                     const pageId = btn.dataset.page;
                     if (pageId === 'vehicles') {
-                        showList();
+                        if (isDetail) restoreList();
                     } else {
-                        if (isDetail) showList();
+                        if (isDetail) restoreList();
                         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                         document.getElementById(pageId + 'Page')?.classList.add('active-page');
                         isDetail = false;
@@ -1288,11 +1276,10 @@
         });
         document.querySelectorAll('.car-card').forEach(card => {
             card.removeEventListener('click', card._clickHandler);
-            card._clickHandler = (e) => { if (!e.target.closest('.acquisition-icon')) showDetailById(card.dataset.id); };
+            card._clickHandler = (e) => { if (!e.target.closest('.acquisition-icon')) showDetail(card.dataset.id); };
             card.addEventListener('click', card._clickHandler);
         });
         
-        // 确保页面显示
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         document.getElementById('vehiclesPage').classList.add('active-page');
     }
@@ -1325,15 +1312,15 @@
     function bindDetailFilters() {
         document.querySelectorAll('#detailPositionOptions .desktop-filter-option').forEach(opt => {
             opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.position = (activeFilters.position === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) showList(); });
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.position = (activeFilters.position === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(); });
         });
         document.querySelectorAll('#detailSpecialtyOptions .desktop-filter-option').forEach(opt => {
             opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.specialty = (activeFilters.specialty === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) showList(); });
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.specialty = (activeFilters.specialty === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(); });
         });
         document.querySelectorAll('#detailQualityOptions .desktop-quality-option').forEach(opt => {
             opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.quality = (activeFilters.quality === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) showList(); });
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.quality = (activeFilters.quality === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(); });
         });
         const detailSearchInput = document.getElementById('detailSearchInput');
         if (detailSearchInput) {
@@ -1349,7 +1336,10 @@
         document.querySelectorAll('#detailQualityOptions .desktop-quality-option').forEach(opt => { if (opt.dataset.value === activeFilters.quality) opt.classList.add('active'); else opt.classList.remove('active'); });
     }
     
-    function renderDetail(car) {
+    function showDetail(id) {
+        let car = vehiclesData.find(v => v.id === id);
+        if (!car) return;
+        isDetail = true;
         let stats = car.stats, chipSlots = car.chipSlots.map(t => CHIP_ICONS[t]), bgClass = getQualityClass(car.quality);
         let positionIcon = POSITION_ICONS[car.position] || POSITION_ICONS["辅助"];
         let specialtyIcon = SPECIALTY_ICONS[car.specialty] || SPECIALTY_ICONS["场地"];
@@ -1381,7 +1371,7 @@
             <div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.passiveIcon}"></div><div class="skill-title">被动：${car.skills.passive.name}</div></div><div class="skill-desc">${passiveDesc}</div></div>${spBlockHtml}</div></div>`;
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = html;
-        document.getElementById("backBtn")?.addEventListener("click", showList);
+        document.getElementById("backBtn")?.addEventListener("click", handleBackButton);
         bindDetailFilters();
         const mobile = isMobileDevice();
         bindTermAndFeatureEvents(mobile);
@@ -1391,30 +1381,7 @@
         window.scrollTo(0, 0);
     }
     
-    // 监听hash变化，处理手机端返回键
-    window.addEventListener('hashchange', function() {
-        let hash = window.location.hash;
-        if (!hash || hash === '#list') {
-            // 回到列表页
-            if (isDetail) {
-                isDetail = false;
-                restoreList();
-            }
-        } else if (hash.startsWith('#detail-')) {
-            let carId = hash.replace('#detail-', '');
-            let car = vehiclesData.find(v => v.id === carId);
-            if (car) {
-                isDetail = true;
-                renderDetail(car);
-            } else if (!isDetail) {
-                window.location.hash = '#list';
-            }
-        }
-    });
-    
     function restoreList() {
-        const cleanUrl = window.location.pathname;
-        // 不改变hash时，手动刷新列表页内容
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = `<div class="desktop-filter-bar" id="desktopGlobalFilterBar">
                 <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
@@ -1485,9 +1452,9 @@
             btn.addEventListener('click', () => {
                 let pageId = btn.dataset.page;
                 if (pageId === 'vehicles') {
-                    showList();
+                    if (isDetail) restoreList();
                 } else {
-                    if (isDetail) showList();
+                    if (isDetail) restoreList();
                     document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                     document.getElementById(pageId + 'Page')?.classList.add('active-page');
                     isDetail = false;
