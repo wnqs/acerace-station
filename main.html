@@ -730,7 +730,6 @@
     </div>
     
     <div class="main-content">
-        <!-- 电脑端固定顶部导航栏 -->
         <div class="desktop-header" id="desktopHeader">
             <div class="desktop-header-top" id="desktopHeaderTop">
                 <div class="header-title-area">
@@ -1011,8 +1010,9 @@
     function executeSearch(searchValue) {
         const searchTerm = searchValue;
         if (isDetail) {
-            // 从详情页搜索：先返回主界面再执行搜索，使用 replaceState 避免历史记录堆积
+            // 从详情页搜索：先返回主界面再执行搜索
             clearAllFilters();
+            // 使用 replaceState 替换当前历史记录，避免返回时回到详情页
             const newUrl = window.location.pathname;
             history.replaceState(null, '', newUrl);
             isDetail = false;
@@ -1062,10 +1062,10 @@
         }
     }
     
-    // 核心返回键处理函数 - 统一手机端和电脑端逻辑
+    // 核心返回键处理函数 - 手机端和电脑端统一
     function handleBackButton() {
         if (isDetail) {
-            // 在详情页：清除筛选，回到主界面顶部，替换历史记录避免返回时再次进入详情页
+            // 在详情页：返回主界面，清除筛选，替换历史记录
             clearAllFilters();
             const newUrl = window.location.pathname;
             history.replaceState(null, '', newUrl);
@@ -1137,11 +1137,11 @@
                 renderList();
             }
             
-            // 监听 popstate 事件处理浏览器返回键
+            // 监听 popstate 事件
             window.addEventListener('popstate', function(e) {
                 const currentCarId = new URLSearchParams(window.location.search).get('car');
                 if (currentCarId && !isDetail) {
-                    // 从历史记录恢复详情页（用户点击前进时）
+                    // 从历史记录恢复详情页
                     const car = vehiclesData.find(v => v.id === currentCarId);
                     if (car) {
                         isDetail = true;
@@ -1150,7 +1150,7 @@
                         renderDetailById(currentCarId);
                     }
                 } else if (!currentCarId && isDetail) {
-                    // 从详情页返回列表页（用户点击后退时）
+                    // 从详情页返回列表页
                     isDetail = false;
                     const headerBackBtn = document.getElementById('headerBackBtn');
                     if (headerBackBtn) headerBackBtn.style.display = 'none';
@@ -1162,10 +1162,7 @@
                         clearAllFilters();
                         renderList();
                         window.scrollTo(0, 0);
-                        // 阻止默认后退行为
-                        e.preventDefault();
                     } else {
-                        // 退出网站
                         window.close();
                         setTimeout(() => { history.back(); }, 100);
                     }
@@ -1345,7 +1342,7 @@
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
         
-        // 使用 replaceState 替换当前历史记录，避免历史记录堆积
+        // 使用 replaceState 替换当前历史记录，确保返回时直接回到主界面而不是之前的详情页
         const newUrl = window.location.pathname + '?car=' + id;
         history.replaceState({ carId: id }, '', newUrl);
         isDetail = true;
