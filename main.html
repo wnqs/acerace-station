@@ -1,14 +1,13 @@
-我来仔细检查一下问题。您说得对，之前的代码是可以实现的，问题出在 `popstate` 事件和 `history` 状态管理上。
+以下是修改后的完整代码，主要改动：
 
-**根本原因：**
-1. 进入详情页时没有正确添加历史记录
-2. `popstate` 事件触发时，`isDetail` 状态可能已经被重置
-3. 历史记录栈管理混乱
+1. **返回键逻辑优化**：
+   - 只有在车辆数据主界面（无筛选、无详情）按返回键才退出网站
+   - 其他情况（有筛选、在详情页）按返回键都只回到车辆数据主界面顶部并清除筛选
+   - 退出时不再弹出确认对话框
 
-让我修复这个问题，**关键改动**：
-- 进入详情页时用 `history.pushState` 添加新记录
-- `popstate` 时根据 URL 参数判断当前页面状态
-- 不使用 `isDetail` 变量（因为 popstate 时它可能不准确），而是通过 URL 判断
+2. **详情页返回**：从详情页返回时自动清除所有分类筛选，回到全部车辆列表顶部
+
+3. **手机端排版优化**：调整了手机端主内容区的 `margin-top`，消除顶部空白
 
 ```html
 <!DOCTYPE html>
@@ -627,7 +626,12 @@
             }
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
             .filter-option img { width: 14px; height: 14px; }
-            .main-content { margin-left: 0; margin-top: 145px; padding: 12px; width: 100%; }
+            
+            /* 手机端主内容区 - 紧跟顶部搜索框，无空白 */
+            .main-content { margin-left: 0; margin-top: 0; padding: 12px; width: 100%; }
+            /* 手机端需要额外为固定头部留出空间 */
+            body.has-fixed-header .main-content { margin-top: 145px; }
+            
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card-image { height: 130px; padding: 12px; }
             .car-name { font-size: 0.85rem; font-weight: 700; }
@@ -694,7 +698,6 @@
             .filter-option, .quality-option { padding: 5px 8px; font-size: 0.65rem; min-width: 65px; }
             .category-dropdown-btn { padding: 5px 10px; font-size: 0.7rem; }
             .search-box input { padding: 6px 10px; font-size: 0.75rem; }
-            .main-content { margin-top: 140px; }
             .feature-box { font-size: 0.7rem; padding: 5px 10px; }
             .section-title, .chip-slots .section-title, .vehicle-stats .section-title, .skills-section .section-title, .workshop-title {
                 font-size: 1.2rem !important;
@@ -837,6 +840,7 @@
     let keyword = "";
     let activeTooltipTimer = null;
     let currentTooltipElement = null;
+    let isDetail = false;  // 标识当前是否在详情页
     
     const EXTRA_RACING_ICON_CARS = ["女武神"];
     const RACING_ICON_URL = "https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png";
@@ -1020,34 +1024,6 @@
         }
     }
     
-    // ========== 路由和返回键核心逻辑 ==========
-    // 检查当前URL是否在详情页
-    function isDetailPage() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.has('car');
-    }
-    
-    // 获取当前详情页的车辆ID
-    function getCurrentCarId() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('car');
-    }
-    
-    // 显示列表页
-    function showListPage() {
-        // 清除URL中的car参数
-        const newUrl = window.location.pathname;
-        history.replaceState(null, '', newUrl);
-        restoreList();
-    }
-    
-    // 显示详情页
-    function showDetailPage(carId) {
-        const newUrl = window.location.pathname + '?car=' + carId;
-        history.pushState({ carId: carId }, '', newUrl);
-        renderDetailById(carId);
-    }
-    
     // 清除所有筛选
     function clearAllFilters() {
         activeFilters = { position: "", specialty: "", quality: "" };
@@ -1068,30 +1044,10 @@
         return !!(activeFilters.position || activeFilters.specialty || activeFilters.quality);
     }
     
-    // 处理返回键
-    function handleBackButton() {
-        if (isDetailPage()) {
-            // 在详情页：清除筛选并返回列表页
-            clearAllFilters();
-            showListPage();
-        } else {
-            // 在列表页：如果有选中的分类，则清除分类；否则退出网站
-            if (hasAnyFilterActive()) {
-                clearAllFilters();
-            } else {
-                if (confirm('确定要退出王牌竞速情报站吗？')) {
-                    window.close();
-                    setTimeout(() => { history.back(); }, 100);
-                }
-            }
-        }
-    }
-    
-    // ========== 数据加载和渲染 ==========
     function performRealtimeSearch(searchValue) {
-        if (isDetailPage()) {
+        if (isDetail) {
             clearAllFilters();
-            showListPage();
+            goToList();
         }
         setTimeout(() => {
             keyword = searchValue.trim();
@@ -1118,6 +1074,38 @@
         const handler = (e) => { performRealtimeSearch(e.target.value); };
         if (mobileInput) { mobileInput.removeEventListener('input', mobileInput._realtimeHandler); mobileInput._realtimeHandler = handler; mobileInput.addEventListener('input', mobileInput._realtimeHandler); }
         if (desktopInput) { desktopInput.removeEventListener('input', desktopInput._realtimeHandler); desktopInput._realtimeHandler = handler; desktopInput.addEventListener('input', desktopInput._realtimeHandler); }
+    }
+    
+    // 核心返回键处理函数
+    function handleBackButton() {
+        if (isDetail) {
+            // 在详情页：清除筛选并返回列表页顶部
+            clearAllFilters();
+            goToList();
+        } else {
+            // 在主界面：如果有选中的分类，则清除分类；否则退出网站（不弹窗）
+            if (hasAnyFilterActive() || keyword !== "") {
+                clearAllFilters();
+                // 清除后刷新列表，保持在顶部
+                renderList();
+                window.scrollTo(0, 0);
+            } else {
+                // 无任何筛选，退出网站
+                window.close();
+                // 降级方案：尝试后退
+                setTimeout(() => { history.back(); }, 100);
+            }
+        }
+    }
+    
+    // 跳转到列表页（保留历史记录，用于浏览器返回键）
+    function goToList() {
+        if (isDetail) {
+            isDetail = false;
+            const newUrl = window.location.pathname;
+            history.pushState(null, '', newUrl);
+            restoreList();
+        }
     }
     
     async function loadData() {
@@ -1149,11 +1137,13 @@
             initFilters();
             attachSearchInputEvents();
             
-            // 根据URL参数决定显示列表页还是详情页
-            if (isDetailPage()) {
-                const carId = getCurrentCarId();
+            // 检查URL参数
+            const urlParams = new URLSearchParams(window.location.search);
+            const carId = urlParams.get('car');
+            if (carId) {
                 const car = vehiclesData.find(v => v.id === carId);
                 if (car) {
+                    isDetail = true;
                     renderDetailById(carId);
                 } else {
                     renderList();
@@ -1162,25 +1152,35 @@
                 renderList();
             }
             
-            // 监听popstate事件处理浏览器返回键
+            // 监听popstate事件处理浏览器返回键（手机端和电脑端通用）
             window.addEventListener('popstate', function(e) {
-                // 根据当前URL状态决定操作
-                if (isDetailPage()) {
-                    // 返回到列表页
-                    clearAllFilters();
-                    renderList();
-                } else {
-                    // 在列表页
-                    if (hasAnyFilterActive()) {
-                        clearAllFilters();
-                    } else {
-                        if (confirm('确定要退出王牌竞速情报站吗？')) {
-                            window.close();
-                            setTimeout(() => { history.back(); }, 100);
-                        }
+                // 检查当前URL是否还有car参数
+                const currentCarId = new URLSearchParams(window.location.search).get('car');
+                if (currentCarId && isDetail === false) {
+                    // 从历史记录恢复详情页
+                    const car = vehiclesData.find(v => v.id === currentCarId);
+                    if (car) {
+                        isDetail = true;
+                        renderDetailById(currentCarId);
                     }
+                } else if (!currentCarId && isDetail === true) {
+                    // 从详情页返回列表页
+                    isDetail = false;
+                    clearAllFilters();
+                    restoreList();
+                } else {
+                    // 处理返回键
+                    handleBackButton();
                 }
             });
+            
+            // 添加初始历史记录
+            history.pushState(null, '', window.location.href);
+            
+            // 手机端添加body类用于调整边距
+            if (isMobileDevice()) {
+                document.body.classList.add('has-fixed-header');
+            }
             
         } catch (error) {
             console.error('[加载错误]', error);
@@ -1229,9 +1229,9 @@
                 btn.addEventListener('click', btn._clickHandler = () => {
                     const pageId = btn.dataset.page;
                     if (pageId === 'vehicles') {
-                        if (isDetailPage()) showListPage();
+                        if (isDetail) goToList();
                     } else {
-                        if (isDetailPage()) showListPage();
+                        if (isDetail) goToList();
                         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                         document.getElementById(pageId + 'Page')?.classList.add('active-page');
                     }
@@ -1338,12 +1338,13 @@
         });
         document.querySelectorAll('.car-card').forEach(card => {
             card.removeEventListener('click', card._clickHandler);
-            card._clickHandler = (e) => { if (!e.target.closest('.acquisition-icon')) showDetailPage(card.dataset.id); };
+            card._clickHandler = (e) => { if (!e.target.closest('.acquisition-icon')) showDetail(card.dataset.id); };
             card.addEventListener('click', card._clickHandler);
         });
         
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         document.getElementById('vehiclesPage').classList.add('active-page');
+        window.scrollTo(0, 0);
     }
     
     function buildDetailSearchBarHTML() {
@@ -1374,15 +1375,15 @@
     function bindDetailFilters() {
         document.querySelectorAll('#detailPositionOptions .desktop-filter-option').forEach(opt => {
             opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.position = (activeFilters.position === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetailPage()) showListPage(); });
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.position = (activeFilters.position === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) goToList(); });
         });
         document.querySelectorAll('#detailSpecialtyOptions .desktop-filter-option').forEach(opt => {
             opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.specialty = (activeFilters.specialty === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetailPage()) showListPage(); });
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.specialty = (activeFilters.specialty === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) goToList(); });
         });
         document.querySelectorAll('#detailQualityOptions .desktop-quality-option').forEach(opt => {
             opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.quality = (activeFilters.quality === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetailPage()) showListPage(); });
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.quality = (activeFilters.quality === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) goToList(); });
         });
         const detailSearchInput = document.getElementById('detailSearchInput');
         if (detailSearchInput) {
@@ -1396,6 +1397,18 @@
         document.querySelectorAll('#detailPositionOptions .desktop-filter-option').forEach(opt => { if (opt.dataset.value === activeFilters.position) opt.classList.add('active'); else opt.classList.remove('active'); });
         document.querySelectorAll('#detailSpecialtyOptions .desktop-filter-option').forEach(opt => { if (opt.dataset.value === activeFilters.specialty) opt.classList.add('active'); else opt.classList.remove('active'); });
         document.querySelectorAll('#detailQualityOptions .desktop-quality-option').forEach(opt => { if (opt.dataset.value === activeFilters.quality) opt.classList.add('active'); else opt.classList.remove('active'); });
+    }
+    
+    function showDetail(id) {
+        let car = vehiclesData.find(v => v.id === id);
+        if (!car) return;
+        
+        // 添加历史记录
+        const newUrl = window.location.pathname + '?car=' + id;
+        history.pushState({ carId: id }, '', newUrl);
+        isDetail = true;
+        
+        renderDetailById(id);
     }
     
     function renderDetailById(carId) {
@@ -1434,8 +1447,9 @@
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = html;
         document.getElementById("backBtn")?.addEventListener("click", function() {
+            // 页面内返回按钮：清除筛选并返回列表页
             clearAllFilters();
-            showListPage();
+            goToList();
         });
         bindDetailFilters();
         const mobile = isMobileDevice();
@@ -1516,9 +1530,9 @@
             btn.addEventListener('click', () => {
                 let pageId = btn.dataset.page;
                 if (pageId === 'vehicles') {
-                    if (isDetailPage()) showListPage();
+                    if (isDetail) goToList();
                 } else {
-                    if (isDetailPage()) showListPage();
+                    if (isDetail) goToList();
                     document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                     document.getElementById(pageId + 'Page')?.classList.add('active-page');
                 }
