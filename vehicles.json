@@ -2393,6 +2393,256 @@
       },
       "ultIcon": "https://s3.bmp.ovh/2026/06/07/5XOCkY2L.png",
       "passiveIcon": "https://s3.bmp.ovh/2026/06/07/kQsEaPbA.png"
+     },
+    {
+      "id": "maserati_levante",
+      "name": "玛莎拉蒂 Levante",
+      "quality": "史诗",
+      "position": "辅助",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/Uf3ylSuU.png",
+      "positionIcon": "辅助",
+      "specialtyIcon": "场地",
+      "description": "放置光墙使全体加速",
+      "skillName": "加速映射",
+      "searchKeywords": ["玛莎拉蒂 Levante", "加速映射", "团队充能"],
+      "registerDate": "2021-12-24",
+      "vehicleType": "真实阵营",
+      "manufacturer": "玛莎拉蒂",
+      "acquisition": "补给箱 / 赛车学院",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/05/31/rK9Tjs84.png",
+      "stats": {
+        "topSpeed": "207.8 km/h",
+        "power": "7.03",
+        "durability": "105",
+        "nitroCharge": "39.0%",
+        "startCharge": "39.0%",
+        "nitroDuration": "6.20 s",
+        "nitroSpeed": { "blue": "18.50 km/h", "purple": "27.75 km/h" },
+        "turboDuration": { "blue": "0.67 s", "purple": "2.01 s" },
+        "turboSpeed": { "blue": "7.90 km/h", "purple": "11.90 km/h" },
+        "ultPower": "-"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "vslot", "hexagon", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "加速映射",
+          "desc": "立即给500米内的友方非辅助车辆提供30%大招充能，同时在前方映射一个加速光墙：自己和队友穿过时可获得加速效果；自身穿过光墙时，加速效果更为强力",
+          "recu": "加速映射可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "团队充能",
+          "desc": "起步时，全部队友获得10%大招能量。越野车：在沙地、草地、雪地等特殊地形中减速效果减少50%，并且额外获得自动集气"
+        },
+        "features": [
+          { "name": "越野车", "desc": "越野车在特殊地形中获得减速减免和额外集气", "color": "紫" },
+          { "name": "放置物", "desc": "技能可在赛道中创建放置物", "color": "黄" },
+          { "name": "单次充能", "desc": "为友方提供单次辅助充能", "color": "蓝" },
+          { "name": "友方加速", "desc": "提高队友的极速", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/06/hHXkkZTn.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/07/xFGZB30J.png"
+    },
+    {
+      "id": "teyidian",
+      "name": "特异点",
+      "quality": "稀有",
+      "position": "辅助",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/4NrjG3X9.png",
+      "positionIcon": "辅助",
+      "specialtyIcon": "场地",
+      "description": "缩小全队车型",
+      "skillName": "纳米科技",
+      "searchKeywords": ["特异点", "纳米科技", "速度补偿"],
+      "registerDate": "2021-07-23",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "创世纪",
+      "acquisition": "补给箱 / 赛车学院",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/05/31/rK9Tjs84.png",
+      "stats": {
+        "topSpeed": "211.2 km/h",
+        "power": "7.24",
+        "durability": "75",
+        "nitroCharge": "36.0%",
+        "startCharge": "36.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "19.60 km/h", "purple": "29.40 km/h" },
+        "turboDuration": { "blue": "0.76 s", "purple": "2.28 s" },
+        "turboSpeed": { "blue": "9.40 km/h", "purple": "14.10 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "triangle", "rhombus", "vslot"],
+      "skills": {
+        "ult": {
+          "name": "纳米科技",
+          "desc": "500米范围内全队缩小车型，持续5秒。自身保持加速，并持续为附近50米内的全体非辅助位队友每秒充能15%，持续6秒。车型缩小时，质量并不会减少",
+          "recu": "纳米科技可以充能两次且能量达到70%即可使用",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "速度补偿",
+          "desc": "开局5秒后，处于第4名及以后名次时，极速+12km/h并提升动力"
+        },
+        "features": [
+          { "name": "友方缩小", "desc": "为友方提供体积缩小效果", "color": "黄" },
+          { "name": "持续充能", "desc": "为友方提供持续性辅助充能", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/06/J8sbpgOL.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/07/3GG4pqwl.png"
+    },
+    {
+      "id": "chevrolet_camaro_zl1",
+      "name": "雪佛兰 Camaro ZL1",
+      "quality": "史诗",
+      "position": "辅助",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/ch0wHB4b.png",
+      "positionIcon": "辅助",
+      "specialtyIcon": "场地",
+      "description": "强化队友的闪现效果",
+      "skillName": "力场反推",
+      "searchKeywords": ["雪佛兰 Camaro ZL1", "力场反推", "奋起直追"],
+      "registerDate": "2022-07-22",
+      "vehicleType": "真实阵营",
+      "manufacturer": "雪佛兰",
+      "acquisition": "补给箱 / 赛车学院",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/05/31/rK9Tjs84.png",
+      "stats": {
+        "topSpeed": "219.0 km/h",
+        "power": "7.62",
+        "durability": "105",
+        "nitroCharge": "37.0%",
+        "startCharge": "37.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "24.00 km/h", "purple": "36.00 km/h" },
+        "turboDuration": { "blue": "0.64 s", "purple": "1.92 s" },
+        "turboSpeed": { "blue": "7.00 km/h", "purple": "10.50 km/h" },
+        "ultPower": "0"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "vslot", "hexagon", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "力场反推",
+          "desc": "降低自身速度并为1200米范围内非辅助位队友提供27%大招能量，同时使队友向前闪现距离加成15%，持续6秒",
+          "recu": "力场反推可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "奋起直追",
+          "desc": "开启大招时若处于第6名，则将大招期间的减速效果转换为加速效果"
+        },
+        "features": [
+          { "name": "单次充能", "desc": "为友方提供单次辅助充能", "color": "蓝" },
+          { "name": "后追", "desc": "落后时有额外技能效果", "color": "蓝" },
+          { "name": "增强闪现", "desc": "提升自身或友方的闪现距离", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/07/jwg6Zaot.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/07/MMGudIxc.png"
+    },
+    {
+      "id": "yuqilin",
+      "name": "玉麒麟",
+      "quality": "传说",
+      "position": "辅助",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/OMVLjdnF.png",
+      "positionIcon": "辅助",
+      "specialtyIcon": "场地",
+      "description": "辅助队友使其无视干扰、辅助和非实体放置物",
+      "skillName": "麒麟献瑞",
+      "searchKeywords": ["玉麒麟", "麒麟献瑞", "驱除邪祟"],
+      "registerDate": "2023-03-24",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "进化",
+      "acquisition": "黑金会员",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/a8Du85YQ.png",
+      "stats": {
+        "topSpeed": "218.0 km/h",
+        "power": "7.57",
+        "durability": "90",
+        "nitroCharge": "36.0%",
+        "startCharge": "36.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "23.00 km/h", "purple": "34.50 km/h" },
+        "turboDuration": { "blue": "0.72 s", "purple": "2.16 s" },
+        "turboSpeed": { "blue": "7.00 km/h", "purple": "10.50 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "麒麟献瑞",
+          "desc": "加速推进并为1000米范围内非辅助位队友带来祥瑞：使其获得30%大招能量；3秒内且无法选中且不受非实体放置物影响",
+          "recu": "麒麟献瑞可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "驱除邪祟",
+          "desc": "对局中无法被干扰和辅助，队友不受侧移效果影响"
+        },
+        "features": [
+          { "name": "无法选中", "desc": "无法成为干扰或者辅助效果的目标", "color": "黄" },
+          { "name": "无视放置物", "desc": "不受放置物影响/仍然会受到实体放置物干扰", "color": "黄" },
+          { "name": "单次充能", "desc": "为友方提供单次辅助充能", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/08/EpZ3Lkvn.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/08/awqbgsiZ.png"
+    },
+    {
+      "id": "zashuaizhe",
+      "name": "杂耍者",
+      "quality": "史诗",
+      "position": "辅助",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/o5jNbJj5.png",
+      "positionIcon": "辅助",
+      "specialtyIcon": "场地",
+      "description": "发生碰撞时向前弹跳",
+      "skillName": "杂耍戏法",
+      "searchKeywords": ["杂耍者", "杂耍戏法", "集氮补偿"],
+      "registerDate": "2021-07-23",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "平行世界",
+      "acquisition": "补给箱 / 赛车学院",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/05/31/rK9Tjs84.png",
+      "stats": {
+        "topSpeed": "221.8 km/h",
+        "power": "7.35",
+        "durability": "80",
+        "nitroCharge": "39.0%",
+        "startCharge": "39.0%",
+        "nitroDuration": "6.60 s",
+        "nitroSpeed": { "blue": "20.70 km/h", "purple": "31.05 km/h" },
+        "turboDuration": { "blue": "0.76 s", "purple": "2.28 s" },
+        "turboSpeed": { "blue": "9.60 km/h", "purple": "14.40 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "杂耍戏法",
+          "desc": "加速推进并使队友获得。加速期间如果发生碰撞（车墙或者车车），将会结束加速，并且旋转跳跃到路面前方位置，同时给1200米内全体非辅助位队友补充35%大招能量",
+          "recu": "杂耍戏法可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "集氮补偿",
+          "desc": "开局3秒后，处于第5名及以后名次时，每秒获得500集气量"
+        },
+        "features": [
+          { "name": "单次充能", "desc": "为友方提供单次辅助充能", "color": "蓝" },
+          { "name": "高速过弯", "desc": "巡航通过弯道时速度损失极小", "color": "蓝" },
+          { "name": "友方隐身", "desc": "为友方提供隐身效果", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/07/b7y5bV7J.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/08/qk5aweJK.png"
     }
   ]
 }
