@@ -1113,9 +1113,9 @@
             // 从详情页执行搜索，需要跳转到列表页并清除URL参数，同时隐藏返回按钮
             clearAllFilters();
             const newUrl = window.location.pathname;
-            // 使用 replaceState 替换当前历史记录，这样按返回键时不会回到这个错误的详情页状态
+            // 使用 replaceState 替换当前的详情页记录为列表页记录
+            // 这样历史栈中就只有列表页记录（原来的详情页记录被覆盖）
             history.replaceState(null, '', newUrl);
-            // 隐藏返回按钮
             const headerBackBtn = document.getElementById('headerBackBtn');
             if (headerBackBtn) headerBackBtn.style.display = 'none';
             restoreList();
@@ -1201,6 +1201,7 @@
             if (carId) {
                 const car = vehiclesData.find(v => v.id === carId);
                 if (car) {
+                    if (headerBackBtn) headerBackBtn.style.display = 'block';
                     renderDetailById(carId);
                 } else {
                     renderList();
@@ -1411,12 +1412,23 @@
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
         
-        // 关键修复：从列表页进入详情页时，使用 pushState 添加新记录
-        // 这样历史记录栈中会有两条记录：列表页 -> 详情页
-        // 当用户按返回键时，popstate 会触发，URL 中的 car 参数消失，显示列表页
-        // 再次按返回键，才会退出网站（因为只有列表页记录了）
-        const newUrl = window.location.pathname + '?car=' + id;
-        history.pushState({ carId: id }, '', newUrl);
+        // 检查当前是否已经在详情页，并且已经是同一辆车
+        const currentCarId = new URLSearchParams(window.location.search).get('car');
+        
+        if (currentCarId === id) {
+            // 已经是当前车辆，不需要重复操作
+            return;
+        }
+        
+        if (currentCarId) {
+            // 已经在详情页，切换车辆时使用 replaceState 替换当前记录（保持只有一条详情页记录）
+            const newUrl = window.location.pathname + '?car=' + id;
+            history.replaceState({ carId: id }, '', newUrl);
+        } else {
+            // 从列表页进入详情页，使用 pushState 添加新记录
+            const newUrl = window.location.pathname + '?car=' + id;
+            history.pushState({ carId: id }, '', newUrl);
+        }
         
         const headerBackBtn = document.getElementById('headerBackBtn');
         if (headerBackBtn) headerBackBtn.style.display = 'block';
