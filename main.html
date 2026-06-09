@@ -1058,25 +1058,22 @@
         return !!(activeFilters.position || activeFilters.specialty || activeFilters.quality);
     }
     
-    // 核心：处理浏览器返回键
+    // 核心：处理浏览器返回键（手机端物理返回键）
     function handleBackButton() {
         if (isDetail) {
-            // 在详情页：清除筛选并返回列表页，然后替换历史记录避免重复返回
+            // 在详情页：清除筛选并返回列表页
             clearAllFilters();
             restoreList();
-            // 替换当前历史记录，防止再次返回时又触发返回逻辑
-            history.replaceState(null, null, location.pathname);
+            // 标记已经处理了返回，popstate中不再重复处理
+            return true;
         } else {
-            // 在列表页：如果有选中的分类，则清除分类并替换历史记录；否则退出网站
+            // 在列表页：如果有选中的分类，则清除分类；否则退出网站
             if (hasAnyFilterActive()) {
                 clearAllFilters();
-                // 替换历史记录，防止清除筛选后再次触发返回导致退出
-                history.replaceState(null, null, location.pathname);
+                return true;
             } else {
-                if (confirm('确定要退出王牌竞速情报站吗？')) {
-                    window.close();
-                    setTimeout(() => { history.back(); }, 100);
-                }
+                // 没有筛选，退出网站由浏览器默认行为处理（popstate会继续往后）
+                return false;
             }
         }
     }
@@ -1111,13 +1108,11 @@
             attachSearchInputEvents();
             renderList();
             
-            // 监听popstate事件处理浏览器返回键
+            // 监听popstate事件处理浏览器返回键（手机端物理返回键）
             window.addEventListener('popstate', function(e) {
                 handleBackButton();
-                e.preventDefault();
             });
-            // 添加初始历史记录，确保返回键能正确触发
-            history.pushState(null, null, location.href);
+            
         } catch (error) {
             console.error('[加载错误]', error);
             const gridEl = document.getElementById("carsGrid");
@@ -1345,7 +1340,7 @@
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
         
-        // 进入详情页：添加历史记录
+        // 进入详情页：添加历史记录，让手机返回键可以回到列表页
         history.pushState({ detail: true }, '', location.pathname + '?car=' + id);
         isDetail = true;
         
@@ -1381,7 +1376,10 @@
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = html;
         document.getElementById("backBtn")?.addEventListener("click", function() {
-            handleBackButton();
+            // 页面内返回按钮：清除筛选后返回列表，并替换历史记录（避免重复）
+            clearAllFilters();
+            restoreList();
+            history.replaceState(null, null, location.pathname);
         });
         bindDetailFilters();
         const mobile = isMobileDevice();
@@ -1466,11 +1464,14 @@
                     if (isDetail) {
                         clearAllFilters();
                         restoreList();
+                        // 替换历史记录避免返回键回到详情页
+                        history.replaceState(null, null, location.pathname);
                     }
                 } else {
                     if (isDetail) {
                         clearAllFilters();
                         restoreList();
+                        history.replaceState(null, null, location.pathname);
                     }
                     document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                     document.getElementById(pageId + 'Page')?.classList.add('active-page');
