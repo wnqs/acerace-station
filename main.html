@@ -43,49 +43,52 @@
         .page { display: none; }
         .page.active-page { display: block; }
         
-        /* 电脑端固定顶部导航栏 - 主界面和详情页共用 */
+        /* 电脑端固定顶部导航栏 - 主界面和详情页共用，半透明毛玻璃效果 */
         .desktop-header {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: #0f0f17;
+            background: rgba(15, 15, 23, 0.85);
+            backdrop-filter: blur(12px);
             padding-top: 12px;
+            border-bottom: 1px solid rgba(42, 42, 60, 0.5);
+            margin-bottom: 24px;
         }
+        /* 原筛选栏样式调整，去掉多余背景和边距，融入半透明头 */
         .desktop-filter-bar {
-            background: #14141f;
+            background: rgba(20, 20, 31, 0.7);
             border-radius: 20px;
             padding: 16px 20px;
-            margin-bottom: 24px;
             backdrop-filter: blur(8px);
-            background: rgba(20,20,31,0.95);
-            border: 1px solid rgba(42,42,60,0.5);
+            border: 1px solid rgba(42, 42, 60, 0.5);
+            margin-bottom: 0;
         }
-        /* 返回按钮区域 - 放在筛选栏上方 */
+        /* 返回按钮区域 - 放在筛选栏上方，位于左侧导航栏同行的位置 */
         .desktop-header-top {
             display: flex;
             align-items: center;
+            justify-content: flex-start;
             gap: 16px;
             padding: 0 0 12px 0;
+            margin-left: 0;
         }
         .detail-back-btn-header {
             display: inline-block;
-            background: #1f1f2e;
+            background: rgba(31, 31, 46, 0.9);
             border: none;
-            padding: 8px 20px;
+            padding: 6px 16px;
             border-radius: 40px;
             cursor: pointer;
             color: #feca57;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
             transition: 0.2s;
+            backdrop-filter: blur(4px);
         }
         .detail-back-btn-header:hover {
             background: #feca57;
             color: #1a1a2e;
             transform: scale(1.02);
-        }
-        .header-placeholder {
-            flex: 1;
         }
         
         .search-box { margin-bottom: 16px; }
@@ -112,7 +115,7 @@
             gap: 10px;
         }
         .desktop-filter-option {
-            background: #2a2a3c;
+            background: rgba(42, 42, 60, 0.8);
             border-radius: 30px;
             padding: 6px 14px;
             font-size: 0.75rem;
@@ -134,7 +137,7 @@
             height: 16px;
         }
         .desktop-quality-option {
-            background: #2a2a3c;
+            background: rgba(42, 42, 60, 0.8);
             border-radius: 30px;
             padding: 6px 14px;
             font-size: 0.75rem;
@@ -700,14 +703,13 @@
     </div>
     
     <div class="main-content">
-        <!-- 电脑端固定顶部导航栏（主界面和详情页共用） -->
+        <!-- 电脑端固定顶部导航栏（主界面和详情页共用）半透明毛玻璃 -->
         <div class="desktop-header" id="desktopHeader">
             <div class="desktop-header-top" id="desktopHeaderTop">
                 <!-- 返回按钮区域，详情页时显示，主界面时隐藏 -->
                 <div id="headerBackBtn" style="display: none;">
                     <button class="detail-back-btn-header" id="headerBackButton">← 返回列表</button>
                 </div>
-                <div class="header-placeholder"></div>
             </div>
             <div class="desktop-filter-bar">
                 <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
@@ -796,6 +798,7 @@
         "场地": "https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png"
     };
     
+    // ========== 辅助函数 ==========
     function sortChipSlots(slots) {
         const order = { "circle": 0, "triangle": 1, "rhombus": 2, "hexagon": 3, "vslot": 4 };
         return [...slots].sort((a, b) => (order[a] ?? 5) - (order[b] ?? 5));
@@ -971,15 +974,19 @@
         return !!(activeFilters.position || activeFilters.specialty || activeFilters.quality);
     }
     
+    // 统一搜索处理（不会导致输入中断）
     function performSearch(searchValue) {
+        // 如果当前在详情页，先返回列表页再搜索
         if (isDetail) {
+            // 先清除筛选并返回列表（不触发搜索，防止覆盖当前输入值）
             clearAllFilters();
-            goToList();
+            goToList(false);
         }
         setTimeout(() => {
             keyword = searchValue.trim();
             const mobileInput = document.getElementById('searchInputMobile');
             const desktopInput = document.getElementById('searchInputDesktop');
+            // 避免回写导致光标跳动
             if (mobileInput && mobileInput.value !== keyword) mobileInput.value = keyword;
             if (desktopInput && desktopInput.value !== keyword) desktopInput.value = keyword;
             renderList();
@@ -1006,20 +1013,22 @@
     function handleBackButton() {
         if (isDetail) {
             clearAllFilters();
-            goToList();
+            goToList(true);
         } else {
             if (hasAnyFilterActive() || keyword !== "") {
                 clearAllFilters();
                 renderList();
                 window.scrollTo(0, 0);
             } else {
-                window.close();
-                setTimeout(() => { history.back(); }, 100);
+                if (confirm('确定要退出王牌竞速情报站吗？')) {
+                    window.close();
+                    setTimeout(() => { history.back(); }, 100);
+                }
             }
         }
     }
     
-    function goToList() {
+    function goToList(keepScroll = false) {
         if (isDetail) {
             isDetail = false;
             // 隐藏顶部返回按钮
