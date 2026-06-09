@@ -54,7 +54,6 @@
             border-bottom: 1px solid rgba(42, 42, 60, 0.5);
             margin-bottom: 24px;
         }
-        /* 顶部栏第一行：标题和返回按钮区域 */
         .desktop-header-top {
             display: flex;
             align-items: center;
@@ -76,7 +75,6 @@
             background-clip: text;
             color: transparent;
         }
-        /* 返回列表按钮 - 仅在详情页显示，位于标题左侧 */
         .detail-back-btn-header {
             display: inline-block;
             background: rgba(31, 31, 46, 0.9);
@@ -95,12 +93,10 @@
             color: #1a1a2e;
             transform: scale(1.02);
         }
-        /* 占位元素，用于保持右侧布局平衡 */
         .header-right-placeholder {
             width: 80px;
         }
         
-        /* 筛选栏容器 */
         .desktop-filter-bar {
             background: rgba(20, 20, 31, 0.7);
             border-radius: 20px;
@@ -186,7 +182,6 @@
             color: #1a1a2e;
         }
         
-        /* 电脑端车辆网格：固定每行3辆车 */
         .cars-grid { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
@@ -735,11 +730,10 @@
     </div>
     
     <div class="main-content">
-        <!-- 电脑端固定顶部导航栏（主界面和详情页共用）半透明毛玻璃 -->
+        <!-- 电脑端固定顶部导航栏 -->
         <div class="desktop-header" id="desktopHeader">
             <div class="desktop-header-top" id="desktopHeaderTop">
                 <div class="header-title-area">
-                    <!-- 返回按钮容器，仅在详情页显示 -->
                     <div id="headerBackBtn" style="display: none;">
                         <button class="detail-back-btn-header" id="headerBackButton">← 返回列表</button>
                     </div>
@@ -1006,7 +1000,6 @@
         return !!(activeFilters.position || activeFilters.specialty || activeFilters.quality);
     }
     
-    // 清空所有搜索框
     function clearAllSearchBoxes() {
         keyword = "";
         const desktopInput = document.getElementById('searchInputDesktop');
@@ -1015,17 +1008,14 @@
         if (mobileInput) mobileInput.value = "";
     }
     
-    // 核心搜索逻辑：使用防抖
     function executeSearch(searchValue) {
         const searchTerm = searchValue;
         if (isDetail) {
-            // 从详情页搜索：先返回主界面再执行搜索
+            // 从详情页搜索：先返回主界面再执行搜索，使用 replaceState 避免历史记录堆积
             clearAllFilters();
-            // 使用 replaceState 替换当前历史记录，避免堆积
             const newUrl = window.location.pathname;
             history.replaceState(null, '', newUrl);
             isDetail = false;
-            // 隐藏顶部返回按钮
             const headerBackBtn = document.getElementById('headerBackBtn');
             if (headerBackBtn) headerBackBtn.style.display = 'none';
             restoreList();
@@ -1072,27 +1062,25 @@
         }
     }
     
+    // 核心返回键处理函数 - 统一手机端和电脑端逻辑
     function handleBackButton() {
         if (isDetail) {
-            // 详情页返回：清除筛选，回到主界面顶部，替换历史记录避免返回时再次进入详情页
+            // 在详情页：清除筛选，回到主界面顶部，替换历史记录避免返回时再次进入详情页
             clearAllFilters();
-            // 使用 replaceState 替换当前历史记录
             const newUrl = window.location.pathname;
             history.replaceState(null, '', newUrl);
             isDetail = false;
-            // 隐藏顶部返回按钮
             const headerBackBtn = document.getElementById('headerBackBtn');
             if (headerBackBtn) headerBackBtn.style.display = 'none';
             restoreList();
             window.scrollTo(0, 0);
         } else {
-            // 主界面：有筛选则清除，否则退出
+            // 在主界面：有筛选则清除，否则退出
             if (hasAnyFilterActive() || keyword !== "") {
                 clearAllFilters();
                 renderList();
                 window.scrollTo(0, 0);
             } else {
-                // 退出网站，不弹窗
                 window.close();
                 setTimeout(() => { history.back(); }, 100);
             }
@@ -1128,7 +1116,6 @@
             initFilters();
             attachSearchInputEvents();
             
-            // 绑定顶部返回按钮
             const headerBackButton = document.getElementById('headerBackButton');
             if (headerBackButton) {
                 headerBackButton.addEventListener('click', handleBackButton);
@@ -1150,10 +1137,11 @@
                 renderList();
             }
             
-            // 监听popstate事件处理浏览器返回键
+            // 监听 popstate 事件处理浏览器返回键
             window.addEventListener('popstate', function(e) {
                 const currentCarId = new URLSearchParams(window.location.search).get('car');
                 if (currentCarId && !isDetail) {
+                    // 从历史记录恢复详情页（用户点击前进时）
                     const car = vehiclesData.find(v => v.id === currentCarId);
                     if (car) {
                         isDetail = true;
@@ -1162,17 +1150,29 @@
                         renderDetailById(currentCarId);
                     }
                 } else if (!currentCarId && isDetail) {
-                    // 从详情页返回列表页，不重复调用 handleBackButton 避免重复操作
+                    // 从详情页返回列表页（用户点击后退时）
                     isDetail = false;
                     const headerBackBtn = document.getElementById('headerBackBtn');
                     if (headerBackBtn) headerBackBtn.style.display = 'none';
                     clearAllFilters();
                     restoreList();
-                } else {
-                    handleBackButton();
+                } else if (!currentCarId && !isDetail) {
+                    // 已经在主界面，处理返回键
+                    if (hasAnyFilterActive() || keyword !== "") {
+                        clearAllFilters();
+                        renderList();
+                        window.scrollTo(0, 0);
+                        // 阻止默认后退行为
+                        e.preventDefault();
+                    } else {
+                        // 退出网站
+                        window.close();
+                        setTimeout(() => { history.back(); }, 100);
+                    }
                 }
             });
             
+            // 添加初始历史记录
             history.pushState(null, '', window.location.href);
             
             if (isMobileDevice()) {
@@ -1350,13 +1350,10 @@
         history.replaceState({ carId: id }, '', newUrl);
         isDetail = true;
         
-        // 显示顶部返回按钮
         const headerBackBtn = document.getElementById('headerBackBtn');
         if (headerBackBtn) headerBackBtn.style.display = 'block';
         
-        // 清空搜索框
         clearAllSearchBoxes();
-        
         renderDetailById(id);
     }
     
