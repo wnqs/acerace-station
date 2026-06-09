@@ -1198,7 +1198,8 @@
                     clearAllFilters();
                     clearAllSearchBoxes();
                     const newUrl = window.location.pathname;
-                    history.pushState(null, '', newUrl);
+                    // 使用 replaceState 替换当前记录，这样历史记录栈中只剩列表页
+                    history.replaceState(null, '', newUrl);
                     const headerBackBtn = document.getElementById('headerBackBtn');
                     if (headerBackBtn) headerBackBtn.style.display = 'none';
                     restoreList();
@@ -1298,14 +1299,14 @@
                         const currentCarId = new URLSearchParams(window.location.search).get('car');
                         if (currentCarId) {
                             const newUrl = window.location.pathname;
-                            history.pushState(null, '', newUrl);
+                            history.replaceState(null, '', newUrl);
                             restoreList();
                         }
                     } else {
                         const currentCarId = new URLSearchParams(window.location.search).get('car');
                         if (currentCarId) {
                             const newUrl = window.location.pathname;
-                            history.pushState(null, '', newUrl);
+                            history.replaceState(null, '', newUrl);
                             restoreList();
                         }
                         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
@@ -1425,8 +1426,11 @@
     function showDetail(id) {
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
-        // 关键修复：在详情页内切换车辆时使用 replaceState 替换当前记录，保持历史记录栈中只有一条详情页记录
-        // 这样用户按返回键时会直接回到主界面（列表页），而不是在多个详情页之间来回切换
+        // 关键修复：从列表页进入详情页时，使用 replaceState 替换当前记录
+        // 同时在任何详情页内切换车辆时，也使用 replaceState 替换当前记录
+        // 确保历史记录栈中永远只有一条记录（要么是列表页，要么是当前详情页）
+        // 这样按返回键时，如果当前是详情页，就会返回到列表页（因为列表页记录已经被替换掉了，实际上会退出网站或回到上一个页面）
+        // 为了更好的用户体验，我们提供了"返回列表"按钮让用户主动返回列表页
         const newUrl = window.location.pathname + '?car=' + id;
         history.replaceState({ carId: id }, '', newUrl);
         
@@ -1493,14 +1497,14 @@
                     const currentCarId = new URLSearchParams(window.location.search).get('car');
                     if (currentCarId) {
                         const newUrl = window.location.pathname;
-                        history.pushState(null, '', newUrl);
+                        history.replaceState(null, '', newUrl);
                         restoreList();
                     }
                 } else {
                     const currentCarId = new URLSearchParams(window.location.search).get('car');
                     if (currentCarId) {
                         const newUrl = window.location.pathname;
-                        history.pushState(null, '', newUrl);
+                        history.replaceState(null, '', newUrl);
                         restoreList();
                     }
                     document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
