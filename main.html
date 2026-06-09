@@ -899,19 +899,13 @@
         }
         return result;
     }
-    // 修复大招排版：遇到中文冒号“：”或英文冒号“:”以及分号“；”“;”都换行
+    // 大招排版：冒号、分号换行
     function formatSkillText(text) {
         if (!text) return text;
-        // 先进行术语高亮
         let result = highlightTerms(text);
-        // 将中文/英文冒号、分号替换为换行符（保留原符号但换行，增强可读性）
-        // 规则：在冒号或分号后面添加换行，但避免在HTML标签内破坏结构
         result = result.replace(/([：:；;])\s*/g, '$1\n');
-        // 处理可能的连续换行
         result = result.replace(/\n{2,}/g, '\n');
-        // 处理“越野车：”特殊前缀不额外换行（保持原样）
         result = result.replace(/(越野车[：:])\s*\n/g, '$1 ');
-        // 按句号等分割（保持原有分割逻辑）
         let sentences = [], current = '';
         for (let i = 0; i < result.length; i++) {
             current += result[i];
@@ -1037,7 +1031,43 @@
         if (desktopInput) { desktopInput.removeEventListener('input', desktopInput._realtimeHandler); desktopInput._realtimeHandler = handler; desktopInput.addEventListener('input', desktopInput._realtimeHandler); }
     }
     
-    // 数据加载函数
+    // 清除所有选中的分类（定位、专精、品质）
+    function clearAllFilters() {
+        activeFilters = { position: "", specialty: "", quality: "" };
+        // 更新UI
+        if (isMobileDevice()) {
+            updateFilterUI();
+        } else {
+            updateDesktopFilterUI();
+        }
+        renderList();
+    }
+    
+    // 检查是否有任何分类被选中
+    function hasAnyFilterActive() {
+        return !!(activeFilters.position || activeFilters.specialty || activeFilters.quality);
+    }
+    
+    // 处理返回键逻辑：优先清除分类，若无分类则退出
+    function handleBackButton() {
+        if (isDetail) {
+            // 在详情页：返回主界面
+            restoreList();
+        } else {
+            // 在主界面：如果有选中的分类，则清除分类；否则退出网站
+            if (hasAnyFilterActive()) {
+                clearAllFilters();
+            } else {
+                // 退出网站
+                if (window.confirm('确定要退出王牌竞速情报站吗？')) {
+                    window.close();
+                    // 降级方案：尝试后退
+                    setTimeout(() => { history.back(); }, 100);
+                }
+            }
+        }
+    }
+    
     async function loadData() {
         try {
             const vehiclesUrl = './vehicles.json';
@@ -1229,7 +1259,6 @@
         });
     }
     
-    // 电脑端详情页内嵌搜索栏HTML
     function buildDetailSearchBarHTML() {
         return `<div class="detail-search-bar">
             <div class="search-box"><input type="text" id="detailSearchInput" placeholder="搜索车辆名称、简称、技能..."></div>
@@ -1320,7 +1349,7 @@
             <div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.passiveIcon}"></div><div class="skill-title">被动：${car.skills.passive.name}</div></div><div class="skill-desc">${passiveDesc}</div></div>${spBlockHtml}</div></div>`;
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = html;
-        document.getElementById("backBtn")?.addEventListener("click", restoreList);
+        document.getElementById("backBtn")?.addEventListener("click", handleBackButton);
         bindDetailFilters();
         const mobile = isMobileDevice();
         bindTermAndFeatureEvents(mobile);
@@ -1330,41 +1359,20 @@
         window.scrollTo(0, 0);
     }
     
-    // 手机端返回键逻辑优化：当在车辆主界面时按返回键则退出网站（或回到上一页）
-    // 通过监听 popstate 和 自定义返回按钮已处理，但手机端实体返回键需要单独处理
-    function handleMobileBackButton() {
-        if (isMobileDevice()) {
-            // 监听浏览器的后退事件
-            window.addEventListener('popstate', function(e) {
-                // 如果当前不在详情页（即主界面），并且没有待恢复的详情状态，则退出网站
-                if (!isDetail && document.getElementById('vehiclesPage').classList.contains('active-page')) {
-                    // 阻止默认后退行为，关闭当前页面或回到上一级
-                    history.pushState(null, null, location.href);
-                    // 尝试退出：如果是 WebView 可关闭，否则提示
-                    if (window.confirm('确定要退出王牌竞速情报站吗？')) {
-                        window.close();
-                        // 如果 window.close 无效，尝试后退到空白页
-                        setTimeout(() => { history.back(); }, 100);
-                    }
-                }
-            });
-            // 防止进入页面后直接后退导致退出误判，先添加一个历史记录
-            history.pushState(null, null, location.href);
-        }
-    }
-    
+    // 监听浏览器后退事件（手机端实体返回键 / 电脑端后退按钮）
     window.addEventListener('popstate', function(e) {
         if (isDetail) {
             restoreList();
         } else {
-            let carId = new URLSearchParams(window.location.search).get('car');
-            if (carId && vehiclesData.find(v => v.id === carId)) {
-                showDetail(carId);
+            // 在主界面：如果有选中的分类，则清除分类并阻止默认后退
+            if (hasAnyFilterActive()) {
+                clearAllFilters();
+                // 替换当前历史记录，防止连续后退两次
+                history.pushState(null, null, location.href);
+                e.preventDefault();
             } else {
-                // 手机端主界面时处理退出逻辑已在 handleMobileBackButton 中实现
-                if (isMobileDevice() && document.getElementById('vehiclesPage').classList.contains('active-page')) {
-                    // 不做额外处理，避免重复提示
-                }
+                // 无分类选中，允许退出（无需额外处理，浏览器默认后退行为会离开页面）
+                // 但为了体验，不做额外操作
             }
         }
     });
@@ -1454,7 +1462,6 @@
     
     initTabs();
     loadData();
-    handleMobileBackButton();
 </script>
 </body>
 </html>
