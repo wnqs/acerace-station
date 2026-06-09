@@ -1137,6 +1137,9 @@
                 const car = vehiclesData.find(v => v.id === carId);
                 if (car) {
                     isDetail = true;
+                    // 显示顶部返回按钮
+                    const headerBackBtn = document.getElementById('headerBackBtn');
+                    if (headerBackBtn) headerBackBtn.style.display = 'block';
                     renderDetailById(carId);
                 } else {
                     renderList();
@@ -1145,16 +1148,24 @@
                 renderList();
             }
             
+            // 监听popstate事件处理浏览器返回键
             window.addEventListener('popstate', function(e) {
                 const currentCarId = new URLSearchParams(window.location.search).get('car');
                 if (currentCarId && !isDetail) {
+                    // 从历史记录恢复详情页
                     const car = vehiclesData.find(v => v.id === currentCarId);
                     if (car) {
                         isDetail = true;
+                        // 显示顶部返回按钮
+                        const headerBackBtn = document.getElementById('headerBackBtn');
+                        if (headerBackBtn) headerBackBtn.style.display = 'block';
                         renderDetailById(currentCarId);
                     }
                 } else if (!currentCarId && isDetail) {
+                    // 从详情页返回列表页，隐藏返回按钮
                     isDetail = false;
+                    const headerBackBtn = document.getElementById('headerBackBtn');
+                    if (headerBackBtn) headerBackBtn.style.display = 'none';
                     clearAllFilters();
                     restoreList();
                 } else {
