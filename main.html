@@ -6,7 +6,19 @@
     <title>王牌竞速 · 情报站</title>
     <style>
         /* ========== 基础样式保持不变 ========== */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* 禁用全局闪烁光标效果（电脑端鼠标点击文本时不会有光标闪动） */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* 避免点击时产生选中闪烁 */
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* 允许输入框正常显示光标，保证搜索体验 */
+        input, textarea {
+            user-select: text;
+            caret-color: auto;
+        }
         body { background: #0a0a0f; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
         
         /* 左侧固定导航布局（电脑端） */
@@ -1001,7 +1013,7 @@
     }
     
     function performRealtimeSearch(searchValue) {
-        if (isDetail) restoreList();
+        if (isDetail) restoreList(true); // 如果当前在详情页，先返回再搜索
         setTimeout(() => {
             keyword = searchValue.trim();
             const mobileInput = document.getElementById('searchInputMobile');
@@ -1047,13 +1059,15 @@
     // 手机端/电脑端统一的返回键逻辑处理
     function handleBackButton() {
         if (isDetail) {
-            // 在详情页：返回主界面（并清除分类筛选，保证回到全部车辆）
+            // 在详情页：返回主界面并清除分类筛选
             clearAllFilters();
-            restoreList();
+            restoreList(true);
         } else {
             // 在主界面：如果有选中的分类，则清除分类；否则退出网站
             if (hasAnyFilterActive()) {
                 clearAllFilters();
+                // 防止连续后退产生两次清除效果
+                history.pushState(null, null, location.href);
             } else {
                 if (window.confirm('确定要退出王牌竞速情报站吗？')) {
                     window.close();
@@ -1138,7 +1152,7 @@
                 btn.removeEventListener('click', btn._clickHandler);
                 btn.addEventListener('click', btn._clickHandler = () => {
                     const pageId = btn.dataset.page;
-                    if (pageId === 'vehicles' && isDetail) restoreList();
+                    if (pageId === 'vehicles' && isDetail) restoreList(true);
                     document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                     document.getElementById(pageId + 'Page')?.classList.add('active-page');
                     mobileTabBtns.forEach(t => t.classList.remove('active'));
@@ -1278,15 +1292,15 @@
     function bindDetailFilters() {
         document.querySelectorAll('#detailPositionOptions .desktop-filter-option').forEach(opt => {
             opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.position = (activeFilters.position === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(); });
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.position = (activeFilters.position === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(true); });
         });
         document.querySelectorAll('#detailSpecialtyOptions .desktop-filter-option').forEach(opt => {
             opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.specialty = (activeFilters.specialty === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(); });
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.specialty = (activeFilters.specialty === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(true); });
         });
         document.querySelectorAll('#detailQualityOptions .desktop-quality-option').forEach(opt => {
             opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.quality = (activeFilters.quality === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(); });
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.quality = (activeFilters.quality === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(true); });
         });
         const detailSearchInput = document.getElementById('detailSearchInput');
         if (detailSearchInput) {
@@ -1365,7 +1379,8 @@
         }
     });
     
-    function restoreList() {
+    function restoreList(keepFilter = false) {
+        // keepFilter 参数未使用，为保持函数签名
         const cleanUrl = window.location.pathname;
         history.pushState({ page: 'list' }, '', cleanUrl);
         let vehiclesPage = document.getElementById("vehiclesPage");
@@ -1437,7 +1452,7 @@
         document.querySelectorAll('.sidebar .tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 let pageId = btn.dataset.page;
-                if (pageId === 'vehicles' && isDetail) restoreList();
+                if (pageId === 'vehicles' && isDetail) restoreList(true);
                 document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                 document.getElementById(pageId + 'Page')?.classList.add('active-page');
                 document.querySelectorAll('.sidebar .tab-btn').forEach(t => t.classList.remove('active'));
@@ -1447,9 +1462,6 @@
             });
         });
     }
-    
-    // 移除全局文本选中的光标闪烁效果（通过 CSS 禁止文本选择时的光标闪烁，但不是必须，主要问题是用户反馈的“一闪一闪”可能是文本选择效果，通过以下样式确保无异常）
-    // 已在 body 样式中保证了字体平滑，无需额外JS
     
     initTabs();
     loadData();
