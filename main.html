@@ -1006,34 +1006,49 @@
         return !!(activeFilters.position || activeFilters.specialty || activeFilters.quality);
     }
     
-    // 核心搜索逻辑：使用防抖，确保在详情页搜索时先跳转再执行，不会丢失首字母
+    // 清空所有搜索框
+    function clearAllSearchBoxes() {
+        keyword = "";
+        const desktopInput = document.getElementById('searchInputDesktop');
+        const mobileInput = document.getElementById('searchInputMobile');
+        if (desktopInput) desktopInput.value = "";
+        if (mobileInput) mobileInput.value = "";
+    }
+    
+    // 核心搜索逻辑：使用防抖
     function executeSearch(searchValue) {
         const searchTerm = searchValue;
-        // 如果当前在详情页，先返回列表页
         if (isDetail) {
-            // 清除筛选并返回主界面
+            // 从详情页搜索：先返回主界面再执行搜索
             clearAllFilters();
-            // 返回列表页
-            goToList(false);
-            // 等待 DOM 更新后再设置关键词并刷新列表
+            // 使用 replaceState 替换当前历史记录，避免堆积
+            const newUrl = window.location.pathname;
+            history.replaceState(null, '', newUrl);
+            isDetail = false;
+            // 隐藏顶部返回按钮
+            const headerBackBtn = document.getElementById('headerBackBtn');
+            if (headerBackBtn) headerBackBtn.style.display = 'none';
+            restoreList();
             setTimeout(() => {
                 keyword = searchTerm;
                 const desktopInput = document.getElementById('searchInputDesktop');
+                const mobileInput = document.getElementById('searchInputMobile');
                 if (desktopInput && desktopInput.value !== keyword) desktopInput.value = keyword;
+                if (mobileInput && mobileInput.value !== keyword) mobileInput.value = keyword;
                 renderList();
                 window.scrollTo(0, 0);
             }, 50);
         } else {
-            // 主界面直接搜索
             keyword = searchTerm;
             const desktopInput = document.getElementById('searchInputDesktop');
+            const mobileInput = document.getElementById('searchInputMobile');
             if (desktopInput && desktopInput.value !== keyword) desktopInput.value = keyword;
+            if (mobileInput && mobileInput.value !== keyword) mobileInput.value = keyword;
             renderList();
             window.scrollTo(0, 0);
         }
     }
     
-    // 防抖包装的搜索处理
     function handleSearchInput(e) {
         const value = e.target.value;
         if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
@@ -1057,42 +1072,30 @@
         }
     }
     
-    function clearAllSearchBoxes() {
-        keyword = "";
-        const desktopInput = document.getElementById('searchInputDesktop');
-        const mobileInput = document.getElementById('searchInputMobile');
-        if (desktopInput) desktopInput.value = "";
-        if (mobileInput) mobileInput.value = "";
-    }
-    
     function handleBackButton() {
         if (isDetail) {
-            // 详情页返回：清除筛选，回到主界面顶部
+            // 详情页返回：清除筛选，回到主界面顶部，替换历史记录避免返回时再次进入详情页
             clearAllFilters();
-            goToList(true);
+            // 使用 replaceState 替换当前历史记录
+            const newUrl = window.location.pathname;
+            history.replaceState(null, '', newUrl);
+            isDetail = false;
+            // 隐藏顶部返回按钮
+            const headerBackBtn = document.getElementById('headerBackBtn');
+            if (headerBackBtn) headerBackBtn.style.display = 'none';
+            restoreList();
+            window.scrollTo(0, 0);
         } else {
+            // 主界面：有筛选则清除，否则退出
             if (hasAnyFilterActive() || keyword !== "") {
                 clearAllFilters();
                 renderList();
                 window.scrollTo(0, 0);
             } else {
-                if (confirm('确定要退出王牌竞速情报站吗？')) {
-                    window.close();
-                    setTimeout(() => { history.back(); }, 100);
-                }
+                // 退出网站，不弹窗
+                window.close();
+                setTimeout(() => { history.back(); }, 100);
             }
-        }
-    }
-    
-    function goToList(keepScroll = false) {
-        if (isDetail) {
-            isDetail = false;
-            // 隐藏顶部返回按钮
-            const headerBackBtn = document.getElementById('headerBackBtn');
-            if (headerBackBtn) headerBackBtn.style.display = 'none';
-            const newUrl = window.location.pathname;
-            history.pushState(null, '', newUrl);
-            restoreList();
         }
     }
     
@@ -1137,7 +1140,6 @@
                 const car = vehiclesData.find(v => v.id === carId);
                 if (car) {
                     isDetail = true;
-                    // 显示顶部返回按钮
                     const headerBackBtn = document.getElementById('headerBackBtn');
                     if (headerBackBtn) headerBackBtn.style.display = 'block';
                     renderDetailById(carId);
@@ -1152,17 +1154,15 @@
             window.addEventListener('popstate', function(e) {
                 const currentCarId = new URLSearchParams(window.location.search).get('car');
                 if (currentCarId && !isDetail) {
-                    // 从历史记录恢复详情页
                     const car = vehiclesData.find(v => v.id === currentCarId);
                     if (car) {
                         isDetail = true;
-                        // 显示顶部返回按钮
                         const headerBackBtn = document.getElementById('headerBackBtn');
                         if (headerBackBtn) headerBackBtn.style.display = 'block';
                         renderDetailById(currentCarId);
                     }
                 } else if (!currentCarId && isDetail) {
-                    // 从详情页返回列表页，隐藏返回按钮
+                    // 从详情页返回列表页，不重复调用 handleBackButton 避免重复操作
                     isDetail = false;
                     const headerBackBtn = document.getElementById('headerBackBtn');
                     if (headerBackBtn) headerBackBtn.style.display = 'none';
@@ -1224,9 +1224,9 @@
                 btn.addEventListener('click', btn._clickHandler = () => {
                     const pageId = btn.dataset.page;
                     if (pageId === 'vehicles') {
-                        if (isDetail) goToList();
+                        if (isDetail) handleBackButton();
                     } else {
-                        if (isDetail) goToList();
+                        if (isDetail) handleBackButton();
                         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                         document.getElementById(pageId + 'Page')?.classList.add('active-page');
                     }
@@ -1345,13 +1345,17 @@
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
         
+        // 使用 replaceState 替换当前历史记录，避免历史记录堆积
         const newUrl = window.location.pathname + '?car=' + id;
-        history.pushState({ carId: id }, '', newUrl);
+        history.replaceState({ carId: id }, '', newUrl);
         isDetail = true;
         
         // 显示顶部返回按钮
         const headerBackBtn = document.getElementById('headerBackBtn');
         if (headerBackBtn) headerBackBtn.style.display = 'block';
+        
+        // 清空搜索框
+        clearAllSearchBoxes();
         
         renderDetailById(id);
     }
@@ -1390,10 +1394,6 @@
         
         const mobile = isMobileDevice();
         bindTermAndFeatureEvents(mobile);
-        // 清空搜索框（详情页不需要显示搜索关键词）
-        const desktopInput = document.getElementById('searchInputDesktop');
-        if (desktopInput) desktopInput.value = "";
-        keyword = "";
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
         window.scrollTo(0, 0);
@@ -1413,9 +1413,9 @@
             btn.addEventListener('click', () => {
                 let pageId = btn.dataset.page;
                 if (pageId === 'vehicles') {
-                    if (isDetail) goToList();
+                    if (isDetail) handleBackButton();
                 } else {
-                    if (isDetail) goToList();
+                    if (isDetail) handleBackButton();
                     document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                     document.getElementById(pageId + 'Page')?.classList.add('active-page');
                 }
