@@ -1046,7 +1046,8 @@
         return !!(activeFilters.position || activeFilters.specialty || activeFilters.quality);
     }
     
-    function performRealtimeSearch(searchValue) {
+    // 主界面搜索事件处理
+    function performMainSearch(searchValue) {
         if (isDetail) {
             clearAllFilters();
             goToList();
@@ -1062,6 +1063,24 @@
         }, 30);
     }
     
+    // 详情页搜索事件处理 - 只触发搜索，不重新渲染详情页
+    function performDetailSearch(searchValue) {
+        // 清除筛选
+        clearAllFilters();
+        // 设置关键词
+        keyword = searchValue.trim();
+        // 返回列表页并显示搜索结果
+        goToList();
+        setTimeout(() => {
+            const mobileInput = document.getElementById('searchInputMobile');
+            const desktopInput = document.getElementById('searchInputDesktop');
+            if (mobileInput && mobileInput.value !== keyword) mobileInput.value = keyword;
+            if (desktopInput && desktopInput.value !== keyword) desktopInput.value = keyword;
+            renderList();
+            window.scrollTo(0, 0);
+        }, 50);
+    }
+    
     function clearAllSearchBoxes() {
         keyword = "";
         const mobileInput = document.getElementById('searchInputMobile');
@@ -1073,7 +1092,7 @@
     function attachSearchInputEvents() {
         const mobileInput = document.getElementById('searchInputMobile');
         const desktopInput = document.getElementById('searchInputDesktop');
-        const handler = (e) => { performRealtimeSearch(e.target.value); };
+        const handler = (e) => { performMainSearch(e.target.value); };
         if (mobileInput) { mobileInput.removeEventListener('input', mobileInput._realtimeHandler); mobileInput._realtimeHandler = handler; mobileInput.addEventListener('input', mobileInput._realtimeHandler); }
         if (desktopInput) { desktopInput.removeEventListener('input', desktopInput._realtimeHandler); desktopInput._realtimeHandler = handler; desktopInput.addEventListener('input', desktopInput._realtimeHandler); }
     }
@@ -1390,7 +1409,8 @@
         const detailSearchInput = document.getElementById('detailSearchInput');
         if (detailSearchInput) {
             detailSearchInput.removeEventListener('input', detailSearchInput._detailHandler);
-            detailSearchInput._detailHandler = (e) => { performRealtimeSearch(e.target.value); };
+            // 使用独立的详情页搜索处理函数
+            detailSearchInput._detailHandler = (e) => { performDetailSearch(e.target.value); };
             detailSearchInput.addEventListener('input', detailSearchInput._detailHandler);
         }
     }
