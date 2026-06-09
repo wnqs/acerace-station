@@ -800,7 +800,6 @@
     let keyword = "";
     let activeTooltipTimer = null;
     let currentTooltipElement = null;
-    let isDetail = false;
     let searchDebounceTimer = null;
     
     const EXTRA_RACING_ICON_CARS = ["女武神"];
@@ -1009,15 +1008,15 @@
     
     function executeSearch(searchValue) {
         const searchTerm = searchValue;
-        if (isDetail) {
-            // 从详情页搜索：先返回主界面再执行搜索
+        // 如果当前在详情页，先返回主界面再执行搜索
+        const currentCarId = new URLSearchParams(window.location.search).get('car');
+        if (currentCarId) {
+            // 清除筛选并返回主界面
             clearAllFilters();
-            // 使用 replaceState 替换当前历史记录，避免返回时回到详情页
+            // 使用 pushState 添加新记录后立即返回
             const newUrl = window.location.pathname;
-            history.replaceState(null, '', newUrl);
-            isDetail = false;
-            const headerBackBtn = document.getElementById('headerBackBtn');
-            if (headerBackBtn) headerBackBtn.style.display = 'none';
+            history.pushState(null, '', newUrl);
+            // 更新 UI 到列表页
             restoreList();
             setTimeout(() => {
                 keyword = searchTerm;
@@ -1062,31 +1061,6 @@
         }
     }
     
-    // 核心返回键处理函数 - 手机端和电脑端统一
-    function handleBackButton() {
-        if (isDetail) {
-            // 在详情页：返回主界面，清除筛选，替换历史记录
-            clearAllFilters();
-            const newUrl = window.location.pathname;
-            history.replaceState(null, '', newUrl);
-            isDetail = false;
-            const headerBackBtn = document.getElementById('headerBackBtn');
-            if (headerBackBtn) headerBackBtn.style.display = 'none';
-            restoreList();
-            window.scrollTo(0, 0);
-        } else {
-            // 在主界面：有筛选则清除，否则退出
-            if (hasAnyFilterActive() || keyword !== "") {
-                clearAllFilters();
-                renderList();
-                window.scrollTo(0, 0);
-            } else {
-                window.close();
-                setTimeout(() => { history.back(); }, 100);
-            }
-        }
-    }
-    
     async function loadData() {
         try {
             const vehiclesUrl = './vehicles.json';
@@ -1118,7 +1092,14 @@
             
             const headerBackButton = document.getElementById('headerBackButton');
             if (headerBackButton) {
-                headerBackButton.addEventListener('click', handleBackButton);
+                headerBackButton.addEventListener('click', () => {
+                    // 返回列表按钮：清除筛选，返回到主界面
+                    clearAllFilters();
+                    const newUrl = window.location.pathname;
+                    history.pushState(null, '', newUrl);
+                    restoreList();
+                    window.scrollTo(0, 0);
+                });
             }
             
             const urlParams = new URLSearchParams(window.location.search);
@@ -1126,7 +1107,6 @@
             if (carId) {
                 const car = vehiclesData.find(v => v.id === carId);
                 if (car) {
-                    isDetail = true;
                     const headerBackBtn = document.getElementById('headerBackBtn');
                     if (headerBackBtn) headerBackBtn.style.display = 'block';
                     renderDetailById(carId);
@@ -1137,40 +1117,33 @@
                 renderList();
             }
             
-            // 监听 popstate 事件
+            // 监听 popstate 事件 - 手机端返回键核心逻辑
             window.addEventListener('popstate', function(e) {
                 const currentCarId = new URLSearchParams(window.location.search).get('car');
-                if (currentCarId && !isDetail) {
-                    // 从历史记录恢复详情页
+                if (currentCarId) {
+                    // 有 car 参数，显示详情页
                     const car = vehiclesData.find(v => v.id === currentCarId);
                     if (car) {
-                        isDetail = true;
                         const headerBackBtn = document.getElementById('headerBackBtn');
                         if (headerBackBtn) headerBackBtn.style.display = 'block';
                         renderDetailById(currentCarId);
+                    } else {
+                        renderList();
                     }
-                } else if (!currentCarId && isDetail) {
-                    // 从详情页返回列表页
-                    isDetail = false;
+                } else {
+                    // 没有 car 参数，显示列表页
                     const headerBackBtn = document.getElementById('headerBackBtn');
                     if (headerBackBtn) headerBackBtn.style.display = 'none';
+                    // 清除筛选
                     clearAllFilters();
                     restoreList();
-                } else if (!currentCarId && !isDetail) {
-                    // 已经在主界面，处理返回键
-                    if (hasAnyFilterActive() || keyword !== "") {
-                        clearAllFilters();
-                        renderList();
-                        window.scrollTo(0, 0);
-                    } else {
-                        window.close();
-                        setTimeout(() => { history.back(); }, 100);
+                    // 检查是否需要退出网站
+                    if (!hasAnyFilterActive() && keyword === "") {
+                        // 如果历史记录栈只有当前这一条，用户按返回键会退出
+                        // 这里不做额外处理，让浏览器自然退出
                     }
                 }
             });
-            
-            // 添加初始历史记录
-            history.pushState(null, '', window.location.href);
             
             if (isMobileDevice()) {
                 document.body.classList.add('has-fixed-header');
@@ -1221,9 +1194,20 @@
                 btn.addEventListener('click', btn._clickHandler = () => {
                     const pageId = btn.dataset.page;
                     if (pageId === 'vehicles') {
-                        if (isDetail) handleBackButton();
+                        const currentCarId = new URLSearchParams(window.location.search).get('car');
+                        if (currentCarId) {
+                            // 如果在详情页，返回到列表页
+                            const newUrl = window.location.pathname;
+                            history.pushState(null, '', newUrl);
+                            restoreList();
+                        }
                     } else {
-                        if (isDetail) handleBackButton();
+                        const currentCarId = new URLSearchParams(window.location.search).get('car');
+                        if (currentCarId) {
+                            const newUrl = window.location.pathname;
+                            history.pushState(null, '', newUrl);
+                            restoreList();
+                        }
                         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                         document.getElementById(pageId + 'Page')?.classList.add('active-page');
                     }
@@ -1342,10 +1326,9 @@
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
         
-        // 使用 replaceState 替换当前历史记录，确保返回时直接回到主界面而不是之前的详情页
+        // 使用 pushState 添加新历史记录，让返回键可以回到上一页
         const newUrl = window.location.pathname + '?car=' + id;
-        history.replaceState({ carId: id }, '', newUrl);
-        isDetail = true;
+        history.pushState({ carId: id }, '', newUrl);
         
         const headerBackBtn = document.getElementById('headerBackBtn');
         if (headerBackBtn) headerBackBtn.style.display = 'block';
@@ -1407,9 +1390,19 @@
             btn.addEventListener('click', () => {
                 let pageId = btn.dataset.page;
                 if (pageId === 'vehicles') {
-                    if (isDetail) handleBackButton();
+                    const currentCarId = new URLSearchParams(window.location.search).get('car');
+                    if (currentCarId) {
+                        const newUrl = window.location.pathname;
+                        history.pushState(null, '', newUrl);
+                        restoreList();
+                    }
                 } else {
-                    if (isDetail) handleBackButton();
+                    const currentCarId = new URLSearchParams(window.location.search).get('car');
+                    if (currentCarId) {
+                        const newUrl = window.location.pathname;
+                        history.pushState(null, '', newUrl);
+                        restoreList();
+                    }
                     document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                     document.getElementById(pageId + 'Page')?.classList.add('active-page');
                 }
