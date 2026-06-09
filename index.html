@@ -6,7 +6,19 @@
     <title>王牌竞速 · 情报站</title>
     <style>
         /* ========== 基础样式保持不变 ========== */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* 禁用全局闪烁光标效果（电脑端鼠标点击文本时不会有光标闪动） */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* 避免点击时产生选中闪烁 */
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* 允许输入框正常显示光标，保证搜索体验 */
+        input, textarea {
+            user-select: text;
+            caret-color: auto;
+        }
         body { background: #0a0a0f; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
         
         /* 左侧固定导航布局（电脑端） */
@@ -452,7 +464,7 @@
         .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; font-weight: 500; }
         .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
         
-        /* ========== 手机端专用样式 - 完全保持不变 ========== */
+        /* ========== 手机端专用样式 ========== */
         @media (max-width: 768px) {
             .sidebar { display: none; }
             .mobile-fixed-header {
@@ -643,7 +655,6 @@
                 flex-shrink: 0;
             }
             .detail-container { overflow-x: hidden; padding-bottom: 20px; }
-            /* 手机端隐藏电脑端的内嵌搜索栏，使用原有的手机端头部搜索 */
             .detail-search-wrapper { display: none; }
             .detail-header-actions { padding: 12px 16px 0 16px; justify-content: flex-start; }
             .detail-back-btn { margin: 0; font-size: 0.8rem; padding: 8px 16px; }
@@ -902,16 +913,20 @@
     function formatSkillText(text) {
         if (!text) return text;
         let result = highlightTerms(text);
+        result = result.replace(/([：:；;])\s*/g, '$1\n');
+        result = result.replace(/\n{2,}/g, '\n');
         result = result.replace(/(越野车[：:])\s*\n/g, '$1 ');
         let sentences = [], current = '';
         for (let i = 0; i < result.length; i++) {
             current += result[i];
-            if (result[i] === '。' || result[i] === '．') { sentences.push(current.trim()); current = ''; }
+            if (result[i] === '。' || result[i] === '．') { 
+                sentences.push(current.trim()); 
+                current = ''; 
+            }
         }
         if (current.trim().length > 0) sentences.push(current);
         let formatted = sentences.join('\n');
-        formatted = formatted.replace(/\n{2,}/g, '\n').replace(/[；;]\s*/g, '\n');
-        formatted = formatted.replace(/[：:]\s*(?=[^\n])/g, '：');
+        formatted = formatted.replace(/\n{2,}/g, '\n');
         formatted = applyNumberHighlight(formatted);
         return formatted;
     }
@@ -998,7 +1013,7 @@
     }
     
     function performRealtimeSearch(searchValue) {
-        if (isDetail) restoreList();
+        if (isDetail) restoreList(true); // 如果当前在详情页，先返回再搜索
         setTimeout(() => {
             keyword = searchValue.trim();
             const mobileInput = document.getElementById('searchInputMobile');
@@ -1026,14 +1041,46 @@
         if (desktopInput) { desktopInput.removeEventListener('input', desktopInput._realtimeHandler); desktopInput._realtimeHandler = handler; desktopInput.addEventListener('input', desktopInput._realtimeHandler); }
     }
     
-    // 修复后的数据加载函数，增加详细错误日志和路径兼容
+    // 清除所有选中的分类（定位、专精、品质）
+    function clearAllFilters() {
+        activeFilters = { position: "", specialty: "", quality: "" };
+        if (isMobileDevice()) {
+            updateFilterUI();
+        } else {
+            updateDesktopFilterUI();
+        }
+        renderList();
+    }
+    
+    function hasAnyFilterActive() {
+        return !!(activeFilters.position || activeFilters.specialty || activeFilters.quality);
+    }
+    
+    // 手机端/电脑端统一的返回键逻辑处理
+    function handleBackButton() {
+        if (isDetail) {
+            // 在详情页：返回主界面并清除分类筛选
+            clearAllFilters();
+            restoreList(true);
+        } else {
+            // 在主界面：如果有选中的分类，则清除分类；否则退出网站
+            if (hasAnyFilterActive()) {
+                clearAllFilters();
+                // 防止连续后退产生两次清除效果
+                history.pushState(null, null, location.href);
+            } else {
+                if (window.confirm('确定要退出王牌竞速情报站吗？')) {
+                    window.close();
+                    setTimeout(() => { history.back(); }, 100);
+                }
+            }
+        }
+    }
+    
     async function loadData() {
         try {
-            // 使用相对路径，确保从当前目录加载
             const vehiclesUrl = './vehicles.json';
             const termsUrl = './terms.json';
-            
-            console.log('[加载] 尝试加载车辆数据:', vehiclesUrl);
             const vehiclesResponse = await fetch(vehiclesUrl);
             if (!vehiclesResponse.ok) {
                 throw new Error(`HTTP ${vehiclesResponse.status}: 无法加载 vehicles.json`);
@@ -1044,9 +1091,7 @@
             }
             vehiclesData = vehiclesDataObj.vehicles;
             vehiclesData.forEach(car => { car.quality = getCorrectedQuality(car.name, car.quality); });
-            console.log(`[加载] 成功加载 ${vehiclesData.length} 辆车辆数据`);
             
-            console.log('[加载] 尝试加载术语数据:', termsUrl);
             const termsResponse = await fetch(termsUrl);
             if (!termsResponse.ok) {
                 throw new Error(`HTTP ${termsResponse.status}: 无法加载 terms.json`);
@@ -1056,7 +1101,6 @@
                 throw new Error('terms.json 格式错误：缺少 terms 对象');
             }
             termDefinitions = termsDataObj.terms;
-            console.log(`[加载] 成功加载 ${Object.keys(termDefinitions).length} 个术语`);
             
             for (const car of vehiclesData) car.chipSlots = sortChipSlots(car.chipSlots);
             initFilters();
@@ -1108,7 +1152,7 @@
                 btn.removeEventListener('click', btn._clickHandler);
                 btn.addEventListener('click', btn._clickHandler = () => {
                     const pageId = btn.dataset.page;
-                    if (pageId === 'vehicles' && isDetail) restoreList();
+                    if (pageId === 'vehicles' && isDetail) restoreList(true);
                     document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                     document.getElementById(pageId + 'Page')?.classList.add('active-page');
                     mobileTabBtns.forEach(t => t.classList.remove('active'));
@@ -1220,7 +1264,6 @@
         });
     }
     
-    // 电脑端详情页内嵌搜索栏HTML
     function buildDetailSearchBarHTML() {
         return `<div class="detail-search-bar">
             <div class="search-box"><input type="text" id="detailSearchInput" placeholder="搜索车辆名称、简称、技能..."></div>
@@ -1249,15 +1292,15 @@
     function bindDetailFilters() {
         document.querySelectorAll('#detailPositionOptions .desktop-filter-option').forEach(opt => {
             opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.position = (activeFilters.position === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(); });
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.position = (activeFilters.position === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(true); });
         });
         document.querySelectorAll('#detailSpecialtyOptions .desktop-filter-option').forEach(opt => {
             opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.specialty = (activeFilters.specialty === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(); });
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.specialty = (activeFilters.specialty === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(true); });
         });
         document.querySelectorAll('#detailQualityOptions .desktop-quality-option').forEach(opt => {
             opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.quality = (activeFilters.quality === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(); });
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.quality = (activeFilters.quality === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(true); });
         });
         const detailSearchInput = document.getElementById('detailSearchInput');
         if (detailSearchInput) {
@@ -1311,7 +1354,7 @@
             <div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.passiveIcon}"></div><div class="skill-title">被动：${car.skills.passive.name}</div></div><div class="skill-desc">${passiveDesc}</div></div>${spBlockHtml}</div></div>`;
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = html;
-        document.getElementById("backBtn")?.addEventListener("click", restoreList);
+        document.getElementById("backBtn")?.addEventListener("click", handleBackButton);
         bindDetailFilters();
         const mobile = isMobileDevice();
         bindTermAndFeatureEvents(mobile);
@@ -1321,12 +1364,23 @@
         window.scrollTo(0, 0);
     }
     
-    window.addEventListener('popstate', function() {
-        if (isDetail) restoreList();
-        else { let carId = new URLSearchParams(window.location.search).get('car'); if (carId && vehiclesData.find(v => v.id === carId)) showDetail(carId); }
+    // 监听浏览器后退事件（手机端实体返回键 / 电脑端后退按钮）
+    window.addEventListener('popstate', function(e) {
+        if (isDetail) {
+            e.preventDefault();
+            handleBackButton();
+        } else {
+            if (hasAnyFilterActive()) {
+                e.preventDefault();
+                clearAllFilters();
+                history.pushState(null, null, location.href);
+            }
+            // 无筛选时默认退出，不做额外处理
+        }
     });
     
-    function restoreList() {
+    function restoreList(keepFilter = false) {
+        // keepFilter 参数未使用，为保持函数签名
         const cleanUrl = window.location.pathname;
         history.pushState({ page: 'list' }, '', cleanUrl);
         let vehiclesPage = document.getElementById("vehiclesPage");
@@ -1398,7 +1452,7 @@
         document.querySelectorAll('.sidebar .tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 let pageId = btn.dataset.page;
-                if (pageId === 'vehicles' && isDetail) restoreList();
+                if (pageId === 'vehicles' && isDetail) restoreList(true);
                 document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                 document.getElementById(pageId + 'Page')?.classList.add('active-page');
                 document.querySelectorAll('.sidebar .tab-btn').forEach(t => t.classList.remove('active'));
