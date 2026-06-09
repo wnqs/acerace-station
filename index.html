@@ -6,15 +6,13 @@
     <title>王牌竞速 · 情报站</title>
     <style>
         /* ========== 基础样式保持不变 ========== */
-        /* 禁用全局闪烁光标效果（电脑端鼠标点击文本时不会有光标闪动） */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            user-select: none; /* 避免点击时产生选中闪烁 */
+            user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
-        /* 允许输入框正常显示光标，保证搜索体验 */
         input, textarea {
             user-select: text;
             caret-color: auto;
@@ -53,7 +51,6 @@
             background: rgba(20,20,31,0.95);
             border: 1px solid rgba(42,42,60,0.5);
         }
-        /* 详情页内嵌的搜索栏样式 - 仅电脑端使用，紧凑且位于返回按钮右侧 */
         .detail-search-bar {
             background: #14141f;
             border-radius: 16px;
@@ -250,7 +247,6 @@
             flex-shrink: 0;
         }
         .detail-back-btn:hover { background: #feca57; color: #1a1a2e; transform: scale(1.02); }
-        /* 电脑端详情页内嵌搜索栏容器 - 与返回按钮同行右侧 */
         .detail-search-wrapper {
             flex: 1;
             min-width: 260px;
@@ -771,7 +767,6 @@
     
     <div class="main-content">
         <div id="vehiclesPage" class="page active-page">
-            <!-- 电脑端主界面固定置顶搜索栏 -->
             <div class="desktop-filter-bar" id="desktopGlobalFilterBar">
                 <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
                 <div class="desktop-filter-sections">
@@ -1013,7 +1008,10 @@
     }
     
     function performRealtimeSearch(searchValue) {
-        if (isDetail) restoreList(true); // 如果当前在详情页，先返回再搜索
+        if (isDetail) {
+            clearAllFilters();
+            restoreList();
+        }
         setTimeout(() => {
             keyword = searchValue.trim();
             const mobileInput = document.getElementById('searchInputMobile');
@@ -1041,9 +1039,13 @@
         if (desktopInput) { desktopInput.removeEventListener('input', desktopInput._realtimeHandler); desktopInput._realtimeHandler = handler; desktopInput.addEventListener('input', desktopInput._realtimeHandler); }
     }
     
-    // 清除所有选中的分类（定位、专精、品质）
     function clearAllFilters() {
         activeFilters = { position: "", specialty: "", quality: "" };
+        keyword = "";
+        const mobileInput = document.getElementById('searchInputMobile');
+        const desktopInput = document.getElementById('searchInputDesktop');
+        if (mobileInput) mobileInput.value = "";
+        if (desktopInput) desktopInput.value = "";
         if (isMobileDevice()) {
             updateFilterUI();
         } else {
@@ -1056,23 +1058,22 @@
         return !!(activeFilters.position || activeFilters.specialty || activeFilters.quality);
     }
     
-    // 手机端/电脑端统一的返回键逻辑处理
+    // 核心：处理浏览器返回键（手机端物理返回键）
     function handleBackButton() {
         if (isDetail) {
-            // 在详情页：返回主界面并清除分类筛选
+            // 在详情页：清除筛选并返回列表页
             clearAllFilters();
-            restoreList(true);
+            restoreList();
+            // 标记已经处理了返回，popstate中不再重复处理
+            return true;
         } else {
-            // 在主界面：如果有选中的分类，则清除分类；否则退出网站
+            // 在列表页：如果有选中的分类，则清除分类；否则退出网站
             if (hasAnyFilterActive()) {
                 clearAllFilters();
-                // 防止连续后退产生两次清除效果
-                history.pushState(null, null, location.href);
+                return true;
             } else {
-                if (window.confirm('确定要退出王牌竞速情报站吗？')) {
-                    window.close();
-                    setTimeout(() => { history.back(); }, 100);
-                }
+                // 没有筛选，退出网站由浏览器默认行为处理（popstate会继续往后）
+                return false;
             }
         }
     }
@@ -1106,6 +1107,12 @@
             initFilters();
             attachSearchInputEvents();
             renderList();
+            
+            // 监听popstate事件处理浏览器返回键（手机端物理返回键）
+            window.addEventListener('popstate', function(e) {
+                handleBackButton();
+            });
+            
         } catch (error) {
             console.error('[加载错误]', error);
             const gridEl = document.getElementById("carsGrid");
@@ -1152,12 +1159,22 @@
                 btn.removeEventListener('click', btn._clickHandler);
                 btn.addEventListener('click', btn._clickHandler = () => {
                     const pageId = btn.dataset.page;
-                    if (pageId === 'vehicles' && isDetail) restoreList(true);
-                    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-                    document.getElementById(pageId + 'Page')?.classList.add('active-page');
+                    if (pageId === 'vehicles') {
+                        if (isDetail) {
+                            clearAllFilters();
+                            restoreList();
+                        }
+                    } else {
+                        if (isDetail) {
+                            clearAllFilters();
+                            restoreList();
+                        }
+                        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                        document.getElementById(pageId + 'Page')?.classList.add('active-page');
+                        isDetail = false;
+                    }
                     mobileTabBtns.forEach(t => t.classList.remove('active'));
                     btn.classList.add('active');
-                    if (pageId !== 'vehicles') isDetail = false;
                     if (pageId === 'vehicles') window.scrollTo(0, 0);
                 });
             });
@@ -1262,6 +1279,9 @@
             card._clickHandler = (e) => { if (!e.target.closest('.acquisition-icon')) showDetail(card.dataset.id); };
             card.addEventListener('click', card._clickHandler);
         });
+        
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+        document.getElementById('vehiclesPage').classList.add('active-page');
     }
     
     function buildDetailSearchBarHTML() {
@@ -1292,15 +1312,15 @@
     function bindDetailFilters() {
         document.querySelectorAll('#detailPositionOptions .desktop-filter-option').forEach(opt => {
             opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.position = (activeFilters.position === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(true); });
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.position = (activeFilters.position === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(); });
         });
         document.querySelectorAll('#detailSpecialtyOptions .desktop-filter-option').forEach(opt => {
             opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.specialty = (activeFilters.specialty === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(true); });
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.specialty = (activeFilters.specialty === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(); });
         });
         document.querySelectorAll('#detailQualityOptions .desktop-quality-option').forEach(opt => {
             opt.removeEventListener('click', opt._clickHandler);
-            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.quality = (activeFilters.quality === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(true); });
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.quality = (activeFilters.quality === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(); });
         });
         const detailSearchInput = document.getElementById('detailSearchInput');
         if (detailSearchInput) {
@@ -1319,10 +1339,11 @@
     function showDetail(id) {
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
+        
+        // 进入详情页：添加历史记录，让手机返回键可以回到列表页
+        history.pushState({ detail: true }, '', location.pathname + '?car=' + id);
         isDetail = true;
-        const url = new URL(window.location.href);
-        url.searchParams.set('car', id);
-        history.pushState({ page: 'detail', carId: id }, '', url);
+        
         let stats = car.stats, chipSlots = car.chipSlots.map(t => CHIP_ICONS[t]), bgClass = getQualityClass(car.quality);
         let positionIcon = POSITION_ICONS[car.position] || POSITION_ICONS["辅助"];
         let specialtyIcon = SPECIALTY_ICONS[car.specialty] || SPECIALTY_ICONS["场地"];
@@ -1354,7 +1375,12 @@
             <div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.passiveIcon}"></div><div class="skill-title">被动：${car.skills.passive.name}</div></div><div class="skill-desc">${passiveDesc}</div></div>${spBlockHtml}</div></div>`;
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = html;
-        document.getElementById("backBtn")?.addEventListener("click", handleBackButton);
+        document.getElementById("backBtn")?.addEventListener("click", function() {
+            // 页面内返回按钮：清除筛选后返回列表，并替换历史记录（避免重复）
+            clearAllFilters();
+            restoreList();
+            history.replaceState(null, null, location.pathname);
+        });
         bindDetailFilters();
         const mobile = isMobileDevice();
         bindTermAndFeatureEvents(mobile);
@@ -1364,25 +1390,7 @@
         window.scrollTo(0, 0);
     }
     
-    // 监听浏览器后退事件（手机端实体返回键 / 电脑端后退按钮）
-    window.addEventListener('popstate', function(e) {
-        if (isDetail) {
-            e.preventDefault();
-            handleBackButton();
-        } else {
-            if (hasAnyFilterActive()) {
-                e.preventDefault();
-                clearAllFilters();
-                history.pushState(null, null, location.href);
-            }
-            // 无筛选时默认退出，不做额外处理
-        }
-    });
-    
-    function restoreList(keepFilter = false) {
-        // keepFilter 参数未使用，为保持函数签名
-        const cleanUrl = window.location.pathname;
-        history.pushState({ page: 'list' }, '', cleanUrl);
+    function restoreList() {
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = `<div class="desktop-filter-bar" id="desktopGlobalFilterBar">
                 <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
@@ -1452,12 +1460,25 @@
         document.querySelectorAll('.sidebar .tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 let pageId = btn.dataset.page;
-                if (pageId === 'vehicles' && isDetail) restoreList(true);
-                document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-                document.getElementById(pageId + 'Page')?.classList.add('active-page');
+                if (pageId === 'vehicles') {
+                    if (isDetail) {
+                        clearAllFilters();
+                        restoreList();
+                        // 替换历史记录避免返回键回到详情页
+                        history.replaceState(null, null, location.pathname);
+                    }
+                } else {
+                    if (isDetail) {
+                        clearAllFilters();
+                        restoreList();
+                        history.replaceState(null, null, location.pathname);
+                    }
+                    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                    document.getElementById(pageId + 'Page')?.classList.add('active-page');
+                    isDetail = false;
+                }
                 document.querySelectorAll('.sidebar .tab-btn').forEach(t => t.classList.remove('active'));
                 btn.classList.add('active');
-                if (pageId !== 'vehicles') isDetail = false;
                 if (pageId === 'vehicles') window.scrollTo(0, 0);
             });
         });
