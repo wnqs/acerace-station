@@ -57,30 +57,17 @@
             .tab-btn:hover:not(.active) {
                 background: rgba(31, 31, 46, 0.6);
             }
-            /* 电脑端固定顶部导航栏 - 半透明毛玻璃效果，紧贴顶部无空白 */
+            /* 电脑端固定顶部导航栏 - 半透明毛玻璃效果 */
             .desktop-header {
-                position: sticky;
-                top: 0;
-                z-index: 100;
                 background: rgba(15, 15, 23, 0.7);
                 backdrop-filter: blur(12px);
                 border-bottom: 1px solid rgba(42, 42, 60, 0.5);
-                border-radius: 0;
-                margin-bottom: 24px;
-                padding: 0;
-            }
-            .desktop-header-top {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 12px 0 6px 0;
+                border-radius: 0 0 20px 20px;
             }
             .desktop-filter-bar {
                 background: rgba(20, 20, 31, 0.6);
                 backdrop-filter: blur(8px);
                 border: 1px solid rgba(42, 42, 60, 0.5);
-                margin-bottom: 0;
-                border-radius: 20px;
             }
             .search-box input {
                 border: 1px solid rgba(42, 42, 60, 0.8);
@@ -158,13 +145,13 @@
         .page { display: none; }
         .page.active-page { display: block; }
         
-        /* 电脑端固定顶部导航栏 - 修改样式，紧贴顶部无空白 */
+        /* 电脑端固定顶部导航栏 */
         .desktop-header {
             position: sticky;
             top: 0;
             z-index: 100;
             background: #0f0f17;
-            padding: 0;
+            padding: 4px 0 0 0;
             border-bottom: 1px solid #2a2a3c;
             margin-bottom: 24px;
         }
@@ -172,7 +159,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 0 6px 0;
+            padding: 0 0 6px 0;
         }
         .header-title-area {
             display: flex;
@@ -1123,10 +1110,14 @@
         const searchTerm = searchValue;
         const currentCarId = new URLSearchParams(window.location.search).get('car');
         if (currentCarId) {
-            // 从详情页执行搜索时，清除筛选并跳转到列表页（使用 pushState 添加历史记录）
+            // 从详情页执行搜索，需要跳转到列表页并清除URL参数
             clearAllFilters();
             const newUrl = window.location.pathname;
-            history.pushState(null, '', newUrl);
+            // 使用 replaceState 替换当前历史记录，避免在详情页留下多余的历史记录
+            history.replaceState(null, '', newUrl);
+            // 隐藏返回按钮（因为现在已经在主界面了）
+            const headerBackBtn = document.getElementById('headerBackBtn');
+            if (headerBackBtn) headerBackBtn.style.display = 'none';
             restoreList();
             setTimeout(() => {
                 keyword = searchTerm;
@@ -1203,11 +1194,13 @@
             const headerBackButton = document.getElementById('headerBackButton');
             if (headerBackButton) {
                 headerBackButton.addEventListener('click', () => {
-                    // 点击返回按钮：清除筛选和搜索，跳转到列表页（使用 replaceState 避免残留历史）
+                    // 点击返回按钮：清除筛选和搜索，跳转到列表页
                     clearAllFilters();
                     clearAllSearchBoxes();
                     const newUrl = window.location.pathname;
-                    history.replaceState(null, '', newUrl);
+                    history.pushState(null, '', newUrl);
+                    const headerBackBtn = document.getElementById('headerBackBtn');
+                    if (headerBackBtn) headerBackBtn.style.display = 'none';
                     restoreList();
                     window.scrollTo(0, 0);
                 });
@@ -1249,8 +1242,6 @@
                     // 无 car 参数：显示列表页，且这是主界面状态
                     const headerBackBtn = document.getElementById('headerBackBtn');
                     if (headerBackBtn) headerBackBtn.style.display = 'none';
-                    // 注意：在主界面按返回键时，浏览器会继续回退到上一个历史记录（可能是其他网站或退出）
-                    // 我们只需要正确显示列表页即可，不需要额外操作
                     restoreList();
                 }
             });
