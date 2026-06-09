@@ -1,4 +1,3 @@
-html
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -180,7 +179,12 @@ html
             color: #1a1a2e;
         }
         
-        .cars-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+        /* 电脑端车辆网格：固定每行3辆车 */
+        .cars-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 24px; 
+        }
         .car-card { background: #14141f; border-radius: 24px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; will-change: transform; position: relative; display: flex; flex-direction: column; }
         .car-card:hover { transform: translateY(-4px); }
         @media (hover: hover) and (pointer: fine) {
@@ -621,7 +625,11 @@ html
             /* 手机端需要额外为固定头部留出空间 */
             body.has-fixed-header .main-content { margin-top: 145px; }
             
-            .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            /* 手机端车辆网格：固定每行2辆车 */
+            .cars-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 12px; 
+            }
             .card-image { height: 130px; padding: 12px; }
             .car-name { font-size: 0.85rem; font-weight: 700; }
             .quality-badge-wrapper { position: absolute; top: 8px; right: 8px; bottom: auto; left: auto; }
@@ -1072,7 +1080,7 @@ html
             clearAllFilters();
             goToList();
         } else {
-            // 在主界面：如果有选中的分类，则清除分类；否则退出网站（不弹窗）
+            // 在主界面：如果有选中的分类或搜索关键词，则清除分类；否则退出网站（不弹窗）
             if (hasAnyFilterActive() || keyword !== "") {
                 clearAllFilters();
                 // 清除后刷新列表，保持在顶部
@@ -1537,4 +1545,3 @@ html
 </script>
 </body>
 </html>
-```
