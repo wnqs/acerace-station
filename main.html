@@ -1,5 +1,3 @@
-以下是您需要的“王牌竞速·情报站”HTML代码。它已将电脑端主界面的搜索框和分类栏置顶，并在车辆详情页顶部（返回按钮右侧、车辆图片上方）添加了同样的搜索与分类模块，实现了与手机端一致的全局搜索体验。
-```html
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -43,12 +41,12 @@
             background: rgba(20,20,31,0.95);
             border: 1px solid rgba(42,42,60,0.5);
         }
-        /* 详情页内嵌的搜索栏样式 - 紧凑且位于返回按钮右侧 */
+        /* 详情页内嵌的搜索栏样式 - 仅电脑端使用，紧凑且位于返回按钮右侧 */
         .detail-search-bar {
             background: #14141f;
             border-radius: 16px;
             padding: 12px 16px;
-            margin: 0 20px 16px 20px;
+            margin: 0 40px 16px 40px;
             border: 1px solid rgba(42,42,60,0.5);
         }
         .detail-search-bar .search-box {
@@ -221,12 +219,49 @@
         .detail-header-actions {
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 20px 40px 0 40px;
+            justify-content: space-between;
             flex-wrap: wrap;
+            gap: 16px;
+            padding: 20px 40px 0 40px;
         }
-        .detail-back-btn { display: inline-block; background: #1f1f2e; border: none; padding: 10px 24px; border-radius: 50px; cursor: pointer; color: #feca57; font-size: 0.9rem; font-weight: 700; transition: 0.2s; }
+        .detail-back-btn { 
+            display: inline-block; 
+            background: #1f1f2e; 
+            border: none; 
+            padding: 10px 24px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            color: #feca57; 
+            font-size: 0.9rem; 
+            font-weight: 700; 
+            transition: 0.2s; 
+            flex-shrink: 0;
+        }
         .detail-back-btn:hover { background: #feca57; color: #1a1a2e; transform: scale(1.02); }
+        /* 电脑端详情页内嵌搜索栏容器 - 与返回按钮同行右侧 */
+        .detail-search-wrapper {
+            flex: 1;
+            min-width: 260px;
+        }
+        .detail-search-wrapper .detail-search-bar {
+            margin: 0;
+            padding: 8px 12px;
+        }
+        .detail-search-wrapper .search-box {
+            margin-bottom: 8px;
+        }
+        .detail-search-wrapper .search-box input {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+        }
+        .detail-search-wrapper .desktop-filter-options {
+            gap: 6px;
+        }
+        .detail-search-wrapper .desktop-filter-option,
+        .detail-search-wrapper .desktop-quality-option {
+            padding: 3px 10px;
+            font-size: 0.65rem;
+        }
         .detail-header { display: flex; gap: 30px; padding: 20px 40px 20px 40px; flex-wrap: wrap; }
         .detail-image { flex: 2; min-width: 280px; border-radius: 24px; display: flex; align-items: center; justify-content: center; padding: 50px 40px; border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; }
         .detail-image.legendary { background: linear-gradient(145deg, #1a1208 0%, #0d0a05 100%); }
@@ -417,7 +452,7 @@
         .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; font-weight: 500; }
         .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
         
-        /* ========== 手机端专用样式 ========== */
+        /* ========== 手机端专用样式 - 完全保持不变 ========== */
         @media (max-width: 768px) {
             .sidebar { display: none; }
             .mobile-fixed-header {
@@ -608,9 +643,10 @@
                 flex-shrink: 0;
             }
             .detail-container { overflow-x: hidden; padding-bottom: 20px; }
-            .detail-header-actions { padding: 12px 16px 0 16px; }
+            /* 手机端隐藏电脑端的内嵌搜索栏，使用原有的手机端头部搜索 */
+            .detail-search-wrapper { display: none; }
+            .detail-header-actions { padding: 12px 16px 0 16px; justify-content: flex-start; }
             .detail-back-btn { margin: 0; font-size: 0.8rem; padding: 8px 16px; }
-            .detail-search-bar { margin: 12px 16px; }
             .detail-header { flex-direction: column; padding: 16px !important; gap: 16px !important; }
             .detail-image { padding: 16px !important; min-width: auto; width: 100%; border-radius: 16px; }
             .detail-image img { max-height: 180px; width: auto; max-width: 100%; margin: 0 auto; object-fit: contain; }
@@ -1151,6 +1187,7 @@
         });
     }
     
+    // 电脑端详情页内嵌搜索栏HTML
     function buildDetailSearchBarHTML() {
         return `<div class="detail-search-bar">
             <div class="search-box"><input type="text" id="detailSearchInput" placeholder="搜索车辆名称、简称、技能..."></div>
@@ -1221,8 +1258,8 @@
         let html = `<div class="detail-container">
             <div class="detail-header-actions">
                 <button class="detail-back-btn" id="backBtn">← 返回列表</button>
+                <div class="detail-search-wrapper">${buildDetailSearchBarHTML()}</div>
             </div>
-            ${buildDetailSearchBarHTML()}
             <div class="detail-header"><div class="detail-image ${bgClass}"><img src="${car.imageUrl}" onerror="this.src='https://placehold.co/600x400?text=Car'"><div class="detail-acquisition-area"><div class="detail-acquisition-icon"><img src="${car.acquisitionIcon}"></div><span class="detail-acquisition-text">${car.acquisition}</span></div></div>
             <div class="detail-info-panel"><div class="detail-name">${car.name}</div><div class="detail-badges"><span class="quality-badge-large">${car.quality}</span><div class="badge"><img src="${positionIcon}"> ${car.position}位</div><div class="badge"><img src="${specialtyIcon}"> ${car.specialty}</div></div>
             <div class="info-rows"><div class="info-row"><span class="info-label">注册日期</span><span class="info-value">${car.registerDate || '未知'}</span></div><div class="info-row"><span class="info-label">车辆类型</span><span class="info-value">${car.vehicleType || '未知'}</span></div><div class="info-row"><span class="info-label">厂商</span><span class="info-value">${car.manufacturer || '未知'}</span></div></div></div></div>
@@ -1344,4 +1381,3 @@
 </script>
 </body>
 </html>
-```
