@@ -1,3 +1,5 @@
+以下是您需要的“王牌竞速·情报站”HTML代码。它已将电脑端主界面的搜索框和分类栏置顶，并在车辆详情页顶部（返回按钮右侧、车辆图片上方）添加了同样的搜索与分类模块，实现了与手机端一致的全局搜索体验。
+```html
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -23,24 +25,90 @@
         .tab-btn:hover:not(.active) { background: #1f1f2e; color: #e2e2e6; }
         
         /* 右侧主内容区 - 需要左侧留白（电脑端） */
-        .main-content { flex: 1; margin-left: 240px; padding: 20px 24px; width: calc(100% - 240px); }
+        .main-content { flex: 1; margin-left: 240px; padding: 0 24px 20px 24px; width: calc(100% - 240px); }
         
         .page { display: none; }
         .page.active-page { display: block; }
         
-        /* 电脑端筛选栏样式 - 平铺分类，固定顶部 */
+        /* 电脑端筛选栏样式 - 平铺分类，固定置顶，无顶部空白 */
         .desktop-filter-bar {
             background: #14141f;
             border-radius: 20px;
             padding: 16px 20px;
             margin-bottom: 24px;
             position: sticky;
-            top: 20px;
+            top: 0;
             z-index: 90;
             backdrop-filter: blur(8px);
             background: rgba(20,20,31,0.95);
             border: 1px solid rgba(42,42,60,0.5);
         }
+        /* 详情页内嵌的搜索栏样式 - 紧凑且位于返回按钮右侧 */
+        .detail-search-bar {
+            background: #14141f;
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin: 0 20px 16px 20px;
+            border: 1px solid rgba(42,42,60,0.5);
+        }
+        .detail-search-bar .search-box {
+            margin-bottom: 12px;
+        }
+        .detail-search-bar .search-box input {
+            width: 100%;
+            padding: 8px 14px;
+            border-radius: 40px;
+            border: 1px solid #2a2a3c;
+            background: #1f1f2e;
+            color: #e2e2e6;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .detail-search-bar .desktop-filter-sections {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .detail-search-bar .desktop-filter-section {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .detail-search-bar .desktop-filter-section-title {
+            font-size: 0.7rem;
+            color: #feca57;
+            font-weight: 700;
+        }
+        .detail-search-bar .desktop-filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .detail-search-bar .desktop-filter-option,
+        .detail-search-bar .desktop-quality-option {
+            background: #2a2a3c;
+            border-radius: 30px;
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            color: #a0a0b8;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+        .detail-search-bar .desktop-filter-option.active,
+        .detail-search-bar .desktop-quality-option.active {
+            background: #feca57;
+            color: #1a1a2e;
+        }
+        .detail-search-bar .desktop-filter-option img {
+            width: 14px;
+            height: 14px;
+        }
+        
         .search-box { margin-bottom: 16px; }
         .search-box input { width: 100%; max-width: 400px; padding: 10px 16px; border-radius: 40px; border: 1px solid #2a2a3c; background: #1f1f2e; color: #e2e2e6; font-size: 0.9rem; font-weight: 500; }
         .desktop-filter-sections {
@@ -86,7 +154,6 @@
             width: 16px;
             height: 16px;
         }
-        /* 品质选项 - 透明背景，和其他分类显示一样 */
         .desktop-quality-option {
             background: #2a2a3c;
             border-radius: 30px;
@@ -151,7 +218,14 @@
         .stats-text { text-align: center; padding: 16px; color: #8a8aa3; font-weight: 500; }
         
         .detail-container { background: #14141f; border-radius: 24px; border: 1px solid #2a2a3c; position: relative; overflow: visible; margin-bottom: 24px; }
-        .detail-back-btn { display: inline-block; background: #1f1f2e; border: none; padding: 12px 28px; border-radius: 50px; cursor: pointer; color: #feca57; font-size: 1rem; font-weight: 700; letter-spacing: 1px; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.3); margin: 20px 0 0 24px; }
+        .detail-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 40px 0 40px;
+            flex-wrap: wrap;
+        }
+        .detail-back-btn { display: inline-block; background: #1f1f2e; border: none; padding: 10px 24px; border-radius: 50px; cursor: pointer; color: #feca57; font-size: 0.9rem; font-weight: 700; transition: 0.2s; }
         .detail-back-btn:hover { background: #feca57; color: #1a1a2e; transform: scale(1.02); }
         .detail-header { display: flex; gap: 30px; padding: 20px 40px 20px 40px; flex-wrap: wrap; }
         .detail-image { flex: 2; min-width: 280px; border-radius: 24px; display: flex; align-items: center; justify-content: center; padding: 50px 40px; border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; }
@@ -534,27 +608,26 @@
                 flex-shrink: 0;
             }
             .detail-container { overflow-x: hidden; padding-bottom: 20px; }
+            .detail-header-actions { padding: 12px 16px 0 16px; }
+            .detail-back-btn { margin: 0; font-size: 0.8rem; padding: 8px 16px; }
+            .detail-search-bar { margin: 12px 16px; }
             .detail-header { flex-direction: column; padding: 16px !important; gap: 16px !important; }
             .detail-image { padding: 16px !important; min-width: auto; width: 100%; border-radius: 16px; }
             .detail-image img { max-height: 180px; width: auto; max-width: 100%; margin: 0 auto; object-fit: contain; }
             .detail-info-panel { width: 100%; padding: 16px !important; }
             .detail-name { font-size: 1.2rem !important; font-weight: 800; }
             .features-section, .chip-slots, .vehicle-stats, .skills-section { padding: 12px 16px !important; }
-            .section-title, 
-            .chip-slots .section-title, 
-            .vehicle-stats .section-title, 
-            .skills-section .section-title,
-            .workshop-title {
+            .section-title, .chip-slots .section-title, .vehicle-stats .section-title, .skills-section .section-title, .workshop-title {
                 font-size: 1.25rem !important;
                 font-weight: 800;
             }
             .detail-acquisition-area { top: 12px; left: 12px; gap: 6px; }
             .detail-acquisition-icon { width: 55px; height: 55px; }
             .detail-acquisition-text { font-size: 0.65rem; white-space: normal; max-width: 120px; text-shadow: 0 0 4px rgba(0,0,0,0.8); font-weight: 600; }
-            .detail-back-btn { margin: 12px 0 0 12px; padding: 8px 16px; font-size: 0.85rem; font-weight: 700; }
             .stats-text { font-size: 0.75rem; font-weight: 500; }
             .skill-desc { font-size: 0.75rem; padding: 10px 12px; }
             .sub-skill-desc { font-size: 0.7rem; }
+            .desktop-filter-bar { display: none; }
         }
         
         @media (max-width: 480px) {
@@ -567,11 +640,7 @@
             .search-box input { padding: 6px 10px; font-size: 0.75rem; }
             .main-content { margin-top: 140px; }
             .feature-box { font-size: 0.7rem; padding: 5px 10px; }
-            .section-title, 
-            .chip-slots .section-title, 
-            .vehicle-stats .section-title, 
-            .skills-section .section-title,
-            .workshop-title {
+            .section-title, .chip-slots .section-title, .vehicle-stats .section-title, .skills-section .section-title, .workshop-title {
                 font-size: 1.2rem !important;
             }
         }
@@ -655,7 +724,7 @@
     
     <div class="main-content">
         <div id="vehiclesPage" class="page active-page">
-            <!-- 电脑端全局固定搜索栏（也用于详情页） -->
+            <!-- 电脑端主界面固定置顶搜索栏 -->
             <div class="desktop-filter-bar" id="desktopGlobalFilterBar">
                 <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
                 <div class="desktop-filter-sections">
@@ -814,15 +883,9 @@
     function showTooltip(e, title, content, isMobile) {
         if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
         if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
-        
-        let displayContent = content;
-        displayContent = displayContent.replace(/[\/／]/g, '\n');
-        let lines = displayContent.split(/\n/).filter(line => line.trim().length > 0);
-        let descHtml = '';
-        for (let line of lines) {
-            descHtml += `<div class="term-desc-line">${line.trim()}</div>`;
-        }
-        
+        let displayContent = content.replace(/[\/／]/g, '\n');
+        let lines = displayContent.split(/\n/).filter(l => l.trim().length > 0);
+        let descHtml = lines.map(l => `<div class="term-desc-line">${l.trim()}</div>`).join('');
         let tip = document.createElement('div');
         tip.className = isMobile ? 'feature-tooltip-mobile' : 'feature-tooltip';
         tip.innerHTML = `<div class="term-title">${title}</div>${descHtml}`;
@@ -835,25 +898,12 @@
         tip.style.left = left + 'px';
         tip.style.top = top + 'px';
         currentTooltipElement = tip;
-        activeTooltipTimer = setTimeout(() => {
-            if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
-            currentTooltipElement = null;
-            activeTooltipTimer = null;
-        }, 4000);
-        
+        activeTooltipTimer = setTimeout(() => { if (currentTooltipElement) currentTooltipElement.remove(); currentTooltipElement = null; activeTooltipTimer = null; }, 4000);
         if (isMobile) {
-            const closeHandler = () => {
-                if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
-                if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
-                currentTooltipElement = null;
-                activeTooltipTimer = null;
-                document.removeEventListener('touchstart', closeHandler);
-                document.removeEventListener('scroll', closeHandler);
-                document.removeEventListener('click', closeHandler);
-            };
-            document.addEventListener('touchstart', closeHandler, { once: true });
-            document.addEventListener('scroll', closeHandler, { once: true });
-            document.addEventListener('click', closeHandler, { once: true });
+            const close = () => { if (activeTooltipTimer) clearTimeout(activeTooltipTimer); if (currentTooltipElement) currentTooltipElement.remove(); currentTooltipElement = null; activeTooltipTimer = null; document.removeEventListener('touchstart', close); document.removeEventListener('scroll', close); document.removeEventListener('click', close); };
+            document.addEventListener('touchstart', close, { once: true });
+            document.addEventListener('scroll', close, { once: true });
+            document.addEventListener('click', close, { once: true });
         }
     }
     
@@ -865,12 +915,7 @@
             if (!isMobile) {
                 el._handler = (e) => { e.stopPropagation(); showTooltip(e, term, def, false); };
                 el.addEventListener('mouseenter', el._handler);
-                el.addEventListener('mouseleave', () => {
-                    if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
-                    if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
-                    currentTooltipElement = null;
-                    activeTooltipTimer = null;
-                });
+                el.addEventListener('mouseleave', () => { if (activeTooltipTimer) clearTimeout(activeTooltipTimer); if (currentTooltipElement) currentTooltipElement.remove(); currentTooltipElement = null; activeTooltipTimer = null; });
             } else {
                 el._handler = (e) => { e.stopPropagation(); showTooltip(e, term, def, true); };
                 el.addEventListener('click', el._handler);
@@ -878,17 +923,11 @@
         });
         document.querySelectorAll('.feature-box').forEach(box => {
             box.removeEventListener(isMobile ? 'click' : 'mouseenter', box._handler);
-            const name = box.dataset.name;
-            const desc = box.dataset.desc;
+            const name = box.dataset.name, desc = box.dataset.desc;
             if (!isMobile) {
                 box._handler = (e) => { e.stopPropagation(); showTooltip(e, name, desc, false); };
                 box.addEventListener('mouseenter', box._handler);
-                box.addEventListener('mouseleave', () => {
-                    if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
-                    if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
-                    currentTooltipElement = null;
-                    activeTooltipTimer = null;
-                });
+                box.addEventListener('mouseleave', () => { if (activeTooltipTimer) clearTimeout(activeTooltipTimer); if (currentTooltipElement) currentTooltipElement.remove(); currentTooltipElement = null; activeTooltipTimer = null; });
             } else {
                 box._handler = (e) => { e.stopPropagation(); showTooltip(e, name, desc, true); };
                 box.addEventListener('click', box._handler);
@@ -911,33 +950,19 @@
         tip.style.left = left + 'px';
         tip.style.top = top + 'px';
         activeAcqTooltip = tip;
-        
         if (!isMobile) {
-            const hideHandler = () => { if (activeAcqTooltip) activeAcqTooltip.remove(); activeAcqTooltip = null; };
-            e.currentTarget.removeEventListener('mouseleave', hideHandler);
-            e.currentTarget.addEventListener('mouseleave', hideHandler);
-            tip._hideHandler = hideHandler;
+            const hide = () => { if (activeAcqTooltip) activeAcqTooltip.remove(); activeAcqTooltip = null; };
+            e.currentTarget.removeEventListener('mouseleave', hide);
+            e.currentTarget.addEventListener('mouseleave', hide);
+            tip._hideHandler = hide;
         } else {
-            const closeHandler = () => {
-                if (activeAcqTooltip) activeAcqTooltip.remove();
-                activeAcqTooltip = null;
-                document.removeEventListener('touchstart', closeHandler);
-                document.removeEventListener('scroll', closeHandler);
-                document.removeEventListener('click', closeHandler);
-            };
-            setTimeout(() => {
-                document.addEventListener('touchstart', closeHandler, { once: true });
-                document.addEventListener('scroll', closeHandler, { once: true });
-                document.addEventListener('click', closeHandler, { once: true });
-            }, 50);
+            const close = () => { if (activeAcqTooltip) activeAcqTooltip.remove(); activeAcqTooltip = null; document.removeEventListener('touchstart', close); document.removeEventListener('scroll', close); document.removeEventListener('click', close); };
+            setTimeout(() => { document.addEventListener('touchstart', close, { once: true }); document.addEventListener('scroll', close, { once: true }); document.addEventListener('click', close, { once: true }); }, 50);
         }
     }
     
-    // 实时搜索：从任何页面输入时，跳回主界面并筛选
     function performRealtimeSearch(searchValue) {
-        if (isDetail) {
-            restoreList();
-        }
+        if (isDetail) restoreList();
         setTimeout(() => {
             keyword = searchValue.trim();
             const mobileInput = document.getElementById('searchInputMobile');
@@ -961,16 +986,8 @@
         const mobileInput = document.getElementById('searchInputMobile');
         const desktopInput = document.getElementById('searchInputDesktop');
         const handler = (e) => { performRealtimeSearch(e.target.value); };
-        if (mobileInput) {
-            mobileInput.removeEventListener('input', mobileInput._realtimeHandler);
-            mobileInput._realtimeHandler = handler;
-            mobileInput.addEventListener('input', mobileInput._realtimeHandler);
-        }
-        if (desktopInput) {
-            desktopInput.removeEventListener('input', desktopInput._realtimeHandler);
-            desktopInput._realtimeHandler = handler;
-            desktopInput.addEventListener('input', desktopInput._realtimeHandler);
-        }
+        if (mobileInput) { mobileInput.removeEventListener('input', mobileInput._realtimeHandler); mobileInput._realtimeHandler = handler; mobileInput.addEventListener('input', mobileInput._realtimeHandler); }
+        if (desktopInput) { desktopInput.removeEventListener('input', desktopInput._realtimeHandler); desktopInput._realtimeHandler = handler; desktopInput.addEventListener('input', desktopInput._realtimeHandler); }
     }
     
     async function loadData() {
@@ -1033,45 +1050,23 @@
             });
             document.querySelectorAll('#positionOptions .filter-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
-                opt.addEventListener('click', opt._clickHandler = () => {
-                    let val = opt.dataset.value;
-                    activeFilters.position = (activeFilters.position === val) ? "" : val;
-                    updateFilterUI();
-                    renderList();
-                });
+                opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.position = (activeFilters.position === val) ? "" : val; updateFilterUI(); renderList(); });
             });
             document.querySelectorAll('#specialtyOptions .filter-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
-                opt.addEventListener('click', opt._clickHandler = () => {
-                    let val = opt.dataset.value;
-                    activeFilters.specialty = (activeFilters.specialty === val) ? "" : val;
-                    updateFilterUI();
-                    renderList();
-                });
+                opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.specialty = (activeFilters.specialty === val) ? "" : val; updateFilterUI(); renderList(); });
             });
             document.querySelectorAll('#qualityOptions .quality-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
-                opt.addEventListener('click', opt._clickHandler = () => {
-                    let val = opt.dataset.value;
-                    activeFilters.quality = (activeFilters.quality === val) ? "" : val;
-                    updateFilterUI();
-                    renderList();
-                });
+                opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.quality = (activeFilters.quality === val) ? "" : val; updateFilterUI(); renderList(); });
             });
             const dropdownBtn = document.getElementById('categoryDropdownBtn');
             const dropdownPanel = document.getElementById('categoryDropdownPanel');
             if (dropdownBtn && dropdownPanel) {
                 dropdownBtn.removeEventListener('click', dropdownBtn._clickHandler);
-                dropdownBtn.addEventListener('click', dropdownBtn._clickHandler = (e) => {
-                    e.stopPropagation();
-                    dropdownPanel.classList.toggle('show');
-                    dropdownBtn.classList.toggle('active');
-                });
+                dropdownBtn.addEventListener('click', dropdownBtn._clickHandler = (e) => { e.stopPropagation(); dropdownPanel.classList.toggle('show'); dropdownBtn.classList.toggle('active'); });
                 document.removeEventListener('click', document._closeDropdown);
-                document._closeDropdown = () => {
-                    dropdownPanel.classList.remove('show');
-                    dropdownBtn.classList.remove('active');
-                };
+                document._closeDropdown = () => { dropdownPanel.classList.remove('show'); dropdownBtn.classList.remove('active'); };
                 document.addEventListener('click', document._closeDropdown);
                 dropdownPanel.addEventListener('click', (e) => e.stopPropagation());
             }
@@ -1081,62 +1076,29 @@
             if (desktopFilterBar) desktopFilterBar.style.display = 'block';
             document.querySelectorAll('#desktopPositionOptions .desktop-filter-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
-                opt.addEventListener('click', opt._clickHandler = () => {
-                    let val = opt.dataset.value;
-                    activeFilters.position = (activeFilters.position === val) ? "" : val;
-                    updateDesktopFilterUI();
-                    renderList();
-                });
+                opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.position = (activeFilters.position === val) ? "" : val; updateDesktopFilterUI(); renderList(); });
             });
             document.querySelectorAll('#desktopSpecialtyOptions .desktop-filter-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
-                opt.addEventListener('click', opt._clickHandler = () => {
-                    let val = opt.dataset.value;
-                    activeFilters.specialty = (activeFilters.specialty === val) ? "" : val;
-                    updateDesktopFilterUI();
-                    renderList();
-                });
+                opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.specialty = (activeFilters.specialty === val) ? "" : val; updateDesktopFilterUI(); renderList(); });
             });
             document.querySelectorAll('#desktopQualityOptions .desktop-quality-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
-                opt.addEventListener('click', opt._clickHandler = () => {
-                    let val = opt.dataset.value;
-                    activeFilters.quality = (activeFilters.quality === val) ? "" : val;
-                    updateDesktopFilterUI();
-                    renderList();
-                });
+                opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.quality = (activeFilters.quality === val) ? "" : val; updateDesktopFilterUI(); renderList(); });
             });
             updateDesktopFilterUI();
         }
     }
     
     function updateFilterUI() {
-        document.querySelectorAll('#positionOptions .filter-option').forEach(opt => {
-            if (opt.dataset.value === activeFilters.position) opt.classList.add('active');
-            else opt.classList.remove('active');
-        });
-        document.querySelectorAll('#specialtyOptions .filter-option').forEach(opt => {
-            if (opt.dataset.value === activeFilters.specialty) opt.classList.add('active');
-            else opt.classList.remove('active');
-        });
-        document.querySelectorAll('#qualityOptions .quality-option').forEach(opt => {
-            if (opt.dataset.value === activeFilters.quality) opt.classList.add('active');
-            else opt.classList.remove('active');
-        });
+        document.querySelectorAll('#positionOptions .filter-option').forEach(opt => { if (opt.dataset.value === activeFilters.position) opt.classList.add('active'); else opt.classList.remove('active'); });
+        document.querySelectorAll('#specialtyOptions .filter-option').forEach(opt => { if (opt.dataset.value === activeFilters.specialty) opt.classList.add('active'); else opt.classList.remove('active'); });
+        document.querySelectorAll('#qualityOptions .quality-option').forEach(opt => { if (opt.dataset.value === activeFilters.quality) opt.classList.add('active'); else opt.classList.remove('active'); });
     }
     function updateDesktopFilterUI() {
-        document.querySelectorAll('#desktopPositionOptions .desktop-filter-option').forEach(opt => {
-            if (opt.dataset.value === activeFilters.position) opt.classList.add('active');
-            else opt.classList.remove('active');
-        });
-        document.querySelectorAll('#desktopSpecialtyOptions .desktop-filter-option').forEach(opt => {
-            if (opt.dataset.value === activeFilters.specialty) opt.classList.add('active');
-            else opt.classList.remove('active');
-        });
-        document.querySelectorAll('#desktopQualityOptions .desktop-quality-option').forEach(opt => {
-            if (opt.dataset.value === activeFilters.quality) opt.classList.add('active');
-            else opt.classList.remove('active');
-        });
+        document.querySelectorAll('#desktopPositionOptions .desktop-filter-option').forEach(opt => { if (opt.dataset.value === activeFilters.position) opt.classList.add('active'); else opt.classList.remove('active'); });
+        document.querySelectorAll('#desktopSpecialtyOptions .desktop-filter-option').forEach(opt => { if (opt.dataset.value === activeFilters.specialty) opt.classList.add('active'); else opt.classList.remove('active'); });
+        document.querySelectorAll('#desktopQualityOptions .desktop-quality-option').forEach(opt => { if (opt.dataset.value === activeFilters.quality) opt.classList.add('active'); else opt.classList.remove('active'); });
     }
     
     function renderList() {
@@ -1144,19 +1106,14 @@
         let grid = document.getElementById("carsGrid");
         let stats = document.getElementById("statsText");
         if (!grid) return;
-        if (filtered.length === 0) {
-            grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px; color:#8a8aa3;">暂无车辆数据</div>';
-            stats.innerText = "共 0 辆车";
-            return;
-        }
+        if (filtered.length === 0) { grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px; color:#8a8aa3;">暂无车辆数据</div>'; stats.innerText = "共 0 辆车"; return; }
         grid.innerHTML = filtered.map(car => {
             let bgClass = getQualityClass(car.quality);
             let borderClass = getBorderClass(car.quality);
             let badgeClass = car.quality === "传说" ? "legendary" : (car.quality === "史诗" ? "epic" : (car.quality === "稀有" ? "rare" : "normal"));
             let positionIcon = POSITION_ICONS[car.position] || POSITION_ICONS["辅助"];
             let specialtyIcon = SPECIALTY_ICONS[car.specialty] || SPECIALTY_ICONS["场地"];
-            let extraRacingHtml = '';
-            if (EXTRA_RACING_ICON_CARS.includes(car.name)) extraRacingHtml = `<div class="meta-item"><img src="${RACING_ICON_URL}"><span>竞速</span></div>`;
+            let extraRacingHtml = EXTRA_RACING_ICON_CARS.includes(car.name) ? `<div class="meta-item"><img src="${RACING_ICON_URL}"><span>竞速</span></div>` : '';
             return `<div class="car-card ${borderClass}" data-id="${car.id}">
                         <div class="card-image ${bgClass}">
                             <img src="${car.imageUrl}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/400x200?text=Car'">
@@ -1164,10 +1121,7 @@
                         </div>
                         <div class="card-info">
                             <div class="car-title"><span class="car-name">${car.name}</span></div>
-                            <div class="car-meta">
-                                <div class="meta-item"><img src="${positionIcon}"><span>${car.position}</span></div>${extraRacingHtml}
-                                <div class="meta-item"><img src="${specialtyIcon}"><span>${car.specialty}</span></div>
-                            </div>
+                            <div class="car-meta"><div class="meta-item"><img src="${positionIcon}"><span>${car.position}</span></div>${extraRacingHtml}<div class="meta-item"><img src="${specialtyIcon}"><span>${car.specialty}</span></div></div>
                             <div class="car-description">${car.description}</div>
                         </div>
                         <div class="quality-badge-wrapper"><span class="quality-badge ${badgeClass}">${car.quality}</span></div>
@@ -1197,6 +1151,58 @@
         });
     }
     
+    function buildDetailSearchBarHTML() {
+        return `<div class="detail-search-bar">
+            <div class="search-box"><input type="text" id="detailSearchInput" placeholder="搜索车辆名称、简称、技能..."></div>
+            <div class="desktop-filter-sections">
+                <div class="desktop-filter-section"><div class="desktop-filter-section-title">定位</div><div class="desktop-filter-options" id="detailPositionOptions">
+                    <div class="desktop-filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
+                    <div class="desktop-filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
+                    <div class="desktop-filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
+                    <div class="desktop-filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
+                </div></div>
+                <div class="desktop-filter-section"><div class="desktop-filter-section-title">专精</div><div class="desktop-filter-options" id="detailSpecialtyOptions">
+                    <div class="desktop-filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
+                    <div class="desktop-filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
+                    <div class="desktop-filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
+                </div></div>
+                <div class="desktop-filter-section"><div class="desktop-filter-section-title">品质</div><div class="desktop-filter-options" id="detailQualityOptions">
+                    <div class="desktop-quality-option" data-type="quality" data-value="传说">传说</div>
+                    <div class="desktop-quality-option" data-type="quality" data-value="史诗">史诗</div>
+                    <div class="desktop-quality-option" data-type="quality" data-value="稀有">稀有</div>
+                    <div class="desktop-quality-option" data-type="quality" data-value="普通">普通</div>
+                </div></div>
+            </div>
+        </div>`;
+    }
+    
+    function bindDetailFilters() {
+        document.querySelectorAll('#detailPositionOptions .desktop-filter-option').forEach(opt => {
+            opt.removeEventListener('click', opt._clickHandler);
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.position = (activeFilters.position === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(); });
+        });
+        document.querySelectorAll('#detailSpecialtyOptions .desktop-filter-option').forEach(opt => {
+            opt.removeEventListener('click', opt._clickHandler);
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.specialty = (activeFilters.specialty === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(); });
+        });
+        document.querySelectorAll('#detailQualityOptions .desktop-quality-option').forEach(opt => {
+            opt.removeEventListener('click', opt._clickHandler);
+            opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.quality = (activeFilters.quality === val) ? "" : val; updateDetailFilterUI(); renderList(); if (isDetail) restoreList(); });
+        });
+        const detailSearchInput = document.getElementById('detailSearchInput');
+        if (detailSearchInput) {
+            detailSearchInput.removeEventListener('input', detailSearchInput._detailHandler);
+            detailSearchInput._detailHandler = (e) => { performRealtimeSearch(e.target.value); };
+            detailSearchInput.addEventListener('input', detailSearchInput._detailHandler);
+        }
+    }
+    
+    function updateDetailFilterUI() {
+        document.querySelectorAll('#detailPositionOptions .desktop-filter-option').forEach(opt => { if (opt.dataset.value === activeFilters.position) opt.classList.add('active'); else opt.classList.remove('active'); });
+        document.querySelectorAll('#detailSpecialtyOptions .desktop-filter-option').forEach(opt => { if (opt.dataset.value === activeFilters.specialty) opt.classList.add('active'); else opt.classList.remove('active'); });
+        document.querySelectorAll('#detailQualityOptions .desktop-quality-option').forEach(opt => { if (opt.dataset.value === activeFilters.quality) opt.classList.add('active'); else opt.classList.remove('active'); });
+    }
+    
     function showDetail(id) {
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
@@ -1212,7 +1218,11 @@
         let featuresHtml = (car.skills.features && car.skills.features.length) ? car.skills.features.map(f => `<div class="feature-box" data-desc="${(f.desc || '').replace(/"/g, '&quot;')}" data-name="${f.name}" data-color="${f.color || '默认'}">${f.name}</div>`).join('') : '<div style="color:#8a8aa3; padding:10px;">暂无特点数据</div>';
         let spBlockHtml = '';
         if (car.sp) { let spDesc = formatSkillText(car.sp.desc); spBlockHtml = `<div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.sp.icon}"></div><div class="skill-title">SP：${car.sp.name}</div></div><div class="skill-desc"><div class="sp-cooltime">冷却时间：${car.sp.cooltime}</div>${spDesc}</div></div>`; }
-        let html = `<div class="detail-container"><button class="detail-back-btn" id="backBtn">← 返回列表</button>
+        let html = `<div class="detail-container">
+            <div class="detail-header-actions">
+                <button class="detail-back-btn" id="backBtn">← 返回列表</button>
+            </div>
+            ${buildDetailSearchBarHTML()}
             <div class="detail-header"><div class="detail-image ${bgClass}"><img src="${car.imageUrl}" onerror="this.src='https://placehold.co/600x400?text=Car'"><div class="detail-acquisition-area"><div class="detail-acquisition-icon"><img src="${car.acquisitionIcon}"></div><span class="detail-acquisition-text">${car.acquisition}</span></div></div>
             <div class="detail-info-panel"><div class="detail-name">${car.name}</div><div class="detail-badges"><span class="quality-badge-large">${car.quality}</span><div class="badge"><img src="${positionIcon}"> ${car.position}位</div><div class="badge"><img src="${specialtyIcon}"> ${car.specialty}</div></div>
             <div class="info-rows"><div class="info-row"><span class="info-label">注册日期</span><span class="info-value">${car.registerDate || '未知'}</span></div><div class="info-row"><span class="info-label">车辆类型</span><span class="info-value">${car.vehicleType || '未知'}</span></div><div class="info-row"><span class="info-label">厂商</span><span class="info-value">${car.manufacturer || '未知'}</span></div></div></div></div>
@@ -1232,6 +1242,7 @@
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = html;
         document.getElementById("backBtn")?.addEventListener("click", restoreList);
+        bindDetailFilters();
         const mobile = isMobileDevice();
         bindTermAndFeatureEvents(mobile);
         clearAllSearchBoxes();
@@ -1333,3 +1344,4 @@
 </script>
 </body>
 </html>
+```
