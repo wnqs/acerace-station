@@ -43,44 +43,49 @@
         .page { display: none; }
         .page.active-page { display: block; }
         
-        /* 电脑端固定顶部导航栏 - 主界面和详情页共用，半透明毛玻璃效果 */
+        /* 电脑端固定顶部导航栏 - 半透明毛玻璃效果 */
         .desktop-header {
             position: sticky;
             top: 0;
             z-index: 100;
             background: rgba(15, 15, 23, 0.85);
             backdrop-filter: blur(12px);
-            padding-top: 12px;
+            padding: 4px 0 0 0;
             border-bottom: 1px solid rgba(42, 42, 60, 0.5);
             margin-bottom: 24px;
         }
-        /* 原筛选栏样式调整，去掉多余背景和边距，融入半透明头 */
-        .desktop-filter-bar {
-            background: rgba(20, 20, 31, 0.7);
-            border-radius: 20px;
-            padding: 16px 20px;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(42, 42, 60, 0.5);
-            margin-bottom: 0;
-        }
-        /* 返回按钮区域 - 放在筛选栏上方，位于左侧导航栏同行的位置 */
+        /* 顶部栏第一行：标题和返回按钮区域 */
         .desktop-header-top {
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            gap: 16px;
-            padding: 0 0 12px 0;
-            margin-left: 0;
+            justify-content: space-between;
+            padding: 0 0 6px 0;
         }
+        .header-title-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .page-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #e2e2e6;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        /* 返回列表按钮 - 仅在详情页显示，位于标题左侧 */
         .detail-back-btn-header {
             display: inline-block;
             background: rgba(31, 31, 46, 0.9);
             border: none;
-            padding: 6px 16px;
+            padding: 4px 14px;
             border-radius: 40px;
             cursor: pointer;
             color: #feca57;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 700;
             transition: 0.2s;
             backdrop-filter: blur(4px);
@@ -90,9 +95,36 @@
             color: #1a1a2e;
             transform: scale(1.02);
         }
+        /* 占位元素，用于保持右侧布局平衡 */
+        .header-right-placeholder {
+            width: 80px;
+        }
         
+        /* 筛选栏容器 */
+        .desktop-filter-bar {
+            background: rgba(20, 20, 31, 0.7);
+            border-radius: 20px;
+            padding: 16px 20px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(42, 42, 60, 0.5);
+            margin-bottom: 0;
+        }
         .search-box { margin-bottom: 16px; }
-        .search-box input { width: 100%; max-width: 400px; padding: 10px 16px; border-radius: 40px; border: 1px solid #2a2a3c; background: #1f1f2e; color: #e2e2e6; font-size: 0.9rem; font-weight: 500; }
+        .search-box input { 
+            width: 100%; 
+            max-width: 400px; 
+            padding: 10px 16px; 
+            border-radius: 40px; 
+            border: 1px solid #2a2a3c; 
+            background: #1f1f2e; 
+            color: #e2e2e6; 
+            font-size: 0.9rem; 
+            font-weight: 500;
+            outline: none;
+        }
+        .search-box input:focus {
+            border-color: #feca57;
+        }
         .desktop-filter-sections {
             display: flex;
             flex-wrap: wrap;
@@ -706,10 +738,14 @@
         <!-- 电脑端固定顶部导航栏（主界面和详情页共用）半透明毛玻璃 -->
         <div class="desktop-header" id="desktopHeader">
             <div class="desktop-header-top" id="desktopHeaderTop">
-                <!-- 返回按钮区域，详情页时显示，主界面时隐藏 -->
-                <div id="headerBackBtn" style="display: none;">
-                    <button class="detail-back-btn-header" id="headerBackButton">← 返回列表</button>
+                <div class="header-title-area">
+                    <!-- 返回按钮容器，仅在详情页显示 -->
+                    <div id="headerBackBtn" style="display: none;">
+                        <button class="detail-back-btn-header" id="headerBackButton">← 返回列表</button>
+                    </div>
+                    <span class="page-title">车辆数据</span>
                 </div>
+                <div class="header-right-placeholder"></div>
             </div>
             <div class="desktop-filter-bar">
                 <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
@@ -772,6 +808,8 @@
     let activeTooltipTimer = null;
     let currentTooltipElement = null;
     let isDetail = false;
+    let searchDebounceTimer = null;
+    let pendingSearchValue = "";
     
     const EXTRA_RACING_ICON_CARS = ["女武神"];
     const RACING_ICON_URL = "https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png";
@@ -957,11 +995,7 @@
     
     function clearAllFilters() {
         activeFilters = { position: "", specialty: "", quality: "" };
-        keyword = "";
-        const mobileInput = document.getElementById('searchInputMobile');
-        const desktopInput = document.getElementById('searchInputDesktop');
-        if (mobileInput) mobileInput.value = "";
-        if (desktopInput) desktopInput.value = "";
+        // 注意：不清空 keyword，因为搜索框的值应该保留
         if (isMobileDevice()) {
             updateFilterUI();
         } else {
@@ -974,44 +1008,72 @@
         return !!(activeFilters.position || activeFilters.specialty || activeFilters.quality);
     }
     
-    // 统一搜索处理（不会导致输入中断）
-    function performSearch(searchValue) {
-        // 如果当前在详情页，先返回列表页再搜索
+    // 核心搜索逻辑：使用防抖，确保在详情页搜索时先跳转再执行
+    function executeSearch(searchValue) {
+        const searchTerm = searchValue.trim();
+        // 如果当前在详情页，先返回列表页（不清除筛选，但要清除搜索关键词记录? 逻辑：先跳转再搜索）
         if (isDetail) {
-            // 先清除筛选并返回列表（不触发搜索，防止覆盖当前输入值）
+            // 临时保存要搜索的值
+            pendingSearchValue = searchTerm;
+            // 清除筛选并返回主界面
             clearAllFilters();
+            // 返回列表页（不触发额外渲染）
             goToList(false);
-        }
-        setTimeout(() => {
-            keyword = searchValue.trim();
-            const mobileInput = document.getElementById('searchInputMobile');
+            // 等待 DOM 更新后再设置关键词并刷新列表
+            setTimeout(() => {
+                keyword = pendingSearchValue;
+                // 同步搜索框的值
+                const desktopInput = document.getElementById('searchInputDesktop');
+                if (desktopInput && desktopInput.value !== keyword) desktopInput.value = keyword;
+                renderList();
+                window.scrollTo(0, 0);
+                pendingSearchValue = "";
+            }, 50);
+        } else {
+            // 主界面直接搜索
+            keyword = searchTerm;
             const desktopInput = document.getElementById('searchInputDesktop');
-            // 避免回写导致光标跳动
-            if (mobileInput && mobileInput.value !== keyword) mobileInput.value = keyword;
             if (desktopInput && desktopInput.value !== keyword) desktopInput.value = keyword;
             renderList();
             window.scrollTo(0, 0);
-        }, 30);
+        }
+    }
+    
+    // 防抖包装的搜索处理
+    function handleSearchInput(e) {
+        const value = e.target.value;
+        if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+        searchDebounceTimer = setTimeout(() => {
+            executeSearch(value);
+        }, 300);
+    }
+    
+    function attachSearchInputEvents() {
+        const desktopInput = document.getElementById('searchInputDesktop');
+        const mobileInput = document.getElementById('searchInputMobile');
+        if (desktopInput) {
+            desktopInput.removeEventListener('input', desktopInput._handler);
+            desktopInput._handler = handleSearchInput;
+            desktopInput.addEventListener('input', desktopInput._handler);
+        }
+        if (mobileInput) {
+            mobileInput.removeEventListener('input', mobileInput._handler);
+            mobileInput._handler = handleSearchInput;
+            mobileInput.addEventListener('input', mobileInput._handler);
+        }
     }
     
     function clearAllSearchBoxes() {
         keyword = "";
-        const mobileInput = document.getElementById('searchInputMobile');
         const desktopInput = document.getElementById('searchInputDesktop');
-        if (mobileInput) mobileInput.value = "";
+        const mobileInput = document.getElementById('searchInputMobile');
         if (desktopInput) desktopInput.value = "";
-    }
-    
-    function attachSearchInputEvents() {
-        const mobileInput = document.getElementById('searchInputMobile');
-        const desktopInput = document.getElementById('searchInputDesktop');
-        const handler = (e) => { performSearch(e.target.value); };
-        if (mobileInput) { mobileInput.removeEventListener('input', mobileInput._realtimeHandler); mobileInput._realtimeHandler = handler; mobileInput.addEventListener('input', mobileInput._realtimeHandler); }
-        if (desktopInput) { desktopInput.removeEventListener('input', desktopInput._realtimeHandler); desktopInput._realtimeHandler = handler; desktopInput.addEventListener('input', desktopInput._realtimeHandler); }
+        if (mobileInput) mobileInput.value = "";
     }
     
     function handleBackButton() {
         if (isDetail) {
+            // 详情页返回：清除筛选，回到主界面顶部
             clearAllFilters();
             goToList(true);
         } else {
@@ -1323,7 +1385,10 @@
         
         const mobile = isMobileDevice();
         bindTermAndFeatureEvents(mobile);
-        clearAllSearchBoxes();
+        // 清空搜索框（详情页不需要显示搜索关键词）
+        const desktopInput = document.getElementById('searchInputDesktop');
+        if (desktopInput) desktopInput.value = "";
+        keyword = "";
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
         window.scrollTo(0, 0);
