@@ -1110,12 +1110,12 @@
         const searchTerm = searchValue;
         const currentCarId = new URLSearchParams(window.location.search).get('car');
         if (currentCarId) {
-            // 从详情页执行搜索，需要跳转到列表页并清除URL参数
+            // 从详情页执行搜索，需要跳转到列表页并清除URL参数，同时隐藏返回按钮
             clearAllFilters();
             const newUrl = window.location.pathname;
-            // 使用 replaceState 替换当前历史记录，避免在详情页留下多余的历史记录
+            // 使用 replaceState 替换当前历史记录，这样按返回键时不会回到这个错误的详情页状态
             history.replaceState(null, '', newUrl);
-            // 隐藏返回按钮（因为现在已经在主界面了）
+            // 隐藏返回按钮
             const headerBackBtn = document.getElementById('headerBackBtn');
             if (headerBackBtn) headerBackBtn.style.display = 'none';
             restoreList();
@@ -1194,7 +1194,7 @@
             const headerBackButton = document.getElementById('headerBackButton');
             if (headerBackButton) {
                 headerBackButton.addEventListener('click', () => {
-                    // 点击返回按钮：清除筛选和搜索，跳转到列表页
+                    // 点击返回按钮：清除筛选和搜索，跳转到列表页，并隐藏返回按钮
                     clearAllFilters();
                     clearAllSearchBoxes();
                     const newUrl = window.location.pathname;
@@ -1239,7 +1239,7 @@
                         restoreList();
                     }
                 } else {
-                    // 无 car 参数：显示列表页，且这是主界面状态
+                    // 无 car 参数：显示列表页，这是主界面状态，隐藏返回按钮
                     const headerBackBtn = document.getElementById('headerBackBtn');
                     if (headerBackBtn) headerBackBtn.style.display = 'none';
                     restoreList();
@@ -1425,9 +1425,10 @@
     function showDetail(id) {
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
-        // 使用 pushState 添加新历史记录，确保返回键能正确回到列表页
+        // 关键修复：在详情页内切换车辆时使用 replaceState 替换当前记录，保持历史记录栈中只有一条详情页记录
+        // 这样用户按返回键时会直接回到主界面（列表页），而不是在多个详情页之间来回切换
         const newUrl = window.location.pathname + '?car=' + id;
-        history.pushState({ carId: id }, '', newUrl);
+        history.replaceState({ carId: id }, '', newUrl);
         
         const headerBackBtn = document.getElementById('headerBackBtn');
         if (headerBackBtn) headerBackBtn.style.display = 'block';
