@@ -32,25 +32,25 @@
         .tab-btn.active { background: #2a2a3c; color: #feca57; }
         .tab-btn:hover:not(.active) { background: #1f1f2e; color: #e2e2e6; }
         
-        /* 右侧主内容区 - 需要左侧留白（电脑端），增加底部内边距确保第二排卡片完整显示 */
+        /* 右侧主内容区 - 需要左侧留白（电脑端），顶部不留空白，让筛选栏紧贴顶部 */
         .main-content { 
             flex: 1; 
             margin-left: 240px; 
-            padding: 20px 24px 60px 24px; 
+            padding: 0 24px 60px 24px; 
             width: calc(100% - 240px); 
         }
         
         .page { display: none; }
         .page.active-page { display: block; }
         
-        /* 电脑端筛选栏样式 */
+        /* 电脑端筛选栏样式 - 紧贴顶部滚动 */
         .desktop-filter-bar {
             background: #14141f;
             border-radius: 20px;
             padding: 16px 20px;
             margin-bottom: 24px;
             position: sticky;
-            top: 20px;
+            top: 0;
             z-index: 90;
             backdrop-filter: blur(8px);
             background: rgba(20,20,31,0.95);
