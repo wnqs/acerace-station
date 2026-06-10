@@ -280,7 +280,7 @@
         .card-image.normal::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.12), transparent 70%); pointer-events: none; }
         .card-image img { max-width: 100%; max-height: 100%; object-fit: contain; position: relative; z-index: 2; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
         
-        .acquisition-icon { position: absolute; bottom: 12px; right: 12px; width: 64px; height: 64px; cursor: pointer; z-index: 10; transition: transform 0.2s; background: transparent; border-radius: 0; }
+        .acquisition-icon { position: absolute; bottom: 12px; right: 12px; width: 48px; height: 48px; cursor: pointer; z-index: 10; transition: transform 0.2s; background: transparent; border-radius: 0; }
         .acquisition-icon:hover { transform: scale(1.08); }
         .acquisition-icon img { width: 100%; height: 100%; object-fit: contain; }
         
@@ -648,7 +648,7 @@
             font-style: normal;
         }
         
-        /* 手机端样式 */
+        /* ========== 手机端样式（修复版） ========== */
         @media (max-width: 768px) {
             .sidebar { display: none; }
             .mobile-fixed-header {
@@ -696,18 +696,72 @@
             .main-content { margin-left: 0; margin-top: 0; padding: 12px; width: 100%; }
             body.has-fixed-header .main-content { margin-top: 145px; }
             
+            /* 车辆卡片手机端布局 */
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card-image { height: 130px; padding: 12px; }
             .car-name { font-size: 0.85rem; }
+            .acquisition-icon { width: 40px; height: 40px; bottom: 6px; right: 6px; }
+            .quality-badge { font-size: 0.55rem; padding: 2px 8px; bottom: 8px; right: 8px; }
+            .quality-badge-wrapper { bottom: 8px; right: 8px; }
+            .meta-item { font-size: 0.6rem; padding: 3px 8px; }
+            .car-description { font-size: 0.65rem; }
             
+            /* 芯片卡片手机端布局 */
             .chips-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .chip-image { height: 120px; padding: 12px; }
             .chip-name { font-size: 0.85rem; }
             .chip-meta-tag { font-size: 0.55rem; padding: 3px 6px; }
             .chip-effect { font-size: 0.65rem; }
             .chip-desc { font-size: 0.65rem; }
-            .quality-badge { font-size: 0.5rem; padding: 2px 6px; }
             
+            /* 车辆详情页手机端布局 */
+            .detail-container { overflow-x: hidden; padding-bottom: 20px; }
+            .detail-header { flex-direction: column; padding: 16px !important; gap: 16px !important; }
+            .detail-image { padding: 16px !important; min-width: auto; width: 100%; border-radius: 16px; }
+            .detail-image img { max-height: 180px; width: auto; max-width: 100%; margin: 0 auto; object-fit: contain; }
+            .detail-info-panel { width: 100%; padding: 16px !important; }
+            .detail-name { font-size: 1.2rem !important; font-weight: 800; }
+            .features-section, .chip-slots, .vehicle-stats, .skills-section { padding: 12px 16px !important; }
+            .section-title, .chip-slots .section-title, .vehicle-stats .section-title, .skills-section .section-title, .workshop-title {
+                font-size: 1.25rem !important;
+                font-weight: 800;
+            }
+            /* 车辆特点一排三个 */
+            .features-horizontal {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .feature-box {
+                white-space: nowrap;
+                font-size: 0.7rem;
+                padding: 5px 10px;
+                text-align: center;
+                word-break: keep-all;
+                display: inline-block;
+                width: auto;
+            }
+            /* 芯片槽一排显示 */
+            .chip-icons {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                gap: 8px;
+                padding-bottom: 4px;
+            }
+            .chip-icon {
+                width: 44px;
+                height: 44px;
+                flex-shrink: 0;
+            }
+            .detail-acquisition-area { top: 12px; left: 12px; gap: 6px; }
+            .detail-acquisition-icon { width: 55px; height: 55px; }
+            .detail-acquisition-text { font-size: 0.65rem; white-space: normal; max-width: 120px; text-shadow: 0 0 4px rgba(0,0,0,0.8); font-weight: 600; }
+            .stats-text { font-size: 0.75rem; font-weight: 500; }
+            .skill-desc { font-size: 0.75rem; padding: 10px 12px; }
+            .sub-skill-desc { font-size: 0.7rem; }
+            
+            /* 芯片手机端筛选下拉栏 */
             .chip-mobile-filter-sticky {
                 padding: 8px 12px;
                 background: #0a0a0f;
@@ -813,6 +867,15 @@
             .acquisition-icon { bottom: 2px; width: 70px; height: 70px; }
             .mobile-fixed-header { display: none; }
             .chip-mobile-filter-sticky { display: none; }
+        }
+        
+        @media (max-width: 480px) {
+            .cars-grid { gap: 10px; }
+            .card-image { height: 110px; }
+            .car-name { font-size: 0.75rem; }
+            .meta-item { font-size: 0.55rem; padding: 2px 6px; }
+            .feature-box { font-size: 0.65rem; padding: 4px 8px; }
+            .section-title { font-size: 1.1rem !important; }
         }
     </style>
 </head>
@@ -1044,7 +1107,6 @@
     // ========== 通用函数 ==========
     function isMobileDevice() { return window.innerWidth <= 768; }
     
-    // 数字标红函数（用于芯片效果描述和说明）
     function applyNumberHighlightToText(text) {
         if (!text) return text;
         let result = text;
@@ -1054,7 +1116,6 @@
         return result;
     }
     
-    // 更新详情页标志和返回按钮显示
     function updateDetailState(isDetail) {
         isInDetail = isDetail;
         const headerBackBtn = document.getElementById('headerBackBtn');
@@ -1067,7 +1128,6 @@
         }
     }
     
-    // 返回到车辆数据主界面
     function returnToVehicleList() {
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('car')) {
@@ -1658,7 +1718,6 @@
             const qualityClass = getChipQualityClass(chip.quality);
             let effectDesc = chip.effectDescription || "暂无效果描述";
             let effectNote = chip.effectNote || "暂无效果说明";
-            // 对效果描述和效果说明中的数字进行标红
             effectDesc = applyNumberHighlightToText(effectDesc);
             effectNote = applyNumberHighlightToText(effectNote);
             return `<div class="chip-card ${borderClass}">
