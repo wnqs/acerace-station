@@ -3741,6 +3741,212 @@
         "desc": "进行冲锋形态和迅捷形态之间的切换",
         "cooltime": "15秒"
       }
+    },
+    {  
+      "id": "porsche_taycan_turbo_s",
+      "name": "保时捷 Taycan Turbo S",
+      "quality": "传说",
+      "position": "天平",
+      "specialty": "城市",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/11/swFGuNof.png",
+      "positionIcon": "天平",
+      "specialtyIcon": "城市",
+      "description": "提升友方全体叠速效率，降低敌方非漂移集气",
+      "skillName": "扶摇直上",
+      "searchKeywords": ["保时捷 Taycan Turbo S", "扶摇直上", "一举两得", "电保时捷"],
+      "registerDate": "2025-09-26",
+      "vehicleType": "真实阵营",
+      "manufacturer": "保时捷",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/gsI0LDZl.png",
+      "stats": {
+        "topSpeed": "229.0 km/h",
+        "power": "8.41",
+        "durability": "110",
+        "nitroCharge": "31.0%",
+        "startCharge": "31.0%",
+        "nitroDuration": "5.20 s",
+        "nitroSpeed": { "blue": "26.00 km/h", "purple": "39.00 km/h" },
+        "turboDuration": { "blue": "0.65 s", "purple": "1.95 s" },
+        "turboSpeed": { "blue": "7.20 km/h", "purple": "10.80 km/h" },
+        "ultPower": "7"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "扶摇直上",
+          "desc": "加速推进，极速提升55km/h，持续7秒：加速期间获得隐身和集气无阈值效果；每次使用大招时本局内极速+4km/h（上限叠加至40km/h）；若使用大招时处于前3名则额外叠加一层；首次叠加至满层后每次大招结束时使队友获得3500集气量",
+          "recu": "扶摇直上可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "一举两得",
+          "desc": "友方全体前2次叠加额外速度增益时额外叠加一层；敌方全体开局前20秒内无法净化和获得额外涡轮且只能通过漂移获取集气量"
+        },
+        "features": [
+          { "name": "额外叠速", "desc": "友方全体叠加速度增益时额外获得一层", "color": "紫" },
+          { "name": "锁定干扰", "desc": "自动锁定范围内的目标", "color": "黄" },
+          { "name": "干扰集气", "desc": "干扰敌方的集气获取", "color": "红" },
+          { "name": "集气无阈值", "desc": "在漂移状态下集满一管氮气后，无需退出漂移即可继续集气和使用氮气", "color": "蓝" },
+          { "name": "隐身", "desc": "无视车辆间的碰撞/不会被锁定类、触碰类干扰命中", "color": "蓝" },
+          { "name": "友方集气", "desc": "为队友提供自动集气", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/11/9xjjekmt.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/11/Agmr9e3v.png"
+    },
+    {
+      "id": "guangtianshi",
+      "name": "光天使",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "城市",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/11/GqYMS5l7.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "城市",
+      "description": "若友方为完美阵容，则友方全体开局就可以使用大招",
+      "skillName": "光之翼",
+      "searchKeywords": ["光天使", "光之翼", "照耀众生"],
+      "registerDate": "2026-05-01",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "曙光",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/gsI0LDZl.png",
+      "stats": {
+        "topSpeed": "228.0 km/h",
+        "power": "8.05",
+        "durability": "110",
+        "nitroCharge": "26.0%",
+        "startCharge": "26.0%",
+        "nitroDuration": "5.20 s",
+        "nitroSpeed": { "blue": "26.20 km/h", "purple": "39.30 km/h" },
+        "turboDuration": { "blue": "0.70 s", "purple": "2.10 s" },
+        "turboSpeed": { "blue": "7.60 km/h", "purple": "11.40 km/h" },
+        "ultPower": "7"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "vslot", "hexagon", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "光之翼",
+          "desc": "加速推进，极速提升75km/h，持续7秒。加速期间：敌方全体每累计使用3次大招，则展开光之翼；使自身和非竞速位队友获得5000集气量并永久提升6km/h极速（上限叠加至30km/h）",
+          "recu": "光之翼可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "照耀众生",
+          "desc": "开局时获得100%大招能量，若友方为完美阵容则使非竞速位队友也获得100%能量，若敌方也为完美阵容则在开局3秒后使敌方每个定位各1台赛车获得100%能量"
+        },
+        "features": [
+          { "name": "追求完美", "desc": "选出完美阵容时获得额外增益", "color": "紫" },
+          { "name": "敌方充能", "desc": "为敌方提供大招充能", "color": "黄" },
+          { "name": "先手", "desc": "适合争夺开局", "color": "蓝" },
+          { "name": "友方充能", "desc": "适合争夺开局", "color": "蓝" },
+          { "name": "友方集气", "desc": "为队友提供自动集气", "color": "蓝" },
+          { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/11/qHnFj9xp.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/11/uB1hNA4i.png"
+    },
+    {
+      "id": "bentley_flying_spur_mulliner",
+      "name": "宾利 Flying Spur Mulliner",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/11/vFTb5tIF.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "完美阵容下为队友提供增益",
+      "skillName": "荣耀同行",
+      "searchKeywords": ["宾利 Flying Spur Mulliner", "荣耀同行", "尊享"],
+      "registerDate": "2025-12-26",
+      "vehicleType": "真实阵营",
+      "manufacturer": "宾利",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/gsI0LDZl.png",
+      "stats": {
+        "topSpeed": "229.0 km/h",
+        "power": "8.54",
+        "durability": "130",
+        "nitroCharge": "30.0%",
+        "startCharge": "30.0%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "24.80 km/h", "purple": "37.20 km/h" },
+        "turboDuration": { "blue": "0.62 s", "purple": "1.86 s" },
+        "turboSpeed": { "blue": "7.20 km/h", "purple": "10.80 km/h" },
+        "ultPower": "9"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "荣耀同行",
+          "desc": "加速推进，极速提升95km/h，持续9秒。加速结束时若友方为完美阵容则使：干扰位队友下一次干扰效果必定命中范围内敌方目标；辅助位队友下一次大招达到85%能量即可使用",
+          "recu": "荣耀同行可以充能两次并在开局时获得40%大招能量",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "尊享",
+          "desc": "若友方为完美阵容则友方全体在非专精赛道中也可享受专精加成"
+        },
+        "features": [
+          { "name": "友方跨专精", "desc": "使全队在非专精赛道享受专精加成", "color": "紫" },
+          { "name": "追求完美", "desc": "选出完美阵容时获得额外增益", "color": "紫" },
+          { "name": "必定命中", "desc": "使原命中类型必定命中目标", "color": "红" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/11/7of9NK76.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/11/zJCDi41X.png"
+    },
+    {
+      "id": "luoxuanjian",
+      "name": "螺旋箭",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "城市",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/11/qB1p8p0q.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "城市",
+      "description": "旋风冲锋龙卷风",
+      "skillName": "龙卷冲锋",
+      "searchKeywords": ["螺旋箭", "龙卷冲锋", "箭舞"],
+      "registerDate": "2021-07-23",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "创世纪",
+      "acquisition": "内测奖励",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/07/nhDt9vVx.png",
+      "stats": {
+        "topSpeed": "218.3 km/h",
+        "power": "7.87",
+        "durability": "90",
+        "nitroCharge": "30.0%",
+        "startCharge": "30.0%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "21.00 km/h", "purple": "31.50 km/h" },
+        "turboDuration": { "blue": "0.59 s", "purple": "1.77 s" },
+        "turboSpeed": { "blue": "5.40 km/h", "purple": "8.10 km/h" },
+        "ultPower": "3"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "triangle", "rhombus", "vslot"],
+      "skills": {
+        "ult": {
+          "name": "龙卷冲锋",
+          "desc": "跃起一段高度并在空中旋转，伴随周边生成的龙卷风加速前进：期间极速提升80km/h；保持自动巡航；滞空时间与腾空高度有关；落地后加速效果变为60km/h，并延长下一次氮气，落地加速时长和氮气延时与滞空期间车辆旋转的圈数有关",
+          "recu": "龙卷冲锋可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "箭舞",
+          "desc": "开局50秒时，自动释放一次大招（大招结束后清空能量条）"
+        },
+        "features": [
+          { "name": "飞空", "desc": "大招期间会飞到空中", "color": "蓝" },
+          { "name": "高速过弯", "desc": "巡航通过弯道时速度损失极小", "color": "蓝" },
+          { "name": "自动巡航", "desc": "沿预设路线自动行驶/通过弯道时会失速/不会脱离预设路线", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/11/PvLWpf4i.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/11/YeKjH28a.png"
     }
   ]
 }
