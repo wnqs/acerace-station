@@ -651,6 +651,8 @@
         /* ========== 手机端样式（修复版） ========== */
         @media (max-width: 768px) {
             .sidebar { display: none; }
+            
+            /* 车辆数据手机端固定头部 */
             .mobile-fixed-header {
                 position: fixed;
                 top: 0;
@@ -693,75 +695,25 @@
             .filter-option, .quality-option { background: #2a2a3c; border-radius: 30px; padding: 6px 12px; font-size: 0.7rem; cursor: pointer; color: #a0a0b8; font-weight: 600; }
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
             
-            .main-content { margin-left: 0; margin-top: 0; padding: 12px; width: 100%; }
-            body.has-fixed-header .main-content { margin-top: 145px; }
-            
-            /* 车辆卡片手机端布局 */
-            .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .card-image { height: 130px; padding: 12px; }
-            .car-name { font-size: 0.85rem; }
-            .acquisition-icon { width: 40px; height: 40px; bottom: 6px; right: 6px; }
-            .quality-badge { font-size: 0.55rem; padding: 2px 8px; bottom: 8px; right: 8px; }
-            .quality-badge-wrapper { bottom: 8px; right: 8px; }
-            .meta-item { font-size: 0.6rem; padding: 3px 8px; }
-            .car-description { font-size: 0.65rem; }
-            
-            /* 芯片卡片手机端布局 */
-            .chips-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .chip-image { height: 120px; padding: 12px; }
-            .chip-name { font-size: 0.85rem; }
-            .chip-meta-tag { font-size: 0.55rem; padding: 3px 6px; }
-            .chip-effect { font-size: 0.65rem; }
-            .chip-desc { font-size: 0.65rem; }
-            
-            /* 车辆详情页手机端布局 */
-            .detail-container { overflow-x: hidden; padding-bottom: 20px; }
-            .detail-header { flex-direction: column; padding: 16px !important; gap: 16px !important; }
-            .detail-image { padding: 16px !important; min-width: auto; width: 100%; border-radius: 16px; }
-            .detail-image img { max-height: 180px; width: auto; max-width: 100%; margin: 0 auto; object-fit: contain; }
-            .detail-info-panel { width: 100%; padding: 16px !important; }
-            .detail-name { font-size: 1.2rem !important; font-weight: 800; }
-            .features-section, .chip-slots, .vehicle-stats, .skills-section { padding: 12px 16px !important; }
-            .section-title, .chip-slots .section-title, .vehicle-stats .section-title, .skills-section .section-title, .workshop-title {
-                font-size: 1.25rem !important;
-                font-weight: 800;
-            }
-            /* 车辆特点一排三个 */
-            .features-horizontal {
+            /* 芯片架构手机端固定头部 */
+            .chip-mobile-fixed-header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: #0f0f17;
+                border-bottom: 1px solid #2a2a3c;
+                z-index: 200;
                 display: flex;
-                flex-wrap: wrap;
-                gap: 8px;
+                flex-direction: column;
             }
-            .feature-box {
-                white-space: nowrap;
-                font-size: 0.7rem;
-                padding: 5px 10px;
-                text-align: center;
-                word-break: keep-all;
-                display: inline-block;
-                width: auto;
-            }
-            /* 芯片槽一排显示 */
-            .chip-icons {
-                display: flex;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                gap: 8px;
-                padding-bottom: 4px;
-            }
-            .chip-icon {
-                width: 44px;
-                height: 44px;
-                flex-shrink: 0;
-            }
-            .detail-acquisition-area { top: 12px; left: 12px; gap: 6px; }
-            .detail-acquisition-icon { width: 55px; height: 55px; }
-            .detail-acquisition-text { font-size: 0.65rem; white-space: normal; max-width: 120px; text-shadow: 0 0 4px rgba(0,0,0,0.8); font-weight: 600; }
-            .stats-text { font-size: 0.75rem; font-weight: 500; }
-            .skill-desc { font-size: 0.75rem; padding: 10px 12px; }
-            .sub-skill-desc { font-size: 0.7rem; }
-            
-            /* 芯片手机端筛选下拉栏 */
+            .chip-mobile-top-bar { padding: 8px 12px; border-bottom: 1px solid #2a2a3c; }
+            .chip-mobile-logo-area { text-align: center; cursor: pointer; padding-bottom: 2px; }
+            .chip-mobile-logo-area h1 { font-size: 1rem; background: linear-gradient(135deg, #ff6b6b, #feca57); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
+            .chip-mobile-logo-area p { font-size: 0.5rem; color: #8a8aa3; font-weight: 500; }
+            .chip-mobile-nav-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 4px; }
+            .chip-mobile-tab-btn { padding: 6px 2px; font-size: 0.65rem; border-radius: 16px; text-align: center; background: #1a1a2a; border: none; cursor: pointer; color: #a0a0b8; font-weight: 700; }
+            .chip-mobile-tab-btn.active { background: #feca57; color: #1a1a2e; }
             .chip-mobile-filter-sticky {
                 padding: 8px 12px;
                 background: #0a0a0f;
@@ -860,13 +812,80 @@
                 color: #1a1a2e;
             }
             
+            .main-content { margin-left: 0; margin-top: 0; padding: 12px; width: 100%; }
+            body.has-fixed-header .main-content { margin-top: 145px; }
+            body.has-chip-fixed-header .main-content { margin-top: 145px; }
+            
+            /* 车辆卡片手机端布局 */
+            .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .card-image { height: 130px; padding: 12px; }
+            .car-name { font-size: 0.85rem; }
+            .acquisition-icon { width: 40px; height: 40px; bottom: 6px; right: 6px; }
+            .quality-badge { font-size: 0.55rem; padding: 2px 8px; bottom: 8px; right: 8px; }
+            .quality-badge-wrapper { bottom: 8px; right: 8px; }
+            .meta-item { font-size: 0.6rem; padding: 3px 8px; }
+            .car-description { font-size: 0.65rem; }
+            
+            /* 芯片卡片手机端布局 */
+            .chips-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .chip-image { height: 120px; padding: 12px; }
+            .chip-name { font-size: 0.85rem; }
+            .chip-meta-tag { font-size: 0.55rem; padding: 3px 6px; }
+            .chip-effect { font-size: 0.65rem; }
+            .chip-desc { font-size: 0.65rem; }
+            
+            /* 车辆详情页手机端布局 */
+            .detail-container { overflow-x: hidden; padding-bottom: 20px; }
+            .detail-header { flex-direction: column; padding: 16px !important; gap: 16px !important; }
+            .detail-image { padding: 16px !important; min-width: auto; width: 100%; border-radius: 16px; }
+            .detail-image img { max-height: 180px; width: auto; max-width: 100%; margin: 0 auto; object-fit: contain; }
+            .detail-info-panel { width: 100%; padding: 16px !important; }
+            .detail-name { font-size: 1.2rem !important; font-weight: 800; }
+            .features-section, .chip-slots, .vehicle-stats, .skills-section { padding: 12px 16px !important; }
+            .section-title, .chip-slots .section-title, .vehicle-stats .section-title, .skills-section .section-title, .workshop-title {
+                font-size: 1.25rem !important;
+                font-weight: 800;
+            }
+            .features-horizontal {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .feature-box {
+                white-space: nowrap;
+                font-size: 0.7rem;
+                padding: 5px 10px;
+                text-align: center;
+                word-break: keep-all;
+                display: inline-block;
+                width: auto;
+            }
+            .chip-icons {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                gap: 8px;
+                padding-bottom: 4px;
+            }
+            .chip-icon {
+                width: 44px;
+                height: 44px;
+                flex-shrink: 0;
+            }
+            .detail-acquisition-area { top: 12px; left: 12px; gap: 6px; }
+            .detail-acquisition-icon { width: 55px; height: 55px; }
+            .detail-acquisition-text { font-size: 0.65rem; white-space: normal; max-width: 120px; text-shadow: 0 0 4px rgba(0,0,0,0.8); font-weight: 600; }
+            .stats-text { font-size: 0.75rem; font-weight: 500; }
+            .skill-desc { font-size: 0.75rem; padding: 10px 12px; }
+            .sub-skill-desc { font-size: 0.7rem; }
+            
             .desktop-header, .chip-desktop-header { display: none; }
         }
         
         @media (min-width: 769px) {
             .acquisition-icon { bottom: 2px; width: 70px; height: 70px; }
             .mobile-fixed-header { display: none; }
-            .chip-mobile-filter-sticky { display: none; }
+            .chip-mobile-fixed-header { display: none; }
         }
         
         @media (max-width: 480px) {
@@ -896,7 +915,7 @@
         </div>
     </div>
     
-    <!-- 手机端固定头部（车辆数据用） -->
+    <!-- 手机端车辆数据固定头部 -->
     <div class="mobile-fixed-header" id="mobileFixedHeader" style="display: none;">
         <div class="mobile-top-bar">
             <div class="mobile-logo-area" onclick="location.reload()">
@@ -938,19 +957,19 @@
     </div>
     
     <!-- 手机端芯片架构固定头部 -->
-    <div class="mobile-fixed-header" id="chipMobileFixedHeader" style="display: none;">
-        <div class="mobile-top-bar">
-            <div class="mobile-logo-area" onclick="location.reload()">
+    <div class="chip-mobile-fixed-header" id="chipMobileFixedHeader" style="display: none;">
+        <div class="chip-mobile-top-bar">
+            <div class="chip-mobile-logo-area" onclick="location.reload()">
                 <h1>王牌竞速 · 情报站</h1>
                 <p>核心档案 · 赛车数据</p>
             </div>
-            <div class="mobile-nav-tabs" id="chipMobileNavTabs">
-                <button class="mobile-tab-btn" data-page="vehicles">车辆数据</button>
-                <button class="mobile-tab-btn active" data-page="chip">芯片架构</button>
-                <button class="mobile-tab-btn" data-page="energy">赋能系统</button>
-                <button class="mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
-                <button class="mobile-tab-btn" data-page="news">爆料信息</button>
-                <button class="mobile-tab-btn" data-page="wallpaper">游戏壁纸</button>
+            <div class="chip-mobile-nav-tabs" id="chipMobileNavTabs">
+                <button class="chip-mobile-tab-btn" data-page="vehicles">车辆数据</button>
+                <button class="chip-mobile-tab-btn active" data-page="chip">芯片架构</button>
+                <button class="chip-mobile-tab-btn" data-page="energy">赋能系统</button>
+                <button class="chip-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
+                <button class="chip-mobile-tab-btn" data-page="news">爆料信息</button>
+                <button class="chip-mobile-tab-btn" data-page="wallpaper">游戏壁纸</button>
             </div>
         </div>
         <div class="chip-mobile-filter-sticky">
@@ -1120,11 +1139,17 @@
         isInDetail = isDetail;
         const headerBackBtn = document.getElementById('headerBackBtn');
         const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
+        // 手机端车辆数据筛选栏显示/隐藏
+        const mobileFilterSticky = document.getElementById('vehicleMobileFilter');
         if (headerBackBtn) {
             headerBackBtn.style.display = isDetail ? 'block' : 'none';
         }
         if (vehicleDesktopHeader && !isMobileDevice()) {
             vehicleDesktopHeader.style.display = isDetail ? 'none' : 'block';
+        }
+        // 手机端：详情页隐藏筛选栏和搜索框
+        if (isMobileDevice() && mobileFilterSticky) {
+            mobileFilterSticky.style.display = isDetail ? 'none' : 'block';
         }
     }
     
@@ -1800,14 +1825,22 @@
                 document.getElementById('mobileFixedHeader').style.display = 'flex';
                 document.getElementById('chipMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
+                document.body.classList.remove('has-chip-fixed-header');
+                // 恢复筛选栏显示（如果在列表页）
+                const mobileFilterSticky = document.getElementById('vehicleMobileFilter');
+                if (mobileFilterSticky && !isInDetail) {
+                    mobileFilterSticky.style.display = 'block';
+                }
             } else if (pageId === 'chip') {
                 document.getElementById('mobileFixedHeader').style.display = 'none';
                 document.getElementById('chipMobileFixedHeader').style.display = 'flex';
-                document.body.classList.add('has-fixed-header');
+                document.body.classList.add('has-chip-fixed-header');
+                document.body.classList.remove('has-fixed-header');
             } else {
                 document.getElementById('mobileFixedHeader').style.display = 'none';
                 document.getElementById('chipMobileFixedHeader').style.display = 'none';
                 document.body.classList.remove('has-fixed-header');
+                document.body.classList.remove('has-chip-fixed-header');
             }
         } else {
             const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
@@ -1992,6 +2025,7 @@
     }
     
     function initNavigation() {
+        // 电脑端侧边栏点击
         document.querySelectorAll('.sidebar .tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const pageId = btn.dataset.page;
@@ -2003,8 +2037,9 @@
             });
         });
         
+        // 手机端车辆数据导航栏点击
         const mobileVehicleBtns = document.querySelectorAll('#mobileNavTabs .mobile-tab-btn');
-        const mobileChipBtns = document.querySelectorAll('#chipMobileNavTabs .mobile-tab-btn');
+        const mobileChipBtns = document.querySelectorAll('#chipMobileNavTabs .chip-mobile-tab-btn');
         
         mobileVehicleBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -2032,6 +2067,7 @@
             });
         });
         
+        // 车辆数据返回按钮
         const headerBackBtn = document.getElementById('headerBackButton');
         if (headerBackBtn) {
             headerBackBtn.addEventListener('click', handleVehicleBackToList);
@@ -2042,4 +2078,4 @@
     loadData();
 </script>
 </body>
-</html>
+</html>}
