@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>王牌竞速 · 情报站 - 芯片架构</title>
+    <style>
+        /* ========== 基础样式 ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        input, textarea {
+            user-select: text;
+            caret-color: auto;
+        }
+        
+        body { background: #0a0a0f; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+        
+        /* 电脑端样式 */
+        @media (min-width: 769px) {
+            body {
+                background: linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 25%, #141425 50%, #0f0f1a 75%, #0a0a0f 100%);
+                background-attachment: fixed;
+            }
+            body::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: 
+                    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+                background-size: 40px 40px;
+                pointer-events: none;
+                z-index: 0;
+            }
+            .sidebar {
+                background: rgba(15, 15, 23, 0.75);
+                backdrop-filter: blur(10px);
+                border-right: 1px solid rgba(42, 42, 60, 0.6);
+            }
+            .sidebar .logo-area {
+                border-bottom: 1px solid rgba(42, 42, 60, 0.6);
+            }
+            .tab-btn.active {
+                background: rgba(42, 42, 60, 0.8);
+            }
+            .tab-btn:hover:not(.active) {
+                background: rgba(31, 31, 46, 0.6);
+            }
+            .chip-card {
+                background: rgba(20, 20, 31, 0.85);
+                backdrop-filter: blur(4px);
+                border: 2px solid rgba(42, 42, 60, 0.5);
+            }
+            .chip-card:hover {
+                transform: translateY(-4px);
+                border-color: rgba(254, 202, 87, 0.4);
+            }
+            .chip-card.legendary-border:hover { border-color: #e6b422; box-shadow: 0 0 16px rgba(230,180,34,0.4); }
+            .chip-card.epic-border:hover { border-color: #aa6dc9; box-shadow: 0 0 14px rgba(170,109,201,0.35); }
+            .chip-card.rare-border:hover { border-color: #4a9eff; box-shadow: 0 0 12px rgba(74,158,255,0.3); }
+            .chip-card.normal-border:hover { border-color: #40c468; box-shadow: 0 0 10px rgba(64,196,104,0.25); }
+        }
+        
+        .app-layout { display: flex; max-width: 1600px; margin: 0 auto; min-height: 100vh; position: relative; z-index: 1; }
+        .sidebar { width: 240px; background: #0f0f17; border-right: 1px solid #2a2a3c; padding: 24px 0; position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto; z-index: 100; }
+        .sidebar .logo-area { padding: 0 16px 20px 16px; border-bottom: 1px solid #2a2a3c; margin-bottom: 20px; cursor: pointer; }
+        .sidebar .logo-area h1 { font-size: 1.2rem; background: linear-gradient(135deg, #ff6b6b, #feca57); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
+        .sidebar .logo-area p { font-size: 0.6rem; color: #8a8aa3; margin-top: 4px; font-weight: 500; }
+        .nav-tabs { display: flex; flex-direction: column; gap: 6px; padding: 0 12px; width: 100%; }
+        .tab-btn { padding: 12px 16px; border: none; background: transparent; border-radius: 12px; font-size: 0.9rem; cursor: pointer; color: #a0a0b8; transition: 0.2s; text-align: left; font-weight: 700; width: 100%; }
+        .tab-btn.active { background: #2a2a3c; color: #feca57; }
+        .tab-btn:hover:not(.active) { background: #1f1f2e; color: #e2e2e6; }
+        
+        .main-content { flex: 1; margin-left: 240px; padding: 0 24px 60px 24px; width: calc(100% - 240px); }
+        
+        /* 芯片页面样式 */
+        .chip-header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .chip-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #feca57, #ff8c00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .chip-search-box {
+            width: 280px;
+        }
+        .chip-search-box input {
+            width: 100%;
+            padding: 10px 16px;
+            border-radius: 40px;
+            border: 1px solid #2a2a3c;
+            background: #1f1f2e;
+            color: #e2e2e6;
+            font-size: 0.9rem;
+            font-weight: 500;
+            outline: none;
+        }
+        .chip-search-box input:focus {
+            border-color: #feca57;
+        }
+        .chip-filter-bar {
+            background: #14141f;
+            border-radius: 20px;
+            padding: 16px 20px;
+            backdrop-filter: blur(8px);
+            border: 1px solid #2a2a3c;
+            margin-bottom: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+        }
+        .chip-filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .chip-filter-label {
+            font-size: 0.75rem;
+            color: #feca57;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .chip-filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .chip-filter-option {
+            background: #2a2a3c;
+            border-radius: 30px;
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            color: #a0a0b8;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+        .chip-filter-option.active {
+            background: #feca57;
+            color: #1a1a2e;
+        }
+        
+        .chips-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .chip-card {
+            background: #14141f;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .chip-card.legendary-border { border-color: #e6b422; }
+        .chip-card.epic-border { border-color: #aa6dc9; }
+        .chip-card.rare-border { border-color: #4a9eff; }
+        .chip-card.normal-border { border-color: #40c468; }
+        
+        .chip-image {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: linear-gradient(145deg, #1a1a2a, #0f0f1a);
+        }
+        .chip-image img {
+            max-width: 100%;
+            max-height: 120px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+        }
+        .chip-info {
+            padding: 16px;
+        }
+        .chip-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #e2e2e6;
+            margin-bottom: 8px;
+        }
+        .chip-meta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .chip-meta-tag {
+            background: rgba(255,255,255,0.08);
+            padding: 4px 10px;
+            border-radius: 40px;
+            font-size: 0.65rem;
+            color: #a0a0b8;
+            font-weight: 500;
+        }
+        .chip-effect {
+            font-size: 0.75rem;
+            color: #8a8aa3;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 10px;
+            line-height: 1.4;
+        }
+        .chip-effect strong {
+            color: #feca57;
+        }
+        .chip-desc {
+            font-size: 0.7rem;
+            color: #6a6a82;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        .quality-badge-wrapper {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 15;
+        }
+        .quality-badge {
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-weight: 800;
+            backdrop-filter: blur(2px);
+            text-transform: uppercase;
+            border-width: 1px;
+            border-style: solid;
+        }
+        .quality-badge.legendary { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #fff; border-color: #ffd966; }
+        .quality-badge.epic { background: linear-gradient(135deg, #aa6dc9, #8b5aaf); color: #fff; border-color: #c99eff; }
+        .quality-badge.rare { background: linear-gradient(135deg, #4a9eff, #2d7fd1); color: #fff; border-color: #8bcbff; }
+        .quality-badge.normal { background: linear-gradient(135deg, #40c468, #2f9e52); color: #fff; border-color: #8fdfaa; }
+        
+        .stats-text { text-align: center; padding: 16px; color: #8a8aa3; font-weight: 500; }
+        
+        /* 手机端样式 - 每行2个芯片模块，搜索框下移不置顶 */
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .mobile-fixed-header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: #0f0f17;
+                border-bottom: 1px solid #2a2a3c;
+                z-index: 200;
+                display: flex;
+                flex-direction: column;
+            }
+            .mobile-top-bar { padding: 8px 12px; border-bottom: 1px solid #2a2a3c; }
+            .mobile-logo-area { text-align: center; cursor: pointer; padding-bottom: 2px; }
+            .mobile-logo-area h1 { font-size: 1rem; background: linear-gradient(135deg, #ff6b6b, #feca57); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
+            .mobile-logo-area p { font-size: 0.5rem; color: #8a8aa3; font-weight: 500; }
+            .mobile-nav-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 4px; }
+            .mobile-tab-btn { padding: 6px 2px; font-size: 0.65rem; border-radius: 16px; text-align: center; background: #1a1a2a; border: none; cursor: pointer; color: #a0a0b8; font-weight: 700; }
+            .mobile-tab-btn.active { background: #feca57; color: #1a1a2e; }
+            .main-content { margin-left: 0; margin-top: 0; padding: 12px; width: 100%; }
+            body.has-fixed-header .main-content { margin-top: 70px; }
+            /* 手机端每行2个芯片模块 */
+            .chips-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .chip-image { height: 120px; padding: 12px; }
+            .chip-name { font-size: 0.85rem; }
+            .chip-meta-tag { font-size: 0.55rem; padding: 3px 6px; }
+            .chip-effect { font-size: 0.65rem; }
+            .chip-desc { font-size: 0.6rem; }
+            .quality-badge { font-size: 0.5rem; padding: 2px 6px; }
+            /* 手机端标题和搜索框样式 - 改为中文，搜索框下移 */
+            .chip-header-area {
+                margin-top: 8px;
+                margin-bottom: 16px;
+            }
+            .chip-title {
+                font-size: 1.3rem;
+            }
+            .chip-search-box {
+                width: 100%;
+                margin-top: 4px;
+            }
+            .chip-search-box input {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+            .chip-filter-bar {
+                padding: 12px 16px;
+                gap: 16px;
+                margin-bottom: 16px;
+            }
+            .chip-filter-label {
+                font-size: 0.7rem;
+            }
+            .chip-filter-option {
+                padding: 5px 10px;
+                font-size: 0.65rem;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-fixed-header { display: none; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-layout">
+    <div class="sidebar">
+        <div class="logo-area" onclick="window.location.href='index.html'">
+            <h1>王牌竞速 · 情报站</h1>
+            <p>核心档案 · 赛车数据</p>
+        </div>
+        <div class="nav-tabs">
+            <button class="tab-btn" onclick="window.location.href='index.html'">车辆数据</button>
+            <button class="tab-btn active">芯片架构</button>
+            <button class="tab-btn">赋能系统</button>
+            <button class="tab-btn">芯片要求计算器</button>
+            <button class="tab-btn">爆料信息</button>
+            <button class="tab-btn">游戏壁纸</button>
+        </div>
+    </div>
+    
+    <div class="mobile-fixed-header" id="mobileFixedHeader">
+        <div class="mobile-top-bar">
+            <div class="mobile-logo-area" onclick="window.location.href='index.html'">
+                <h1>王牌竞速 · 情报站</h1>
+                <p>核心档案 · 赛车数据</p>
+            </div>
+            <div class="mobile-nav-tabs" id="mobileNavTabs">
+                <button class="mobile-tab-btn" onclick="window.location.href='index.html'">车辆数据</button>
+                <button class="mobile-tab-btn active">芯片架构</button>
+                <button class="mobile-tab-btn">赋能系统</button>
+                <button class="mobile-tab-btn">芯片要求计算器</button>
+                <button class="mobile-tab-btn">爆料信息</button>
+                <button class="mobile-tab-btn">游戏壁纸</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="chip-header-area">
+            <div class="chip-title">芯片架构档案库</div>
+            <div class="chip-search-box"><input type="text" id="chipSearchInput" placeholder="搜索芯片..."></div>
+        </div>
+        <div class="chip-filter-bar">
+            <div class="chip-filter-group"><div class="chip-filter-label">品质</div><div class="chip-filter-options" id="chipQualityFilter"></div></div>
+            <div class="chip-filter-group"><div class="chip-filter-label">形状</div><div class="chip-filter-options" id="chipShapeFilter"></div></div>
+            <div class="chip-filter-group"><div class="chip-filter-label">类型</div><div class="chip-filter-options" id="chipTypeFilter"></div></div>
+        </div>
+        <div class="chips-grid" id="chipsGrid"></div>
+        <div class="stats-text" id="chipStatsText">加载芯片数据...</div>
+    </div>
+</div>
+
+<script>
+    // ========== 芯片数据 ==========
+    let chipsData = [];
+    let chipFilters = { quality: "", shape: "", type: "" };
+    let chipKeyword = "";
+    
+    function getChipBorderClass(quality) {
+        if (quality === "传说") return "legendary-border";
+        if (quality === "史诗") return "epic-border";
+        if (quality === "稀有") return "rare-border";
+        return "normal-border";
+    }
+    function getChipQualityClass(quality) {
+        if (quality === "传说") return "legendary";
+        if (quality === "史诗") return "epic";
+        if (quality === "稀有") return "rare";
+        return "normal";
+    }
+    
+    function initChipFilters() {
+        const qualities = ["传说", "史诗", "稀有", "普通"];
+        const shapes = ["V型芯片", "核心芯片", "圆形芯片", "三角形芯片", "菱形芯片", "六边形芯片"];
+        const types = ["扩展", "核心"];
+        const qualityContainer = document.getElementById("chipQualityFilter");
+        const shapeContainer = document.getElementById("chipShapeFilter");
+        const typeContainer = document.getElementById("chipTypeFilter");
+        if (!qualityContainer) return;
+        qualityContainer.innerHTML = qualities.map(q => `<div class="chip-filter-option" data-filter="quality" data-value="${q}">${q}</div>`).join("");
+        shapeContainer.innerHTML = shapes.map(s => `<div class="chip-filter-option" data-filter="shape" data-value="${s}">${s}</div>`).join("");
+        typeContainer.innerHTML = types.map(t => `<div class="chip-filter-option" data-filter="type" data-value="${t}">${t}</div>`).join("");
+        
+        document.querySelectorAll(".chip-filter-option").forEach(opt => {
+            opt.addEventListener("click", () => {
+                const filterType = opt.dataset.filter;
+                const value = opt.dataset.value;
+                if (chipFilters[filterType] === value) chipFilters[filterType] = "";
+                else chipFilters[filterType] = value;
+                updateChipFilterUI();
+                renderChipsList();
+            });
+        });
+    }
+    
+    function updateChipFilterUI() {
+        document.querySelectorAll(".chip-filter-option").forEach(opt => {
+            const filterType = opt.dataset.filter;
+            const value = opt.dataset.value;
+            if (chipFilters[filterType] === value) opt.classList.add("active");
+            else opt.classList.remove("active");
+        });
+    }
+    
+    function filterChips() {
+        return chipsData.filter(chip => {
+            if (chipFilters.quality && chip.quality !== chipFilters.quality) return false;
+            if (chipFilters.shape && chip.shape !== chipFilters.shape) return false;
+            if (chipFilters.type && chip.type !== chipFilters.type) return false;
+            if (chipKeyword && !chip.name.toLowerCase().includes(chipKeyword.toLowerCase())) return false;
+            return true;
+        });
+    }
+    
+    function renderChipsList() {
+        const filtered = filterChips();
+        const grid = document.getElementById("chipsGrid");
+        const stats = document.getElementById("chipStatsText");
+        if (!grid) return;
+        if (filtered.length === 0) {
+            grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px; color:#8a8aa3;">暂无芯片数据</div>';
+            stats.innerText = "共 0 个芯片";
+            return;
+        }
+        grid.innerHTML = filtered.map(chip => {
+            const borderClass = getChipBorderClass(chip.quality);
+            const qualityClass = getChipQualityClass(chip.quality);
+            const effectDesc = chip.effectDescription || "暂无效果描述";
+            const effectNote = chip.effectNote ? `<div class="chip-desc">💡 ${chip.effectNote}</div>` : '<div class="chip-desc">暂无效果说明</div>';
+            return `<div class="chip-card ${borderClass}">
+                        <div class="chip-image"><img src="${chip.icon}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/200x120?text=Chip'"></div>
+                        <div class="chip-info">
+                            <div class="chip-name">${chip.name}</div>
+                            <div class="chip-meta"><span class="chip-meta-tag">${chip.shape}</span><span class="chip-meta-tag">${chip.type}</span></div>
+                            <div class="chip-effect"><strong>效果：</strong>${effectDesc}</div>
+                            ${effectNote}
+                        </div>
+                        <div class="quality-badge-wrapper"><span class="quality-badge ${qualityClass}">${chip.quality}</span></div>
+                    </div>`;
+        }).join("");
+        stats.innerText = `共 ${filtered.length} 个芯片`;
+    }
+    
+    // 从 chips.json 文件加载芯片数据
+    async function loadChipsData() {
+        try {
+            const response = await fetch('./chips.json');
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: 无法加载 chips.json`);
+            }
+            const data = await response.json();
+            if (data.chips && Array.isArray(data.chips)) {
+                chipsData = data.chips;
+            } else {
+                throw new Error('chips.json 格式错误：缺少 chips 数组');
+            }
+        } catch (error) {
+            console.error('[芯片数据加载错误]', error);
+            // 使用默认数据作为后备
+            chipsData = [
+                {
+                    id: "chip_mianmian",
+                    name: "猫眠梦之芯",
+                    icon: "https://s3.bmp.ovh/2026/05/29/iTqrWqI7.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    effectDescription: "每6秒获得1200集气量并恢复6点耐久值，大招达到90%能量即可使用（猫眠梦装备时改为66%）",
+                    effectNote: "推荐大招阈值100%车辆携带，减少赋能压力"
+                }
+            ];
+            const stats = document.getElementById("chipStatsText");
+            if (stats) stats.innerText = "加载 chips.json 失败，使用默认数据";
+        }
+        initChipFilters();
+        const chipSearch = document.getElementById("chipSearchInput");
+        if (chipSearch) {
+            chipSearch.addEventListener("input", (e) => {
+                chipKeyword = e.target.value;
+                renderChipsList();
+            });
+        }
+        renderChipsList();
+    }
+    
+    // 初始化移动端页面切换（保持和主页面类似的体验）
+    function initMobileTabs() {
+        const mobileBtns = document.querySelectorAll('.mobile-tab-btn');
+        mobileBtns.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                if (index === 0) window.location.href = 'index.html';
+                // 其他按钮暂时无页面，可后续扩展
+            });
+        });
+    }
+    
+    initMobileTabs();
+    loadChipsData();
+</script>
+</body>
+</html>
