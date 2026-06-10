@@ -44,6 +44,12 @@
                 background: rgba(15, 15, 23, 0.75);
                 backdrop-filter: blur(10px);
                 border-right: 1px solid rgba(42, 42, 60, 0.6);
+                width: 240px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                z-index: 100;
             }
             .sidebar .logo-area {
                 border-bottom: 1px solid rgba(42, 42, 60, 0.6);
@@ -171,7 +177,6 @@
                 font-style: normal;
                 line-height: 1.5;
             }
-            /* 芯片 & 赋能 桌面头部 */
             .chip-desktop-header, .energy-desktop-header {
                 position: sticky;
                 top: 0;
@@ -700,6 +705,7 @@
                 border: none;
                 cursor: pointer;
                 color: #a0a0b8;
+                transition: 0.2s;
                 font-weight: 700;
             }
             .mobile-tab-btn.active {
@@ -1060,6 +1066,564 @@
             .chip-quality-tag { font-size: 0.5rem; padding: 1px 5px; }
         }
     </style>
+    <!-- 芯片计算器专用样式（注入到页面内） -->
+    <style>
+        /* 芯片计算器样式 - 已整合 */
+        .calculator-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .calculator-container .card {
+            background: var(--bg-card);
+            border-radius: 32px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+        }
+        .calculator-container h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            padding-left: 14px;
+            border-left: 5px solid #3b82f6;
+            color: var(--text-primary);
+        }
+        .calculator-container .car-layout-new {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+        .calculator-container .car-icon-large {
+            flex: 0 0 280px;
+            text-align: center;
+        }
+        .calculator-container .car-icon-large .car-icon {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: var(--bg-hover);
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid var(--border-light);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+        .calculator-container .car-icon-large .car-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .calculator-container .car-icon-large .car-icon span {
+            font-size: 6rem;
+        }
+        .calculator-container .car-form-right {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .calculator-container .row2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .calculator-container .row2 > div {
+            flex: 1;
+            min-width: 140px;
+        }
+        .calculator-container label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+        .calculator-container select, .calculator-container input {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 40px;
+            border: 1px solid var(--border-medium);
+            background: var(--bg-input);
+            font-size: 0.85rem;
+            transition: 0.2s;
+            color: var(--text-primary);
+        }
+        .calculator-container select:focus, .calculator-container input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+        }
+        .calculator-container button {
+            background: var(--btn-primary);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 8px;
+        }
+        .calculator-container button:active {
+            transform: scale(0.97);
+        }
+        .calculator-container button:hover {
+            background: var(--btn-primary-hover);
+        }
+        .calculator-container .result-box {
+            background: var(--result-bg);
+            border-radius: 28px;
+            padding: 20px;
+            margin-top: 16px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: var(--text-primary);
+        }
+        .calculator-container .note {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            background: var(--note-bg);
+            padding: 10px 16px;
+            border-radius: 60px;
+            margin-top: 12px;
+        }
+        .calculator-container .usage-guide {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: var(--note-bg);
+            padding: 12px 18px;
+            border-radius: 16px;
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+        .calculator-container .usage-guide summary {
+            cursor: pointer;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+        .calculator-container .warning-tip {
+            color: var(--warning-red);
+            font-weight: 600;
+            background: rgba(185, 28, 28, 0.08);
+            padding: 8px 12px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            white-space: pre-line;
+        }
+        .calculator-container .energy-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        .calculator-container .energy-row > div {
+            flex: 1;
+            min-width: 140px;
+        }
+        .calculator-container .energy-display {
+            background: var(--energy-display-bg);
+            border-radius: 40px;
+            padding: 10px 14px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--energy-display-text);
+            border: 1px solid var(--border-light);
+            text-align: center;
+        }
+        .calculator-container .vehicle-special-options {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 28px;
+            background: var(--special-bg);
+            border: 2px solid var(--special-border);
+        }
+        .calculator-container .option-group {
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 12px;
+        }
+        .calculator-container .option-title {
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+        .calculator-container .option-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+        .calculator-container .option-row > div {
+            flex: 1;
+            min-width: 120px;
+        }
+        .calculator-container .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 8px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            border-radius: 60px;
+            border: 2px solid #4f46e5;
+            box-shadow: 0 2px 10px rgba(79, 70, 229, 0.4);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        body.dark-mode .calculator-container .toggle-switch {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            border: 2px solid #818cf8;
+            box-shadow: 0 2px 10px rgba(129, 140, 248, 0.4);
+        }
+        .calculator-container .toggle-switch:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.5);
+        }
+        .calculator-container .toggle-switch label {
+            margin-bottom: 0;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #1e3a8a;
+            letter-spacing: 0.5px;
+        }
+        body.dark-mode .calculator-container .toggle-switch label {
+            color: #c7d2fe;
+        }
+        .calculator-container .toggle-switch input {
+            width: 22px;
+            height: 22px;
+            margin: 0;
+            cursor: pointer;
+            accent-color: #4f46e5;
+            transform: scale(1.1);
+        }
+        .calculator-container .toggle-hint {
+            font-size: 0.7rem;
+            color: var(--warning-red);
+            margin-bottom: 16px;
+            padding-left: 8px;
+            text-align: left;
+        }
+        .calculator-container .eff-select-row, .calculator-container .vslot-select-row, 
+        .calculator-container .nitro-select-row, .calculator-container .car-type-row, 
+        .calculator-container .car-subtype-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--icon-row-bg);
+            border-radius: 60px;
+            padding: 4px 16px 4px 8px;
+            border: 1px solid var(--border-light);
+        }
+        .calculator-container .eff-select-row select, .calculator-container .vslot-select-row select,
+        .calculator-container .nitro-select-row select, .calculator-container .car-type-row select,
+        .calculator-container .car-subtype-row select {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 10px 8px;
+            color: var(--text-primary);
+        }
+        .calculator-container .eff-icon-preview, .calculator-container .vslot-icon-preview,
+        .calculator-container .nitro-icon-preview, .calculator-container .car-type-icon-preview,
+        .calculator-container .car-subtype-icon-preview {
+            width: 40px;
+            height: 40px;
+            background: #ffffff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        body.dark-mode .calculator-container .eff-icon-preview,
+        body.dark-mode .calculator-container .vslot-icon-preview,
+        body.dark-mode .calculator-container .nitro-icon-preview,
+        body.dark-mode .calculator-container .car-type-icon-preview,
+        body.dark-mode .calculator-container .car-subtype-icon-preview {
+            background: #2a2a3c;
+        }
+        .calculator-container .eff-icon-preview img, .calculator-container .vslot-icon-preview img,
+        .calculator-container .nitro-icon-preview img, .calculator-container .car-type-icon-preview img,
+        .calculator-container .car-subtype-icon-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .calculator-container .cycle-mode-wrapper {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .calculator-container .cycle-mode-wrapper select {
+            flex: 1;
+        }
+        .calculator-container .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: var(--info-icon-bg);
+            color: white;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: help;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .calculator-container .info-icon .tooltip-text {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--tooltip-bg);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            margin-bottom: 8px;
+        }
+        .calculator-container .info-icon:hover .tooltip-text {
+            opacity: 1;
+        }
+        .calculator-container .error-message {
+            background: var(--error-bg);
+            color: var(--error-text);
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-top: 12px;
+            display: none;
+        }
+        .calculator-container .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        .calculator-container .button-group button {
+            flex: 1;
+            margin-top: 0;
+            min-width: 100px;
+        }
+        .calculator-container .btn-secondary {
+            background: var(--btn-secondary);
+        }
+        .calculator-container .btn-secondary:hover {
+            background: var(--btn-secondary-hover);
+        }
+        .calculator-container .btn-success {
+            background: var(--btn-success);
+        }
+        .calculator-container .btn-success:hover {
+            background: var(--btn-success-hover);
+        }
+        .calculator-container .theme-toggle {
+            background: var(--bg-hover);
+            border: 1px solid var(--border-light);
+            padding: 8px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+        }
+        .calculator-container .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .calculator-container .copy-success {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            z-index: 1000;
+            animation: fadeOut 2s ease forwards;
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-20px); visibility: hidden; }
+        }
+        @media (max-width: 768px) {
+            .calculator-container .car-icon-large {
+                flex: 0 0 200px;
+            }
+            .calculator-container .car-icon-large .car-icon span {
+                font-size: 4rem;
+            }
+            .calculator-container .car-layout-new {
+                flex-direction: column;
+                align-items: center;
+            }
+            .calculator-container .car-form-right {
+                width: 100%;
+            }
+            .calculator-container .eff-select-row,
+            .calculator-container .vslot-select-row,
+            .calculator-container .car-type-row,
+            .calculator-container .car-subtype-row {
+                flex-wrap: wrap;
+            }
+            .calculator-container .energy-row {
+                flex-direction: column;
+            }
+            .calculator-container .header-top {
+                flex-direction: column;
+            }
+            .calculator-container .theme-toggle {
+                margin-left: 0;
+                justify-content: center;
+            }
+            .calculator-container .toggle-switch {
+                flex-wrap: wrap;
+            }
+        }
+        .calculator-container .custom-hui-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 16px;
+            padding: 12px;
+            background: var(--special-bg);
+            border-radius: 28px;
+            border: 1px solid var(--special-border);
+        }
+        .calculator-container .custom-hui-row label {
+            margin-bottom: 0;
+            white-space: nowrap;
+        }
+        .calculator-container .custom-hui-row input {
+            width: 120px;
+            text-align: center;
+        }
+        .calculator-container .search-container {
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .calculator-container .search-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 40px;
+            border: 1px solid var(--border-medium);
+            background: var(--bg-input);
+            font-size: 0.9rem;
+            transition: 0.2s;
+            color: var(--text-primary);
+        }
+        .calculator-container .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+        }
+        .calculator-container .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            display: none;
+        }
+        .calculator-container .search-dropdown.show {
+            display: block;
+        }
+        .calculator-container .search-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-primary);
+            transition: background 0.1s;
+        }
+        .calculator-container .search-item:hover {
+            background: var(--search-highlight);
+        }
+        .calculator-container .search-item .car-name {
+            font-weight: 600;
+        }
+        .calculator-container .search-item .car-info {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .calculator-container .eff-select-row select option.eff-red { color: var(--eff-red); font-weight: 700; }
+        .calculator-container .eff-select-row select option.eff-yellow { color: var(--eff-yellow); font-weight: 700; }
+        .calculator-container .eff-select-row select option.eff-green { color: var(--eff-green); font-weight: 700; }
+        .calculator-container .eff-select-row select option.eff-purple { color: var(--eff-purple); font-weight: 700; }
+        
+        :root {
+            --btn-primary: #3b82f6;
+            --btn-primary-hover: #2563eb;
+            --btn-secondary: #64748b;
+            --btn-secondary-hover: #475569;
+            --btn-success: #10b981;
+            --btn-success-hover: #059669;
+            --info-icon-bg: #94a3b8;
+            --info-icon-hover: #3b82f6;
+            --tooltip-bg: #1e293b;
+            --warning-red: #b91c1c;
+            --search-highlight: #e0e7ff;
+            --eff-red: #dc2626;
+            --eff-yellow: #d97706;
+            --eff-green: #059669;
+            --eff-purple: #7c3aed;
+        }
+        body.dark-mode {
+            --btn-primary: #3b82f6;
+            --btn-primary-hover: #2563eb;
+            --btn-secondary: #475569;
+            --btn-secondary-hover: #5b6e8c;
+            --btn-success: #059669;
+            --btn-success-hover: #10b981;
+            --info-icon-bg: #4a5568;
+            --info-icon-hover: #3b82f6;
+            --tooltip-bg: #334155;
+            --warning-red: #fca5a5;
+            --search-highlight: #1e1b4b;
+            --eff-red: #f87171;
+            --eff-yellow: #fbbf24;
+            --eff-green: #34d399;
+            --eff-purple: #c084fc;
+        }
+    </style>
 </head>
 <body>
 <div class="app-layout">
@@ -1304,8 +1868,106 @@
             <div class="stats-text" id="energyStatsText">加载赋能数据...</div>
         </div>
         
+        <!-- 芯片要求计算器页面 - 嵌入计算器 -->
+        <div id="calculatorPage" class="page">
+            <div class="calculator-container">
+                <div class="header-top">
+                    <div class="card" style="margin-bottom:0; flex:1; margin-right:16px;">
+                        <h2>王牌竞速 · 芯片可行性计算器</h2>
+                        <div class="note">抖音搜索勿念情伤，加主页群聊天，不懂的随便问<br>游戏名和抖音名一样，欢迎各位加好友一起玩<br>欢迎王牌玩家反馈使用体验与bug，提出优化建议</div>
+                        <details class="usage-guide">
+                            <summary>📖 使用指南（使用前必看）</summary>
+                            <div style="margin-top: 8px;">
+                                <div class="warning-tip">
+                                    <strong>一、温馨提示：</strong><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;1.使用前先刷新一下，以便使用最新版代码运行的网站，<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;2.每次切换车辆后都先将车辆独立增益选项重新开关一次，若没有独立增益效果，则不会再显示，<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;若有独立增益效果，则还会显示。只要记住重新开关一次即可（这是显示逻辑bug，无能为力）
+                                </div>
+                                <strong>二、新手不太会使用的就按我说的做：</strong><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;1.先选择车辆<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;2.选择 V 型芯片<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;3、选择你要带的氮气类型<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;4、是否跨专精，辅助一般不跨专精，除了个例<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;5. 选择你第一个大招需要的氮气数量以及后续每个大招需要的氮气数量，一般都是 <br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 个 15 氮气首大+2 气循环或者 2 个 22 氮气首大+4 气循环，当然还有很多其他<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;搭配，如果这个看懂了，那么 4 气、3 气循环你也可以看懂<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;6.赋能就正常选就行<br>
+                                <br>
+                                <strong>三、4气、3气两大一循环：</strong>是指辅助从第2个大开始，第二个需要4个氮气，第3个大需要3个氮气，这2个大捆在<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一起看做一个大循环，因此循环氮气数量是7（默认，可手动更改）<br><br>
+                                <strong>四、缺一的循环能量秒数：</strong>4气、3气两大一循环下缺一要算两个大招的时间，十几秒起步<br><br>
+                                <strong>五、缺一的档位</strong>参考游戏内的不过多解释了<br><br>
+                                <strong>六、节奏的循环触发次数：</strong>4气、3气两大一循环下节奏要算两个大招触发的次数<br><br>
+                                <strong>七、其他所有额外充能：</strong>在计算4气、3气两大一循环时都默认会双倍触发<br><br>
+                                <strong>八、解释说明：</strong>我把毒药、amg等有起步额外能量的车的这个数值归在其他充能里面，因为它受反制和充<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;能效率影响，踏雪白驹是例外，因为只能单刷，所以为了计算方便就把它的起步额外能量算到起步充<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;能里了
+                            </div>
+                        </details>
+                    </div>
+                    <button class="theme-toggle" id="calcThemeToggleBtn"><span id="calcThemeIcon">🌙</span><span id="calcThemeText">深色模式</span></button>
+                </div>
+                <div class="card">
+                    <div class="car-layout-new">
+                        <div class="car-icon-large">
+                            <div class="car-icon" id="calcCarIcon"><span>🏎️</span></div>
+                            <div class="note">当前车型预览</div>
+                        </div>
+                        <div class="car-form-right">
+                            <div class="search-container">
+                                <input type="text" id="calcCarSearchInput" class="search-input" placeholder="搜索车辆名称或关键词 (如: 比亚迪/byd/毒药/拉法...)" autocomplete="off">
+                                <div id="calcSearchDropdown" class="search-dropdown"></div>
+                            </div>
+                            <div class="row2">
+                                <div><label>车辆定位</label><div class="car-type-row"><div class="car-type-icon-preview" id="calcCarTypeIcon"></div><select id="calcCarType"></select></div></div>
+                                <div><label>专精</label><div class="car-subtype-row"><div class="car-subtype-icon-preview" id="calcCarSubTypeIcon"></div><select id="calcCarSubType"></select></div></div>
+                                <div><label>车辆型号</label><select id="calcCarModel"></select></div>
+                            </div>
+                            <div class="row2">
+                                <div><label>V型槽</label><div class="vslot-select-row"><div class="vslot-icon-preview" id="calcVslotIcon"><span>⚙️</span></div><select id="calcVSlot"></select></div></div>
+                                <div id="calcCycleModeContainer" style="display: none;"><label>4气、3气两大一循环</label><div class="cycle-mode-wrapper"><select id="calcCycleMode"><option value="normal">否</option><option value="cycle">是</option></select><span class="info-icon">?<span class="tooltip-text">仅辅助位车辆且首大能量≥80时支持，自动设首大2个/循环7个22氮气</span></span></div></div>
+                                <div><label>氮气类型</label><div class="nitro-select-row"><div class="nitro-icon-preview" id="calcNitroIcon"><span>💨</span></div><select id="calcNitroType"></select></div></div>
+                                <div><label>专精</label><select id="calcSpecialize"><option value="10">是</option><option value="0">否</option></select></div>
+                            </div>
+                            <div class="energy-row"><div><label>首大能量</label><div class="energy-display" id="calcFirstEnergyDisplay">--</div></div><div><label>首大氮气数量</label><select id="calcStartNitroCountDisplay"><option value="0">0个</option><option value="1" selected>1个</option><option value="2">2个</option><option value="3">3个</option><option value="4">4个</option><option value="5">5个</option><option value="6">6个</option></select></div></div>
+                            <div class="energy-row"><div><label id="calcCycleEnergyLabel">循环能量</label><div class="energy-display" id="calcCycleEnergyDisplay">--</div></div><div><label>循环氮气数量</label><div class="cycle-mode-wrapper"><select id="calcCycleNitroCountDisplay"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select><span class="info-icon">?<span class="tooltip-text" id="calcCycleNitroTooltip">1个大招所需的氮气数量</span></span></div></div></div>
+                            <div><label>反制%</label><select id="calcOverrideR" style="width:100%; padding:10px 14px; border-radius:40px; border:1px solid var(--border-medium); background:var(--bg-input); font-size:0.85rem;"><option value="0">0%</option><option value="1">1%</option><option value="2">2%</option><option value="3">3%</option><option value="4">4%</option><option value="5">5%</option><option value="6">6%</option><option value="7">7%</option><option value="8">8%</option><option value="9">9%</option><option value="10">10%</option><option value="11">11%</option><option value="12">12%</option><option value="13">13%</option><option value="14">14%</option><option value="15">15%</option><option value="16">16%</option><option value="17">17%</option><option value="18">18%</option></select></div>
+                            <div id="calcYitaiExtraOptions" style="display:none; margin-top:12px; padding:12px; background:var(--special-bg); border-radius:24px;"><div class="option-title">以太/催化剂专属额外增益</div><div class="option-row"><div><label>额外充能效率提升 (%)</label><input type="number" id="calcExtraEff" step="any" value="0" min="0" max="100"><span class="info-icon">?<span class="tooltip-text">手动输入额外充能效率百分比，作用于首大和循环能量</span></span></div><div><label>额外起步充能</label><input type="number" id="calcExtraStart" step="any" value="0"></div></div></div>
+                            <div id="calcVehicleSpecialOptionsContainer" class="vehicle-special-options" style="display:none;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="row2"><div><label>主赋能</label><div class="eff-select-row"><div class="eff-icon-preview" id="calcMainEffIcon"></div><select id="calcMainEff"></select></div></div><div><label>次赋能</label><div class="eff-select-row"><div class="eff-icon-preview" id="calcSubEffIcon"></div><select id="calcSubEff"></select></div></div></div>
+                    <div id="calcColorErrorMsg" class="error-message" style="display: none;"></div>
+                    <div id="calcQueyiOptions" style="display:none; margin-top:12px;">
+                        <div class="queyi-row" style="display:flex; gap:12px; flex-wrap:wrap;">
+                            <div><label id="calcQueyiCycleLabel">缺一·循环能量秒数(1-15)</label><select id="calcQueyiCycleSeconds"><option value="0">0秒</option><option value="1">1秒</option><option value="2">2秒</option><option value="3">3秒</option><option value="4">4秒</option><option value="5">5秒</option><option value="6">6秒</option><option value="7" selected>7秒</option><option value="8">8秒</option><option value="9">9秒</option><option value="10">10秒</option><option value="11">11秒</option><option value="12">12秒</option><option value="13">13秒</option><option value="14">14秒</option><option value="15">15秒</option></select></div>
+                            <div><label>缺一·首大能量秒数(1-8)</label><select id="calcQueyiFirstSeconds"><option value="0">0秒</option><option value="1">1秒</option><option value="2">2秒</option><option value="3">3秒</option><option value="4">4秒</option><option value="5">5秒</option><option value="6" selected>6秒</option><option value="7">7秒</option><option value="8">8秒</option></select></div>
+                            <div><label>缺一档位</label><select id="calcQueyiLevel"><option value="0.8">Q1 (0.8/秒)</option><option value="1.2">Q2 (1.2/秒)</option><option value="2.0">Q3 (2.0/秒)</option></select></div>
+                        </div>
+                    </div>
+                    <div id="calcRhythmOptions" style="display:none; margin-top:12px;">
+                        <div class="rhythm-row" style="display:flex; gap:12px; flex-wrap:wrap;">
+                            <div><label id="calcRhythmCycleLabel">节奏·循环触发次数(1-4)</label><select id="calcRhythmCycleCount"><option value="0">0次</option><option value="1">1次</option><option value="2">2次</option><option value="3">3次</option><option value="4">4次</option></select></div>
+                            <div><label>节奏·首大触发次数(1-3)</label><select id="calcRhythmFirstCount"><option value="0">0次</option><option value="1">1次</option><option value="2">2次</option><option value="3">3次</option></select></div>
+                        </div>
+                    </div>
+                    <div class="custom-hui-row" id="calcCustomHuiRow" style="display: flex;">
+                        <label>目标汇能 (%)：</label>
+                        <input type="number" id="calcCustomHuiInput" step="0.25" value="0" min="0">
+                        <span class="info-icon" style="margin-left: 0;">?<span class="tooltip-text">输入大于等于最小汇能的数值，可降低先机需求（上限受芯片槽限制）</span></span>
+                        <span id="calcCustomHuiWarning" class="custom-hui-warning"></span>
+                    </div>
+                    <div class="button-group"><button id="calcCalcBtn">计算汇能 & 先机</button><button id="calcResetBtn" class="btn-secondary">重置所有选项</button><button id="calcShareBtn" class="btn-success">📸 分享截图</button></div>
+                    <div class="result-box" id="calcResultArea"><div style="color:var(--text-muted); text-align:center;">等待计算...</div></div>
+                    <button id="calcCopyResultBtn" style="margin-top:12px; background:var(--btn-secondary);">📋 一键复制结果</button>
+                </div>
+            </div>
+        </div>
+        
         <!-- 其他占位页面 -->
-        <div id="calculatorPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">芯片要求计算器 - 即将上线</div></div>
         <div id="newsPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">爆料信息 - 开发中</div></div>
         <div id="wallpaperPage" class="page">
             <div style="padding: 20px;">
@@ -1368,7 +2030,75 @@
         "场地": "https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png"
     };
     
-    // ========== 辅助函数 ==========
+    // ========== 车辆数据库 ==========
+    const carTypeOptions=[{value:"assist",name:"辅助位",icon:"https://s3.bmp.ovh/2026/05/31/mtc05q5R.png"},{value:"race",name:"竞速位",icon:"https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png"},{value:"jam",name:"干扰位",icon:"https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png"},{value:"balance",name:"天平位",icon:"https://s3.bmp.ovh/2026/05/31/S38JRfCL.png"}];
+    const carSubTypeOptions=[{value:"city",name:"城市",icon:"https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png"},{value:"mountain",name:"山路",icon:"https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png"},{value:"venue",name:"场地",icon:"https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png"}];
+    const allVSlotOptions=[{value:"shenxin",name:"神剑号之芯",icon:"https://s3.bmp.ovh/2026/05/29/CYJg8Tet.png"},{value:"maoxin",name:"猫眠梦之芯",icon:"https://s3.bmp.ovh/2026/05/29/iTqrWqI7.png"},{value:"xianqu",name:"先驱者专属芯片（修竹）",icon:"https://s3.bmp.ovh/2026/05/29/6r78MrBU.png"},{value:"xiaofeng",name:"摇尾萌萌虎专属芯片（啸风白虎）",icon:"https://s3.bmp.ovh/2026/05/29/byosRStY.png"},{value:"shengxin",name:"圣骑士之芯",icon:"https://s3.bmp.ovh/2026/05/29/Hr6P82JF.png"},{value:"xiaolu",name:"效率",icon:"https://s3.bmp.ovh/2026/05/29/dIffRM5n.png"},{value:"leiji",name:"累计",icon:"https://s3.bmp.ovh/2026/05/29/b1hoabhg.png"},{value:"feichi",name:"飞驰",icon:"https://s3.bmp.ovh/2026/05/29/hcTlzo56.png"},{value:"tujin",name:"突进",icon:"https://s3.bmp.ovh/2026/05/29/WuT3bH3Q.png"},{value:"jianren",name:"坚韧",icon:"https://s3.bmp.ovh/2026/05/29/TKBXNb64.png"},{value:"chongci",name:"冲刺",icon:"https://s3.bmp.ovh/2026/05/29/QTOlIeXi.png"},{value:"shensu",name:"神速",icon:"https://s3.bmp.ovh/2026/05/29/rU5pVwLP.png"}];
+    const nitroOptions=[{value:"3x2",name:"3×2 (32氮气)",icon:"https://s3.bmp.ovh/2026/05/29/kNiCdMqA.png"},{value:"2x2",name:"2×2 (22氮气)",icon:"https://s3.bmp.ovh/2026/05/29/B4o57dJK.png"},{value:"1x5",name:"1×5 (15氮气)",icon:"https://s3.bmp.ovh/2026/05/29/mbcW1Wt3.png"}];
+    const skillIcons={"bugan":"https://s3.bmp.ovh/2026/05/29/r7SIeutb.png","yuwo":"https://s3.bmp.ovh/2026/05/29/nErU9A7B.png","queyi":"https://s3.bmp.ovh/2026/05/29/NqyuKLEx.png","adaptive":"https://s3.bmp.ovh/2026/05/29/6W9MVJzL.png","huifeng":"https://s3.bmp.ovh/2026/05/29/4mRqWuKy.png","resurgence":"https://s3.bmp.ovh/2026/05/29/09axY9Ve.png","future":"https://s3.bmp.ovh/2026/05/29/oYEeBtCp.png","huaxin":"https://s3.bmp.ovh/2026/05/29/M7eqcDo9.png","nengyuan":"https://s3.bmp.ovh/2026/05/29/3TG3fI8y.png","refuse":"https://s3.bmp.ovh/2026/05/29/jhypMW7s.png","jifeng":"https://s3.bmp.ovh/2026/05/29/dCgTeyW4.png","guibu":"https://s3.bmp.ovh/2026/05/29/CdphoPvb.png","rhythm":"https://s3.bmp.ovh/2026/05/29/PAwSMZVh.png","tongzhou":"https://s3.bmp.ovh/2026/05/29/oakQbBqV.png"};
+    const mainEffList=[{value:"none",name:"无",color:null,icon:null},{value:"refuse",name:"拒绝溢出",color:"yellow",icon:skillIcons.refuse},{value:"jifeng",name:"疾风步",color:"yellow",icon:skillIcons.jifeng},{value:"adaptive",name:"自适应",color:"green",icon:skillIcons.adaptive},{value:"huifeng",name:"汇丰",color:"purple",icon:skillIcons.huifeng},{value:"resurgence",name:"复苏",color:"purple",icon:skillIcons.resurgence}];
+    const subEffList=[{value:"none",name:"无",color:null,icon:null},{value:"bugan",name:"不甘",color:"red",icon:skillIcons.bugan},{value:"yuwo",name:"与我",color:"red",icon:skillIcons.yuwo},{value:"queyi",name:"缺一",color:"red",icon:skillIcons.queyi},{value:"guibu",name:"硅步",color:"yellow",icon:skillIcons.guibu},{value:"rhythm",name:"节奏",color:"yellow",icon:skillIcons.rhythm},{value:"tongzhou",name:"同舟",color:"yellow",icon:skillIcons.tongzhou},{value:"future",name:"未来",color:"purple",icon:skillIcons.future},{value:"huaxin",name:"花信风",color:"purple",icon:skillIcons.huaxin},{value:"nengyuan",name:"能源回收",color:"purple",icon:skillIcons.nengyuan}];
+    const carIcons={"踏雪白驹":"https://reca.seimu.cn/ace-racer/rk-assets/12078_m.png","兰博基尼 Veneno":"https://reca.seimu.cn/ace-racer/rk-assets/12051_m.png","茶韵行者":"https://reca.seimu.cn/ace-racer/rk-assets/12057_m.png","幻海之汐":"https://reca.seimu.cn/ace-racer/rk-assets/12081_m.png","奥迪 RS 6 Avant":"https://reca.seimu.cn/ace-racer/rk-assets/12058_m.png","宝马 M4 CSL":"https://reca.seimu.cn/ace-racer/rk-assets/12045_m.png","果冻":"https://reca.seimu.cn/ace-racer/rk-assets/12018_m.png","玉麒麟":"https://reca.seimu.cn/ace-racer/rk-assets/12004_m.png","爱玛 晴天":"https://reca.seimu.cn/ace-racer/rk-assets/12003_m.png","AITO 问界 M5 EV":"https://reca.seimu.cn/ace-racer/rk-assets/10089_m.png","雪佛兰 Camaro ZL1":"https://reca.seimu.cn/ace-racer/rk-assets/10081_m.png","比亚迪 汉":"https://reca.seimu.cn/ace-racer/rk-assets/10018_m.png","玛莎拉蒂 Levante":"https://reca.seimu.cn/ace-racer/rk-assets/10043_m.png","逮虾货运":"https://reca.seimu.cn/ace-racer/rk-assets/10061_m.png","猫眠梦":"https://reca.seimu.cn/ace-racer/rk-assets/10058_m.png","阿斯顿马丁 Vanquish":"https://reca.seimu.cn/ace-racer/rk-assets/10030_m.png","杂耍者":"https://reca.seimu.cn/ace-racer/rk-assets/10029_m.png","特异点":"https://reca.seimu.cn/ace-racer/rk-assets/10034_m.png","福特 Focus RS":"https://reca.seimu.cn/ace-racer/rk-assets/10001_m.png","蔚来ET9":"https://reca.seimu.cn/ace-racer/rk-assets/12084_m.png","蛋仔出击":"https://reca.seimu.cn/ace-racer/rk-assets/12039_m.png","幻蝶":"https://reca.seimu.cn/ace-racer/rk-assets/12008_m.png","月宫舞灵":"https://reca.seimu.cn/ace-racer/rk-assets/12002_m.png","先驱者":"https://reca.seimu.cn/ace-racer/rk-assets/10087_m.png","道奇 Charger SRT Hellcat":"https://reca.seimu.cn/ace-racer/rk-assets/10062_m.png","摇尾萌萌虎":"https://reca.seimu.cn/ace-racer/rk-assets/10072_m.png","五菱宏光 MINI EV":"https://reca.seimu.cn/ace-racer/rk-assets/10053_m.png","大众 ID.R":"https://reca.seimu.cn/ace-racer/rk-assets/10020_m.png","风神":"https://reca.seimu.cn/ace-racer/rk-assets/10023_m.png","催化剂":"https://reca.seimu.cn/ace-racer/rk-assets/10036_m.png","坚盾":"https://reca.seimu.cn/ace-racer/rk-assets/12072_m.png","乐道L60":"https://reca.seimu.cn/ace-racer/rk-assets/12060_m.png","腾势N7":"https://reca.seimu.cn/ace-racer/rk-assets/12055_m.png","团子":"https://reca.seimu.cn/ace-racer/rk-assets/12033_m.png","筋斗云":"https://reca.seimu.cn/ace-racer/rk-assets/12054_m.png","游龙惊鸿":"https://reca.seimu.cn/ace-racer/rk-assets/12036_m.png","爱玛造梦师":"https://reca.seimu.cn/ace-racer/rk-assets/12028_m.png","极狐阿尔法S全新HI版":"https://reca.seimu.cn/ace-racer/rk-assets/10095_m.png","梅赛德斯-AMG G 63":"https://reca.seimu.cn/ace-racer/rk-assets/10086_m.png","星际探路者":"https://reca.seimu.cn/ace-racer/rk-assets/10077_m.png","奥迪TT RS":"https://reca.seimu.cn/ace-racer/rk-assets/10063_m.png","平行巡洋舰":"https://reca.seimu.cn/ace-racer/rk-assets/10057_m.png","宝马X5":"https://reca.seimu.cn/ace-racer/rk-assets/10004_m.png","以太":"https://reca.seimu.cn/ace-racer/rk-assets/10028_m.png","MINI JCW":"https://reca.seimu.cn/ace-racer/rk-assets/10009_m.png","大众Beetle":"https://reca.seimu.cn/ace-racer/rk-assets/10015_m.png","法拉利 LaFerrari":"https://reca.seimu.cn/ace-racer/rk-assets/12073_m.png","柯尼塞格 One:1":"https://reca.seimu.cn/ace-racer/rk-assets/12068_m.png","阿斯顿马丁 Valkyrie AMR Pro":"https://s3.bmp.ovh/2026/06/02/IZYpw3cP.png","逐浪":"https://reca.seimu.cn/ace-racer/rk-assets/10069_m.png","法拉利 812 Competizione":"https://reca.seimu.cn/ace-racer/rk-assets/12034_m.png","奥迪 RS7 Sportback":"https://reca.seimu.cn/ace-racer/rk-assets/10088_m.png","布加迪 Divo":"https://reca.seimu.cn/ace-racer/rk-assets/10064_m.png","终极·异形":"https://reca.seimu.cn/ace-racer/rk-assets/10079_m.png","布加迪 LVN":"https://reca.seimu.cn/ace-racer/rk-assets/10010_m.png","风行者":"https://reca.seimu.cn/ace-racer/rk-assets/12071_m.png","迈凯伦 Senna":"https://reca.seimu.cn/ace-racer/rk-assets/12042_m.png","日产 GT-R NISMO":"https://reca.seimu.cn/ace-racer/rk-assets/10038_m.png","梅赛德斯-AMG GT Black Series":"https://reca.seimu.cn/ace-racer/rk-assets/10083_m.png","阿斯顿马丁 DB11":"https://reca.seimu.cn/ace-racer/rk-assets/10031_m.png","蔚来 EP9":"https://reca.seimu.cn/ace-racer/rk-assets/10011_m.png","保时捷 935":"https://reca.seimu.cn/ace-racer/rk-assets/10056_m.png","帕加尼 Huayra":"https://reca.seimu.cn/ace-racer/rk-assets/10042_m.png","迈凯伦 P1":"https://reca.seimu.cn/ace-racer/rk-assets/10033_m.png","奥迪RS3":"https://reca.seimu.cn/ace-racer/rk-assets/10063_m.png","方程豹 豹8":"https://s3.bmp.ovh/2026/05/31/lJ8cPIjc.png","英菲尼迪 Prototype":"https://s3.bmp.ovh/2026/06/05/8daOlmfF.png"};
+    const specialFirstEnergyMap={"爱玛造梦师":70,"猫眠梦":70,"道奇 Charger SRT Hellcat":70,"特异点":70,"MINI JCW":70,"五菱宏光 MINI EV":70,"雪佛兰 Camaro ZL1":72,"乐道L60":85,"法拉利 LaFerrari":70,"终极·异形":50,"法拉利 812 Competizione":30,"保时捷 935":50,"茶韵行者":100,"蔚来ET9":90,"先驱者":100};
+    const VEHICLES_WITH_SPECIAL_BONUS = ["迈凯伦 Senna", "五菱宏光 MINI EV", "平行巡洋舰", "奥迪TT RS", "爱玛 晴天", "阿斯顿马丁 Vanquish", "宝马X5", "幻蝶", "风行者", "英菲尼迪 Prototype", "梅赛德斯-AMG GT Black Series"];
+    const vehicleFixedFirstBonus = {
+        "梅赛德斯-AMG GT Black Series": 33,
+        "兰博基尼 Veneno": 20,
+        "阿斯顿马丁 Valkyrie AMR Pro": 20,
+        "柯尼塞格 One:1": 15,
+        "MINI JCW": 20
+    };
+    const vehicleFixedNormalCycleBonus = {
+        "比亚迪 汉": 15,
+        "极狐阿尔法S全新HI版": 15,
+        "梅赛德斯-AMG G 63": 8,
+        "踏雪白驹": 40,
+        "爱玛 晴天": 18,
+        "奥迪TT RS": 18
+    };
+    const vehicleFixedDoubleCycleBonus = {
+        "比亚迪 汉": 30,
+        "极狐阿尔法S全新HI版": 30,
+        "梅赛德斯-AMG G 63": 16,
+        "爱玛 晴天": 36,
+        "奥迪TT RS": 36
+    };
+    
+    const fullDB = { assist: { venue:[{name:"幻海之汐",chips:"346",start:40,nitro:40,bonus:null},{name:"比亚迪 汉",chips:"336",start:37.5,nitro:37.5,bonus:{hasHuiCycleBonus:true}},{name:"奥迪 RS 6 Avant",chips:"346",start:40,nitro:40,bonus:{huiEff:4}},{name:"宝马 M4 CSL",chips:"346",start:39,nitro:39,bonus:null},{name:"果冻",chips:"346",start:40,nitro:40,bonus:null},{name:"玉麒麟",chips:"346",start:36,nitro:36,bonus:null},{name:"爱玛 晴天",chips:"346",start:38,nitro:38,bonus:{}},{name:"AITO 问界 M5 EV",chips:"346",start:40,nitro:40,bonus:null},{name:"雪佛兰 Camaro ZL1",chips:"366",start:37,nitro:37,bonus:null},{name:"玛莎拉蒂 Levante",chips:"366",start:39,nitro:39,bonus:{huiExtra:10}},{name:"逮虾货运",chips:"346",start:39,nitro:39,bonus:null},{name:"猫眠梦",chips:"336",start:38,nitro:38,bonus:null},{name:"阿斯顿马丁 Vanquish",chips:"346",start:39,nitro:39,bonus:{}},{name:"杂耍者",chips:"446",start:39,nitro:39,bonus:null},{name:"特异点",chips:"334",start:36,nitro:36,bonus:null},{name:"福特 Focus RS",chips:"466",start:35,nitro:35,bonus:null}], mountain:[{name:"蔚来ET9",chips:"346",start:39,nitro:39,bonus:{}},{name:"茶韵行者",chips:"346",start:40,nitro:40,bonus:null},{name:"蛋仔出击",chips:"346",start:38,nitro:38,bonus:null},{name:"幻蝶",chips:"466",start:57,nitro:37,bonus:{}},{name:"月宫舞灵",chips:"346",start:56,nitro:36,bonus:{}},{name:"先驱者",chips:"346",start:40,nitro:40,bonus:null},{name:"道奇 Charger SRT Hellcat",chips:"366",start:40,nitro:40,bonus:null},{name:"摇尾萌萌虎",chips:"366",start:58,nitro:38,bonus:null},{name:"五菱宏光 MINI EV",chips:"334",start:36,nitro:36,bonus:{}},{name:"大众 ID.R",chips:"366",start:40,nitro:40,bonus:null},{name:"风神",chips:"346",start:45,nitro:45,bonus:null},{name:"催化剂",chips:"366",start:41,nitro:41,bonus:null}], city:[{name:"爱玛造梦师",chips:"346",start:35,nitro:35,bonus:{}},{name:"奥迪RS3",chips:"346",start:39,nitro:39,bonus:null},{name:"奥迪TT RS",chips:"346",start:40,nitro:40,bonus:{}},{name:"宝马X5",chips:"366",start:37,nitro:37,bonus:{}},{name:"方程豹 豹8",chips:"346",start:40,nitro:40,bonus:null},{name:"大众Beetle",chips:"446",start:41,nitro:41,bonus:null},{name:"极狐阿尔法S全新HI版",chips:"346",start:39,nitro:39,bonus:{hasHuiCycleBonus:true}},{name:"坚盾",chips:"446",start:41,nitro:41,bonus:{jiForceZero:true}},{name:"筋斗云",chips:"346",start:39,nitro:39,bonus:null},{name:"乐道L60",chips:"346",start:39,nitro:39,bonus:{}},{name:"梅赛德斯-AMG G 63",chips:"466",start:40,nitro:40,bonus:{specialG63:true}},{name:"平行巡洋舰",chips:"334",start:37,nitro:37,bonus:{}},{name:"腾势N7",chips:"346",start:41,nitro:41,bonus:null},{name:"团子",chips:"346",start:40,nitro:40,bonus:null},{name:"星际探路者",chips:"346",start:40,nitro:40,bonus:null},{name:"以太",chips:"346",start:40,nitro:40,bonus:{}},{name:"游龙惊鸿",chips:"466",start:48,nitro:38,bonus:null},{name:"MINI JCW",chips:"334",start:35,nitro:35,bonus:null}] }, race: { city:[{name:"法拉利 LaFerrari",chips:"446",start:32,nitro:32,bonus:{}},{name:"柯尼塞格 One:1",chips:"346",start:32.5,nitro:34.5,bonus:{jiExtra:15}},{name:"法拉利 812 Competizione",chips:"366",start:27,nitro:27,bonus:{}},{name:"奥迪 RS7 Sportback",chips:"366",start:41,nitro:29,bonus:null},{name:"布加迪 Divo",chips:"366",start:30,nitro:30,bonus:null},{name:"终极·异形",chips:"346",start:33,nitro:33,bonus:{}},{name:"布加迪 LVN",chips:"446",start:27,nitro:27,bonus:{huiExtra:12}},{name:"英菲尼迪 Prototype",chips:"346",start:25,nitro:25,bonus:{specialInfiniti:true}}], mountain:[{name:"风行者",chips:"334",start:31,nitro:31,bonus:{}},{name:"迈凯伦 Senna",chips:"446",start:28,nitro:28,bonus:{}},{name:"日产 GT-R NISMO",chips:"4466",start:29,nitro:29,bonus:null},{name:"梅赛德斯-AMG GT Black Series",chips:"446",start:26.5,nitro:26.5,bonus:{jiExtra:33}},{name:"阿斯顿马丁 DB11",chips:"366",start:27,nitro:27,bonus:null}], venue:[{name:"踏雪白驹",chips:"344",start:81,nitro:31,bonus:{}},{name:"兰博基尼 Veneno",chips:"446",start:31.5,nitro:31.5,bonus:{jiExtra:20}},{name:"蔚来 EP9",chips:"346",start:26,nitro:26,bonus:null},{name:"保时捷 935",chips:"334",start:26,nitro:26,bonus:{}},{name:"帕加尼 Huayra",chips:"366",start:32,nitro:32,bonus:null},{name:"迈凯伦 P1",chips:"446",start:53,nitro:33,bonus:null}] }, jam:{city:[{name:"逐浪",chips:"466",start:47,nitro:27,bonus:{jiOnly:true}}],mountain:[],venue:[]}, balance:{city:[],mountain:[],venue:[{name:"阿斯顿马丁 Valkyrie AMR Pro",chips:"466",start:26,nitro:26,bonus:{jiExtra:20}}]}};
+    const carsDB={assist:{venue:[],mountain:[],city:[]},race:{city:[],mountain:[],venue:[]},jam:{city:[],mountain:[],venue:[]},balance:{city:[],mountain:[],venue:[]}};
+    for(let t of ['assist','race','jam','balance']) for(let s of ['venue','mountain','city']) if(fullDB[t] && fullDB[t][s]) carsDB[t][s] = [...fullDB[t][s]];
+    
+    // 搜索数据构建
+    let allCarsSearchList = [];
+    function buildSearchList() {
+        allCarsSearchList = [];
+        for (let type of ['assist', 'race', 'jam', 'balance']) {
+            let typeName = {assist:'辅助位', race:'竞速位', jam:'干扰位', balance:'天平位'}[type];
+            for (let sub of ['city', 'mountain', 'venue']) {
+                let subName = {city:'城市', mountain:'山路', venue:'场地'}[sub];
+                let cars = carsDB[type]?.[sub] || [];
+                for (let car of cars) {
+                    allCarsSearchList.push({
+                        name: car.name,
+                        type: type,
+                        sub: sub,
+                        typeName: typeName,
+                        subName: subName,
+                        chips: car.chips,
+                        start: car.start,
+                        nitro: car.nitro,
+                        bonus: car.bonus,
+                        keywords: []
+                    });
+                }
+            }
+        }
+    }
+    buildSearchList();
+    
+    function getVehicleFirstEnergy(carName) { return specialFirstEnergyMap[carName] || 100; }
+    
+    // 辅助函数
     function sortChipSlots(slots) {
         const order = { "circle": 0, "triangle": 1, "rhombus": 2, "hexagon": 3, "vslot": 4 };
         return [...slots].sort((a, b) => (order[a] ?? 5) - (order[b] ?? 5));
@@ -1754,6 +2484,16 @@
                         document.getElementById('energyPage').classList.add('active-page');
                         if (energiesData.length > 0) renderEnergiesList();
                         window.scrollTo(0, 0);
+                    } else if (pageId === 'calculator') {
+                        document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+                        const calcBtns = document.querySelectorAll('.mobile-tab-btn');
+                        for (let b of calcBtns) if (b.dataset.page === 'calculator') b.classList.add('active');
+                        document.getElementById('mobileFixedHeader').style.display = 'none';
+                        document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                        document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                        document.getElementById('calculatorPage').classList.add('active-page');
+                        window.scrollTo(0, 0);
                     } else {
                         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                         document.getElementById(pageId + 'Page')?.classList.add('active-page');
@@ -2122,9 +2862,7 @@
         });
     }
     
-    // 自定义芯片排序：车姬芯片 → 车辆专属芯片 → 修炼芯片 → 超频芯片（且将所有名字带"超频"的芯片排在最后）
     function sortChipsByCategory(chips) {
-        // 先按基础类别排序
         const categoryOrder = {
             "车姬芯片": 1,
             "车辆专属芯片": 2,
@@ -2137,8 +2875,6 @@
             if (orderA !== orderB) return orderA - orderB;
             return a.name.localeCompare(b.name, 'zh');
         });
-        
-        // 再将所有名称中包含"超频"的芯片移到末尾，保持它们之间的相对顺序
         const normalChips = [];
         const overclockChips = [];
         for (const chip of sorted) {
@@ -2153,9 +2889,7 @@
     
     function renderChipsList() {
         let filtered = filterChips();
-        // 应用自定义排序
         filtered = sortChipsByCategory(filtered);
-        
         const grid = document.getElementById("chipsGrid");
         const stats = document.getElementById("chipStatsText");
         if (!grid) return;
@@ -2219,149 +2953,19 @@
         } catch (error) {
             console.error('[芯片数据加载错误]', error);
             chipsData = [
-                {
-                    id: "chip_mianmian",
-                    name: "猫眠梦之芯",
-                    icon: "https://s3.bmp.ovh/2026/05/29/iTqrWqI7.png",
-                    quality: "传说",
-                    shape: "V型芯片",
-                    type: "扩展",
-                    category: "车姬芯片",
-                    effectDescription: "每6秒获得1200集气量并恢复6点耐久值，大招达到90%能量即可使用（猫眠梦装备时改为66%）",
-                    effectNote: "推荐大招阈值100%车辆携带，减少赋能压力"
-                },
-                {
-                    id: "chip_shenjian",
-                    name: "神剑号之芯",
-                    icon: "https://s3.bmp.ovh/2026/05/29/CYJg8Tet.png",
-                    quality: "传说",
-                    shape: "V型芯片",
-                    type: "扩展",
-                    category: "车辆专属芯片",
-                    effectDescription: "每次点击大招时立即结束漂移状态，开局前33秒内获得集气无阈值效果且每次点击大招时获得900集气量",
-                    effectNote: "泛用性广"
-                },
-                {
-                    id: "chip_shengqishi",
-                    name: "圣骑士之芯",
-                    icon: "https://s3.bmp.ovh/2026/05/29/Hr6P82JF.png",
-                    quality: "传说",
-                    shape: "V型芯片",
-                    type: "扩展",
-                    category: "车辆专属芯片",
-                    effectDescription: "使用大招后5秒内将蓝色涡轮和氮气变为紫色涡轮和氮气，每4次使用涡轮、氮气或大招极速+2.5km/h，上限叠加3次",
-                    effectNote: "泛用性差"
-                },
-                {
-                    id: "chip_moran_xiuzhu",
-                    name: "墨染：修竹",
-                    icon: "https://s3.bmp.ovh/2026/05/29/6r78MrBU.png",
-                    quality: "传说",
-                    shape: "V型芯片",
-                    type: "扩展",
-                    category: "车姬芯片",
-                    effectDescription: "舍我其谁达到80%能量即可使用，每次被干扰和辅助时立即获得1200集气量（CD2秒）",
-                    effectNote: "先驱者专属（3气1大）"
-                },
-                {
-                    id: "chip_xiaofeng_baihu",
-                    name: "至尊：啸风白虎",
-                    icon: "https://s3.bmp.ovh/2026/05/29/byosRStY.png",
-                    quality: "传说",
-                    shape: "V型芯片",
-                    type: "扩展",
-                    category: "车姬芯片",
-                    effectDescription: "开局时获得8000集气量，辅助范围提升至700米",
-                    effectNote: "萌萌虎专属"
-                },
-                {
-                    id: "chip_xulian_feichi",
-                    name: "修炼：飞驰",
-                    icon: "https://s3.bmp.ovh/2026/05/29/hcTlzo56.png",
-                    quality: "传说",
-                    shape: "V型芯片",
-                    type: "扩展",
-                    category: "修炼芯片",
-                    effectDescription: "开局前45秒内，极速+8km/h",
-                    effectNote: "短图比圣芯好用"
-                },
-                {
-                    id: "chip_xulian_jianren",
-                    name: "修炼：坚韧",
-                    icon: "https://s3.bmp.ovh/2026/05/29/TKBXNb64.png",
-                    quality: "传说",
-                    shape: "V型芯片",
-                    type: "扩展",
-                    category: "修炼芯片",
-                    effectDescription: "开局时和每11秒极速+1.7km/h，上限叠加5次",
-                    effectNote: "暂无效果说明"
-                },
-                {
-                    id: "chip_xulian_xiaolv",
-                    name: "修炼：效率",
-                    icon: "https://s3.bmp.ovh/2026/05/29/dIffRM5n.png",
-                    quality: "传说",
-                    shape: "V型芯片",
-                    type: "扩展",
-                    category: "修炼芯片",
-                    effectDescription: "开局前25秒内极速+5km/h并获得集气无阈值效果",
-                    effectNote: "免费版神芯"
-                },
-                {
-                    id: "chip_xulian_leiji",
-                    name: "修炼：累积",
-                    icon: "https://s3.bmp.ovh/2026/05/29/b1hoabhg.png",
-                    quality: "传说",
-                    shape: "V型芯片",
-                    type: "扩展",
-                    category: "修炼芯片",
-                    effectDescription: "每5次点击大招时获得5000集气量且本局内极速+5km/h，上限叠加4次",
-                    effectNote: "暂无效果说明"
-                },
-                {
-                    id: "chip_xulian_tujin",
-                    name: "修炼：突进",
-                    icon: "https://s3.bmp.ovh/2026/05/29/WuT3bH3Q.png",
-                    quality: "传说",
-                    shape: "V型芯片",
-                    type: "扩展",
-                    category: "修炼芯片",
-                    effectDescription: "开局首次使用氮气时附加50米闪现效果",
-                    effectNote: "阴间干扰最喜欢带"
-                },
-                {
-                    id: "chip_xulian_shensu",
-                    name: "修炼：神速",
-                    icon: "https://s3.bmp.ovh/2026/05/29/rU5pVwLP.png",
-                    quality: "传说",
-                    shape: "V型芯片",
-                    type: "扩展",
-                    category: "修炼芯片",
-                    effectDescription: "每3次使用氮气，本局内极速+2.3km/h，上限叠加3次",
-                    effectNote: "暂无效果说明"
-                },
-                {
-                    id: "chip_xulian_chongci",
-                    name: "修炼：冲刺",
-                    icon: "https://s3.bmp.ovh/2026/05/29/QTOlIeXi.png",
-                    quality: "传说",
-                    shape: "V型芯片",
-                    type: "扩展",
-                    category: "修炼芯片",
-                    effectDescription: "向前闪现距离+20%",
-                    effectNote: "暂无效果说明"
-                },
-                {
-                    id: "chip_chaopin_01",
-                    name: "超频芯片·原型",
-                    icon: "https://placehold.co/200x120?text=Overclock",
-                    quality: "传说",
-                    shape: "V型芯片",
-                    type: "扩展",
-                    category: "超频芯片",
-                    effectDescription: "大招期间极速额外+5km/h",
-                    effectNote: "超频实验型芯片"
-                }
+                { id: "chip_mianmian", name: "猫眠梦之芯", icon: "https://s3.bmp.ovh/2026/05/29/iTqrWqI7.png", quality: "传说", shape: "V型芯片", type: "扩展", category: "车姬芯片", effectDescription: "每6秒获得1200集气量并恢复6点耐久值，大招达到90%能量即可使用（猫眠梦装备时改为66%）", effectNote: "推荐大招阈值100%车辆携带，减少赋能压力" },
+                { id: "chip_shenjian", name: "神剑号之芯", icon: "https://s3.bmp.ovh/2026/05/29/CYJg8Tet.png", quality: "传说", shape: "V型芯片", type: "扩展", category: "车辆专属芯片", effectDescription: "每次点击大招时立即结束漂移状态，开局前33秒内获得集气无阈值效果且每次点击大招时获得900集气量", effectNote: "泛用性广" },
+                { id: "chip_shengqishi", name: "圣骑士之芯", icon: "https://s3.bmp.ovh/2026/05/29/Hr6P82JF.png", quality: "传说", shape: "V型芯片", type: "扩展", category: "车辆专属芯片", effectDescription: "使用大招后5秒内将蓝色涡轮和氮气变为紫色涡轮和氮气，每4次使用涡轮、氮气或大招极速+2.5km/h，上限叠加3次", effectNote: "泛用性差" },
+                { id: "chip_moran_xiuzhu", name: "墨染：修竹", icon: "https://s3.bmp.ovh/2026/05/29/6r78MrBU.png", quality: "传说", shape: "V型芯片", type: "扩展", category: "车姬芯片", effectDescription: "舍我其谁达到80%能量即可使用，每次被干扰和辅助时立即获得1200集气量（CD2秒）", effectNote: "先驱者专属（3气1大）" },
+                { id: "chip_xiaofeng_baihu", name: "至尊：啸风白虎", icon: "https://s3.bmp.ovh/2026/05/29/byosRStY.png", quality: "传说", shape: "V型芯片", type: "扩展", category: "车姬芯片", effectDescription: "开局时获得8000集气量，辅助范围提升至700米", effectNote: "萌萌虎专属" },
+                { id: "chip_xulian_feichi", name: "修炼：飞驰", icon: "https://s3.bmp.ovh/2026/05/29/hcTlzo56.png", quality: "传说", shape: "V型芯片", type: "扩展", category: "修炼芯片", effectDescription: "开局前45秒内，极速+8km/h", effectNote: "短图比圣芯好用" },
+                { id: "chip_xulian_jianren", name: "修炼：坚韧", icon: "https://s3.bmp.ovh/2026/05/29/TKBXNb64.png", quality: "传说", shape: "V型芯片", type: "扩展", category: "修炼芯片", effectDescription: "开局时和每11秒极速+1.7km/h，上限叠加5次", effectNote: "暂无效果说明" },
+                { id: "chip_xulian_xiaolv", name: "修炼：效率", icon: "https://s3.bmp.ovh/2026/05/29/dIffRM5n.png", quality: "传说", shape: "V型芯片", type: "扩展", category: "修炼芯片", effectDescription: "开局前25秒内极速+5km/h并获得集气无阈值效果", effectNote: "免费版神芯" },
+                { id: "chip_xulian_leiji", name: "修炼：累积", icon: "https://s3.bmp.ovh/2026/05/29/b1hoabhg.png", quality: "传说", shape: "V型芯片", type: "扩展", category: "修炼芯片", effectDescription: "每5次点击大招时获得5000集气量且本局内极速+5km/h，上限叠加4次", effectNote: "暂无效果说明" },
+                { id: "chip_xulian_tujin", name: "修炼：突进", icon: "https://s3.bmp.ovh/2026/05/29/WuT3bH3Q.png", quality: "传说", shape: "V型芯片", type: "扩展", category: "修炼芯片", effectDescription: "开局首次使用氮气时附加50米闪现效果", effectNote: "阴间干扰最喜欢带" },
+                { id: "chip_xulian_shensu", name: "修炼：神速", icon: "https://s3.bmp.ovh/2026/05/29/rU5pVwLP.png", quality: "传说", shape: "V型芯片", type: "扩展", category: "修炼芯片", effectDescription: "每3次使用氮气，本局内极速+2.3km/h，上限叠加3次", effectNote: "暂无效果说明" },
+                { id: "chip_xulian_chongci", name: "修炼：冲刺", icon: "https://s3.bmp.ovh/2026/05/29/QTOlIeXi.png", quality: "传说", shape: "V型芯片", type: "扩展", category: "修炼芯片", effectDescription: "向前闪现距离+20%", effectNote: "暂无效果说明" },
+                { id: "chip_chaopin_01", name: "超频芯片·原型", icon: "https://placehold.co/200x120?text=Overclock", quality: "传说", shape: "V型芯片", type: "扩展", category: "超频芯片", effectDescription: "大招期间极速额外+5km/h", effectNote: "超频实验型芯片" }
             ];
             const stats = document.getElementById("chipStatsText");
             if (stats) stats.innerText = "加载 chips.json 失败，使用默认数据";
@@ -2501,13 +3105,11 @@
             if (energyKeyword && !energy.name.toLowerCase().includes(energyKeyword.toLowerCase())) return false;
             return true;
         });
-        // 排序规则：先按功能分组（创造 → 战斗 → 防御 → 能量），同一功能内再按主次排序（主要 → 次要）
         const funcOrder = { "创造": 1, "战斗": 2, "防御": 3, "能量": 4 };
         const typeOrder = { "主要": 1, "次要": 2 };
         return [...filtered].sort((a, b) => {
             const funcDiff = (funcOrder[a.func] || 99) - (funcOrder[b.func] || 99);
             if (funcDiff !== 0) return funcDiff;
-            // 同一功能内，主次排序
             return (typeOrder[a.type] || 99) - (typeOrder[b.type] || 99);
         });
     }
@@ -2610,6 +3212,7 @@
         return false;
     }
     
+    // ========== 导航和页面切换函数 ==========
     function handleVehicleBackToList() {
         returnToVehicleList();
     }
@@ -2689,6 +3292,15 @@
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.energy-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'energy') t.classList.add('active'); });
                 if (energiesData.length === 0) loadEnergiesData(); else renderEnergiesList();
+            } else if (pageId === 'calculator') {
+                document.getElementById('mobileFixedHeader').style.display = 'none';
+                document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                document.body.classList.add('has-fixed-header');
+                document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+                const calcBtns = document.querySelectorAll('.mobile-tab-btn');
+                for (let b of calcBtns) if (b.dataset.page === 'calculator') b.classList.add('active');
+                if (typeof initCalculator === 'function') initCalculator();
             } else {
                 document.getElementById('mobileFixedHeader').style.display = 'none';
                 document.getElementById('chipMobileFixedHeader').style.display = 'none';
@@ -2766,6 +3378,8 @@
                         statsEl.style.color = "#8a8aa3";
                     }, 1500);
                 }
+            } else if (currentPage === 'calculator') {
+                alert("再按一次退出");
             } else {
                 alert("再按一次退出");
             }
@@ -2801,18 +3415,1127 @@
                 if (pageId === 'vehicles') switchToPage('vehicles');
                 else if (pageId === 'chip') switchToPage('chip');
                 else if (pageId === 'energy') switchToPage('energy');
+                else if (pageId === 'calculator') switchToPage('calculator');
                 else switchToPage(pageId);
             });
         });
     }
     
-    document.addEventListener('backbutton', handleBackButton, false);
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') handleBackButton();
-    });
+    // ========== 芯片计算器模块初始化 ==========
+    let calcInitialized = false;
     
-    initTabs();
-    loadData();
+    function initCalculator() {
+        if (calcInitialized) return;
+        calcInitialized = true;
+        
+        // 获取计算器相关DOM元素
+        const calcCarType = document.getElementById('calcCarType');
+        const calcCarSubType = document.getElementById('calcCarSubType');
+        const calcCarModel = document.getElementById('calcCarModel');
+        const calcVSlot = document.getElementById('calcVSlot');
+        const calcCycleMode = document.getElementById('calcCycleMode');
+        const calcNitroType = document.getElementById('calcNitroType');
+        const calcSpecialize = document.getElementById('calcSpecialize');
+        const calcStartNitroCount = document.getElementById('calcStartNitroCountDisplay');
+        const calcCycleNitroCount = document.getElementById('calcCycleNitroCountDisplay');
+        const calcOverrideR = document.getElementById('calcOverrideR');
+        const calcMainEff = document.getElementById('calcMainEff');
+        const calcSubEff = document.getElementById('calcSubEff');
+        const calcExtraEff = document.getElementById('calcExtraEff');
+        const calcExtraStart = document.getElementById('calcExtraStart');
+        const calcQueyiOptions = document.getElementById('calcQueyiOptions');
+        const calcRhythmOptions = document.getElementById('calcRhythmOptions');
+        const calcQueyiCycleSeconds = document.getElementById('calcQueyiCycleSeconds');
+        const calcQueyiFirstSeconds = document.getElementById('calcQueyiFirstSeconds');
+        const calcQueyiLevel = document.getElementById('calcQueyiLevel');
+        const calcRhythmCycleCount = document.getElementById('calcRhythmCycleCount');
+        const calcRhythmFirstCount = document.getElementById('calcRhythmFirstCount');
+        const calcCustomHuiInput = document.getElementById('calcCustomHuiInput');
+        const calcCustomHuiWarning = document.getElementById('calcCustomHuiWarning');
+        const calcFirstEnergyDisplay = document.getElementById('calcFirstEnergyDisplay');
+        const calcCycleEnergyDisplay = document.getElementById('calcCycleEnergyDisplay');
+        const calcCycleEnergyLabel = document.getElementById('calcCycleEnergyLabel');
+        const calcCycleNitroTooltip = document.getElementById('calcCycleNitroTooltip');
+        const calcYitaiExtraOptions = document.getElementById('calcYitaiExtraOptions');
+        const calcVehicleSpecialContainer = document.getElementById('calcVehicleSpecialOptionsContainer');
+        const calcCarIcon = document.getElementById('calcCarIcon');
+        
+        // 辅助函数
+        function getCalcCurrentCar() {
+            if (!calcCarModel.value) return null;
+            try { return JSON.parse(calcCarModel.value); } catch(e) { return null; }
+        }
+        
+        function updateCalcCarIcon() {
+            let opt = calcCarModel.options[calcCarModel.selectedIndex];
+            if (!opt) { calcCarIcon.innerHTML = '<span style="font-size:6rem;">🏎️</span>'; return; }
+            let name = opt.text.split('(')[0].trim();
+            let url = carIcons[name];
+            calcCarIcon.innerHTML = '';
+            if (url) {
+                let img = document.createElement('img');
+                img.src = url;
+                img.referrerPolicy = 'no-referrer';
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'contain';
+                img.onerror = function() { calcCarIcon.innerHTML = '<span style="font-size:6rem;">🏎️</span>'; };
+                calcCarIcon.appendChild(img);
+            } else {
+                calcCarIcon.innerHTML = '<span style="font-size:6rem;">🏎️</span>';
+            }
+        }
+        
+        function updateCalcCarTypeIcon() {
+            let val = calcCarType.value;
+            let opt = carTypeOptions.find(o => o.value === val);
+            let preview = document.getElementById('calcCarTypeIcon');
+            if (opt && opt.icon) {
+                let img = document.createElement('img');
+                img.src = opt.icon;
+                img.referrerPolicy = 'no-referrer';
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'contain';
+                preview.innerHTML = '';
+                preview.appendChild(img);
+            } else preview.innerHTML = '';
+        }
+        
+        function updateCalcCarSubTypeIcon() {
+            let val = calcCarSubType.value;
+            let opt = carSubTypeOptions.find(o => o.value === val);
+            let preview = document.getElementById('calcCarSubTypeIcon');
+            if (opt && opt.icon) {
+                let img = document.createElement('img');
+                img.src = opt.icon;
+                img.referrerPolicy = 'no-referrer';
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'contain';
+                preview.innerHTML = '';
+                preview.appendChild(img);
+            } else preview.innerHTML = '';
+        }
+        
+        function updateCalcNitroIcon() {
+            let val = calcNitroType.value;
+            let opt = nitroOptions.find(o => o.value === val);
+            let preview = document.getElementById('calcNitroIcon');
+            if (opt && opt.icon) {
+                let img = document.createElement('img');
+                img.src = opt.icon;
+                img.referrerPolicy = 'no-referrer';
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'contain';
+                preview.innerHTML = '';
+                preview.appendChild(img);
+            } else preview.innerHTML = '<span>💨</span>';
+        }
+        
+        function updateCalcVSlotIcon() {
+            let val = calcVSlot.value;
+            let opt = allVSlotOptions.find(o => o.value === val);
+            let preview = document.getElementById('calcVslotIcon');
+            if (opt && opt.icon) {
+                let img = document.createElement('img');
+                img.src = opt.icon;
+                img.referrerPolicy = 'no-referrer';
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'contain';
+                preview.innerHTML = '';
+                preview.appendChild(img);
+            } else preview.innerHTML = '<span>⚙️</span>';
+        }
+        
+        function updateCalcMainEffIcon() {
+            let val = calcMainEff.value;
+            let item = mainEffList.find(e => e.value === val);
+            let preview = document.getElementById('calcMainEffIcon');
+            if (item && item.icon) {
+                let img = document.createElement('img');
+                img.src = item.icon;
+                img.referrerPolicy = 'no-referrer';
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'contain';
+                preview.innerHTML = '';
+                preview.appendChild(img);
+            } else preview.innerHTML = '';
+        }
+        
+        function updateCalcSubEffIcon() {
+            let val = calcSubEff.value;
+            let item = subEffList.find(e => e.value === val);
+            let preview = document.getElementById('calcSubEffIcon');
+            if (item && item.icon) {
+                let img = document.createElement('img');
+                img.src = item.icon;
+                img.referrerPolicy = 'no-referrer';
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'contain';
+                preview.innerHTML = '';
+                preview.appendChild(img);
+            } else preview.innerHTML = '';
+        }
+        
+        function getNitroRatioCalc(nitroType) {
+            if (nitroType === '1x5') return 1.0;
+            if (nitroType === '2x2') return 0.5;
+            if (nitroType === '3x2') return 1/3;
+            return 1.0;
+        }
+        
+        function parseChipSlotsCalc(chipsStr) {
+            let diamondCount = 0, totalSubSlots = 0;
+            for (let ch of chipsStr) {
+                if (ch === '3' || ch === '4' || ch === '6') totalSubSlots += 3;
+                if (ch === '4' || ch === '◇') diamondCount++;
+            }
+            return { diamondCount, totalSubSlots };
+        }
+        
+        function getMaxHuiCalc(chipsStr) {
+            let { diamondCount, totalSubSlots } = parseChipSlotsCalc(chipsStr);
+            return diamondCount * 9 + totalSubSlots * 3;
+        }
+        
+        function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, needJi) {
+            for (let diamondToHui = 0; diamondToHui <= diamondCount; diamondToHui++) {
+                const diamondToJi = diamondCount - diamondToHui;
+                const huiFromDiamond = diamondToHui * 9, jiFromDiamond = diamondToJi * 15;
+                let remainHui = Math.max(0, needHui - huiFromDiamond);
+                let remainJi = Math.max(0, needJi - jiFromDiamond);
+                const minJiSlotsNeeded = Math.ceil(remainJi / 5);
+                if (minJiSlotsNeeded > totalSubSlots) continue;
+                if ((totalSubSlots - minJiSlotsNeeded) * 3 >= remainHui) return true;
+            }
+            return false;
+        }
+        
+        function formatHuiCalc(value) {
+            let raw = parseFloat(value);
+            if (isNaN(raw)) return "0.00";
+            let step = 0.25;
+            let remainder = raw % step;
+            if (Math.abs(remainder) < 1e-8) remainder = 0;
+            let base = Math.floor(raw / step) * step;
+            let final = (remainder > 0) ? base + step : base;
+            if (final < 0) final = 0;
+            return final.toFixed(2);
+        }
+        
+        function formatJiAdvancedCalc(value) {
+            if (isNaN(value) || value === null) return "0.0%";
+            let percentValue = value;
+            if (percentValue > 30) percentValue = 30;
+            if (percentValue <= 0) return "0.0%";
+            let percentStr = percentValue.toFixed(6);
+            let percentNum = parseFloat(percentStr);
+            let integerPart = Math.floor(percentNum);
+            let fractionalPart = percentNum - integerPart;
+            let fractionalStr = fractionalPart.toFixed(6);
+            let decimalDigits = fractionalStr.substring(2);
+            while (decimalDigits.length < 6) decimalDigits += "0";
+            let thousandthDigit = decimalDigits.length > 2 ? parseInt(decimalDigits[2]) : 0;
+            let tenThousandthAndBeyond = decimalDigits.substring(3);
+            let allZeroAfterTenThousandth = true;
+            for (let i = 0; i < tenThousandthAndBeyond.length; i++) {
+                if (tenThousandthAndBeyond[i] !== '0') {
+                    allZeroAfterTenThousandth = false;
+                    break;
+                }
+            }
+            let finalPercent;
+            if (!allZeroAfterTenThousandth) {
+                if (thousandthDigit < 9) {
+                    let newDecimalDigits = decimalDigits.substring(0, 2) + (thousandthDigit + 1) + decimalDigits.substring(3);
+                    finalPercent = integerPart + parseFloat("0." + newDecimalDigits);
+                } else {
+                    finalPercent = integerPart + 1;
+                }
+            } else {
+                let truncatedDecimal = decimalDigits.substring(0, 3);
+                finalPercent = integerPart + parseFloat("0." + truncatedDecimal);
+            }
+            let formatted = finalPercent.toFixed(1);
+            return formatted + "%";
+        }
+        
+        function getEnergyValuesCalc(carName, chipType, isDoubleCycle) {
+            if (!carName) return { firstEnergy: "--", cycleEnergy: "--" };
+            if (chipType === 'maoxin') {
+                if (carName === "猫眠梦") return { firstEnergy: 66, cycleEnergy: 66 };
+                else return { firstEnergy: 90, cycleEnergy: isDoubleCycle ? 190 : 90 };
+            }
+            if (chipType === 'xianqu') return { firstEnergy: 80, cycleEnergy: isDoubleCycle ? 180 : 80 };
+            let firstEnergy = getVehicleFirstEnergy(carName);
+            return { firstEnergy, cycleEnergy: isDoubleCycle ? firstEnergy * 2 : firstEnergy };
+        }
+        
+        function getCycleChargeEfficiencyCalc(car) {
+            let hasRefuse = calcMainEff.value === 'refuse' || calcSubEff.value === 'refuse';
+            let refuseEff = hasRefuse ? 5 : 0;
+            let vehicleEff = (car && car.bonus && car.bonus.huiEff) ? car.bonus.huiEff : 0;
+            let extraEff = 0;
+            let carName = car ? car.name : '';
+            if (carName === "以太" || carName === "催化剂") {
+                extraEff = parseFloat(calcExtraEff.value) || 0;
+            }
+            return refuseEff + vehicleEff + extraEff;
+        }
+        
+        function getFirstChargeEfficiencyCalc(car) {
+            let hasRefuse = calcMainEff.value === 'refuse' || calcSubEff.value === 'refuse';
+            let refuseEff = hasRefuse ? 5 : 0;
+            let extraEff = 0;
+            let carName = car ? car.name : '';
+            if (carName === "以太" || carName === "催化剂") {
+                extraEff = parseFloat(calcExtraEff.value) || 0;
+            }
+            return refuseEff + extraEff;
+        }
+        
+        function getFirstFixedEffBonusCalc() {
+            let mainVal = calcMainEff.value;
+            let subVal = calcSubEff.value;
+            let total = 0;
+            if (subVal === 'huaxin') total += 7;
+            if (mainVal === 'huaxin') total += 7;
+            return total;
+        }
+        
+        function getFirstFloatingEffBonusCalc() {
+            let mainVal = calcMainEff.value;
+            let subVal = calcSubEff.value;
+            let total = 0;
+            if (subVal === 'queyi') {
+                let seconds = parseInt(calcQueyiFirstSeconds.value);
+                let level = parseFloat(calcQueyiLevel.value);
+                total += seconds * level;
+            }
+            if (mainVal === 'queyi') {
+                let seconds = parseInt(calcQueyiFirstSeconds.value);
+                let level = parseFloat(calcQueyiLevel.value);
+                total += seconds * level;
+            }
+            if (subVal === 'rhythm') {
+                let times = parseInt(calcRhythmFirstCount.value);
+                total += times * 4;
+            }
+            if (mainVal === 'rhythm') {
+                let times = parseInt(calcRhythmFirstCount.value);
+                total += times * 4;
+            }
+            return total;
+        }
+        
+        function getCycleFixedEffBonusCalc(isDoubleCycle) {
+            let mainVal = calcMainEff.value;
+            let subVal = calcSubEff.value;
+            let total = 0;
+            if (isDoubleCycle) {
+                if (subVal === 'resurgence') total += 25;
+                if (mainVal === 'resurgence') total += 25;
+                if (subVal === 'huaxin') total += 14;
+                if (mainVal === 'huaxin') total += 14;
+                if (subVal === 'nengyuan') total += 20;
+                if (mainVal === 'nengyuan') total += 20;
+            } else {
+                if (subVal === 'huaxin') total += 7;
+                if (mainVal === 'huaxin') total += 7;
+                if (subVal === 'nengyuan') total += 10;
+                if (mainVal === 'nengyuan') total += 10;
+                if (subVal === 'resurgence') total += 12.5;
+                if (mainVal === 'resurgence') total += 12.5;
+            }
+            return total;
+        }
+        
+        function getCycleFloatingEffBonusCalc(isDoubleCycle) {
+            let mainVal = calcMainEff.value;
+            let subVal = calcSubEff.value;
+            let total = 0;
+            if (subVal === 'queyi') {
+                let seconds = parseInt(calcQueyiCycleSeconds.value);
+                let level = parseFloat(calcQueyiLevel.value);
+                total += seconds * level;
+            }
+            if (mainVal === 'queyi') {
+                let seconds = parseInt(calcQueyiCycleSeconds.value);
+                let level = parseFloat(calcQueyiLevel.value);
+                total += seconds * level;
+            }
+            if (subVal === 'rhythm') {
+                let times = parseInt(calcRhythmCycleCount.value);
+                total += times * 4;
+            }
+            if (mainVal === 'rhythm') {
+                let times = parseInt(calcRhythmCycleCount.value);
+                total += times * 4;
+            }
+            return total;
+        }
+        
+        let vehicleFixedFirstBonusCalc = { ...vehicleFixedFirstBonus };
+        let vehicleFixedNormalCycleBonusCalc = { ...vehicleFixedNormalCycleBonus };
+        let vehicleFixedDoubleCycleBonusCalc = { ...vehicleFixedDoubleCycleBonus };
+        
+        function getVehicleFloatingBonusCalc(carName, type, isDoubleCycle) {
+            let total = 0;
+            if (type === 'first') {
+                if (carName === "迈凯伦 Senna") total = (parseInt(document.getElementById('calcSennaJiSec')?.value || 0) * 2);
+                else if (carName === "五菱宏光 MINI EV") total = (parseInt(document.getElementById('calcWulingJiTimes')?.value || 0) * 1);
+                else if (carName === "平行巡洋舰") total = (parseInt(document.getElementById('calcPingxingJiSec')?.value || 0) * 1.5);
+                else if (carName === "奥迪TT RS") total = (parseInt(document.getElementById('calcAudiTTJiSec')?.value || 0) * 2);
+                else if (carName === "爱玛 晴天") total = (parseInt(document.getElementById('calcAimaJiSec')?.value || 0) * 0.7);
+                else if (carName === "幻蝶") total = (parseInt(document.getElementById('calcHuanDieJiTimes')?.value || 0) * 7.5);
+                else if (carName === "风行者") total = (parseInt(document.getElementById('calcFengxingJiTimes')?.value || 0) * 7);
+                else if (carName === "英菲尼迪 Prototype") total = (parseInt(document.getElementById('calcInfinitiJiTimes')?.value || 0) * 5);
+            } else if (type === 'cycle') {
+                if (!isDoubleCycle) {
+                    if (carName === "迈凯伦 Senna") total = (parseInt(document.getElementById('calcSennaHuiSec')?.value || 0) * 2);
+                    else if (carName === "五菱宏光 MINI EV") total = (parseInt(document.getElementById('calcWulingHuiTimes')?.value || 0) * 1);
+                    else if (carName === "平行巡洋舰") total = (parseInt(document.getElementById('calcPingxingHuiSec')?.value || 0) * 1.5);
+                    else if (carName === "爱玛 晴天") total = (parseInt(document.getElementById('calcAimaHuiSec')?.value || 0) * 0.7);
+                    else if (carName === "幻蝶") total = (parseInt(document.getElementById('calcHuanDieHuiTimes')?.value || 0) * 7.5);
+                    else if (carName === "风行者") total = (parseInt(document.getElementById('calcFengxingHuiTimes')?.value || 0) * 7);
+                    else if (carName === "英菲尼迪 Prototype") total = (parseInt(document.getElementById('calcInfinitiHuiTimes')?.value || 0) * 5);
+                    else if (carName === "梅赛德斯-AMG GT Black Series") total = (parseInt(document.getElementById('calcAmgHuiTimes')?.value || 0) * 15);
+                } else {
+                    if (carName === "爱玛 晴天") total = (parseInt(document.getElementById('calcAimaHuiSec')?.value || 0) * 0.7);
+                    else if (carName === "平行巡洋舰") total = (parseInt(document.getElementById('calcPingxingHuiSec')?.value || 0) * 1.5);
+                    else if (carName === "幻蝶") total = (parseInt(document.getElementById('calcHuanDieHuiTimes')?.value || 0) * 7.5);
+                }
+            }
+            return total;
+        }
+        
+        function updateCalcEnergyDisplays() {
+            let car = getCalcCurrentCar();
+            if (!car) {
+                calcFirstEnergyDisplay.textContent = '--';
+                calcCycleEnergyDisplay.textContent = '--';
+                return;
+            }
+            let carName = car.name;
+            let chip = calcVSlot.value;
+            let isAssist = calcCarType.value === 'assist';
+            let isDoubleCycle = isAssist && calcCycleMode.value === 'cycle';
+            let energy = getEnergyValuesCalc(carName, chip, isDoubleCycle);
+            calcFirstEnergyDisplay.textContent = energy.firstEnergy;
+            calcCycleEnergyDisplay.textContent = energy.cycleEnergy;
+            updateCalcCycleModeVisibility();
+        }
+        
+        function updateCalcCycleModeVisibility() {
+            let container = document.getElementById('calcCycleModeContainer');
+            let type = calcCarType.value;
+            if (type !== 'assist') {
+                container.style.display = 'none';
+                if (calcCycleMode.value === 'cycle') calcCycleMode.value = 'normal';
+                updateCalcEnergyDisplays();
+                return;
+            }
+            let firstEnergy = parseInt(calcFirstEnergyDisplay.textContent);
+            if (isNaN(firstEnergy)) firstEnergy = 0;
+            container.style.display = firstEnergy >= 80 ? 'block' : 'none';
+            if (firstEnergy < 80 && calcCycleMode.value === 'cycle') {
+                calcCycleMode.value = 'normal';
+                updateCalcEnergyDisplays();
+            }
+            if (calcCycleNitroTooltip) calcCycleNitroTooltip.textContent = (calcCycleMode.value === 'cycle') ? '2个大招所需的氮气数量' : '1个大招所需的氮气数量';
+        }
+        
+        function updateCalcVSlotOptions() {
+            let opt = calcCarModel.options[calcCarModel.selectedIndex];
+            if (!opt || !opt.value) {
+                calcVSlot.innerHTML = '';
+                let defaultOpt = document.createElement('option');
+                defaultOpt.value = 'shenxin';
+                defaultOpt.textContent = '神剑号之芯';
+                calcVSlot.appendChild(defaultOpt);
+                updateCalcVSlotIcon();
+                updateCalcEnergyDisplays();
+                return;
+            }
+            let carName = opt.text.split('(')[0].trim();
+            let cur = calcVSlot.value;
+            calcVSlot.innerHTML = '';
+            let base = [{ value: "shenxin", name: "神剑号之芯" }, { value: "shengxin", name: "圣骑士之芯" }, { value: "xiaolu", name: "效率" }, { value: "leiji", name: "累计" }, { value: "feichi", name: "飞驰" }, { value: "tujin", name: "突进" }, { value: "jianren", name: "坚韧" }, { value: "chongci", name: "冲刺" }, { value: "shensu", name: "神速" }];
+            let opts = [...base];
+            let vehicleFirstEnergy = getVehicleFirstEnergy(carName);
+            let showMaoxin = (carName === "猫眠梦") || (vehicleFirstEnergy >= 90);
+            if (carName === "先驱者") {
+                opts.unshift({ value: "xianqu", name: "先驱者专属芯片（修竹）" });
+            } else if (carName === "摇尾萌萌虎") {
+                opts.unshift({ value: "xiaofeng", name: "摇尾萌萌虎专属芯片（啸风白虎）" });
+            } else if (showMaoxin) {
+                opts.unshift({ value: "maoxin", name: "猫眠梦之芯" });
+            }
+            opts.forEach(o => {
+                let op = document.createElement('option');
+                op.value = o.value;
+                op.textContent = o.name;
+                calcVSlot.appendChild(op);
+            });
+            let found = false;
+            for (let i = 0; i < calcVSlot.options.length; i++) {
+                if (calcVSlot.options[i].value === cur) {
+                    calcVSlot.selectedIndex = i;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found && calcVSlot.options.length) calcVSlot.selectedIndex = 0;
+            updateCalcVSlotIcon();
+            updateCalcEnergyDisplays();
+        }
+        
+        function updateCalcCarList() {
+            let type = calcCarType.value;
+            let sub = calcCarSubType.value;
+            let list = carsDB[type]?.[sub] || [];
+            calcCarModel.innerHTML = '';
+            if (list.length === 0) {
+                let opt = document.createElement('option');
+                opt.value = '';
+                opt.textContent = '请先选择定位和专精';
+                calcCarModel.appendChild(opt);
+            } else {
+                list.forEach(c => {
+                    let opt = document.createElement('option');
+                    opt.value = JSON.stringify(c);
+                    opt.textContent = `${c.name} (${c.chips}) 起步${c.start} 氮气${c.nitro}`;
+                    calcCarModel.appendChild(opt);
+                });
+            }
+            updateCalcCarIcon();
+            updateCalcVSlotOptions();
+            updateCalcEnergyDisplays();
+            let car = getCalcCurrentCar();
+            calcYitaiExtraOptions.style.display = (car && (car.name === "以太" || car.name === "催化剂")) ? 'block' : 'none';
+        }
+        
+        function updateCalcSubTypeOptions() {
+            let type = calcCarType.value;
+            let subs = { assist: ['venue', 'mountain', 'city'], race: ['city', 'mountain', 'venue'], jam: ['city', 'mountain', 'venue'], balance: ['city', 'mountain', 'venue'] }[type] || [];
+            const order = { 'city': 0, 'mountain': 1, 'venue': 2 };
+            subs.sort((a, b) => order[a] - order[b]);
+            calcCarSubType.innerHTML = '';
+            subs.forEach(st => {
+                let opt = document.createElement('option');
+                opt.value = st;
+                opt.textContent = { venue: '场地', mountain: '山路', city: '城市' }[st];
+                calcCarSubType.appendChild(opt);
+            });
+            updateCalcCarSubTypeIcon();
+            updateCalcCarList();
+        }
+        
+        function initCalcCarTypeSelect() {
+            calcCarType.innerHTML = '';
+            carTypeOptions.forEach(o => {
+                let op = document.createElement('option');
+                op.value = o.value;
+                op.textContent = o.name;
+                calcCarType.appendChild(op);
+            });
+            calcCarType.addEventListener('change', () => {
+                updateCalcCarTypeIcon();
+                updateCalcSubTypeOptions();
+                updateCalcEnergyDisplays();
+            });
+            updateCalcCarTypeIcon();
+        }
+        
+        function initCalcCarSubTypeSelect() {
+            calcCarSubType.addEventListener('change', () => {
+                updateCalcCarSubTypeIcon();
+                updateCalcCarList();
+            });
+            updateCalcCarSubTypeIcon();
+        }
+        
+        function buildColoredEffSelectCalc(sel, list) {
+            sel.innerHTML = '';
+            list.forEach(eff => {
+                let op = document.createElement('option');
+                op.value = eff.value;
+                op.textContent = eff.name;
+                if (eff.color === 'red') op.classList.add('eff-red');
+                else if (eff.color === 'yellow') op.classList.add('eff-yellow');
+                else if (eff.color === 'green') op.classList.add('eff-green');
+                else if (eff.color === 'purple') op.classList.add('eff-purple');
+                sel.appendChild(op);
+            });
+        }
+        
+        function initCalcEffSelects() {
+            buildColoredEffSelectCalc(calcMainEff, mainEffList);
+            buildColoredEffSelectCalc(calcSubEff, subEffList);
+            function checkColorConflict() {
+                let mainVal = calcMainEff.value;
+                let subVal = calcSubEff.value;
+                let mainItem = mainEffList.find(e => e.value === mainVal);
+                let subItem = subEffList.find(e => e.value === subVal);
+                let errorDiv = document.getElementById('calcColorErrorMsg');
+                if (mainItem && subItem && mainItem.color && subItem.color && mainItem.color === subItem.color && mainVal !== 'none' && subVal !== 'none') {
+                    errorDiv.style.display = 'block';
+                    errorDiv.innerHTML = '⚠️ 警告：主赋能和次赋能颜色相同！游戏中同色赋能无法同时携带，请更换其中一个。';
+                } else {
+                    errorDiv.style.display = 'none';
+                    errorDiv.innerHTML = '';
+                }
+            }
+            calcMainEff.addEventListener('change', () => { updateCalcMainEffIcon(); checkColorConflict(); });
+            calcSubEff.addEventListener('change', () => {
+                updateCalcSubEffIcon();
+                let val = calcSubEff.value;
+                calcQueyiOptions.style.display = (val === 'queyi') ? 'block' : 'none';
+                calcRhythmOptions.style.display = (val === 'rhythm') ? 'block' : 'none';
+                checkColorConflict();
+            });
+            updateCalcMainEffIcon();
+            updateCalcSubEffIcon();
+            checkColorConflict();
+        }
+        
+        function initCalcNitroSelect() {
+            calcNitroType.innerHTML = '';
+            nitroOptions.forEach(o => {
+                let op = document.createElement('option');
+                op.value = o.value;
+                op.textContent = o.name;
+                calcNitroType.appendChild(op);
+            });
+            calcNitroType.addEventListener('change', updateCalcNitroIcon);
+            updateCalcNitroIcon();
+        }
+        
+        function handleCalcCycleModeChange() {
+            let isAssist = calcCarType.value === 'assist';
+            if (!isAssist) {
+                calcCycleMode.value = 'normal';
+                return;
+            }
+            let isDoubleCycle = calcCycleMode.value === 'cycle';
+            if (calcCycleEnergyLabel) {
+                calcCycleEnergyLabel.innerHTML = isDoubleCycle ? '4气、3气两大一循环能量' : '循环能量';
+            }
+            if (isDoubleCycle) {
+                calcNitroType.value = '2x2';
+                updateCalcNitroIcon();
+                calcStartNitroCount.value = '2';
+                calcCycleNitroCount.value = '7';
+                let cycleSecSelect = calcQueyiCycleSeconds;
+                if (cycleSecSelect) {
+                    cycleSecSelect.innerHTML = '';
+                    for (let i = 0; i <= 25; i++) {
+                        let opt = document.createElement('option');
+                        opt.value = i;
+                        opt.textContent = i + '秒';
+                        if (i === 7) opt.selected = true;
+                        cycleSecSelect.appendChild(opt);
+                    }
+                }
+                let rhythmCountSelect = calcRhythmCycleCount;
+                if (rhythmCountSelect) {
+                    rhythmCountSelect.innerHTML = '';
+                    for (let i = 0; i <= 8; i++) {
+                        let opt = document.createElement('option');
+                        opt.value = i;
+                        opt.textContent = i + '次';
+                        if (i === 0) opt.selected = true;
+                        rhythmCountSelect.appendChild(opt);
+                    }
+                }
+            } else {
+                calcStartNitroCount.value = '1';
+                calcCycleNitroCount.value = '4';
+                let cycleSecSelect = calcQueyiCycleSeconds;
+                if (cycleSecSelect) {
+                    cycleSecSelect.innerHTML = '';
+                    for (let i = 0; i <= 15; i++) {
+                        let opt = document.createElement('option');
+                        opt.value = i;
+                        opt.textContent = i + '秒';
+                        if (i === 7) opt.selected = true;
+                        cycleSecSelect.appendChild(opt);
+                    }
+                }
+                let rhythmCountSelect = calcRhythmCycleCount;
+                if (rhythmCountSelect) {
+                    rhythmCountSelect.innerHTML = '';
+                    for (let i = 0; i <= 4; i++) {
+                        let opt = document.createElement('option');
+                        opt.value = i;
+                        opt.textContent = i + '次';
+                        if (i === 0) opt.selected = true;
+                        rhythmCountSelect.appendChild(opt);
+                    }
+                }
+            }
+            updateCalcEnergyDisplays();
+            if (calcCycleNitroTooltip) calcCycleNitroTooltip.textContent = isDoubleCycle ? '2个大招所需的氮气数量' : '1个大招所需的氮气数量';
+        }
+        
+        function renderCalcSpecialOptionsContent() {
+            if (!document.getElementById('calcSpecialToggleCheckbox') || !document.getElementById('calcSpecialToggleCheckbox').checked) return;
+            let car = getCalcCurrentCar();
+            if (!car) return;
+            let carName = car.name;
+            if (!VEHICLES_WITH_SPECIAL_BONUS.includes(carName)) return;
+            let isDoubleCycle = calcCycleMode.value === 'cycle';
+            let container = calcVehicleSpecialContainer;
+            let html = '<div class="option-group"><div class="option-title">车辆专属浮动充能</div>';
+            if (carName === "迈凯伦 Senna") {
+                html += `<div class="option-row"><div><label>🔁 普通循环秒数(1-10)</label><select id="calcSennaHuiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能2%</span></span></div><div><label>🎯 首大秒数(1-10)</label><select id="calcSennaJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select></div></div>`;
+            } else if (carName === "五菱宏光 MINI EV") {
+                html += `<div class="option-row"><div><label>🔁 普通循环次数(1-8)</label><select id="calcWulingHuiTimes">${[...Array(9).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每次小喷自充能1%</span></span></div><div><label>🎯 首大次数(1-6)</label><select id="calcWulingJiTimes">${[...Array(7).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
+            } else if (carName === "平行巡洋舰") {
+                if (isDoubleCycle) {
+                    html += `<div class="option-row"><div><label>🔁 4气3气两大一循环秒数(1-25)</label><select id="calcPingxingHuiSec">${[...Array(26).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能1.5%</span></span></div><div><label>🎯 首大秒数(1-10)</label><select id="calcPingxingJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select></div></div>`;
+                } else {
+                    html += `<div class="option-row"><div><label>🔁 普通循环秒数(1-15)</label><select id="calcPingxingHuiSec">${[...Array(16).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能1.5%</span></span></div><div><label>🎯 首大秒数(1-10)</label><select id="calcPingxingJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select></div></div>`;
+                }
+            } else if (carName === "奥迪TT RS") {
+                html += `<div class="option-row"><div><label>🎯 首大秒数(1-10)</label><select id="calcAudiTTJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能2%，仅首大能量生效</span></span></div></div>`;
+            } else if (carName === "爱玛 晴天") {
+                if (isDoubleCycle) {
+                    html += `<div class="option-row"><div><label>🔁 4气3气两大一循环秒数(1-20)</label><select id="calcAimaHuiSec">${[...Array(21).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能0.7%</span></span></div><div><label>🎯 首大秒数(1-10)</label><select id="calcAimaJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select></div></div>`;
+                } else {
+                    html += `<div class="option-row"><div><label>🔁 普通循环秒数(1-15)</label><select id="calcAimaHuiSec">${[...Array(16).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能0.7%</span></span></div><div><label>🎯 首大秒数(1-10)</label><select id="calcAimaJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select></div></div>`;
+                }
+            } else if (carName === "阿斯顿马丁 Vanquish") {
+                html += `<div class="option-row"><div><label>🔁 普通循环次数(1-10)</label><select id="calcVanquishHuiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每次漂移自充能4%</span></span></div><div><label>🎯 首大次数(1-10)</label><select id="calcVanquishJiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
+            } else if (carName === "宝马X5") {
+                html += `<div class="option-row"><div><label>🔁 普通循环秒数(1-15)</label><select id="calcBaomaHuiSec">${[...Array(16).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">开局10秒后处于第五名及以后每秒自充能2%</span></span></div></div>`;
+            } else if (carName === "幻蝶") {
+                if (isDoubleCycle) {
+                    html += `<div class="option-row"><div><label>🔁 4气3气两大一循环次数(1-8)</label><select id="calcHuanDieHuiTimes">${[...Array(9).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每3秒自充能7.5%</span></span></div><div><label>🎯 首大次数(1-4)</label><select id="calcHuanDieJiTimes">${[...Array(5).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
+                } else {
+                    html += `<div class="option-row"><div><label>🔁 普通循环次数(1-6)</label><select id="calcHuanDieHuiTimes">${[...Array(7).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每3秒自充能7.5%</span></span></div><div><label>🎯 首大次数(1-4)</label><select id="calcHuanDieJiTimes">${[...Array(5).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
+                }
+            } else if (carName === "风行者") {
+                html += `<div class="option-row"><div><label>🔁 普通循环次数(1-10)</label><select id="calcFengxingHuiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每次释放氮气自充能7%</span></span></div><div><label>🎯 首大次数(1-10)</label><select id="calcFengxingJiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
+            } else if (carName === "英菲尼迪 Prototype") {
+                html += `<div class="option-row"><div><label>🔁 普通循环次数(1-10)</label><select id="calcInfinitiHuiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每次使用紫色涡轮自充能5%</span></span></div><div><label>🎯 首大次数(1-10)</label><select id="calcInfinitiJiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
+            } else if (carName === "梅赛德斯-AMG GT Black Series") {
+                html += `<div class="option-row"><div><label>🔁 普通循环次数(0-5)</label><select id="calcAmgHuiTimes">${[...Array(6).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每次经过圈自充能15%</span></span></div></div>`;
+            }
+            html += '</div>';
+            container.innerHTML = html;
+            container.style.display = 'block';
+        }
+        
+        function checkCalcVehicleHasSpecialBonus() {
+            let car = getCalcCurrentCar();
+            if (!car) return false;
+            return VEHICLES_WITH_SPECIAL_BONUS.includes(car.name);
+        }
+        
+        function updateCalcToggleState() {
+            let car = getCalcCurrentCar();
+            const specialToggleContainer = document.getElementById('calcSpecialToggleContainer');
+            const toggleHint = document.querySelector('.calculator-container .toggle-hint');
+            if (!car) {
+                if (specialToggleContainer) specialToggleContainer.style.display = 'none';
+                if (toggleHint) toggleHint.style.display = 'none';
+                calcVehicleSpecialContainer.innerHTML = '';
+                calcVehicleSpecialContainer.style.display = 'none';
+                return;
+            }
+            if (specialToggleContainer) specialToggleContainer.style.display = 'flex';
+            if (toggleHint) toggleHint.style.display = 'block';
+            const hasSpecial = checkCalcVehicleHasSpecialBonus();
+            const checkbox = document.getElementById('calcSpecialToggleCheckbox');
+            if (checkbox) {
+                if (checkbox.checked) {
+                    if (hasSpecial) {
+                        renderCalcSpecialOptionsContent();
+                    } else {
+                        calcVehicleSpecialContainer.innerHTML = '';
+                        calcVehicleSpecialContainer.style.display = 'none';
+                    }
+                } else {
+                    calcVehicleSpecialContainer.innerHTML = '';
+                    calcVehicleSpecialContainer.style.display = 'none';
+                }
+            }
+        }
+        
+        function createCalcToggleSwitch() {
+            if (document.getElementById('calcSpecialToggleContainer')) return;
+            const toggleHtml = `<div id="calcSpecialToggleContainer" class="toggle-switch" style="margin-bottom:16px; display:flex;"><input type="checkbox" id="calcSpecialToggleCheckbox" checked><label for="calcSpecialToggleCheckbox" id="calcSpecialToggleLabel">🔘 显示车辆专属浮动充能选项</label><span class="info-icon">?<span class="tooltip-text">关闭后隐藏自充能选项，开启后若车辆有独立增益则显示对应选项</span></span></div><div class="toggle-hint">⚠️ 每次切换车辆后都先将此开关重新开关一次，才能正确显示车辆是否有独立增益效果</div>`;
+            calcVehicleSpecialContainer.insertAdjacentHTML('beforebegin', toggleHtml);
+            const checkbox = document.getElementById('calcSpecialToggleCheckbox');
+            if (checkbox) {
+                checkbox.addEventListener('change', function () {
+                    if (this.checked) {
+                        if (checkCalcVehicleHasSpecialBonus()) {
+                            renderCalcSpecialOptionsContent();
+                        } else {
+                            calcVehicleSpecialContainer.innerHTML = '';
+                            calcVehicleSpecialContainer.style.display = 'none';
+                        }
+                    } else {
+                        calcVehicleSpecialContainer.innerHTML = '';
+                        calcVehicleSpecialContainer.style.display = 'none';
+                    }
+                });
+            }
+        }
+        
+        function initCalcSearchBox() {
+            const searchInput = document.getElementById('calcCarSearchInput');
+            const dropdown = document.getElementById('calcSearchDropdown');
+            searchInput.addEventListener('input', function () {
+                const val = this.value;
+                if (val.trim().length === 0) {
+                    dropdown.classList.remove('show');
+                    return;
+                }
+                const results = allCarsSearchList.filter(car => car.name.toLowerCase().includes(val.trim().toLowerCase()));
+                if (results.length === 0) {
+                    dropdown.innerHTML = '<div class="search-item" style="color: var(--text-muted);">未找到相关车辆</div>';
+                    dropdown.classList.add('show');
+                    return;
+                }
+                dropdown.innerHTML = '';
+                results.forEach(car => {
+                    const div = document.createElement('div');
+                    div.className = 'search-item';
+                    div.innerHTML = `<div class="car-name">${car.name}</div><div class="car-info">${car.typeName} · ${car.subName} (${car.chips})</div>`;
+                    div.addEventListener('click', (function (carInfo) {
+                        return function () {
+                            calcCarType.value = carInfo.type;
+                            updateCalcCarTypeIcon();
+                            let subs = { assist: ['venue', 'mountain', 'city'], race: ['city', 'mountain', 'venue'], jam: ['city', 'mountain', 'venue'], balance: ['city', 'mountain', 'venue'] }[carInfo.type] || [];
+                            const order = { 'city': 0, 'mountain': 1, 'venue': 2 };
+                            subs.sort((a, b) => order[a] - order[b]);
+                            calcCarSubType.innerHTML = '';
+                            subs.forEach(st => {
+                                let opt = document.createElement('option');
+                                opt.value = st;
+                                opt.textContent = { venue: '场地', mountain: '山路', city: '城市' }[st];
+                                calcCarSubType.appendChild(opt);
+                            });
+                            calcCarSubType.value = carInfo.sub;
+                            updateCalcCarSubTypeIcon();
+                            let list = carsDB[carInfo.type]?.[carInfo.sub] || [];
+                            calcCarModel.innerHTML = '';
+                            list.forEach(c => {
+                                let opt = document.createElement('option');
+                                opt.value = JSON.stringify(c);
+                                opt.textContent = `${c.name} (${c.chips}) 起步${c.start} 氮气${c.nitro}`;
+                                calcCarModel.appendChild(opt);
+                            });
+                            const targetValue = JSON.stringify({
+                                name: carInfo.name,
+                                chips: carInfo.chips,
+                                start: carInfo.start,
+                                nitro: carInfo.nitro,
+                                bonus: carInfo.bonus
+                            });
+                            for (let i = 0; i < calcCarModel.options.length; i++) {
+                                if (calcCarModel.options[i].value === targetValue) {
+                                    calcCarModel.selectedIndex = i;
+                                    break;
+                                }
+                            }
+                            updateCalcCarIcon();
+                            updateCalcVSlotOptions();
+                            updateCalcEnergyDisplays();
+                            let car = getCalcCurrentCar();
+                            calcYitaiExtraOptions.style.display = (car && (car.name === "以太" || car.name === "催化剂")) ? 'block' : 'none';
+                            updateCalcToggleState();
+                            searchInput.value = '';
+                            dropdown.classList.remove('show');
+                        };
+                    })(car));
+                    dropdown.appendChild(div);
+                });
+                dropdown.classList.add('show');
+            });
+            document.addEventListener('click', function (e) {
+                if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.classList.remove('show');
+                }
+            });
+        }
+        
+        function calcCalculator() {
+            let car = getCalcCurrentCar();
+            if (!car) {
+                document.getElementById('calcResultArea').innerHTML = '<div style="text-align:center;">请先选择车辆</div>';
+                return;
+            }
+            const isAssist = calcCarType.value === 'assist';
+            const isDoubleCycle = (isAssist && calcCycleMode.value === 'cycle');
+            let startNitroCount = parseFloat(calcStartNitroCount.value);
+            let cycleNitroCount = parseFloat(calcCycleNitroCount.value);
+            const nitroType = calcNitroType.value;
+            const sp = parseInt(calcSpecialize.value);
+            let overrideR = parseFloat(calcOverrideR.value) || 0;
+            const energyVals = getEnergyValuesCalc(car.name, calcVSlot.value, isDoubleCycle);
+            const targetCycle = energyVals.cycleEnergy;
+            const targetStart = energyVals.firstEnergy;
+            const specCharge = sp === 10 ? 10 : 0;
+            const nitroVal = car.nitro;
+            const startVal = car.start;
+            const nitroRatio = getNitroRatioCalc(nitroType);
+            const maxHui = getMaxHuiCalc(car.chips);
+            const cycleEff = getCycleChargeEfficiencyCalc(car);
+            const firstEff = getFirstChargeEfficiencyCalc(car);
+            const resist = 1 - overrideR / 100;
+            let vehicleFirstFixed = vehicleFixedFirstBonusCalc[car.name] || 0;
+            let vehicleFirstFloating = getVehicleFloatingBonusCalc(car.name, 'first', isDoubleCycle);
+            let vehicleCycleFixed = 0;
+            if (isDoubleCycle) {
+                vehicleCycleFixed = vehicleFixedDoubleCycleBonusCalc[car.name] || 0;
+            } else {
+                vehicleCycleFixed = vehicleFixedNormalCycleBonusCalc[car.name] || 0;
+            }
+            let vehicleCycleFloating = getVehicleFloatingBonusCalc(car.name, 'cycle', isDoubleCycle);
+            let firstEffFixed = getFirstFixedEffBonusCalc();
+            let firstEffFloating = getFirstFloatingEffBonusCalc();
+            let cycleEffFixed = getCycleFixedEffBonusCalc(isDoubleCycle);
+            let cycleEffFloating = getCycleFloatingEffBonusCalc(isDoubleCycle);
+            let extraStartBonus = 0;
+            if (car.name === "以太" || car.name === "催化剂") {
+                extraStartBonus = parseFloat(calcExtraStart.value) || 0;
+            }
+            let minHuiNeeded = 0;
+            if (cycleNitroCount * nitroRatio > 0) {
+                const specPart = specCharge * resist * (1 + cycleEff / 100) * cycleNitroCount * nitroRatio;
+                const vehiclePart = (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + cycleEff / 100);
+                const effPart = (cycleEffFixed + cycleEffFloating) * resist * (1 + cycleEff / 100);
+                const neededFromNitro = Math.max(0, targetCycle - specPart - vehiclePart - effPart);
+                if (neededFromNitro > 0) {
+                    const perNitroNeededRaw = neededFromNitro / (cycleNitroCount * nitroRatio);
+                    const perNitroNeededAfterEfficiency = perNitroNeededRaw / (resist * (1 + cycleEff / 100));
+                    let rawX = (perNitroNeededAfterEfficiency - nitroVal) * 100 / nitroVal;
+                    minHuiNeeded = Math.max(0, rawX);
+                }
+            }
+            let minHuiFormatted = formatHuiCalc(minHuiNeeded);
+            let customHuiInput = parseFloat(calcCustomHuiInput.value);
+            let warningSpan = calcCustomHuiWarning;
+            let useCustomHui = false;
+            let finalHuiValue = minHuiNeeded;
+            if (!isNaN(customHuiInput) && customHuiInput > 0) {
+                if (customHuiInput < minHuiNeeded) {
+                    warningSpan.innerHTML = `⚠️ 目标汇能不能低于最小汇能 ${minHuiFormatted}%，已使用最小值`;
+                    useCustomHui = false;
+                    finalHuiValue = minHuiNeeded;
+                } else {
+                    warningSpan.innerHTML = '';
+                    useCustomHui = true;
+                    finalHuiValue = customHuiInput;
+                    if (finalHuiValue > maxHui) {
+                        warningSpan.innerHTML = `⚠️ 目标汇能超过芯片上限 ${maxHui}%，已自动限制为上限值`;
+                        finalHuiValue = maxHui;
+                    }
+                }
+            } else {
+                warningSpan.innerHTML = '';
+            }
+            let finalHuiFormatted = formatHuiCalc(finalHuiValue);
+            const nitroPartFirst = nitroVal * (1 + finalHuiValue / 100) * resist * (1 + firstEff / 100) * startNitroCount * nitroRatio;
+            const specPartFirst = specCharge * resist * (1 + firstEff / 100) * startNitroCount * nitroRatio;
+            const vehiclePartFirst = (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + firstEff / 100);
+            const effPartFirst = (firstEffFixed + firstEffFloating) * resist * (1 + firstEff / 100);
+            const startContribution = startVal + extraStartBonus;
+            const totalWithoutJi = startContribution + nitroPartFirst + specPartFirst + vehiclePartFirst + effPartFirst;
+            let finalJiRaw = 0;
+            let note = "";
+            if (totalWithoutJi >= targetStart) {
+                finalJiRaw = 0;
+            } else {
+                let rawJi = (targetStart - totalWithoutJi) / resist;
+                if (rawJi > 30) {
+                    finalJiRaw = 30;
+                    const jiEnergyFixed = 30 * resist;
+                    const remainingForNitro = targetStart - startContribution - specPartFirst - vehiclePartFirst - effPartFirst - jiEnergyFixed;
+                    if (remainingForNitro > 0) {
+                        const perNitroNeededRaw2 = remainingForNitro / (startNitroCount * nitroRatio);
+                        const perNitroNeededAfterEfficiency2 = perNitroNeededRaw2 / (resist * (1 + firstEff / 100));
+                        let huiByFixed = (perNitroNeededAfterEfficiency2 - nitroVal) * 100 / nitroVal;
+                        if (huiByFixed < 0) huiByFixed = 0;
+                        finalHuiFormatted = formatHuiCalc(huiByFixed);
+                        finalHuiValue = huiByFixed;
+                        note = `<br><span style="color: var(--eff-yellow);">⚠️ 先机需求超过30%，触发上限。汇能重新计算为${finalHuiFormatted}%</span>`;
+                        const nitroPartFirst2 = nitroVal * (1 + finalHuiValue / 100) * resist * (1 + firstEff / 100) * startNitroCount * nitroRatio;
+                        const totalWithoutJi2 = startContribution + nitroPartFirst2 + specPartFirst + vehiclePartFirst + effPartFirst;
+                        if (totalWithoutJi2 < targetStart) {
+                            finalJiRaw = (targetStart - totalWithoutJi2) / resist;
+                            if (finalJiRaw > 30) finalJiRaw = 30;
+                        } else {
+                            finalJiRaw = 0;
+                        }
+                    }
+                } else {
+                    finalJiRaw = rawJi;
+                }
+            }
+            let finalJiFormatted = formatJiAdvancedCalc(finalJiRaw);
+            const { diamondCount, totalSubSlots } = parseChipSlotsCalc(car.chips);
+            const achievable = canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, parseFloat(finalHuiFormatted), finalJiRaw);
+            let conclusion = "";
+            if (parseFloat(finalHuiFormatted) > maxHui) conclusion = '❌ 汇能需求超过芯片理论最大值，无法达成';
+            else if (!achievable) conclusion = '❌ 汇能/先机需求超过芯片词条竞争上限，无法达成';
+            else conclusion = '✅ 该需求在芯片词条竞争下【可以达成】';
+            let nitroDesc = nitroType === '1x5' ? `${startNitroCount}个15首大` : (nitroType === '2x2' ? `${startNitroCount}个22首大` : `${startNitroCount}个32首大`);
+            let cycleDesc = isDoubleCycle ? ' + 4气、3气两大一循环' : ` + ${cycleNitroCount}气循环`;
+            let mainName = (mainEffList.find(e => e.value === calcMainEff.value) || { name: "无" }).name;
+            let subName = (subEffList.find(e => e.value === calcSubEff.value) || { name: "无" }).name;
+            let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name} (${car.chips}) | 定位：${calcCarType.value === 'assist' ? '辅助' : (calcCarType.value === 'race' ? '竞速' : (calcCarType.value === 'jam' ? '干扰' : '天平'))} | 专精：${calcCarSubType.options[calcCarSubType.selectedIndex]?.text}<br>V型槽：${allVSlotOptions.find(o => o.value === calcVSlot.value)?.name || calcVSlot.value}<br>赋能：${mainName} + ${subName}<br>氮气：${nitroDesc}${cycleDesc}<br>专精加成：${sp === 10 ? '是' : '否'} | 反制：${overrideR}%<br><br>`;
+            let resultDemand = `<strong>【输出结果】</strong><br>${useCustomHui ? '用户指定汇能' : '最小汇能'}：${finalHuiFormatted}%<br>对应先机需求：${finalJiFormatted}`;
+            let competitionResult = `<br><br><strong>【竞争判定】</strong><br>${conclusion}`;
+            document.getElementById('calcResultArea').innerHTML = `${configSummary}${resultDemand}${note}${competitionResult}`;
+        }
+        
+        function showCalcCopySuccess(msg) {
+            let toast = document.createElement('div');
+            toast.className = 'copy-success';
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        }
+        
+        function copyCalcResult() {
+            let resultDiv = document.getElementById('calcResultArea');
+            let txt = resultDiv.innerText;
+            if (txt && txt !== '等待计算...' && !txt.includes('等待计算')) {
+                navigator.clipboard.writeText(txt).then(() => showCalcCopySuccess('结果已复制')).catch(() => showCalcCopySuccess('结果已复制'));
+            } else {
+                showCalcCopySuccess('请先点击计算按钮');
+            }
+        }
+        
+        function resetCalcAllOptions() {
+            calcCarType.value = 'assist';
+            updateCalcCarTypeIcon();
+            updateCalcSubTypeOptions();
+            calcCarSubType.value = 'city';
+            updateCalcCarSubTypeIcon();
+            updateCalcCarList();
+            calcVSlot.value = 'shenxin';
+            updateCalcVSlotIcon();
+            calcCycleMode.value = 'normal';
+            calcNitroType.value = '2x2';
+            updateCalcNitroIcon();
+            calcSpecialize.value = '10';
+            calcCycleNitroCount.value = '4';
+            calcStartNitroCount.value = '1';
+            calcOverrideR.value = '0';
+            calcMainEff.value = 'none';
+            calcSubEff.value = 'none';
+            updateCalcMainEffIcon();
+            updateCalcSubEffIcon();
+            calcExtraEff.value = '0';
+            calcExtraStart.value = '0';
+            calcQueyiCycleSeconds.value = '7';
+            calcQueyiFirstSeconds.value = '6';
+            calcQueyiLevel.value = '0.8';
+            calcRhythmCycleCount.value = '0';
+            calcRhythmFirstCount.value = '0';
+            calcCustomHuiInput.value = '0';
+            calcCustomHuiWarning.innerHTML = '';
+            updateCalcEnergyDisplays();
+            showCalcCopySuccess('已重置所有选项');
+        }
+        
+        async function shareCalcScreenshot() {
+            let resultDiv = document.getElementById('calcResultArea');
+            if (!resultDiv.innerText || resultDiv.innerText.includes('等待计算')) {
+                showCalcCopySuccess('请先点击计算按钮生成结果');
+                return;
+            }
+            try {
+                const html2canvas = (await import('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.esm.js')).default;
+                let canvas = await html2canvas(resultDiv, { scale: 2, backgroundColor: getComputedStyle(resultDiv).backgroundColor });
+                let link = document.createElement('a');
+                link.download = '王牌竞速_芯片结果.png';
+                link.href = canvas.toDataURL();
+                link.click();
+                showCalcCopySuccess('截图已保存为图片');
+            } catch (e) {
+                showCalcCopySuccess('截图生成失败，请重试');
+            }
+        }
+        
+        function initCalcThemeToggle() {
+            const btn = document.getElementById('calcThemeToggleBtn');
+            const icon = document.getElementById('calcThemeIcon');
+            const text = document.getElementById('calcThemeText');
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') {
+                document.body.classList.add('dark-mode');
+                icon.textContent = '☀️';
+                text.textContent = '浅色模式';
+            } else {
+                icon.textContent = '🌙';
+                text.textContent = '深色模式';
+            }
+            btn.addEventListener('click', () => {
+                let isDark = document.body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                icon.textContent = isDark ? '☀️' : '🌙';
+                text.textContent = isDark ? '浅色模式' : '深色模式';
+            });
+        }
+        
+        // 初始化计算器
+        initCalcCarTypeSelect();
+        initCalcCarSubTypeSelect();
+        initCalcVSlotSelect();
+        initCalcEffSelects();
+        initCalcNitroSelect();
+        updateCalcSubTypeOptions();
+        updateCalcEnergyDisplays();
+        initCalcThemeToggle();
+        createCalcToggleSwitch();
+        updateCalcToggleState();
+        initCalcSearchBox();
+        
+        calcCarModel.addEventListener('change', () => {
+            updateCalcCarIcon();
+            updateCalcEnergyDisplays();
+            updateCalcVSlotOptions();
+            let car = getCalcCurrentCar();
+            calcYitaiExtraOptions.style.display = (car && (car.name === "以太" || car.name === "催化剂")) ? 'block' : 'none';
+            updateCalcToggleState();
+        });
+        calcVSlot.addEventListener('change', () => {
+            updateCalcVSlotIcon();
+            updateCalcEnergyDisplays();
+        });
+        calcCycleMode.addEventListener('change', handleCalcCycleModeChange);
+        document.getElementById('calcResetBtn').addEventListener('click', resetCalcAllOptions);
+        document.getElementById('calcShareBtn').addEventListener('click', shareCalcScreenshot);
+        document.getElementById('calcCopyResultBtn').addEventListener('click', copyCalcResult);
+        document.getElementById('calcCalcBtn').addEventListener('click', calcCalculator);
+        
+        function initCalcVSlotSelect() {
+            calcVSlot.addEventListener('change', () => {
+                updateCalcVSlotIcon();
+                updateCalcEnergyDisplays();
+            });
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        initTabs();
+        loadData();
+        if (document.getElementById('calculatorPage') && document.getElementById('calcCarType')) {
+            setTimeout(() => initCalculator(), 100);
+        }
+    });
 </script>
 </body>
 </html>
