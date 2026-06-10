@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>王牌竞速 · 情报站</title>
     <style>
-        /* ========== 基础样式 ========== */
+        /* ========== 基础样式保持不变 ========== */
         * {
             margin: 0;
             padding: 0;
@@ -642,10 +642,10 @@
             color: #feca57;
         }
         .chip-desc {
-            font-size: 0.7rem;
-            color: #6a6a82;
+            font-size: 0.75rem;
+            color: #8a8aa3;
             margin-top: 8px;
-            font-style: italic;
+            font-style: normal;
         }
         
         /* 手机端样式 */
@@ -705,7 +705,7 @@
             .chip-name { font-size: 0.85rem; }
             .chip-meta-tag { font-size: 0.55rem; padding: 3px 6px; }
             .chip-effect { font-size: 0.65rem; }
-            .chip-desc { font-size: 0.6rem; }
+            .chip-desc { font-size: 0.65rem; }
             .quality-badge { font-size: 0.5rem; padding: 2px 6px; }
             
             .chip-mobile-filter-sticky {
@@ -1014,7 +1014,7 @@
     // 页面状态
     let currentPage = "vehicles";
     let lastBackTime = 0;
-    let isInDetail = false;  // 标记是否在详情页
+    let isInDetail = false;
     
     const EXTRA_RACING_ICON_CARS = ["女武神"];
     const RACING_ICON_URL = "https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png";
@@ -1044,6 +1044,16 @@
     // ========== 通用函数 ==========
     function isMobileDevice() { return window.innerWidth <= 768; }
     
+    // 数字标红函数（用于芯片效果描述和说明）
+    function applyNumberHighlightToText(text) {
+        if (!text) return text;
+        let result = text;
+        result = result.replace(/(\d+(?:\.\d+)?%)/g, '<span class="red-number">$1</span>');
+        result = result.replace(/(\d+(?:\.\d+)?)(?![^<]*>)(?![^<]*<\/span>)/g, (match) => '<span class="red-number">' + match + '</span>');
+        result = result.replace(/<span class="red-number"><span class="red-number">(.*?)<\/span><\/span>/g, '<span class="red-number">$1</span>');
+        return result;
+    }
+    
     // 更新详情页标志和返回按钮显示
     function updateDetailState(isDetail) {
         isInDetail = isDetail;
@@ -1057,7 +1067,7 @@
         }
     }
     
-    // 返回到车辆数据主界面（清空详情页状态）
+    // 返回到车辆数据主界面
     function returnToVehicleList() {
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('car')) {
@@ -1108,14 +1118,6 @@
             return posB - posA;
         });
     }
-    function applyNumberHighlight(text) {
-        if (!text) return text;
-        let result = text;
-        result = result.replace(/(\d+(?:\.\d+)?%)/g, '<span class="red-number">$1</span>');
-        result = result.replace(/(\d+(?:\.\d+)?)(?![^<]*>)(?![^<]*<\/span>)/g, (match) => '<span class="red-number">' + match + '</span>');
-        result = result.replace(/<span class="red-number"><span class="red-number">(.*?)<\/span><\/span>/g, '<span class="red-number">$1</span>');
-        return result;
-    }
     function highlightTerms(text) {
         if (!text) return text;
         let result = text;
@@ -1143,7 +1145,7 @@
         if (current.trim().length > 0) sentences.push(current);
         let formatted = sentences.join('\n');
         formatted = formatted.replace(/\n{2,}/g, '\n');
-        formatted = applyNumberHighlight(formatted);
+        formatted = applyNumberHighlightToText(formatted);
         return formatted;
     }
     
@@ -1317,7 +1319,6 @@
         const positions = ["辅助", "竞速", "干扰", "天平"];
         const specialties = ["城市", "山路", "场地"];
         
-        // 手机端
         const positionContainer = document.getElementById("positionOptions");
         const specialtyContainer = document.getElementById("specialtyOptions");
         const qualityContainer = document.getElementById("qualityOptions");
@@ -1338,7 +1339,6 @@
             });
         }
         
-        // 电脑端
         const desktopPosition = document.getElementById("desktopPositionOptions");
         const desktopSpecialty = document.getElementById("desktopSpecialtyOptions");
         const desktopQuality = document.getElementById("desktopQualityOptions");
@@ -1545,7 +1545,6 @@
         const shapes = ["V型芯片", "核心芯片", "圆形芯片", "三角形芯片", "菱形芯片", "六边形芯片"];
         const types = ["扩展", "核心"];
         
-        // 电脑端
         const desktopQuality = document.getElementById("chipDesktopQualityOptions");
         const desktopShape = document.getElementById("chipDesktopShapeOptions");
         const desktopType = document.getElementById("chipDesktopTypeOptions");
@@ -1566,7 +1565,6 @@
             });
         }
         
-        // 手机端
         const mobileQuality = document.getElementById("chipMobileQualityOptions");
         const mobileShape = document.getElementById("chipMobileShapeOptions");
         const mobileType = document.getElementById("chipMobileTypeOptions");
@@ -1589,7 +1587,6 @@
             });
         }
         
-        // 手机端下拉按钮
         const dropdownBtn = document.getElementById("chipCategoryDropdownBtn");
         const dropdownPanel = document.getElementById("chipCategoryDropdownPanel");
         if (dropdownBtn && dropdownPanel) {
@@ -1659,15 +1656,18 @@
         grid.innerHTML = filtered.map(chip => {
             const borderClass = getChipBorderClass(chip.quality);
             const qualityClass = getChipQualityClass(chip.quality);
-            const effectDesc = chip.effectDescription || "暂无效果描述";
-            const effectNote = chip.effectNote ? `<div class="chip-desc">💡 ${chip.effectNote}</div>` : '<div class="chip-desc">暂无效果说明</div>';
+            let effectDesc = chip.effectDescription || "暂无效果描述";
+            let effectNote = chip.effectNote || "暂无效果说明";
+            // 对效果描述和效果说明中的数字进行标红
+            effectDesc = applyNumberHighlightToText(effectDesc);
+            effectNote = applyNumberHighlightToText(effectNote);
             return `<div class="chip-card ${borderClass}">
                         <div class="chip-image"><img src="${chip.icon}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/200x120?text=Chip'"></div>
                         <div class="chip-info">
                             <div class="chip-name">${chip.name}</div>
                             <div class="chip-meta"><span class="chip-meta-tag">${chip.shape}</span><span class="chip-meta-tag">${chip.type}</span></div>
                             <div class="chip-effect"><strong>效果：</strong>${effectDesc}</div>
-                            ${effectNote}
+                            <div class="chip-desc">${effectNote}</div>
                         </div>
                         <div class="quality-badge-wrapper"><span class="quality-badge ${qualityClass}">${chip.quality}</span></div>
                     </div>`;
@@ -1751,7 +1751,6 @@
                 document.body.classList.remove('has-fixed-header');
             }
         } else {
-            // 电脑端：切换到车辆数据时根据是否在详情页决定顶部栏显示
             const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
             if (vehicleDesktopHeader) {
                 if (pageId === 'vehicles') {
@@ -1773,12 +1772,10 @@
         window.scrollTo(0, 0);
     }
     
-    // 车辆数据返回逻辑（详情页返回列表）- 保留给返回按钮使用
     function handleVehicleBackToList() {
         returnToVehicleList();
     }
     
-    // 芯片返回逻辑（清空筛选或退出）
     function handleChipBack() {
         const hasActiveChipFilter = chipFilters.quality || chipFilters.shape || chipFilters.type || chipKeyword;
         if (hasActiveChipFilter) {
@@ -1788,7 +1785,6 @@
         return false;
     }
     
-    // 车辆数据列表页返回逻辑（清空筛选或退出）
     function handleVehicleListBack() {
         const hasActiveFilter = activeFilters.position || activeFilters.specialty || activeFilters.quality || keyword;
         if (hasActiveFilter) {
@@ -1799,27 +1795,22 @@
         return false;
     }
     
-    // 主返回处理
     function handleBackButton() {
         const now = Date.now();
         
-        // 车辆详情页：返回车辆数据列表
         if (isInDetail && currentPage === 'vehicles') {
             handleVehicleBackToList();
             return true;
         }
         
-        // 芯片架构页：清空筛选或退出
         if (currentPage === 'chip') {
             if (handleChipBack()) return true;
         }
         
-        // 车辆数据列表页：清空筛选或退出
         if (currentPage === 'vehicles' && !isInDetail) {
             if (handleVehicleListBack()) return true;
         }
         
-        // 无筛选条件时退出网站
         if (now - lastBackTime < 500) {
             if (window.history.length <= 1) window.close();
             else history.back();
@@ -1852,7 +1843,6 @@
         return true;
     }
     
-    // ========== 数据加载 ==========
     async function loadData() {
         try {
             const vehiclesUrl = './vehicles.json';
@@ -1942,14 +1932,11 @@
         }
     }
     
-    // ========== 导航切换 ==========
     function initNavigation() {
-        // 侧边栏点击
         document.querySelectorAll('.sidebar .tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const pageId = btn.dataset.page;
                 if (pageId === 'vehicles') {
-                    // 点击车辆数据标题：返回到车辆数据主界面
                     returnToVehicleList();
                 } else {
                     switchToPage(pageId);
@@ -1957,7 +1944,6 @@
             });
         });
         
-        // 手机端导航点击
         const mobileVehicleBtns = document.querySelectorAll('#mobileNavTabs .mobile-tab-btn');
         const mobileChipBtns = document.querySelectorAll('#chipMobileNavTabs .mobile-tab-btn');
         
@@ -1987,7 +1973,6 @@
             });
         });
         
-        // 车辆数据返回按钮
         const headerBackBtn = document.getElementById('headerBackButton');
         if (headerBackBtn) {
             headerBackBtn.addEventListener('click', handleVehicleBackToList);
