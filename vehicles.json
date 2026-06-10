@@ -3419,6 +3419,328 @@
       },
       "ultIcon": "https://s3.bmp.ovh/2026/06/07/ca6qW3TT.png",
       "passiveIcon": "https://s3.bmp.ovh/2026/06/07/9hWrEa8I.png"
+    },
+    {      
+      "id": "yangwang_u9",
+      "name": "仰望U9",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "城市",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/10/Gihr0KUG.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "城市",
+      "description": "场上真实阵营车辆越多，自身强度越高",
+      "skillName": "精英对决",
+      "searchKeywords": ["仰望U9", "精英对决", "云辇-X"],
+      "registerDate": "2025-04-04",
+      "vehicleType": "真实阵营",
+      "manufacturer": "仰望",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/gsI0LDZl.png",
+      "stats": {
+        "topSpeed": "227.0 km/h",
+        "power": "8.32",
+        "durability": "115",
+        "nitroCharge": "32.5%",
+        "startCharge": "32.5%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "23.40 km/h", "purple": "35.10 km/h" },
+        "turboDuration": { "blue": "0.68 s", "purple": "2.04 s" },
+        "turboSpeed": { "blue": "6.40 km/h", "purple": "9.60 km/h" },
+        "ultPower": "7"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "精英对决",
+          "desc": "加速推进，极速提升80km/h，持续8秒。队友每有一台真实阵营车辆，大招期间极速+15km/h（上限叠加至30km/h），敌方每有一台真实阵营车辆，大招期间每秒自充能1.8%",
+          "recu": "精英对决可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "云辇-X",
+          "desc": "在特殊地形中不会减速，每次进入漂移时获得2秒隐身效果"
+        },
+        "features": [
+          { "name": "真实阵营", "desc": "大招根据场上真实阵营数量获得强化", "color": "紫" },
+          { "name": "无视地形", "desc": "不受特殊地形的减速效果影响", "color": "蓝" },
+          { "name": "续航", "desc": "单人比赛时续航能力强", "color": "蓝" },
+          { "name": "隐身", "desc": "无视车辆间的碰撞/不会被锁定类、触碰类干扰命中", "color": "蓝" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/10/ky7KPORN.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/10/lAKkyvWz.png"
+    },
+    {
+      "id": "acura_nsx",
+      "name": "讴歌 NSX",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "城市",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/10/4HsKbefx.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "城市",
+      "description": "超越光影，获取大量充能",
+      "skillName": "追风逐影",
+      "searchKeywords": ["讴歌 NSX", "追风逐影", "破风而行"],
+      "registerDate": "2025-08-01",
+      "vehicleType": "真实阵营",
+      "manufacturer": "讴歌",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/gsI0LDZl.png",
+      "stats": {
+        "topSpeed": "219.0 km/h",
+        "power": "8.00",
+        "durability": "105",
+        "nitroCharge": "29.0%",
+        "startCharge": "29.0%",
+        "nitroDuration": "5.20 s",
+        "nitroSpeed": { "blue": "25.00 km/h", "purple": "37.50 km/h" },
+        "turboDuration": { "blue": "0.73 s", "purple": "2.19 s" },
+        "turboSpeed": { "blue": "7.00 km/h", "purple": "10.50 km/h" },
+        "ultPower": "7"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "rhombus", "vslot"],
+      "skills": {
+        "ult": {
+          "name": "追风逐影",
+          "desc": "加速推进，极速提升70km/h并获得隐身效果，大招开始时：在前方180米处生成赛车光影；光影以180km/h速度自动巡航，持续存在7秒；大招期间超越光影后则大招结束时获得100%大招能量。",
+          "recu": "追风逐影可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "破风而行",
+          "desc": "每次超越极速+3km/h（上限叠加至30km/h，CD2秒）"
+        },
+        "features": [
+          { "name": "召唤物", "desc": "召唤在赛道中自动巡航的单位", "color": "紫" },
+          { "name": "续航", "desc": "单人比赛时续航能力强", "color": "蓝" },
+          { "name": "隐身", "desc": "无视车辆间的碰撞/不会被锁定类、触碰类干扰命中", "color": "蓝" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/10/vV4iTC7b.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/10/eh98J2uW.png"
+    },
+    {
+      "id": "audi_rs3",
+      "name": "奥迪 RS 3",
+      "quality": "史诗",
+      "position": "辅助",
+      "specialty": "城市",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/04/6hJqu4IC.png",
+      "positionIcon": "辅助",
+      "specialtyIcon": "城市",
+      "description": "鬼斧神工，轻松开大",
+      "skillName": "鬼斧神工",
+      "searchKeywords": ["奥迪 RS 3", "鬼斧神工", "灵动"],
+      "registerDate": "2026-02-06",
+      "vehicleType": "真实阵营",
+      "manufacturer": "奥迪",
+      "acquisition": "限时活动",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/07/nhDt9vVx.png",
+      "stats": {
+        "topSpeed": "213.0 km/h",
+        "power": "7.76",
+        "durability": "115",
+        "nitroCharge": "39.0%",
+        "startCharge": "39.0%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "24.00 km/h", "purple": "36.00 km/h" },
+        "turboDuration": { "blue": "0.71 s", "purple": "2.13 s" },
+        "turboSpeed": { "blue": "7.00 km/h", "purple": "10.50 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "鬼斧神工",
+          "desc": "加速推进，极速提升33km/h，持续7秒。加速开始时使900米范围内非辅助位队友进入7秒的鬼斧神工状态：鬼斧神工状态期间大招能量达到50%即可使用；鬼斧神工状态开始和结束时获得13%大招能量。",
+          "recu": "鬼斧神工可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "灵动",
+          "desc": "自身转向能力提升，碰撞不损失集气量"
+        },
+        "features": [
+          { "name": "多段充能", "desc": "为友方提供多段辅助充能", "color": "蓝" },
+          { "name": "碰撞保护", "desc": "碰撞时不会损失集气量", "color": "蓝" },
+          { "name": "提前放大", "desc": "使队友能量50%时也可使用大招", "color": "蓝" },
+          { "name": "转向提升", "desc": "提升车辆转向能力", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/07/nfT9DmxF.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/10/zmgRxjyu.png"
+    },
+    {
+      "id": "xingjuezhiyu",
+      "name": "醒觉之羽",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "山路",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/08/7Dxcqq2k.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "山路",
+      "description": "获得第一名时直接胜利",
+      "skillName": "振翮云霄",
+      "searchKeywords": ["醒觉之羽", "振翮云霄", "觉醒", "命运改写"],
+      "registerDate": "2024-04-26",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "进化",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/gsI0LDZl.png",
+      "stats": {
+        "topSpeed": "216.0 km/h",
+        "power": "8.00",
+        "durability": "115",
+        "nitroCharge": "27.0%",
+        "startCharge": "27.0%",
+        "nitroDuration": "5.20 s",
+        "nitroSpeed": { "blue": "28.00 km/h", "purple": "42.00 km/h" },
+        "turboDuration": { "blue": "0.74 s", "purple": "2.22 s" },
+        "turboSpeed": { "blue": "7.00 km/h", "purple": "10.50 km/h" },
+        "ultPower": "7"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "rhombus", "vslot"],
+      "skills": {
+        "ult": {
+          "name": "振翮云霄",
+          "desc": "加速推进，极速提升80km/h，持续7秒。加速期间每次腾空本局内极速+3km/h（上限叠加至30km/h）。觉醒后：获得开启大招时清空100米范围内可见放置物的额外效果。",
+          "recu": "振翮云霄可以充能两次。解锁大招被动：每次腾空时，获得3500集气量（CD1秒）",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "觉醒",
+          "desc": "开局后30秒觉醒，提升自身8%充能效率并改变大招和SP技能效果"
+        },
+        "features": [
+          { "name": "规则修改", "desc": "可以修改团队赛的胜利规则", "color": "紫" },
+          { "name": "极速变更", "desc": "更改车辆的基础极速", "color": "黄" },
+          { "name": "清障", "desc": "可以清除可见的放置物", "color": "黄" },
+          { "name": "高极速", "desc": "技能提供大量极速加成", "color": "蓝" },
+          { "name": "友方充能", "desc": "为队友提供大招充能", "color": "蓝" },
+          { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/08/Yp8fgbqJ.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/08/Uzt1hBtI.png",
+      "sp": {
+        "name": "命运改写",
+        "icon": "https://s3.bmp.ovh/2026/06/08/ENg9BcbX.png",
+        "desc": "使用次数上限：1次。觉醒前：使用后若本局组队赛获得第一名并完成比赛，则获得比赛胜利。觉醒后：效果变为友方全体立即获得60%大招能量且平跑速度变为230km/h",
+        "cooltime": ""
+      }
+    },
+    { 
+      "id": "mercedes_amg_c63_s_coupe",
+      "name": "梅赛德斯-AMG C 63 S Coupe",
+      "quality": "传说",
+      "position": "辅助",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/08/zSYsfK8K.png",
+      "positionIcon": "辅助",
+      "specialtyIcon": "场地",
+      "description": "高效集气，雷厉风行",
+      "skillName": "雷厉风行",
+      "searchKeywords": ["梅赛德斯-AMG C 63 S Coupe", "雷厉风行", "渐入佳境"],
+      "registerDate": "2024-06-07",
+      "vehicleType": "真实阵营",
+      "manufacturer": "梅赛德斯-奔驰",
+      "acquisition": "",
+      "acquisitionIcon": "",
+      "stats": {
+        "topSpeed": "219.0 km/h",
+        "power": "7.71",
+        "durability": "120",
+        "nitroCharge": "26.0%",
+        "startCharge": "26.0%",
+        "nitroDuration": "5.40 s",
+        "nitroSpeed": { "blue": "24.00 km/h", "purple": "36.00 km/h" },
+        "turboDuration": { "blue": "0.74 s", "purple": "2.22 s" },
+        "turboSpeed": { "blue": "6.80 km/h", "purple": "10.20 km/h" },
+        "ultPower": "6"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "雷厉风行",
+          "desc": "加速推进，极速提升75km/h，持续7秒，大招期间：获得集气无阈值效果；自动集气效率翻倍；每次获得集气量时获得等同于集气量15%的大招能量",
+          "recu": "雷厉风行可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "渐入佳境",
+          "desc": "集气量达到15%时即可使用氮气，每次使用氮气本局内每秒自动获得70集气量（可叠加），累计使用16次氮气时进入隐身状态"
+        },
+        "features": [
+          { "name": "氮气增强", "desc": "氮气获得特殊强化效果", "color": "蓝" },
+          { "name": "集气无阈值", "desc": "在漂移状态下集满一管氮气后，无需退出漂移即可继续集气和使用氮气", "color": "蓝" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" },
+          { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/08/ICOlXIHK.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/08/KQt7AriG.png"
+    },
+    {
+      "id": "mclaren_720s",
+      "name": "迈凯伦 720S",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/10/n5qsqraA.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "双形态，自由选择爆发或续航",
+      "skillName": "双重形态",
+      "searchKeywords": ["迈凯伦 720S", "双重形态", "一招两用", "形态切换"],
+      "registerDate": "2022-06-03",
+      "vehicleType": "真实阵营",
+      "manufacturer": "迈凯伦",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/09/jrVujgS7.png",
+      "stats": {
+        "topSpeed": "217.0 km/h",
+        "power": "7.57",
+        "durability": "95",
+        "nitroCharge": "30.0%",
+        "startCharge": "30.0%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "28.40 km/h", "purple": "42.60 km/h" },
+        "turboDuration": { "blue": "0.67 s", "purple": "2.01 s" },
+        "turboSpeed": { "blue": "7.00 km/h", "purple": "10.50 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "双重形态",
+          "desc": "加速推进，6秒内极速提升50km/h，开启大招时若处于冲锋形态：6秒内额外获得50km/h的极速提升；期间每次使用氮气将永久提升5km/h极速（上限叠加至50km/h）；开启大招时若处于迅捷形态：额外获得6秒大招时间；获得持续12秒的隐身状态并大幅提升动力",
+          "recu": "双重形态可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "一招两用",
+          "desc": "处于冲锋形态时，每次使用氮气40%概率立即获得5000集气量。处于迅捷形态时，每次撞墙净化自身负面效果"
+        },
+        "features": [
+          { "name": "多重形态", "desc": "拥有多套不同的技能效果", "color": "紫" },
+          { "name": "高极速", "desc": "技能提供大量极速加成", "color": "紫" },
+          { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" },
+          { "name": "隐身", "desc": "无视车辆间的碰撞/不会被锁定类、触碰类干扰命中", "color": "蓝" },
+          { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/08/nUcpBTOg.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/08/D7Gwhxy0.png",
+      "sp": {
+        "name": "形态切换",
+        "icon": "https://s3.bmp.ovh/2026/06/08/Qnwm2L5H.png",
+        "desc": "进行冲锋形态和迅捷形态之间的切换",
+        "cooltime": "15秒"
+      }
     }
   ]
 }
