@@ -2122,21 +2122,33 @@
         });
     }
     
-    // 自定义芯片排序：车姬芯片 → 车辆专属芯片 → 修炼芯片 → 超频芯片
+    // 自定义芯片排序：车姬芯片 → 车辆专属芯片 → 修炼芯片 → 超频芯片（且将所有名字带"超频"的芯片排在最后）
     function sortChipsByCategory(chips) {
+        // 先按基础类别排序
         const categoryOrder = {
             "车姬芯片": 1,
             "车辆专属芯片": 2,
             "修炼芯片": 3,
             "超频芯片": 4
         };
-        return [...chips].sort((a, b) => {
+        const sorted = [...chips].sort((a, b) => {
             const orderA = categoryOrder[a.category] || 99;
             const orderB = categoryOrder[b.category] || 99;
             if (orderA !== orderB) return orderA - orderB;
-            // 同类别内按名称排序
             return a.name.localeCompare(b.name, 'zh');
         });
+        
+        // 再将所有名称中包含"超频"的芯片移到末尾，保持它们之间的相对顺序
+        const normalChips = [];
+        const overclockChips = [];
+        for (const chip of sorted) {
+            if (chip.name.includes("超频")) {
+                overclockChips.push(chip);
+            } else {
+                normalChips.push(chip);
+            }
+        }
+        return [...normalChips, ...overclockChips];
     }
     
     function renderChipsList() {
