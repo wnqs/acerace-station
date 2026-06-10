@@ -18,16 +18,14 @@
             caret-color: auto;
         }
         
-        /* 电脑端背景改为深色动态渐变，不再纯黑（手机端保持原背景） */
         body { background: #0a0a0f; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
         
-        /* 仅在电脑端（屏幕宽度大于768px）应用渐变背景和毛玻璃效果 */
+        /* 电脑端样式 */
         @media (min-width: 769px) {
             body {
                 background: linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 25%, #141425 50%, #0f0f1a 75%, #0a0a0f 100%);
                 background-attachment: fixed;
             }
-            /* 添加微妙的网格纹理，增加质感 */
             body::before {
                 content: '';
                 position: fixed;
@@ -42,7 +40,6 @@
                 pointer-events: none;
                 z-index: 0;
             }
-            /* 左侧导航栏半透明毛玻璃 */
             .sidebar {
                 background: rgba(15, 15, 23, 0.75);
                 backdrop-filter: blur(10px);
@@ -57,20 +54,12 @@
             .tab-btn:hover:not(.active) {
                 background: rgba(31, 31, 46, 0.6);
             }
-            /* 电脑端固定顶部导航栏 - 透明毛玻璃，滚动若隐若现效果 */
             .desktop-header {
-                background: rgba(15, 15, 23, 0.5);
+                background: rgba(15, 15, 23, 0.7);
                 backdrop-filter: blur(12px);
-                border-bottom: 1px solid rgba(42, 42, 60, 0.4);
+                border-bottom: 1px solid rgba(42, 42, 60, 0.5);
                 border-radius: 0 0 20px 20px;
-                transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
-            }
-            /* 滚动时增加一点不透明度，若隐若现更自然 */
-            .desktop-header.scrolled {
-                background: rgba(15, 15, 23, 0.75);
-                backdrop-filter: blur(16px);
-                border-bottom-color: rgba(254, 202, 87, 0.2);
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                margin-bottom: 24px;
             }
             .desktop-filter-bar {
                 background: rgba(20, 20, 31, 0.6);
@@ -81,31 +70,22 @@
                 border: 1px solid rgba(42, 42, 60, 0.8);
                 background: rgba(31, 31, 46, 0.8);
             }
-            .desktop-filter-option {
+            .desktop-filter-option, .desktop-quality-option {
                 background: rgba(42, 42, 60, 0.7);
             }
-            .desktop-quality-option {
-                background: rgba(42, 42, 60, 0.7);
-            }
-            /* 车辆卡片半透明 */
-            .car-card {
+            .car-card, .chip-card {
                 background: rgba(20, 20, 31, 0.85);
                 backdrop-filter: blur(4px);
                 border: 2px solid rgba(42, 42, 60, 0.5);
             }
-            .car-card:hover {
+            .car-card:hover, .chip-card:hover {
+                transform: translateY(-4px);
                 border-color: rgba(254, 202, 87, 0.4);
             }
             .card-info {
                 background: rgba(20, 20, 31, 0.7);
                 backdrop-filter: blur(4px);
             }
-            /* 卡片图片背景保持原有色彩 */
-            .card-image.legendary { background: linear-gradient(145deg, rgba(26,18,8,0.7) 0%, rgba(13,10,5,0.7) 100%); }
-            .card-image.epic { background: linear-gradient(145deg, rgba(26,15,26,0.7) 0%, rgba(13,5,13,0.7) 100%); }
-            .card-image.rare { background: linear-gradient(145deg, rgba(14,26,42,0.7) 0%, rgba(6,13,21,0.7) 100%); }
-            .card-image.normal { background: linear-gradient(145deg, rgba(26,42,26,0.7) 0%, rgba(10,26,10,0.7) 100%); }
-            /* 详情页容器半透明 */
             .detail-container {
                 background: rgba(20, 20, 31, 0.85);
                 backdrop-filter: blur(10px);
@@ -115,33 +95,16 @@
                 background: rgba(15, 15, 26, 0.7);
                 backdrop-filter: blur(10px);
             }
-            .feature-box {
-                background: rgba(30, 30, 50, 0.8);
-            }
-            .skill-desc, .sub-skill, .stat-card, .info-row, .chip-icon, .workshop-placeholder {
+            .feature-box, .skill-desc, .sub-skill, .stat-card, .info-row, .chip-icon, .workshop-placeholder {
                 background: rgba(0, 0, 0, 0.3);
             }
-            .chip-workshop {
-                background: rgba(0, 0, 0, 0.3);
-            }
-            .detail-acquisition-area {
-                background: transparent;
-            }
-            /* 电脑端优化主内容区顶部间距，让车辆模块更贴合顶部导航栏 */
-            .main-content {
-                padding-top: 4px;
-            }
-            /* 调整车辆网格间距，确保完整展示六辆车 */
-            .cars-grid {
-                gap: 24px;
-                margin-top: 0;
-            }
+            .chip-card.legendary-border:hover { border-color: #e6b422; box-shadow: 0 0 16px rgba(230,180,34,0.4); }
+            .chip-card.epic-border:hover { border-color: #aa6dc9; box-shadow: 0 0 14px rgba(170,109,201,0.35); }
+            .chip-card.rare-border:hover { border-color: #4a9eff; box-shadow: 0 0 12px rgba(74,158,255,0.3); }
+            .chip-card.normal-border:hover { border-color: #40c468; box-shadow: 0 0 10px rgba(64,196,104,0.25); }
         }
         
-        /* 左侧固定导航布局（电脑端） */
         .app-layout { display: flex; max-width: 1600px; margin: 0 auto; min-height: 100vh; position: relative; z-index: 1; }
-        
-        /* 左侧导航栏 - 固定列（电脑端） */
         .sidebar { width: 240px; background: #0f0f17; border-right: 1px solid #2a2a3c; padding: 24px 0; position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto; z-index: 100; }
         .sidebar .logo-area { padding: 0 16px 20px 16px; border-bottom: 1px solid #2a2a3c; margin-bottom: 20px; cursor: pointer; }
         .sidebar .logo-area h1 { font-size: 1.2rem; background: linear-gradient(135deg, #ff6b6b, #feca57); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
@@ -151,18 +114,11 @@
         .tab-btn.active { background: #2a2a3c; color: #feca57; }
         .tab-btn:hover:not(.active) { background: #1f1f2e; color: #e2e2e6; }
         
-        /* 右侧主内容区 - 需要左侧留白（电脑端） */
-        .main-content { 
-            flex: 1; 
-            margin-left: 240px; 
-            padding: 0 24px 60px 24px; 
-            width: calc(100% - 240px); 
-        }
-        
+        .main-content { flex: 1; margin-left: 240px; padding: 0 24px 60px 24px; width: calc(100% - 240px); }
         .page { display: none; }
         .page.active-page { display: block; }
         
-        /* 电脑端固定顶部导航栏 */
+        /* 车辆数据原有样式 */
         .desktop-header {
             position: sticky;
             top: 0;
@@ -299,11 +255,7 @@
             color: #1a1a2e;
         }
         
-        .cars-grid { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 24px; 
-        }
+        .cars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
         .car-card { background: #14141f; border-radius: 24px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; will-change: transform; position: relative; display: flex; flex-direction: column; }
         .car-card:hover { transform: translateY(-4px); }
         @media (hover: hover) and (pointer: fine) {
@@ -333,7 +285,7 @@
         .acquisition-icon img { width: 100%; height: 100%; object-fit: contain; }
         
         .quality-badge-wrapper { position: absolute; bottom: 12px; right: 12px; z-index: 15; }
-        .quality-badge { font-size: 0.7rem; padding: 3px 12px; border-radius: 30px; font-weight: 800; letter-spacing: 1px; backdrop-filter: blur(2px); text-transform: uppercase; transition: none; border-width: 1px; border-style: solid; display: inline-block; transform: translateZ(0); -webkit-transform: translateZ(0); white-space: nowrap; }
+        .quality-badge { font-size: 0.7rem; padding: 3px 12px; border-radius: 30px; font-weight: 800; letter-spacing: 1px; backdrop-filter: blur(2px); text-transform: uppercase; transition: none; border-width: 1px; border-style: solid; display: inline-block; transform: translateZ(0); white-space: nowrap; }
         .quality-badge.legendary { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #ffffff !important; border-color: #ffd966; box-shadow: 0 2px 12px rgba(230,180,34,0.4); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
         .quality-badge.epic { background: linear-gradient(135deg, #aa6dc9, #8b5aaf); color: #ffffff; border-color: #c99eff; box-shadow: 0 2px 12px rgba(170,109,201,0.4); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
         .quality-badge.rare { background: linear-gradient(135deg, #4a9eff, #2d7fd1); color: #ffffff; border-color: #8bcbff; box-shadow: 0 2px 12px rgba(74,158,255,0.35); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
@@ -341,205 +293,168 @@
         
         .card-info { padding: 16px; background: rgba(20,20,31,0.9); }
         .car-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px; flex-wrap: wrap; }
-        .car-name { font-size: 1.1rem; font-weight: 700; color: #e2e2e6; flex-shrink: 1; min-width: 0; word-break: break-word; }
+        .car-name { font-size: 1.1rem; font-weight: 700; color: #e2e2e6; flex-shrink: 1; word-break: break-word; }
         .car-meta { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; align-items: center; }
         .meta-item { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 40px; font-size: 0.7rem; color: #a0a0b8; font-weight: 500; }
         .meta-item img { width: 18px; height: 18px; }
         .car-description { font-size: 0.75rem; color: #8a8aa3; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; line-height: 1.4; font-weight: 400; }
         .stats-text { text-align: center; padding: 16px; color: #8a8aa3; font-weight: 500; }
         
-        .detail-container { background: #14141f; border-radius: 24px; border: 1px solid #2a2a3c; position: relative; overflow: visible; margin-bottom: 24px; }
-        .detail-header { display: flex; gap: 30px; padding: 20px 40px 20px 40px; flex-wrap: wrap; }
-        .detail-image { flex: 2; min-width: 280px; border-radius: 24px; display: flex; align-items: center; justify-content: center; padding: 50px 40px; border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; }
-        .detail-image.legendary { background: linear-gradient(145deg, #1a1208 0%, #0d0a05 100%); }
-        .detail-image.legendary::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,215,0,0.04) 2px, rgba(255,215,0,0.04) 4px); pointer-events: none; }
-        .detail-image.legendary::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 30%, rgba(255,215,0,0.1), transparent 70%); pointer-events: none; }
-        .detail-image.epic { background: linear-gradient(145deg, #1a0f1a 0%, #0d050d 100%); }
-        .detail-image.epic::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(156,39,176,0.08) 2px, rgba(156,39,176,0.08) 4px); pointer-events: none; }
-        .detail-image.epic::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 25% 35%, rgba(156,39,176,0.15), rgba(255,215,0,0.05) 60%, transparent 80%); pointer-events: none; }
-        .detail-image.rare { background: linear-gradient(145deg, #0e1a2a 0%, #060d15 100%); }
-        .detail-image.rare::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(33,150,243,0.06) 2px, rgba(33,150,243,0.06) 4px); pointer-events: none; }
-        .detail-image.rare::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 40% 60%, rgba(33,150,243,0.1), transparent 70%); pointer-events: none; }
-        .detail-image.normal { background: linear-gradient(145deg, #1a2a1a 0%, #0a1a0a 100%); }
-        .detail-image.normal::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(76,175,80,0.08) 2px, rgba(76,175,80,0.08) 4px); pointer-events: none; }
-        .detail-image.normal::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.1), transparent 70%); pointer-events: none; }
-        .detail-image img { width: 100%; max-height: 420px; object-fit: contain; position: relative; z-index: 2; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5)); }
-        
-        .detail-acquisition-area { position: absolute; top: 20px; left: 20px; display: flex; align-items: center; gap: 14px; background: transparent; backdrop-filter: none; padding: 0; border-radius: 0; border: none; z-index: 15; }
-        .detail-acquisition-icon { width: 108px; height: 108px; cursor: pointer; transition: transform 0.2s; background: transparent; border-radius: 0; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3)); }
-        .detail-acquisition-icon:hover { transform: scale(1.05); }
-        .detail-acquisition-icon img { width: 100%; height: 100%; object-fit: contain; }
-        .detail-acquisition-text { font-size: 0.95rem; color: #feca57; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap; text-shadow: 0 0 2px rgba(0,0,0,0.5); background: transparent; padding: 4px 0; border-radius: 0; backdrop-filter: none; }
-        
-        .detail-info-panel { flex: 1; min-width: 260px; background: rgba(15,15,26,0.8); backdrop-filter: blur(10px); border-radius: 24px; padding: 20px; border: 1px solid rgba(255,255,255,0.08); }
-        .detail-name { font-size: 1.7rem; font-weight: 800; color: #e2e2e6; margin-bottom: 16px; letter-spacing: -0.2px; word-break: break-word; }
-        .detail-badges { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
-        .badge { background: rgba(255,255,255,0.08); padding: 6px 14px; border-radius: 40px; font-size: 0.8rem; color: #a0a0b8; display: flex; align-items: center; gap: 8px; font-weight: 500; }
-        .badge img { width: 18px; height: 18px; }
-        .quality-badge-large { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #ffffff; padding: 6px 16px; border-radius: 40px; font-weight: 800; font-size: 0.9rem; box-shadow: 0 2px 12px rgba(230,180,34,0.5); border: 1px solid #ffd966; letter-spacing: 1px; text-transform: uppercase; }
-        
-        .info-rows { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 18px; }
-        .info-row { display: flex; background: rgba(0,0,0,0.3); padding: 10px 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.05); }
-        .info-label { width: 90px; color: #8a8aa3; font-size: 0.75rem; font-weight: 600; }
-        .info-value { color: #e2e2e6; font-size: 0.8rem; font-weight: 500; }
-        
-        .features-section, .chip-slots, .vehicle-stats, .skills-section, .chip-workshop { position: relative; background: #14141f; }
-        .features-section { padding: 20px 40px 12px 40px; border-top: 1px solid rgba(255,255,255,0.08); }
-        .section-title { font-size: 1.65rem !important; font-weight: 800; color: #e2e2e6; margin-bottom: 20px; padding-left: 12px; border-left: 4px solid #feca57; }
-        .chip-slots .section-title { font-size: 1.65rem !important; font-weight: 800; }
-        .vehicle-stats .section-title { font-size: 1.65rem !important; font-weight: 800; }
-        .skills-section .section-title { font-size: 1.65rem !important; font-weight: 800; }
-        .workshop-title { font-size: 1.65rem !important; font-weight: 800; color: #e2e2e6; margin-bottom: 20px; }
-        
-        .features-horizontal { display: flex; flex-wrap: wrap; gap: 16px; justify-content: flex-start; align-items: center; }
-        .feature-box { background: rgba(30,30,50,0.9); border-radius: 40px; padding: 10px 24px; text-align: center; cursor: pointer; transition: all 0.2s ease; font-weight: 600; font-size: 0.85rem; white-space: nowrap; }
-        .feature-box[data-color="蓝"] { border-color: #2196f3; color: #90caf9; background: rgba(33,150,243,0.15); }
-        .feature-box[data-color="紫"] { border-color: #9c27b0; color: #ce93d8; background: rgba(156,39,176,0.15); }
-        .feature-box[data-color="红"] { border-color: #f44336; color: #ff8a80; background: rgba(244,67,54,0.15); }
-        .feature-box[data-color="黄"] { border-color: #ffc107; color: #ffd54f; background: rgba(255,193,7,0.15); }
-        .feature-box[data-color="默认"] { border-color: #feca57; color: #feca57; background: rgba(30,30,50,0.9); }
-        .feature-box:hover { transform: translateY(-2px); background: rgba(254,202,87,0.2); box-shadow: 0 4px 12px rgba(254,202,87,0.2); }
-        
-        .skill-desc {
-            background: rgba(0,0,0,0.3);
-            padding: 14px 18px;
-            border-radius: 16px;
-            color: #e2e2e6 !important;
-            font-size: 0.85rem;
-            line-height: 1.6;
-            border: 1px solid rgba(255,255,255,0.08);
-            white-space: pre-line;
-            font-weight: 400;
+        /* 芯片页面样式 */
+        .chip-header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
         }
-        .skill-desc .term-highlight {
-            color: #feca57 !important;
-            cursor: pointer;
-            border-bottom: 1px dashed #feca57;
-            display: inline-block;
-            font-weight: 500;
-            background: transparent;
+        .chip-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #feca57, #ff8c00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-        .sub-skill-desc {
-            font-size: 0.75rem;
-            color: #a0a0b8;
-            white-space: pre-line;
-            font-weight: 400;
+        .chip-search-box {
+            width: 280px;
         }
-        .sub-skill-desc .term-highlight {
-            color: #feca57 !important;
-            cursor: pointer;
-            border-bottom: 1px dashed #feca57;
-            display: inline-block;
-            font-weight: 500;
-        }
-        
-        .feature-tooltip {
-            position: fixed;
-            background: #1e1e2e;
-            border: 1px solid #feca57;
-            border-radius: 12px;
+        .chip-search-box input {
+            width: 100%;
             padding: 10px 16px;
-            font-size: 0.85rem;
+            border-radius: 40px;
+            border: 1px solid #2a2a3c;
+            background: #1f1f2e;
             color: #e2e2e6;
-            max-width: 280px;
-            z-index: 1000;
-            pointer-events: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            backdrop-filter: blur(8px);
-            white-space: normal;
-            word-break: break-word;
-            line-height: 1.5;
+            font-size: 0.9rem;
             font-weight: 500;
+            outline: none;
         }
-        .feature-tooltip .term-title {
-            display: block;
-            text-align: center;
+        .chip-search-box input:focus {
+            border-color: #feca57;
+        }
+        .chip-filter-bar {
+            background: #14141f;
+            border-radius: 20px;
+            padding: 16px 20px;
+            backdrop-filter: blur(8px);
+            border: 1px solid #2a2a3c;
+            margin-bottom: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+        }
+        .chip-filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .chip-filter-label {
+            font-size: 0.75rem;
             color: #feca57;
-            font-weight: bold;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .chip-filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .chip-filter-option {
+            background: #2a2a3c;
+            border-radius: 30px;
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            color: #a0a0b8;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+        .chip-filter-option.active {
+            background: #feca57;
+            color: #1a1a2e;
+        }
+        
+        .chips-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .chip-card {
+            background: #14141f;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .chip-card.legendary-border { border-color: #e6b422; }
+        .chip-card.epic-border { border-color: #aa6dc9; }
+        .chip-card.rare-border { border-color: #4a9eff; }
+        .chip-card.normal-border { border-color: #40c468; }
+        
+        .chip-image {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: linear-gradient(145deg, #1a1a2a, #0f0f1a);
+        }
+        .chip-image img {
+            max-width: 100%;
+            max-height: 120px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+        }
+        .chip-info {
+            padding: 16px;
+        }
+        .chip-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #e2e2e6;
             margin-bottom: 8px;
-            font-size: 0.85rem;
         }
-        .feature-tooltip .term-desc-line {
-            text-align: left;
-            margin-bottom: 4px;
-            padding-left: 0;
-            white-space: pre-line;
+        .chip-meta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
         }
-        
-        .feature-tooltip-mobile {
-            position: fixed;
-            background: #1e1e2e;
-            border: 1px solid #feca57;
-            border-radius: 12px;
-            padding: 10px 14px;
-            font-size: 0.8rem;
-            color: #e2e2e6;
-            max-width: 260px;
-            z-index: 1000;
-            pointer-events: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            backdrop-filter: blur(8px);
-            white-space: normal;
-            word-break: break-word;
-            line-height: 1.45;
+        .chip-meta-tag {
+            background: rgba(255,255,255,0.08);
+            padding: 4px 10px;
+            border-radius: 40px;
+            font-size: 0.65rem;
+            color: #a0a0b8;
             font-weight: 500;
         }
-        .feature-tooltip-mobile .term-title {
-            display: block;
-            text-align: center;
+        .chip-effect {
+            font-size: 0.75rem;
+            color: #8a8aa3;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 10px;
+            line-height: 1.4;
+        }
+        .chip-effect strong {
             color: #feca57;
-            font-weight: bold;
-            margin-bottom: 6px;
-            font-size: 0.8rem;
         }
-        .feature-tooltip-mobile .term-desc-line {
-            text-align: left;
-            margin-bottom: 4px;
-            padding-left: 0;
-            white-space: pre-line;
+        .chip-desc {
+            font-size: 0.7rem;
+            color: #6a6a82;
+            margin-top: 8px;
+            font-style: italic;
         }
         
-        .chip-slots { padding: 20px 40px 12px 40px; border-top: 1px solid rgba(255,255,255,0.08); }
-        .chip-icons { display: flex; gap: 12px; flex-wrap: wrap; }
-        .chip-icon { width: 56px; height: 56px; background: rgba(0,0,0,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid rgba(255,255,255,0.15); }
-        .chip-icon img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .chip-workshop { margin: 0 40px 20px 40px; background: rgba(0,0,0,0.3); border-radius: 20px; padding: 16px 20px; border: 1px solid rgba(255,255,255,0.08); }
-        .workshop-placeholder { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 28px 20px; text-align: center; color: #6a6a82; border: 1px dashed rgba(255,255,255,0.15); font-size: 0.8rem; font-weight: 400; }
-        
-        .vehicle-stats, .skills-section { padding: 12px 40px 24px 40px; border-top: 1px solid rgba(255,255,255,0.08); }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-        .stat-card { background: rgba(0,0,0,0.3); padding: 12px 16px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.08); }
-        .stat-card span:first-child { color: #8a8aa3; font-size: 0.8rem; font-weight: 500; }
-        .stat-card span:last-child { color: #e2e2e6; font-weight: 600; font-size: 0.9rem; }
-        .stat-card .gold-number { color: #feca57 !important; font-weight: 800; font-size: 1.2rem !important; text-shadow: 0 0 4px rgba(254,202,87,0.4); letter-spacing: 1px; }
-        .blue { color: #3b82f6 !important; font-weight: 600; }
-        .purple { color: #a855f7 !important; font-weight: 600; }
-        
-        .skill-block { margin-bottom: 24px; }
-        .skill-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-        .skill-icon { width: 56px; height: 56px; min-width: 56px; background: rgba(0,0,0,0.4); border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
-        .skill-icon img { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; }
-        .skill-title { font-size: 1rem; font-weight: 700; color: #e2e2e6; }
-        .sub-skill { background: rgba(0,0,0,0.3); padding: 12px 16px; border-radius: 14px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.08); }
-        .sub-skill-title { font-weight: 600; font-size: 0.8rem; color: #c0c0d0; margin-bottom: 6px; }
-        .red-number { color: #ff6b6b !important; font-weight: 600; }
-        .term-highlight { 
-            color: #feca57 !important; 
-            cursor: pointer; 
-            border-bottom: 1px dashed #feca57; 
-            display: inline-block; 
-            font-weight: 500; 
-            background: transparent;
-        }
-        .term-highlight:hover { color: #ffd700; }
-        .sp-cooltime { color: #feca57; font-weight: 600; margin-bottom: 8px; display: block; }
-        
-        .wallpapers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; padding: 20px; }
-        .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; font-weight: 500; }
-        .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
-        
-        /* ========== 手机端专用样式（完全保持不变） ========== */
+        /* 手机端保持原样 */
         @media (max-width: 768px) {
             .sidebar { display: none; }
             .mobile-fixed-header {
@@ -553,222 +468,38 @@
                 display: flex;
                 flex-direction: column;
             }
-            .mobile-top-bar {
-                padding: 8px 12px;
-                border-bottom: 1px solid #2a2a3c;
-            }
-            .mobile-logo-area {
-                text-align: center;
-                cursor: pointer;
-                padding-bottom: 2px;
-            }
-            .mobile-logo-area h1 {
-                font-size: 1rem;
-                background: linear-gradient(135deg, #ff6b6b, #feca57);
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-                font-weight: 800;
-            }
-            .mobile-logo-area p {
-                font-size: 0.5rem;
-                color: #8a8aa3;
-                font-weight: 500;
-            }
-            .mobile-nav-tabs {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 4px;
-                margin-top: 4px;
-            }
-            .mobile-tab-btn {
-                padding: 6px 2px;
-                font-size: 0.65rem;
-                border-radius: 16px;
-                text-align: center;
-                background: #1a1a2a;
-                border: none;
-                cursor: pointer;
-                color: #a0a0b8;
-                transition: 0.2s;
-                font-weight: 700;
-            }
-            .mobile-tab-btn.active {
-                background: #feca57;
-                color: #1a1a2e;
-            }
-            .mobile-filter-sticky {
-                padding: 8px 12px;
-                background: #0a0a0f;
-                border-bottom: 1px solid #2a2a3c;
-            }
-            .filter-row {
-                display: flex;
-                gap: 8px;
-                align-items: center;
-            }
-            .search-box { 
-                flex: 2;
-                margin-bottom: 0;
-                width: auto;
-            }
-            .search-box input { 
-                width: 100%; 
-                padding: 8px 12px; 
-                font-size: 0.8rem; 
-                background: #1f1f2e; 
-                border: 1px solid #2a2a3c; 
-                border-radius: 30px; 
-                color: #e2e2e6;
-                outline: none;
-                box-sizing: border-box;
-                font-weight: 500;
-            }
+            .mobile-top-bar { padding: 8px 12px; border-bottom: 1px solid #2a2a3c; }
+            .mobile-logo-area { text-align: center; cursor: pointer; padding-bottom: 2px; }
+            .mobile-logo-area h1 { font-size: 1rem; background: linear-gradient(135deg, #ff6b6b, #feca57); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
+            .mobile-logo-area p { font-size: 0.5rem; color: #8a8aa3; font-weight: 500; }
+            .mobile-nav-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 4px; }
+            .mobile-tab-btn { padding: 6px 2px; font-size: 0.65rem; border-radius: 16px; text-align: center; background: #1a1a2a; border: none; cursor: pointer; color: #a0a0b8; font-weight: 700; }
+            .mobile-tab-btn.active { background: #feca57; color: #1a1a2e; }
+            .mobile-filter-sticky { padding: 8px 12px; background: #0a0a0f; border-bottom: 1px solid #2a2a3c; }
+            .filter-row { display: flex; gap: 8px; align-items: center; }
+            .search-box { flex: 2; margin-bottom: 0; width: auto; }
+            .search-box input { width: 100%; padding: 8px 12px; font-size: 0.8rem; background: #1f1f2e; border: 1px solid #2a2a3c; border-radius: 30px; color: #e2e2e6; outline: none; }
             .search-box input:focus { border-color: #feca57; }
-            .search-box input::placeholder { color: #8a8aa3; font-size: 0.75rem; }
-            .category-dropdown-btn { 
-                background: #1f1f2e; 
-                border: 1px solid #2a2a3c; 
-                border-radius: 30px; 
-                padding: 6px 14px; 
-                font-size: 0.75rem; 
-                cursor: pointer; 
-                color: #e2e2e6; 
-                display: flex; 
-                align-items: center; 
-                justify-content: center;
-                gap: 5px;
-                white-space: nowrap;
-                font-weight: 700;
-                flex-shrink: 0;
-            }
+            .category-dropdown-btn { background: #1f1f2e; border: 1px solid #2a2a3c; border-radius: 30px; padding: 6px 14px; font-size: 0.75rem; cursor: pointer; color: #e2e2e6; display: flex; align-items: center; gap: 5px; white-space: nowrap; font-weight: 700; flex-shrink: 0; }
             .category-dropdown-btn .arrow { font-size: 0.6rem; transition: transform 0.2s; }
             .category-dropdown-btn.active .arrow { transform: rotate(180deg); }
-            .category-dropdown-panel { 
-                background: #1a1a2a; 
-                border-radius: 16px; 
-                margin-top: 8px; 
-                padding: 10px; 
-                border: 1px solid #2a2a3c; 
-                display: none;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-                position: absolute;
-                left: 12px;
-                right: 12px;
-                z-index: 210;
-            }
+            .category-dropdown-panel { background: #1a1a2a; border-radius: 16px; margin-top: 8px; padding: 10px; border: 1px solid #2a2a3c; display: none; position: absolute; left: 12px; right: 12px; z-index: 210; }
             .category-dropdown-panel.show { display: block; }
             .filter-section { margin-bottom: 12px; }
-            .filter-section:last-child { margin-bottom: 0; }
-            .filter-section-title { 
-                font-size: 0.65rem; 
-                color: #feca57; 
-                margin-bottom: 5px; 
-                padding-left: 4px; 
-                font-weight: 700; 
-            }
-            .filter-options { 
-                display: flex; 
-                flex-wrap: wrap; 
-                gap: 8px; 
-                justify-content: flex-start;
-            }
-            .filter-option, .quality-option { 
-                background: #2a2a3c; 
-                border-radius: 30px; 
-                padding: 6px 12px; 
-                font-size: 0.7rem; 
-                cursor: pointer; 
-                color: #a0a0b8; 
-                transition: 0.2s; 
-                display: inline-flex; 
-                align-items: center; 
-                gap: 6px; 
-                white-space: nowrap;
-                border: none;
-                font-weight: 600;
-                flex: 1 0 auto;
-                justify-content: center;
-                min-width: 70px;
-            }
+            .filter-section-title { font-size: 0.65rem; color: #feca57; margin-bottom: 5px; padding-left: 4px; font-weight: 700; }
+            .filter-options { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-start; }
+            .filter-option, .quality-option { background: #2a2a3c; border-radius: 30px; padding: 6px 12px; font-size: 0.7rem; cursor: pointer; color: #a0a0b8; font-weight: 600; }
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
-            .filter-option img { width: 14px; height: 14px; }
-            
             .main-content { margin-left: 0; margin-top: 0; padding: 12px; width: 100%; }
             body.has-fixed-header .main-content { margin-top: 145px; }
-            
-            .cars-grid { 
-                grid-template-columns: repeat(2, 1fr); 
-                gap: 12px; 
-            }
-            .card-image { height: 130px; padding: 12px; }
-            .car-name { font-size: 0.85rem; font-weight: 700; }
-            .quality-badge-wrapper { position: absolute; top: 8px; right: 8px; bottom: auto; left: auto; }
-            .quality-badge { font-size: 0.5rem; padding: 2px 6px; font-weight: 800; }
-            .acquisition-icon { width: 40px; height: 40px; bottom: 6px; right: 6px; }
-            .meta-item { font-size: 0.55rem; padding: 2px 6px; font-weight: 500; }
-            .car-description { font-size: 0.6rem; font-weight: 400; }
-            .car-card { border: none; }
-            .features-horizontal {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-            .feature-box {
-                white-space: nowrap;
-                font-size: 0.75rem;
-                padding: 6px 12px;
-                text-align: center;
-                word-break: keep-all;
-                display: inline-block;
-                width: auto;
-            }
-            .chip-icons {
-                display: flex;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                gap: 8px;
-                padding-bottom: 4px;
-            }
-            .chip-icon {
-                width: 44px;
-                height: 44px;
-                flex-shrink: 0;
-            }
-            .detail-container { overflow-x: hidden; padding-bottom: 20px; }
-            .detail-header { flex-direction: column; padding: 16px !important; gap: 16px !important; }
-            .detail-image { padding: 16px !important; min-width: auto; width: 100%; border-radius: 16px; }
-            .detail-image img { max-height: 180px; width: auto; max-width: 100%; margin: 0 auto; object-fit: contain; }
-            .detail-info-panel { width: 100%; padding: 16px !important; }
-            .detail-name { font-size: 1.2rem !important; font-weight: 800; }
-            .features-section, .chip-slots, .vehicle-stats, .skills-section { padding: 12px 16px !important; }
-            .section-title, .chip-slots .section-title, .vehicle-stats .section-title, .skills-section .section-title, .workshop-title {
-                font-size: 1.25rem !important;
-                font-weight: 800;
-            }
-            .detail-acquisition-area { top: 12px; left: 12px; gap: 6px; }
-            .detail-acquisition-icon { width: 55px; height: 55px; }
-            .detail-acquisition-text { font-size: 0.65rem; white-space: normal; max-width: 120px; text-shadow: 0 0 4px rgba(0,0,0,0.8); font-weight: 600; }
-            .stats-text { font-size: 0.75rem; font-weight: 500; }
-            .skill-desc { font-size: 0.75rem; padding: 10px 12px; }
-            .sub-skill-desc { font-size: 0.7rem; }
+            .cars-grid, .chips-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .card-image, .chip-image { height: 130px; padding: 12px; }
+            .car-name { font-size: 0.85rem; }
+            .chip-header-area { flex-direction: column; align-items: stretch; }
+            .chip-search-box { width: 100%; }
+            .chip-filter-bar { flex-direction: column; gap: 16px; }
             .desktop-header { display: none; }
         }
-        
-        @media (max-width: 480px) {
-            .cars-grid { gap: 10px; }
-            .card-image { height: 110px; }
-            .car-name { font-size: 0.75rem; }
-            .meta-item { font-size: 0.5rem; padding: 2px 4px; }
-            .filter-option, .quality-option { padding: 5px 8px; font-size: 0.65rem; min-width: 65px; }
-            .category-dropdown-btn { padding: 5px 10px; font-size: 0.7rem; }
-            .search-box input { padding: 6px 10px; font-size: 0.75rem; }
-            .feature-box { font-size: 0.7rem; padding: 5px 10px; }
-            .section-title, .chip-slots .section-title, .vehicle-stats .section-title, .skills-section .section-title, .workshop-title {
-                font-size: 1.2rem !important;
-            }
-        }
-        
         @media (min-width: 769px) {
             .acquisition-icon { bottom: 2px; width: 70px; height: 70px; }
             .mobile-fixed-header { display: none; }
@@ -847,54 +578,65 @@
     </div>
     
     <div class="main-content">
-        <div class="desktop-header" id="desktopHeader">
-            <div class="desktop-header-top" id="desktopHeaderTop">
-                <div class="header-title-area">
-                    <div id="headerBackBtn" style="display: none;">
-                        <button class="detail-back-btn-header" id="headerBackButton">← 返回列表</button>
-                    </div>
-                    <span class="page-title">车辆数据</span>
-                </div>
-                <div class="header-right-placeholder"></div>
-            </div>
-            <div class="desktop-filter-bar">
-                <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
-                <div class="desktop-filter-sections">
-                    <div class="desktop-filter-section">
-                        <div class="desktop-filter-section-title">定位</div>
-                        <div class="desktop-filter-options" id="desktopPositionOptions">
-                            <div class="desktop-filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
-                            <div class="desktop-filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
-                            <div class="desktop-filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
-                            <div class="desktop-filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
-                        </div>
-                    </div>
-                    <div class="desktop-filter-section">
-                        <div class="desktop-filter-section-title">专精</div>
-                        <div class="desktop-filter-options" id="desktopSpecialtyOptions">
-                            <div class="desktop-filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
-                            <div class="desktop-filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
-                            <div class="desktop-filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
-                        </div>
-                    </div>
-                    <div class="desktop-filter-section">
-                        <div class="desktop-filter-section-title">品质</div>
-                        <div class="desktop-filter-options" id="desktopQualityOptions">
-                            <div class="desktop-quality-option" data-type="quality" data-value="传说">传说</div>
-                            <div class="desktop-quality-option" data-type="quality" data-value="史诗">史诗</div>
-                            <div class="desktop-quality-option" data-type="quality" data-value="稀有">稀有</div>
-                            <div class="desktop-quality-option" data-type="quality" data-value="普通">普通</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
         <div id="vehiclesPage" class="page active-page">
+            <div class="desktop-header">
+                <div class="desktop-header-top">
+                    <div class="header-title-area">
+                        <div id="headerBackBtn" style="display: none;">
+                            <button class="detail-back-btn-header" id="headerBackButton">← 返回列表</button>
+                        </div>
+                        <span class="page-title">车辆数据</span>
+                    </div>
+                    <div class="header-right-placeholder"></div>
+                </div>
+                <div class="desktop-filter-bar">
+                    <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
+                    <div class="desktop-filter-sections">
+                        <div class="desktop-filter-section">
+                            <div class="desktop-filter-section-title">定位</div>
+                            <div class="desktop-filter-options" id="desktopPositionOptions">
+                                <div class="desktop-filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
+                                <div class="desktop-filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
+                                <div class="desktop-filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
+                                <div class="desktop-filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
+                            </div>
+                        </div>
+                        <div class="desktop-filter-section">
+                            <div class="desktop-filter-section-title">专精</div>
+                            <div class="desktop-filter-options" id="desktopSpecialtyOptions">
+                                <div class="desktop-filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
+                                <div class="desktop-filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
+                                <div class="desktop-filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
+                            </div>
+                        </div>
+                        <div class="desktop-filter-section">
+                            <div class="desktop-filter-section-title">品质</div>
+                            <div class="desktop-filter-options" id="desktopQualityOptions">
+                                <div class="desktop-quality-option" data-type="quality" data-value="传说">传说</div>
+                                <div class="desktop-quality-option" data-type="quality" data-value="史诗">史诗</div>
+                                <div class="desktop-quality-option" data-type="quality" data-value="稀有">稀有</div>
+                                <div class="desktop-quality-option" data-type="quality" data-value="普通">普通</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="cars-grid" id="carsGrid"></div>
             <div class="stats-text" id="statsText">加载中...</div>
         </div>
-        <div id="chipPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">芯片架构 - 开发中</div></div>
+        <div id="chipPage" class="page">
+            <div class="chip-header-area">
+                <div class="chip-title">CHIP ARCHITECTURE</div>
+                <div class="chip-search-box"><input type="text" id="chipSearchInput" placeholder="SEARCH CHIPS..."></div>
+            </div>
+            <div class="chip-filter-bar">
+                <div class="chip-filter-group"><div class="chip-filter-label">品质</div><div class="chip-filter-options" id="chipQualityFilter"></div></div>
+                <div class="chip-filter-group"><div class="chip-filter-label">形状</div><div class="chip-filter-options" id="chipShapeFilter"></div></div>
+                <div class="chip-filter-group"><div class="chip-filter-label">类型</div><div class="chip-filter-options" id="chipTypeFilter"></div></div>
+            </div>
+            <div class="chips-grid" id="chipsGrid"></div>
+            <div class="stats-text" id="chipStatsText">加载芯片数据...</div>
+        </div>
         <div id="energyPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">赋能系统 - 开发中</div></div>
         <div id="calculatorPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">芯片要求计算器 - 即将上线</div></div>
         <div id="newsPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">爆料信息 - 开发中</div></div>
@@ -910,7 +652,7 @@
 </div>
 
 <script>
-    // ==================== 全局变量 ====================
+    // ========== 车辆数据相关变量（保持不变） ==========
     let vehiclesData = [];
     let termDefinitions = {};
     let activeFilters = { position: "", specialty: "", quality: "" };
@@ -944,7 +686,139 @@
         "场地": "https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png"
     };
     
-    // ========== 辅助函数 ==========
+    // ========== 芯片数据 ==========
+    let chipsData = [];
+    let chipFilters = { quality: "", shape: "", type: "" };
+    let chipKeyword = "";
+    
+    function getChipBorderClass(quality) {
+        if (quality === "传说") return "legendary-border";
+        if (quality === "史诗") return "epic-border";
+        if (quality === "稀有") return "rare-border";
+        return "normal-border";
+    }
+    function getChipQualityClass(quality) {
+        if (quality === "传说") return "legendary";
+        if (quality === "史诗") return "epic";
+        if (quality === "稀有") return "rare";
+        return "normal";
+    }
+    
+    function initChipFilters() {
+        const qualities = ["传说", "史诗", "稀有", "普通"];
+        const shapes = ["V型芯片", "核心芯片", "圆形芯片", "三角形芯片", "菱形芯片", "六边形芯片"];
+        const types = ["扩展", "核心"];
+        const qualityContainer = document.getElementById("chipQualityFilter");
+        const shapeContainer = document.getElementById("chipShapeFilter");
+        const typeContainer = document.getElementById("chipTypeFilter");
+        if (!qualityContainer) return;
+        qualityContainer.innerHTML = qualities.map(q => `<div class="chip-filter-option" data-filter="quality" data-value="${q}">${q}</div>`).join("");
+        shapeContainer.innerHTML = shapes.map(s => `<div class="chip-filter-option" data-filter="shape" data-value="${s}">${s}</div>`).join("");
+        typeContainer.innerHTML = types.map(t => `<div class="chip-filter-option" data-filter="type" data-value="${t}">${t}</div>`).join("");
+        
+        document.querySelectorAll(".chip-filter-option").forEach(opt => {
+            opt.addEventListener("click", () => {
+                const filterType = opt.dataset.filter;
+                const value = opt.dataset.value;
+                if (chipFilters[filterType] === value) chipFilters[filterType] = "";
+                else chipFilters[filterType] = value;
+                updateChipFilterUI();
+                renderChipsList();
+            });
+        });
+    }
+    
+    function updateChipFilterUI() {
+        document.querySelectorAll(".chip-filter-option").forEach(opt => {
+            const filterType = opt.dataset.filter;
+            const value = opt.dataset.value;
+            if (chipFilters[filterType] === value) opt.classList.add("active");
+            else opt.classList.remove("active");
+        });
+    }
+    
+    function filterChips() {
+        return chipsData.filter(chip => {
+            if (chipFilters.quality && chip.quality !== chipFilters.quality) return false;
+            if (chipFilters.shape && chip.shape !== chipFilters.shape) return false;
+            if (chipFilters.type && chip.type !== chipFilters.type) return false;
+            if (chipKeyword && !chip.name.toLowerCase().includes(chipKeyword.toLowerCase())) return false;
+            return true;
+        });
+    }
+    
+    function renderChipsList() {
+        const filtered = filterChips();
+        const grid = document.getElementById("chipsGrid");
+        const stats = document.getElementById("chipStatsText");
+        if (!grid) return;
+        if (filtered.length === 0) {
+            grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px; color:#8a8aa3;">暂无芯片数据</div>';
+            stats.innerText = "共 0 个芯片";
+            return;
+        }
+        grid.innerHTML = filtered.map(chip => {
+            const borderClass = getChipBorderClass(chip.quality);
+            const qualityClass = getChipQualityClass(chip.quality);
+            const effectDesc = chip.effectDescription || "暂无效果描述";
+            const effectNote = chip.effectNote ? `<div class="chip-desc">${chip.effectNote}</div>` : '<div class="chip-desc">暂无效果说明</div>';
+            return `<div class="chip-card ${borderClass}">
+                        <div class="chip-image"><img src="${chip.icon}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/200x120?text=Chip'"></div>
+                        <div class="chip-info">
+                            <div class="chip-name">${chip.name}</div>
+                            <div class="chip-meta"><span class="chip-meta-tag">${chip.shape}</span><span class="chip-meta-tag">${chip.type}</span></div>
+                            <div class="chip-effect"><strong>效果：</strong>${effectDesc}</div>
+                            ${effectNote}
+                        </div>
+                        <div class="quality-badge-wrapper"><span class="quality-badge ${qualityClass}">${chip.quality}</span></div>
+                    </div>`;
+        }).join("");
+        stats.innerText = `共 ${filtered.length} 个芯片`;
+    }
+    
+    // 从 chips.json 文件加载芯片数据
+    async function loadChipsData() {
+        try {
+            const response = await fetch('./chips.json');
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: 无法加载 chips.json`);
+            }
+            const data = await response.json();
+            if (data.chips && Array.isArray(data.chips)) {
+                chipsData = data.chips;
+            } else {
+                throw new Error('chips.json 格式错误：缺少 chips 数组');
+            }
+        } catch (error) {
+            console.error('[芯片数据加载错误]', error);
+            // 使用默认数据作为后备
+            chipsData = [
+                {
+                    id: "chip_mianmian",
+                    name: "猫眠梦之芯",
+                    icon: "https://s3.bmp.ovh/2026/05/29/iTqrWqI7.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    effectDescription: "每6秒获得1200集气量并恢复6点耐久值，大招达到90%能量即可使用（猫眠梦装备时改为66%）",
+                    effectNote: "推荐大招阈值100%车辆携带，减少赋能压力"
+                }
+            ];
+            const stats = document.getElementById("chipStatsText");
+            if (stats) stats.innerText = "加载 chips.json 失败，使用默认数据";
+        }
+        initChipFilters();
+        const chipSearch = document.getElementById("chipSearchInput");
+        if (chipSearch) {
+            chipSearch.addEventListener("input", (e) => {
+                chipKeyword = e.target.value;
+                renderChipsList();
+            });
+        }
+        renderChipsList();
+    }
+    
+    // ========== 车辆数据函数（保持原有完整逻辑） ==========
     function sortChipSlots(slots) {
         const order = { "circle": 0, "triangle": 1, "rhombus": 2, "hexagon": 3, "vslot": 4 };
         return [...slots].sort((a, b) => (order[a] ?? 5) - (order[b] ?? 5));
@@ -1019,7 +893,6 @@
         formatted = applyNumberHighlight(formatted);
         return formatted;
     }
-    
     function showTooltip(e, title, content, isMobile) {
         if (activeTooltipTimer) clearTimeout(activeTooltipTimer);
         if (currentTooltipElement && currentTooltipElement.remove) currentTooltipElement.remove();
@@ -1046,7 +919,6 @@
             document.addEventListener('click', close, { once: true });
         }
     }
-    
     function bindTermAndFeatureEvents(isMobile) {
         document.querySelectorAll('.term-highlight').forEach(el => {
             el.removeEventListener(isMobile ? 'click' : 'mouseenter', el._handler);
@@ -1074,7 +946,6 @@
             }
         });
     }
-    
     let activeAcqTooltip = null;
     function showAcqTooltip(e, text, isMobile) {
         if (activeAcqTooltip) activeAcqTooltip.remove();
@@ -1100,7 +971,6 @@
             setTimeout(() => { document.addEventListener('touchstart', close, { once: true }); document.addEventListener('scroll', close, { once: true }); document.addEventListener('click', close, { once: true }); }, 50);
         }
     }
-    
     function clearAllFilters() {
         activeFilters = { position: "", specialty: "", quality: "" };
         if (isMobileDevice()) {
@@ -1110,11 +980,6 @@
         }
         renderList();
     }
-    
-    function hasAnyFilterActive() {
-        return !!(activeFilters.position || activeFilters.specialty || activeFilters.quality);
-    }
-    
     function clearAllSearchBoxes() {
         keyword = "";
         const desktopInput = document.getElementById('searchInputDesktop');
@@ -1122,25 +987,15 @@
         if (desktopInput) desktopInput.value = "";
         if (mobileInput) mobileInput.value = "";
     }
-    
-    // 标记是否正在执行搜索跳转，避免重复操作
     let isExecutingSearch = false;
-    
     function executeSearch(searchValue) {
         const searchTerm = searchValue;
         const currentCarId = new URLSearchParams(window.location.search).get('car');
-        
         if (currentCarId) {
-            // 从详情页执行搜索，需要跳转到列表页
-            // 使用一个标志防止重复执行
             if (isExecutingSearch) return;
             isExecutingSearch = true;
-            
             clearAllFilters();
             const newUrl = window.location.pathname;
-            // 关键修复：使用 replaceState 替换当前的详情页记录为列表页记录
-            // 这样历史栈中就只会有：初始列表页 + 当前列表页（原来的详情页被替换）
-            // 按一次返回键回到初始列表页，再按一次退出网站
             history.replaceState(null, '', newUrl);
             const headerBackBtn = document.getElementById('headerBackBtn');
             if (headerBackBtn) headerBackBtn.style.display = 'none';
@@ -1165,7 +1020,6 @@
             window.scrollTo(0, 0);
         }
     }
-    
     function handleSearchInput(e) {
         const value = e.target.value;
         if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
@@ -1173,7 +1027,6 @@
             executeSearch(value);
         }, 300);
     }
-    
     function attachSearchInputEvents() {
         const desktopInput = document.getElementById('searchInputDesktop');
         const mobileInput = document.getElementById('searchInputMobile');
@@ -1188,7 +1041,6 @@
             mobileInput.addEventListener('input', mobileInput._handler);
         }
     }
-    
     async function loadData() {
         try {
             const vehiclesUrl = './vehicles.json';
@@ -1203,7 +1055,6 @@
             }
             vehiclesData = vehiclesDataObj.vehicles;
             vehiclesData.forEach(car => { car.quality = getCorrectedQuality(car.name, car.quality); });
-            
             const termsResponse = await fetch(termsUrl);
             if (!termsResponse.ok) {
                 throw new Error(`HTTP ${termsResponse.status}: 无法加载 terms.json`);
@@ -1213,16 +1064,11 @@
                 throw new Error('terms.json 格式错误：缺少 terms 对象');
             }
             termDefinitions = termsDataObj.terms;
-            
             for (const car of vehiclesData) car.chipSlots = sortChipSlots(car.chipSlots);
             initFilters();
             attachSearchInputEvents();
-            
-            // 隐藏返回按钮（初始状态）
             const headerBackBtn = document.getElementById('headerBackBtn');
             if (headerBackBtn) headerBackBtn.style.display = 'none';
-            
-            // 初始化：根据URL参数决定显示列表还是详情
             const urlParams = new URLSearchParams(window.location.search);
             const carId = urlParams.get('car');
             if (carId) {
@@ -1236,8 +1082,6 @@
             } else {
                 renderList();
             }
-            
-            // popstate 回调：根据 URL 中的 car 参数判断当前应该显示列表页还是详情页
             window.addEventListener('popstate', function(e) {
                 const currentCarId = new URLSearchParams(window.location.search).get('car');
                 const headerBackBtnElem = document.getElementById('headerBackBtn');
@@ -1247,34 +1091,20 @@
                         if (headerBackBtnElem) headerBackBtnElem.style.display = 'block';
                         renderDetailById(currentCarId);
                     } else {
-                        // 无效车辆ID，回到列表
                         if (headerBackBtnElem) headerBackBtnElem.style.display = 'none';
                         clearAllFilters();
                         restoreList();
                     }
                 } else {
-                    // 无 car 参数：显示列表页，这是主界面状态，隐藏返回按钮
                     if (headerBackBtnElem) headerBackBtnElem.style.display = 'none';
                     restoreList();
                 }
             });
-            
             if (isMobileDevice()) {
                 document.body.classList.add('has-fixed-header');
             }
-            
-            // 电脑端添加滚动时顶部栏透明效果
-            if (!isMobileDevice()) {
-                const desktopHeader = document.querySelector('.desktop-header');
-                window.addEventListener('scroll', function() {
-                    if (window.scrollY > 10) {
-                        desktopHeader.classList.add('scrolled');
-                    } else {
-                        desktopHeader.classList.remove('scrolled');
-                    }
-                });
-            }
-            
+            // 加载芯片数据（从 chips.json）
+            await loadChipsData();
         } catch (error) {
             console.error('[加载错误]', error);
             const gridEl = document.getElementById("carsGrid");
@@ -1288,9 +1118,10 @@
                 </div>`;
             }
             if (statsEl) statsEl.innerText = "加载失败，请查看控制台(F12)";
+            // 即使车辆数据加载失败，也尝试加载芯片数据
+            await loadChipsData();
         }
     }
-    
     function filterAndSortVehicles() {
         let filtered = vehiclesData.filter(v => {
             if (activeFilters.position && v.position !== activeFilters.position) return false;
@@ -1306,9 +1137,7 @@
         });
         return sortVehicles(filtered);
     }
-    
     function isMobileDevice() { return window.innerWidth <= 768; }
-    
     function initFilters() {
         const isMobile = isMobileDevice();
         const mobileFixedHeader = document.getElementById('mobileFixedHeader');
@@ -1326,6 +1155,16 @@
                             history.replaceState(null, '', newUrl);
                             restoreList();
                         }
+                    } else if (pageId === 'chip') {
+                        const currentCarId = new URLSearchParams(window.location.search).get('car');
+                        if (currentCarId) {
+                            const newUrl = window.location.pathname;
+                            history.replaceState(null, '', newUrl);
+                            restoreList();
+                        }
+                        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                        document.getElementById('chipPage').classList.add('active-page');
+                        if (chipsData.length > 0) renderChipsList();
                     } else {
                         const currentCarId = new URLSearchParams(window.location.search).get('car');
                         if (currentCarId) {
@@ -1381,7 +1220,6 @@
             updateDesktopFilterUI();
         }
     }
-    
     function updateFilterUI() {
         document.querySelectorAll('#positionOptions .filter-option').forEach(opt => { if (opt.dataset.value === activeFilters.position) opt.classList.add('active'); else opt.classList.remove('active'); });
         document.querySelectorAll('#specialtyOptions .filter-option').forEach(opt => { if (opt.dataset.value === activeFilters.specialty) opt.classList.add('active'); else opt.classList.remove('active'); });
@@ -1392,7 +1230,6 @@
         document.querySelectorAll('#desktopSpecialtyOptions .desktop-filter-option').forEach(opt => { if (opt.dataset.value === activeFilters.specialty) opt.classList.add('active'); else opt.classList.remove('active'); });
         document.querySelectorAll('#desktopQualityOptions .desktop-quality-option').forEach(opt => { if (opt.dataset.value === activeFilters.quality) opt.classList.add('active'); else opt.classList.remove('active'); });
     }
-    
     function renderList() {
         let filtered = filterAndSortVehicles();
         let grid = document.getElementById("carsGrid");
@@ -1441,45 +1278,30 @@
             card._clickHandler = (e) => { if (!e.target.closest('.acquisition-icon')) showDetail(card.dataset.id); };
             card.addEventListener('click', card._clickHandler);
         });
-        
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         document.getElementById('vehiclesPage').classList.add('active-page');
         window.scrollTo(0, 0);
     }
-    
     function showDetail(id) {
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
-        
-        // 检查当前是否已经在详情页，并且已经是同一辆车
         const currentCarId = new URLSearchParams(window.location.search).get('car');
-        
-        if (currentCarId === id) {
-            // 已经是当前车辆，不需要重复操作
-            return;
-        }
-        
+        if (currentCarId === id) return;
         if (currentCarId) {
-            // 已经在详情页，切换车辆时使用 replaceState 替换当前记录（保持只有一条详情页记录）
             const newUrl = window.location.pathname + '?car=' + id;
             history.replaceState({ carId: id }, '', newUrl);
         } else {
-            // 从列表页进入详情页，使用 pushState 添加新记录
             const newUrl = window.location.pathname + '?car=' + id;
             history.pushState({ carId: id }, '', newUrl);
         }
-        
         const headerBackBtn = document.getElementById('headerBackBtn');
         if (headerBackBtn) headerBackBtn.style.display = 'block';
-        
         clearAllSearchBoxes();
         renderDetailById(id);
     }
-    
     function renderDetailById(carId) {
         let car = vehiclesData.find(v => v.id === carId);
         if (!car) return;
-        
         let stats = car.stats, chipSlots = car.chipSlots.map(t => CHIP_ICONS[t]), bgClass = getQualityClass(car.quality);
         let positionIcon = POSITION_ICONS[car.position] || POSITION_ICONS["辅助"];
         let specialtyIcon = SPECIALTY_ICONS[car.specialty] || SPECIALTY_ICONS["场地"];
@@ -1507,23 +1329,64 @@
             <div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.passiveIcon}"></div><div class="skill-title">被动：${car.skills.passive.name}</div></div><div class="skill-desc">${passiveDesc}</div></div>${spBlockHtml}</div></div>`;
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = html;
-        
         const mobile = isMobileDevice();
         bindTermAndFeatureEvents(mobile);
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
         window.scrollTo(0, 0);
     }
-    
     function restoreList() {
         let vehiclesPage = document.getElementById("vehiclesPage");
-        vehiclesPage.innerHTML = `<div class="cars-grid" id="carsGrid"></div><div class="stats-text" id="statsText">加载中...</div>`;
+        vehiclesPage.innerHTML = `<div class="desktop-header">
+                <div class="desktop-header-top">
+                    <div class="header-title-area">
+                        <div id="headerBackBtn" style="display: none;">
+                            <button class="detail-back-btn-header">← 返回列表</button>
+                        </div>
+                        <span class="page-title">车辆数据</span>
+                    </div>
+                    <div class="header-right-placeholder"></div>
+                </div>
+                <div class="desktop-filter-bar">
+                    <div class="search-box"><input type="text" id="searchInputDesktop" placeholder="搜索车辆名称、简称、技能..."></div>
+                    <div class="desktop-filter-sections">
+                        <div class="desktop-filter-section">
+                            <div class="desktop-filter-section-title">定位</div>
+                            <div class="desktop-filter-options" id="desktopPositionOptions">
+                                <div class="desktop-filter-option" data-type="position" data-value="辅助"><img src="https://s3.bmp.ovh/2026/05/31/mtc05q5R.png" alt="辅助"> 辅助</div>
+                                <div class="desktop-filter-option" data-type="position" data-value="竞速"><img src="https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png" alt="竞速"> 竞速</div>
+                                <div class="desktop-filter-option" data-type="position" data-value="干扰"><img src="https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png" alt="干扰"> 干扰</div>
+                                <div class="desktop-filter-option" data-type="position" data-value="天平"><img src="https://s3.bmp.ovh/2026/05/31/S38JRfCL.png" alt="天平"> 天平</div>
+                            </div>
+                        </div>
+                        <div class="desktop-filter-section">
+                            <div class="desktop-filter-section-title">专精</div>
+                            <div class="desktop-filter-options" id="desktopSpecialtyOptions">
+                                <div class="desktop-filter-option" data-type="specialty" data-value="城市"><img src="https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png" alt="城市"> 城市</div>
+                                <div class="desktop-filter-option" data-type="specialty" data-value="山路"><img src="https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png" alt="山路"> 山路</div>
+                                <div class="desktop-filter-option" data-type="specialty" data-value="场地"><img src="https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png" alt="场地"> 场地</div>
+                            </div>
+                        </div>
+                        <div class="desktop-filter-section">
+                            <div class="desktop-filter-section-title">品质</div>
+                            <div class="desktop-filter-options" id="desktopQualityOptions">
+                                <div class="desktop-quality-option" data-type="quality" data-value="传说">传说</div>
+                                <div class="desktop-quality-option" data-type="quality" data-value="史诗">史诗</div>
+                                <div class="desktop-quality-option" data-type="quality" data-value="稀有">稀有</div>
+                                <div class="desktop-quality-option" data-type="quality" data-value="普通">普通</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cars-grid" id="carsGrid"></div>
+            <div class="stats-text" id="statsText">加载中...</div>`;
+        attachSearchInputEvents();
         renderList();
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
         window.scrollTo(0, 0);
     }
-    
     function initTabs() {
         document.querySelectorAll('.sidebar .tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1534,24 +1397,26 @@
                         const newUrl = window.location.pathname;
                         history.replaceState(null, '', newUrl);
                         restoreList();
+                    } else {
+                        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                        document.getElementById('vehiclesPage').classList.add('active-page');
+                        window.scrollTo(0, 0);
                     }
+                } else if (pageId === 'chip') {
+                    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                    document.getElementById('chipPage').classList.add('active-page');
+                    if (chipsData.length > 0) renderChipsList();
+                    window.scrollTo(0, 0);
                 } else {
-                    const currentCarId = new URLSearchParams(window.location.search).get('car');
-                    if (currentCarId) {
-                        const newUrl = window.location.pathname;
-                        history.replaceState(null, '', newUrl);
-                        restoreList();
-                    }
                     document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                     document.getElementById(pageId + 'Page')?.classList.add('active-page');
+                    window.scrollTo(0, 0);
                 }
                 document.querySelectorAll('.sidebar .tab-btn').forEach(t => t.classList.remove('active'));
                 btn.classList.add('active');
-                if (pageId === 'vehicles') window.scrollTo(0, 0);
             });
         });
     }
-    
     initTabs();
     loadData();
 </script>
