@@ -458,8 +458,9 @@
         .car-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px; flex-wrap: wrap; }
         .car-name { font-size: 1.1rem; font-weight: 700; color: #e2e2e6; flex-shrink: 1; word-break: break-word; }
         .car-meta { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; align-items: center; }
+        /* 修复手机端图标过大问题：限制图标尺寸 */
         .meta-item { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 40px; font-size: 0.7rem; color: #a0a0b8; font-weight: 500; }
-        .meta-item img { width: 18px; height: 18px; }
+        .meta-item img { width: 16px; height: 16px; max-width: 16px; max-height: 16px; object-fit: contain; }
         .car-description { font-size: 0.75rem; color: #8a8aa3; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; line-height: 1.4; font-weight: 400; }
         .stats-text { text-align: center; padding: 16px; color: #8a8aa3; font-weight: 500; }
         
@@ -744,7 +745,9 @@
             .car-name { font-size: 0.85rem; }
             .acquisition-icon { width: 40px; height: 40px; bottom: 6px; right: 6px; }
             .quality-badge { font-size: 0.55rem; padding: 2px 8px; }
+            /* 手机端图标尺寸限制 */
             .meta-item { font-size: 0.6rem; padding: 3px 8px; }
+            .meta-item img { width: 14px; height: 14px; max-width: 14px; max-height: 14px; }
             .car-description { font-size: 0.65rem; }
             
             .chip-icons {
@@ -1055,6 +1058,7 @@
             .card-image { height: 110px; }
             .car-name { font-size: 0.75rem; }
             .meta-item { font-size: 0.55rem; padding: 2px 6px; }
+            .meta-item img { width: 12px; height: 12px; max-width: 12px; max-height: 12px; }
             .feature-box { font-size: 0.65rem; padding: 4px 8px; }
             .section-title { font-size: 1.1rem !important; }
             .chip-image, .energy-image { height: 100px; }
@@ -2335,7 +2339,7 @@
         }
     }
     
-    // 加载芯片搭配数据 (新增)
+    // 加载芯片搭配数据
     async function loadChipRecommendations() {
         try {
             const response = await fetch('./chip_recs.json');
@@ -2346,6 +2350,7 @@
             const data = await response.json();
             if (data.recommendations) {
                 chipRecommendations = data.recommendations;
+                console.log('芯片搭配数据加载成功，共', Object.keys(chipRecommendations).length, '条配置');
             }
         } catch (error) {
             console.log('加载 chip_recs.json 失败:', error);
@@ -2665,11 +2670,10 @@
         let spBlockHtml = '';
         if (car.sp) { let spDesc = formatSkillText(car.sp.desc); spBlockHtml = `<div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.sp.icon}"></div><div class="skill-title">SP：${car.sp.name}</div></div><div class="skill-desc"><div class="sp-cooltime">冷却时间：${car.sp.cooltime}</div>${spDesc}</div></div>`; }
         
-        // 获取芯片搭配内容 (新增)
+        // 获取芯片搭配内容
         let workshopHtml = '';
         const recommendation = chipRecommendations[car.name];
         if (recommendation && recommendation.content) {
-            // 使用 pre-line 保留换行和空格格式
             workshopHtml = `<div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder" style="white-space: pre-line; font-family: monospace; text-align: left; padding: 16px;">${escapeHtml(recommendation.content)}</div>`;
         } else {
             workshopHtml = `<div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder">暂无芯片搭配推荐<br>请在 chip_recs.json 中添加该车辆的搭配数据</div>`;
@@ -2745,6 +2749,7 @@
             <div class="cars-grid" id="carsGrid"></div>
             <div class="stats-text" id="statsText">加载中...</div>`;
         attachSearchInputEvents();
+        // 修复电脑端筛选栏不显示的问题：确保重新绑定筛选按钮
         initVehicleFilters();
         renderList();
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
@@ -2764,6 +2769,19 @@
             desktopPosition.innerHTML = positions.map(p => `<div class="desktop-filter-option" data-type="position" data-value="${p}"><img src="${POSITION_ICONS[p]}"> ${p}</div>`).join("");
             desktopSpecialty.innerHTML = specialties.map(s => `<div class="desktop-filter-option" data-type="specialty" data-value="${s}"><img src="${SPECIALTY_ICONS[s]}"> ${s}</div>`).join("");
             desktopQuality.innerHTML = qualities.map(q => `<div class="desktop-quality-option" data-type="quality" data-value="${q}">${q}</div>`).join("");
+            
+            // 重新绑定筛选按钮点击事件
+            document.querySelectorAll('#desktopPositionOptions .desktop-filter-option, #desktopSpecialtyOptions .desktop-filter-option, #desktopQualityOptions .desktop-quality-option').forEach(opt => {
+                opt.removeEventListener('click', opt._clickHandler);
+                opt.addEventListener('click', opt._clickHandler = () => {
+                    const type = opt.dataset.type;
+                    const val = opt.dataset.value;
+                    if (activeFilters[type] === val) activeFilters[type] = "";
+                    else activeFilters[type] = val;
+                    updateDesktopFilterUI();
+                    renderList();
+                });
+            });
         }
     }
     
