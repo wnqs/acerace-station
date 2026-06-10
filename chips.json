@@ -1,0 +1,14 @@
+{
+  "chips": [
+    {
+      "id": "chip_mianmian",
+      "name": "猫眠梦之芯",
+      "icon": "https://s3.bmp.ovh/2026/05/29/iTqrWqI7.png",
+      "quality": "传说",
+      "shape": "V型芯片",
+      "type": "扩展",
+      "effectDescription": "每6秒获得1200集气量并恢复6点耐久值，大招达到90%能量即可使用（猫眠梦装备时改为66%）",
+      "effectNote": "推荐大招阈值100%车辆携带，减少赋能压力"
+    }
+  ]
+}
