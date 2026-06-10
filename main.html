@@ -2122,13 +2122,13 @@
         });
     }
     
-    // 自定义芯片排序：车姬芯片 → 车辆专属芯片 → 修炼芯片 → 通用车辆芯片
+    // 自定义芯片排序：车姬芯片 → 车辆专属芯片 → 修炼芯片 → 超频芯片
     function sortChipsByCategory(chips) {
         const categoryOrder = {
             "车姬芯片": 1,
             "车辆专属芯片": 2,
             "修炼芯片": 3,
-            "通用车辆芯片": 4
+            "超频芯片": 4
         };
         return [...chips].sort((a, b) => {
             const orderA = categoryOrder[a.category] || 99;
@@ -2338,6 +2338,17 @@
                     category: "修炼芯片",
                     effectDescription: "向前闪现距离+20%",
                     effectNote: "暂无效果说明"
+                },
+                {
+                    id: "chip_chaopin_01",
+                    name: "超频芯片·原型",
+                    icon: "https://placehold.co/200x120?text=Overclock",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    category: "超频芯片",
+                    effectDescription: "大招期间极速额外+5km/h",
+                    effectNote: "超频实验型芯片"
                 }
             ];
             const stats = document.getElementById("chipStatsText");
@@ -2478,13 +2489,14 @@
             if (energyKeyword && !energy.name.toLowerCase().includes(energyKeyword.toLowerCase())) return false;
             return true;
         });
-        // 简单排序：主次优先，功能其次
-        const typeOrder = { "主要": 0, "次要": 1 };
-        const funcOrder = { "创造": 0, "战斗": 1, "防御": 2, "能量": 3 };
+        // 排序规则：先按功能分组（创造 → 战斗 → 防御 → 能量），同一功能内再按主次排序（主要 → 次要）
+        const funcOrder = { "创造": 1, "战斗": 2, "防御": 3, "能量": 4 };
+        const typeOrder = { "主要": 1, "次要": 2 };
         return [...filtered].sort((a, b) => {
-            const typeDiff = (typeOrder[a.type] || 99) - (typeOrder[b.type] || 99);
-            if (typeDiff !== 0) return typeDiff;
-            return (funcOrder[a.func] || 99) - (funcOrder[b.func] || 99);
+            const funcDiff = (funcOrder[a.func] || 99) - (funcOrder[b.func] || 99);
+            if (funcDiff !== 0) return funcDiff;
+            // 同一功能内，主次排序
+            return (typeOrder[a.type] || 99) - (typeOrder[b.type] || 99);
         });
     }
     
@@ -2545,9 +2557,13 @@
             console.error('[赋能数据加载错误]', error);
             energiesData = [
                 { id: "energy1", name: "创造赋能·核心", icon: "https://placehold.co/200x120?text=Create", type: "主要", func: "创造", effectDescription: "充能效率+8%，大招可充能次数+1" },
-                { id: "energy2", name: "战斗赋能·锋刃", icon: "https://placehold.co/200x120?text=Fight", type: "主要", func: "战斗", effectDescription: "干扰效果持续时间+15%" },
-                { id: "energy3", name: "防御赋能·壁垒", icon: "https://placehold.co/200x120?text=Defense", type: "次要", func: "防御", effectDescription: "受到减速效果降低20%" },
-                { id: "energy4", name: "能量赋能·涌动", icon: "https://placehold.co/200x120?text=Energy", type: "次要", func: "能量", effectDescription: "每秒获得3点能量" }
+                { id: "energy2", name: "创造赋能·辅助", icon: "https://placehold.co/200x120?text=Create2", type: "次要", func: "创造", effectDescription: "团队充能效率+3%" },
+                { id: "energy3", name: "战斗赋能·锋刃", icon: "https://placehold.co/200x120?text=Fight", type: "主要", func: "战斗", effectDescription: "干扰效果持续时间+15%" },
+                { id: "energy4", name: "战斗赋能·强袭", icon: "https://placehold.co/200x120?text=Fight2", type: "次要", func: "战斗", effectDescription: "每次超越时获得少量集气" },
+                { id: "energy5", name: "防御赋能·壁垒", icon: "https://placehold.co/200x120?text=Defense", type: "主要", func: "防御", effectDescription: "受到减速效果降低20%" },
+                { id: "energy6", name: "防御赋能·韧性", icon: "https://placehold.co/200x120?text=Defense2", type: "次要", func: "防御", effectDescription: "被干扰后短时间免疫下一次干扰" },
+                { id: "energy7", name: "能量赋能·涌动", icon: "https://placehold.co/200x120?text=Energy", type: "主要", func: "能量", effectDescription: "每秒获得3点能量" },
+                { id: "energy8", name: "能量赋能·汇聚", icon: "https://placehold.co/200x120?text=Energy2", type: "次要", func: "能量", effectDescription: "使用涡轮时额外获得5点能量" }
             ];
             const stats = document.getElementById("energyStatsText");
             if (stats) stats.innerText = "加载 energies.json 失败，使用默认数据";
