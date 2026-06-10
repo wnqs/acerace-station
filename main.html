@@ -70,16 +70,16 @@
                 border: 1px solid rgba(42, 42, 60, 0.8);
                 background: rgba(31, 31, 46, 0.8);
             }
-            .desktop-filter-option, .desktop-quality-option {
+            .desktop-filter-option, .desktop-quality-option, .desktop-energy-filter-option {
                 background: rgba(42, 42, 60, 0.7);
             }
-            .car-card, .chip-card {
+            .car-card, .chip-card, .energy-card {
                 background: rgba(20, 20, 31, 0.85);
                 backdrop-filter: blur(4px);
                 border: 2px solid rgba(42, 42, 60, 0.5);
                 transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
             }
-            .car-card:hover, .chip-card:hover {
+            .car-card:hover, .chip-card:hover, .energy-card:hover {
                 transform: translateY(-4px);
             }
             .chip-card:hover.legendary-border { border-color: #e6b422; box-shadow: 0 0 16px rgba(230,180,34,0.4); }
@@ -93,6 +93,11 @@
             .chip-card.epic-border { border-color: rgba(42, 42, 60, 0.3); }
             .chip-card.rare-border { border-color: rgba(42, 42, 60, 0.3); }
             .chip-card.normal-border { border-color: rgba(42, 42, 60, 0.3); }
+            /* 赋能卡片悬浮效果 */
+            .energy-card:hover {
+                border-color: rgba(254, 202, 87, 0.5);
+                box-shadow: 0 0 12px rgba(254,202,87,0.3);
+            }
             
             .card-info {
                 background: rgba(20, 20, 31, 0.7);
@@ -116,7 +121,7 @@
             .detail-acquisition-area {
                 background: transparent;
             }
-            .chip-image {
+            .chip-image, .energy-image {
                 height: 160px;
                 display: flex;
                 align-items: center;
@@ -125,28 +130,28 @@
                 border-bottom: 1px solid rgba(255,255,255,0.08);
                 background: linear-gradient(145deg, #1a1a2a, #0f0f1a);
             }
-            .chip-image img {
+            .chip-image img, .energy-image img {
                 max-width: 100%;
                 max-height: 120px;
                 object-fit: contain;
                 filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
             }
-            .chip-info {
+            .chip-info, .energy-info {
                 padding: 16px;
             }
-            .chip-name {
+            .chip-name, .energy-name {
                 font-size: 1rem;
                 font-weight: 700;
                 color: #e2e2e6;
                 margin-bottom: 8px;
             }
-            .chip-meta {
+            .chip-meta, .energy-meta {
                 display: flex;
                 gap: 8px;
                 flex-wrap: wrap;
                 margin-bottom: 12px;
             }
-            .chip-meta-tag {
+            .chip-meta-tag, .energy-meta-tag {
                 background: rgba(255,255,255,0.08);
                 padding: 4px 10px;
                 border-radius: 40px;
@@ -154,24 +159,25 @@
                 color: #a0a0b8;
                 font-weight: 500;
             }
-            .chip-effect {
+            .chip-effect, .energy-effect {
                 font-size: 0.85rem;
                 color: #8a8aa3;
                 border-top: 1px solid rgba(255,255,255,0.08);
                 padding-top: 10px;
                 line-height: 1.5;
             }
-            .chip-effect strong {
+            .chip-effect strong, .energy-effect strong {
                 color: #feca57;
             }
-            .chip-desc {
+            .chip-desc, .energy-desc {
                 font-size: 0.8rem;
                 color: #8a8aa3;
                 margin-top: 8px;
                 font-style: normal;
                 line-height: 1.5;
             }
-            .chip-desktop-header {
+            /* 电脑端赋能筛选栏 */
+            .energy-desktop-header {
                 position: sticky;
                 top: 0;
                 z-index: 100;
@@ -180,13 +186,13 @@
                 border-bottom: 1px solid #2a2a3c;
                 margin-bottom: 24px;
             }
-            .chip-desktop-header-top {
+            .energy-desktop-header-top {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 padding: 0 0 6px 0;
             }
-            .chip-desktop-filter-bar {
+            .energy-desktop-filter-bar {
                 background: #14141f;
                 border-radius: 20px;
                 padding: 16px 20px;
@@ -194,28 +200,28 @@
                 border: 1px solid #2a2a3c;
                 margin-bottom: 0;
             }
-            .chip-desktop-filter-sections {
+            .energy-desktop-filter-sections {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 24px;
             }
-            .chip-desktop-filter-section {
+            .energy-desktop-filter-section {
                 display: flex;
                 flex-direction: column;
                 gap: 8px;
             }
-            .chip-desktop-filter-section-title {
+            .energy-desktop-filter-section-title {
                 font-size: 0.75rem;
                 color: #feca57;
                 font-weight: 700;
                 letter-spacing: 0.5px;
             }
-            .chip-desktop-filter-options {
+            .energy-desktop-filter-options {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 10px;
             }
-            .chip-desktop-filter-option {
+            .energy-desktop-filter-option {
                 background: #2a2a3c;
                 border-radius: 30px;
                 padding: 6px 14px;
@@ -228,14 +234,14 @@
                 white-space: nowrap;
                 font-weight: 600;
             }
-            .chip-desktop-filter-option.active {
+            .energy-desktop-filter-option.active {
                 background: #feca57;
                 color: #1a1a2e;
             }
-            .chip-search-box {
+            .energy-search-box {
                 margin-bottom: 16px;
             }
-            .chip-search-box input {
+            .energy-search-box input {
                 width: 100%;
                 max-width: 400px;
                 padding: 10px 16px;
@@ -247,10 +253,10 @@
                 font-weight: 500;
                 outline: none;
             }
-            .chip-search-box input:focus {
+            .energy-search-box input:focus {
                 border-color: #feca57;
             }
-            .chips-grid {
+            .energies-grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 24px;
@@ -784,7 +790,7 @@
             .sub-skill-desc { font-size: 0.7rem; }
             .desktop-header { display: none; }
             
-            /* 手机端芯片架构样式 - 品质标签移到类型右边 */
+            /* 手机端芯片架构样式 */
             .chip-mobile-fixed-header {
                 position: fixed;
                 top: 0;
@@ -937,7 +943,7 @@
                 color: #1a1a2e;
             }
             
-            /* 手机端芯片卡片 - 品质标签移到类型右边 */
+            /* 手机端芯片卡片样式 */
             .chips-grid {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
@@ -989,7 +995,6 @@
                 color: #a0a0b8;
                 font-weight: 500;
             }
-            /* 品质标签作为行内元素显示在类型右边 */
             .chip-quality-tag {
                 display: inline-block;
                 background: linear-gradient(135deg, #e6b422, #c49b1a);
@@ -1028,11 +1033,235 @@
                 font-style: normal;
                 line-height: 1.4;
             }
-            /* 隐藏原来的品质标签包装器 */
             .quality-badge-wrapper {
                 display: none;
             }
             .chip-desktop-header {
+                display: none;
+            }
+            
+            /* 手机端赋能系统样式 */
+            .energy-mobile-fixed-header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: #0f0f17;
+                border-bottom: 1px solid #2a2a3c;
+                z-index: 200;
+                display: none;
+                flex-direction: column;
+            }
+            .energy-mobile-top-bar {
+                padding: 8px 12px;
+                border-bottom: 1px solid #2a2a3c;
+            }
+            .energy-mobile-logo-area {
+                text-align: center;
+                cursor: pointer;
+                padding-bottom: 2px;
+            }
+            .energy-mobile-logo-area h1 {
+                font-size: 1rem;
+                background: linear-gradient(135deg, #ff6b6b, #feca57);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                font-weight: 800;
+            }
+            .energy-mobile-logo-area p {
+                font-size: 0.5rem;
+                color: #8a8aa3;
+                font-weight: 500;
+            }
+            .energy-mobile-nav-tabs {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 4px;
+                margin-top: 4px;
+            }
+            .energy-mobile-tab-btn {
+                padding: 6px 2px;
+                font-size: 0.65rem;
+                border-radius: 16px;
+                text-align: center;
+                background: #1a1a2a;
+                border: none;
+                cursor: pointer;
+                color: #a0a0b8;
+                font-weight: 700;
+            }
+            .energy-mobile-tab-btn.active {
+                background: #feca57;
+                color: #1a1a2e;
+            }
+            .energy-mobile-filter-sticky {
+                padding: 8px 12px;
+                background: #0a0a0f;
+                border-bottom: 1px solid #2a2a3c;
+            }
+            .energy-filter-row {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+            .energy-mobile-search-box {
+                flex: 2;
+                min-width: 120px;
+            }
+            .energy-mobile-search-box input {
+                width: 100%;
+                padding: 8px 12px;
+                font-size: 0.8rem;
+                background: #1f1f2e;
+                border: 1px solid #2a2a3c;
+                border-radius: 30px;
+                color: #e2e2e6;
+                outline: none;
+            }
+            .energy-mobile-search-box input:focus {
+                border-color: #feca57;
+            }
+            .energy-category-dropdown-btn {
+                background: #1f1f2e;
+                border: 1px solid #2a2a3c;
+                border-radius: 30px;
+                padding: 6px 14px;
+                font-size: 0.75rem;
+                cursor: pointer;
+                color: #e2e2e6;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                white-space: nowrap;
+                font-weight: 700;
+                flex-shrink: 0;
+            }
+            .energy-category-dropdown-btn .arrow {
+                font-size: 0.6rem;
+                transition: transform 0.2s;
+            }
+            .energy-category-dropdown-btn.active .arrow {
+                transform: rotate(180deg);
+            }
+            .energy-category-dropdown-panel {
+                background: #1a1a2a;
+                border-radius: 16px;
+                margin-top: 8px;
+                padding: 10px;
+                border: 1px solid #2a2a3c;
+                display: none;
+                position: absolute;
+                left: 12px;
+                right: 12px;
+                z-index: 210;
+            }
+            .energy-category-dropdown-panel.show {
+                display: block;
+            }
+            .energy-mobile-filter-section {
+                margin-bottom: 12px;
+            }
+            .energy-mobile-filter-section:last-child {
+                margin-bottom: 0;
+            }
+            .energy-mobile-filter-section-title {
+                font-size: 0.65rem;
+                color: #feca57;
+                margin-bottom: 5px;
+                padding-left: 4px;
+                font-weight: 700;
+            }
+            .energy-mobile-filter-options {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                justify-content: flex-start;
+            }
+            .energy-mobile-filter-option {
+                background: #2a2a3c;
+                border-radius: 30px;
+                padding: 6px 12px;
+                font-size: 0.7rem;
+                cursor: pointer;
+                color: #a0a0b8;
+                font-weight: 600;
+            }
+            .energy-mobile-filter-option.active {
+                background: #feca57;
+                color: #1a1a2e;
+            }
+            
+            /* 手机端赋能卡片 */
+            .energies-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .energy-card {
+                background: #14141f;
+                border-radius: 16px;
+                overflow: hidden;
+                border: 1px solid #2a2a3c;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+            }
+            .energy-image {
+                height: 110px;
+                padding: 12px;
+                background: linear-gradient(145deg, #1a1a2a, #0f0f1a);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .energy-image img {
+                max-width: 100%;
+                max-height: 80px;
+                object-fit: contain;
+            }
+            .energy-info {
+                padding: 10px;
+            }
+            .energy-name {
+                font-size: 0.8rem;
+                font-weight: 700;
+                color: #e2e2e6;
+                margin-bottom: 5px;
+            }
+            .energy-meta {
+                display: flex;
+                gap: 5px;
+                flex-wrap: wrap;
+                margin-bottom: 6px;
+            }
+            .energy-meta-tag {
+                background: rgba(255,255,255,0.08);
+                padding: 2px 6px;
+                border-radius: 40px;
+                font-size: 0.55rem;
+                color: #a0a0b8;
+                font-weight: 500;
+            }
+            .energy-effect {
+                font-size: 0.75rem;
+                color: #8a8aa3;
+                border-top: 1px solid rgba(255,255,255,0.08);
+                padding-top: 6px;
+                line-height: 1.4;
+            }
+            .energy-effect strong {
+                color: #feca57;
+            }
+            .energy-desc {
+                font-size: 0.7rem;
+                color: #8a8aa3;
+                margin-top: 5px;
+                font-style: normal;
+                line-height: 1.4;
+            }
+            .energy-desktop-header {
                 display: none;
             }
         }
@@ -1041,6 +1270,7 @@
             .acquisition-icon { bottom: 2px; width: 70px; height: 70px; }
             .mobile-fixed-header { display: none; }
             .chip-mobile-fixed-header { display: none; }
+            .energy-mobile-fixed-header { display: none; }
         }
         
         @media (max-width: 480px) {
@@ -1050,12 +1280,12 @@
             .meta-item { font-size: 0.55rem; padding: 2px 6px; }
             .feature-box { font-size: 0.65rem; padding: 4px 8px; }
             .section-title { font-size: 1.1rem !important; }
-            .chip-image { height: 100px; }
-            .chip-image img { max-height: 70px; }
-            .chip-name { font-size: 0.75rem; }
-            .chip-effect { font-size: 0.7rem; }
-            .chip-desc { font-size: 0.65rem; }
-            .chip-meta-tag { font-size: 0.5rem; }
+            .chip-image, .energy-image { height: 100px; }
+            .chip-image img, .energy-image img { max-height: 70px; }
+            .chip-name, .energy-name { font-size: 0.75rem; }
+            .chip-effect, .energy-effect { font-size: 0.7rem; }
+            .chip-desc, .energy-desc { font-size: 0.65rem; }
+            .chip-meta-tag, .energy-meta-tag { font-size: 0.5rem; }
             .chip-quality-tag { font-size: 0.5rem; padding: 1px 5px; }
         }
     </style>
@@ -1173,6 +1403,43 @@
         </div>
     </div>
     
+    <!-- 手机端赋能系统固定头部 -->
+    <div class="energy-mobile-fixed-header" id="energyMobileFixedHeader" style="display: none;">
+        <div class="energy-mobile-top-bar">
+            <div class="energy-mobile-logo-area" onclick="location.reload()">
+                <h1>王牌竞速 · 情报站</h1>
+                <p>核心档案 · 赛车数据</p>
+            </div>
+            <div class="energy-mobile-nav-tabs" id="energyMobileNavTabs">
+                <button class="energy-mobile-tab-btn" data-page="vehicles">车辆数据</button>
+                <button class="energy-mobile-tab-btn" data-page="chip">芯片架构</button>
+                <button class="energy-mobile-tab-btn active" data-page="energy">赋能系统</button>
+                <button class="energy-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
+                <button class="energy-mobile-tab-btn" data-page="news">爆料信息</button>
+                <button class="energy-mobile-tab-btn" data-page="wallpaper">游戏壁纸</button>
+            </div>
+        </div>
+        <div class="energy-mobile-filter-sticky">
+            <div class="energy-filter-row">
+                <div class="energy-mobile-search-box"><input type="text" id="energySearchInputMobile" placeholder="搜索赋能名称..."></div>
+                <div class="energy-category-dropdown-btn" id="energyCategoryDropdownBtn">
+                    <span>筛选</span>
+                    <span class="arrow">▼</span>
+                </div>
+            </div>
+            <div class="energy-category-dropdown-panel" id="energyCategoryDropdownPanel">
+                <div class="energy-mobile-filter-section">
+                    <div class="energy-mobile-filter-section-title">主次</div>
+                    <div class="energy-mobile-filter-options" id="energyMobileTypeOptions"></div>
+                </div>
+                <div class="energy-mobile-filter-section">
+                    <div class="energy-mobile-filter-section-title">功能</div>
+                    <div class="energy-mobile-filter-options" id="energyMobileFuncOptions"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div class="main-content">
         <!-- 车辆数据页面 -->
         <div id="vehiclesPage" class="page active-page">
@@ -1239,8 +1506,34 @@
             <div class="stats-text" id="chipStatsText">加载芯片数据...</div>
         </div>
         
+        <!-- 赋能系统页面 -->
+        <div id="energyPage" class="page">
+            <div class="energy-desktop-header">
+                <div class="energy-desktop-header-top">
+                    <div class="header-title-area">
+                        <span class="page-title">赋能系统</span>
+                    </div>
+                    <div class="header-right-placeholder"></div>
+                </div>
+                <div class="energy-desktop-filter-bar">
+                    <div class="energy-search-box"><input type="text" id="energySearchInputDesktop" placeholder="搜索赋能名称..."></div>
+                    <div class="energy-desktop-filter-sections">
+                        <div class="energy-desktop-filter-section">
+                            <div class="energy-desktop-filter-section-title">主次</div>
+                            <div class="energy-desktop-filter-options" id="energyDesktopTypeOptions"></div>
+                        </div>
+                        <div class="energy-desktop-filter-section">
+                            <div class="energy-desktop-filter-section-title">功能</div>
+                            <div class="energy-desktop-filter-options" id="energyDesktopFuncOptions"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="energies-grid" id="energiesGrid"></div>
+            <div class="stats-text" id="energyStatsText">加载赋能数据...</div>
+        </div>
+        
         <!-- 其他占位页面 -->
-        <div id="energyPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">赋能系统 - 开发中</div></div>
         <div id="calculatorPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">芯片要求计算器 - 即将上线</div></div>
         <div id="newsPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">爆料信息 - 开发中</div></div>
         <div id="wallpaperPage" class="page">
@@ -1268,6 +1561,11 @@
     let chipsData = [];
     let chipFilters = { quality: "", shape: "", type: "" };
     let chipKeyword = "";
+    
+    // 赋能数据变量
+    let energiesData = [];
+    let energyFilters = { type: "", func: "" };
+    let energyKeyword = "";
     
     // 页面状态
     let currentPage = "vehicles";
@@ -1603,6 +1901,7 @@
             }
             
             await loadChipsData();
+            await loadEnergiesData();
             
         } catch (error) {
             console.error('[加载错误]', error);
@@ -1659,6 +1958,7 @@
                             document.getElementById('vehiclesPage').classList.add('active-page');
                             document.getElementById('mobileFixedHeader').style.display = 'flex';
                             document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                            document.getElementById('energyMobileFixedHeader').style.display = 'none';
                             const mobileFilter = document.getElementById('vehicleMobileFilter');
                             if (mobileFilter) mobileFilter.style.display = 'block';
                             window.scrollTo(0, 0);
@@ -1668,7 +1968,16 @@
                         document.getElementById('chipPage').classList.add('active-page');
                         document.getElementById('mobileFixedHeader').style.display = 'none';
                         document.getElementById('chipMobileFixedHeader').style.display = 'flex';
+                        document.getElementById('energyMobileFixedHeader').style.display = 'none';
                         if (chipsData.length > 0) renderChipsList();
+                        window.scrollTo(0, 0);
+                    } else if (pageId === 'energy') {
+                        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                        document.getElementById('energyPage').classList.add('active-page');
+                        document.getElementById('mobileFixedHeader').style.display = 'none';
+                        document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                        document.getElementById('energyMobileFixedHeader').style.display = 'flex';
+                        if (energiesData.length > 0) renderEnergiesList();
                         window.scrollTo(0, 0);
                     } else {
                         const currentCarId = new URLSearchParams(window.location.search).get('car');
@@ -1681,6 +1990,7 @@
                         document.getElementById(pageId + 'Page')?.classList.add('active-page');
                         document.getElementById('mobileFixedHeader').style.display = 'none';
                         document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                        document.getElementById('energyMobileFixedHeader').style.display = 'none';
                         window.scrollTo(0, 0);
                     }
                     mobileTabBtns.forEach(t => t.classList.remove('active'));
@@ -1917,7 +2227,6 @@
         return "normal";
     }
     
-    // 获取手机端品质标签的CSS类名
     function getMobileQualityTagClass(quality) {
         if (quality === "传说") return "chip-quality-tag";
         if (quality === "史诗") return "chip-quality-tag epic";
@@ -2066,7 +2375,6 @@
             effectNote = applyNumberHighlight(effectNote);
             
             if (isMobile) {
-                // 手机端：品质标签作为行内元素放在类型右边
                 const qualityTagClass = getMobileQualityTagClass(chip.quality);
                 return `<div class="chip-card ${borderClass}">
                             <div class="chip-image"><img src="${chip.icon}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/200x120?text=Chip'"></div>
@@ -2082,7 +2390,6 @@
                             </div>
                         </div>`;
             } else {
-                // 电脑端：保持原样，品质标签在右上角
                 return `<div class="chip-card ${borderClass}">
                             <div class="chip-image"><img src="${chip.icon}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/200x120?text=Chip'"></div>
                             <div class="chip-info">
@@ -2258,6 +2565,326 @@
         renderChipsList();
     }
     
+    // ========== 赋能系统函数 ==========
+    function initEnergyDesktopFilters() {
+        const types = ["主要", "次要"];
+        const funcs = ["创造", "战斗", "防御", "能量"];
+        
+        const desktopType = document.getElementById("energyDesktopTypeOptions");
+        const desktopFunc = document.getElementById("energyDesktopFuncOptions");
+        if (desktopType) {
+            desktopType.innerHTML = types.map(t => `<div class="energy-desktop-filter-option" data-filter="type" data-value="${t}">${t}</div>`).join("");
+            desktopFunc.innerHTML = funcs.map(f => `<div class="energy-desktop-filter-option" data-filter="func" data-value="${f}">${f}</div>`).join("");
+            
+            document.querySelectorAll('#energyDesktopTypeOptions .energy-desktop-filter-option, #energyDesktopFuncOptions .energy-desktop-filter-option').forEach(opt => {
+                opt.addEventListener('click', () => {
+                    const filterType = opt.dataset.filter;
+                    const value = opt.dataset.value;
+                    if (energyFilters[filterType] === value) energyFilters[filterType] = "";
+                    else energyFilters[filterType] = value;
+                    updateEnergyDesktopFilterUI();
+                    renderEnergiesList();
+                });
+            });
+        }
+    }
+    
+    function initEnergyMobileFilters() {
+        const types = ["主要", "次要"];
+        const funcs = ["创造", "战斗", "防御", "能量"];
+        
+        const mobileType = document.getElementById("energyMobileTypeOptions");
+        const mobileFunc = document.getElementById("energyMobileFuncOptions");
+        if (mobileType) {
+            mobileType.innerHTML = types.map(t => `<div class="energy-mobile-filter-option" data-filter="type" data-value="${t}">${t}</div>`).join("");
+            mobileFunc.innerHTML = funcs.map(f => `<div class="energy-mobile-filter-option" data-filter="func" data-value="${f}">${f}</div>`).join("");
+            
+            document.querySelectorAll('#energyMobileTypeOptions .energy-mobile-filter-option, #energyMobileFuncOptions .energy-mobile-filter-option').forEach(opt => {
+                opt.addEventListener('click', () => {
+                    const filterType = opt.dataset.filter;
+                    const value = opt.dataset.value;
+                    if (energyFilters[filterType] === value) energyFilters[filterType] = "";
+                    else energyFilters[filterType] = value;
+                    updateEnergyMobileFilterUI();
+                    renderEnergiesList();
+                    document.getElementById("energyCategoryDropdownPanel")?.classList.remove("show");
+                    document.getElementById("energyCategoryDropdownBtn")?.classList.remove("active");
+                });
+            });
+        }
+        
+        const dropdownBtn = document.getElementById("energyCategoryDropdownBtn");
+        const dropdownPanel = document.getElementById("energyCategoryDropdownPanel");
+        if (dropdownBtn && dropdownPanel) {
+            dropdownBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdownPanel.classList.toggle('show');
+                dropdownBtn.classList.toggle('active');
+            });
+            document.addEventListener('click', () => {
+                dropdownPanel.classList.remove('show');
+                dropdownBtn.classList.remove('active');
+            });
+            dropdownPanel.addEventListener('click', (e) => e.stopPropagation());
+        }
+    }
+    
+    function updateEnergyDesktopFilterUI() {
+        document.querySelectorAll('#energyDesktopTypeOptions .energy-desktop-filter-option').forEach(opt => {
+            if (energyFilters.type === opt.dataset.value) opt.classList.add('active');
+            else opt.classList.remove('active');
+        });
+        document.querySelectorAll('#energyDesktopFuncOptions .energy-desktop-filter-option').forEach(opt => {
+            if (energyFilters.func === opt.dataset.value) opt.classList.add('active');
+            else opt.classList.remove('active');
+        });
+    }
+    
+    function updateEnergyMobileFilterUI() {
+        document.querySelectorAll('#energyMobileTypeOptions .energy-mobile-filter-option').forEach(opt => {
+            if (energyFilters.type === opt.dataset.value) opt.classList.add('active');
+            else opt.classList.remove('active');
+        });
+        document.querySelectorAll('#energyMobileFuncOptions .energy-mobile-filter-option').forEach(opt => {
+            if (energyFilters.func === opt.dataset.value) opt.classList.add('active');
+            else opt.classList.remove('active');
+        });
+    }
+    
+    function filterEnergies() {
+        return energiesData.filter(energy => {
+            if (energyFilters.type && energy.type !== energyFilters.type) return false;
+            if (energyFilters.func && energy.func !== energyFilters.func) return false;
+            if (energyKeyword && !energy.name.toLowerCase().includes(energyKeyword.toLowerCase())) return false;
+            return true;
+        });
+    }
+    
+    function clearEnergyFilters() {
+        energyFilters = { type: "", func: "" };
+        energyKeyword = "";
+        const desktopSearch = document.getElementById("energySearchInputDesktop");
+        const mobileSearch = document.getElementById("energySearchInputMobile");
+        if (desktopSearch) desktopSearch.value = "";
+        if (mobileSearch) mobileSearch.value = "";
+        updateEnergyDesktopFilterUI();
+        updateEnergyMobileFilterUI();
+        renderEnergiesList();
+    }
+    
+    function renderEnergiesList() {
+        const filtered = filterEnergies();
+        const grid = document.getElementById("energiesGrid");
+        const stats = document.getElementById("energyStatsText");
+        if (!grid) return;
+        if (filtered.length === 0) {
+            grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px; color:#8a8aa3;">暂无赋能数据</div>';
+            stats.innerText = "共 0 个赋能";
+            return;
+        }
+        grid.innerHTML = filtered.map(energy => {
+            let effectDesc = energy.effectDescription || "暂无效果描述";
+            effectDesc = applyNumberHighlight(effectDesc);
+            return `<div class="energy-card">
+                        <div class="energy-image"><img src="${energy.icon}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/200x120?text=Energy'"></div>
+                        <div class="energy-info">
+                            <div class="energy-name">${energy.name}</div>
+                            <div class="energy-meta">
+                                <span class="energy-meta-tag">${energy.type}</span>
+                                <span class="energy-meta-tag">${energy.func}</span>
+                            </div>
+                            <div class="energy-effect"><strong>效果：</strong>${effectDesc}</div>
+                        </div>
+                    </div>`;
+        }).join("");
+        stats.innerText = `共 ${filtered.length} 个赋能`;
+    }
+    
+    async function loadEnergiesData() {
+        try {
+            const response = await fetch('./energies.json');
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: 无法加载 energies.json`);
+            }
+            const data = await response.json();
+            if (data.energies && Array.isArray(data.energies)) {
+                energiesData = data.energies;
+            } else {
+                throw new Error('energies.json 格式错误：缺少 energies 数组');
+            }
+        } catch (error) {
+            console.error('[赋能数据加载错误]', error);
+            energiesData = [
+                {
+                    id: "energy_001",
+                    name: "示例赋能",
+                    icon: "https://placehold.co/200x200?text=Energy",
+                    type: "主要",
+                    func: "战斗",
+                    effectDescription: "这是一个示例赋能效果描述"
+                }
+            ];
+            const stats = document.getElementById("energyStatsText");
+            if (stats) stats.innerText = "加载 energies.json 失败，使用默认数据";
+        }
+        
+        initEnergyDesktopFilters();
+        initEnergyMobileFilters();
+        
+        const desktopSearch = document.getElementById("energySearchInputDesktop");
+        const mobileSearch = document.getElementById("energySearchInputMobile");
+        if (desktopSearch) {
+            desktopSearch.addEventListener('input', (e) => {
+                energyKeyword = e.target.value;
+                renderEnergiesList();
+            });
+        }
+        if (mobileSearch) {
+            mobileSearch.addEventListener('input', (e) => {
+                energyKeyword = e.target.value;
+                renderEnergiesList();
+            });
+        }
+        renderEnergiesList();
+    }
+    
+    function handleEnergyBack() {
+        const hasActiveEnergyFilter = energyFilters.type || energyFilters.func || energyKeyword;
+        if (hasActiveEnergyFilter) {
+            clearEnergyFilters();
+            return true;
+        }
+        return false;
+    }
+    
+    // 修改主返回处理，添加赋能页面支持
+    const originalHandleBackButton = window.handleBackButton;
+    function handleBackButton() {
+        const now = Date.now();
+        
+        if (isInDetail && currentPage === 'vehicles') {
+            handleVehicleBackToList();
+            return true;
+        }
+        
+        if (currentPage === 'chip') {
+            if (handleChipBack()) return true;
+        }
+        
+        if (currentPage === 'energy') {
+            if (handleEnergyBack()) return true;
+        }
+        
+        if (currentPage === 'vehicles' && !isInDetail) {
+            if (handleVehicleListBack()) return true;
+        }
+        
+        if (now - lastBackTime < 500) {
+            if (window.history.length <= 1) window.close();
+            else history.back();
+        } else {
+            lastBackTime = now;
+            const statsEl = document.getElementById("statsText");
+            if (statsEl && currentPage === 'vehicles') {
+                const originalText = statsEl.innerText;
+                statsEl.innerText = "再按一次退出";
+                statsEl.style.color = "#feca57";
+                setTimeout(() => {
+                    statsEl.innerText = originalText;
+                    statsEl.style.color = "#8a8aa3";
+                }, 1500);
+            } else if (currentPage === 'chip') {
+                const statsEl = document.getElementById("chipStatsText");
+                if (statsEl) {
+                    const originalText = statsEl.innerText;
+                    statsEl.innerText = "再按一次退出";
+                    statsEl.style.color = "#feca57";
+                    setTimeout(() => {
+                        statsEl.innerText = originalText;
+                        statsEl.style.color = "#8a8aa3";
+                    }, 1500);
+                }
+            } else if (currentPage === 'energy') {
+                const statsEl = document.getElementById("energyStatsText");
+                if (statsEl) {
+                    const originalText = statsEl.innerText;
+                    statsEl.innerText = "再按一次退出";
+                    statsEl.style.color = "#feca57";
+                    setTimeout(() => {
+                        statsEl.innerText = originalText;
+                        statsEl.style.color = "#8a8aa3";
+                    }, 1500);
+                }
+            } else {
+                alert("再按一次退出");
+            }
+        }
+        return true;
+    }
+    
+    // 重写导航切换，添加赋能页面
+    const originalSwitchToPage = window.switchToPage;
+    function switchToPage(pageId) {
+        if (currentPage === pageId) return;
+        
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+        document.getElementById(pageId + 'Page').classList.add('active-page');
+        
+        document.querySelectorAll('.sidebar .tab-btn').forEach(btn => {
+            if (btn.dataset.page === pageId) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+        
+        const isMobile = isMobileDevice();
+        if (isMobile) {
+            if (pageId === 'vehicles') {
+                document.getElementById('mobileFixedHeader').style.display = 'flex';
+                document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                document.body.classList.add('has-fixed-header');
+            } else if (pageId === 'chip') {
+                document.getElementById('mobileFixedHeader').style.display = 'none';
+                document.getElementById('chipMobileFixedHeader').style.display = 'flex';
+                document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                document.body.classList.add('has-fixed-header');
+            } else if (pageId === 'energy') {
+                document.getElementById('mobileFixedHeader').style.display = 'none';
+                document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                document.getElementById('energyMobileFixedHeader').style.display = 'flex';
+                document.body.classList.add('has-fixed-header');
+            } else {
+                document.getElementById('mobileFixedHeader').style.display = 'none';
+                document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                document.body.classList.remove('has-fixed-header');
+            }
+        } else {
+            const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
+            if (vehicleDesktopHeader) {
+                if (pageId === 'vehicles') {
+                    vehicleDesktopHeader.style.display = isInDetail ? 'none' : 'block';
+                } else {
+                    vehicleDesktopHeader.style.display = 'none';
+                }
+            }
+        }
+        
+        currentPage = pageId;
+        
+        if (pageId === 'chip' && chipsData.length === 0) {
+            loadChipsData();
+        } else if (pageId === 'chip') {
+            renderChipsList();
+        } else if (pageId === 'energy' && energiesData.length === 0) {
+            loadEnergiesData();
+        } else if (pageId === 'energy') {
+            renderEnergiesList();
+        }
+        
+        window.scrollTo(0, 0);
+    }
+    
+    // 重新绑定导航点击事件
     function initTabs() {
         document.querySelectorAll('.sidebar .tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -2274,6 +2901,7 @@
                         if (isMobileDevice()) {
                             document.getElementById('mobileFixedHeader').style.display = 'flex';
                             document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                            document.getElementById('energyMobileFixedHeader').style.display = 'none';
                         }
                         window.scrollTo(0, 0);
                     }
@@ -2283,11 +2911,26 @@
                     if (isMobileDevice()) {
                         document.getElementById('mobileFixedHeader').style.display = 'none';
                         document.getElementById('chipMobileFixedHeader').style.display = 'flex';
+                        document.getElementById('energyMobileFixedHeader').style.display = 'none';
                     }
                     if (chipsData.length === 0) {
                         loadChipsData();
                     } else {
                         renderChipsList();
+                    }
+                    window.scrollTo(0, 0);
+                } else if (pageId === 'energy') {
+                    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                    document.getElementById('energyPage').classList.add('active-page');
+                    if (isMobileDevice()) {
+                        document.getElementById('mobileFixedHeader').style.display = 'none';
+                        document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                        document.getElementById('energyMobileFixedHeader').style.display = 'flex';
+                    }
+                    if (energiesData.length === 0) {
+                        loadEnergiesData();
+                    } else {
+                        renderEnergiesList();
                     }
                     window.scrollTo(0, 0);
                 } else {
@@ -2296,6 +2939,7 @@
                     if (isMobileDevice()) {
                         document.getElementById('mobileFixedHeader').style.display = 'none';
                         document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                        document.getElementById('energyMobileFixedHeader').style.display = 'none';
                     }
                     window.scrollTo(0, 0);
                 }
@@ -2304,6 +2948,7 @@
             });
         });
         
+        // 手机端车辆数据导航栏点击
         const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn');
         mobileTabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -2319,6 +2964,7 @@
                         document.getElementById('vehiclesPage').classList.add('active-page');
                         document.getElementById('mobileFixedHeader').style.display = 'flex';
                         document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                        document.getElementById('energyMobileFixedHeader').style.display = 'none';
                         window.scrollTo(0, 0);
                     }
                 } else if (pageId === 'chip') {
@@ -2326,10 +2972,23 @@
                     document.getElementById('chipPage').classList.add('active-page');
                     document.getElementById('mobileFixedHeader').style.display = 'none';
                     document.getElementById('chipMobileFixedHeader').style.display = 'flex';
+                    document.getElementById('energyMobileFixedHeader').style.display = 'none';
                     if (chipsData.length === 0) {
                         loadChipsData();
                     } else {
                         renderChipsList();
+                    }
+                    window.scrollTo(0, 0);
+                } else if (pageId === 'energy') {
+                    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                    document.getElementById('energyPage').classList.add('active-page');
+                    document.getElementById('mobileFixedHeader').style.display = 'none';
+                    document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                    document.getElementById('energyMobileFixedHeader').style.display = 'flex';
+                    if (energiesData.length === 0) {
+                        loadEnergiesData();
+                    } else {
+                        renderEnergiesList();
                     }
                     window.scrollTo(0, 0);
                 } else {
@@ -2337,6 +2996,7 @@
                     document.getElementById(pageId + 'Page')?.classList.add('active-page');
                     document.getElementById('mobileFixedHeader').style.display = 'none';
                     document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                    document.getElementById('energyMobileFixedHeader').style.display = 'none';
                     window.scrollTo(0, 0);
                 }
                 mobileTabBtns.forEach(t => t.classList.remove('active'));
@@ -2344,6 +3004,7 @@
             });
         });
         
+        // 手机端芯片架构导航栏点击
         const chipMobileTabBtns = document.querySelectorAll('.chip-mobile-tab-btn');
         chipMobileTabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -2359,6 +3020,7 @@
                         document.getElementById('vehiclesPage').classList.add('active-page');
                         document.getElementById('mobileFixedHeader').style.display = 'flex';
                         document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                        document.getElementById('energyMobileFixedHeader').style.display = 'none';
                         window.scrollTo(0, 0);
                     }
                 } else if (pageId === 'chip') {
@@ -2366,10 +3028,23 @@
                     document.getElementById('chipPage').classList.add('active-page');
                     document.getElementById('mobileFixedHeader').style.display = 'none';
                     document.getElementById('chipMobileFixedHeader').style.display = 'flex';
+                    document.getElementById('energyMobileFixedHeader').style.display = 'none';
                     if (chipsData.length === 0) {
                         loadChipsData();
                     } else {
                         renderChipsList();
+                    }
+                    window.scrollTo(0, 0);
+                } else if (pageId === 'energy') {
+                    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                    document.getElementById('energyPage').classList.add('active-page');
+                    document.getElementById('mobileFixedHeader').style.display = 'none';
+                    document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                    document.getElementById('energyMobileFixedHeader').style.display = 'flex';
+                    if (energiesData.length === 0) {
+                        loadEnergiesData();
+                    } else {
+                        renderEnergiesList();
                     }
                     window.scrollTo(0, 0);
                 } else {
@@ -2377,13 +3052,129 @@
                     document.getElementById(pageId + 'Page')?.classList.add('active-page');
                     document.getElementById('mobileFixedHeader').style.display = 'none';
                     document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                    document.getElementById('energyMobileFixedHeader').style.display = 'none';
                     window.scrollTo(0, 0);
                 }
                 chipMobileTabBtns.forEach(t => t.classList.remove('active'));
                 btn.classList.add('active');
             });
         });
+        
+        // 手机端赋能系统导航栏点击
+        const energyMobileTabBtns = document.querySelectorAll('.energy-mobile-tab-btn');
+        energyMobileTabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const pageId = btn.dataset.page;
+                if (pageId === 'vehicles') {
+                    const currentCarId = new URLSearchParams(window.location.search).get('car');
+                    if (currentCarId) {
+                        const newUrl = window.location.pathname;
+                        history.replaceState(null, '', newUrl);
+                        restoreList();
+                    } else {
+                        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                        document.getElementById('vehiclesPage').classList.add('active-page');
+                        document.getElementById('mobileFixedHeader').style.display = 'flex';
+                        document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                        document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                        window.scrollTo(0, 0);
+                    }
+                } else if (pageId === 'chip') {
+                    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                    document.getElementById('chipPage').classList.add('active-page');
+                    document.getElementById('mobileFixedHeader').style.display = 'none';
+                    document.getElementById('chipMobileFixedHeader').style.display = 'flex';
+                    document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                    if (chipsData.length === 0) {
+                        loadChipsData();
+                    } else {
+                        renderChipsList();
+                    }
+                    window.scrollTo(0, 0);
+                } else if (pageId === 'energy') {
+                    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                    document.getElementById('energyPage').classList.add('active-page');
+                    document.getElementById('mobileFixedHeader').style.display = 'none';
+                    document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                    document.getElementById('energyMobileFixedHeader').style.display = 'flex';
+                    if (energiesData.length === 0) {
+                        loadEnergiesData();
+                    } else {
+                        renderEnergiesList();
+                    }
+                    window.scrollTo(0, 0);
+                } else {
+                    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                    document.getElementById(pageId + 'Page')?.classList.add('active-page');
+                    document.getElementById('mobileFixedHeader').style.display = 'none';
+                    document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                    document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                    window.scrollTo(0, 0);
+                }
+                energyMobileTabBtns.forEach(t => t.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
     }
+    
+    // 定义车辆数据返回相关函数
+    function handleVehicleBackToList() {
+        returnToVehicleList();
+    }
+    
+    function handleVehicleListBack() {
+        const hasActiveFilter = activeFilters.position || activeFilters.specialty || activeFilters.quality || keyword;
+        if (hasActiveFilter) {
+            clearAllFilters();
+            clearAllSearchBoxes();
+            return true;
+        }
+        return false;
+    }
+    
+    function handleChipBack() {
+        const hasActiveChipFilter = chipFilters.quality || chipFilters.shape || chipFilters.type || chipKeyword;
+        if (hasActiveChipFilter) {
+            clearChipFilters();
+            return true;
+        }
+        return false;
+    }
+    
+    function returnToVehicleList() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('car')) {
+            const newUrl = window.location.pathname;
+            history.replaceState(null, '', newUrl);
+        }
+        updateDetailState(false);
+        restoreList();
+        if (currentPage !== 'vehicles') {
+            switchToPage('vehicles');
+        }
+    }
+    
+    function updateDetailState(isDetail) {
+        isInDetail = isDetail;
+        const headerBackBtn = document.getElementById('headerBackBtn');
+        const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
+        if (headerBackBtn) {
+            headerBackBtn.style.display = isDetail ? 'block' : 'none';
+        }
+        if (vehicleDesktopHeader && !isMobileDevice()) {
+            vehicleDesktopHeader.style.display = isDetail ? 'none' : 'block';
+        }
+        if (isMobileDevice()) {
+            const mobileFilter = document.getElementById('vehicleMobileFilter');
+            if (mobileFilter) mobileFilter.style.display = isDetail ? 'none' : 'block';
+        }
+    }
+    
+    // 重新挂载返回键监听
+    document.addEventListener('backbutton', handleBackButton, false);
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') handleBackButton();
+    });
     
     initTabs();
     loadData();
