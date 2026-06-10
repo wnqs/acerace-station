@@ -119,6 +119,156 @@
       "type": "扩展",
       "effectDescription": "向前闪现距离+20%",
       "effectNote": "暂无效果说明"
+   },
+    {
+      "id": "chip_moran_youlan",
+      "name": "墨染：幽兰",
+      "icon": "https://s3.bmp.ovh/2026/06/10/zNPQf5P6.png",
+      "quality": "传说",
+      "shape": "V型芯片",
+      "type": "扩展",
+      "effectDescription": "开局8秒时补齐未解锁的圣印，开局25秒后，每2次大招结束时触发已解锁的圣印效果",
+      "effectNote": "圣骑士专属"
+    },
+    {
+      "id": "chip_moran_aomei",
+      "name": "墨染：傲梅",
+      "icon": "https://s3.bmp.ovh/2026/06/10/lAxurxN5.png",
+      "quality": "传说",
+      "shape": "V型芯片",
+      "type": "扩展",
+      "effectDescription": "干扰范围变为120米，充能效率提升5%，每次使用大招时获得3500集气量并将涡轮和氮气染色6秒",
+      "effectNote": "寒霜冰魄专属"
+    },
+    {
+      "id": "chip_zhizun_zhenyuanxuanwu",
+      "name": "至尊：镇渊玄武",
+      "icon": "https://s3.bmp.ovh/2026/06/10/ARIQiSUh.png",
+      "quality": "传说",
+      "shape": "V型芯片",
+      "type": "扩展",
+      "effectDescription": "曼巴蛇在前方60米处召唤且移动速度提升至250km/h，获得集气无阈值效果",
+      "effectNote": "黑曼巴专属"
+    },
+    {
+      "id": "chip_zhizun_yuhuozhuque",
+      "name": "至尊：浴火朱雀",
+      "icon": "https://s3.bmp.ovh/2026/06/10/f7p2Xj9C.png",
+      "quality": "传说",
+      "shape": "V型芯片",
+      "type": "扩展",
+      "effectDescription": "每秒自动获得400集气量，向前闪现距离33%",
+      "effectNote": "鹤羽专属"
+    },
+    {
+      "id": "chip_zhizun_xiangyuqinglong",
+      "name": "至尊：翔宇青龙",
+      "icon": "https://s3.bmp.ovh/2026/06/10/F3wVmx5w.png",
+      "quality": "传说",
+      "shape": "V型芯片",
+      "type": "扩展",
+      "effectDescription": "开局时获得7%大招能量，每15秒使本局比赛完成时间-0.3秒，比赛结束倒计时变为13秒",
+      "effectNote": "烛龙专属"
+    },
+    {
+      "id": "chip_chaopin_shikongchuansuo",
+      "name": "超频：时空穿梭",
+      "icon": "https://s3.bmp.ovh/2026/06/10/2OWqwlwH.png",
+      "quality": "传说",
+      "shape": "V型芯片",
+      "type": "扩展",
+      "effectDescription": "穿梭结束后进行3秒可取消的自动导航",
+      "effectNote": "穿梭师必备，1级就够了"
+    },
+    {
+      "id": "chip_chaopin_qiheimoying",
+      "name": "超频：漆黑魅影",
+      "icon": "https://s3.bmp.ovh/2026/06/10/ZNrLSaBs.png",
+      "quality": "传说",
+      "shape": "V型芯片",
+      "type": "扩展",
+      "effectDescription": "干扰前方敌人转换为干扰400米范围内敌人",
+      "effectNote": "本身技能干扰是前方无限距离"
+    },
+    {
+      "id": "chip_chaopin_sanchongtuijin",
+      "name": "超频：三重推进",
+      "icon": "https://s3.bmp.ovh/2026/06/10/uBCe5ACm.png",
+      "quality": "传说",
+      "shape": "V型芯片",
+      "type": "扩展",
+      "effectDescription": "每次点击大招自充能10%",
+      "effectNote": "神剑低团必带，高团可换神芯"
+    },
+    {
+      "id": "chip_chaopin_namikeji",
+      "name": "超频：纳米科技",
+      "icon": "https://s3.bmp.ovh/2026/06/10/d2VDRZbB.png",
+      "quality": "传说",
+      "shape": "V型芯片",
+      "type": "扩展",
+      "effectDescription": "大招充能范围从50米提升至300米，距离超过50米的队友受到的充能效果会有一定衰减",
+      "effectNote": "红牛体系的落幕"
+    },
+    {
+      "id": "chip_chaopin_kongzhongxunhang",
+      "name": "超频：空中巡航",
+      "icon": "https://s3.bmp.ovh/2026/06/10/USZjSXMf.png",
+      "quality": "传说",
+      "shape": "V型芯片",
+      "type": "扩展",
+      "effectDescription": "空中巡航期间，每秒刷出一个涡轮及获得750氮气充能",
+      "effectNote": "大招为空中巡航的车辆可装备"
+    },
+    {
+      "id": "chip_chaopin_longjuanchongfeng",
+      "name": "超频：龙卷冲锋",
+      "icon": "https://s3.bmp.ovh/2026/06/10/NQ8XeEx9.png",
+      "quality": "传说",
+      "shape": "V型芯片",
+      "type": "扩展",
+      "effectDescription": "龙卷冲锋的旋转速度提升60%",
+      "effectNote": "大招为龙卷冲锋的车辆可装备"
+    },
+    {
+      "id": "chip_chaopin_rencheheyi",
+      "name": "超频：人车合一",
+      "icon": "https://s3.bmp.ovh/2026/06/10/rh7Kox0r.png",
+      "quality": "传说",
+      "shape": "V型芯片",
+      "type": "扩展",
+      "effectDescription": "释放人车合一时获得5.25秒隐身效果",
+      "effectNote": "大招为人车合一的车辆可装备"
+    },
+    {
+      "id": "chip_chaopin_yinghanmoshi",
+      "name": "超频：硬汉模式",
+      "icon": "https://s3.bmp.ovh/2026/06/10/t3dLT89g.png",
+      "quality": "传说",
+      "shape": "V型芯片",
+      "type": "扩展",
+      "effectDescription": "若冲锋期间未撞击到其他车辆，大招结束时恢复45%大招能量",
+      "effectNote": "大招为硬汉模式的车辆可装备"
+    },
+    {
+      "id": "chip_chaopin_shuangshan",
+      "name": "超频：双闪",
+      "icon": "https://s3.bmp.ovh/2026/06/10/4dXyoKgy.png",
+      "quality": "传说",
+      "shape": "V型芯片",
+      "type": "扩展",
+      "effectDescription": "每次闪现后获得3秒氮气加速效果",
+      "effectNote": "大招为双闪的车辆可装备"
+    },
+    {
+      "id": "chip_chaopin_daopianpaofa",
+      "name": "超频：刀片跑法",
+      "icon": "https://s3.bmp.ovh/2026/06/10/qxvUWKHv.png",
+      "quality": "传说",
+      "shape": "V型芯片",
+      "type": "扩展",
+      "effectDescription": "特技期间每次超车获得3000氮气能量",
+      "effectNote": "大招为刀片跑法的车辆可装备"
     }
   ]
 }
