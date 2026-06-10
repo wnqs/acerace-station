@@ -54,23 +54,23 @@
             .tab-btn:hover:not(.active) {
                 background: rgba(31, 31, 46, 0.6);
             }
-            .desktop-header, .chip-desktop-header {
+            .desktop-header {
                 background: rgba(15, 15, 23, 0.7);
                 backdrop-filter: blur(12px);
                 border-bottom: 1px solid rgba(42, 42, 60, 0.5);
                 border-radius: 0 0 20px 20px;
                 margin-bottom: 24px;
             }
-            .desktop-filter-bar, .chip-desktop-filter-bar {
+            .desktop-filter-bar {
                 background: rgba(20, 20, 31, 0.6);
                 backdrop-filter: blur(8px);
                 border: 1px solid rgba(42, 42, 60, 0.5);
             }
-            .search-box input, .chip-search-box input {
+            .search-box input {
                 border: 1px solid rgba(42, 42, 60, 0.8);
                 background: rgba(31, 31, 46, 0.8);
             }
-            .desktop-filter-option, .desktop-quality-option, .chip-desktop-filter-option {
+            .desktop-filter-option, .desktop-quality-option {
                 background: rgba(42, 42, 60, 0.7);
             }
             .car-card, .chip-card {
@@ -696,12 +696,10 @@
             .main-content { margin-left: 0; margin-top: 0; padding: 12px; width: 100%; }
             body.has-fixed-header .main-content { margin-top: 145px; }
             
-            /* 车辆数据手机端 */
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card-image { height: 130px; padding: 12px; }
             .car-name { font-size: 0.85rem; }
             
-            /* 芯片架构手机端 - 每行2个，筛选下拉栏式 */
             .chips-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .chip-image { height: 120px; padding: 12px; }
             .chip-name { font-size: 0.85rem; }
@@ -710,7 +708,6 @@
             .chip-desc { font-size: 0.6rem; }
             .quality-badge { font-size: 0.5rem; padding: 2px 6px; }
             
-            /* 手机端芯片筛选下拉栏 */
             .chip-mobile-filter-sticky {
                 padding: 8px 12px;
                 background: #0a0a0f;
@@ -822,7 +819,7 @@
 <body>
 <div class="app-layout">
     <div class="sidebar">
-        <div class="logo-area" onclick="location.reload()">
+        <div class="logo-area">
             <h1>王牌竞速 · 情报站</h1>
             <p>核心档案 · 赛车数据</p>
         </div>
@@ -839,7 +836,7 @@
     <!-- 手机端固定头部（车辆数据用） -->
     <div class="mobile-fixed-header" id="mobileFixedHeader" style="display: none;">
         <div class="mobile-top-bar">
-            <div class="mobile-logo-area" onclick="location.reload()">
+            <div class="mobile-logo-area">
                 <h1>王牌竞速 · 情报站</h1>
                 <p>核心档案 · 赛车数据</p>
             </div>
@@ -880,7 +877,7 @@
     <!-- 手机端芯片架构固定头部 -->
     <div class="mobile-fixed-header" id="chipMobileFixedHeader" style="display: none;">
         <div class="mobile-top-bar">
-            <div class="mobile-logo-area" onclick="location.reload()">
+            <div class="mobile-logo-area">
                 <h1>王牌竞速 · 情报站</h1>
                 <p>核心档案 · 赛车数据</p>
             </div>
@@ -1014,6 +1011,10 @@
     let chipFilters = { quality: "", shape: "", type: "" };
     let chipKeyword = "";
     
+    // 页面状态
+    let currentPage = "vehicles";
+    let lastBackTime = 0;
+    
     const EXTRA_RACING_ICON_CARS = ["女武神"];
     const RACING_ICON_URL = "https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png";
     const qualityWeight = { "传说": 4, "史诗": 3, "稀有": 2, "普通": 1 };
@@ -1041,6 +1042,20 @@
     
     // ========== 通用函数 ==========
     function isMobileDevice() { return window.innerWidth <= 768; }
+    
+    // 返回到车辆数据主界面（清空详情页状态）
+    function returnToVehicleList() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('car')) {
+            const newUrl = window.location.pathname;
+            history.replaceState(null, '', newUrl);
+        }
+        document.getElementById('headerBackBtn').style.display = 'none';
+        restoreVehicleList();
+        if (currentPage !== 'vehicles') {
+            switchToPage('vehicles');
+        }
+    }
     
     // ========== 车辆数据函数 ==========
     function sortChipSlots(slots) {
@@ -1218,17 +1233,14 @@
     
     function executeSearch(searchValue) {
         const searchTerm = searchValue;
-        const currentCarId = new URLSearchParams(window.location.search).get('car');
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentCarId = urlParams.get('car');
         
         if (currentCarId) {
             if (isExecutingSearch) return;
             isExecutingSearch = true;
             clearAllFilters();
-            const newUrl = window.location.pathname;
-            history.replaceState(null, '', newUrl);
-            const headerBackBtn = document.getElementById('headerBackBtn');
-            if (headerBackBtn) headerBackBtn.style.display = 'none';
-            restoreList();
+            returnToVehicleList();
             setTimeout(() => {
                 keyword = searchTerm;
                 const desktopInput = document.getElementById('searchInputDesktop');
@@ -1403,7 +1415,8 @@
     function showDetail(id) {
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
-        const currentCarId = new URLSearchParams(window.location.search).get('car');
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentCarId = urlParams.get('car');
         if (currentCarId === id) return;
         if (currentCarId) {
             const newUrl = window.location.pathname + '?car=' + id;
@@ -1412,8 +1425,7 @@
             const newUrl = window.location.pathname + '?car=' + id;
             history.pushState({ carId: id }, '', newUrl);
         }
-        const headerBackBtn = document.getElementById('headerBackBtn');
-        if (headerBackBtn) headerBackBtn.style.display = 'block';
+        document.getElementById('headerBackBtn').style.display = 'block';
         clearAllSearchBoxes();
         renderDetailById(id);
     }
@@ -1453,7 +1465,7 @@
         window.scrollTo(0, 0);
     }
     
-    function restoreList() {
+    function restoreVehicleList() {
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = `<div class="desktop-header">
                 <div class="desktop-header-top">
@@ -1505,6 +1517,18 @@
         return "normal";
     }
     
+    function clearChipFilters() {
+        chipFilters = { quality: "", shape: "", type: "" };
+        chipKeyword = "";
+        const desktopSearch = document.getElementById("chipSearchInputDesktop");
+        const mobileSearch = document.getElementById("chipSearchInputMobile");
+        if (desktopSearch) desktopSearch.value = "";
+        if (mobileSearch) mobileSearch.value = "";
+        updateChipDesktopFilterUI();
+        updateChipMobileFilterUI();
+        renderChipsList();
+    }
+    
     function initChipFilters() {
         const qualities = ["传说", "史诗", "稀有", "普通"];
         const shapes = ["V型芯片", "核心芯片", "圆形芯片", "三角形芯片", "菱形芯片", "六边形芯片"];
@@ -1548,7 +1572,6 @@
                     else chipFilters[filterType] = value;
                     updateChipMobileFilterUI();
                     renderChipsList();
-                    // 关闭下拉面板
                     document.getElementById("chipCategoryDropdownPanel")?.classList.remove("show");
                     document.getElementById("chipCategoryDropdownBtn")?.classList.remove("active");
                 });
@@ -1672,7 +1695,6 @@
         }
         initChipFilters();
         
-        // 芯片搜索框事件
         const desktopSearch = document.getElementById("chipSearchInputDesktop");
         const mobileSearch = document.getElementById("chipSearchInputMobile");
         if (desktopSearch) {
@@ -1691,23 +1713,17 @@
     }
     
     // ========== 页面切换与返回逻辑 ==========
-    let currentPage = "vehicles";
-    let historyStack = []; // 记录页面历史
-    
     function switchToPage(pageId) {
         if (currentPage === pageId) return;
         
-        // 更新页面显示
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         document.getElementById(pageId + 'Page').classList.add('active-page');
         
-        // 更新侧边栏按钮状态
         document.querySelectorAll('.sidebar .tab-btn').forEach(btn => {
             if (btn.dataset.page === pageId) btn.classList.add('active');
             else btn.classList.remove('active');
         });
         
-        // 更新手机端头部显示
         const isMobile = isMobileDevice();
         if (isMobile) {
             if (pageId === 'vehicles') {
@@ -1727,7 +1743,6 @@
         
         currentPage = pageId;
         
-        // 芯片页面数据刷新
         if (pageId === 'chip' && chipsData.length === 0) {
             loadChipsData();
         } else if (pageId === 'chip') {
@@ -1737,60 +1752,62 @@
         window.scrollTo(0, 0);
     }
     
-    // 返回逻辑
-    let lastBackTime = 0;
+    // 车辆数据返回逻辑（详情页返回列表）- 保留给返回按钮使用
+    function handleVehicleBackToList() {
+        returnToVehicleList();
+    }
+    
+    // 芯片返回逻辑（清空筛选或退出）
+    function handleChipBack() {
+        const hasActiveChipFilter = chipFilters.quality || chipFilters.shape || chipFilters.type || chipKeyword;
+        if (hasActiveChipFilter) {
+            clearChipFilters();
+            return true;
+        }
+        return false;
+    }
+    
+    // 车辆数据列表页返回逻辑（清空筛选或退出）
+    function handleVehicleListBack() {
+        const hasActiveFilter = activeFilters.position || activeFilters.specialty || activeFilters.quality || keyword;
+        if (hasActiveFilter) {
+            clearAllFilters();
+            clearAllSearchBoxes();
+            return true;
+        }
+        return false;
+    }
+    
+    // 主返回处理
     function handleBackButton() {
         const now = Date.now();
+        const urlParams = new URLSearchParams(window.location.search);
+        const isInDetail = urlParams.get('car') !== null;
         
-        // 如果在车辆数据详情页
-        const currentCarId = new URLSearchParams(window.location.search).get('car');
-        if (currentCarId) {
-            const newUrl = window.location.pathname;
-            history.replaceState(null, '', newUrl);
-            const headerBackBtn = document.getElementById('headerBackBtn');
-            if (headerBackBtn) headerBackBtn.style.display = 'none';
-            restoreList();
+        // 车辆详情页：返回车辆数据列表
+        if (isInDetail && currentPage === 'vehicles') {
+            handleVehicleBackToList();
             return true;
         }
         
-        // 如果在芯片页面（无详情页）
+        // 芯片架构页：清空筛选或退出
         if (currentPage === 'chip') {
-            // 检查是否有激活的筛选条件
-            const hasActiveChipFilter = chipFilters.quality || chipFilters.shape || chipFilters.type || chipKeyword;
-            if (hasActiveChipFilter) {
-                // 清空所有筛选条件
-                chipFilters = { quality: "", shape: "", type: "" };
-                chipKeyword = "";
-                const desktopSearch = document.getElementById("chipSearchInputDesktop");
-                const mobileSearch = document.getElementById("chipSearchInputMobile");
-                if (desktopSearch) desktopSearch.value = "";
-                if (mobileSearch) mobileSearch.value = "";
-                updateChipDesktopFilterUI();
-                updateChipMobileFilterUI();
-                renderChipsList();
-                return true;
-            }
+            if (handleChipBack()) return true;
         }
         
-        // 如果在车辆数据列表页，检查筛选条件
-        if (currentPage === 'vehicles' && !currentCarId) {
-            const hasActiveFilter = activeFilters.position || activeFilters.specialty || activeFilters.quality || keyword;
-            if (hasActiveFilter) {
-                clearAllFilters();
-                clearAllSearchBoxes();
-                return true;
-            }
+        // 车辆数据列表页：清空筛选或退出
+        if (currentPage === 'vehicles' && !isInDetail) {
+            if (handleVehicleListBack()) return true;
         }
         
-        // 没有任何筛选条件时，退出网站
+        // 无筛选条件时退出网站
         if (now - lastBackTime < 500) {
-            window.close();
             if (window.history.length <= 1) window.close();
             else history.back();
         } else {
             lastBackTime = now;
             const statsEl = document.getElementById("statsText");
-            if (statsEl) {
+            if (statsEl && currentPage === 'vehicles') {
                 const originalText = statsEl.innerText;
                 statsEl.innerText = "再按一次退出";
                 statsEl.style.color = "#feca57";
@@ -1798,6 +1815,17 @@
                     statsEl.innerText = originalText;
                     statsEl.style.color = "#8a8aa3";
                 }, 1500);
+            } else if (currentPage === 'chip') {
+                const statsEl = document.getElementById("chipStatsText");
+                if (statsEl) {
+                    const originalText = statsEl.innerText;
+                    statsEl.innerText = "再按一次退出";
+                    statsEl.style.color = "#feca57";
+                    setTimeout(() => {
+                        statsEl.innerText = originalText;
+                        statsEl.style.color = "#8a8aa3";
+                    }, 1500);
+                }
             } else {
                 alert("再按一次退出");
             }
@@ -1850,7 +1878,6 @@
                 renderList();
             }
             
-            // 监听浏览器后退事件
             window.addEventListener('popstate', (e) => {
                 const newCarId = new URLSearchParams(window.location.search).get('car');
                 if (newCarId) {
@@ -1860,15 +1887,14 @@
                         renderDetailById(newCarId);
                     } else {
                         document.getElementById('headerBackBtn').style.display = 'none';
-                        restoreList();
+                        restoreVehicleList();
                     }
                 } else {
                     document.getElementById('headerBackBtn').style.display = 'none';
-                    restoreList();
+                    restoreVehicleList();
                 }
             });
             
-            // 监听手机返回键
             document.addEventListener('backbutton', handleBackButton, false);
             window.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') handleBackButton();
@@ -1878,7 +1904,6 @@
                 document.body.classList.add('has-fixed-header');
             }
             
-            // 预加载芯片数据
             await loadChipsData();
             
         } catch (error) {
@@ -1902,7 +1927,12 @@
         document.querySelectorAll('.sidebar .tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const pageId = btn.dataset.page;
-                switchToPage(pageId);
+                if (pageId === 'vehicles') {
+                    // 点击车辆数据标题：返回到车辆数据主界面
+                    returnToVehicleList();
+                } else {
+                    switchToPage(pageId);
+                }
             });
         });
         
@@ -1913,7 +1943,11 @@
         mobileVehicleBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const pageId = btn.dataset.page;
-                switchToPage(pageId);
+                if (pageId === 'vehicles') {
+                    returnToVehicleList();
+                } else {
+                    switchToPage(pageId);
+                }
                 mobileVehicleBtns.forEach(t => t.classList.remove('active'));
                 btn.classList.add('active');
             });
@@ -1922,7 +1956,11 @@
         mobileChipBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const pageId = btn.dataset.page;
-                switchToPage(pageId);
+                if (pageId === 'vehicles') {
+                    returnToVehicleList();
+                } else {
+                    switchToPage(pageId);
+                }
                 mobileChipBtns.forEach(t => t.classList.remove('active'));
                 btn.classList.add('active');
             });
@@ -1931,12 +1969,7 @@
         // 车辆数据返回按钮
         const headerBackBtn = document.getElementById('headerBackButton');
         if (headerBackBtn) {
-            headerBackBtn.addEventListener('click', () => {
-                const newUrl = window.location.pathname;
-                history.replaceState(null, '', newUrl);
-                document.getElementById('headerBackBtn').style.display = 'none';
-                restoreList();
-            });
+            headerBackBtn.addEventListener('click', handleVehicleBackToList);
         }
     }
     
