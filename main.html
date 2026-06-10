@@ -1066,9 +1066,9 @@
             .chip-quality-tag { font-size: 0.5rem; padding: 1px 5px; }
         }
     </style>
-    <!-- 芯片计算器专用样式（注入到页面内） -->
+    <!-- 芯片计算器专用样式（注入到页面内）- 字体颜色已改为白色 -->
     <style>
-        /* 芯片计算器样式 - 已整合 */
+        /* 芯片计算器样式 - 已整合，字体颜色强制为白色 */
         .calculator-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -1087,7 +1087,7 @@
             margin-bottom: 1.2rem;
             padding-left: 14px;
             border-left: 5px solid #3b82f6;
-            color: var(--text-primary);
+            color: #ffffff !important;
         }
         .calculator-container .car-layout-new {
             display: flex;
@@ -1139,7 +1139,7 @@
             display: block;
             font-size: 0.7rem;
             font-weight: 600;
-            color: var(--text-secondary);
+            color: #ffffff !important;
             margin-bottom: 5px;
             letter-spacing: 0.3px;
         }
@@ -1151,7 +1151,12 @@
             background: var(--bg-input);
             font-size: 0.85rem;
             transition: 0.2s;
-            color: var(--text-primary);
+            color: #ffffff !important;
+            background-color: #1f1f2e;
+        }
+        .calculator-container select option {
+            background-color: #1f1f2e;
+            color: #ffffff;
         }
         .calculator-container select:focus, .calculator-container input:focus {
             outline: none;
@@ -1186,11 +1191,11 @@
             line-height: 1.8;
             white-space: pre-wrap;
             word-break: break-word;
-            color: var(--text-primary);
+            color: #ffffff !important;
         }
         .calculator-container .note {
             font-size: 0.7rem;
-            color: var(--text-muted);
+            color: #cccccc !important;
             background: var(--note-bg);
             padding: 10px 16px;
             border-radius: 60px;
@@ -1198,7 +1203,7 @@
         }
         .calculator-container .usage-guide {
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: #dddddd !important;
             background: var(--note-bg);
             padding: 12px 18px;
             border-radius: 16px;
@@ -1209,13 +1214,13 @@
             cursor: pointer;
             font-weight: 700;
             margin-bottom: 8px;
-            color: var(--text-secondary);
+            color: #ffffff !important;
             font-size: 0.8rem;
         }
         .calculator-container .warning-tip {
-            color: var(--warning-red);
+            color: #ffaaaa !important;
             font-weight: 600;
-            background: rgba(185, 28, 28, 0.08);
+            background: rgba(185, 28, 28, 0.2);
             padding: 8px 12px;
             border-radius: 16px;
             margin-bottom: 12px;
@@ -1237,7 +1242,7 @@
             padding: 10px 14px;
             font-size: 0.85rem;
             font-weight: 500;
-            color: var(--energy-display-text);
+            color: #ffffff !important;
             border: 1px solid var(--border-light);
             text-align: center;
         }
@@ -1257,7 +1262,7 @@
             font-weight: 600;
             font-size: 0.8rem;
             margin-bottom: 8px;
-            color: var(--text-primary);
+            color: #ffffff !important;
         }
         .calculator-container .option-row {
             display: flex;
@@ -1275,17 +1280,12 @@
             gap: 16px;
             margin-bottom: 8px;
             padding: 12px 20px;
-            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            background: linear-gradient(135deg, #2a2a3c 0%, #1e1e2e 100%);
             border-radius: 60px;
             border: 2px solid #4f46e5;
             box-shadow: 0 2px 10px rgba(79, 70, 229, 0.4);
             cursor: pointer;
             transition: all 0.2s ease;
-        }
-        body.dark-mode .calculator-container .toggle-switch {
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-            border: 2px solid #818cf8;
-            box-shadow: 0 2px 10px rgba(129, 140, 248, 0.4);
         }
         .calculator-container .toggle-switch:hover {
             transform: translateY(-2px);
@@ -1296,11 +1296,8 @@
             cursor: pointer;
             font-weight: 700;
             font-size: 0.95rem;
-            color: #1e3a8a;
+            color: #ffffff !important;
             letter-spacing: 0.5px;
-        }
-        body.dark-mode .calculator-container .toggle-switch label {
-            color: #c7d2fe;
         }
         .calculator-container .toggle-switch input {
             width: 22px;
@@ -1312,7 +1309,7 @@
         }
         .calculator-container .toggle-hint {
             font-size: 0.7rem;
-            color: var(--warning-red);
+            color: #ffaaaa !important;
             margin-bottom: 16px;
             padding-left: 8px;
             text-align: left;
@@ -1335,27 +1332,20 @@
             border: none;
             background: transparent;
             padding: 10px 8px;
-            color: var(--text-primary);
+            color: #ffffff !important;
         }
         .calculator-container .eff-icon-preview, .calculator-container .vslot-icon-preview,
         .calculator-container .nitro-icon-preview, .calculator-container .car-type-icon-preview,
         .calculator-container .car-subtype-icon-preview {
             width: 40px;
             height: 40px;
-            background: #ffffff;
+            background: #2a2a3c;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             flex-shrink: 0;
-        }
-        body.dark-mode .calculator-container .eff-icon-preview,
-        body.dark-mode .calculator-container .vslot-icon-preview,
-        body.dark-mode .calculator-container .nitro-icon-preview,
-        body.dark-mode .calculator-container .car-type-icon-preview,
-        body.dark-mode .calculator-container .car-subtype-icon-preview {
-            background: #2a2a3c;
         }
         .calculator-container .eff-icon-preview img, .calculator-container .vslot-icon-preview img,
         .calculator-container .nitro-icon-preview img, .calculator-container .car-type-icon-preview img,
@@ -1439,20 +1429,6 @@
         .calculator-container .btn-success:hover {
             background: var(--btn-success-hover);
         }
-        .calculator-container .theme-toggle {
-            background: var(--bg-hover);
-            border: 1px solid var(--border-light);
-            padding: 8px 16px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-left: auto;
-        }
         .calculator-container .header-top {
             display: flex;
             justify-content: space-between;
@@ -1504,10 +1480,6 @@
             .calculator-container .header-top {
                 flex-direction: column;
             }
-            .calculator-container .theme-toggle {
-                margin-left: 0;
-                justify-content: center;
-            }
             .calculator-container .toggle-switch {
                 flex-wrap: wrap;
             }
@@ -1525,6 +1497,7 @@
         .calculator-container .custom-hui-row label {
             margin-bottom: 0;
             white-space: nowrap;
+            color: #ffffff !important;
         }
         .calculator-container .custom-hui-row input {
             width: 120px;
@@ -1539,10 +1512,10 @@
             padding: 12px 16px;
             border-radius: 40px;
             border: 1px solid var(--border-medium);
-            background: var(--bg-input);
+            background: #1f1f2e;
             font-size: 0.9rem;
             transition: 0.2s;
-            color: var(--text-primary);
+            color: #ffffff !important;
         }
         .calculator-container .search-input:focus {
             outline: none;
@@ -1554,7 +1527,7 @@
             top: 100%;
             left: 0;
             right: 0;
-            background: var(--bg-card);
+            background: #1f1f2e;
             border: 1px solid var(--border-medium);
             border-radius: 20px;
             max-height: 300px;
@@ -1569,25 +1542,25 @@
         .calculator-container .search-item {
             padding: 10px 16px;
             cursor: pointer;
-            border-bottom: 1px solid var(--border-light);
-            color: var(--text-primary);
+            border-bottom: 1px solid #2a2a3c;
+            color: #ffffff !important;
             transition: background 0.1s;
         }
         .calculator-container .search-item:hover {
-            background: var(--search-highlight);
+            background: #2a2a3c;
         }
         .calculator-container .search-item .car-name {
             font-weight: 600;
         }
         .calculator-container .search-item .car-info {
             font-size: 0.7rem;
-            color: var(--text-muted);
+            color: #aaaaaa !important;
             margin-top: 2px;
         }
-        .calculator-container .eff-select-row select option.eff-red { color: var(--eff-red); font-weight: 700; }
-        .calculator-container .eff-select-row select option.eff-yellow { color: var(--eff-yellow); font-weight: 700; }
-        .calculator-container .eff-select-row select option.eff-green { color: var(--eff-green); font-weight: 700; }
-        .calculator-container .eff-select-row select option.eff-purple { color: var(--eff-purple); font-weight: 700; }
+        .calculator-container .eff-select-row select option.eff-red { color: #f87171; font-weight: 700; }
+        .calculator-container .eff-select-row select option.eff-yellow { color: #fbbf24; font-weight: 700; }
+        .calculator-container .eff-select-row select option.eff-green { color: #34d399; font-weight: 700; }
+        .calculator-container .eff-select-row select option.eff-purple { color: #c084fc; font-weight: 700; }
         
         :root {
             --btn-primary: #3b82f6;
@@ -1596,23 +1569,6 @@
             --btn-secondary-hover: #475569;
             --btn-success: #10b981;
             --btn-success-hover: #059669;
-            --info-icon-bg: #94a3b8;
-            --info-icon-hover: #3b82f6;
-            --tooltip-bg: #1e293b;
-            --warning-red: #b91c1c;
-            --search-highlight: #e0e7ff;
-            --eff-red: #dc2626;
-            --eff-yellow: #d97706;
-            --eff-green: #059669;
-            --eff-purple: #7c3aed;
-        }
-        body.dark-mode {
-            --btn-primary: #3b82f6;
-            --btn-primary-hover: #2563eb;
-            --btn-secondary: #475569;
-            --btn-secondary-hover: #5b6e8c;
-            --btn-success: #059669;
-            --btn-success-hover: #10b981;
             --info-icon-bg: #4a5568;
             --info-icon-hover: #3b82f6;
             --tooltip-bg: #334155;
@@ -1622,6 +1578,34 @@
             --eff-yellow: #fbbf24;
             --eff-green: #34d399;
             --eff-purple: #c084fc;
+            --bg-card: #14141f;
+            --bg-hover: #1a1a2e;
+            --border-light: #2a2a3c;
+            --border-medium: #3a3a4c;
+            --bg-input: #1f1f2e;
+            --result-bg: #1a1a2e;
+            --note-bg: #1f1f2e;
+            --special-bg: #2d2a1a;
+            --special-border: #fbbf24;
+            --error-bg: #3b1e1e;
+            --error-text: #ff6b6b;
+            --energy-display-bg: #1f1f2e;
+            --icon-row-bg: #1f1f2e;
+        }
+        body.dark-mode .calculator-container {
+            --bg-card: #14141f;
+            --bg-hover: #1a1a2e;
+            --border-light: #2a2a3c;
+            --border-medium: #3a3a4c;
+            --bg-input: #1f1f2e;
+            --result-bg: #1a1a2e;
+            --note-bg: #1f1f2e;
+            --special-bg: #2d2a1a;
+            --special-border: #fbbf24;
+            --error-bg: #3b1e1e;
+            --error-text: #ff6b6b;
+            --energy-display-bg: #1f1f2e;
+            --icon-row-bg: #1f1f2e;
         }
     </style>
 </head>
@@ -1906,7 +1890,6 @@
                             </div>
                         </details>
                     </div>
-                    <button class="theme-toggle" id="calcThemeToggleBtn"><span id="calcThemeIcon">🌙</span><span id="calcThemeText">深色模式</span></button>
                 </div>
                 <div class="card">
                     <div class="car-layout-new">
@@ -2068,8 +2051,26 @@
     const carsDB={assist:{venue:[],mountain:[],city:[]},race:{city:[],mountain:[],venue:[]},jam:{city:[],mountain:[],venue:[]},balance:{city:[],mountain:[],venue:[]}};
     for(let t of ['assist','race','jam','balance']) for(let s of ['venue','mountain','city']) if(fullDB[t] && fullDB[t][s]) carsDB[t][s] = [...fullDB[t][s]];
     
-    // 搜索数据构建
+    // 搜索数据构建 - 包含关键词
     let allCarsSearchList = [];
+    const carKeywords = {
+        "比亚迪 汉": ["byd"],
+        "梅赛德斯-AMG G 63": ["大G", "大 g"],
+        "茶韵行者": ["茶船"],
+        "道奇 Charger SRT Hellcat": ["地狱猫"],
+        "摇尾萌萌虎": ["小老虎"],
+        "阿斯顿马丁 Vanquish": ["红马丁"],
+        "福特 Focus RS": ["小飞机"],
+        "法拉利 LaFerrari": ["拉法"],
+        "英菲尼迪 Prototype": ["肥皂"],
+        "迈凯伦 Senna": ["塞纳"],
+        "日产 GT-R NISMO": ["gtr"],
+        "梅赛德斯-AMG GT Black Series": ["梅奔", "洞洞奔", "洞奔"],
+        "阿斯顿马丁 DB11": ["叙利亚战车"],
+        "兰博基尼 Veneno": ["毒药"],
+        "帕加尼 Huayra": ["风之子"],
+        "阿斯顿马丁 Valkyrie AMR Pro": ["女武神"]
+    };
     function buildSearchList() {
         allCarsSearchList = [];
         for (let type of ['assist', 'race', 'jam', 'balance']) {
@@ -2088,7 +2089,7 @@
                         start: car.start,
                         nitro: car.nitro,
                         bonus: car.bonus,
-                        keywords: []
+                        keywords: carKeywords[car.name] || []
                     });
                 }
             }
@@ -4190,6 +4191,7 @@
             }
         }
         
+        // 搜索框初始化 - 使用扩展的关键词
         function initCalcSearchBox() {
             const searchInput = document.getElementById('calcCarSearchInput');
             const dropdown = document.getElementById('calcSearchDropdown');
@@ -4199,7 +4201,11 @@
                     dropdown.classList.remove('show');
                     return;
                 }
-                const results = allCarsSearchList.filter(car => car.name.toLowerCase().includes(val.trim().toLowerCase()));
+                const term = val.trim().toLowerCase();
+                const results = allCarsSearchList.filter(car => {
+                    if (car.name.toLowerCase().includes(term)) return true;
+                    return car.keywords.some(kw => kw.toLowerCase().includes(term));
+                });
                 if (results.length === 0) {
                     dropdown.innerHTML = '<div class="search-item" style="color: var(--text-muted);">未找到相关车辆</div>';
                     dropdown.classList.add('show');
@@ -4469,27 +4475,6 @@
             }
         }
         
-        function initCalcThemeToggle() {
-            const btn = document.getElementById('calcThemeToggleBtn');
-            const icon = document.getElementById('calcThemeIcon');
-            const text = document.getElementById('calcThemeText');
-            const saved = localStorage.getItem('theme');
-            if (saved === 'dark') {
-                document.body.classList.add('dark-mode');
-                icon.textContent = '☀️';
-                text.textContent = '浅色模式';
-            } else {
-                icon.textContent = '🌙';
-                text.textContent = '深色模式';
-            }
-            btn.addEventListener('click', () => {
-                let isDark = document.body.classList.toggle('dark-mode');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                icon.textContent = isDark ? '☀️' : '🌙';
-                text.textContent = isDark ? '浅色模式' : '深色模式';
-            });
-        }
-        
         // 初始化计算器
         initCalcCarTypeSelect();
         initCalcCarSubTypeSelect();
@@ -4498,7 +4483,6 @@
         initCalcNitroSelect();
         updateCalcSubTypeOptions();
         updateCalcEnergyDisplays();
-        initCalcThemeToggle();
         createCalcToggleSwitch();
         updateCalcToggleState();
         initCalcSearchBox();
