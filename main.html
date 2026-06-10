@@ -648,7 +648,7 @@
             font-style: normal;
         }
         
-        /* ========== 手机端样式（修复版） ========== */
+        /* ========== 手机端样式（修复顶部导航栏显示） ========== */
         @media (max-width: 768px) {
             .sidebar { display: none; }
             
@@ -813,8 +813,10 @@
             }
             
             .main-content { margin-left: 0; margin-top: 0; padding: 12px; width: 100%; }
-            body.has-fixed-header .main-content { margin-top: 145px; }
-            body.has-chip-fixed-header .main-content { margin-top: 145px; }
+            /* 车辆数据页面需要顶部留出导航栏高度 */
+            body.vehicle-page .main-content { margin-top: 145px; }
+            /* 芯片架构页面需要顶部留出导航栏高度 */
+            body.chip-page .main-content { margin-top: 145px; }
             
             /* 车辆卡片手机端布局 */
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -1133,6 +1135,18 @@
         result = result.replace(/(\d+(?:\.\d+)?)(?![^<]*>)(?![^<]*<\/span>)/g, (match) => '<span class="red-number">' + match + '</span>');
         result = result.replace(/<span class="red-number"><span class="red-number">(.*?)<\/span><\/span>/g, '<span class="red-number">$1</span>');
         return result;
+    }
+    
+    function updateBodyClassForPage() {
+        if (isMobileDevice()) {
+            if (currentPage === 'vehicles') {
+                document.body.classList.remove('chip-page');
+                document.body.classList.add('vehicle-page');
+            } else if (currentPage === 'chip') {
+                document.body.classList.remove('vehicle-page');
+                document.body.classList.add('chip-page');
+            }
+        }
     }
     
     function updateDetailState(isDetail) {
@@ -1824,8 +1838,6 @@
             if (pageId === 'vehicles') {
                 document.getElementById('mobileFixedHeader').style.display = 'flex';
                 document.getElementById('chipMobileFixedHeader').style.display = 'none';
-                document.body.classList.add('has-fixed-header');
-                document.body.classList.remove('has-chip-fixed-header');
                 // 恢复筛选栏显示（如果在列表页）
                 const mobileFilterSticky = document.getElementById('vehicleMobileFilter');
                 if (mobileFilterSticky && !isInDetail) {
@@ -1834,14 +1846,11 @@
             } else if (pageId === 'chip') {
                 document.getElementById('mobileFixedHeader').style.display = 'none';
                 document.getElementById('chipMobileFixedHeader').style.display = 'flex';
-                document.body.classList.add('has-chip-fixed-header');
-                document.body.classList.remove('has-fixed-header');
             } else {
                 document.getElementById('mobileFixedHeader').style.display = 'none';
                 document.getElementById('chipMobileFixedHeader').style.display = 'none';
-                document.body.classList.remove('has-fixed-header');
-                document.body.classList.remove('has-chip-fixed-header');
             }
+            updateBodyClassForPage();
         } else {
             const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
             if (vehicleDesktopHeader) {
@@ -2004,7 +2013,7 @@
             });
             
             if (isMobileDevice()) {
-                document.body.classList.add('has-fixed-header');
+                updateBodyClassForPage();
             }
             
             await loadChipsData();
@@ -2078,4 +2087,4 @@
     loadData();
 </script>
 </body>
-</html>}
+</html>
