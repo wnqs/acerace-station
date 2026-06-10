@@ -2486,10 +2486,11 @@
                         if (energiesData.length > 0) renderEnergiesList();
                         window.scrollTo(0, 0);
                     } else if (pageId === 'calculator') {
+                        // 修改：手机端计算器页面保留顶部导航栏
                         document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                         const calcBtns = document.querySelectorAll('.mobile-tab-btn');
                         for (let b of calcBtns) if (b.dataset.page === 'calculator') b.classList.add('active');
-                        document.getElementById('mobileFixedHeader').style.display = 'none';
+                        document.getElementById('mobileFixedHeader').style.display = 'flex';  // 改为显示
                         document.getElementById('chipMobileFixedHeader').style.display = 'none';
                         document.getElementById('energyMobileFixedHeader').style.display = 'none';
                         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
@@ -3294,7 +3295,8 @@
                 document.querySelectorAll('.energy-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'energy') t.classList.add('active'); });
                 if (energiesData.length === 0) loadEnergiesData(); else renderEnergiesList();
             } else if (pageId === 'calculator') {
-                document.getElementById('mobileFixedHeader').style.display = 'none';
+                // 修改：手机端计算器页面保留顶部导航栏
+                document.getElementById('mobileFixedHeader').style.display = 'flex';
                 document.getElementById('chipMobileFixedHeader').style.display = 'none';
                 document.getElementById('energyMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
@@ -3341,6 +3343,15 @@
         
         if (currentPage === 'vehicles' && !isInDetail) {
             if (handleVehicleListBack()) return true;
+        }
+        
+        // 芯片计算器页面的返回逻辑（清空筛选或退出）
+        if (currentPage === 'calculator') {
+            const hasActiveCalcFilter = false; // 计算器没有筛选状态，直接退出
+            if (hasActiveCalcFilter) {
+                // 如果有筛选逻辑可在此添加
+                return true;
+            }
         }
         
         if (now - lastBackTime < 500) {
