@@ -1014,6 +1014,7 @@
     // 页面状态
     let currentPage = "vehicles";
     let lastBackTime = 0;
+    let isInDetail = false;  // 标记是否在详情页
     
     const EXTRA_RACING_ICON_CARS = ["女武神"];
     const RACING_ICON_URL = "https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png";
@@ -1043,6 +1044,19 @@
     // ========== 通用函数 ==========
     function isMobileDevice() { return window.innerWidth <= 768; }
     
+    // 更新详情页标志和返回按钮显示
+    function updateDetailState(isDetail) {
+        isInDetail = isDetail;
+        const headerBackBtn = document.getElementById('headerBackBtn');
+        const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
+        if (headerBackBtn) {
+            headerBackBtn.style.display = isDetail ? 'block' : 'none';
+        }
+        if (vehicleDesktopHeader && !isMobileDevice()) {
+            vehicleDesktopHeader.style.display = isDetail ? 'none' : 'block';
+        }
+    }
+    
     // 返回到车辆数据主界面（清空详情页状态）
     function returnToVehicleList() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -1050,7 +1064,7 @@
             const newUrl = window.location.pathname;
             history.replaceState(null, '', newUrl);
         }
-        document.getElementById('headerBackBtn').style.display = 'none';
+        updateDetailState(false);
         restoreVehicleList();
         if (currentPage !== 'vehicles') {
             switchToPage('vehicles');
@@ -1233,10 +1247,7 @@
     
     function executeSearch(searchValue) {
         const searchTerm = searchValue;
-        const urlParams = new URLSearchParams(window.location.search);
-        const currentCarId = urlParams.get('car');
-        
-        if (currentCarId) {
+        if (isInDetail) {
             if (isExecutingSearch) return;
             isExecutingSearch = true;
             clearAllFilters();
@@ -1425,10 +1436,7 @@
             const newUrl = window.location.pathname + '?car=' + id;
             history.pushState({ carId: id }, '', newUrl);
         }
-        document.getElementById('headerBackBtn').style.display = 'block';
-        // 详情页隐藏顶部搜索栏
-        const desktopHeader = document.getElementById('vehicleDesktopHeader');
-        if (desktopHeader) desktopHeader.style.display = 'none';
+        updateDetailState(true);
         clearAllSearchBoxes();
         renderDetailById(id);
     }
@@ -1743,11 +1751,11 @@
                 document.body.classList.remove('has-fixed-header');
             }
         } else {
-            // 电脑端：切换到车辆数据时显示顶部栏，否则隐藏
+            // 电脑端：切换到车辆数据时根据是否在详情页决定顶部栏显示
             const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
             if (vehicleDesktopHeader) {
                 if (pageId === 'vehicles') {
-                    vehicleDesktopHeader.style.display = 'block';
+                    vehicleDesktopHeader.style.display = isInDetail ? 'none' : 'block';
                 } else {
                     vehicleDesktopHeader.style.display = 'none';
                 }
@@ -1794,8 +1802,6 @@
     // 主返回处理
     function handleBackButton() {
         const now = Date.now();
-        const urlParams = new URLSearchParams(window.location.search);
-        const isInDetail = urlParams.get('car') !== null;
         
         // 车辆详情页：返回车辆数据列表
         if (isInDetail && currentPage === 'vehicles') {
@@ -1882,35 +1888,30 @@
             if (carId) {
                 const car = vehiclesData.find(v => v.id === carId);
                 if (car) {
-                    document.getElementById('headerBackBtn').style.display = 'block';
-                    // 详情页隐藏顶部搜索栏
-                    const desktopHeader = document.getElementById('vehicleDesktopHeader');
-                    if (desktopHeader) desktopHeader.style.display = 'none';
+                    updateDetailState(true);
                     renderDetailById(carId);
                 } else {
+                    updateDetailState(false);
                     renderList();
                 }
             } else {
+                updateDetailState(false);
                 renderList();
             }
             
             window.addEventListener('popstate', (e) => {
                 const newCarId = new URLSearchParams(window.location.search).get('car');
-                const desktopHeader = document.getElementById('vehicleDesktopHeader');
                 if (newCarId) {
                     const car = vehiclesData.find(v => v.id === newCarId);
                     if (car) {
-                        document.getElementById('headerBackBtn').style.display = 'block';
-                        if (desktopHeader) desktopHeader.style.display = 'none';
+                        updateDetailState(true);
                         renderDetailById(newCarId);
                     } else {
-                        document.getElementById('headerBackBtn').style.display = 'none';
-                        if (desktopHeader) desktopHeader.style.display = 'block';
+                        updateDetailState(false);
                         restoreVehicleList();
                     }
                 } else {
-                    document.getElementById('headerBackBtn').style.display = 'none';
-                    if (desktopHeader) desktopHeader.style.display = 'block';
+                    updateDetailState(false);
                     restoreVehicleList();
                 }
             });
