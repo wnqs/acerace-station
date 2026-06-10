@@ -82,12 +82,10 @@
             .car-card:hover, .chip-card:hover {
                 transform: translateY(-4px);
             }
-            /* 电脑端芯片卡片悬浮时显示品质颜色边框 */
             .chip-card:hover.legendary-border { border-color: #e6b422; box-shadow: 0 0 16px rgba(230,180,34,0.4); }
             .chip-card:hover.epic-border { border-color: #aa6dc9; box-shadow: 0 0 14px rgba(170,109,201,0.35); }
             .chip-card:hover.rare-border { border-color: #4a9eff; box-shadow: 0 0 12px rgba(74,158,255,0.3); }
             .chip-card:hover.normal-border { border-color: #40c468; box-shadow: 0 0 10px rgba(64,196,104,0.25); }
-            /* 电脑端芯片卡片默认边框透明，只有悬浮时显示颜色 */
             .chip-card {
                 border-color: rgba(42, 42, 60, 0.3);
             }
@@ -663,13 +661,49 @@
                 display: flex;
                 flex-direction: column;
             }
-            .mobile-top-bar { padding: 8px 12px; border-bottom: 1px solid #2a2a3c; }
-            .mobile-logo-area { text-align: center; cursor: pointer; padding-bottom: 2px; }
-            .mobile-logo-area h1 { font-size: 1rem; background: linear-gradient(135deg, #ff6b6b, #feca57); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
-            .mobile-logo-area p { font-size: 0.5rem; color: #8a8aa3; font-weight: 500; }
-            .mobile-nav-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 4px; }
-            .mobile-tab-btn { padding: 6px 2px; font-size: 0.65rem; border-radius: 16px; text-align: center; background: #1a1a2a; border: none; cursor: pointer; color: #a0a0b8; font-weight: 700; }
-            .mobile-tab-btn.active { background: #feca57; color: #1a1a2e; }
+            .mobile-top-bar {
+                padding: 8px 12px;
+                border-bottom: 1px solid #2a2a3c;
+            }
+            .mobile-logo-area {
+                text-align: center;
+                cursor: pointer;
+                padding-bottom: 2px;
+            }
+            .mobile-logo-area h1 {
+                font-size: 1rem;
+                background: linear-gradient(135deg, #ff6b6b, #feca57);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                font-weight: 800;
+            }
+            .mobile-logo-area p {
+                font-size: 0.5rem;
+                color: #8a8aa3;
+                font-weight: 500;
+            }
+            .mobile-nav-tabs {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 4px;
+                margin-top: 4px;
+            }
+            .mobile-tab-btn {
+                padding: 6px 2px;
+                font-size: 0.65rem;
+                border-radius: 16px;
+                text-align: center;
+                background: #1a1a2a;
+                border: none;
+                cursor: pointer;
+                color: #a0a0b8;
+                font-weight: 700;
+            }
+            .mobile-tab-btn.active {
+                background: #feca57;
+                color: #1a1a2e;
+            }
             .mobile-filter-sticky {
                 padding: 8px 12px;
                 background: #0a0a0f;
@@ -701,8 +735,7 @@
             .card-image { height: 130px; padding: 12px; }
             .car-name { font-size: 0.85rem; }
             .acquisition-icon { width: 40px; height: 40px; bottom: 6px; right: 6px; }
-            .quality-badge { font-size: 0.55rem; padding: 2px 8px; bottom: 8px; right: 8px; }
-            .quality-badge-wrapper { bottom: 8px; right: 8px; }
+            .quality-badge { font-size: 0.55rem; padding: 2px 8px; }
             .meta-item { font-size: 0.6rem; padding: 3px 8px; }
             .car-description { font-size: 0.65rem; }
             
@@ -751,7 +784,7 @@
             .sub-skill-desc { font-size: 0.7rem; }
             .desktop-header { display: none; }
             
-            /* 手机端芯片架构样式 */
+            /* 手机端芯片架构样式 - 品质标签移到类型右边 */
             .chip-mobile-fixed-header {
                 position: fixed;
                 top: 0;
@@ -904,7 +937,7 @@
                 color: #1a1a2e;
             }
             
-            /* 手机端芯片卡片 - 品质标签固定位置（absolute相对于卡片） */
+            /* 手机端芯片卡片 - 品质标签移到类型右边 */
             .chips-grid {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
@@ -945,6 +978,7 @@
                 display: flex;
                 gap: 5px;
                 flex-wrap: wrap;
+                align-items: center;
                 margin-bottom: 6px;
             }
             .chip-meta-tag {
@@ -954,6 +988,28 @@
                 font-size: 0.55rem;
                 color: #a0a0b8;
                 font-weight: 500;
+            }
+            /* 品质标签作为行内元素显示在类型右边 */
+            .chip-quality-tag {
+                display: inline-block;
+                background: linear-gradient(135deg, #e6b422, #c49b1a);
+                padding: 2px 6px;
+                border-radius: 30px;
+                font-size: 0.55rem;
+                font-weight: 800;
+                color: #ffffff;
+                letter-spacing: 0.5px;
+                margin-left: 6px;
+                vertical-align: middle;
+            }
+            .chip-quality-tag.epic {
+                background: linear-gradient(135deg, #aa6dc9, #8b5aaf);
+            }
+            .chip-quality-tag.rare {
+                background: linear-gradient(135deg, #4a9eff, #2d7fd1);
+            }
+            .chip-quality-tag.normal {
+                background: linear-gradient(135deg, #40c468, #2f9e52);
             }
             .chip-effect {
                 font-size: 0.75rem;
@@ -972,14 +1028,9 @@
                 font-style: normal;
                 line-height: 1.4;
             }
-            /* 手机端品质标签固定在卡片右上角，不随滚动移动 */
-            .quality-badge {
-                font-size: 0.55rem;
-                padding: 2px 8px;
-                position: absolute;
-                top: 8px;
-                right: 8px;
-                z-index: 15;
+            /* 隐藏原来的品质标签包装器 */
+            .quality-badge-wrapper {
+                display: none;
             }
             .chip-desktop-header {
                 display: none;
@@ -1004,7 +1055,8 @@
             .chip-name { font-size: 0.75rem; }
             .chip-effect { font-size: 0.7rem; }
             .chip-desc { font-size: 0.65rem; }
-            .quality-badge { font-size: 0.5rem; padding: 2px 6px; top: 6px; right: 6px; }
+            .chip-meta-tag { font-size: 0.5rem; }
+            .chip-quality-tag { font-size: 0.5rem; padding: 1px 5px; }
         }
     </style>
 </head>
@@ -1865,6 +1917,14 @@
         return "normal";
     }
     
+    // 获取手机端品质标签的CSS类名
+    function getMobileQualityTagClass(quality) {
+        if (quality === "传说") return "chip-quality-tag";
+        if (quality === "史诗") return "chip-quality-tag epic";
+        if (quality === "稀有") return "chip-quality-tag rare";
+        return "chip-quality-tag normal";
+    }
+    
     function clearChipFilters() {
         chipFilters = { quality: "", shape: "", type: "" };
         chipKeyword = "";
@@ -1996,6 +2056,7 @@
             stats.innerText = "共 0 个芯片";
             return;
         }
+        const isMobile = isMobileDevice();
         grid.innerHTML = filtered.map(chip => {
             const borderClass = getChipBorderClass(chip.quality);
             const qualityClass = getChipQualityClass(chip.quality);
@@ -2003,16 +2064,36 @@
             let effectNote = chip.effectNote || "暂无效果说明";
             effectDesc = applyNumberHighlight(effectDesc);
             effectNote = applyNumberHighlight(effectNote);
-            return `<div class="chip-card ${borderClass}">
-                        <div class="chip-image"><img src="${chip.icon}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/200x120?text=Chip'"></div>
-                        <div class="chip-info">
-                            <div class="chip-name">${chip.name}</div>
-                            <div class="chip-meta"><span class="chip-meta-tag">${chip.shape}</span><span class="chip-meta-tag">${chip.type}</span></div>
-                            <div class="chip-effect"><strong>效果：</strong>${effectDesc}</div>
-                            <div class="chip-desc">${effectNote}</div>
-                        </div>
-                        <div class="quality-badge-wrapper"><span class="quality-badge ${qualityClass}">${chip.quality}</span></div>
-                    </div>`;
+            
+            if (isMobile) {
+                // 手机端：品质标签作为行内元素放在类型右边
+                const qualityTagClass = getMobileQualityTagClass(chip.quality);
+                return `<div class="chip-card ${borderClass}">
+                            <div class="chip-image"><img src="${chip.icon}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/200x120?text=Chip'"></div>
+                            <div class="chip-info">
+                                <div class="chip-name">${chip.name}</div>
+                                <div class="chip-meta">
+                                    <span class="chip-meta-tag">${chip.shape}</span>
+                                    <span class="chip-meta-tag">${chip.type}</span>
+                                    <span class="${qualityTagClass}">${chip.quality}</span>
+                                </div>
+                                <div class="chip-effect"><strong>效果：</strong>${effectDesc}</div>
+                                <div class="chip-desc">${effectNote}</div>
+                            </div>
+                        </div>`;
+            } else {
+                // 电脑端：保持原样，品质标签在右上角
+                return `<div class="chip-card ${borderClass}">
+                            <div class="chip-image"><img src="${chip.icon}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/200x120?text=Chip'"></div>
+                            <div class="chip-info">
+                                <div class="chip-name">${chip.name}</div>
+                                <div class="chip-meta"><span class="chip-meta-tag">${chip.shape}</span><span class="chip-meta-tag">${chip.type}</span></div>
+                                <div class="chip-effect"><strong>效果：</strong>${effectDesc}</div>
+                                <div class="chip-desc">${effectNote}</div>
+                            </div>
+                            <div class="quality-badge-wrapper"><span class="quality-badge ${qualityClass}">${chip.quality}</span></div>
+                        </div>`;
+            }
         }).join("");
         stats.innerText = `共 ${filtered.length} 个芯片`;
     }
