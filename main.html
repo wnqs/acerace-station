@@ -44,6 +44,12 @@
                 background: rgba(15, 15, 23, 0.75);
                 backdrop-filter: blur(10px);
                 border-right: 1px solid rgba(42, 42, 60, 0.6);
+                width: 240px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                z-index: 100;
             }
             .sidebar .logo-area {
                 border-bottom: 1px solid rgba(42, 42, 60, 0.6);
@@ -54,23 +60,23 @@
             .tab-btn:hover:not(.active) {
                 background: rgba(31, 31, 46, 0.6);
             }
-            .desktop-header {
+            .desktop-header, .chip-desktop-header, .energy-desktop-header {
                 background: rgba(15, 15, 23, 0.7);
                 backdrop-filter: blur(12px);
                 border-bottom: 1px solid rgba(42, 42, 60, 0.5);
                 border-radius: 0 0 20px 20px;
                 margin-bottom: 24px;
             }
-            .desktop-filter-bar {
+            .desktop-filter-bar, .chip-desktop-filter-bar, .energy-desktop-filter-bar {
                 background: rgba(20, 20, 31, 0.6);
                 backdrop-filter: blur(8px);
                 border: 1px solid rgba(42, 42, 60, 0.5);
             }
-            .search-box input {
+            .search-box input, .chip-search-box input, .energy-search-box input {
                 border: 1px solid rgba(42, 42, 60, 0.8);
                 background: rgba(31, 31, 46, 0.8);
             }
-            .desktop-filter-option, .desktop-quality-option {
+            .desktop-filter-option, .desktop-quality-option, .chip-desktop-filter-option, .energy-desktop-filter-option {
                 background: rgba(42, 42, 60, 0.7);
             }
             .car-card, .chip-card {
@@ -180,13 +186,13 @@
                 border-bottom: 1px solid #2a2a3c;
                 margin-bottom: 24px;
             }
-            .chip-desktop-header-top {
+            .chip-desktop-header-top, .energy-desktop-header-top {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 padding: 0 0 6px 0;
             }
-            .chip-desktop-filter-bar {
+            .chip-desktop-filter-bar, .energy-desktop-filter-bar {
                 background: #14141f;
                 border-radius: 20px;
                 padding: 16px 20px;
@@ -194,64 +200,32 @@
                 border: 1px solid #2a2a3c;
                 margin-bottom: 0;
             }
-            .chip-desktop-filter-sections {
+            .chip-desktop-filter-sections, .energy-desktop-filter-sections {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 24px;
             }
-            .chip-desktop-filter-section {
+            .chip-desktop-filter-section, .energy-desktop-filter-section {
                 display: flex;
                 flex-direction: column;
                 gap: 8px;
             }
-            .chip-desktop-filter-section-title {
+            .chip-desktop-filter-section-title, .energy-desktop-filter-section-title {
                 font-size: 0.75rem;
                 color: #feca57;
                 font-weight: 700;
                 letter-spacing: 0.5px;
             }
-            .chip-desktop-filter-options {
+            .chip-desktop-filter-options, .energy-desktop-filter-options {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 10px;
             }
-            .chip-desktop-filter-option {
-                background: #2a2a3c;
-                border-radius: 30px;
-                padding: 6px 14px;
-                font-size: 0.75rem;
-                cursor: pointer;
-                color: #a0a0b8;
-                transition: 0.2s;
-                display: inline-flex;
-                align-items: center;
-                white-space: nowrap;
-                font-weight: 600;
-            }
-            .chip-desktop-filter-option.active {
-                background: #feca57;
-                color: #1a1a2e;
-            }
-            .chip-search-box {
+            .chip-search-box, .energy-search-box {
                 margin-bottom: 16px;
             }
-            .chip-search-box input {
-                width: 100%;
-                max-width: 400px;
-                padding: 10px 16px;
-                border-radius: 40px;
-                border: 1px solid #2a2a3c;
-                background: #1f1f2e;
-                color: #e2e2e6;
-                font-size: 0.9rem;
-                font-weight: 500;
-                outline: none;
-            }
-            .chip-search-box input:focus {
-                border-color: #feca57;
-            }
             /* 电脑端网格布局：一行3个 */
-            .cars-grid, .chips-grid {
+            .cars-grid, .chips-grid, .energies-grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 24px;
@@ -1042,7 +1016,7 @@
             body.has-fixed-header .main-content { margin-top: 145px; }
             
             /* 手机端布局：车辆、芯片都是每行2个 */
-            .cars-grid, .chips-grid {
+            .cars-grid, .chips-grid, .energies-grid {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
@@ -1137,11 +1111,6 @@
             .quality-badge-wrapper { display: none; }
             
             /* 赋能卡片手机端样式 */
-            .energies-grid {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
             .energy-card {
                 background: #14141f;
                 border-radius: 16px;
@@ -1824,6 +1793,11 @@
                 const car = vehiclesData.find(v => v.id === carId);
                 if (car) {
                     if (headerBackBtn) headerBackBtn.style.display = 'block';
+                    // 手机端详情页隐藏筛选栏
+                    if (isMobileDevice()) {
+                        const mobileFilter = document.getElementById('vehicleMobileFilter');
+                        if (mobileFilter) mobileFilter.style.display = 'none';
+                    }
                     renderDetailById(carId);
                 } else {
                     renderList();
@@ -1839,6 +1813,10 @@
                     const car = vehiclesData.find(v => v.id === currentCarId);
                     if (car) {
                         if (headerBackBtnElem) headerBackBtnElem.style.display = 'block';
+                        if (isMobileDevice()) {
+                            const mobileFilter = document.getElementById('vehicleMobileFilter');
+                            if (mobileFilter) mobileFilter.style.display = 'none';
+                        }
                         renderDetailById(currentCarId);
                     } else {
                         if (headerBackBtnElem) headerBackBtnElem.style.display = 'none';
@@ -2623,12 +2601,11 @@
             vehicleDesktopHeader.style.display = isDetail ? 'none' : 'block';
         }
         // 手机端详情页隐藏筛选栏
-        if (isMobileDevice() && isDetail) {
+        if (isMobileDevice()) {
             const mobileFilter = document.getElementById('vehicleMobileFilter');
-            if (mobileFilter) mobileFilter.style.display = 'none';
-        } else if (isMobileDevice() && !isDetail && currentPage === 'vehicles') {
-            const mobileFilter = document.getElementById('vehicleMobileFilter');
-            if (mobileFilter) mobileFilter.style.display = 'block';
+            if (mobileFilter) {
+                mobileFilter.style.display = isDetail ? 'none' : 'block';
+            }
         }
     }
     
