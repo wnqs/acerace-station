@@ -1066,9 +1066,8 @@
             .chip-quality-tag { font-size: 0.5rem; padding: 1px 5px; }
         }
     </style>
-    <!-- 芯片计算器专用样式（注入到页面内）- 字体颜色已改为白色 -->
+    <!-- 芯片计算器专用样式 -->
     <style>
-        /* 芯片计算器样式 - 已整合，字体颜色强制为白色 */
         .calculator-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -1852,7 +1851,7 @@
             <div class="stats-text" id="energyStatsText">加载赋能数据...</div>
         </div>
         
-        <!-- 芯片要求计算器页面 - 嵌入计算器 -->
+        <!-- 芯片要求计算器页面 -->
         <div id="calculatorPage" class="page">
             <div class="calculator-container">
                 <div class="header-top">
@@ -1982,6 +1981,9 @@
     let energiesData = [];
     let energyFilters = { type: "", func: "" };
     let energyKeyword = "";
+    
+    // 芯片搭配数据变量 (新增)
+    let chipRecommendations = {};
     
     // 页面状态
     let currentPage = "vehicles";
@@ -2333,6 +2335,23 @@
         }
     }
     
+    // 加载芯片搭配数据 (新增)
+    async function loadChipRecommendations() {
+        try {
+            const response = await fetch('./chip_recs.json');
+            if (!response.ok) {
+                console.log('chip_recs.json 不存在或加载失败，使用默认占位');
+                return;
+            }
+            const data = await response.json();
+            if (data.recommendations) {
+                chipRecommendations = data.recommendations;
+            }
+        } catch (error) {
+            console.log('加载 chip_recs.json 失败:', error);
+        }
+    }
+    
     async function loadData() {
         try {
             const vehiclesUrl = './vehicles.json';
@@ -2361,6 +2380,9 @@
             for (const car of vehiclesData) car.chipSlots = sortChipSlots(car.chipSlots);
             initFilters();
             attachSearchInputEvents();
+            
+            // 加载芯片搭配数据
+            await loadChipRecommendations();
             
             const headerBackBtn = document.getElementById('headerBackBtn');
             if (headerBackBtn) headerBackBtn.style.display = 'none';
@@ -2486,14 +2508,12 @@
                         if (energiesData.length > 0) renderEnergiesList();
                         window.scrollTo(0, 0);
                     } else if (pageId === 'calculator') {
-                        // 修改：手机端计算器页面保留顶部导航栏，隐藏搜索和分类区域
                         document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                         const calcBtns = document.querySelectorAll('.mobile-tab-btn');
                         for (let b of calcBtns) if (b.dataset.page === 'calculator') b.classList.add('active');
                         document.getElementById('mobileFixedHeader').style.display = 'flex';
                         document.getElementById('chipMobileFixedHeader').style.display = 'none';
                         document.getElementById('energyMobileFixedHeader').style.display = 'none';
-                        // 隐藏车辆数据页面的搜索和分类栏
                         const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
                         if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'none';
                         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
@@ -2644,13 +2664,24 @@
         let featuresHtml = (car.skills.features && car.skills.features.length) ? car.skills.features.map(f => `<div class="feature-box" data-desc="${(f.desc || '').replace(/"/g, '&quot;')}" data-name="${f.name}" data-color="${f.color || '默认'}">${f.name}</div>`).join('') : '<div style="color:#8a8aa3; padding:10px;">暂无特点数据</div>';
         let spBlockHtml = '';
         if (car.sp) { let spDesc = formatSkillText(car.sp.desc); spBlockHtml = `<div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.sp.icon}"></div><div class="skill-title">SP：${car.sp.name}</div></div><div class="skill-desc"><div class="sp-cooltime">冷却时间：${car.sp.cooltime}</div>${spDesc}</div></div>`; }
+        
+        // 获取芯片搭配内容 (新增)
+        let workshopHtml = '';
+        const recommendation = chipRecommendations[car.name];
+        if (recommendation && recommendation.content) {
+            // 使用 pre-line 保留换行和空格格式
+            workshopHtml = `<div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder" style="white-space: pre-line; font-family: monospace; text-align: left; padding: 16px;">${escapeHtml(recommendation.content)}</div>`;
+        } else {
+            workshopHtml = `<div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder">暂无芯片搭配推荐<br>请在 chip_recs.json 中添加该车辆的搭配数据</div>`;
+        }
+        
         let html = `<div class="detail-container">
             <div class="detail-header"><div class="detail-image ${bgClass}"><img src="${car.imageUrl}" onerror="this.src='https://placehold.co/600x400?text=Car'"><div class="detail-acquisition-area"><div class="detail-acquisition-icon"><img src="${car.acquisitionIcon}"></div><span class="detail-acquisition-text">${car.acquisition}</span></div></div>
             <div class="detail-info-panel"><div class="detail-name">${car.name}</div><div class="detail-badges"><span class="quality-badge-large">${car.quality}</span><div class="badge"><img src="${positionIcon}"> ${car.position}位</div><div class="badge"><img src="${specialtyIcon}"> ${car.specialty}</div></div>
             <div class="info-rows"><div class="info-row"><span class="info-label">注册日期</span><span class="info-value">${car.registerDate || '未知'}</span></div><div class="info-row"><span class="info-label">车辆类型</span><span class="info-value">${car.vehicleType || '未知'}</span></div><div class="info-row"><span class="info-label">厂商</span><span class="info-value">${car.manufacturer || '未知'}</span></div></div></div></div>
             <div class="features-section"><div class="section-title">车辆特点</div><div class="features-horizontal">${featuresHtml}</div></div>
             <div class="chip-slots"><div class="section-title">芯片槽</div><div class="chip-icons">${chipSlots.map(icon => `<div class="chip-icon"><img src="${icon}"></div>`).join('')}</div></div>
-            <div class="chip-workshop"><div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder">芯片要求搭配（配合赋能版）预留区<p>后续版本将展示社区高玩芯片组合、赋能推荐以及AI智能搭配方案</p></div></div>
+            <div class="chip-workshop">${workshopHtml}</div>
             <div class="vehicle-stats"><div class="section-title">车辆基础数据</div><div class="stats-grid">
                 <div class="stat-card"><span>极速</span><span>${stats.topSpeed}</span></div><div class="stat-card"><span>动力</span><span>${stats.power}</span></div><div class="stat-card"><span>耐久</span><span>${stats.durability}</span></div>
                 <div class="stat-card"><span>氮气充能</span><span class="gold-number">${stats.nitroCharge}</span></div><div class="stat-card"><span>起步充能</span><span class="gold-number">${stats.startCharge}</span></div><div class="stat-card"><span>氮气时长</span><span>${stats.nitroDuration}</span></div>
@@ -2668,6 +2699,17 @@
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
         window.scrollTo(0, 0);
+    }
+    
+    // 辅助函数：转义HTML特殊字符
+    function escapeHtml(text) {
+        if (!text) return '';
+        return text
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
     }
     
     function restoreList() {
@@ -3281,7 +3323,6 @@
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.mobile-tab-btn').forEach(t => { if (t.dataset.page === 'vehicles') t.classList.add('active'); });
-                // 恢复车辆数据页面的搜索和分类栏
                 const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
                 if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'block';
             } else if (pageId === 'chip') {
@@ -3308,7 +3349,6 @@
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 const calcBtns = document.querySelectorAll('.mobile-tab-btn');
                 for (let b of calcBtns) if (b.dataset.page === 'calculator') b.classList.add('active');
-                // 隐藏车辆数据页面的搜索和分类栏
                 const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
                 if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'none';
                 if (typeof initCalculator === 'function') initCalculator();
@@ -3353,11 +3393,9 @@
             if (handleVehicleListBack()) return true;
         }
         
-        // 芯片计算器页面的返回逻辑（清空筛选或退出）
         if (currentPage === 'calculator') {
-            const hasActiveCalcFilter = false; // 计算器没有筛选状态，直接退出
+            const hasActiveCalcFilter = false;
             if (hasActiveCalcFilter) {
-                // 如果有筛选逻辑可在此添加
                 return true;
             }
         }
