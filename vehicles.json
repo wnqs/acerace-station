@@ -3648,8 +3648,8 @@
       "registerDate": "2024-06-07",
       "vehicleType": "真实阵营",
       "manufacturer": "梅赛德斯-奔驰",
-      "acquisition": "",
-      "acquisitionIcon": "",
+      "acquisition": "黑金会员",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/a8Du85YQ.png",
       "stats": {
         "topSpeed": "219.0 km/h",
         "power": "7.71",
