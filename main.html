@@ -1174,7 +1174,7 @@
         </div>
     </div>
     
-    <!-- 手机端赋能系统固定头部 (新增) -->
+    <!-- 手机端赋能系统固定头部 -->
     <div class="energy-mobile-fixed-header" id="energyMobileFixedHeader" style="display: none;">
         <div class="energy-mobile-top-bar">
             <div class="energy-mobile-logo-area" onclick="location.reload()">
@@ -1279,7 +1279,6 @@
         
         <!-- 赋能系统页面 -->
         <div id="energyPage" class="page">
-            <!-- 电脑端专属头部 -->
             <div class="energy-desktop-header">
                 <div class="energy-desktop-header-top">
                     <div class="header-title-area">
@@ -1334,7 +1333,7 @@
     let chipFilters = { quality: "", shape: "", type: "" };
     let chipKeyword = "";
     
-    // 赋能数据变量 (无品质)
+    // 赋能数据变量
     let energiesData = [];
     let energyFilters = { type: "", func: "" };
     let energyKeyword = "";
@@ -1981,7 +1980,7 @@
         }
     }
     
-    // ========== 芯片架构函数 (保持不变) ==========
+    // ========== 芯片架构函数 ==========
     function getChipBorderClass(quality) {
         if (quality === "传说") return "legendary-border";
         if (quality === "史诗") return "epic-border";
@@ -2123,8 +2122,28 @@
         });
     }
     
+    // 自定义芯片排序：车姬芯片 → 车辆专属芯片 → 修炼芯片 → 通用车辆芯片
+    function sortChipsByCategory(chips) {
+        const categoryOrder = {
+            "车姬芯片": 1,
+            "车辆专属芯片": 2,
+            "修炼芯片": 3,
+            "通用车辆芯片": 4
+        };
+        return [...chips].sort((a, b) => {
+            const orderA = categoryOrder[a.category] || 99;
+            const orderB = categoryOrder[b.category] || 99;
+            if (orderA !== orderB) return orderA - orderB;
+            // 同类别内按名称排序
+            return a.name.localeCompare(b.name, 'zh');
+        });
+    }
+    
     function renderChipsList() {
-        const filtered = filterChips();
+        let filtered = filterChips();
+        // 应用自定义排序
+        filtered = sortChipsByCategory(filtered);
+        
         const grid = document.getElementById("chipsGrid");
         const stats = document.getElementById("chipStatsText");
         if (!grid) return;
@@ -2195,8 +2214,130 @@
                     quality: "传说",
                     shape: "V型芯片",
                     type: "扩展",
+                    category: "车姬芯片",
                     effectDescription: "每6秒获得1200集气量并恢复6点耐久值，大招达到90%能量即可使用（猫眠梦装备时改为66%）",
                     effectNote: "推荐大招阈值100%车辆携带，减少赋能压力"
+                },
+                {
+                    id: "chip_shenjian",
+                    name: "神剑号之芯",
+                    icon: "https://s3.bmp.ovh/2026/05/29/CYJg8Tet.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    category: "车辆专属芯片",
+                    effectDescription: "每次点击大招时立即结束漂移状态，开局前33秒内获得集气无阈值效果且每次点击大招时获得900集气量",
+                    effectNote: "泛用性广"
+                },
+                {
+                    id: "chip_shengqishi",
+                    name: "圣骑士之芯",
+                    icon: "https://s3.bmp.ovh/2026/05/29/Hr6P82JF.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    category: "车辆专属芯片",
+                    effectDescription: "使用大招后5秒内将蓝色涡轮和氮气变为紫色涡轮和氮气，每4次使用涡轮、氮气或大招极速+2.5km/h，上限叠加3次",
+                    effectNote: "泛用性差"
+                },
+                {
+                    id: "chip_moran_xiuzhu",
+                    name: "墨染：修竹",
+                    icon: "https://s3.bmp.ovh/2026/05/29/6r78MrBU.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    category: "车姬芯片",
+                    effectDescription: "舍我其谁达到80%能量即可使用，每次被干扰和辅助时立即获得1200集气量（CD2秒）",
+                    effectNote: "先驱者专属（3气1大）"
+                },
+                {
+                    id: "chip_xiaofeng_baihu",
+                    name: "至尊：啸风白虎",
+                    icon: "https://s3.bmp.ovh/2026/05/29/byosRStY.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    category: "车姬芯片",
+                    effectDescription: "开局时获得8000集气量，辅助范围提升至700米",
+                    effectNote: "萌萌虎专属"
+                },
+                {
+                    id: "chip_xulian_feichi",
+                    name: "修炼：飞驰",
+                    icon: "https://s3.bmp.ovh/2026/05/29/hcTlzo56.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    category: "修炼芯片",
+                    effectDescription: "开局前45秒内，极速+8km/h",
+                    effectNote: "短图比圣芯好用"
+                },
+                {
+                    id: "chip_xulian_jianren",
+                    name: "修炼：坚韧",
+                    icon: "https://s3.bmp.ovh/2026/05/29/TKBXNb64.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    category: "修炼芯片",
+                    effectDescription: "开局时和每11秒极速+1.7km/h，上限叠加5次",
+                    effectNote: "暂无效果说明"
+                },
+                {
+                    id: "chip_xulian_xiaolv",
+                    name: "修炼：效率",
+                    icon: "https://s3.bmp.ovh/2026/05/29/dIffRM5n.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    category: "修炼芯片",
+                    effectDescription: "开局前25秒内极速+5km/h并获得集气无阈值效果",
+                    effectNote: "免费版神芯"
+                },
+                {
+                    id: "chip_xulian_leiji",
+                    name: "修炼：累积",
+                    icon: "https://s3.bmp.ovh/2026/05/29/b1hoabhg.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    category: "修炼芯片",
+                    effectDescription: "每5次点击大招时获得5000集气量且本局内极速+5km/h，上限叠加4次",
+                    effectNote: "暂无效果说明"
+                },
+                {
+                    id: "chip_xulian_tujin",
+                    name: "修炼：突进",
+                    icon: "https://s3.bmp.ovh/2026/05/29/WuT3bH3Q.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    category: "修炼芯片",
+                    effectDescription: "开局首次使用氮气时附加50米闪现效果",
+                    effectNote: "阴间干扰最喜欢带"
+                },
+                {
+                    id: "chip_xulian_shensu",
+                    name: "修炼：神速",
+                    icon: "https://s3.bmp.ovh/2026/05/29/rU5pVwLP.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    category: "修炼芯片",
+                    effectDescription: "每3次使用氮气，本局内极速+2.3km/h，上限叠加3次",
+                    effectNote: "暂无效果说明"
+                },
+                {
+                    id: "chip_xulian_chongci",
+                    name: "修炼：冲刺",
+                    icon: "https://s3.bmp.ovh/2026/05/29/QTOlIeXi.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    category: "修炼芯片",
+                    effectDescription: "向前闪现距离+20%",
+                    effectNote: "暂无效果说明"
                 }
             ];
             const stats = document.getElementById("chipStatsText");
@@ -2232,7 +2373,7 @@
         return false;
     }
     
-    // ========== 赋能系统新增函数 (无品质) ==========
+    // ========== 赋能系统函数 ==========
     function clearEnergyFilters() {
         energyFilters = { type: "", func: "" };
         energyKeyword = "";
@@ -2402,7 +2543,6 @@
             }
         } catch (error) {
             console.error('[赋能数据加载错误]', error);
-            // 预设示例数据，确保界面展示（无品质字段）
             energiesData = [
                 { id: "energy1", name: "创造赋能·核心", icon: "https://placehold.co/200x120?text=Create", type: "主要", func: "创造", effectDescription: "充能效率+8%，大招可充能次数+1" },
                 { id: "energy2", name: "战斗赋能·锋刃", icon: "https://placehold.co/200x120?text=Fight", type: "主要", func: "战斗", effectDescription: "干扰效果持续时间+15%" },
@@ -2442,7 +2582,6 @@
         return false;
     }
     
-    // 原有返回处理扩展
     function handleVehicleBackToList() {
         returnToVehicleList();
     }
@@ -2627,7 +2766,6 @@
             });
         });
         
-        // 手机端额外同步
         const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn');
         mobileTabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -2640,7 +2778,6 @@
         });
     }
     
-    // 绑定返回键
     document.addEventListener('backbutton', handleBackButton, false);
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') handleBackButton();
