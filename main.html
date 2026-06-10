@@ -901,7 +901,7 @@
             .sub-skill-desc { font-size: 0.7rem; }
             .desktop-header { display: none; }
             
-            /* 芯片架构手机端样式 */
+            /* 芯片架构手机端样式 - 一排两个芯片模块 */
             .chip-mobile-fixed-header {
                 position: fixed;
                 top: 0;
@@ -1054,8 +1054,9 @@
                 color: #1a1a2e;
             }
             
-            /* 手机端芯片卡片文字颜色修复 - 与电脑端一致 */
+            /* 手机端芯片卡片 - 一排两个 */
             .chips-grid {
+                display: grid;
                 grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
             }
@@ -1069,7 +1070,7 @@
                 position: relative;
             }
             .chip-image {
-                height: 120px;
+                height: 110px;
                 padding: 12px;
                 background: linear-gradient(145deg, #1a1a2a, #0f0f1a);
                 display: flex;
@@ -1078,56 +1079,56 @@
             }
             .chip-image img {
                 max-width: 100%;
-                max-height: 90px;
+                max-height: 80px;
                 object-fit: contain;
             }
             .chip-info {
-                padding: 12px;
+                padding: 10px;
             }
             .chip-name {
-                font-size: 0.85rem;
+                font-size: 0.8rem;
                 font-weight: 700;
                 color: #e2e2e6;
-                margin-bottom: 6px;
+                margin-bottom: 5px;
             }
             .chip-meta {
                 display: flex;
-                gap: 6px;
+                gap: 5px;
                 flex-wrap: wrap;
-                margin-bottom: 8px;
+                margin-bottom: 6px;
             }
             .chip-meta-tag {
                 background: rgba(255,255,255,0.08);
-                padding: 3px 8px;
+                padding: 2px 6px;
                 border-radius: 40px;
-                font-size: 0.6rem;
+                font-size: 0.55rem;
                 color: #a0a0b8;
                 font-weight: 500;
             }
             .chip-effect {
-                font-size: 0.7rem;
+                font-size: 0.65rem;
                 color: #8a8aa3;
                 border-top: 1px solid rgba(255,255,255,0.08);
-                padding-top: 8px;
-                line-height: 1.4;
+                padding-top: 6px;
+                line-height: 1.3;
             }
             .chip-effect strong {
                 color: #feca57;
             }
             .chip-desc {
-                font-size: 0.65rem;
+                font-size: 0.6rem;
                 color: #8a8aa3;
-                margin-top: 6px;
+                margin-top: 5px;
                 font-style: normal;
+                line-height: 1.3;
             }
             .quality-badge {
-                font-size: 0.55rem;
-                padding: 2px 8px;
+                font-size: 0.5rem;
+                padding: 2px 6px;
                 position: absolute;
-                top: 8px;
-                right: 8px;
+                top: 6px;
+                right: 6px;
             }
-            
             .chip-desktop-header {
                 display: none;
             }
@@ -1151,6 +1152,12 @@
             .section-title, .chip-slots .section-title, .vehicle-stats .section-title, .skills-section .section-title, .workshop-title {
                 font-size: 1.2rem !important;
             }
+            /* 手机端芯片卡片进一步优化 */
+            .chip-image { height: 100px; }
+            .chip-image img { max-height: 70px; }
+            .chip-name { font-size: 0.75rem; }
+            .chip-effect { font-size: 0.6rem; }
+            .chip-desc { font-size: 0.55rem; }
         }
     </style>
 </head>
@@ -1171,7 +1178,6 @@
         </div>
     </div>
     
-    <!-- 手机端车辆数据固定头部 -->
     <div class="mobile-fixed-header" id="mobileFixedHeader" style="display: flex;">
         <div class="mobile-top-bar">
             <div class="mobile-logo-area" onclick="location.reload()">
@@ -2214,6 +2220,7 @@
             }
         } catch (error) {
             console.error('[芯片数据加载错误]', error);
+            // 后备数据 - 按顺序排列
             chipsData = [
                 {
                     id: "chip_mianmian",
@@ -2224,6 +2231,116 @@
                     type: "扩展",
                     effectDescription: "每6秒获得1200集气量并恢复6点耐久值，大招达到90%能量即可使用（猫眠梦装备时改为66%）",
                     effectNote: "推荐大招阈值100%车辆携带，减少赋能压力"
+                },
+                {
+                    id: "chip_shenjian",
+                    name: "神剑号之芯",
+                    icon: "https://s3.bmp.ovh/2026/05/29/CYJg8Tet.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    effectDescription: "每次点击大招时立即结束漂移状态，开局前33秒内获得集气无阈值效果且每次点击大招时获得900集气量",
+                    effectNote: "泛用性广"
+                },
+                {
+                    id: "chip_shengqishi",
+                    name: "圣骑士之芯",
+                    icon: "https://s3.bmp.ovh/2026/05/29/Hr6P82JF.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    effectDescription: "使用大招后5秒内将蓝色涡轮和氮气变为紫色涡轮和氮气，每4次使用涡轮、氮气或大招极速+2.5km/h，上限叠加3次",
+                    effectNote: "泛用性差"
+                },
+                {
+                    id: "chip_moran_xiuzhu",
+                    name: "墨染：修竹",
+                    icon: "https://s3.bmp.ovh/2026/05/29/6r78MrBU.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    effectDescription: "舍我其谁达到80%能量即可使用，每次被干扰和辅助时立即获得1200集气量（CD2秒）",
+                    effectNote: "先驱者专属（3气1大）"
+                },
+                {
+                    id: "chip_xiaofeng_baihu",
+                    name: "至尊：啸风白虎",
+                    icon: "https://s3.bmp.ovh/2026/05/29/byosRStY.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    effectDescription: "开局时获得8000集气量，辅助范围提升至700米",
+                    effectNote: "萌萌虎专属"
+                },
+                {
+                    id: "chip_xulian_feichi",
+                    name: "修炼：飞驰",
+                    icon: "https://s3.bmp.ovh/2026/05/29/hcTlzo56.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    effectDescription: "开局前45秒内，极速+8km/h",
+                    effectNote: "短图比圣芯好用"
+                },
+                {
+                    id: "chip_xulian_jianren",
+                    name: "修炼：坚韧",
+                    icon: "https://s3.bmp.ovh/2026/05/29/TKBXNb64.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    effectDescription: "开局时和每11秒极速+1.7km/h，上限叠加5次",
+                    effectNote: "暂无效果说明"
+                },
+                {
+                    id: "chip_xulian_xiaolv",
+                    name: "修炼：效率",
+                    icon: "https://s3.bmp.ovh/2026/05/29/dIffRM5n.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    effectDescription: "开局前25秒内极速+5km/h并获得集气无阈值效果",
+                    effectNote: "免费版神芯"
+                },
+                {
+                    id: "chip_xulian_leiji",
+                    name: "修炼：累积",
+                    icon: "https://s3.bmp.ovh/2026/05/29/b1hoabhg.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    effectDescription: "每5次点击大招时获得5000集气量且本局内极速+5km/h，上限叠加4次",
+                    effectNote: "暂无效果说明"
+                },
+                {
+                    id: "chip_xulian_tujin",
+                    name: "修炼：突进",
+                    icon: "https://s3.bmp.ovh/2026/05/29/WuT3bH3Q.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    effectDescription: "开局首次使用氮气时附加50米闪现效果",
+                    effectNote: "阴间干扰最喜欢带"
+                },
+                {
+                    id: "chip_xulian_shensu",
+                    name: "修炼：神速",
+                    icon: "https://s3.bmp.ovh/2026/05/29/rU5pVwLP.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    effectDescription: "每3次使用氮气，本局内极速+2.3km/h，上限叠加3次",
+                    effectNote: "暂无效果说明"
+                },
+                {
+                    id: "chip_xulian_chongci",
+                    name: "修炼：冲刺",
+                    icon: "https://s3.bmp.ovh/2026/05/29/QTOlIeXi.png",
+                    quality: "传说",
+                    shape: "V型芯片",
+                    type: "扩展",
+                    effectDescription: "向前闪现距离+20%",
+                    effectNote: "暂无效果说明"
                 }
             ];
             const stats = document.getElementById("chipStatsText");
