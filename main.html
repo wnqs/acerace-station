@@ -2486,13 +2486,16 @@
                         if (energiesData.length > 0) renderEnergiesList();
                         window.scrollTo(0, 0);
                     } else if (pageId === 'calculator') {
-                        // 修改：手机端计算器页面保留顶部导航栏
+                        // 修改：手机端计算器页面保留顶部导航栏，隐藏搜索和分类区域
                         document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                         const calcBtns = document.querySelectorAll('.mobile-tab-btn');
                         for (let b of calcBtns) if (b.dataset.page === 'calculator') b.classList.add('active');
-                        document.getElementById('mobileFixedHeader').style.display = 'flex';  // 改为显示
+                        document.getElementById('mobileFixedHeader').style.display = 'flex';
                         document.getElementById('chipMobileFixedHeader').style.display = 'none';
                         document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                        // 隐藏车辆数据页面的搜索和分类栏
+                        const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
+                        if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'none';
                         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                         document.getElementById('calculatorPage').classList.add('active-page');
                         window.scrollTo(0, 0);
@@ -3278,6 +3281,9 @@
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.mobile-tab-btn').forEach(t => { if (t.dataset.page === 'vehicles') t.classList.add('active'); });
+                // 恢复车辆数据页面的搜索和分类栏
+                const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
+                if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'block';
             } else if (pageId === 'chip') {
                 document.getElementById('mobileFixedHeader').style.display = 'none';
                 document.getElementById('chipMobileFixedHeader').style.display = 'flex';
@@ -3295,7 +3301,6 @@
                 document.querySelectorAll('.energy-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'energy') t.classList.add('active'); });
                 if (energiesData.length === 0) loadEnergiesData(); else renderEnergiesList();
             } else if (pageId === 'calculator') {
-                // 修改：手机端计算器页面保留顶部导航栏
                 document.getElementById('mobileFixedHeader').style.display = 'flex';
                 document.getElementById('chipMobileFixedHeader').style.display = 'none';
                 document.getElementById('energyMobileFixedHeader').style.display = 'none';
@@ -3303,6 +3308,9 @@
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 const calcBtns = document.querySelectorAll('.mobile-tab-btn');
                 for (let b of calcBtns) if (b.dataset.page === 'calculator') b.classList.add('active');
+                // 隐藏车辆数据页面的搜索和分类栏
+                const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
+                if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'none';
                 if (typeof initCalculator === 'function') initCalculator();
             } else {
                 document.getElementById('mobileFixedHeader').style.display = 'none';
