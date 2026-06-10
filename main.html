@@ -195,9 +195,9 @@
             }
             .chip-desc {
                 font-size: 0.7rem;
-                color: #6a6a82;
+                color: #8a8aa3;
                 margin-top: 8px;
-                font-style: italic;
+                font-style: normal;
             }
             .chip-desktop-header {
                 position: sticky;
@@ -686,7 +686,7 @@
         .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; font-weight: 500; }
         .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
         
-        /* ========== 手机端专用样式（完全保持不变） ========== */
+        /* ========== 手机端专用样式 ========== */
         @media (max-width: 768px) {
             .sidebar { display: none; }
             .mobile-fixed-header {
@@ -1053,27 +1053,81 @@
                 background: #feca57;
                 color: #1a1a2e;
             }
+            
+            /* 手机端芯片卡片文字颜色修复 - 与电脑端一致 */
             .chips-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
             }
+            .chip-card {
+                background: #14141f;
+                border-radius: 16px;
+                overflow: hidden;
+                border: 1px solid #2a2a3c;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+            }
             .chip-image {
                 height: 120px;
+                padding: 12px;
+                background: linear-gradient(145deg, #1a1a2a, #0f0f1a);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .chip-image img {
+                max-width: 100%;
+                max-height: 90px;
+                object-fit: contain;
+            }
+            .chip-info {
                 padding: 12px;
             }
             .chip-name {
                 font-size: 0.85rem;
+                font-weight: 700;
+                color: #e2e2e6;
+                margin-bottom: 6px;
+            }
+            .chip-meta {
+                display: flex;
+                gap: 6px;
+                flex-wrap: wrap;
+                margin-bottom: 8px;
             }
             .chip-meta-tag {
-                font-size: 0.55rem;
-                padding: 3px 6px;
+                background: rgba(255,255,255,0.08);
+                padding: 3px 8px;
+                border-radius: 40px;
+                font-size: 0.6rem;
+                color: #a0a0b8;
+                font-weight: 500;
             }
             .chip-effect {
-                font-size: 0.65rem;
+                font-size: 0.7rem;
+                color: #8a8aa3;
+                border-top: 1px solid rgba(255,255,255,0.08);
+                padding-top: 8px;
+                line-height: 1.4;
+            }
+            .chip-effect strong {
+                color: #feca57;
             }
             .chip-desc {
-                font-size: 0.6rem;
+                font-size: 0.65rem;
+                color: #8a8aa3;
+                margin-top: 6px;
+                font-style: normal;
             }
+            .quality-badge {
+                font-size: 0.55rem;
+                padding: 2px 8px;
+                position: absolute;
+                top: 8px;
+                right: 8px;
+            }
+            
             .chip-desktop-header {
                 display: none;
             }
@@ -1117,6 +1171,7 @@
         </div>
     </div>
     
+    <!-- 手机端车辆数据固定头部 -->
     <div class="mobile-fixed-header" id="mobileFixedHeader" style="display: flex;">
         <div class="mobile-top-bar">
             <div class="mobile-logo-area" onclick="location.reload()">
