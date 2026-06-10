@@ -1,0 +1,12 @@
+{
+  "energies": [
+    {
+      "id": "energy_chuangzao_01",
+      "name": "创造赋能",
+      "icon": "https://s3.bmp.ovh/2026/05/29/jhypMW7s.png",
+      "type": "主要",
+      "func": "创造",
+      "effectDescription": "充能效率+5%且大招可充能次数+1"
+    }
+  ]
+}
