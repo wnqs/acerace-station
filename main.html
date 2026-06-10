@@ -20,16 +20,12 @@
         
         body { background: #0a0a0f; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
         
-        /* 电脑端背景改为深色动态渐变，不再纯黑（手机端保持原背景） */
-        body { background: #0a0a0f; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
-        
-        /* 仅在电脑端（屏幕宽度大于768px）应用渐变背景和毛玻璃效果 */
+        /* 电脑端样式 */
         @media (min-width: 769px) {
             body {
                 background: linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 25%, #141425 50%, #0f0f1a 75%, #0a0a0f 100%);
                 background-attachment: fixed;
             }
-            /* 添加微妙的网格纹理，增加质感 */
             body::before {
                 content: '';
                 position: fixed;
@@ -44,7 +40,6 @@
                 pointer-events: none;
                 z-index: 0;
             }
-            /* 左侧导航栏半透明毛玻璃 */
             .sidebar {
                 background: rgba(15, 15, 23, 0.75);
                 backdrop-filter: blur(10px);
@@ -59,12 +54,12 @@
             .tab-btn:hover:not(.active) {
                 background: rgba(31, 31, 46, 0.6);
             }
-            /* 电脑端固定顶部导航栏 - 半透明毛玻璃效果 */
             .desktop-header {
                 background: rgba(15, 15, 23, 0.7);
                 backdrop-filter: blur(12px);
                 border-bottom: 1px solid rgba(42, 42, 60, 0.5);
                 border-radius: 0 0 20px 20px;
+                margin-bottom: 24px;
             }
             .desktop-filter-bar {
                 background: rgba(20, 20, 31, 0.6);
@@ -75,31 +70,36 @@
                 border: 1px solid rgba(42, 42, 60, 0.8);
                 background: rgba(31, 31, 46, 0.8);
             }
-            .desktop-filter-option {
+            .desktop-filter-option, .desktop-quality-option {
                 background: rgba(42, 42, 60, 0.7);
             }
-            .desktop-quality-option {
-                background: rgba(42, 42, 60, 0.7);
-            }
-            /* 车辆卡片半透明 */
-            .car-card {
+            .car-card, .chip-card {
                 background: rgba(20, 20, 31, 0.85);
                 backdrop-filter: blur(4px);
                 border: 2px solid rgba(42, 42, 60, 0.5);
+                transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
             }
-            .car-card:hover {
-                border-color: rgba(254, 202, 87, 0.4);
+            .car-card:hover, .chip-card:hover {
+                transform: translateY(-4px);
             }
+            /* 电脑端芯片卡片悬浮时显示品质颜色边框 */
+            .chip-card:hover.legendary-border { border-color: #e6b422; box-shadow: 0 0 16px rgba(230,180,34,0.4); }
+            .chip-card:hover.epic-border { border-color: #aa6dc9; box-shadow: 0 0 14px rgba(170,109,201,0.35); }
+            .chip-card:hover.rare-border { border-color: #4a9eff; box-shadow: 0 0 12px rgba(74,158,255,0.3); }
+            .chip-card:hover.normal-border { border-color: #40c468; box-shadow: 0 0 10px rgba(64,196,104,0.25); }
+            /* 电脑端芯片卡片默认边框透明，只有悬浮时显示颜色 */
+            .chip-card {
+                border-color: rgba(42, 42, 60, 0.3);
+            }
+            .chip-card.legendary-border { border-color: rgba(42, 42, 60, 0.3); }
+            .chip-card.epic-border { border-color: rgba(42, 42, 60, 0.3); }
+            .chip-card.rare-border { border-color: rgba(42, 42, 60, 0.3); }
+            .chip-card.normal-border { border-color: rgba(42, 42, 60, 0.3); }
+            
             .card-info {
                 background: rgba(20, 20, 31, 0.7);
                 backdrop-filter: blur(4px);
             }
-            /* 卡片图片背景保持原有色彩 */
-            .card-image.legendary { background: linear-gradient(145deg, rgba(26,18,8,0.7) 0%, rgba(13,10,5,0.7) 100%); }
-            .card-image.epic { background: linear-gradient(145deg, rgba(26,15,26,0.7) 0%, rgba(13,5,13,0.7) 100%); }
-            .card-image.rare { background: linear-gradient(145deg, rgba(14,26,42,0.7) 0%, rgba(6,13,21,0.7) 100%); }
-            .card-image.normal { background: linear-gradient(145deg, rgba(26,42,26,0.7) 0%, rgba(10,26,10,0.7) 100%); }
-            /* 详情页容器半透明 */
             .detail-container {
                 background: rgba(20, 20, 31, 0.85);
                 backdrop-filter: blur(10px);
@@ -109,10 +109,7 @@
                 background: rgba(15, 15, 26, 0.7);
                 backdrop-filter: blur(10px);
             }
-            .feature-box {
-                background: rgba(30, 30, 50, 0.8);
-            }
-            .skill-desc, .sub-skill, .stat-card, .info-row, .chip-icon, .workshop-placeholder {
+            .feature-box, .skill-desc, .sub-skill, .stat-card, .info-row, .chip-icon, .workshop-placeholder {
                 background: rgba(0, 0, 0, 0.3);
             }
             .chip-workshop {
@@ -121,30 +118,6 @@
             .detail-acquisition-area {
                 background: transparent;
             }
-            /* 芯片卡片样式 */
-            .chip-card {
-                background: rgba(20, 20, 31, 0.85);
-                backdrop-filter: blur(4px);
-                border: 2px solid rgba(42, 42, 60, 0.5);
-                border-radius: 24px;
-                overflow: hidden;
-                transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-                display: flex;
-                flex-direction: column;
-                position: relative;
-            }
-            .chip-card:hover {
-                transform: translateY(-4px);
-                border-color: rgba(254, 202, 87, 0.4);
-            }
-            .chip-card.legendary-border { border-color: #e6b422; }
-            .chip-card.epic-border { border-color: #aa6dc9; }
-            .chip-card.rare-border { border-color: #4a9eff; }
-            .chip-card.normal-border { border-color: #40c468; }
-            .chip-card.legendary-border:hover { border-color: #ffd966; box-shadow: 0 0 16px rgba(230,180,34,0.4); }
-            .chip-card.epic-border:hover { border-color: #c99eff; box-shadow: 0 0 14px rgba(170,109,201,0.35); }
-            .chip-card.rare-border:hover { border-color: #8bcbff; box-shadow: 0 0 12px rgba(74,158,255,0.3); }
-            .chip-card.normal-border:hover { border-color: #8fdfaa; box-shadow: 0 0 10px rgba(64,196,104,0.25); }
             .chip-image {
                 height: 160px;
                 display: flex;
@@ -184,20 +157,21 @@
                 font-weight: 500;
             }
             .chip-effect {
-                font-size: 0.75rem;
+                font-size: 0.85rem;
                 color: #8a8aa3;
                 border-top: 1px solid rgba(255,255,255,0.08);
                 padding-top: 10px;
-                line-height: 1.4;
+                line-height: 1.5;
             }
             .chip-effect strong {
                 color: #feca57;
             }
             .chip-desc {
-                font-size: 0.7rem;
+                font-size: 0.8rem;
                 color: #8a8aa3;
                 margin-top: 8px;
                 font-style: normal;
+                line-height: 1.5;
             }
             .chip-desktop-header {
                 position: sticky;
@@ -298,14 +272,7 @@
         .tab-btn.active { background: #2a2a3c; color: #feca57; }
         .tab-btn:hover:not(.active) { background: #1f1f2e; color: #e2e2e6; }
         
-        /* 右侧主内容区 - 需要左侧留白（电脑端） */
-        .main-content { 
-            flex: 1; 
-            margin-left: 240px; 
-            padding: 0 24px 60px 24px; 
-            width: calc(100% - 240px); 
-        }
-        
+        .main-content { flex: 1; margin-left: 240px; padding: 0 24px 60px 24px; width: calc(100% - 240px); }
         .page { display: none; }
         .page.active-page { display: block; }
         
@@ -446,11 +413,7 @@
             color: #1a1a2e;
         }
         
-        .cars-grid { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 24px; 
-        }
+        .cars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
         .car-card { background: #14141f; border-radius: 24px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; will-change: transform; position: relative; display: flex; flex-direction: column; }
         .car-card:hover { transform: translateY(-4px); }
         @media (hover: hover) and (pointer: fine) {
@@ -480,7 +443,7 @@
         .acquisition-icon img { width: 100%; height: 100%; object-fit: contain; }
         
         .quality-badge-wrapper { position: absolute; bottom: 12px; right: 12px; z-index: 15; }
-        .quality-badge { font-size: 0.7rem; padding: 3px 12px; border-radius: 30px; font-weight: 800; letter-spacing: 1px; backdrop-filter: blur(2px); text-transform: uppercase; transition: none; border-width: 1px; border-style: solid; display: inline-block; transform: translateZ(0); -webkit-transform: translateZ(0); white-space: nowrap; }
+        .quality-badge { font-size: 0.7rem; padding: 3px 12px; border-radius: 30px; font-weight: 800; letter-spacing: 1px; backdrop-filter: blur(2px); text-transform: uppercase; transition: none; border-width: 1px; border-style: solid; display: inline-block; transform: translateZ(0); white-space: nowrap; }
         .quality-badge.legendary { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #ffffff !important; border-color: #ffd966; box-shadow: 0 2px 12px rgba(230,180,34,0.4); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
         .quality-badge.epic { background: linear-gradient(135deg, #aa6dc9, #8b5aaf); color: #ffffff; border-color: #c99eff; box-shadow: 0 2px 12px rgba(170,109,201,0.4); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
         .quality-badge.rare { background: linear-gradient(135deg, #4a9eff, #2d7fd1); color: #ffffff; border-color: #8bcbff; box-shadow: 0 2px 12px rgba(74,158,255,0.35); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
@@ -488,7 +451,7 @@
         
         .card-info { padding: 16px; background: rgba(20,20,31,0.9); }
         .car-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px; flex-wrap: wrap; }
-        .car-name { font-size: 1.1rem; font-weight: 700; color: #e2e2e6; flex-shrink: 1; min-width: 0; word-break: break-word; }
+        .car-name { font-size: 1.1rem; font-weight: 700; color: #e2e2e6; flex-shrink: 1; word-break: break-word; }
         .car-meta { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; align-items: center; }
         .meta-item { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 40px; font-size: 0.7rem; color: #a0a0b8; font-weight: 500; }
         .meta-item img { width: 18px; height: 18px; }
@@ -686,7 +649,7 @@
         .wallpaper-placeholder { background: rgba(20,20,31,0.6); border-radius: 20px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: #8a8aa3; font-size: 0.9rem; border: 1px dashed #2a2a3c; cursor: pointer; transition: 0.2s; font-weight: 500; }
         .wallpaper-placeholder:hover { background: rgba(30,30,50,0.8); border-color: #feca57; }
         
-        /* ========== 手机端专用样式 ========== */
+        /* ========== 手机端样式 ========== */
         @media (max-width: 768px) {
             .sidebar { display: none; }
             .mobile-fixed-header {
@@ -700,50 +663,13 @@
                 display: flex;
                 flex-direction: column;
             }
-            .mobile-top-bar {
-                padding: 8px 12px;
-                border-bottom: 1px solid #2a2a3c;
-            }
-            .mobile-logo-area {
-                text-align: center;
-                cursor: pointer;
-                padding-bottom: 2px;
-            }
-            .mobile-logo-area h1 {
-                font-size: 1rem;
-                background: linear-gradient(135deg, #ff6b6b, #feca57);
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-                font-weight: 800;
-            }
-            .mobile-logo-area p {
-                font-size: 0.5rem;
-                color: #8a8aa3;
-                font-weight: 500;
-            }
-            .mobile-nav-tabs {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 4px;
-                margin-top: 4px;
-            }
-            .mobile-tab-btn {
-                padding: 6px 2px;
-                font-size: 0.65rem;
-                border-radius: 16px;
-                text-align: center;
-                background: #1a1a2a;
-                border: none;
-                cursor: pointer;
-                color: #a0a0b8;
-                transition: 0.2s;
-                font-weight: 700;
-            }
-            .mobile-tab-btn.active {
-                background: #feca57;
-                color: #1a1a2e;
-            }
+            .mobile-top-bar { padding: 8px 12px; border-bottom: 1px solid #2a2a3c; }
+            .mobile-logo-area { text-align: center; cursor: pointer; padding-bottom: 2px; }
+            .mobile-logo-area h1 { font-size: 1rem; background: linear-gradient(135deg, #ff6b6b, #feca57); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
+            .mobile-logo-area p { font-size: 0.5rem; color: #8a8aa3; font-weight: 500; }
+            .mobile-nav-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 4px; }
+            .mobile-tab-btn { padding: 6px 2px; font-size: 0.65rem; border-radius: 16px; text-align: center; background: #1a1a2a; border: none; cursor: pointer; color: #a0a0b8; font-weight: 700; }
+            .mobile-tab-btn.active { background: #feca57; color: #1a1a2e; }
             .mobile-filter-sticky {
                 padding: 8px 12px;
                 background: #0a0a0f;
@@ -754,122 +680,32 @@
                 gap: 8px;
                 align-items: center;
             }
-            .search-box { 
-                flex: 2;
-                margin-bottom: 0;
-                width: auto;
-            }
-            .search-box input { 
-                width: 100%; 
-                padding: 8px 12px; 
-                font-size: 0.8rem; 
-                background: #1f1f2e; 
-                border: 1px solid #2a2a3c; 
-                border-radius: 30px; 
-                color: #e2e2e6;
-                outline: none;
-                box-sizing: border-box;
-                font-weight: 500;
-            }
+            .search-box { flex: 2; margin-bottom: 0; width: auto; }
+            .search-box input { width: 100%; padding: 8px 12px; font-size: 0.8rem; background: #1f1f2e; border: 1px solid #2a2a3c; border-radius: 30px; color: #e2e2e6; outline: none; }
             .search-box input:focus { border-color: #feca57; }
-            .search-box input::placeholder { color: #8a8aa3; font-size: 0.75rem; }
-            .category-dropdown-btn { 
-                background: #1f1f2e; 
-                border: 1px solid #2a2a3c; 
-                border-radius: 30px; 
-                padding: 6px 14px; 
-                font-size: 0.75rem; 
-                cursor: pointer; 
-                color: #e2e2e6; 
-                display: flex; 
-                align-items: center; 
-                justify-content: center;
-                gap: 5px;
-                white-space: nowrap;
-                font-weight: 700;
-                flex-shrink: 0;
-            }
+            .category-dropdown-btn { background: #1f1f2e; border: 1px solid #2a2a3c; border-radius: 30px; padding: 6px 14px; font-size: 0.75rem; cursor: pointer; color: #e2e2e6; display: flex; align-items: center; gap: 5px; white-space: nowrap; font-weight: 700; flex-shrink: 0; }
             .category-dropdown-btn .arrow { font-size: 0.6rem; transition: transform 0.2s; }
             .category-dropdown-btn.active .arrow { transform: rotate(180deg); }
-            .category-dropdown-panel { 
-                background: #1a1a2a; 
-                border-radius: 16px; 
-                margin-top: 8px; 
-                padding: 10px; 
-                border: 1px solid #2a2a3c; 
-                display: none;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-                position: absolute;
-                left: 12px;
-                right: 12px;
-                z-index: 210;
-            }
+            .category-dropdown-panel { background: #1a1a2a; border-radius: 16px; margin-top: 8px; padding: 10px; border: 1px solid #2a2a3c; display: none; position: absolute; left: 12px; right: 12px; z-index: 210; }
             .category-dropdown-panel.show { display: block; }
             .filter-section { margin-bottom: 12px; }
-            .filter-section:last-child { margin-bottom: 0; }
-            .filter-section-title { 
-                font-size: 0.65rem; 
-                color: #feca57; 
-                margin-bottom: 5px; 
-                padding-left: 4px; 
-                font-weight: 700; 
-            }
-            .filter-options { 
-                display: flex; 
-                flex-wrap: wrap; 
-                gap: 8px; 
-                justify-content: flex-start;
-            }
-            .filter-option, .quality-option { 
-                background: #2a2a3c; 
-                border-radius: 30px; 
-                padding: 6px 12px; 
-                font-size: 0.7rem; 
-                cursor: pointer; 
-                color: #a0a0b8; 
-                transition: 0.2s; 
-                display: inline-flex; 
-                align-items: center; 
-                gap: 6px; 
-                white-space: nowrap;
-                border: none;
-                font-weight: 600;
-                flex: 1 0 auto;
-                justify-content: center;
-                min-width: 70px;
-            }
+            .filter-section-title { font-size: 0.65rem; color: #feca57; margin-bottom: 5px; padding-left: 4px; font-weight: 700; }
+            .filter-options { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-start; }
+            .filter-option, .quality-option { background: #2a2a3c; border-radius: 30px; padding: 6px 12px; font-size: 0.7rem; cursor: pointer; color: #a0a0b8; font-weight: 600; }
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
-            .filter-option img { width: 14px; height: 14px; }
             
             .main-content { margin-left: 0; margin-top: 0; padding: 12px; width: 100%; }
             body.has-fixed-header .main-content { margin-top: 145px; }
             
-            .cars-grid { 
-                grid-template-columns: repeat(2, 1fr); 
-                gap: 12px; 
-            }
+            .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card-image { height: 130px; padding: 12px; }
-            .car-name { font-size: 0.85rem; font-weight: 700; }
-            .quality-badge-wrapper { position: absolute; top: 8px; right: 8px; bottom: auto; left: auto; }
-            .quality-badge { font-size: 0.5rem; padding: 2px 6px; font-weight: 800; }
+            .car-name { font-size: 0.85rem; }
             .acquisition-icon { width: 40px; height: 40px; bottom: 6px; right: 6px; }
-            .meta-item { font-size: 0.55rem; padding: 2px 6px; font-weight: 500; }
-            .car-description { font-size: 0.6rem; font-weight: 400; }
-            .car-card { border: none; }
-            .features-horizontal {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-            .feature-box {
-                white-space: nowrap;
-                font-size: 0.75rem;
-                padding: 6px 12px;
-                text-align: center;
-                word-break: keep-all;
-                display: inline-block;
-                width: auto;
-            }
+            .quality-badge { font-size: 0.55rem; padding: 2px 8px; bottom: 8px; right: 8px; }
+            .quality-badge-wrapper { bottom: 8px; right: 8px; }
+            .meta-item { font-size: 0.6rem; padding: 3px 8px; }
+            .car-description { font-size: 0.65rem; }
+            
             .chip-icons {
                 display: flex;
                 flex-wrap: nowrap;
@@ -893,6 +729,20 @@
                 font-size: 1.25rem !important;
                 font-weight: 800;
             }
+            .features-horizontal {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .feature-box {
+                white-space: nowrap;
+                font-size: 0.7rem;
+                padding: 5px 10px;
+                text-align: center;
+                word-break: keep-all;
+                display: inline-block;
+                width: auto;
+            }
             .detail-acquisition-area { top: 12px; left: 12px; gap: 6px; }
             .detail-acquisition-icon { width: 55px; height: 55px; }
             .detail-acquisition-text { font-size: 0.65rem; white-space: normal; max-width: 120px; text-shadow: 0 0 4px rgba(0,0,0,0.8); font-weight: 600; }
@@ -901,7 +751,7 @@
             .sub-skill-desc { font-size: 0.7rem; }
             .desktop-header { display: none; }
             
-            /* 芯片架构手机端样式 - 一排两个芯片模块 */
+            /* 手机端芯片架构样式 */
             .chip-mobile-fixed-header {
                 position: fixed;
                 top: 0;
@@ -1054,7 +904,7 @@
                 color: #1a1a2e;
             }
             
-            /* 手机端芯片卡片 - 一排两个 */
+            /* 手机端芯片卡片 - 品质标签固定位置（absolute相对于卡片） */
             .chips-grid {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
@@ -1106,28 +956,30 @@
                 font-weight: 500;
             }
             .chip-effect {
-                font-size: 0.65rem;
+                font-size: 0.75rem;
                 color: #8a8aa3;
                 border-top: 1px solid rgba(255,255,255,0.08);
                 padding-top: 6px;
-                line-height: 1.3;
+                line-height: 1.4;
             }
             .chip-effect strong {
                 color: #feca57;
             }
             .chip-desc {
-                font-size: 0.6rem;
+                font-size: 0.7rem;
                 color: #8a8aa3;
                 margin-top: 5px;
                 font-style: normal;
-                line-height: 1.3;
+                line-height: 1.4;
             }
+            /* 手机端品质标签固定在卡片右上角，不随滚动移动 */
             .quality-badge {
-                font-size: 0.5rem;
-                padding: 2px 6px;
+                font-size: 0.55rem;
+                padding: 2px 8px;
                 position: absolute;
-                top: 6px;
-                right: 6px;
+                top: 8px;
+                right: 8px;
+                z-index: 15;
             }
             .chip-desktop-header {
                 display: none;
@@ -1144,20 +996,15 @@
             .cars-grid { gap: 10px; }
             .card-image { height: 110px; }
             .car-name { font-size: 0.75rem; }
-            .meta-item { font-size: 0.5rem; padding: 2px 4px; }
-            .filter-option, .quality-option { padding: 5px 8px; font-size: 0.65rem; min-width: 65px; }
-            .category-dropdown-btn { padding: 5px 10px; font-size: 0.7rem; }
-            .search-box input { padding: 6px 10px; font-size: 0.75rem; }
-            .feature-box { font-size: 0.7rem; padding: 5px 10px; }
-            .section-title, .chip-slots .section-title, .vehicle-stats .section-title, .skills-section .section-title, .workshop-title {
-                font-size: 1.2rem !important;
-            }
-            /* 手机端芯片卡片进一步优化 */
+            .meta-item { font-size: 0.55rem; padding: 2px 6px; }
+            .feature-box { font-size: 0.65rem; padding: 4px 8px; }
+            .section-title { font-size: 1.1rem !important; }
             .chip-image { height: 100px; }
             .chip-image img { max-height: 70px; }
             .chip-name { font-size: 0.75rem; }
-            .chip-effect { font-size: 0.6rem; }
-            .chip-desc { font-size: 0.55rem; }
+            .chip-effect { font-size: 0.7rem; }
+            .chip-desc { font-size: 0.65rem; }
+            .quality-badge { font-size: 0.5rem; padding: 2px 6px; top: 6px; right: 6px; }
         }
     </style>
 </head>
@@ -1178,6 +1025,7 @@
         </div>
     </div>
     
+    <!-- 手机端车辆数据固定头部 -->
     <div class="mobile-fixed-header" id="mobileFixedHeader" style="display: flex;">
         <div class="mobile-top-bar">
             <div class="mobile-logo-area" onclick="location.reload()">
@@ -1574,7 +1422,6 @@
         if (mobileInput) mobileInput.value = "";
     }
     
-    // 标记是否正在执行搜索跳转，避免重复操作
     let isExecutingSearch = false;
     
     function executeSearch(searchValue) {
@@ -1582,10 +1429,8 @@
         const currentCarId = new URLSearchParams(window.location.search).get('car');
         
         if (currentCarId) {
-            // 从详情页执行搜索，需要跳转到列表页
             if (isExecutingSearch) return;
             isExecutingSearch = true;
-            
             clearAllFilters();
             const newUrl = window.location.pathname;
             history.replaceState(null, '', newUrl);
@@ -1665,11 +1510,9 @@
             initFilters();
             attachSearchInputEvents();
             
-            // 隐藏返回按钮（初始状态）
             const headerBackBtn = document.getElementById('headerBackBtn');
             if (headerBackBtn) headerBackBtn.style.display = 'none';
             
-            // 初始化：根据URL参数决定显示列表还是详情
             const urlParams = new URLSearchParams(window.location.search);
             const carId = urlParams.get('car');
             if (carId) {
@@ -1684,7 +1527,6 @@
                 renderList();
             }
             
-            // popstate 回调
             window.addEventListener('popstate', function(e) {
                 const currentCarId = new URLSearchParams(window.location.search).get('car');
                 const headerBackBtnElem = document.getElementById('headerBackBtn');
@@ -1708,7 +1550,6 @@
                 document.body.classList.add('has-fixed-header');
             }
             
-            // 加载芯片数据
             await loadChipsData();
             
         } catch (error) {
@@ -1761,24 +1602,22 @@
                             const newUrl = window.location.pathname;
                             history.replaceState(null, '', newUrl);
                             restoreList();
+                        } else {
+                            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                            document.getElementById('vehiclesPage').classList.add('active-page');
+                            document.getElementById('mobileFixedHeader').style.display = 'flex';
+                            document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                            const mobileFilter = document.getElementById('vehicleMobileFilter');
+                            if (mobileFilter) mobileFilter.style.display = 'block';
+                            window.scrollTo(0, 0);
                         }
-                        // 切换到车辆数据页面
-                        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-                        document.getElementById('vehiclesPage').classList.add('active-page');
-                        // 更新头部显示
-                        document.getElementById('mobileFixedHeader').style.display = 'flex';
-                        document.getElementById('chipMobileFixedHeader').style.display = 'none';
-                        // 更新筛选栏状态
-                        const mobileFilter = document.getElementById('vehicleMobileFilter');
-                        if (mobileFilter) mobileFilter.style.display = 'block';
                     } else if (pageId === 'chip') {
                         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                         document.getElementById('chipPage').classList.add('active-page');
-                        // 更新头部显示
                         document.getElementById('mobileFixedHeader').style.display = 'none';
                         document.getElementById('chipMobileFixedHeader').style.display = 'flex';
-                        // 渲染芯片数据
                         if (chipsData.length > 0) renderChipsList();
+                        window.scrollTo(0, 0);
                     } else {
                         const currentCarId = new URLSearchParams(window.location.search).get('car');
                         if (currentCarId) {
@@ -1790,10 +1629,10 @@
                         document.getElementById(pageId + 'Page')?.classList.add('active-page');
                         document.getElementById('mobileFixedHeader').style.display = 'none';
                         document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                        window.scrollTo(0, 0);
                     }
                     mobileTabBtns.forEach(t => t.classList.remove('active'));
                     btn.classList.add('active');
-                    if (pageId === 'vehicles') window.scrollTo(0, 0);
                 });
             });
             document.querySelectorAll('#positionOptions .filter-option').forEach(opt => {
@@ -1905,13 +1744,8 @@
     function showDetail(id) {
         let car = vehiclesData.find(v => v.id === id);
         if (!car) return;
-        
         const currentCarId = new URLSearchParams(window.location.search).get('car');
-        
-        if (currentCarId === id) {
-            return;
-        }
-        
+        if (currentCarId === id) return;
         if (currentCarId) {
             const newUrl = window.location.pathname + '?car=' + id;
             history.replaceState({ carId: id }, '', newUrl);
@@ -1919,16 +1753,8 @@
             const newUrl = window.location.pathname + '?car=' + id;
             history.pushState({ carId: id }, '', newUrl);
         }
-        
         const headerBackBtn = document.getElementById('headerBackBtn');
         if (headerBackBtn) headerBackBtn.style.display = 'block';
-        
-        // 详情页隐藏手机端筛选栏
-        if (isMobileDevice()) {
-            const mobileFilter = document.getElementById('vehicleMobileFilter');
-            if (mobileFilter) mobileFilter.style.display = 'none';
-        }
-        
         clearAllSearchBoxes();
         renderDetailById(id);
     }
@@ -1936,7 +1762,6 @@
     function renderDetailById(carId) {
         let car = vehiclesData.find(v => v.id === carId);
         if (!car) return;
-        
         let stats = car.stats, chipSlots = car.chipSlots.map(t => CHIP_ICONS[t]), bgClass = getQualityClass(car.quality);
         let positionIcon = POSITION_ICONS[car.position] || POSITION_ICONS["辅助"];
         let specialtyIcon = SPECIALTY_ICONS[car.specialty] || SPECIALTY_ICONS["场地"];
@@ -1964,7 +1789,6 @@
             <div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.passiveIcon}"></div><div class="skill-title">被动：${car.skills.passive.name}</div></div><div class="skill-desc">${passiveDesc}</div></div>${spBlockHtml}</div></div>`;
         let vehiclesPage = document.getElementById("vehiclesPage");
         vehiclesPage.innerHTML = html;
-        
         const mobile = isMobileDevice();
         bindTermAndFeatureEvents(mobile);
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
@@ -2009,25 +1833,14 @@
         renderList();
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
-        
-        // 恢复手机端筛选栏显示
-        if (isMobileDevice()) {
-            const mobileFilter = document.getElementById('vehicleMobileFilter');
-            if (mobileFilter) mobileFilter.style.display = 'block';
-            document.getElementById('mobileFixedHeader').style.display = 'flex';
-            document.getElementById('chipMobileFixedHeader').style.display = 'none';
-        }
-        
         window.scrollTo(0, 0);
     }
     
-    // 初始化车辆筛选选项
     function initVehicleFilters() {
         const qualities = ["传说", "史诗", "稀有", "普通"];
         const positions = ["辅助", "竞速", "干扰", "天平"];
         const specialties = ["城市", "山路", "场地"];
         
-        // 电脑端
         const desktopPosition = document.getElementById("desktopPositionOptions");
         const desktopSpecialty = document.getElementById("desktopSpecialtyOptions");
         const desktopQuality = document.getElementById("desktopQualityOptions");
@@ -2111,14 +1924,12 @@
                     else chipFilters[filterType] = value;
                     updateChipMobileFilterUI();
                     renderChipsList();
-                    // 关闭下拉面板
                     document.getElementById("chipCategoryDropdownPanel")?.classList.remove("show");
                     document.getElementById("chipCategoryDropdownBtn")?.classList.remove("active");
                 });
             });
         }
         
-        // 手机端下拉按钮
         const dropdownBtn = document.getElementById("chipCategoryDropdownBtn");
         const dropdownPanel = document.getElementById("chipCategoryDropdownPanel");
         if (dropdownBtn && dropdownPanel) {
@@ -2220,7 +2031,6 @@
             }
         } catch (error) {
             console.error('[芯片数据加载错误]', error);
-            // 后备数据 - 按顺序排列
             chipsData = [
                 {
                     id: "chip_mianmian",
@@ -2347,11 +2157,9 @@
             if (stats) stats.innerText = "加载 chips.json 失败，使用默认数据";
         }
         
-        // 初始化筛选器
         initChipDesktopFilters();
         initChipMobileFilters();
         
-        // 芯片搜索框事件
         const desktopSearch = document.getElementById("chipSearchInputDesktop");
         const mobileSearch = document.getElementById("chipSearchInputMobile");
         if (desktopSearch) {
@@ -2370,7 +2178,6 @@
     }
     
     function initTabs() {
-        // 电脑端侧边栏点击
         document.querySelectorAll('.sidebar .tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 let pageId = btn.dataset.page;
@@ -2383,12 +2190,9 @@
                     } else {
                         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
                         document.getElementById('vehiclesPage').classList.add('active-page');
-                        // 更新手机端头部显示
                         if (isMobileDevice()) {
                             document.getElementById('mobileFixedHeader').style.display = 'flex';
                             document.getElementById('chipMobileFixedHeader').style.display = 'none';
-                            const mobileFilter = document.getElementById('vehicleMobileFilter');
-                            if (mobileFilter) mobileFilter.style.display = 'block';
                         }
                         window.scrollTo(0, 0);
                     }
@@ -2419,7 +2223,6 @@
             });
         });
         
-        // 手机端车辆数据导航栏点击
         const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn');
         mobileTabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -2435,8 +2238,6 @@
                         document.getElementById('vehiclesPage').classList.add('active-page');
                         document.getElementById('mobileFixedHeader').style.display = 'flex';
                         document.getElementById('chipMobileFixedHeader').style.display = 'none';
-                        const mobileFilter = document.getElementById('vehicleMobileFilter');
-                        if (mobileFilter) mobileFilter.style.display = 'block';
                         window.scrollTo(0, 0);
                     }
                 } else if (pageId === 'chip') {
@@ -2462,7 +2263,6 @@
             });
         });
         
-        // 手机端芯片架构导航栏点击
         const chipMobileTabBtns = document.querySelectorAll('.chip-mobile-tab-btn');
         chipMobileTabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -2478,8 +2278,6 @@
                         document.getElementById('vehiclesPage').classList.add('active-page');
                         document.getElementById('mobileFixedHeader').style.display = 'flex';
                         document.getElementById('chipMobileFixedHeader').style.display = 'none';
-                        const mobileFilter = document.getElementById('vehicleMobileFilter');
-                        if (mobileFilter) mobileFilter.style.display = 'block';
                         window.scrollTo(0, 0);
                     }
                 } else if (pageId === 'chip') {
