@@ -773,7 +773,7 @@
         "turboSpeed": { "blue": "6.40 km/h", "purple": "9.60 km/h" },
         "ultPower": "5"
       },
-      "chipSlots": ["circle", "circle", "triangle", "vslot", "hexagon"],
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
       "skills": {
         "ult": {
           "name": "源远流长",
@@ -1549,7 +1549,7 @@
         "turboSpeed": { "blue": "5.00 km/h", "purple": "7.50 km/h" },
         "ultPower": "5"
       },
-      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "vslot"],
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
       "skills": {
         "ult": {
           "name": "锦上添花",
@@ -3239,7 +3239,7 @@
         "turboSpeed": { "blue": "7.80 km/h", "purple": "11.70 km/h" },
         "ultPower": "7"
       },
-      "chipSlots": [],
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "rhombus", "vslot"],
       "skills": {
         "ult": {
           "name": "创时代",
