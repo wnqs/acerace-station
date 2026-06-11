@@ -1043,6 +1043,19 @@
             .chip-desktop-header, .energy-desktop-header {
                 display: none;
             }
+            
+            /* 手机端芯片要求搭配容器变大 */
+            .chip-workshop {
+                margin: 0 16px 20px 16px !important;
+                padding: 12px 16px !important;
+            }
+            .workshop-placeholder {
+                padding: 20px 16px !important;
+                text-align: left !important;
+                word-break: break-word;
+                white-space: normal;
+                font-size: 0.85rem;
+            }
         }
         
         @media (min-width: 769px) {
@@ -1067,6 +1080,47 @@
             .chip-desc { font-size: 0.65rem; }
             .chip-meta-tag, .energy-meta-tag { font-size: 0.5rem; }
             .chip-quality-tag { font-size: 0.5rem; padding: 1px 5px; }
+        }
+        
+        /* 芯片要求搭配内容通用样式 - 电脑端和手机端共用 */
+        .chip-recommendation-config {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #feca57;
+            margin-bottom: 16px;
+            line-height: 1.5;
+            word-break: break-word;
+            white-space: normal;
+        }
+        .chip-recommendation-requirement {
+            font-weight: 700;
+            color: #e2e2e6;
+            margin-bottom: 12px;
+            line-height: 1.6;
+            word-break: break-word;
+            white-space: normal;
+        }
+        .chip-recommendation-requirement:last-child {
+            margin-bottom: 0;
+        }
+        .workshop-placeholder {
+            text-align: left;
+            white-space: normal;
+            word-break: break-word;
+        }
+        
+        @media (max-width: 768px) {
+            .chip-recommendation-config {
+                font-size: 0.95rem;
+                margin-bottom: 12px;
+            }
+            .chip-recommendation-requirement {
+                margin-bottom: 10px;
+                font-size: 0.8rem;
+            }
+            .workshop-placeholder {
+                padding: 16px 12px !important;
+            }
         }
     </style>
     <!-- 芯片计算器专用样式 -->
@@ -2360,7 +2414,7 @@
         }
     }
     
-    // 格式化芯片搭配内容：第一行（配置）字体更大加粗，后续行（要求）正常加粗，所有数字标红
+    // 格式化芯片搭配内容：所有芯片/氮气配置行（以"神芯"、"猫芯"等开头或包含"芯"、"循环"等关键词的行）字体放大变黄，要求行正常加粗
     function formatChipRecommendation(content) {
         if (!content) return '';
         const lines = content.split('\n');
@@ -2371,17 +2425,37 @@
             return text.replace(/(\d+(?:\.\d+)?)/g, '<span class="red-number">$1</span>');
         };
         
+        // 判断是否是芯片/氮气配置行（包含"芯"或"循环"或"神芯"、"猫芯"等关键词，且不是以"-"开头的）
+        const isConfigLine = (line) => {
+            // 以"-"开头的通常是要举行，不是配置行
+            if (line.trim().startsWith('-')) return false;
+            // 包含芯片关键词或循环关键词
+            const configKeywords = ['芯', '循环', '神芯', '猫芯', '效率', '一大', '气循环', '氮气'];
+            for (const kw of configKeywords) {
+                if (line.includes(kw)) return true;
+            }
+            return false;
+        };
+        
         let html = '';
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i].trim();
             if (line === '') continue;
             
-            // 第一行：芯片氮气配置，字体更大加粗
-            if (i === 0) {
-                html += `<div style="font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; color: #feca57; line-height: 1.5;">${highlightNumbers(line)}</div>`;
+            // 去掉开头的"-"符号
+            let cleanLine = line;
+            let isRequirement = false;
+            if (cleanLine.startsWith('-')) {
+                cleanLine = cleanLine.substring(1).trim();
+                isRequirement = true;
+            }
+            
+            if (isConfigLine(line) && !isRequirement) {
+                // 芯片/氮气配置行：字体放大变黄
+                html += `<div class="chip-recommendation-config">${highlightNumbers(cleanLine)}</div>`;
             } else {
-                // 后续行：要求相关，正常加粗
-                html += `<div style="font-weight: 700; margin-bottom: 8px; color: #e2e2e6; line-height: 1.5;">${highlightNumbers(line)}</div>`;
+                // 要求行：正常加粗，正常颜色
+                html += `<div class="chip-recommendation-requirement">${highlightNumbers(cleanLine)}</div>`;
             }
         }
         return html;
@@ -2718,7 +2792,7 @@
         const recommendation = chipRecommendations[car.name];
         if (recommendation && recommendation.content) {
             const formattedContent = formatChipRecommendation(recommendation.content);
-            workshopHtml = `<div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder" style="text-align: left; padding: 16px;">${formattedContent}</div>`;
+            workshopHtml = `<div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder" style="text-align: left; padding: 20px;">${formattedContent}</div>`;
         } else {
             // 没有搭配数据时只显示简单提示，不显示第二行
             workshopHtml = `<div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder">暂无芯片搭配推荐</div>`;
