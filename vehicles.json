@@ -4419,6 +4419,56 @@
       },
       "ultIcon": "https://s3.bmp.ovh/2026/06/11/uZSTLAYf.png",
       "passiveIcon": "https://s3.bmp.ovh/2026/06/11/t5VmqJvP.png"
+    },
+    {     
+      "id": "yingbao_r_abt",
+      "name": "影豹R·ABT联名版",
+      "quality": "史诗",
+      "position": "竞速",
+      "specialty": "城市",
+      "imageUrl": "https://a1.boltp.com/2026/06/11/6a2a9f07e1858.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "城市",
+      "description": "养精蓄锐以恢复耐久",
+      "skillName": "养精蓄锐",
+      "searchKeywords": ["影豹R·ABT联名版", "养精蓄锐", "自我复原"],
+      "registerDate": "2023-11-17",
+      "vehicleType": "真实阵营",
+      "manufacturer": "广汽传祺",
+      "acquisition": "限时活动（影豹工坊）",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/09/aKaS8UN8.png",
+      "stats": {
+        "topSpeed": "214.0 km/h",
+        "power": "7.42",
+        "durability": "85",
+        "nitroCharge": "25.0%",
+        "startCharge": "25.0%",
+        "nitroDuration": "5.40 s",
+        "nitroSpeed": { "blue": "20.00 km/h", "purple": "30.00 km/h" },
+        "turboDuration": { "blue": "0.62 s", "purple": "1.86 s" },
+        "turboSpeed": { "blue": "6.40 km/h", "purple": "9.60 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "养精蓄锐",
+          "desc": "加速推进并进入长达16秒的养精蓄锐模式：极速提升16km/h；每秒恢复4点耐久；开启时净化自身负面效果；加速结束时获得5000集气量",
+          "recu": "养精蓄锐可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "自我复原",
+          "desc": "大招能量达到50%即可使用，每次使用大招恢复20点耐久值"
+        },
+        "features": [
+          { "name": "耐久恢复", "desc": "技能可恢复自身耐久值", "color": "蓝" },
+          { "name": "续航", "desc": "单人比赛时续航能力强", "color": "蓝" },
+          { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/08/LW7fz4Ho.png",
+      "passiveIcon": "https://a1.boltp.com/2026/06/11/6a2a8b0f0c936.png"
     }
   ]
 }
