@@ -458,7 +458,7 @@
         .car-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px; flex-wrap: wrap; }
         .car-name { font-size: 1.1rem; font-weight: 700; color: #e2e2e6; flex-shrink: 1; word-break: break-word; }
         .car-meta { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; align-items: center; }
-        /* 修复手机端图标过大问题：限制图标尺寸 */
+        /* 修复手机端图标过大问题：统一图标尺寸 */
         .meta-item { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 40px; font-size: 0.7rem; color: #a0a0b8; font-weight: 500; }
         .meta-item img { width: 16px; height: 16px; max-width: 16px; max-height: 16px; object-fit: contain; }
         .car-description { font-size: 0.75rem; color: #8a8aa3; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; line-height: 1.4; font-weight: 400; }
@@ -2339,7 +2339,7 @@
         }
     }
     
-    // 加载芯片搭配数据
+    // 加载芯片搭配数据 (新增)
     async function loadChipRecommendations() {
         try {
             const response = await fetch('./chip_recs.json');
@@ -2673,6 +2673,7 @@
         // 获取芯片搭配内容
         let workshopHtml = '';
         const recommendation = chipRecommendations[car.name];
+        console.log('车辆:', car.name, '搭配数据:', recommendation);
         if (recommendation && recommendation.content) {
             workshopHtml = `<div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder" style="white-space: pre-line; font-family: monospace; text-align: left; padding: 16px;">${escapeHtml(recommendation.content)}</div>`;
         } else {
@@ -2749,7 +2750,7 @@
             <div class="cars-grid" id="carsGrid"></div>
             <div class="stats-text" id="statsText">加载中...</div>`;
         attachSearchInputEvents();
-        // 修复电脑端筛选栏不显示的问题：确保重新绑定筛选按钮
+        // 修复电脑端筛选栏不显示的问题：重新初始化筛选按钮
         initVehicleFilters();
         renderList();
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
