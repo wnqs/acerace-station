@@ -2360,6 +2360,33 @@
         }
     }
     
+    // 格式化芯片搭配内容：第一行（配置）字体更大加粗，后续行（要求）正常加粗，所有数字标红
+    function formatChipRecommendation(content) {
+        if (!content) return '';
+        const lines = content.split('\n');
+        if (lines.length === 0) return '';
+        
+        // 处理数字标红的函数
+        const highlightNumbers = (text) => {
+            return text.replace(/(\d+(?:\.\d+)?)/g, '<span class="red-number">$1</span>');
+        };
+        
+        let html = '';
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i].trim();
+            if (line === '') continue;
+            
+            // 第一行：芯片氮气配置，字体更大加粗
+            if (i === 0) {
+                html += `<div style="font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; color: #feca57; line-height: 1.5;">${highlightNumbers(line)}</div>`;
+            } else {
+                // 后续行：要求相关，正常加粗
+                html += `<div style="font-weight: 700; margin-bottom: 8px; color: #e2e2e6; line-height: 1.5;">${highlightNumbers(line)}</div>`;
+            }
+        }
+        return html;
+    }
+    
     async function loadData() {
         try {
             const vehiclesUrl = './vehicles.json';
@@ -2686,13 +2713,15 @@
         let spBlockHtml = '';
         if (car.sp) { let spDesc = formatSkillText(car.sp.desc); spBlockHtml = `<div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.sp.icon}"></div><div class="skill-title">SP：${car.sp.name}</div></div><div class="skill-desc"><div class="sp-cooltime">冷却时间：${car.sp.cooltime}</div>${spDesc}</div></div>`; }
         
-        // 获取芯片搭配内容 - 使用车辆名称作为键名
+        // 获取芯片搭配内容 - 使用车辆名称作为键名，并格式化显示
         let workshopHtml = '';
         const recommendation = chipRecommendations[car.name];
         if (recommendation && recommendation.content) {
-            workshopHtml = `<div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder" style="white-space: pre-line; font-family: monospace; text-align: left; padding: 16px;">${escapeHtml(recommendation.content)}</div>`;
+            const formattedContent = formatChipRecommendation(recommendation.content);
+            workshopHtml = `<div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder" style="text-align: left; padding: 16px;">${formattedContent}</div>`;
         } else {
-            workshopHtml = `<div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder">暂无芯片搭配推荐<br>请在 chip_recs.json 中添加该车辆的搭配数据</div>`;
+            // 没有搭配数据时只显示简单提示，不显示第二行
+            workshopHtml = `<div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder">暂无芯片搭配推荐</div>`;
         }
         
         let html = `<div class="detail-container">
