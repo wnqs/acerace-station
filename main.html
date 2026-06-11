@@ -733,7 +733,6 @@
             .filter-section { margin-bottom: 12px; }
             .filter-section-title { font-size: 0.65rem; color: #feca57; margin-bottom: 5px; padding-left: 4px; font-weight: 700; }
             .filter-options { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-start; }
-            /* 修复手机端图标与文字统一大小 */
             .filter-option, .quality-option { background: #2a2a3c; border-radius: 30px; padding: 6px 12px; font-size: 0.7rem; cursor: pointer; color: #a0a0b8; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
             .filter-option img { width: 14px; height: 14px; max-width: 14px; max-height: 14px; object-fit: contain; }
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
@@ -2351,6 +2350,10 @@
             if (data.recommendations) {
                 chipRecommendations = data.recommendations;
                 console.log('芯片搭配数据加载成功，共', Object.keys(chipRecommendations).length, '条配置');
+            } else if (data["比亚迪·汉"]) {
+                // 兼容直接以车辆名为键的格式
+                chipRecommendations = data;
+                console.log('芯片搭配数据加载成功（直接格式），共', Object.keys(chipRecommendations).length, '条配置');
             }
         } catch (error) {
             console.log('加载 chip_recs.json 失败:', error);
@@ -2386,7 +2389,7 @@
             initFilters();
             attachSearchInputEvents();
             
-            // 加载芯片搭配数据
+            // 【关键修复】先加载芯片搭配数据，等待完成后再渲染车辆
             await loadChipRecommendations();
             
             const headerBackBtn = document.getElementById('headerBackBtn');
@@ -2559,7 +2562,6 @@
             updateFilterUI();
         } else {
             if (mobileFixedHeader) mobileFixedHeader.style.display = 'none';
-            // 电脑端筛选栏初始化：确保初始状态下正确渲染
             const desktopPosition = document.getElementById('desktopPositionOptions');
             const desktopSpecialty = document.getElementById('desktopSpecialtyOptions');
             const desktopQuality = document.getElementById('desktopQualityOptions');
@@ -2684,7 +2686,7 @@
         let spBlockHtml = '';
         if (car.sp) { let spDesc = formatSkillText(car.sp.desc); spBlockHtml = `<div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.sp.icon}"></div><div class="skill-title">SP：${car.sp.name}</div></div><div class="skill-desc"><div class="sp-cooltime">冷却时间：${car.sp.cooltime}</div>${spDesc}</div></div>`; }
         
-        // 获取芯片搭配内容
+        // 获取芯片搭配内容 - 使用车辆名称作为键名
         let workshopHtml = '';
         const recommendation = chipRecommendations[car.name];
         if (recommendation && recommendation.content) {
@@ -2763,7 +2765,6 @@
             <div class="cars-grid" id="carsGrid"></div>
             <div class="stats-text" id="statsText">加载中...</div>`;
         attachSearchInputEvents();
-        // 修复电脑端筛选栏不显示的问题：确保重新绑定筛选按钮
         initVehicleFilters();
         renderList();
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
@@ -2784,7 +2785,6 @@
             desktopSpecialty.innerHTML = specialties.map(s => `<div class="desktop-filter-option" data-type="specialty" data-value="${s}"><img src="${SPECIALTY_ICONS[s]}"> ${s}</div>`).join("");
             desktopQuality.innerHTML = qualities.map(q => `<div class="desktop-quality-option" data-type="quality" data-value="${q}">${q}</div>`).join("");
             
-            // 重新绑定筛选按钮点击事件
             document.querySelectorAll('#desktopPositionOptions .desktop-filter-option, #desktopSpecialtyOptions .desktop-filter-option, #desktopQualityOptions .desktop-quality-option').forEach(opt => {
                 opt.removeEventListener('click', opt._clickHandler);
                 opt.addEventListener('click', opt._clickHandler = () => {
