@@ -1101,7 +1101,7 @@
             .mobile-fixed-header { display: none; }
             .chip-mobile-fixed-header { display: none; }
             .energy-mobile-fixed-header { display: none; }
-            /* 电脑端折叠按钮样式 */
+            /* 电脑端折叠按钮样式 - 默认折叠 */
             .chip-recommendation-toggle {
                 display: flex;
                 justify-content: center;
@@ -1130,9 +1130,15 @@
             .chip-recommendation-toggle.expanded .arrow-icon {
                 transform: rotate(180deg);
             }
+            /* 电脑端折叠内容 - 默认折叠 */
             .chip-recommendation-collapsible {
-                max-height: none !important;
-                overflow: visible !important;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+            .chip-recommendation-collapsible.expanded {
+                max-height: 1000px;
+                overflow-y: auto;
             }
         }
         
@@ -2592,7 +2598,7 @@
                 }
             });
             
-            // 默认展开状态
+            // 默认展开状态（设置为折叠）
             if (!collapsibleContent.classList.contains('expanded')) {
                 const textSpan = newToggleBtn.querySelector('span:first-child');
                 if (textSpan) textSpan.textContent = '▼ 展开查看详细搭配';
