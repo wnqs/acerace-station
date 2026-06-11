@@ -1044,17 +1044,54 @@
                 display: none;
             }
             
-            /* 手机端芯片要求搭配容器变大 */
+            /* 手机端芯片要求搭配容器变大 + 下拉查看功能 */
             .chip-workshop {
                 margin: 0 16px 20px 16px !important;
                 padding: 12px 16px !important;
             }
             .workshop-placeholder {
-                padding: 20px 16px !important;
+                padding: 16px 12px !important;
                 text-align: left !important;
                 word-break: break-word;
                 white-space: normal;
                 font-size: 0.85rem;
+            }
+            /* 折叠按钮样式 */
+            .chip-recommendation-toggle {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+                width: 100%;
+                padding: 10px 0;
+                margin-top: 12px;
+                background: rgba(254, 202, 87, 0.15);
+                border: 1px solid rgba(254, 202, 87, 0.3);
+                border-radius: 40px;
+                cursor: pointer;
+                color: #feca57;
+                font-size: 0.75rem;
+                font-weight: 600;
+                transition: all 0.2s;
+            }
+            .chip-recommendation-toggle:hover {
+                background: rgba(254, 202, 87, 0.25);
+            }
+            .chip-recommendation-toggle .arrow-icon {
+                font-size: 0.7rem;
+                transition: transform 0.2s;
+            }
+            .chip-recommendation-toggle.expanded .arrow-icon {
+                transform: rotate(180deg);
+            }
+            .chip-recommendation-collapsible {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+            .chip-recommendation-collapsible.expanded {
+                max-height: 500px;
+                overflow-y: auto;
             }
         }
         
@@ -1063,6 +1100,38 @@
             .mobile-fixed-header { display: none; }
             .chip-mobile-fixed-header { display: none; }
             .energy-mobile-fixed-header { display: none; }
+            /* 电脑端折叠按钮默认显示，内容默认展开 */
+            .chip-recommendation-toggle {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+                width: 100%;
+                padding: 10px 0;
+                margin-top: 12px;
+                background: rgba(254, 202, 87, 0.15);
+                border: 1px solid rgba(254, 202, 87, 0.3);
+                border-radius: 40px;
+                cursor: pointer;
+                color: #feca57;
+                font-size: 0.75rem;
+                font-weight: 600;
+                transition: all 0.2s;
+            }
+            .chip-recommendation-toggle:hover {
+                background: rgba(254, 202, 87, 0.25);
+            }
+            .chip-recommendation-toggle .arrow-icon {
+                font-size: 0.7rem;
+                transition: transform 0.2s;
+            }
+            .chip-recommendation-toggle.expanded .arrow-icon {
+                transform: rotate(180deg);
+            }
+            .chip-recommendation-collapsible {
+                max-height: none !important;
+                overflow: visible !important;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1097,11 +1166,19 @@
             color: #e2e2e6;
             margin-bottom: 12px;
             line-height: 1.6;
-            word-break: break-word;
+            word-break: keep-all;
             white-space: normal;
+            display: inline-block;
+            margin-right: 32px;
         }
         .chip-recommendation-requirement:last-child {
             margin-bottom: 0;
+        }
+        .chip-recommendation-requirements-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 32px;
+            align-items: center;
         }
         .workshop-placeholder {
             text-align: left;
@@ -1115,8 +1192,12 @@
                 margin-bottom: 12px;
             }
             .chip-recommendation-requirement {
-                margin-bottom: 10px;
+                margin-bottom: 8px;
+                margin-right: 24px;
                 font-size: 0.8rem;
+            }
+            .chip-recommendation-requirements-row {
+                gap: 6px 24px;
             }
             .workshop-placeholder {
                 padding: 16px 12px !important;
@@ -2414,7 +2495,7 @@
         }
     }
     
-    // 格式化芯片搭配内容：所有芯片/氮气配置行（以"神芯"、"猫芯"等开头或包含"芯"、"循环"等关键词的行）字体放大变黄，要求行正常加粗
+    // 格式化芯片搭配内容：所有芯片/氮气配置行字体放大变黄，要求行之间间距增大，每个要求完整换行
     function formatChipRecommendation(content) {
         if (!content) return '';
         const lines = content.split('\n');
@@ -2425,11 +2506,9 @@
             return text.replace(/(\d+(?:\.\d+)?)/g, '<span class="red-number">$1</span>');
         };
         
-        // 判断是否是芯片/氮气配置行（包含"芯"或"循环"或"神芯"、"猫芯"等关键词，且不是以"-"开头的）
+        // 判断是否是芯片/氮气配置行
         const isConfigLine = (line) => {
-            // 以"-"开头的通常是要举行，不是配置行
             if (line.trim().startsWith('-')) return false;
-            // 包含芯片关键词或循环关键词
             const configKeywords = ['芯', '循环', '神芯', '猫芯', '效率', '一大', '气循环', '氮气'];
             for (const kw of configKeywords) {
                 if (line.includes(kw)) return true;
@@ -2438,11 +2517,12 @@
         };
         
         let html = '';
+        let currentConfigDiv = null;
+        
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i].trim();
             if (line === '') continue;
             
-            // 去掉开头的"-"符号
             let cleanLine = line;
             let isRequirement = false;
             if (cleanLine.startsWith('-')) {
@@ -2451,14 +2531,45 @@
             }
             
             if (isConfigLine(line) && !isRequirement) {
-                // 芯片/氮气配置行：字体放大变黄
+                // 芯片/氮气配置行：单独一行，字体放大变黄
+                if (currentConfigDiv) {
+                    html += currentConfigDiv;
+                }
                 html += `<div class="chip-recommendation-config">${highlightNumbers(cleanLine)}</div>`;
+                currentConfigDiv = null;
             } else {
-                // 要求行：正常加粗，正常颜色
-                html += `<div class="chip-recommendation-requirement">${highlightNumbers(cleanLine)}</div>`;
+                // 要求行：收集到当前配置的requirements-row中
+                if (!currentConfigDiv) {
+                    currentConfigDiv = '<div class="chip-recommendation-requirements-row">';
+                }
+                currentConfigDiv += `<span class="chip-recommendation-requirement">${highlightNumbers(cleanLine)}</span>`;
             }
         }
+        
+        if (currentConfigDiv) {
+            currentConfigDiv += '</div>';
+            html += currentConfigDiv;
+        }
+        
         return html;
+    }
+    
+    // 为芯片要求搭配添加折叠功能
+    function initChipRecommendationToggle() {
+        const toggleBtn = document.getElementById('chipRecoToggleBtn');
+        const collapsibleContent = document.getElementById('chipRecoCollapsible');
+        
+        if (toggleBtn && collapsibleContent) {
+            // 移除旧的事件监听器
+            const newToggleBtn = toggleBtn.cloneNode(true);
+            toggleBtn.parentNode.replaceChild(newToggleBtn, toggleBtn);
+            
+            newToggleBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                collapsibleContent.classList.toggle('expanded');
+                newToggleBtn.classList.toggle('expanded');
+            });
+        }
     }
     
     async function loadData() {
@@ -2787,14 +2898,34 @@
         let spBlockHtml = '';
         if (car.sp) { let spDesc = formatSkillText(car.sp.desc); spBlockHtml = `<div class="skill-block"><div class="skill-header"><div class="skill-icon"><img src="${car.sp.icon}"></div><div class="skill-title">SP：${car.sp.name}</div></div><div class="skill-desc"><div class="sp-cooltime">冷却时间：${car.sp.cooltime}</div>${spDesc}</div></div>`; }
         
-        // 获取芯片搭配内容 - 使用车辆名称作为键名，并格式化显示
+        // 获取芯片搭配内容 - 使用车辆名称作为键名，并格式化显示，添加折叠功能
         let workshopHtml = '';
         const recommendation = chipRecommendations[car.name];
+        
+        // 格式化后的内容
+        let formattedContent = '';
+        let hasContent = false;
+        
         if (recommendation && recommendation.content) {
-            const formattedContent = formatChipRecommendation(recommendation.content);
-            workshopHtml = `<div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder" style="text-align: left; padding: 20px;">${formattedContent}</div>`;
+            formattedContent = formatChipRecommendation(recommendation.content);
+            hasContent = true;
+        }
+        
+        if (hasContent) {
+            workshopHtml = `<div class="workshop-title">芯片要求搭配</div>
+                <div class="chip-recommendation-toggle" id="chipRecoToggleBtn">
+                    <span>▼ 展开查看详细搭配</span>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="chip-recommendation-collapsible" id="chipRecoCollapsible">
+                    <div class="workshop-placeholder" style="text-align: left; padding: 16px;">${formattedContent}</div>
+                </div>`;
+            // 使用 setTimeout 确保 DOM 渲染完成后绑定事件
+            setTimeout(() => {
+                initChipRecommendationToggle();
+            }, 50);
         } else {
-            // 没有搭配数据时只显示简单提示，不显示第二行
+            // 没有搭配数据时只显示简单提示
             workshopHtml = `<div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder">暂无芯片搭配推荐</div>`;
         }
         
@@ -2822,6 +2953,11 @@
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         vehiclesPage.classList.add('active-page');
         window.scrollTo(0, 0);
+        
+        // 确保折叠功能绑定
+        setTimeout(() => {
+            initChipRecommendationToggle();
+        }, 100);
     }
     
     // 辅助函数：转义HTML特殊字符
@@ -3508,33 +3644,37 @@
         window.scrollTo(0, 0);
     }
     
+    // 返回键逻辑：先清空筛选条件，再按一次才退出网站
     function handleBackButton() {
         const now = Date.now();
         
+        // 车辆数据详情页：返回列表
         if (isInDetail && currentPage === 'vehicles') {
             handleVehicleBackToList();
             return true;
         }
         
-        if (currentPage === 'chip') {
-            if (handleChipBack()) return true;
-        }
-        
-        if (currentPage === 'energy') {
-            if (handleEnergyBack()) return true;
-        }
-        
+        // 车辆数据列表页：如果有筛选条件，先清空
         if (currentPage === 'vehicles' && !isInDetail) {
             if (handleVehicleListBack()) return true;
         }
         
-        if (currentPage === 'calculator') {
-            const hasActiveCalcFilter = false;
-            if (hasActiveCalcFilter) {
-                return true;
-            }
+        // 芯片架构页：如果有筛选条件，先清空
+        if (currentPage === 'chip') {
+            if (handleChipBack()) return true;
         }
         
+        // 赋能系统页：如果有筛选条件，先清空
+        if (currentPage === 'energy') {
+            if (handleEnergyBack()) return true;
+        }
+        
+        // 计算器页面：没有筛选逻辑，直接退出
+        if (currentPage === 'calculator') {
+            // 计算器没有筛选，直接走退出逻辑
+        }
+        
+        // 第二次按返回键或没有筛选条件时退出
         if (now - lastBackTime < 500) {
             if (window.history.length <= 1) window.close();
             else history.back();
