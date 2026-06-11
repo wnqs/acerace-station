@@ -458,7 +458,6 @@
         .car-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px; flex-wrap: wrap; }
         .car-name { font-size: 1.1rem; font-weight: 700; color: #e2e2e6; flex-shrink: 1; word-break: break-word; }
         .car-meta { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; align-items: center; }
-        /* 修复手机端图标过大问题：统一图标尺寸 */
         .meta-item { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 40px; font-size: 0.7rem; color: #a0a0b8; font-weight: 500; }
         .meta-item img { width: 16px; height: 16px; max-width: 16px; max-height: 16px; object-fit: contain; }
         .car-description { font-size: 0.75rem; color: #8a8aa3; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; line-height: 1.4; font-weight: 400; }
@@ -734,7 +733,9 @@
             .filter-section { margin-bottom: 12px; }
             .filter-section-title { font-size: 0.65rem; color: #feca57; margin-bottom: 5px; padding-left: 4px; font-weight: 700; }
             .filter-options { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-start; }
-            .filter-option, .quality-option { background: #2a2a3c; border-radius: 30px; padding: 6px 12px; font-size: 0.7rem; cursor: pointer; color: #a0a0b8; font-weight: 600; }
+            /* 修复手机端图标与文字统一大小 */
+            .filter-option, .quality-option { background: #2a2a3c; border-radius: 30px; padding: 6px 12px; font-size: 0.7rem; cursor: pointer; color: #a0a0b8; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+            .filter-option img { width: 14px; height: 14px; max-width: 14px; max-height: 14px; object-fit: contain; }
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
             
             .main-content { margin-left: 0; margin-top: 0; padding: 12px; width: 100%; }
@@ -745,7 +746,6 @@
             .car-name { font-size: 0.85rem; }
             .acquisition-icon { width: 40px; height: 40px; bottom: 6px; right: 6px; }
             .quality-badge { font-size: 0.55rem; padding: 2px 8px; }
-            /* 手机端图标尺寸限制 */
             .meta-item { font-size: 0.6rem; padding: 3px 8px; }
             .meta-item img { width: 14px; height: 14px; max-width: 14px; max-height: 14px; }
             .car-description { font-size: 0.65rem; }
@@ -2339,7 +2339,7 @@
         }
     }
     
-    // 加载芯片搭配数据 (新增)
+    // 加载芯片搭配数据
     async function loadChipRecommendations() {
         try {
             const response = await fetch('./chip_recs.json');
@@ -2559,18 +2559,32 @@
             updateFilterUI();
         } else {
             if (mobileFixedHeader) mobileFixedHeader.style.display = 'none';
-            document.querySelectorAll('#desktopPositionOptions .desktop-filter-option').forEach(opt => {
-                opt.removeEventListener('click', opt._clickHandler);
-                opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.position = (activeFilters.position === val) ? "" : val; updateDesktopFilterUI(); renderList(); });
-            });
-            document.querySelectorAll('#desktopSpecialtyOptions .desktop-filter-option').forEach(opt => {
-                opt.removeEventListener('click', opt._clickHandler);
-                opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.specialty = (activeFilters.specialty === val) ? "" : val; updateDesktopFilterUI(); renderList(); });
-            });
-            document.querySelectorAll('#desktopQualityOptions .desktop-quality-option').forEach(opt => {
-                opt.removeEventListener('click', opt._clickHandler);
-                opt.addEventListener('click', opt._clickHandler = () => { let val = opt.dataset.value; activeFilters.quality = (activeFilters.quality === val) ? "" : val; updateDesktopFilterUI(); renderList(); });
-            });
+            // 电脑端筛选栏初始化：确保初始状态下正确渲染
+            const desktopPosition = document.getElementById('desktopPositionOptions');
+            const desktopSpecialty = document.getElementById('desktopSpecialtyOptions');
+            const desktopQuality = document.getElementById('desktopQualityOptions');
+            if (desktopPosition) {
+                desktopPosition.innerHTML = '';
+                desktopSpecialty.innerHTML = '';
+                desktopQuality.innerHTML = '';
+                const qualities = ["传说", "史诗", "稀有", "普通"];
+                const positions = ["辅助", "竞速", "干扰", "天平"];
+                const specialties = ["城市", "山路", "场地"];
+                desktopPosition.innerHTML = positions.map(p => `<div class="desktop-filter-option" data-type="position" data-value="${p}"><img src="${POSITION_ICONS[p]}"> ${p}</div>`).join("");
+                desktopSpecialty.innerHTML = specialties.map(s => `<div class="desktop-filter-option" data-type="specialty" data-value="${s}"><img src="${SPECIALTY_ICONS[s]}"> ${s}</div>`).join("");
+                desktopQuality.innerHTML = qualities.map(q => `<div class="desktop-quality-option" data-type="quality" data-value="${q}">${q}</div>`).join("");
+                document.querySelectorAll('#desktopPositionOptions .desktop-filter-option, #desktopSpecialtyOptions .desktop-filter-option, #desktopQualityOptions .desktop-quality-option').forEach(opt => {
+                    opt.removeEventListener('click', opt._clickHandler);
+                    opt.addEventListener('click', opt._clickHandler = () => {
+                        const type = opt.dataset.type;
+                        const val = opt.dataset.value;
+                        if (activeFilters[type] === val) activeFilters[type] = "";
+                        else activeFilters[type] = val;
+                        updateDesktopFilterUI();
+                        renderList();
+                    });
+                });
+            }
             updateDesktopFilterUI();
         }
     }
@@ -2673,7 +2687,6 @@
         // 获取芯片搭配内容
         let workshopHtml = '';
         const recommendation = chipRecommendations[car.name];
-        console.log('车辆:', car.name, '搭配数据:', recommendation);
         if (recommendation && recommendation.content) {
             workshopHtml = `<div class="workshop-title">芯片要求搭配</div><div class="workshop-placeholder" style="white-space: pre-line; font-family: monospace; text-align: left; padding: 16px;">${escapeHtml(recommendation.content)}</div>`;
         } else {
@@ -2750,7 +2763,7 @@
             <div class="cars-grid" id="carsGrid"></div>
             <div class="stats-text" id="statsText">加载中...</div>`;
         attachSearchInputEvents();
-        // 修复电脑端筛选栏不显示的问题：重新初始化筛选按钮
+        // 修复电脑端筛选栏不显示的问题：确保重新绑定筛选按钮
         initVehicleFilters();
         renderList();
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
