@@ -934,6 +934,7 @@
                 padding-left: 4px;
                 font-weight: 700;
             }
+            /* 修复手机端筛选选项显示问题 */
             .chip-mobile-filter-options, .energy-mobile-filter-options {
                 display: flex;
                 flex-wrap: wrap;
@@ -948,6 +949,8 @@
                 cursor: pointer;
                 color: #a0a0b8;
                 font-weight: 600;
+                display: inline-block;
+                white-space: nowrap;
             }
             .chip-mobile-filter-option.active, .energy-mobile-filter-option.active {
                 background: #feca57;
