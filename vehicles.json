@@ -6203,7 +6203,7 @@
         "turboDuration": { "blue": "0.65 s", "purple": "1.95 s" },
         "turboSpeed": { "blue": "6.00 km/h", "purple": "9.00 km/h" },
         "ultPower": "6"
-  
+      },
       "chipSlots": ["circle", "circle", "rhombus", "vslot", "hexagon", "hexagon"],
       "skills": {
         "ult": {
