@@ -799,7 +799,10 @@
             .stats-text { font-size: 0.75rem; font-weight: 500; }
             .skill-desc { font-size: 0.75rem; padding: 10px 12px; }
             .sub-skill-desc { font-size: 0.7rem; }
-            .desktop-header { display: none; }
+            /* 手机端隐藏电脑端搜索框区域 */
+            .desktop-header, .chip-desktop-header, .energy-desktop-header {
+                display: none !important;
+            }
             
             /* 手机端芯片架构样式 */
             .chip-mobile-fixed-header, .energy-mobile-fixed-header {
@@ -1104,6 +1107,14 @@
             .chip-recommendation-collapsible.expanded {
                 max-height: 1000px;
                 overflow-y: auto;
+            }
+            
+            /* 手机端计算器页面与顶部导航栏贴紧 */
+            #calculatorPage {
+                margin-top: -10px;
+            }
+            .calculator-container .card:first-child {
+                margin-top: 0;
             }
         }
         
@@ -1953,7 +1964,7 @@
             <div class="stats-text" id="statsText">加载中...</div>
         </div>
         
-        <!-- 芯片架构页面 -->
+        <!-- 芯片架构页面 - 电脑端使用desktop-header，手机端被CSS隐藏 -->
         <div id="chipPage" class="page">
             <div class="chip-desktop-header">
                 <div class="chip-desktop-header-top">
@@ -1984,7 +1995,7 @@
             <div class="stats-text" id="chipStatsText">加载芯片数据...</div>
         </div>
         
-        <!-- 赋能系统页面 -->
+        <!-- 赋能系统页面 - 电脑端使用desktop-header，手机端被CSS隐藏 -->
         <div id="energyPage" class="page">
             <div class="energy-desktop-header">
                 <div class="energy-desktop-header-top">
