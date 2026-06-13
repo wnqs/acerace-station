@@ -4003,41 +4003,14 @@
         }
         
         function formatJiAdvancedCalc(value) {
-            if (isNaN(value) || value === null) return "0.0%";
-            let percentValue = value;
-            if (percentValue > 30) percentValue = 30;
-            if (percentValue <= 0) return "0.0%";
-            let percentStr = percentValue.toFixed(6);
-            let percentNum = parseFloat(percentStr);
-            let integerPart = Math.floor(percentNum);
-            let fractionalPart = percentNum - integerPart;
-            let fractionalStr = fractionalPart.toFixed(6);
-            let decimalDigits = fractionalStr.substring(2);
-            while (decimalDigits.length < 6) decimalDigits += "0";
-            let thousandthDigit = decimalDigits.length > 2 ? parseInt(decimalDigits[2]) : 0;
-            let tenThousandthAndBeyond = decimalDigits.substring(3);
-            let allZeroAfterTenThousandth = true;
-            for (let i = 0; i < tenThousandthAndBeyond.length; i++) {
-                if (tenThousandthAndBeyond[i] !== '0') {
-                    allZeroAfterTenThousandth = false;
-                    break;
-                }
-            }
-            let finalPercent;
-            if (!allZeroAfterTenThousandth) {
-                if (thousandthDigit < 9) {
-                    let newDecimalDigits = decimalDigits.substring(0, 2) + (thousandthDigit + 1) + decimalDigits.substring(3);
-                    finalPercent = integerPart + parseFloat("0." + newDecimalDigits);
-                } else {
-                    finalPercent = integerPart + 1;
-                }
-            } else {
-                let truncatedDecimal = decimalDigits.substring(0, 3);
-                finalPercent = integerPart + parseFloat("0." + truncatedDecimal);
-            }
-            let formatted = finalPercent.toFixed(1);
-            return formatted + "%";
-        }
+    if (isNaN(value) || value === null) return "0.0%";
+    let percentValue = value;
+    if (percentValue > 30) percentValue = 30;
+    if (percentValue <= 0) return "0.0%";
+    // 向上取整到一位小数
+    let formatted = Math.ceil(percentValue * 10) / 10;
+    return formatted.toFixed(1) + "%";
+}
         
         function getEnergyValuesCalc(carName, chipType, isDoubleCycle) {
             if (!carName) return { firstEnergy: "--", cycleEnergy: "--" };
