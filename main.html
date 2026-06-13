@@ -3814,13 +3814,25 @@
         const calcStartNitroCount = document.getElementById('calcStartNitroCountDisplay');
         const calcCycleNitroCount = document.getElementById('calcCycleNitroCountDisplay');
         const calcOverrideR = document.getElementById('calcOverrideR');
-                // 直接设置反制默认值
-        const carTypeSelect = document.getElementById('calcCarType');
-        if (carTypeSelect && carTypeSelect.value === 'assist') {
-            calcOverrideR.value = '18';
-        } else {
-            calcOverrideR.value = '0';
-        }
+        
+        // 定时器确保反制默认值设置成功
+        setTimeout(function() {
+            const carTypeSelect = document.getElementById('calcCarType');
+            if (carTypeSelect && carTypeSelect.value === 'assist') {
+                calcOverrideR.value = '18';
+            } else {
+                calcOverrideR.value = '0';
+            }
+        }, 100);
+        
+        // 监听定位变化，实时更新反制值
+        document.getElementById('calcCarType').addEventListener('change', function() {
+            if (this.value === 'assist') {
+                calcOverrideR.value = '18';
+            } else {
+                calcOverrideR.value = '0';
+            }
+        });
         const calcMainEff = document.getElementById('calcMainEff');
         const calcSubEff = document.getElementById('calcSubEff');
         const calcExtraEff = document.getElementById('calcExtraEff');
