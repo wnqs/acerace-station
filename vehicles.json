@@ -7727,6 +7727,1694 @@
       },
       "ultIcon": "https://a1.boltp.com/2026/06/12/6a2c29814aca1.png",
       "passiveIcon": "https://a1.boltp.com/2026/06/12/6a2c2a2b125e5.png"
+    },
+    {      
+      "id": "poseidon",
+      "name": "波塞冬",
+      "quality": "传说",
+      "position": "干扰",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/13/jO3P8yIW.png",
+      "positionIcon": "干扰",
+      "specialtyIcon": "场地",
+      "description": "海啸袭击造成后退或侧移",
+      "skillName": "惊涛骇浪",
+      "searchKeywords": ["波塞冬", "惊涛骇浪", "纯净洋流"],
+      "registerDate": "2025-11-07",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "混沌",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/gsI0LDZl.png",
+      "stats": {
+        "topSpeed": "218.0 km/h",
+        "power": "7.66",
+        "durability": "120",
+        "nitroCharge": "28.0%",
+        "startCharge": "28.0%",
+        "nitroDuration": "5.40 s",
+        "nitroSpeed": { "blue": "22.00 km/h", "purple": "33.00 km/h" },
+        "turboDuration": { "blue": "0.65 s", "purple": "1.95 s" },
+        "turboSpeed": { "blue": "7.00 km/h", "purple": "10.50 km/h" },
+        "ultPower": "7"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "惊涛骇浪",
+          "desc": "激发海啸加速推进，极速提升75km/h，持续7秒：被海啸袭击的敌方车辆会侧移或后退25米；每次大招期间造成的干扰效果保持一致；大招开始时若处于第3名及以后名次，7秒内极速+45km/h",
+          "recu": "惊涛骇浪可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "纯净洋流",
+          "desc": "开局20秒后，场上其它车辆无法进入无法选中状态（持续锁定场上所有车辆，正处于无法选中状态的车辆不受影响）"
+        },
+        "features": [
+          { "name": "克制无法选中", "desc": "持续锁定场上未处于无法选中状态的车辆，使其无法进入无法选中状态", "color": "紫" },
+          { "name": "触碰干扰", "desc": "自身或技能效果触碰到敌方时命中", "color": "黄" },
+          { "name": "侧移", "desc": "强制敌方向赛道两侧位移", "color": "红" },
+          { "name": "后退", "desc": "强制敌方向后位移", "color": "红" },
+          { "name": "高极速", "desc": "技能提供大量极速加成", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/13/DCSuYF75.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/13/K2GIZjtn.png"
+    },
+    {
+      "id": "lotus_gt430",
+      "name": "莲花 GT430",
+      "quality": "史诗",
+      "position": "干扰",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/13/pJ1dB9dS.png",
+      "positionIcon": "干扰",
+      "specialtyIcon": "场地",
+      "description": "制造混乱气流扰乱敌方车辆",
+      "skillName": "扰流系统",
+      "searchKeywords": ["莲花 GT430", "扰流系统", "一鼓作气"],
+      "registerDate": "2021-07-23",
+      "vehicleType": "真实阵营",
+      "manufacturer": "莲花",
+      "acquisition": "累计充值",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/0xuTbssO.png",
+      "stats": {
+        "topSpeed": "213.3 km/h",
+        "power": "7.42",
+        "durability": "105",
+        "nitroCharge": "25.0%",
+        "startCharge": "25.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "26.20 km/h", "purple": "39.30 km/h" },
+        "turboDuration": { "blue": "0.60 s", "purple": "1.80 s" },
+        "turboSpeed": { "blue": "7.10 km/h", "purple": "10.70 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "扰流系统",
+          "desc": "加速推进，极速提升45km/h并且在车辆周身制造混乱的气体湍流干扰50米内的敌方辆：极速降低30km/h；封禁氮气效果，并失去芯片、尾流效果；被动：开局25秒内，敌方车辆失去尾流效果且只能通过漂移获得集气量",
+          "recu": "乱流下的敌方车辆无法使用大招，扰流系统可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "一鼓作气",
+          "desc": "开局30秒内，极速+7km/h。每60秒为全队净化负面效果（莲花清瘟有效，但生效慢）"
+        },
+        "features": [
+          { "name": "锁定干扰", "desc": "自动锁定范围内的目标", "color": "黄" },
+          { "name": "封禁大招", "desc": "被封禁的敌方无法使用大招", "color": "红" },
+          { "name": "封禁氮气", "desc": "被封禁的敌方无法使用氮气", "color": "红" },
+          { "name": "干扰集气", "desc": "干扰敌方的集气获取", "color": "红" },
+          { "name": "减速", "desc": "降低敌方的极速", "color": "红" },
+          { "name": "芯片失效", "desc": "使敌方失去芯片效果", "color": "红" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/13/yuoUtC44.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/13/SP1zYSoD.png"
+    },
+    {
+      "id": "wangpai_fangchengshi_evo",
+      "name": "王牌方程式 EVO",
+      "quality": "传说",
+      "position": "天平",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/13/fUQ6CXPZ.png",
+      "positionIcon": "天平",
+      "specialtyIcon": "场地",
+      "description": "使用氮气强化下一次大招",
+      "skillName": "电能释放",
+      "searchKeywords": ["王牌方程式 EVO", "电能释放", "电能激荡"],
+      "registerDate": "2025-08-29",
+      "vehicleType": "真实阵营",
+      "manufacturer": "平行世界",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/gsI0LDZl.png",
+      "stats": {
+        "topSpeed": "220.0 km/h",
+        "power": "8.05",
+        "durability": "110",
+        "nitroCharge": "32.0%",
+        "startCharge": "32.0%",
+        "nitroDuration": "5.80 s",
+        "nitroSpeed": { "blue": "22.20 km/h", "purple": "33.30 km/h" },
+        "turboDuration": { "blue": "0.74 s", "purple": "2.22 s" },
+        "turboSpeed": { "blue": "7.20 km/h", "purple": "10.80 km/h" },
+        "ultPower": "6"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "电能释放",
+          "desc": "将储存的电能释放，加速推进，极速提升60km/h，持续8秒。加速开始时：使随机一台敌方车辆进入感电状态8秒；感电状态中的车辆耐久损失+50%且集气量获取减少23%；被动：每次使用氮气后若（至少一个）大招已经就绪，将会对下一次大招进行一次强化：额外提供20km/h大招加速；额外命中一台敌方车辆。每个大招最多被强化两次",
+          "recu": "电能释放可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "电能激荡",
+          "desc": "开局35秒时在赛道中生成永久存在的电场，电场中的敌方车辆无法净化自身负面效果，电场中的友方车辆每秒自充能1.2%"
+        },
+        "features": [
+          { "name": "克制净化", "desc": "使敌方无法净化负面效果", "color": "紫" },
+          { "name": "锁定干扰", "desc": "自动锁定范围内的目标", "color": "黄" },
+          { "name": "干扰集气", "desc": "干扰敌方的集气获取", "color": "红" },
+          { "name": "耐久损失", "desc": "使敌方损失耐久", "color": "红" },
+          { "name": "友方充能", "desc": "为队友提供大招充能", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/13/GUc8RVUT.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/13/AF8qwtVz.png"
+    },
+    {
+      "id": "diana",
+      "name": "狄安娜",
+      "quality": "传说",
+      "position": "干扰",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/13/3oJp1jVN.png",
+      "positionIcon": "干扰",
+      "specialtyIcon": "场地",
+      "description": "全队合作狩猎，使敌方无法漂移且闪现距离降低",
+      "skillName": "皎月之狩",
+      "searchKeywords": ["狄安娜", "皎月之狩", "合作狩猎"],
+      "registerDate": "2025-05-30",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "混沌",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/gsI0LDZl.png",
+      "stats": {
+        "topSpeed": "220.0 km/h",
+        "power": "7.86",
+        "durability": "125",
+        "nitroCharge": "26.0%",
+        "startCharge": "26.0%",
+        "nitroDuration": "5.00 s",
+        "nitroSpeed": { "blue": "23.00 km/h", "purple": "34.50 km/h" },
+        "turboDuration": { "blue": "0.61 s", "purple": "1.83 s" },
+        "turboSpeed": { "blue": "7.40 km/h", "purple": "11.10 km/h" },
+        "ultPower": "7"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "rhombus", "vslot"],
+      "skills": {
+        "ult": {
+          "name": "皎月之狩",
+          "desc": "加速推进，极速提升75km/h，持续7秒。加速开始时将一名敌方标记为猎物并清除600米范围内召唤物（无论是否可见），每成功清除一个召唤物自充能50%。大招结束时：使750米范围内全部敌方7秒内无法闪现；已被标记的敌方受到充能效率永久降低和封禁漂移的额外干扰效果并清除猎物标记",
+          "recu": "皎月之狩可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "合作狩猎",
+          "desc": "队友每累计使用6次大招时将一名未被标记的敌方标记为猎物"
+        },
+        "features": [
+          { "name": "清除召唤物", "desc": "大招可以清除场上的召唤物", "color": "黄" },
+          { "name": "锁定干扰", "desc": "自动锁定范围内的目标", "color": "黄" },
+          { "name": "充能降低", "desc": "降低敌方的充能效率", "color": "红" },
+          { "name": "封禁漂移", "desc": "被封禁的敌方无法漂移", "color": "红" },
+          { "name": "无法闪现", "desc": "使敌方的闪现失效", "color": "红" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/13/dUTwsvsi.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/13/tTYlNZ9w.png"
+    },
+    {
+      "id": "lamborghini_aventador_j",
+      "name": "兰博基尼 Aventador J",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/13/emyfPpgM.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "友方赛车合体冲刺",
+      "skillName": "合体冲锋",
+      "searchKeywords": ["兰博基尼 Aventador J", "合体冲锋", "追求卓越", "红牛"],
+      "registerDate": "2024-12-27",
+      "vehicleType": "真实阵营",
+      "manufacturer": "兰博基尼",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/gsI0LDZl.png",
+      "stats": {
+        "topSpeed": "220.0 km/h",
+        "power": "8.41",
+        "durability": "105",
+        "nitroCharge": "29.0%",
+        "startCharge": "29.0%",
+        "nitroDuration": "5.00 s",
+        "nitroSpeed": { "blue": "24.40 km/h", "purple": "36.60 km/h" },
+        "turboDuration": { "blue": "0.62 s", "purple": "1.86 s" },
+        "turboSpeed": { "blue": "8.00 km/h", "purple": "12.00 km/h" },
+        "ultPower": "6"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "合体冲锋",
+          "desc": "加速推进，极速提升70km/h，持续7秒。大招期间180米范围内的一台友方干扰车和一台友方辅助车可以主动选择合体进入合体冲锋状态：每有一名队友合体则大招期间极速+10km/h；大招结束时解除合体并为合体的队友提供2500集气量；若大招期间未成功合体，则大招结束时自充能40%；队友脱离合体范围时，合体按键消失",
+          "recu": "合体冲锋可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "追求卓越",
+          "desc": "开局3秒后，处于第一名时获得集气无阈值效果且极速+10km/h，未处于第一名时进入隐身状态"
+        },
+        "features": [
+          { "name": "队友合体", "desc": "大招期间友方可与自身合体", "color": "紫" },
+          { "name": "集气无阈值", "desc": "在漂移状态下集满一管氮气后，无需退出漂移即可继续集气和使用氮气", "color": "蓝" },
+          { "name": "隐身", "desc": "无视车辆间的碰撞/不会被锁定类、触碰类干扰命中", "color": "蓝" },
+          { "name": "友方集气", "desc": "为队友提供自动集气", "color": "蓝" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/13/bwegVRhq.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/13/hNgJqco9.png"
+    },
+    {
+      "id": "huntun",
+      "name": "混沌",
+      "quality": "传说",
+      "position": "天平",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/13/q37IDnqu.png",
+      "positionIcon": "天平",
+      "specialtyIcon": "场地",
+      "description": "比赛中变为适合本局的赛车",
+      "skillName": "混沌初开",
+      "searchKeywords": ["混沌", "混沌初开", "表里如一", "千变万化"],
+      "registerDate": "2024-11-22",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "混沌",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/gsI0LDZl.png",
+      "stats": {
+        "topSpeed": "212.0 km/h",
+        "power": "7.42",
+        "durability": "100",
+        "nitroCharge": "25.0%",
+        "startCharge": "25.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "20.00 km/h", "purple": "30.00 km/h" },
+        "turboDuration": { "blue": "0.60 s", "purple": "1.80 s" },
+        "turboSpeed": { "blue": "6.00 km/h", "purple": "9.00 km/h" },
+        "ultPower": "-"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "混沌初开",
+          "desc": "开局时将根据比赛模式、队伍阵容和本局赛道变为适合本局比赛的大招等级10级大招",
+          "recu": "混沌初开变换大招等级提升",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "表里如一",
+          "desc": "大招每次进行变化时，赛车基础属性、赛道专精、被动技能同步进行变化"
+        },
+        "features": [
+          { "name": "适应阵容", "desc": "变形的车辆会适应阵容、地图", "color": "紫" },
+          { "name": "随机变形", "desc": "随机变形为一辆其他车辆", "color": "紫" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/13/0GAgyaBu.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/13/PaQdAPqy.png",
+      "sp": {
+        "name": "千变万化",
+        "icon": "https://s3.bmp.ovh/2026/06/13/DqPEw1r4.png",
+        "desc": "根据队伍阵容和赛道将大招变为其它适合本局比赛的大招（大招持续期间内SP技能无法使用）",
+        "cooltime": "25秒"
+      }
+    },
+    {
+      "id": "paopao_lvxingzhe",
+      "name": "泡泡旅行者",
+      "quality": "史诗",
+      "position": "干扰",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/13/UC3H673V.png",
+      "positionIcon": "干扰",
+      "specialtyIcon": "场地",
+      "description": "发射泡泡使敌方滞空",
+      "skillName": "泡泡冲击",
+      "searchKeywords": ["泡泡旅行者", "泡泡冲击", "泡泡禁锢", "浴缸"],
+      "registerDate": "2024-09-27",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "开拓者",
+      "acquisition": "商城购买",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/0xuTbssO.png",
+      "stats": {
+        "topSpeed": "213.0 km/h",
+        "power": "7.76",
+        "durability": "90",
+        "nitroCharge": "26.0%",
+        "startCharge": "26.0%",
+        "nitroDuration": "5.20 s",
+        "nitroSpeed": { "blue": "22.00 km/h", "purple": "33.00 km/h" },
+        "turboDuration": { "blue": "0.82 s", "purple": "2.46 s" },
+        "turboSpeed": { "blue": "5.80 km/h", "purple": "8.70 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "泡泡冲击",
+          "desc": "加速推进，极速提升33km/h，持续7秒。开启大招时发射泡泡：攻击40米范围内距离最近的敌方车辆；目标速度清零并原地腾空5米；达到最高点时会额外滞空0.2秒",
+          "recu": "泡泡冲击可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "泡泡禁锢",
+          "desc": "每35秒使距离最近的敌方车辆原地腾空5米并滞空0.2秒"
+        },
+        "features": [
+          { "name": "击飞", "desc": "被击飞的敌人无法漂移", "color": "黄" },
+          { "name": "锁定干扰", "desc": "自动锁定范围内的目标", "color": "黄" },
+          { "name": "速度清空", "desc": "使敌方速度清零", "color": "红" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/13/1NJNDOrf.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/13/BtJiHHpK.png"
+    },
+    {
+      "id": "yinci",
+      "name": "隐刺",
+      "quality": "传说",
+      "position": "干扰",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/13/kEyEWvCa.png",
+      "positionIcon": "干扰",
+      "specialtyIcon": "场地",
+      "description": "铺设隐形地刺",
+      "skillName": "隐秘地刺",
+      "searchKeywords": ["隐刺", "隐秘地刺", "秘密计划", "地刺回收"],
+      "registerDate": "2024-08-09",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "深渊",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/gsI0LDZl.png",
+      "stats": {
+        "topSpeed": "231.0 km/h",
+        "power": "7.81",
+        "durability": "115",
+        "nitroCharge": "29.0%",
+        "startCharge": "29.0%",
+        "nitroDuration": "5.20 s",
+        "nitroSpeed": { "blue": "26.00 km/h", "purple": "39.00 km/h" },
+        "turboDuration": { "blue": "0.63 s", "purple": "1.89 s" },
+        "turboSpeed": { "blue": "6.40 km/h", "purple": "9.60 km/h" },
+        "ultPower": "7"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "vslot", "hexagon", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "隐秘地刺",
+          "desc": "加速推进，极速提升60km/h，持续7秒。再次点击大招时在身后铺设持续存在50秒的地刺：地刺仅在刚被铺设的4秒内可见，而后地刺进入隐形状态；踩上地刺的敌方车辆若未处于漂移状态则会失控，进入漂移状态0.3秒，漂移方向随机；若处于漂移状态则0.6秒内无法通过漂移集气",
+          "recu": "隐秘地刺可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "秘密计划",
+          "desc": "开局时获得3500集气量，首次使用氮气时在前方125米处铺设地刺，对局中每次成为敌方锁定类技能目标时有45%概率闪避"
+        },
+        "features": [
+          { "name": "放置干扰", "desc": "目标触碰到放置物时命中", "color": "黄" },
+          { "name": "失控", "desc": "使敌方失控漂移", "color": "红" },
+          { "name": "隐形放置物", "desc": "放置物隐形时无法被观测和清除", "color": "红" },
+          { "name": "闪避", "desc": "可以躲避敌方的锁定类干扰", "color": "蓝" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" },
+          { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/13/0OPfae2Z.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/13/idGj8bfp.png",
+      "sp": {
+        "name": "地刺回收",
+        "icon": "https://s3.bmp.ovh/2026/06/13/2oYPo1c6.png",
+        "desc": "回收场上所有自身铺设的地刺，每回收一个获得25%大招能量",
+        "cooltime": "15秒"
+      }
+    },
+    {
+      "id": "kuangbiao",
+      "name": "狂飙",
+      "quality": "稀有",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/13/GQqodKrI.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "腾空飞行，后追加速",
+      "skillName": "极品飞车",
+      "searchKeywords": ["狂飙", "极品飞车", "唱反调", "滑板车"],
+      "registerDate": "2024-07-05",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "平行世界",
+      "acquisition": "限时活动",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/07/nhDt9vVx.png",
+      "stats": {
+        "topSpeed": "214.0 km/h",
+        "power": "7.66",
+        "durability": "95",
+        "nitroCharge": "30.0%",
+        "startCharge": "45.0%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "24.00 km/h", "purple": "36.00 km/h" },
+        "turboDuration": { "blue": "0.62 s", "purple": "1.86 s" },
+        "turboSpeed": { "blue": "6.00 km/h", "purple": "9.00 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "极品飞车",
+          "desc": "旋转车身加速飞行并自动巡航，极速提升50km/h，持续6秒。开启大招时若处于第3名及以后名次，则6秒内极速+40km/h",
+          "recu": "极品飞车可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "唱反调",
+          "desc": "将受到的减速效果变为加速效果"
+        },
+        "features": [
+          { "name": "克制减速", "desc": "受到的减速效果变为加速", "color": "紫" },
+          { "name": "飞空", "desc": "大招期间会飞到空中", "color": "蓝" },
+          { "name": "自动巡航", "desc": "沿预设路线自动行驶/通过弯道时会失速/不会脱离预设路线", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/13/eh8wg1XV.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/13/v9xTdYiD.png"
+    },
+    {
+      "id": "yangwang_u8",
+      "name": "仰望U8",
+      "quality": "传说",
+      "position": "干扰",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/13/KuFUxpyY.png",
+      "positionIcon": "干扰",
+      "specialtyIcon": "场地",
+      "description": "原地掉头，根据反向行驶距离向前闪现",
+      "skillName": "易四方",
+      "searchKeywords": ["仰望U8", "易四方", "磅礴气势", "肘击"],
+      "registerDate": "2024-06-07",
+      "vehicleType": "真实阵营",
+      "manufacturer": "比亚迪",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/gsI0LDZl.png",
+      "stats": {
+        "topSpeed": "226.0 km/h",
+        "power": "8.14",
+        "durability": "180",
+        "nitroCharge": "32.0%",
+        "startCharge": "32.0%",
+        "nitroDuration": "5.00 s",
+        "nitroSpeed": { "blue": "26.00 km/h", "purple": "39.00 km/h" },
+        "turboDuration": { "blue": "0.60 s", "purple": "1.80 s" },
+        "turboSpeed": { "blue": "8.00 km/h", "purple": "12.00 km/h" },
+        "ultPower": "6"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "易四方",
+          "desc": "开启大招时获得加速（极速+60km/h）并提升转向能力并原地掉头在赛道中反向行驶5秒：未避让的敌方车辆将受到冲击侧移25米；若敌方车辆侧移撞墙则额外损失25%大招能量；大招结束时回到开启大招时的位置并向前瞬移反向行驶的距离，而后进入1.5秒自动巡航状态；大招期间再次点击大招可使大招立即结束；（瞬移视作固定距离的闪现，不受闪现增幅影响）",
+          "recu": "易四方可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "磅礴气势",
+          "desc": "QTE起步时获得2秒额外的加速时间，碰撞不损失集气量。越野车：在沙地、草地、雪地等特殊地形中减速效果减少100%，并且额外获得自动集气"
+        },
+        "features": [
+          { "name": "瞬移", "desc": "瞬移为固定距离的闪现", "color": "紫" },
+          { "name": "无视隐身", "desc": "锁定类、触碰类干扰可以额外命中隐身的敌方", "color": "紫" },
+          { "name": "原地掉头", "desc": "可以进入逆向行驶", "color": "紫" },
+          { "name": "越野车", "desc": "越野车在特殊地形中获得减速减免和额外集气", "color": "紫" },
+          { "name": "侧移", "desc": "强制敌方向赛道两侧位移", "color": "红" },
+          { "name": "能量损失", "desc": "使敌方损失大招能量", "color": "红" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/13/mR8VLETv.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/13/QcqbWN2s.png"
+    },
+    {
+      "id": "zhaocai_fushu",
+      "name": "招财福鼠",
+      "quality": "史诗",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/13/7mCNZjg1.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "复制其他车辆的增益效果",
+      "skillName": "聚宝盆",
+      "searchKeywords": ["招财福鼠", "聚宝盆", "招财进宝", "老鼠"],
+      "registerDate": "2024-02-08",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "进化",
+      "acquisition": "限时活动",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/07/nhDt9vVx.png",
+      "stats": {
+        "topSpeed": "222.0 km/h",
+        "power": "7.81",
+        "durability": "120",
+        "nitroCharge": "27.0%",
+        "startCharge": "27.0%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "26.00 km/h", "purple": "39.00 km/h" },
+        "turboDuration": { "blue": "0.66 s", "purple": "1.98 s" },
+        "turboSpeed": { "blue": "8.00 km/h", "purple": "12.00 km/h" },
+        "ultPower": "6"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "聚宝盆",
+          "desc": "加速推进，极速提升66km/h，并复制随机一个场上其他赛车的额外速度或动力增益，持续9秒",
+          "recu": "聚宝盆可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "招财进宝",
+          "desc": "每日首次使用招财福鼠完成比赛可获得66礼品点"
+        },
+        "features": [
+          { "name": "生财有道", "desc": "完成比赛时获得礼品点", "color": "紫" },
+          { "name": "速度复制", "desc": "随机复制场上其他车辆的加速效果", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/13/hUQxNpIE.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/13/iLssFLBS.png"
+    },
+    {
+      "id": "elong_chuanshuo",
+      "name": "饿龙传说",
+      "quality": "传说",
+      "position": "干扰",
+      "specialty": "场地",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/13/COJKfuga.png",
+      "positionIcon": "干扰",
+      "specialtyIcon": "场地",
+      "description": "吞食敌方车辆按键或小地图",
+      "skillName": "饿龙咆哮",
+      "searchKeywords": ["饿龙传说", "饿龙咆哮", "保持饥饿"],
+      "registerDate": "2024-02-02",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "深渊",
+      "acquisition": "黑金会员",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/a8Du85YQ.png",
+      "stats": {
+        "topSpeed": "226.0 km/h",
+        "power": "7.62",
+        "durability": "130",
+        "nitroCharge": "33.0%",
+        "startCharge": "33.0%",
+        "nitroDuration": "5.80 s",
+        "nitroSpeed": { "blue": "23.40 km/h", "purple": "35.10 km/h" },
+        "turboDuration": { "blue": "0.74 s", "purple": "2.22 s" },
+        "turboSpeed": { "blue": "6.00 km/h", "purple": "9.00 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "vslot", "hexagon", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "饿龙咆哮",
+          "desc": "加速推进，极速提升50km/h，持续7.5秒。加速开始时吞食345米范围内所有敌方车辆的大招键、氮气键和小地图中的随机一个，并在5.5秒后吐出。（被吞食的功能会被隐藏且无法点击）",
+          "recu": "饿龙咆哮可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "保持饥饿",
+          "desc": "每3次使用大招将获得一次强化，使当前大招额外吞食一次"
+        },
+        "features": [
+          { "name": "锁定干扰", "desc": "自动锁定范围内的目标", "color": "黄" },
+          { "name": "吞食", "desc": "使敌方的按键消失", "color": "红" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/13/CYfDuABp.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/13/PEGhgbQ8.png"
+    },
+    {
+      "id": "mercedes_benz_biome",
+      "name": "梅赛德斯-奔驰 Biome",
+      "quality": "传说",
+      "position": "天平",
+      "specialty": "场地",
+      "imageUrl": "https://a1.boltp.com/2026/06/13/6a2cdfdec857a.png",
+      "positionIcon": "天平",
+      "specialtyIcon": "场地",
+      "description": "使敌方车辆损失能量、耐久和极速",
+      "skillName": "无限连击",
+      "searchKeywords": ["梅赛德斯-奔驰 Biome", "无限连击", "意外收获", "电奔"],
+      "registerDate": "2023-11-10",
+      "vehicleType": "真实阵营",
+      "manufacturer": "梅赛德斯-奔驰",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/10/O5hs1zT9.png",
+      "stats": {
+        "topSpeed": "226.0 km/h",
+        "power": "7.76",
+        "durability": "125",
+        "nitroCharge": "29.0%",
+        "startCharge": "29.0%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "23.00 km/h", "purple": "34.50 km/h" },
+        "turboDuration": { "blue": "0.72 s", "purple": "2.16 s" },
+        "turboSpeed": { "blue": "6.60 km/h", "purple": "9.90 km/h" },
+        "ultPower": "7"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "无限连击",
+          "desc": "加速推进，极速提升65km/h，持续7秒。加速开始时获得8%大招能量并对随机一名敌方进行干扰：损失17%大招能量；损失17点耐久值；本局内极速-1km/h（上限叠加至50km/h）；每进行一次干扰后有50%概率再对随机一名敌方进行干扰并获得8%大招能量",
+          "recu": "无限连击可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "意外收获",
+          "desc": "友方全体每次踩上加速带时20%概率获得双倍加速"
+        },
+        "features": [
+          { "name": "随机次数", "desc": "大招触发次数随机", "color": "紫" },
+          { "name": "减速", "desc": "降低敌方的极速", "color": "红" },
+          { "name": "耐久损失", "desc": "使敌方损失耐久", "color": "红" },
+          { "name": "能量损失", "desc": "使敌方损失大招能量", "color": "红" },
+          { "name": "友方加速", "desc": "提高队友的极速", "color": "蓝" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://s3.bmp.ovh/2026/06/13/7FnRFkLv.png",
+      "passiveIcon": "https://s3.bmp.ovh/2026/06/13/8NrTc3cG.png"
+    },
+    {
+      "id": "zhangfei",
+      "name": "张飞",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://a1.boltp.com/2026/06/13/6a2ce0c82178e.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "耐久较低时每秒自充能",
+      "skillName": "怒意燃烧",
+      "searchKeywords": ["张飞", "怒意燃烧", "骁勇好战"],
+      "registerDate": "2023-09-29",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "平行世界",
+      "acquisition": "黑金会员",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/a8Du85YQ.png",
+      "stats": {
+        "topSpeed": "220.0 km/h",
+        "power": "7.81",
+        "durability": "120",
+        "nitroCharge": "30.0%",
+        "startCharge": "30.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "24.40 km/h", "purple": "36.60 km/h" },
+        "turboDuration": { "blue": "0.64 s", "purple": "1.92 s" },
+        "turboSpeed": { "blue": "6.00 km/h", "purple": "9.00 km/h" },
+        "ultPower": "7"
+      },
+      "chipSlots": ["circle", "triangle", "triangle", "rhombus", "rhombus", "vslot"],
+      "skills": {
+        "ult": {
+          "name": "怒意燃烧",
+          "desc": "加速推进并进入状态，极速提升90km/h，持续8秒。加速开始时损失当前50%耐久值",
+          "recu": "怒意燃烧可以充能两次。解锁大招被动：耐久值低于或等于最大耐久值的50%时，每秒自充能1.6%",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "骁勇好战",
+          "desc": "修复所需时间减至1秒。当前耐久值低于最大耐久值的60%/30%/15%时获得25/35/45km/h的极速加成"
+        },
+        "features": [
+          { "name": "快速修复", "desc": "修复用时缩减为1秒", "color": "紫" },
+          { "name": "高极速", "desc": "技能提供大量极速加成", "color": "蓝" },
+          { "name": "隐身", "desc": "无视车辆间的碰撞/不会被锁定类、触碰类干扰命中", "color": "蓝" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://a1.boltp.com/2026/06/13/6a2ce0dab1250.png",
+      "passiveIcon": "https://a1.boltp.com/2026/06/13/6a2ce0c802434.png"
+    },
+    {
+      "id": "lamborghini_aventador_svj",
+      "name": "兰博基尼 Aventador SVJ",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://a1.boltp.com/2026/06/13/6a2ce1f9566c3.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "大招期间持续叠速并恢复耐久",
+      "skillName": "飞云掣电",
+      "searchKeywords": ["兰博基尼 Aventador SVJ", "飞云掣电", "凌云", "风驰电掣", "大牛"],
+      "registerDate": "2023-08-04",
+      "vehicleType": "真实阵营",
+      "manufacturer": "兰博基尼",
+      "acquisition": "珍宝阁",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/02/1qgQyYDz.png",
+      "stats": {
+        "topSpeed": "220.0 km/h",
+        "power": "7.71",
+        "durability": "140",
+        "nitroCharge": "25.0%",
+        "startCharge": "25.0%",
+        "nitroDuration": "5.00 s",
+        "nitroSpeed": { "blue": "24.00 km/h", "purple": "36.00 km/h" },
+        "turboDuration": { "blue": "0.66 s", "purple": "1.98 s" },
+        "turboSpeed": { "blue": "7.00 km/h", "purple": "10.50 km/h" },
+        "ultPower": "10"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "飞云掣电",
+          "desc": "加速推进，极速提升70km/h，持续8秒。大招期间首次进入漂移前每秒额外提升15km/h（上限60km/h）并恢复10点耐久值",
+          "recu": "飞云掣电可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "凌云",
+          "desc": "每次进入漂移获得立即生效的6%大招能量（CD2秒）"
+        },
+        "features": [
+          { "name": "高极速", "desc": "技能提供大量极速加成", "color": "蓝" },
+          { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" },
+          { "name": "耐久恢复", "desc": "技能可恢复自身耐久值", "color": "蓝" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://a1.boltp.com/2026/06/13/6a2ce1f988b69.png",
+      "passiveIcon": "https://a1.boltp.com/2026/06/13/6a2ce1fab7a65.png",
+      "sp": {
+        "name": "风驰电掣",
+        "icon": "https://a1.boltp.com/2026/06/13/6a2ce1f98aff9.png",
+        "desc": "净化自身负面效果，5秒内极速+60km/h并将速度上限变为385km/h。SP技能加速期间内大招的额外加速效果不会因进入漂移而提前停止叠加",
+        "cooltime": "5秒"
+      }
+    },
+    {
+      "id": "chunfeng_450sr",
+      "name": "春风 450SR",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://a1.boltp.com/2026/06/13/6a2ce2393a562.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "解除自身负面效果并强化涡轮",
+      "skillName": "动力喷薄",
+      "searchKeywords": ["春风 450SR", "动力喷薄", "玩弄时间", "摩托车"],
+      "registerDate": "2023-01-13",
+      "vehicleType": "真实阵营",
+      "manufacturer": "春风",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/05/ofMFtvPd.png",
+      "stats": {
+        "topSpeed": "217.0 km/h",
+        "power": "10.00",
+        "durability": "120",
+        "nitroCharge": "28.0%",
+        "startCharge": "28.0%",
+        "nitroDuration": "6.40 s",
+        "nitroSpeed": { "blue": "22.00 km/h", "purple": "33.00 km/h" },
+        "turboDuration": { "blue": "0.80 s", "purple": "2.40 s" },
+        "turboSpeed": { "blue": "8.00 km/h", "purple": "12.00 km/h" },
+        "ultPower": "-"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "动力喷薄",
+          "desc": "立即获得一个涡轮，净化自身并强化接下来3次涡轮：使用后6秒内极速+50km/h并大幅提升动力；3次强化涡轮提供的加速可叠加；被动（摩托专属）：每次使用氮气后短时间内使用涡轮或大招将触发抬头冲锋加速，抬头冲锋期间进入漂移会使加速立即结束",
+          "recu": "动力喷薄可以充能两次。解锁大招被动：每次受敌方干扰或被友方辅助后6秒内提升自身动力",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "玩弄时间",
+          "desc": "涡轮时间+0.2秒且延迟消失5秒，涡轮连发概率+30%"
+        },
+        "features": [
+          { "name": "动力提升", "desc": "提升赛车的加速能力", "color": "蓝" },
+          { "name": "高动力", "desc": "加速能力强", "color": "蓝" },
+          { "name": "高极速", "desc": "技能提供大量极速加成", "color": "蓝" },
+          { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" },
+          { "name": "涡轮增强", "desc": "涡轮的基础属性强化", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/b5b3f8be3e3df318ce66dfee3f6a92ea.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/0b1faddc54c148c6da2c97274671f886.png"
+    },
+    {
+      "id": "wangpai_fangchengshi",
+      "name": "王牌方程式",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://a1.boltp.com/2026/06/13/6a2ce23a3bf2e.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "使用氮气强化下一次大招",
+      "skillName": "动能释放",
+      "searchKeywords": ["王牌方程式", "动能释放", "DRS可调尾翼"],
+      "registerDate": "2022-09-30",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "平行世界",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/10/3sXl4KVg.png",
+      "stats": {
+        "topSpeed": "225.0 km/h",
+        "power": "7.81",
+        "durability": "165",
+        "nitroCharge": "27.0%",
+        "startCharge": "27.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "24.40 km/h", "purple": "36.60 km/h" },
+        "turboDuration": { "blue": "0.64 s", "purple": "1.92 s" },
+        "turboSpeed": { "blue": "6.00 km/h", "purple": "9.00 km/h" },
+        "ultPower": "7"
+      },
+      "chipSlots": ["circle", "rhombus", "rhombus", "vslot", "hexagon", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "动能释放",
+          "desc": "将储存的动能释放，加速推进，极速提升75km/h，持续7秒。每次使用氮气后若（至少一个）大招已经就绪，将会对下一次大招进行一次强化：延长10%大招时间；额外提供25km/h大招加速；每个大招最多被强化两次",
+          "recu": "动能释放可以充能两次。解锁大招被动：在（至少一个）大招就绪时进入隐身状态",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "DRS可调尾翼",
+          "desc": "未处于第一名时启用DRS可调尾翼，极速+10km/h且每秒自充能1.6%"
+        },
+        "features": [
+          { "name": "高极速", "desc": "技能提供大量极速加成", "color": "蓝" },
+          { "name": "后追", "desc": "落后时有额外技能效果", "color": "蓝" },
+          { "name": "隐身", "desc": "无视车辆间的碰撞/不会被锁定类、触碰类干扰命中", "color": "蓝" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/d160aaf91480f685de43e9b9381f42da.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/85354944fd9d3b590b71abaceeb5c04b.png"
+    },
+    {
+      "id": "mercedes_benz_silver_arrow",
+      "name": "梅赛德斯-奔驰 Silver Arrow",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://a1.boltp.com/2026/06/13/6a2ce23923c5d.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "瞬移到第1名的位置",
+      "skillName": "星移电掣",
+      "searchKeywords": ["梅赛德斯-奔驰 Silver Arrow", "星移电掣", "如箭离弦", "银剑", "小飞棍"],
+      "registerDate": "2022-09-02",
+      "vehicleType": "真实阵营",
+      "manufacturer": "梅赛德斯-奔驰",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/09/jrVujgS7.png",
+      "stats": {
+        "topSpeed": "224.0 km/h",
+        "power": "7.66",
+        "durability": "120",
+        "nitroCharge": "35.2%",
+        "startCharge": "60.2%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "24.80 km/h", "purple": "37.20 km/h" },
+        "turboDuration": { "blue": "0.67 s", "purple": "2.01 s" },
+        "turboSpeed": { "blue": "7.40 km/h", "purple": "11.10 km/h" },
+        "ultPower": "-"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "星移电掣",
+          "desc": "向前瞬移至第1名所在位置（单次瞬移的距离上限为160米，下限为100米），若开启大招时已处于第1名则向前瞬移100米（瞬移视作固定距离的闪现，不受闪现增幅影响）",
+          "recu": "星移电掣可以充能两次并在开局时获得25%大招能量",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "如箭离弦",
+          "desc": "起步时获得10000集气量，开局前15秒进入无法选中状态"
+        },
+        "features": [
+          { "name": "瞬移", "desc": "瞬移为固定距离的闪现", "color": "紫" },
+          { "name": "无法选中", "desc": "无法成为干扰或者辅助效果的目标", "color": "黄" },
+          { "name": "长闪现", "desc": "长距离闪现", "color": "蓝" },
+          { "name": "后追", "desc": "落后时有额外技能效果", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/4bfe5fa6f361a252aad45e1501c7d9d2.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/91abb8edc3a510350e9b19a98af468e3.png"
+    },
+    {
+      "id": "jiluguan",
+      "name": "记录官",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://a1.boltp.com/2026/06/13/6a2ce2397d134.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "记录并加速至全场最高速",
+      "skillName": "记录跑法",
+      "searchKeywords": ["记录官", "记录跑法", "超群拔萃"],
+      "registerDate": "2022-08-12",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "创世纪",
+      "acquisition": "补给箱 / 赛车学院",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/05/31/rK9Tjs84.png",
+      "stats": {
+        "topSpeed": "220.0 km/h",
+        "power": "7.42",
+        "durability": "108",
+        "nitroCharge": "30.0%",
+        "startCharge": "30.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "23.40 km/h", "purple": "35.10 km/h" },
+        "turboDuration": { "blue": "0.60 s", "purple": "1.80 s" },
+        "turboSpeed": { "blue": "6.20 km/h", "purple": "9.30 km/h" },
+        "ultPower": "10"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "记录跑法",
+          "desc": "记录全场出现过的最高速度，并在开启大招后提升至此速度（上限450km/h），持续10秒",
+          "recu": "记录跑法可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "超群拔萃",
+          "desc": "开局5秒后，每次超越其他车辆时自充能10%。越野车：在沙地、草地、雪地等特殊地形中减速效果减少50%，并且额外获得自动集气"
+        },
+        "features": [
+          { "name": "记录极速", "desc": "记录全场出现过的最高速度", "color": "紫" },
+          { "name": "越野车", "desc": "越野车在特殊地形中获得减速减免和额外集气", "color": "紫" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/761fcce9a7fb706744b77fe356e33ed5.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/2b7bd5a66f832298ba451311e06cd86c.png"
+    },
+    {
+      "id": "bugatti_chiron",
+      "name": "布加迪 Chiron",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://a1.boltp.com/2026/06/13/6a2ce23980a35.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "压缩强化氮气",
+      "skillName": "压缩气体",
+      "searchKeywords": ["布加迪 Chiron", "压缩气体", "氮气专精", "高效压缩", "凯龙", "肥龙"],
+      "registerDate": "2022-12-31",
+      "vehicleType": "真实阵营",
+      "manufacturer": "布加迪",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/09/jrVujgS7.png",
+      "stats": {
+        "topSpeed": "226.0 km/h",
+        "power": "7.43",
+        "durability": "110",
+        "nitroCharge": "38.0%",
+        "startCharge": "58.0%",
+        "nitroDuration": "8.00 s",
+        "nitroSpeed": { "blue": "39.00 km/h", "purple": "39.00 km/h" },
+        "turboDuration": { "blue": "0.53 s", "purple": "1.59 s" },
+        "turboSpeed": { "blue": "4.50 km/h", "purple": "6.75 km/h" },
+        "ultPower": "-"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "压缩气体",
+          "desc": "进入持续5秒的状态，并结束当前氮气或消耗一管氮气（未满一管时消耗当前全部集气量）进行压缩强化，使下一次使用的氮气：动力额外提升；极速额外提升39km/h；持续时间延长5秒；获得20%额外充能；从第二次压缩强化开始，每次压缩将额外提升9km/h（上限叠加至45km/h）",
+          "recu": "压缩气体可以充能两次。获得集气无阈值效果",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "氮气专精",
+          "desc": "氮气时长和氮气充能+50%，蓝色氮气速度可达到紫色氮气速度"
+        },
+        "features": [
+          { "name": "充能提升", "desc": "技能会额外提升充能效率", "color": "蓝" },
+          { "name": "氮气延长", "desc": "技能效果会延长氮气时间", "color": "蓝" },
+          { "name": "动力提升", "desc": "提升赛车的加速能力", "color": "蓝" },
+          { "name": "集气无阈值", "desc": "在漂移状态下集满一管氮气后，无需退出漂移即可继续集气和使用氮气", "color": "蓝" },
+          { "name": "隐身", "desc": "无视车辆间的碰撞/不会被锁定类、触碰类干扰命中", "color": "蓝" },
+          { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/cb8e3c66bec4ff05d9a6b54ba5220612.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/114e6546d54c57014d3bcb3989c75f58.png",
+      "sp": {
+        "name": "高效压缩",
+        "icon": "https://free.picui.cn/free/20260613/3b00404277d56ae0b8201ec223363a83.png",
+        "desc": "立即获得5000集气量，恢复20点耐久值并进入10秒高效压缩状态，期间极速+20km/h且每次进行氮气压缩时获得5000集气量和20%大招能量",
+        "cooltime": "8秒"
+      }
+    },
+    {
+      "id": "pagani_huayra",
+      "name": "帕加尼 Huayra",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://a1.boltp.com/2026/06/13/6a2ce239214b4.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "可暂停1次大招",
+      "skillName": "风之律动",
+      "searchKeywords": ["帕加尼 Huayra", "风之律动", "变式涡轮", "风之子"],
+      "registerDate": "2021-10-22",
+      "vehicleType": "真实阵营",
+      "manufacturer": "帕加尼",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/12/U7mkTWMr.png",
+      "stats": {
+        "topSpeed": "226.0 km/h",
+        "power": "7.56",
+        "durability": "110",
+        "nitroCharge": "32.0%",
+        "startCharge": "32.0%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "20.80 km/h", "purple": "31.20 km/h" },
+        "turboDuration": { "blue": "1.00 s", "purple": "3.00 s" },
+        "turboSpeed": { "blue": "4.60 km/h", "purple": "6.90 km/h" },
+        "ultPower": "8"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "vslot", "hexagon", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "风之律动",
+          "desc": "进入持续10秒的高速推进模式：极速提升75km/h并大幅度提升动力；大招持续期间可暂停1次",
+          "recu": "风之律动可以充能两次。解锁大招被动：每次点击大招时获得2000集气量",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "变式涡轮",
+          "desc": "涡轮持续时间翻倍且每次使用涡轮获得1.6秒隐身效果"
+        },
+        "features": [
+          { "name": "多段释放", "desc": "大招期间可以多次点击触发额外效果", "color": "黄" },
+          { "name": "动力提升", "desc": "提升赛车的加速能力", "color": "蓝" },
+          { "name": "快速出弯", "desc": "拥有额外的退出漂移能力", "color": "蓝" },
+          { "name": "隐身", "desc": "无视车辆间的碰撞/不会被锁定类、触碰类干扰命中", "color": "蓝" },
+          { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/00eec4f2890ebfed494ad66e390204cc.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/7386d53db20331171bdcc514eecd656b.png"
+    },
+    {
+      "id": "ford_gt",
+      "name": "福特 GT",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "场地",
+      "imageUrl": "https://a1.boltp.com/2026/06/13/6a2ce23938ccb.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "场地",
+      "description": "强力后追，双倍加速",
+      "skillName": "奋起直追",
+      "searchKeywords": ["福特 GT", "奋起直追", "碰撞补偿", "乘胜追击"],
+      "registerDate": "2021-07-23",
+      "vehicleType": "真实阵营",
+      "manufacturer": "福特",
+      "acquisition": "绝版",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/09/aKaS8UN8.png",
+      "stats": {
+        "topSpeed": "229.0 km/h",
+        "power": "7.40",
+        "durability": "125",
+        "nitroCharge": "33.0%",
+        "startCharge": "48.0%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "24.00 km/h", "purple": "36.00 km/h" },
+        "turboDuration": { "blue": "0.73 s", "purple": "2.19 s" },
+        "turboSpeed": { "blue": "8.00 km/h", "purple": "12.00 km/h" },
+        "ultPower": "6"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "rhombus", "vslot"],
+      "skills": {
+        "ult": {
+          "name": "奋起直追",
+          "desc": "加速推进，极速提升55km/h，持续7秒。大招期间：首次超车前获得双倍加速效果；50米范围内存在其它车辆时立即消除SP技能冷却时间；大招被动：可在更大范围内获得尾流",
+          "recu": "奋起直追可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "碰撞补偿",
+          "desc": "碰撞不损失集气，每次发生碰撞后6秒内极速+6km/h并提升动力"
+        },
+        "features": [
+          { "name": "高极速", "desc": "技能提供大量极速加成", "color": "蓝" },
+          { "name": "后追", "desc": "落后时有额外技能效果", "color": "蓝" },
+          { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" },
+          { "name": "碰撞保护", "desc": "碰撞时不会损失集气量", "color": "蓝" },
+          { "name": "刷新SP", "desc": "刷新自身、友方的SP技能冷却时间", "color": "蓝" },
+          { "name": "尾流增强", "desc": "可以在更大范围内获得尾流", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/2a87d9cd6a79af54f493b8386ba835ba.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/9d860f78161480f549ab66612e176f79.png",
+      "sp": {
+        "name": "乘胜追击",
+        "icon": "https://free.picui.cn/free/20260613/094b5e30f3e43665efbad8c09bf8d7d1.png",
+        "desc": "净化自身负面效果且3秒内极速+50km/h",
+        "cooltime": "15秒"
+      }
+    },
+    {
+      "id": "byd_seal",
+      "name": "比亚迪 海豹",
+      "quality": "史诗",
+      "position": "干扰",
+      "specialty": "场地",
+      "imageUrl": "https://free.picui.cn/free/20260613/08ef6acca0164ee02f995b4cf1fa6cee.png",
+      "positionIcon": "干扰",
+      "specialtyIcon": "场地",
+      "description": "掀起巨浪干扰敌方车辆",
+      "skillName": "乘风破浪",
+      "searchKeywords": ["比亚迪 海豹", "乘风破浪", "叱咤狂潮"],
+      "registerDate": "2023-06-09",
+      "vehicleType": "真实阵营",
+      "manufacturer": "比亚迪",
+      "acquisition": "赛车学院",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/09/0nI5j3sH.png",
+      "stats": {
+        "topSpeed": "215.0 km/h",
+        "power": "7.76",
+        "durability": "100",
+        "nitroCharge": "26.0%",
+        "startCharge": "46.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "24.00 km/h", "purple": "36.00 km/h" },
+        "turboDuration": { "blue": "0.60 s", "purple": "1.80 s" },
+        "turboSpeed": { "blue": "7.00 km/h", "purple": "10.50 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "乘风破浪",
+          "desc": "高速冲浪，极速提升60km/h，持续7秒。冲浪期间再次点击大招时在车尾掀起巨浪，巨浪将持续存在7秒，敌方车辆穿过巨浪时损失当前大招能量值的30%且5秒内快速出弯失效",
+          "recu": "乘风破浪可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "叱咤狂潮",
+          "desc": "开局5秒后，使30米范围内敌方车辆失去芯片效果"
+        },
+        "features": [
+          { "name": "放置干扰", "desc": "目标触碰到放置物时命中", "color": "黄" },
+          { "name": "克制出弯", "desc": "使敌方的快速出弯失效", "color": "红" },
+          { "name": "能量损失", "desc": "使敌方损失大招能量", "color": "红" },
+          { "name": "芯片失效", "desc": "使敌方失去芯片效果", "color": "红" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/a3baaf6a03340c9ff42a11892d67bbf4.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/6eb3ea7bb2da925b17a430c9cebb7e70.png"
+    },
+    {
+      "id": "chevrolet_corvette_zr1",
+      "name": "雪佛兰 Corvette ZR1",
+      "quality": "传说",
+      "position": "干扰",
+      "specialty": "场地",
+      "imageUrl": "https://free.picui.cn/free/20260613/daa312dceedfdec4acf026afd998909d.png",
+      "positionIcon": "干扰",
+      "specialtyIcon": "场地",
+      "description": "降低敌方车辆的充能效率和辅助距离",
+      "skillName": "切断补给",
+      "searchKeywords": ["雪佛兰 Corvette ZR1", "切断补给", "自给自足", "克尔维特", "科尔维特"],
+      "registerDate": "2022-02-03",
+      "vehicleType": "真实阵营",
+      "manufacturer": "雪佛兰",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/09/jrVujgS7.png",
+      "stats": {
+        "topSpeed": "233.0 km/h",
+        "power": "7.71",
+        "durability": "125",
+        "nitroCharge": "30.0%",
+        "startCharge": "30.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "22.00 km/h", "purple": "33.00 km/h" },
+        "turboDuration": { "blue": "0.65 s", "purple": "1.95 s" },
+        "turboSpeed": { "blue": "6.00 km/h", "purple": "9.00 km/h" },
+        "ultPower": "7"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "切断补给",
+          "desc": "加速推进，极速提升60km/h，持续7秒。加速开始时干扰700米范围内的敌方车辆：辅助车的辅助范围变为100米且充能效率降低12%；非辅助车充能效率降低20%；负面效果持续7秒",
+          "recu": "切断补给可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "自给自足",
+          "desc": "每次使用大招时净化自身负面效果。若使用大招后10秒内没有再次使用大招，则自充能25%"
+        },
+        "features": [
+          { "name": "范围变更", "desc": "更改辅助、干扰效果的命中范围", "color": "黄" },
+          { "name": "锁定干扰", "desc": "自动锁定范围内的目标", "color": "黄" },
+          { "name": "充能降低", "desc": "降低敌方的充能效率", "color": "红" },
+          { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/e28c9a783aa936fd4643a63e73299c57.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/df001ac6fc6b40149d6bfc601d3e023e.png"
+    },
+    {
+      "id": "hanshuang_bingpo",
+      "name": "寒霜冰魄",
+      "quality": "传说",
+      "position": "干扰",
+      "specialty": "场地",
+      "imageUrl": "https://free.picui.cn/free/20260613/51d92b1421aeb5aaf896924c00095b95.png",
+      "positionIcon": "干扰",
+      "specialtyIcon": "场地",
+      "description": "冻结敌方车辆",
+      "skillName": "雪落寒霜",
+      "searchKeywords": ["寒霜冰魄", "雪落寒霜", "霜魂"],
+      "registerDate": "2022-11-25",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "元素",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/10/3sXl4KVg.png",
+      "stats": {
+        "topSpeed": "236.0 km/h",
+        "power": "7.81",
+        "durability": "123",
+        "nitroCharge": "28.0%",
+        "startCharge": "28.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "24.00 km/h", "purple": "36.00 km/h" },
+        "turboDuration": { "blue": "0.70 s", "purple": "2.10 s" },
+        "turboSpeed": { "blue": "6.80 km/h", "purple": "10.20 km/h" },
+        "ultPower": "6"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "vslot", "hexagon", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "雪落寒霜",
+          "desc": "加速推进并在100米范围内的敌方车辆前方50米处召唤暴风雪：穿越暴风雪的敌方车辆失去全部额外速度和动力增益（涡轮、氮气、大招的基础加速和动力不受影响）；被冰霜附着5秒（已被冰霜附着的车辆不会被重复附着）；冰霜使敌方车辆减速10km/h且无法闪现和后退，附着结束时若敌方车辆仍处于前3名则额外被冻结1秒",
+          "recu": "雪落寒霜可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "霜魂",
+          "desc": "敌方车辆每次使用大招时，自充能6%"
+        },
+        "features": [
+          { "name": "放置干扰", "desc": "目标触碰到放置物时命中", "color": "黄" },
+          { "name": "冻结", "desc": "被冻结的敌方无法移动", "color": "红" },
+          { "name": "减速", "desc": "降低敌方的极速", "color": "红" },
+          { "name": "驱散", "desc": "使敌方失去额外速度和动力增益", "color": "红" },
+          { "name": "无法闪现", "desc": "使敌方的闪现失效", "color": "红" },
+          { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/0ff7dcf2919ce324cc3708aafcd29b23.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/78b83bd659c05017a404f53ccefe144e.png"
+    },
+    {
+      "id": "kaituo_tiechan",
+      "name": "开拓铁铲",
+      "quality": "传说",
+      "position": "干扰",
+      "specialty": "场地",
+      "imageUrl": "https://free.picui.cn/free/20260613/7f6ed8329390c9165e926e8cb18b9416.png",
+      "positionIcon": "干扰",
+      "specialtyIcon": "场地",
+      "description": "铲飞敌方车辆",
+      "skillName": "天降正义",
+      "searchKeywords": ["开拓铁铲", "天降正义", "坚不可摧", "铲车"],
+      "registerDate": "2022-09-30",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "开拓者",
+      "acquisition": "补给箱 / 赛车学院",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/05/31/rK9Tjs84.png",
+      "stats": {
+        "topSpeed": "224.0 km/h",
+        "power": "7.42",
+        "durability": "325",
+        "nitroCharge": "27.0%",
+        "startCharge": "27.0%",
+        "nitroDuration": "5.80 s",
+        "nitroSpeed": { "blue": "23.00 km/h", "purple": "34.50 km/h" },
+        "turboDuration": { "blue": "0.65 s", "purple": "1.95 s" },
+        "turboSpeed": { "blue": "7.00 km/h", "purple": "10.50 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "triangle", "rhombus", "vslot"],
+      "skills": {
+        "ult": {
+          "name": "天降正义",
+          "desc": "加速推进，极速提升50km/h，持续8秒：加速开始时挥动前铲砸向地面产生冲击波，作用范围240米范围内的敌方车辆将受到冲击波影响损失40点耐久值；再次点击大招时猛抬前铲使20米范围内的敌方车辆被铲飞10米",
+          "recu": "天降正义可以充能两次，冲击波干扰范围提升至240米",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "坚不可摧",
+          "desc": "耐久值+200，碰撞不损失集气量。越野车：在沙地、草地、雪地等特殊地形中减速效果减少50%，并且额外获得自动集气"
+        },
+        "features": [
+          { "name": "越野车", "desc": "越野车在特殊地形中获得减速减免和额外集气", "color": "紫" },
+          { "name": "触碰干扰", "desc": "自身或技能效果触碰到敌方时命中", "color": "黄" },
+          { "name": "击飞", "desc": "被击飞的敌人无法漂移", "color": "黄" },
+          { "name": "锁定干扰", "desc": "自动锁定范围内的目标", "color": "黄" },
+          { "name": "耐久损失", "desc": "使敌方损失耐久", "color": "红" },
+          { "name": "高耐久", "desc": "拥有大量的耐久值", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/09da190640710f6c31962b8be61d532b.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/f08d1871679742503e0c90851c2faf4d.png"
+    },
+    {
+      "id": "yinbi_lieshou",
+      "name": "隐匿猎手",
+      "quality": "传说",
+      "position": "天平",
+      "specialty": "场地",
+      "imageUrl": "https://free.picui.cn/free/20260613/b68e092c01beea3849b45ba88009290f.png",
+      "positionIcon": "天平",
+      "specialtyIcon": "场地",
+      "description": "布置多种陷阱干扰敌方车辆",
+      "skillName": "隐秘陷阱",
+      "searchKeywords": ["隐匿猎手", "隐秘陷阱", "暗中观察"],
+      "registerDate": "2022-07-15",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "深渊",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/10/3sXl4KVg.png",
+      "stats": {
+        "topSpeed": "232.0 km/h",
+        "power": "7.71",
+        "durability": "128",
+        "nitroCharge": "27.0%",
+        "startCharge": "27.0%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "28.00 km/h", "purple": "42.00 km/h" },
+        "turboDuration": { "blue": "0.66 s", "purple": "1.98 s" },
+        "turboSpeed": { "blue": "6.70 km/h", "purple": "10.05 km/h" },
+        "ultPower": "7"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "vslot", "hexagon", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "隐秘陷阱",
+          "desc": "加速推进，极速提升50km/h，持续8秒。加速开始时布置未在场上的全部陷阱：陷阱-以逸待劳：全部敌方累计使用10次涡轮时，自身本局内极速+6km/h（上限30km/h）；陷阱-坐享其成：全部敌方累计使用12次氮气时，自充能20%；陷阱-欲速不达：全部敌方累计使用8次大招时，距离最近的敌方后退40米；陷阱-引蛇出洞（8级解锁）：自身受到封禁或变形效果时，净化友方全体；被动（10级解锁）：开局5秒内处于隐身状态，开局5秒时布置陷阱-引蛇出洞",
+          "recu": "隐秘陷阱可以充能两次，解锁引蛇出洞",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "暗中观察",
+          "desc": "友方全体可以获得敌方氮气和大招的储备信息"
+        },
+        "features": [
+          { "name": "额外信息", "desc": "可以查看对手的氮气、大招储备情况", "color": "紫" },
+          { "name": "克制变形", "desc": "被变大、变小时触发净化", "color": "紫" },
+          { "name": "克制封禁", "desc": "受到封禁时触发增益效果", "color": "紫" },
+          { "name": "后退", "desc": "强制敌方向后位移", "color": "红" },
+          { "name": "续航", "desc": "单人比赛时续航能力强", "color": "蓝" },
+          { "name": "友方净化", "desc": "为队友净化负面效果", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/5c93e64a7c698202a2dbaa8e9f0c29b0.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/0c733712a5108b4c90ec87425db65a60.png"
+    },
+    {
+      "id": "kongjian_manyouhu",
+      "name": "空间漫游虎",
+      "quality": "传说",
+      "position": "天平",
+      "specialty": "场地",
+      "imageUrl": "https://free.picui.cn/free/20260613/0554b24a38d78d8fb6e3649eec92bfab.png",
+      "positionIcon": "天平",
+      "specialtyIcon": "场地",
+      "description": "制造空间漩涡来影响局势",
+      "skillName": "空间漫游",
+      "searchKeywords": ["空间漫游虎", "空间漫游", "空间管理者", "空间裂隙", "洞洞虎"],
+      "registerDate": "2022-01-28",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "未知空间",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/10/3sXl4KVg.png",
+      "stats": {
+        "topSpeed": "225.0 km/h",
+        "power": "7.81",
+        "durability": "100",
+        "nitroCharge": "25.0%",
+        "startCharge": "40.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "24.40 km/h", "purple": "36.60 km/h" },
+        "turboDuration": { "blue": "0.64 s", "purple": "1.92 s" },
+        "turboSpeed": { "blue": "6.00 km/h", "purple": "9.00 km/h" },
+        "ultPower": "-"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "空间漫游",
+          "desc": "大招竞速：在前方50米处制造持续存在4秒的空间漩涡，自身穿过空间漩涡时向前闪现70米；大招辅助：队友穿过空间漩涡后6秒内，首次使用氮气时额外向前闪现30米；大招干扰：敌方穿过空间漩涡后6秒内，首次使用氮气时额外后退30米；被动：干扰和辅助效果对场上其他空间漫游虎不生效",
+          "recu": "空间漫游可以充能两次并在开局时获得15%大招能量",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "空间管理者",
+          "desc": "每当其他车辆进行闪现时，自身使用下一次大招时会额外向前闪现30米"
+        },
+        "features": [
+          { "name": "瞬移", "desc": "瞬移为固定距离的闪现", "color": "紫" },
+          { "name": "放置物", "desc": "技能可在赛道中创建放置物", "color": "黄" },
+          { "name": "后退", "desc": "强制敌方向后位移", "color": "红" },
+          { "name": "连续闪现", "desc": "强化后的大招会触发连续闪现", "color": "蓝" },
+          { "name": "友方闪现", "desc": "使友方向向前闪现", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/f222333b6430ff1a26a04d6f08afca57.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/1fa6027f0ff97bcd88ff0ed9c220c80e.png",
+      "sp": {
+        "name": "空间裂隙",
+        "icon": "https://free.picui.cn/free/20260613/71ae85e910469ed20ba8c2ff9be50583.png",
+        "desc": "通过空间裂隙瞬移至前方距离最近车辆的位置（上限60米）（瞬移视作固定距离的闪现，不受闪现增幅影响）",
+        "cooltime": "25秒"
+      }
+    },
+    {
+      "id": "hadisi",
+      "name": "哈迪斯",
+      "quality": "传说",
+      "position": "天平",
+      "specialty": "场地",
+      "imageUrl": "https://free.picui.cn/free/20260613/f8c06aabd4232ad01a5af1499a15a788.png",
+      "positionIcon": "天平",
+      "specialtyIcon": "场地",
+      "description": "释放幽冥之影降低敌方充能效率",
+      "skillName": "幽冥之影",
+      "searchKeywords": ["哈迪斯", "幽冥之影", "绝对秩序", "牢哈"],
+      "registerDate": "2021-11-05",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "混沌",
+      "acquisition": "王牌补给",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/10/3sXl4KVg.png",
+      "stats": {
+        "topSpeed": "216.9 km/h",
+        "power": "7.52",
+        "durability": "100",
+        "nitroCharge": "28.0%",
+        "startCharge": "28.0%",
+        "nitroDuration": "5.80 s",
+        "nitroSpeed": { "blue": "29.80 km/h", "purple": "37.20 km/h" },
+        "turboDuration": { "blue": "0.66 s", "purple": "1.98 s" },
+        "turboSpeed": { "blue": "5.20 km/h", "purple": "7.80 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "幽冥之影",
+          "desc": "加速推进7秒并持续释放幽冥之影附着于250米范围内敌方车辆，使其充能效率降低15%且每次点击大招时损失12%能量",
+          "recu": "幽冥之影可以充能两次。解锁大招被动：开局13秒内，敌方车辆充能效率降低24%",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "绝对秩序",
+          "desc": "按顺序使用大招、氮气、涡轮时向前闪现44米；按顺序使用涡轮、氮气、大招时全体友方7秒内充能效率+25%（每两次按键间允许间隔0.8s）"
+        },
+        "features": [
+          { "name": "按键顺序", "desc": "按指定顺序输入大招、氮气、涡轮可触发额外效果", "color": "紫" },
+          { "name": "充能降低", "desc": "降低敌方的充能效率", "color": "红" },
+          { "name": "能量损失", "desc": "使敌方损失大招能量", "color": "红" },
+          { "name": "充能提升", "desc": "技能会额外提升充能效率", "color": "蓝" },
+          { "name": "闪现", "desc": "沿赛道预设路线向前快速位移", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/aff2359e5028cb95cc94897a5a793c84.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/994ea5f205db145b9aff174f19b0f9b7.png"
+    },
+    {
+      "id": "porsche_macan_s",
+      "name": "保时捷 Macan S",
+      "quality": "史诗",
+      "position": "干扰",
+      "specialty": "场地",
+      "imageUrl": "https://free.picui.cn/free/20260613/d0d2082fc40ebefff46abef1ce24be52.png",
+      "positionIcon": "干扰",
+      "specialtyIcon": "场地",
+      "description": "铺设减速带拦截",
+      "skillName": "减速慢行",
+      "searchKeywords": ["保时捷 Macan S", "减速慢行", "安全行驶", "绿皮保时捷"],
+      "registerDate": "2022-01-28",
+      "vehicleType": "真实阵营",
+      "manufacturer": "保时捷",
+      "acquisition": "补给箱 / 赛车学院",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/05/31/rK9Tjs84.png",
+      "stats": {
+        "topSpeed": "215.0 km/h",
+        "power": "7.21",
+        "durability": "90",
+        "nitroCharge": "32.0%",
+        "startCharge": "32.0%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "22.40 km/h", "purple": "33.60 km/h" },
+        "turboDuration": { "blue": "0.60 s", "purple": "1.80 s" },
+        "turboSpeed": { "blue": "4.70 km/h", "purple": "7.05 km/h" },
+        "ultPower": "2"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "减速慢行",
+          "desc": "加速推进，极速提升15km/h，持续6秒。加速开始时在400米范围内全部敌方车辆前方铺设存在7秒的减速带，干扰触碰到的敌方车辆：5秒内极速降低30km/h；每隔1秒损失800集气量；每次使用大招自身本局内极速+15km/h（上限叠加至60km/h）",
+          "recu": "减速慢行可以充能两次",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "安全行驶",
+          "desc": "敌方每次点击大招本局内极速-2.5km/h（可叠加至-40km/h）。越野车：在沙地、草地、雪地等特殊地形中减速效果减少50%，并且额外获得自动集气"
+        },
+        "features": [
+          { "name": "越野车", "desc": "越野车在特殊地形中获得减速减免和额外集气", "color": "紫" },
+          { "name": "放置干扰", "desc": "目标触碰到放置物时命中", "color": "黄" },
+          { "name": "集气损失", "desc": "使敌方损失集气量", "color": "红" },
+          { "name": "减速", "desc": "降低敌方的极速", "color": "红" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/5a6de4292c9b8b1f8fd78a24b3241c6a.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/3af766d6795fa705d4ec03a99f773972.png"
+    },
+    {
+      "id": "ranshao_taiyang",
+      "name": "燃烧太阳",
+      "quality": "传说",
+      "position": "干扰",
+      "specialty": "场地",
+      "imageUrl": "https://free.picui.cn/free/20260613/fe4be23631f9a3a98c887ade7bdb4567.png",
+      "positionIcon": "干扰",
+      "specialtyIcon": "场地",
+      "description": "喷射火焰灼烧敌方车辆",
+      "skillName": "直排喷火",
+      "searchKeywords": ["燃烧太阳", "直排喷火", "极速突破"],
+      "registerDate": "2021-07-23",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "元素",
+      "acquisition": "排位赛 / 赛车学院",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/07/nhDt9vVx.png",
+      "stats": {
+        "topSpeed": "218.7 km/h",
+        "power": "7.46",
+        "durability": "100",
+        "nitroCharge": "35.0%",
+        "startCharge": "35.0%",
+        "nitroDuration": "6.00 s",
+        "nitroSpeed": { "blue": "22.80 km/h", "purple": "34.20 km/h" },
+        "turboDuration": { "blue": "0.60 s", "purple": "1.80 s" },
+        "turboSpeed": { "blue": "6.10 km/h", "purple": "9.15 km/h" },
+        "ultPower": "5"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "vslot", "hexagon", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "直排喷火",
+          "desc": "喷射出灼热的火焰并推进车辆加速，极速提升60km/h，持续7.5秒。火焰会在车尾扩散使接触到的敌方车辆被灼烧10秒：极速降低25km/h；失去尾流和芯片效果（V型芯片除外）；大招期间长按大招（达到0.5秒及以上）可获得爆发推进：获得22km/h的额外加速；火焰灼烧范围扩大到100米并转换为锁定类；自身每秒额外消耗10%大招能量",
+          "recu": "直排喷火可以充能两次。解锁大招被动：开局时灼烧敌方全体，使其失去芯片效果持续15秒",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "极速突破",
+          "desc": "开局20秒后，极速+13km/h"
+        },
+        "features": [
+          { "name": "长按大招", "desc": "长按大招触发额外效果", "color": "紫" },
+          { "name": "触碰干扰", "desc": "自身或技能效果触碰到敌方时命中", "color": "黄" },
+          { "name": "锁定干扰", "desc": "自动锁定范围内的目标", "color": "黄" },
+          { "name": "减速", "desc": "降低敌方的极速", "color": "红" },
+          { "name": "芯片失效", "desc": "使敌方失去芯片效果", "color": "红" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/46d1b7c33627b66a4b3149cc15e10867.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/f82f9295abf31335c2ab7a8d96438f98.png"
+    },
+    {
+      "id": "zhanshen",
+      "name": "战神",
+      "quality": "稀有",
+      "position": "干扰",
+      "specialty": "场地",
+      "imageUrl": "https://free.picui.cn/free/20260613/22f9ff50069f7389183462fa20e52110.png",
+      "positionIcon": "干扰",
+      "specialtyIcon": "场地",
+      "description": "撞飞放置物和敌方车辆",
+      "skillName": "硬汉模式",
+      "searchKeywords": ["战神", "硬汉模式", "碰撞涡轮"],
+      "registerDate": "2021-07-23",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "混沌",
+      "acquisition": "补给箱 / 赛车学院",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/05/31/rK9Tjs84.png",
+      "stats": {
+        "topSpeed": "209.8 km/h",
+        "power": "7.22",
+        "durability": "120",
+        "nitroCharge": "26.0%",
+        "startCharge": "26.0%",
+        "nitroDuration": "5.80 s",
+        "nitroSpeed": { "blue": "26.60 km/h", "purple": "39.90 km/h" },
+        "turboDuration": { "blue": "0.57 s", "purple": "1.71 s" },
+        "turboSpeed": { "blue": "7.50 km/h", "purple": "11.30 km/h" },
+        "ultPower": "6"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "triangle", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "硬汉模式",
+          "desc": "加速推进并进入持续7.5秒的硬汉模式：极速提升70km/h；每次与敌方车辆发生碰撞时，会使其损失耐久并被震击；每次前方出现可见的放置物时，可以将其撞毁并永久提升极速",
+          "recu": "硬汉模式可以充能两次。解锁大招被动：撞击敌方车辆或撞毁放置物将延长30%的大招时间",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "碰撞涡轮",
+          "desc": "发生碰撞后有一定几率激活一次涡轮"
+        },
+        "features": [
+          { "name": "触碰干扰", "desc": "自身或技能效果触碰到敌方时命中", "color": "黄" },
+          { "name": "清障", "desc": "可以清除可见的放置物", "color": "黄" },
+          { "name": "减速", "desc": "降低敌方的极速", "color": "红" },
+          { "name": "耐久损失", "desc": "使敌方损失耐久", "color": "红" },
+          { "name": "漂移强化", "desc": "拥有特殊强化的漂移手感", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://free.picui.cn/free/20260613/7042f42063c244791648b4718d3348c7.png",
+      "passiveIcon": "https://free.picui.cn/free/20260613/9d1cbdd2db545fd03959a1e4f6bdcf9e.png"
     }
   ]
 }
