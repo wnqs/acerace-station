@@ -3814,6 +3814,13 @@
         const calcStartNitroCount = document.getElementById('calcStartNitroCountDisplay');
         const calcCycleNitroCount = document.getElementById('calcCycleNitroCountDisplay');
         const calcOverrideR = document.getElementById('calcOverrideR');
+                // 直接设置反制默认值
+        const carTypeSelect = document.getElementById('calcCarType');
+        if (carTypeSelect && carTypeSelect.value === 'assist') {
+            calcOverrideR.value = '18';
+        } else {
+            calcOverrideR.value = '0';
+        }
         const calcMainEff = document.getElementById('calcMainEff');
         const calcSubEff = document.getElementById('calcSubEff');
         const calcExtraEff = document.getElementById('calcExtraEff');
@@ -3834,7 +3841,6 @@
                 const calcYitaiExtraOptions = document.getElementById('calcYitaiExtraOptions');
         const calcVehicleSpecialContainer = document.getElementById('calcVehicleSpecialOptionsContainer');
         const calcCarIcon = document.getElementById('calcCarIcon');
-        
         // 设置反制默认值：辅助位默认18%，其他定位默认0%
         function setDefaultOverrideR() {
             const isAssist = calcCarType.value === 'assist';
