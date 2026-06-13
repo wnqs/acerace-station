@@ -3831,10 +3831,19 @@
         const calcCycleEnergyDisplay = document.getElementById('calcCycleEnergyDisplay');
         const calcCycleEnergyLabel = document.getElementById('calcCycleEnergyLabel');
         const calcCycleNitroTooltip = document.getElementById('calcCycleNitroTooltip');
-        const calcYitaiExtraOptions = document.getElementById('calcYitaiExtraOptions');
+                const calcYitaiExtraOptions = document.getElementById('calcYitaiExtraOptions');
         const calcVehicleSpecialContainer = document.getElementById('calcVehicleSpecialOptionsContainer');
         const calcCarIcon = document.getElementById('calcCarIcon');
         
+        // 设置反制默认值：辅助位默认18%，其他定位默认0%
+        function setDefaultOverrideR() {
+            const isAssist = calcCarType.value === 'assist';
+            if (isAssist) {
+                calcOverrideR.value = '18';
+            } else {
+                calcOverrideR.value = '0';
+            }
+        }
         function getCalcCurrentCar() {
             if (!calcCarModel.value) return null;
             try { return JSON.parse(calcCarModel.value); } catch(e) { return null; }
@@ -4295,6 +4304,7 @@
                 updateCalcCarTypeIcon();
                 updateCalcSubTypeOptions();
                 updateCalcEnergyDisplays();
+                setDefaultOverrideR();
             });
             updateCalcCarTypeIcon();
         }
@@ -4838,6 +4848,7 @@
             let car = getCalcCurrentCar();
             calcYitaiExtraOptions.style.display = (car && (car.name === "以太" || car.name === "催化剂")) ? 'block' : 'none';
             updateCalcToggleState();
+            setDefaultOverrideR(); 
         });
         calcVSlot.addEventListener('change', () => {
             updateCalcVSlotIcon();
@@ -4849,13 +4860,16 @@
         document.getElementById('calcCopyResultBtn').addEventListener('click', copyCalcResult);
         document.getElementById('calcCalcBtn').addEventListener('click', calcCalculator);
         
-        function initCalcVSlotSelect() {
+                function initCalcVSlotSelect() {
             calcVSlot.addEventListener('change', () => {
                 updateCalcVSlotIcon();
                 updateCalcEnergyDisplays();
             });
         }
-    }
+        
+        // 初始化时调用一次
+        setDefaultOverrideR();
+    }  // <--- initCalculator 函数结束
     
     document.addEventListener('DOMContentLoaded', () => {
         initTabs();
