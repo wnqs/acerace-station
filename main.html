@@ -1361,19 +1361,19 @@
 }
 
 .currency-icon {
-    width: 48px;
-    height: 48px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
+    width: auto;
+    height: auto;
+    background: transparent;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .currency-icon img {
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
     object-fit: contain;
 }
 
@@ -1674,14 +1674,17 @@
     }
     
     .currency-icon {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .currency-icon img {
-        width: 26px;
-        height: 26px;
-    }
+    width: auto;
+    height: auto;
+    background: transparent;
+    border-radius: 0;
+}
+
+.currency-icon img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
 }
     </style>
     <!-- 芯片计算器专用样式 -->
@@ -4155,9 +4158,15 @@ function renderCurrenciesList() {
     
     // 格式化货币条目：将破折号后面的数字标红
     function formatCurrencyItem(itemText) {
-        // 匹配破折号后面的数字（包括整数和小数）
-        return itemText.replace(/(——)(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>');
-    }
+    if (!itemText) return itemText;
+    // 1. 匹配破折号后面的数字：——30
+    let result = itemText.replace(/(——)(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>');
+    // 2. 匹配括号内的小计数字：(小计680) 中的 680
+    result = result.replace(/\(小计(\d+(?:\.\d+)?)\)/g, '<span class="currency-number-red">(小计$1)</span>');
+    // 3. 匹配总计冒号后面的数字：总计：7010 中的 7010
+    result = result.replace(/(总计[：:])(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>');
+    return result;
+}
     
     grid.innerHTML = filtered.map(currency => {
         // 构建月卡黑金党列表
