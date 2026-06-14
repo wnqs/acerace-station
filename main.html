@@ -5677,8 +5677,27 @@ function updateCurrencyMobileFilterUI() {
             let nitroDesc = nitroType === '1x5' ? `${startNitroCount}个15首大` : (nitroType === '2x2' ? `${startNitroCount}个22首大` : `${startNitroCount}个32首大`);
             let cycleDesc = isDoubleCycle ? ' + 4气、3气两大一循环' : ` + ${cycleNitroCount}气循环`;
             let mainName = (mainEffList.find(e => e.value === calcMainEff.value) || { name: "无" }).name;
-            let subName = (subEffList.find(e => e.value === calcSubEff.value) || { name: "无" }).name;
-            let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name} (${car.chips}) | 定位：${calcCarType.value === 'assist' ? '辅助' : (calcCarType.value === 'race' ? '竞速' : (calcCarType.value === 'jam' ? '干扰' : '天平'))} | 专精：${calcCarSubType.options[calcCarSubType.selectedIndex]?.text}<br>V型槽：${allVSlotOptions.find(o => o.value === calcVSlot.value)?.name || calcVSlot.value}<br>赋能：${mainName} + ${subName}<br>氮气：${nitroDesc}${cycleDesc}<br>专精加成：${sp === 10 ? '是' : '否'} | 反制：${overrideR}%<br><br>`;
+let subName = (subEffList.find(e => e.value === calcSubEff.value) || { name: "无" }).name;
+
+// 处理次要赋能后面的括号说明（缺一或节奏）
+let subEffSuffix = '';
+
+// 处理缺一赋能
+if (calcSubEff.value === 'queyi') {
+    let queyiLevelText = calcQueyiLevel.options[calcQueyiLevel.selectedIndex]?.text || '';
+    let queyiFirstSec = calcQueyiFirstSeconds.value;
+    let queyiCycleSec = calcQueyiCycleSeconds.value;
+    subEffSuffix = ` (缺一·档位:${queyiLevelText} 首大:${queyiFirstSec}秒 循环:${queyiCycleSec}秒)`;
+}
+
+// 处理节奏赋能
+if (calcSubEff.value === 'rhythm') {
+    let rhythmFirstCount = calcRhythmFirstCount.value;
+    let rhythmCycleCount = calcRhythmCycleCount.value;
+    subEffSuffix = ` (节奏·首大:${rhythmFirstCount}次 循环:${rhythmCycleCount}次)`;
+}
+
+let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name} (${car.chips}) | 定位：${calcCarType.value === 'assist' ? '辅助' : (calcCarType.value === 'race' ? '竞速' : (calcCarType.value === 'jam' ? '干扰' : '天平'))} | 专精：${calcCarSubType.options[calcCarSubType.selectedIndex]?.text}<br>V型槽：${allVSlotOptions.find(o => o.value === calcVSlot.value)?.name || calcVSlot.value}<br>赋能：${mainName} + ${subName}${subEffSuffix}<br>氮气：${nitroDesc}${cycleDesc}<br>专精加成：${sp === 10 ? '是' : '否'} | 反制：${overrideR}%<br><br>`;
             let resultDemand = `<strong>【输出结果】</strong><br>${useCustomHui ? '用户指定汇能' : '最小汇能'}：${finalHuiFormatted}%<br>对应先机需求：${finalJiFormatted}`;
             let competitionResult = `<br><br><strong>【竞争判定】</strong><br>${conclusion}`;
             document.getElementById('calcResultArea').innerHTML = `${configSummary}${resultDemand}${note}${competitionResult}`;
