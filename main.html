@@ -4297,16 +4297,18 @@ function renderCurrenciesList() {
     function formatCurrencyItem(itemText) {
     if (!itemText) return itemText;
     
-    // 先检查是否有"小计:"
-    if (itemText.includes('小计:')) {
-        // 有"小计:"，只标红"小计:"后面的数字
-        return itemText.replace(/(小计:)(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>')
-                       .replace(/(总计[：:])(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>');
-    } else {
-        // 没有"小计:"，标红破折号后面的数字
-        return itemText.replace(/(——)(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>')
-                       .replace(/(总计[：:])(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>');
+    // 1. 优先处理有小计的情况：匹配 "小计:" 或 "小计：" 后面的数字
+    let result = itemText.replace(/(小计[：:]?)(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>');
+    
+    // 2. 如果上面没有匹配到（即没有"小计"字样），才匹配破折号后面的数字
+    if (!result.includes('currency-number-red')) {
+        result = result.replace(/(——)(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>');
     }
+    
+    // 3. 匹配总计冒号后面的数字（支持中英文冒号）
+    result = result.replace(/(总计[：:])(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>');
+    
+    return result;
 }
     
     grid.innerHTML = filtered.map(currency => {
