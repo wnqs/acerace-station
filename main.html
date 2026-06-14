@@ -1469,6 +1469,16 @@
     gap: 24px;
 }
 
+/* 电脑端卡片顺序：按行配对 */
+.currency-card[data-name="纪念币"] { order: 1; }
+.currency-card[data-name="王牌补给券"] { order: 2; }
+.currency-card[data-name="万能零件"] { order: 3; }
+.currency-card[data-name="蓝图"] { order: 4; }
+.currency-card[data-name="礼品点"] { order: 5; }
+.currency-card[data-name="金币"] { order: 6; }
+.currency-card[data-name="采购券"] { order: 7; }
+.currency-card[data-name="芯片礼包"] { order: 8; }
+
 .currency-card {
     background: rgba(20, 20, 31, 0.85);
     backdrop-filter: blur(4px);
@@ -1757,13 +1767,23 @@
         color: #1a1a2e;
     }
     
-    /* 手机端：上下显示，月卡在上，零氪在下 */
+   /* 手机端：上下显示，月卡在上，零氪在下 */
 .currencies-grid {
     grid-template-columns: 1fr;
     gap: 20px;
     margin-top: 0;
     padding: 12px;
 }
+
+/* 手机端卡片顺序：纪念币、王牌补给券、蓝图、万能零件、芯片包、采购券、礼品点、金币 */
+.currency-card[data-name="纪念币"] { order: 1; }
+.currency-card[data-name="王牌补给券"] { order: 2; }
+.currency-card[data-name="蓝图"] { order: 3; }
+.currency-card[data-name="万能零件"] { order: 4; }
+.currency-card[data-name="芯片包"] { order: 5; }
+.currency-card[data-name="采购券"] { order: 6; }
+.currency-card[data-name="礼品点"] { order: 7; }
+.currency-card[data-name="金币"] { order: 8; }
 
 /* 货币页面的网格不需要额外 margin-top，由 body.has-fixed-header .main-content 统一控制 */
     
