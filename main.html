@@ -1238,6 +1238,451 @@
                 padding: 16px 12px !important;
             }
         }
+        /* ========== 游戏货币统计页面样式 ========== */
+.currency-desktop-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #0f0f17;
+    padding: 4px 0 0 0;
+    border-bottom: 1px solid #2a2a3c;
+    margin-bottom: 24px;
+}
+
+.currency-desktop-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 6px 0;
+}
+
+.currency-desktop-filter-bar {
+    background: #14141f;
+    border-radius: 20px;
+    padding: 16px 20px;
+    backdrop-filter: blur(8px);
+    border: 1px solid #2a2a3c;
+    margin-bottom: 0;
+}
+
+.currency-desktop-filter-sections {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.currency-desktop-filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.currency-desktop-filter-section-title {
+    font-size: 0.75rem;
+    color: #feca57;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.currency-desktop-filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.currency-desktop-filter-option {
+    background: #2a2a3c;
+    border-radius: 30px;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    color: #a0a0b8;
+    transition: 0.2s;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.currency-desktop-filter-option.active {
+    background: #feca57;
+    color: #1a1a2e;
+}
+
+.currency-search-box {
+    margin-bottom: 16px;
+}
+
+.currency-search-box input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 16px;
+    border-radius: 40px;
+    border: 1px solid #2a2a3c;
+    background: #1f1f2e;
+    color: #e2e2e6;
+    font-size: 0.9rem;
+    font-weight: 500;
+    outline: none;
+}
+
+.currency-search-box input:focus {
+    border-color: #feca57;
+}
+
+/* 货币卡片网格 - 电脑端一行2个（左右对照） */
+.currencies-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.currency-card {
+    background: rgba(20, 20, 31, 0.85);
+    backdrop-filter: blur(4px);
+    border-radius: 24px;
+    border: 2px solid rgba(42, 42, 60, 0.5);
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.currency-card:hover {
+    transform: translateY(-4px);
+    border-color: #feca57;
+}
+
+.currency-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #1a1a2a, #0f0f1a);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.currency-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.currency-icon img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.currency-name {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #feca57;
+}
+
+/* 左右对照内容区 - 电脑端左右并排 */
+.currency-dual-content {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+}
+
+.currency-free-box,
+.currency-paid-box {
+    flex: 1;
+    padding: 16px;
+    background: rgba(15, 15, 26, 0.5);
+}
+
+.currency-paid-box {
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.currency-free-box {
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.currency-section-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+    border-bottom: 2px solid;
+    text-align: center;
+}
+
+.currency-free-box .currency-section-title {
+    color: #40c468;
+    border-bottom-color: #40c468;
+}
+
+.currency-paid-box .currency-section-title {
+    color: #feca57;
+    border-bottom-color: #feca57;
+}
+
+.currency-items-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px 0;
+}
+
+.currency-items-list li {
+    font-size: 0.8rem;
+    color: #e2e2e6;
+    line-height: 1.8;
+    padding-left: 8px;
+    border-left: 2px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 6px;
+}
+
+.currency-total {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-weight: 700;
+    color: #feca57;
+    font-size: 0.85rem;
+    text-align: right;
+}
+
+/* 手机端样式 */
+@media (max-width: 768px) {
+    .currency-desktop-header {
+        display: none !important;
+    }
+    
+    .currency-mobile-fixed-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #0f0f17;
+        border-bottom: 1px solid #2a2a3c;
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .currency-mobile-top-bar {
+        padding: 8px 12px;
+        border-bottom: 1px solid #2a2a3c;
+    }
+    
+    .currency-mobile-logo-area {
+        text-align: center;
+        cursor: pointer;
+        padding-bottom: 2px;
+    }
+    
+    .currency-mobile-logo-area h1 {
+        font-size: 1rem;
+        background: linear-gradient(135deg, #ff6b6b, #feca57);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: 800;
+    }
+    
+    .currency-mobile-logo-area p {
+        font-size: 0.5rem;
+        color: #8a8aa3;
+        font-weight: 500;
+    }
+    
+    .currency-mobile-nav-tabs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+        margin-top: 4px;
+    }
+    
+    .currency-mobile-tab-btn {
+        padding: 6px 2px;
+        font-size: 0.65rem;
+        border-radius: 16px;
+        text-align: center;
+        background: #1a1a2a;
+        border: none;
+        cursor: pointer;
+        color: #a0a0b8;
+        font-weight: 700;
+    }
+    
+    .currency-mobile-tab-btn.active {
+        background: #feca57;
+        color: #1a1a2e;
+    }
+    
+    .currency-mobile-filter-sticky {
+        padding: 8px 12px;
+        background: #0a0a0f;
+        border-bottom: 1px solid #2a2a3c;
+    }
+    
+    .currency-filter-row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    
+    .currency-mobile-search-box {
+        flex: 2;
+    }
+    
+    .currency-mobile-search-box input {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        background: #1f1f2e;
+        border: 1px solid #2a2a3c;
+        border-radius: 30px;
+        color: #e2e2e6;
+        outline: none;
+    }
+    
+    .currency-mobile-search-box input:focus {
+        border-color: #feca57;
+    }
+    
+    .currency-category-dropdown-btn {
+        background: #1f1f2e;
+        border: 1px solid #2a2a3c;
+        border-radius: 30px;
+        padding: 6px 14px;
+        font-size: 0.75rem;
+        cursor: pointer;
+        color: #e2e2e6;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+    
+    .currency-category-dropdown-btn .arrow {
+        font-size: 0.6rem;
+        transition: transform 0.2s;
+    }
+    
+    .currency-category-dropdown-btn.active .arrow {
+        transform: rotate(180deg);
+    }
+    
+    .currency-category-dropdown-panel {
+        background: #1a1a2a;
+        border-radius: 16px;
+        margin-top: 8px;
+        padding: 10px;
+        border: 1px solid #2a2a3c;
+        display: none;
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        z-index: 210;
+    }
+    
+    .currency-category-dropdown-panel.show {
+        display: block;
+    }
+    
+    .currency-mobile-filter-section {
+        margin-bottom: 12px;
+    }
+    
+    .currency-mobile-filter-section-title {
+        font-size: 0.65rem;
+        color: #feca57;
+        margin-bottom: 5px;
+        padding-left: 4px;
+        font-weight: 700;
+    }
+    
+    .currency-mobile-filter-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .currency-mobile-filter-option {
+        background: #2a2a3c;
+        border-radius: 30px;
+        padding: 6px 12px;
+        font-size: 0.7rem;
+        cursor: pointer;
+        color: #a0a0b8;
+        font-weight: 600;
+        display: inline-block;
+        white-space: nowrap;
+    }
+    
+    .currency-mobile-filter-option.active {
+        background: #feca57;
+        color: #1a1a2e;
+    }
+    
+    /* 手机端：上下显示，月卡在上，零氪在下 */
+    .currencies-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-top: 160px;
+        padding: 12px;
+    }
+    
+    .currency-dual-content {
+        flex-direction: column;
+    }
+    
+    .currency-paid-box,
+    .currency-free-box {
+        border: none;
+    }
+    
+    .currency-paid-box {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    /* 手机端调整顺序：月卡先显示（paid在上），零氪在下 */
+    .currency-dual-content {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .currency-dual-content .currency-paid-box {
+        order: 1;
+    }
+    
+    .currency-dual-content .currency-free-box {
+        order: 2;
+    }
+    
+    .currency-items-list li {
+        font-size: 0.75rem;
+        line-height: 1.6;
+    }
+    
+    .currency-card-header {
+        padding: 12px 16px;
+    }
+    
+    .currency-name {
+        font-size: 1rem;
+    }
+    
+    .currency-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .currency-icon img {
+        width: 26px;
+        height: 26px;
+    }
+}
     </style>
     <!-- 芯片计算器专用样式 -->
     <style>
@@ -2123,7 +2568,60 @@
         </div>
         
         <!-- 其他占位页面 -->
-        <div id="newsPage" class="page"><div style="text-align:center; padding:60px; color:#8a8aa3;">爆料信息 - 开发中</div></div>
+        <div id="newsPage" class="page"><div id="newsPage" class="page">
+    <!-- 电脑端头部 -->
+    <div class="currency-desktop-header">
+        <div class="currency-desktop-header-top">
+            <span class="page-title">游戏货币统计</span>
+        </div>
+        <div class="currency-desktop-filter-bar">
+            <div class="currency-search-box"><input type="text" id="currencySearchInputDesktop" placeholder="搜索货币名称..."></div>
+            <div class="currency-desktop-filter-sections">
+                <div class="currency-desktop-filter-section">
+                    <div class="currency-desktop-filter-section-title">货币类型</div>
+                    <div class="currency-desktop-filter-options" id="currencyDesktopTypeOptions"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 手机端固定头部 -->
+    <div class="currency-mobile-fixed-header" id="currencyMobileFixedHeader" style="display: none;">
+        <div class="currency-mobile-top-bar">
+            <div class="currency-mobile-logo-area" onclick="location.reload()">
+                <h1>王牌竞速 · 数据整合站</h1>
+                <p>核心档案 · 赛车数据</p>
+            </div>
+            <div class="currency-mobile-nav-tabs" id="currencyMobileNavTabs">
+                <button class="currency-mobile-tab-btn" data-page="vehicles">车辆数据</button>
+                <button class="currency-mobile-tab-btn" data-page="chip">芯片系统</button>
+                <button class="currency-mobile-tab-btn" data-page="energy">赋能系统</button>
+                <button class="currency-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
+                <button class="currency-mobile-tab-btn active" data-page="news">游戏货币统计</button>
+                <button class="currency-mobile-tab-btn" data-page="wallpaper">游戏壁纸</button>
+            </div>
+        </div>
+        <div class="currency-mobile-filter-sticky">
+            <div class="currency-filter-row">
+                <div class="currency-mobile-search-box"><input type="text" id="currencySearchInputMobile" placeholder="搜索货币名称..."></div>
+                <div class="currency-category-dropdown-btn" id="currencyCategoryDropdownBtn">
+                    <span>选择分类</span>
+                    <span class="arrow">▼</span>
+                </div>
+            </div>
+            <div class="currency-category-dropdown-panel" id="currencyCategoryDropdownPanel">
+                <div class="currency-mobile-filter-section">
+                    <div class="currency-mobile-filter-section-title">货币类型</div>
+                    <div class="currency-mobile-filter-options" id="currencyMobileTypeOptions"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 货币卡片网格 -->
+    <div class="currencies-grid" id="currenciesGrid"></div>
+    <div class="stats-text" id="currencyStatsText">加载中...</div>
+</div>
         <div id="wallpaperPage" class="page">
             <div style="padding: 20px;">
                 <h2 style="color: #e2e2e6; margin-bottom: 20px; font-weight: 800;">游戏壁纸</h2>
@@ -2703,7 +3201,7 @@
             
             await loadChipsData();
             await loadEnergiesData();
-            
+            await loadCurrenciesData();
         } catch (error) {
             console.error('[加载错误]', error);
             const gridEl = document.getElementById("carsGrid");
@@ -3580,7 +4078,191 @@
             });
         }
         renderEnergiesList();
+    }// ========== 游戏货币统计 ==========
+let currenciesData = [];
+let currencyFilters = { type: "" };
+let currencyKeyword = "";
+
+// 加载货币数据
+async function loadCurrenciesData() {
+    try {
+        const response = await fetch('./currency.json');
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: 无法加载 currency.json`);
+        }
+        const data = await response.json();
+        if (data.currencies && Array.isArray(data.currencies)) {
+            currenciesData = data.currencies;
+        } else {
+            throw new Error('currency.json 格式错误：缺少 currencies 数组');
+        }
+    } catch (error) {
+        console.error('[货币数据加载错误]', error);
+        currenciesData = [];
+        const stats = document.getElementById("currencyStatsText");
+        if (stats) stats.innerText = "加载 currency.json 失败";
     }
+    
+    initCurrencyDesktopFilters();
+    initCurrencyMobileFilters();
+    
+    const desktopSearch = document.getElementById("currencySearchInputDesktop");
+    const mobileSearch = document.getElementById("currencySearchInputMobile");
+    if (desktopSearch) {
+        desktopSearch.addEventListener('input', (e) => {
+            currencyKeyword = e.target.value;
+            renderCurrenciesList();
+        });
+    }
+    if (mobileSearch) {
+        mobileSearch.addEventListener('input', (e) => {
+            currencyKeyword = e.target.value;
+            renderCurrenciesList();
+        });
+    }
+    renderCurrenciesList();
+}
+
+// 筛选货币
+function filterCurrencies() {
+    return currenciesData.filter(currency => {
+        if (currencyFilters.type && currency.name !== currencyFilters.type) return false;
+        if (currencyKeyword && !currency.name.toLowerCase().includes(currencyKeyword.toLowerCase())) {
+            return false;
+        }
+        return true;
+    });
+}
+
+// 渲染货币列表
+function renderCurrenciesList() {
+    const filtered = filterCurrencies();
+    const grid = document.getElementById("currenciesGrid");
+    const stats = document.getElementById("currencyStatsText");
+    if (!grid) return;
+    
+    if (filtered.length === 0) {
+        grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px; color:#8a8aa3;">暂无货币数据</div>';
+        stats.innerText = "共 0 个货币类型";
+        return;
+    }
+    
+    grid.innerHTML = filtered.map(currency => {
+        // 构建月卡黑金党列表
+        let paidItemsHtml = '';
+        if (currency.paid && currency.paid.items && currency.paid.items.length > 0) {
+            paidItemsHtml = '<ul class="currency-items-list">' + 
+                currency.paid.items.map(item => `<li>${item}</li>`).join('') + 
+                '</ul>';
+        } else {
+            paidItemsHtml = '<div style="color:#8a8aa3; text-align:center; padding:20px;">暂无数据</div>';
+        }
+        
+        // 构建零氪党列表
+        let freeItemsHtml = '';
+        if (currency.free && currency.free.items && currency.free.items.length > 0) {
+            freeItemsHtml = '<ul class="currency-items-list">' + 
+                currency.free.items.map(item => `<li>${item}</li>`).join('') + 
+                '</ul>';
+        } else {
+            freeItemsHtml = '<div style="color:#8a8aa3; text-align:center; padding:20px;">暂无数据</div>';
+        }
+        
+        return `
+            <div class="currency-card" data-name="${currency.name}">
+                <div class="currency-card-header">
+                    <div class="currency-icon"><img src="${currency.icon || 'https://placehold.co/48x48?text=' + currency.name.charAt(0)}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/48x48?text=💰'"></div>
+                    <div class="currency-name">${currency.name}</div>
+                </div>
+                <div class="currency-dual-content">
+                    <div class="currency-paid-box">
+                        <div class="currency-section-title">👑 月卡/黑金党</div>
+                        ${paidItemsHtml}
+                        ${currency.paid && currency.paid.total ? `<div class="currency-total">${currency.paid.total}</div>` : ''}
+                    </div>
+                    <div class="currency-free-box">
+                        <div class="currency-section-title">🎯 零氪党</div>
+                        ${freeItemsHtml}
+                        ${currency.free && currency.free.total ? `<div class="currency-total">${currency.free.total}</div>` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join("");
+    
+    stats.innerText = `共 ${filtered.length} 个货币类型`;
+}
+
+// 初始化电脑端筛选器
+function initCurrencyDesktopFilters() {
+    const types = currenciesData.map(c => c.name);
+    const desktopType = document.getElementById("currencyDesktopTypeOptions");
+    if (desktopType && types.length > 0) {
+        desktopType.innerHTML = `<div class="currency-desktop-filter-option" data-filter="type" data-value="">全部</div>` + 
+            types.map(t => `<div class="currency-desktop-filter-option" data-filter="type" data-value="${t}">${t}</div>`).join("");
+        
+        document.querySelectorAll('#currencyDesktopTypeOptions .currency-desktop-filter-option').forEach(opt => {
+            opt.addEventListener('click', () => {
+                const value = opt.dataset.value;
+                if (currencyFilters.type === value) currencyFilters.type = "";
+                else currencyFilters.type = value;
+                updateCurrencyDesktopFilterUI();
+                renderCurrenciesList();
+            });
+        });
+    }
+}
+
+// 初始化手机端筛选器
+function initCurrencyMobileFilters() {
+    const types = currenciesData.map(c => c.name);
+    const mobileType = document.getElementById("currencyMobileTypeOptions");
+    if (mobileType && types.length > 0) {
+        mobileType.innerHTML = `<div class="currency-mobile-filter-option" data-filter="type" data-value="">全部</div>` +
+            types.map(t => `<div class="currency-mobile-filter-option" data-filter="type" data-value="${t}">${t}</div>`).join("");
+        
+        document.querySelectorAll('#currencyMobileTypeOptions .currency-mobile-filter-option').forEach(opt => {
+            opt.addEventListener('click', () => {
+                const value = opt.dataset.value;
+                if (currencyFilters.type === value) currencyFilters.type = "";
+                else currencyFilters.type = value;
+                updateCurrencyMobileFilterUI();
+                renderCurrenciesList();
+                document.getElementById("currencyCategoryDropdownPanel")?.classList.remove("show");
+                document.getElementById("currencyCategoryDropdownBtn")?.classList.remove("active");
+            });
+        });
+    }
+    
+    const dropdownBtn = document.getElementById("currencyCategoryDropdownBtn");
+    const dropdownPanel = document.getElementById("currencyCategoryDropdownPanel");
+    if (dropdownBtn && dropdownPanel) {
+        dropdownBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownPanel.classList.toggle('show');
+            dropdownBtn.classList.toggle('active');
+        });
+        document.addEventListener('click', () => {
+            dropdownPanel.classList.remove('show');
+            dropdownBtn.classList.remove('active');
+        });
+        dropdownPanel.addEventListener('click', (e) => e.stopPropagation());
+    }
+}
+
+function updateCurrencyDesktopFilterUI() {
+    document.querySelectorAll('#currencyDesktopTypeOptions .currency-desktop-filter-option').forEach(opt => {
+        if (currencyFilters.type === opt.dataset.value) opt.classList.add('active');
+        else opt.classList.remove('active');
+    });
+}
+
+function updateCurrencyMobileFilterUI() {
+    document.querySelectorAll('#currencyMobileTypeOptions .currency-mobile-filter-option').forEach(opt => {
+        if (currencyFilters.type === opt.dataset.value) opt.classList.add('active');
+        else opt.classList.remove('active');
+    });
+}
     
     function handleEnergyBack() {
         const hasActiveEnergyFilter = energyFilters.type || energyFilters.func || energyKeyword;
@@ -3652,6 +4334,7 @@
                 document.getElementById('mobileFixedHeader').style.display = 'flex';
                 document.getElementById('chipMobileFixedHeader').style.display = 'none';
                 document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.mobile-tab-btn').forEach(t => { if (t.dataset.page === 'vehicles') t.classList.add('active'); });
@@ -3661,6 +4344,7 @@
                 document.getElementById('mobileFixedHeader').style.display = 'none';
                 document.getElementById('chipMobileFixedHeader').style.display = 'flex';
                 document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.chip-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'chip') t.classList.add('active'); });
@@ -3669,6 +4353,7 @@
                 document.getElementById('mobileFixedHeader').style.display = 'none';
                 document.getElementById('chipMobileFixedHeader').style.display = 'none';
                 document.getElementById('energyMobileFixedHeader').style.display = 'flex';
+                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.energy-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'energy') t.classList.add('active'); });
@@ -3677,6 +4362,7 @@
                 document.getElementById('mobileFixedHeader').style.display = 'flex';
                 document.getElementById('chipMobileFixedHeader').style.display = 'none';
                 document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 const calcBtns = document.querySelectorAll('.mobile-tab-btn');
@@ -3684,10 +4370,20 @@
                 const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
                 if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'none';
                 if (typeof initCalculator === 'function') initCalculator();
-            } else {
+            } else if (pageId === 'news') { 
+            document.getElementById('mobileFixedHeader').style.display = 'none';
+            document.getElementById('chipMobileFixedHeader').style.display = 'none';
+            document.getElementById('energyMobileFixedHeader').style.display = 'none';
+            document.getElementById('currencyMobileFixedHeader').style.display = 'flex';
+            document.body.classList.add('has-fixed-header');
+            document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.currency-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'news') t.classList.add('active'); });
+            if (currenciesData.length === 0) loadCurrenciesData(); else renderCurrenciesList();
+        } else {
                 document.getElementById('mobileFixedHeader').style.display = 'none';
                 document.getElementById('chipMobileFixedHeader').style.display = 'none';
                 document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
                 document.body.classList.remove('has-fixed-header');
             }
         } else {
