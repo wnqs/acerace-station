@@ -738,7 +738,7 @@
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
             
             .main-content { margin-left: 0; margin-top: 0; padding: 12px; width: 100%; }
-            
+            body.has-fixed-header .main-content { margin-top: 145px; }
             
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card-image { height: 130px; padding: 12px; }
@@ -1633,10 +1633,6 @@
     padding: 12px;
 }
 
-/* 🔥 关键修改：为货币页面单独设置顶部边距，避开固定头部 */
-#newsPage .currencies-grid {
-    margin-top: 155px;  /* 这个值需要等于固定头部的实际高度 */
-}
 /* 货币页面的网格不需要额外 margin-top，由 body.has-fixed-header .main-content 统一控制 */
     
     .currency-dual-content {
@@ -4149,18 +4145,8 @@ function filterCurrencies() {
     });
 }
 
-
 // 渲染货币列表
 function renderCurrenciesList() {
-    // 🔥 添加这段：自动调整手机端货币页面的顶部边距
-    if (window.innerWidth <= 768) {
-        const fixedHeader = document.querySelector('.currency-mobile-fixed-header');
-        const currenciesGrid = document.querySelector('#newsPage .currencies-grid');
-        if (fixedHeader && currenciesGrid) {
-            const headerHeight = fixedHeader.offsetHeight;
-            currenciesGrid.style.marginTop = headerHeight + 'px';
-        }
-    }
     const filtered = filterCurrencies();
     const grid = document.getElementById("currenciesGrid");
     const stats = document.getElementById("currencyStatsText");
@@ -4406,27 +4392,16 @@ function updateCurrencyMobileFilterUI() {
                 const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
                 if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'none';
                 if (typeof initCalculator === 'function') initCalculator();
-            } else if (pageId === 'news') {
-    document.getElementById('currencyMobileFixedHeader').style.display = 'flex';
-    document.body.classList.add('has-fixed-header');
-    
-    document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.currency-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'news') t.classList.add('active'); });
-    
-    if (currenciesData.length === 0) loadCurrenciesData(); else renderCurrenciesList();
-    
-    // 🔥 添加这段：重新调整货币页面边距
-    setTimeout(function() {
-        if (window.innerWidth <= 768) {
-            const fixedHeader = document.querySelector('.currency-mobile-fixed-header');
-            const currenciesGrid = document.querySelector('#newsPage .currencies-grid');
-            if (fixedHeader && currenciesGrid) {
-                const headerHeight = fixedHeader.offsetHeight;
-                currenciesGrid.style.marginTop = headerHeight + 'px';
-            }
-        }
-    }, 50);
-} else {
+            } else if (pageId === 'news') { 
+            document.getElementById('mobileFixedHeader').style.display = 'none';
+            document.getElementById('chipMobileFixedHeader').style.display = 'none';
+            document.getElementById('energyMobileFixedHeader').style.display = 'none';
+            document.getElementById('currencyMobileFixedHeader').style.display = 'flex';
+            document.body.classList.add('has-fixed-header');
+            document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.currency-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'news') t.classList.add('active'); });
+            if (currenciesData.length === 0) loadCurrenciesData(); else renderCurrenciesList();
+        } else {
                 document.getElementById('mobileFixedHeader').style.display = 'none';
                 document.getElementById('chipMobileFixedHeader').style.display = 'none';
                 document.getElementById('energyMobileFixedHeader').style.display = 'none';
