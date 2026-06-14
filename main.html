@@ -3232,29 +3232,39 @@
     }
     
     function sortChipsByCategory(chips) {
-        const categoryOrder = {
-            "车姬芯片": 1,
-            "车辆专属芯片": 2,
-            "修炼芯片": 3,
-            "超频芯片": 4
-        };
-        const sorted = [...chips].sort((a, b) => {
-            const orderA = categoryOrder[a.category] || 99;
-            const orderB = categoryOrder[b.category] || 99;
-            if (orderA !== orderB) return orderA - orderB;
-            return a.name.localeCompare(b.name, 'zh');
-        });
-        const normalChips = [];
-        const overclockChips = [];
-        for (const chip of sorted) {
-            if (chip.name.includes("超频")) {
-                overclockChips.push(chip);
-            } else {
-                normalChips.push(chip);
-            }
-        }
-        return [...normalChips, ...overclockChips];
+    // 定义分类顺序
+    const categoryOrder = {
+        "车姬芯片": 1,
+        "车辆专属芯片": 2,
+        "修炼芯片": 3,
+        "超频芯片": 4
+    };
+    
+    // 定义每个分类内芯片的自定义顺序
+    const chipOrderInCategory = {
+        "车姬芯片": ["猫眠梦之芯", "神剑号之芯", "圣骑士之芯"],
+        "车辆专属芯片": ["墨染：修竹", "墨染：幽兰", "墨染：傲梅", "至尊：镇渊玄武", "至尊：啸风白虎", "至尊：浴火朱雀", "至尊：翔宇青龙"],
+        "修炼芯片": ["修炼：效率", "修炼：坚韧", "修炼：突进", "修炼：飞驰", "修炼：追击", "修炼：累积", "修炼：冲刺", "修炼：神速"],
+        "超频芯片": ["超频：时空穿梭", "超频：漆黑魅影", "超频：空中巡航", "超频：三重推进", "超频：纳米科技", "超频：人车合一", "超频：硬汉模式", "超频：双闪", "超频：刀片跑法"]
+    };
+    
+    // 获取芯片在自定义顺序中的索引
+    function getChipIndex(chip) {
+        const orderList = chipOrderInCategory[chip.category] || [];
+        const idx = orderList.indexOf(chip.name);
+        return idx === -1 ? 999 : idx;  // 未定义的放最后
     }
+    
+    const sorted = [...chips].sort((a, b) => {
+        const orderA = categoryOrder[a.category] || 99;
+        const orderB = categoryOrder[b.category] || 99;
+        if (orderA !== orderB) return orderA - orderB;
+        // 同一分类内按自定义顺序排序
+        return getChipIndex(a) - getChipIndex(b);
+    });
+    
+    return sorted;
+}
     
     function renderChipsList() {
         let filtered = filterChips();
