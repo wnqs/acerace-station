@@ -738,7 +738,16 @@
             .filter-option.active, .quality-option.active { background: #feca57; color: #1a1a2e; }
             
             .main-content { margin-left: 0; margin-top: 0; padding: 12px; width: 100%; }
-            body.has-fixed-header .main-content { margin-top: 145px; }
+            /* 确保主内容区域为固定头部预留空间 */
+body.has-fixed-header .main-content {
+    margin-top: 145px;
+}
+
+/* 货币页面内容区单独处理（如果头部高度不同） */
+body.has-fixed-header #newsPage.main-content,
+body.has-fixed-header .page#newsPage {
+    margin-top: 145px;  /* 与货币头部高度匹配 */
+}
             
             .cars-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card-image { height: 130px; padding: 12px; }
@@ -1626,12 +1635,14 @@
     }
     
     /* 手机端：上下显示，月卡在上，零氪在下 */
-    .currencies-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        margin-top: 160px;
-        padding: 12px;
-    }
+.currencies-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 0;
+    padding: 12px;
+}
+
+/* 货币页面的网格不需要额外 margin-top，由 body.has-fixed-header .main-content 统一控制 */
     
     .currency-dual-content {
         flex-direction: column;
@@ -4350,78 +4361,92 @@ function updateCurrencyMobileFilterUI() {
         });
         
         const isMobile = isMobileDevice();
-        if (isMobile) {
-            if (pageId === 'vehicles') {
-                document.getElementById('mobileFixedHeader').style.display = 'flex';
-                document.getElementById('chipMobileFixedHeader').style.display = 'none';
-                document.getElementById('energyMobileFixedHeader').style.display = 'none';
-                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
-                document.body.classList.add('has-fixed-header');
-                document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.mobile-tab-btn').forEach(t => { if (t.dataset.page === 'vehicles') t.classList.add('active'); });
-                const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
-                if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'block';
-            } else if (pageId === 'chip') {
-                document.getElementById('mobileFixedHeader').style.display = 'none';
-                document.getElementById('chipMobileFixedHeader').style.display = 'flex';
-                document.getElementById('energyMobileFixedHeader').style.display = 'none';
-                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
-                document.body.classList.add('has-fixed-header');
-                document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.chip-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'chip') t.classList.add('active'); });
-                if (chipsData.length === 0) loadChipsData(); else renderChipsList();
-            } else if (pageId === 'energy') {
-                document.getElementById('mobileFixedHeader').style.display = 'none';
-                document.getElementById('chipMobileFixedHeader').style.display = 'none';
-                document.getElementById('energyMobileFixedHeader').style.display = 'flex';
-                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
-                document.body.classList.add('has-fixed-header');
-                document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.energy-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'energy') t.classList.add('active'); });
-                if (energiesData.length === 0) loadEnergiesData(); else renderEnergiesList();
-            } else if (pageId === 'calculator') {
-                document.getElementById('mobileFixedHeader').style.display = 'flex';
-                document.getElementById('chipMobileFixedHeader').style.display = 'none';
-                document.getElementById('energyMobileFixedHeader').style.display = 'none';
-                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
-                document.body.classList.add('has-fixed-header');
-                document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
-                const calcBtns = document.querySelectorAll('.mobile-tab-btn');
-                for (let b of calcBtns) if (b.dataset.page === 'calculator') b.classList.add('active');
-                const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
-                if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'none';
-                if (typeof initCalculator === 'function') initCalculator();
-            } else if (pageId === 'news') { 
-            document.getElementById('mobileFixedHeader').style.display = 'none';
-            document.getElementById('chipMobileFixedHeader').style.display = 'none';
-            document.getElementById('energyMobileFixedHeader').style.display = 'none';
-            document.getElementById('currencyMobileFixedHeader').style.display = 'flex';
-            document.body.classList.add('has-fixed-header');
-            document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.currency-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'news') t.classList.add('active'); });
-            if (currenciesData.length === 0) loadCurrenciesData(); else renderCurrenciesList();
-        } else {
-                document.getElementById('mobileFixedHeader').style.display = 'none';
-                document.getElementById('chipMobileFixedHeader').style.display = 'none';
-                document.getElementById('energyMobileFixedHeader').style.display = 'none';
-                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
-                document.body.classList.remove('has-fixed-header');
-            }
-        } else {
-            const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
-            if (vehicleDesktopHeader) {
-                if (pageId === 'vehicles') {
-                    vehicleDesktopHeader.style.display = isInDetail ? 'none' : 'block';
-                } else {
-                    vehicleDesktopHeader.style.display = 'none';
-                }
-            }
+if (isMobile) {
+    // ========== 先隐藏所有固定头部 ==========
+    document.getElementById('mobileFixedHeader').style.display = 'none';
+    document.getElementById('chipMobileFixedHeader').style.display = 'none';
+    document.getElementById('energyMobileFixedHeader').style.display = 'none';
+    document.getElementById('currencyMobileFixedHeader').style.display = 'none';
+    
+    // ========== 移除 has-fixed-header 类（稍后会根据需要重新添加） ==========
+    document.body.classList.remove('has-fixed-header');
+    
+    // ========== 根据目标页面显示对应的头部 ==========
+    if (pageId === 'vehicles') {
+        document.getElementById('mobileFixedHeader').style.display = 'flex';
+        document.body.classList.add('has-fixed-header');
+        
+        document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.mobile-tab-btn').forEach(t => { if (t.dataset.page === 'vehicles') t.classList.add('active'); });
+        
+        const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
+        if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'block';
+        
+        const currentCarId = new URLSearchParams(window.location.search).get('car');
+        if (currentCarId) {
+            const newUrl = window.location.pathname;
+            history.replaceState(null, '', newUrl);
+            restoreList();
         }
         
-        currentPage = pageId;
-        window.scrollTo(0, 0);
+    } else if (pageId === 'chip') {
+        document.getElementById('chipMobileFixedHeader').style.display = 'flex';
+        document.body.classList.add('has-fixed-header');
+        
+        document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.chip-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'chip') t.classList.add('active'); });
+        
+        if (chipsData.length === 0) loadChipsData(); else renderChipsList();
+        
+    } else if (pageId === 'energy') {
+        document.getElementById('energyMobileFixedHeader').style.display = 'flex';
+        document.body.classList.add('has-fixed-header');
+        
+        document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.energy-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'energy') t.classList.add('active'); });
+        
+        if (energiesData.length === 0) loadEnergiesData(); else renderEnergiesList();
+        
+    } else if (pageId === 'calculator') {
+        document.getElementById('mobileFixedHeader').style.display = 'flex';
+        document.body.classList.add('has-fixed-header');
+        
+        document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+        const calcBtns = document.querySelectorAll('.mobile-tab-btn');
+        for (let b of calcBtns) if (b.dataset.page === 'calculator') b.classList.add('active');
+        
+        const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
+        if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'none';
+        
+        if (typeof initCalculator === 'function') initCalculator();
+        
+    } else if (pageId === 'news') {
+        document.getElementById('currencyMobileFixedHeader').style.display = 'flex';
+        document.body.classList.add('has-fixed-header');
+        
+        document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.currency-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'news') t.classList.add('active'); });
+        
+        if (currenciesData.length === 0) loadCurrenciesData(); else renderCurrenciesList();
+        
+    } else if (pageId === 'wallpaper') {
+        // 壁纸页面没有固定头部，不需要添加 has-fixed-header
+        document.body.classList.remove('has-fixed-header');
+        
+        document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+        // 壁纸页面的导航高亮需要单独处理（如果壁纸有对应的导航按钮）
+        
+    } else {
+        // 其他未知页面：只移除头部，不添加
+        document.body.classList.remove('has-fixed-header');
     }
     
+    // 确保页面显示
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+    document.getElementById(pageId + 'Page').classList.add('active-page');
+    
+    window.scrollTo(0, 0);
+}  
     // 返回键逻辑：先清空筛选条件，再按一次才退出网站
     function handleBackButton() {
         const now = Date.now();
@@ -4512,18 +4537,19 @@ function updateCurrencyMobileFilterUI() {
             });
         });
         
-        const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn');
-        mobileTabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const pageId = btn.dataset.page;
-                if (pageId === 'vehicles') switchToPage('vehicles');
-                else if (pageId === 'chip') switchToPage('chip');
-                else if (pageId === 'energy') switchToPage('energy');
-                else if (pageId === 'calculator') switchToPage('calculator');
-                else switchToPage(pageId);
-            });
-        });
-    }
+        const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn');
+mobileTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const pageId = btn.dataset.page;
+        if (pageId === 'vehicles') switchToPage('vehicles');
+        else if (pageId === 'chip') switchToPage('chip');
+        else if (pageId === 'energy') switchToPage('energy');
+        else if (pageId === 'calculator') switchToPage('calculator');
+        else if (pageId === 'news') switchToPage('news');
+        else if (pageId === 'wallpaper') switchToPage('wallpaper');
+        else switchToPage(pageId);
+    });
+});
     
     // ========== 芯片计算器模块初始化 ==========
     let calcInitialized = false;
