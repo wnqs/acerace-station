@@ -2209,7 +2209,7 @@
             --energy-display-bg: #1f1f2e;
             --icon-row-bg: #1f1f2e;
         }
-        body.dark-mode .calculator-container {
+                body.dark-mode .calculator-container {
             --bg-card: #14141f;
             --bg-hover: #1a1a2e;
             --border-light: #2a2a3c;
@@ -2223,6 +2223,12 @@
             --error-text: #ff6b6b;
             --energy-display-bg: #1f1f2e;
             --icon-row-bg: #1f1f2e;
+        }
+        
+        /* 货币数字标红样式 */
+        .currency-number-red {
+            color: #ff6b6b !important;
+            font-weight: 700;
         }
     </style>
 </head>
@@ -4147,12 +4153,18 @@ function renderCurrenciesList() {
         return;
     }
     
+    // 格式化货币条目：将破折号后面的数字标红
+    function formatCurrencyItem(itemText) {
+        // 匹配破折号后面的数字（包括整数和小数）
+        return itemText.replace(/(——)(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>');
+    }
+    
     grid.innerHTML = filtered.map(currency => {
         // 构建月卡黑金党列表
         let paidItemsHtml = '';
         if (currency.paid && currency.paid.items && currency.paid.items.length > 0) {
             paidItemsHtml = '<ul class="currency-items-list">' + 
-                currency.paid.items.map(item => `<li>${item}</li>`).join('') + 
+                currency.paid.items.map(item => `<li>${formatCurrencyItem(item)}</li>`).join('') + 
                 '</ul>';
         } else {
             paidItemsHtml = '<div style="color:#8a8aa3; text-align:center; padding:20px;">暂无数据</div>';
@@ -4162,7 +4174,7 @@ function renderCurrenciesList() {
         let freeItemsHtml = '';
         if (currency.free && currency.free.items && currency.free.items.length > 0) {
             freeItemsHtml = '<ul class="currency-items-list">' + 
-                currency.free.items.map(item => `<li>${item}</li>`).join('') + 
+                currency.free.items.map(item => `<li>${formatCurrencyItem(item)}</li>`).join('') + 
                 '</ul>';
         } else {
             freeItemsHtml = '<div style="color:#8a8aa3; text-align:center; padding:20px;">暂无数据</div>';
@@ -4176,14 +4188,14 @@ function renderCurrenciesList() {
                 </div>
                 <div class="currency-dual-content">
                     <div class="currency-paid-box">
-                        <div class="currency-section-title">👑 月卡/黑金党</div>
+                        <div class="currency-section-title">月卡/黑金党</div>
                         ${paidItemsHtml}
-                        ${currency.paid && currency.paid.total ? `<div class="currency-total">${currency.paid.total}</div>` : ''}
+                        ${currency.paid && currency.paid.total ? `<div class="currency-total">${formatCurrencyItem(currency.paid.total)}</div>` : ''}
                     </div>
                     <div class="currency-free-box">
-                        <div class="currency-section-title">🎯 零氪党</div>
+                        <div class="currency-section-title">零氪党</div>
                         ${freeItemsHtml}
-                        ${currency.free && currency.free.total ? `<div class="currency-total">${currency.free.total}</div>` : ''}
+                        ${currency.free && currency.free.total ? `<div class="currency-total">${formatCurrencyItem(currency.free.total)}</div>` : ''}
                     </div>
                 </div>
             </div>
