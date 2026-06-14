@@ -2386,10 +2386,132 @@
             --icon-row-bg: #1f1f2e;
         }
         
-        /* 货币数字标红样式 */
+                /* 货币数字标红样式 */
         .currency-number-red {
             color: #ff6b6b !important;
             font-weight: 700;
+        }
+        
+        /* ========== 壁纸页面样式 ========== */
+        .wallpaper-container {
+            padding: 20px;
+        }
+        
+        .wallpapers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        
+        .wallpaper-card {
+            background: rgba(20, 20, 31, 0.85);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(42, 42, 60, 0.5);
+            transition: transform 0.2s, border-color 0.2s;
+            cursor: pointer;
+        }
+        
+        .wallpaper-card:hover {
+            transform: translateY(-4px);
+            border-color: #feca57;
+        }
+        
+        .wallpaper-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            background: #0a0a0f;
+        }
+        
+        .wallpaper-name {
+            padding: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #e2e2e6;
+            text-align: center;
+        }
+        
+        .loading-placeholder {
+            text-align: center;
+            padding: 60px;
+            color: #8a8aa3;
+            grid-column: 1 / -1;
+        }
+        
+        /* 壁纸预览弹窗 */
+        .wallpaper-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .wallpaper-modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+        }
+        
+        .wallpaper-modal-media {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 12px;
+        }
+        
+        video.wallpaper-modal-media {
+            width: auto;
+            height: auto;
+        }
+        
+        .wallpaper-modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .wallpaper-modal-name {
+            text-align: center;
+            color: white;
+            margin-top: 16px;
+            font-size: 1rem;
+        }
+        
+        /* 手机端：每行1个 */
+        @media (max-width: 768px) {
+            .wallpaper-container {
+                padding: 12px;
+            }
+            
+            .wallpapers-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .wallpaper-name {
+                font-size: 0.75rem;
+                padding: 10px;
+            }
+            
+            .wallpaper-modal-close {
+                top: -30px;
+                font-size: 25px;
+            }
+            
+            .wallpaper-modal-name {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -2791,11 +2913,12 @@
 </div>
 
 <!-- 游戏壁纸页面 -->
+<!-- 游戏壁纸页面 -->
 <div id="wallpaperPage" class="page">
-    <div style="padding: 20px;">
+    <div class="wallpaper-container">
         <h2 style="color: #e2e2e6; margin-bottom: 20px; font-weight: 800;">游戏壁纸</h2>
         <div class="wallpapers-grid" id="wallpapersGrid">
-            <div class="wallpaper-placeholder">精美壁纸即将上线...</div>
+            <div class="loading-placeholder">加载中...</div>
         </div>
     </div>
 </div>
@@ -3369,6 +3492,7 @@
             await loadChipsData();
             await loadEnergiesData();
             await loadCurrenciesData();
+            await loadWallpapersData();
         } catch (error) {
             console.error('[加载错误]', error);
             const gridEl = document.getElementById("carsGrid");
@@ -4471,7 +4595,83 @@ function updateCurrencyMobileFilterUI() {
         }
         return false;
     }
+    // ========== 壁纸数据加载 ==========
+let wallpapersData = [];
+
+async function loadWallpapersData() {
+    const grid = document.getElementById("wallpapersGrid");
+    try {
+        const response = await fetch('./wallpapers.json');
+        if (!response.ok) throw new Error('加载失败');
+        const data = await response.json();
+        wallpapersData = data.wallpapers || [];
+    } catch (error) {
+        console.log('加载 wallpapers.json 失败');
+        wallpapersData = [];
+        if (grid) grid.innerHTML = '<div class="loading-placeholder">暂无壁纸数据</div>';
+        return;
+    }
+    renderWallpapersList();
+}
+
+function renderWallpapersList() {
+    const grid = document.getElementById("wallpapersGrid");
+    if (!grid) return;
     
+    if (wallpapersData.length === 0) {
+        grid.innerHTML = '<div class="loading-placeholder">暂无壁纸数据</div>';
+        return;
+    }
+    
+    grid.innerHTML = wallpapersData.map(wp => {
+        const isVideo = wp.type === 'video';
+        const mediaContent = isVideo
+            ? `<video class="wallpaper-image" muted loop playsinline poster="${wp.thumbnail || ''}">
+                    <source src="${wp.url}" type="video/mp4">
+               </video>`
+            : `<img class="wallpaper-image" src="${wp.url}" loading="lazy" onerror="this.src='https://placehold.co/400x225?text=加载失败'">`;
+        
+        return `
+            <div class="wallpaper-card" data-url="${wp.url}" data-name="${wp.name}" data-type="${wp.type || 'image'}">
+                ${mediaContent}
+                <div class="wallpaper-name">${wp.name}</div>
+            </div>
+        `;
+    }).join("");
+    
+    // 绑定点击预览事件
+    document.querySelectorAll('.wallpaper-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const url = card.dataset.url;
+            const name = card.dataset.name;
+            const type = card.dataset.type;
+            showWallpaperPreview(url, name, type);
+        });
+    });
+}
+
+function showWallpaperPreview(url, name, type) {
+    const modal = document.createElement('div');
+    modal.className = 'wallpaper-modal';
+    
+    const isVideo = type === 'video';
+    const mediaHtml = isVideo
+        ? `<video class="wallpaper-modal-media" src="${url}" controls autoplay loop></video>`
+        : `<img class="wallpaper-modal-media" src="${url}" alt="${name}">`;
+    
+    modal.innerHTML = `
+        <div class="wallpaper-modal-content">
+            <span class="wallpaper-modal-close">&times;</span>
+            ${mediaHtml}
+            <div class="wallpaper-modal-name">${name}</div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    modal.querySelector('.wallpaper-modal-close').addEventListener('click', () => modal.remove());
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+}
     // ========== 导航和页面切换函数 ==========
     function handleVehicleBackToList() {
         returnToVehicleList();
@@ -4698,6 +4898,8 @@ function updateCurrencyMobileFilterUI() {
                 else if (pageId === 'chip') switchToPage('chip');
                 else if (pageId === 'energy') switchToPage('energy');
                 else if (pageId === 'calculator') switchToPage('calculator');
+                else if (pageId === 'news') switchToPage('news');
+                else if (pageId === 'wallpaper') switchToPage('wallpaper');  // ← 确保这一行存在
                 else switchToPage(pageId);
             });
         });
