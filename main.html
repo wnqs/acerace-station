@@ -1109,13 +1109,131 @@
                 overflow-y: auto;
             }
             
-            /* 手机端计算器页面与顶部导航栏贴紧 */
-            #calculatorPage {
-                margin-top: -10px;
-            }
-            .calculator-container .card:first-child {
-                margin-top: 0;
-            }
+            /* 手机端计算器页面样式 */
+#calculatorPage {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+#calculatorPage .calculator-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#calculatorPage .card {
+    width: 100%;
+    margin: 0 0 16px 0;
+    padding: 16px;
+    border-radius: 20px;
+    box-sizing: border-box;
+}
+
+#calculatorPage .car-layout-new {
+    flex-direction: column;
+    gap: 16px;
+}
+
+#calculatorPage .car-icon-large {
+    flex: none;
+    width: 100%;
+    text-align: center;
+}
+
+#calculatorPage .car-icon-large .car-icon {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+}
+
+#calculatorPage .car-form-right {
+    width: 100%;
+    min-width: 0;
+}
+
+#calculatorPage .row2 {
+    flex-direction: column;
+    gap: 12px;
+}
+
+#calculatorPage .row2 > div {
+    width: 100%;
+    min-width: 0;
+}
+
+#calculatorPage .energy-row {
+    flex-direction: column;
+    gap: 12px;
+}
+
+#calculatorPage .energy-row > div {
+    width: 100%;
+}
+
+#calculatorPage .eff-select-row,
+#calculatorPage .vslot-select-row,
+#calculatorPage .nitro-select-row,
+#calculatorPage .car-type-row,
+#calculatorPage .car-subtype-row {
+    flex-wrap: wrap;
+    padding: 8px;
+}
+
+#calculatorPage .eff-select-row select,
+#calculatorPage .vslot-select-row select,
+#calculatorPage .nitro-select-row select,
+#calculatorPage .car-type-row select,
+#calculatorPage .car-subtype-row select {
+    width: 100%;
+    min-width: 0;
+}
+
+#calculatorPage .eff-icon-preview,
+#calculatorPage .vslot-icon-preview,
+#calculatorPage .nitro-icon-preview,
+#calculatorPage .car-type-icon-preview,
+#calculatorPage .car-subtype-icon-preview {
+    width: 36px;
+    height: 36px;
+}
+
+#calculatorPage .toggle-switch {
+    flex-wrap: wrap;
+    padding: 12px;
+}
+
+#calculatorPage .button-group {
+    flex-direction: column;
+    gap: 10px;
+}
+
+#calculatorPage .button-group button {
+    width: 100%;
+}
+
+#calculatorPage .custom-hui-row {
+    flex-wrap: wrap;
+}
+
+#calculatorPage .custom-hui-row input {
+    width: 100px;
+}
+
+#calculatorPage .result-box {
+    font-size: 0.75rem;
+    padding: 12px;
+    overflow-x: auto;
+}
+
+#calculatorPage .note {
+    font-size: 0.65rem;
+}
+
+#calculatorPage .usage-guide {
+    font-size: 0.7rem;
+}
         }
         
         @media (min-width: 769px) {
