@@ -5497,7 +5497,7 @@ function updateCurrencyMobileFilterUI() {
                     div.innerHTML = `<div class="car-name">${car.name}</div><div class="car-info">${car.typeName} · ${car.subName} (${car.chips})</div>`;
                     div.addEventListener('click', (function (carInfo) {
     return function () {
-        // 🔥 保存当前滚动位置
+        // 保存当前滚动位置
         const scrollY = window.scrollY;
         
         calcCarType.value = carInfo.type;
@@ -5541,10 +5541,13 @@ function updateCurrencyMobileFilterUI() {
         let car = getCalcCurrentCar();
         calcYitaiExtraOptions.style.display = (car && (car.name === "以太" || car.name === "催化剂")) ? 'block' : 'none';
         updateCalcToggleState();
+        
+        // 清空搜索框并关闭下拉框
         searchInput.value = '';
         dropdown.classList.remove('show');
+        searchInput.blur();  // 让搜索框失去焦点
         
-        // 🔥 恢复滚动位置（延迟执行确保 DOM 更新完成）
+        // 恢复滚动位置
         setTimeout(() => {
             window.scrollTo(0, scrollY);
         }, 10);
