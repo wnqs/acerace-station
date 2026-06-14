@@ -1,0 +1,136 @@
+{
+  "currencies": [
+    {
+      "id": "commemorative_coin",
+      "name": "纪念币",
+      "icon": "https://s3.bmp.ovh/2026/06/14/coin1.png",
+      "paid": {
+        "title": "月卡/黑金党",
+        "items": [
+          "每日100活跃度——30 (小计680)",
+          "每周活跃——200 (小计1600)",
+          "排位冲段任务——200",
+          "赛季奖励——1800",
+          "月卡（购卡立得300+每日30）——2280",
+          "黑金会员——450"
+        ],
+        "total": "总计：7010纪念币"
+      },
+      "free": {
+        "title": "零氪党",
+        "items": [
+          "每日100活跃度——30 (小计680)",
+          "每周活跃——200 (小计1600)",
+          "排位冲段任务——200",
+          "赛季奖励——1800"
+        ],
+        "total": "总计：4280纪念币"
+      }
+    },
+    {
+      "id": "universal_parts",
+      "name": "万能零件",
+      "icon": "https://s3.bmp.ovh/2026/06/14/parts.png",
+      "paid": {
+        "title": "月卡/黑金党",
+        "items": [],
+        "total": "待补充"
+      },
+      "free": {
+        "title": "零氪党",
+        "items": [],
+        "total": "待补充"
+      }
+    },
+    {
+      "id": "gift_points",
+      "name": "礼品点",
+      "icon": "https://s3.bmp.ovh/2026/06/14/gift.png",
+      "paid": {
+        "title": "月卡/黑金党",
+        "items": [],
+        "total": "待补充"
+      },
+      "free": {
+        "title": "零氪党",
+        "items": [],
+        "total": "待补充"
+      }
+    },
+    {
+      "id": "blueprint",
+      "name": "蓝图",
+      "icon": "https://s3.bmp.ovh/2026/06/14/blueprint.png",
+      "paid": {
+        "title": "月卡/黑金党",
+        "items": [],
+        "total": "待补充"
+      },
+      "free": {
+        "title": "零氪党",
+        "items": [],
+        "total": "待补充"
+      }
+    },
+    {
+      "id": "procurement_coupon",
+      "name": "采购券",
+      "icon": "https://s3.bmp.ovh/2026/06/14/coupon.png",
+      "paid": {
+        "title": "月卡/黑金党",
+        "items": [],
+        "total": "待补充"
+      },
+      "free": {
+        "title": "零氪党",
+        "items": [],
+        "total": "待补充"
+      }
+    },
+    {
+      "id": "ace_supply_ticket",
+      "name": "王牌补给券",
+      "icon": "https://s3.bmp.ovh/2026/06/14/ticket.png",
+      "paid": {
+        "title": "月卡/黑金党",
+        "items": [],
+        "total": "待补充"
+      },
+      "free": {
+        "title": "零氪党",
+        "items": [],
+        "total": "待补充"
+      }
+    },
+    {
+      "id": "gold_coin",
+      "name": "金币",
+      "icon": "https://s3.bmp.ovh/2026/06/14/gold.png",
+      "paid": {
+        "title": "月卡/黑金党",
+        "items": [],
+        "total": "待补充"
+      },
+      "free": {
+        "title": "零氪党",
+        "items": [],
+        "total": "待补充"
+      }
+    },
+    {
+      "id": "chip_pack",
+      "name": "芯片包",
+      "icon": "https://s3.bmp.ovh/2026/06/14/chip.png",
+      "paid": {
+        "title": "月卡/黑金党",
+        "items": [],
+        "total": "待补充"
+      },
+      "free": {
+        "title": "零氪党",
+        "items": [],
+        "total": "待补充"
+      }
+    }
+  ]
+}
