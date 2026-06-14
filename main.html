@@ -4297,16 +4297,31 @@ function renderCurrenciesList() {
     function formatCurrencyItem(itemText) {
     if (!itemText) return itemText;
     
-    // 1. 优先处理有小计的情况：匹配 "小计:" 或 "小计：" 后面的数字
-    let result = itemText.replace(/(小计[：:]?)(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>');
+    // 1. 优先处理有小计的情况：匹配 "小计:" 后面的所有数字
+    let result = itemText;
     
-    // 2. 如果上面没有匹配到（即没有"小计"字样），才匹配破折号后面的数字
-    if (!result.includes('currency-number-red')) {
-        result = result.replace(/(——)(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>');
+    // 检查是否包含"小计:"
+    if (result.includes('小计:')) {
+        // 将"小计:"后面的所有数字都标红（包括用顿号、逗号、文字分隔的多个数字）
+        result = result.replace(/小计:([^（\n]*)/g, function(match, content) {
+            // 标红内容中的所有数字
+            const highlightedContent = content.replace(/(\d+(?:\.\d+)?)/g, '<span class="currency-number-red">$1</span>');
+            return '小计:' + highlightedContent;
+        });
+    } 
+    // 2. 如果没有"小计:"，匹配破折号后面的数字
+    else if (result.includes('——')) {
+        result = result.replace(/(——)([^（\n]*)/g, function(match, prefix, content) {
+            const highlightedContent = content.replace(/(\d+(?:\.\d+)?)/g, '<span class="currency-number-red">$1</span>');
+            return prefix + highlightedContent;
+        });
     }
     
-    // 3. 匹配总计冒号后面的数字（支持中英文冒号）
-    result = result.replace(/(总计[：:])(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>');
+    // 3. 匹配总计冒号后面的所有数字
+    result = result.replace(/(总计[：:])([^（\n]*)/g, function(match, prefix, content) {
+        const highlightedContent = content.replace(/(\d+(?:\.\d+)?)/g, '<span class="currency-number-red">$1</span>');
+        return prefix + highlightedContent;
+    });
     
     return result;
 }
