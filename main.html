@@ -2986,29 +2986,19 @@
     let isExecutingSearch = false;
     
     function executeSearch(searchValue) {
-        const searchTerm = searchValue;
-        const currentCarId = new URLSearchParams(window.location.search).get('car');
-        
-        if (currentCarId) {
-            if (isExecutingSearch) return;
-            isExecutingSearch = true;
-            clearAllFilters();
-            const newUrl = window.location.pathname;
-            history.replaceState(null, '', newUrl);
-            const headerBackBtn = document.getElementById('headerBackBtn');
-            if (headerBackBtn) headerBackBtn.style.display = 'none';
-            restoreList();
-            setTimeout(() => {
-                keyword = searchTerm;
-                const desktopInput = document.getElementById('searchInputDesktop');
-                const mobileInput = document.getElementById('searchInputMobile');
-                if (desktopInput && desktopInput.value !== keyword) desktopInput.value = keyword;
-                if (mobileInput && mobileInput.value !== keyword) mobileInput.value = keyword;
-                renderList();
-                window.scrollTo(0, 0);
-                isExecutingSearch = false;
-            }, 50);
-        } else {
+    const searchTerm = searchValue;
+    const currentCarId = new URLSearchParams(window.location.search).get('car');
+    
+    if (currentCarId) {
+        if (isExecutingSearch) return;
+        isExecutingSearch = true;
+        clearAllFilters();
+        const newUrl = window.location.pathname;
+        history.replaceState(null, '', newUrl);
+        const headerBackBtn = document.getElementById('headerBackBtn');
+        if (headerBackBtn) headerBackBtn.style.display = 'none';
+        restoreList();
+        setTimeout(() => {
             keyword = searchTerm;
             const desktopInput = document.getElementById('searchInputDesktop');
             const mobileInput = document.getElementById('searchInputMobile');
@@ -3016,8 +3006,26 @@
             if (mobileInput && mobileInput.value !== keyword) mobileInput.value = keyword;
             renderList();
             window.scrollTo(0, 0);
-        }
+            isExecutingSearch = false;
+        }, 50);
+    } else {
+        keyword = searchTerm;
+        const desktopInput = document.getElementById('searchInputDesktop');
+        const mobileInput = document.getElementById('searchInputMobile');
+        if (desktopInput && desktopInput.value !== keyword) desktopInput.value = keyword;
+        if (mobileInput && mobileInput.value !== keyword) mobileInput.value = keyword;
+        renderList();
+        window.scrollTo(0, 0);
     }
+}  // ← 添加这个闭合大括号
+
+function handleSearchInput(e) {
+    const value = e.target.value;
+    if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+    searchDebounceTimer = setTimeout(() => {
+        executeSearch(value);
+    }, 300);
+}
     
     function handleSearchInput(e) {
         const value = e.target.value;
@@ -4579,16 +4587,18 @@ if (isMobile) {
         });
         
         const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn');
-        mobileTabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const pageId = btn.dataset.page;
-                if (pageId === 'vehicles') switchToPage('vehicles');
-                else if (pageId === 'chip') switchToPage('chip');
-                else if (pageId === 'energy') switchToPage('energy');
-                else if (pageId === 'calculator') switchToPage('calculator');
-                else switchToPage(pageId);
-            });
-        });
+mobileTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const pageId = btn.dataset.page;
+        if (pageId === 'vehicles') switchToPage('vehicles');
+        else if (pageId === 'chip') switchToPage('chip');
+        else if (pageId === 'energy') switchToPage('energy');
+        else if (pageId === 'calculator') switchToPage('calculator');
+        else if (pageId === 'news') switchToPage('news');
+        else if (pageId === 'wallpaper') switchToPage('wallpaper');
+        else switchToPage(pageId);
+    });
+});
     }
     
     // ========== 芯片计算器模块初始化 ==========
