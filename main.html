@@ -4158,13 +4158,12 @@ function renderCurrenciesList() {
         return;
     }
     
-    // 格式化货币条目：将破折号后面的数字标红
     function formatCurrencyItem(itemText) {
     if (!itemText) return itemText;
     // 1. 匹配破折号后面的数字：——30
     let result = itemText.replace(/(——)(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>');
-    // 2. 匹配括号内的小计数字：(小计680) 中的 680
-    result = result.replace(/\(小计(\d+(?:\.\d+)?)\)/g, '<span class="currency-number-red">(小计$1)</span>');
+    // 2. 匹配小计后面的数字：小计680 中的 680（只标红数字，不标红括号）
+    result = result.replace(/(小计)(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>');
     // 3. 匹配总计冒号后面的数字：总计：7010 中的 7010
     result = result.replace(/(总计[：:])(\d+(?:\.\d+)?)/g, '$1<span class="currency-number-red">$2</span>');
     return result;
