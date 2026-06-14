@@ -804,7 +804,7 @@
                 display: none !important;
             }
             
-            /* 手机端芯片架构样式 */
+            /* 手机端芯片系统样式 */
             .chip-mobile-fixed-header, .energy-mobile-fixed-header {
                 position: fixed;
                 top: 0;
@@ -1790,7 +1790,7 @@
         </div>
         <div class="nav-tabs">
             <button class="tab-btn active" data-page="vehicles">车辆数据</button>
-            <button class="tab-btn" data-page="chip">芯片架构</button>
+            <button class="tab-btn" data-page="chip">芯片系统</button>
             <button class="tab-btn" data-page="energy">赋能系统</button>
             <button class="tab-btn" data-page="calculator">芯片要求计算器</button>
             <button class="tab-btn" data-page="news">游戏货币统计</button>
@@ -1807,7 +1807,7 @@
             </div>
             <div class="mobile-nav-tabs" id="mobileNavTabs">
                 <button class="mobile-tab-btn active" data-page="vehicles">车辆数据</button>
-                <button class="mobile-tab-btn" data-page="chip">芯片架构</button>
+                <button class="mobile-tab-btn" data-page="chip">芯片系统</button>
                 <button class="mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
                 <button class="mobile-tab-btn" data-page="news">游戏货币统计</button>
@@ -1853,7 +1853,7 @@
         </div>
     </div>
     
-    <!-- 手机端芯片架构固定头部 -->
+    <!-- 手机端芯片系统固定头部 -->
     <div class="chip-mobile-fixed-header" id="chipMobileFixedHeader" style="display: none;">
         <div class="chip-mobile-top-bar">
             <div class="chip-mobile-logo-area" onclick="location.reload()">
@@ -1862,7 +1862,7 @@
             </div>
             <div class="chip-mobile-nav-tabs" id="chipMobileNavTabs">
                 <button class="chip-mobile-tab-btn" data-page="vehicles">车辆数据</button>
-                <button class="chip-mobile-tab-btn active" data-page="chip">芯片架构</button>
+                <button class="chip-mobile-tab-btn active" data-page="chip">芯片系统</button>
                 <button class="chip-mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="chip-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
                 <button class="chip-mobile-tab-btn" data-page="news">爆料信息</button>
@@ -1903,7 +1903,7 @@
             </div>
             <div class="energy-mobile-nav-tabs" id="energyMobileNavTabs">
                 <button class="energy-mobile-tab-btn" data-page="vehicles">车辆数据</button>
-                <button class="energy-mobile-tab-btn" data-page="chip">芯片架构</button>
+                <button class="energy-mobile-tab-btn" data-page="chip">芯片系统</button>
                 <button class="energy-mobile-tab-btn active" data-page="energy">赋能系统</button>
                 <button class="energy-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
                 <button class="energy-mobile-tab-btn" data-page="news">爆料信息</button>
@@ -1966,12 +1966,12 @@
             <div class="stats-text" id="statsText">加载中...</div>
         </div>
         
-        <!-- 芯片架构页面 - 电脑端使用desktop-header，手机端被CSS隐藏 -->
+        <!-- 芯片系统页面 - 电脑端使用desktop-header，手机端被CSS隐藏 -->
         <div id="chipPage" class="page">
             <div class="chip-desktop-header">
                 <div class="chip-desktop-header-top">
                     <div class="header-title-area">
-                        <span class="page-title">芯片架构</span>
+                        <span class="page-title">芯片系统</span>
                     </div>
                     <div class="header-right-placeholder"></div>
                 </div>
@@ -3089,7 +3089,7 @@
         }
     }
     
-    // ========== 芯片架构函数 ==========
+    // ========== 芯片系统函数 ==========
     function getChipBorderClass(quality) {
         if (quality === "传说") return "legendary-border";
         if (quality === "史诗") return "epic-border";
