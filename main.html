@@ -1691,27 +1691,6 @@
     height: 40px;
     object-fit: contain;
 }
-    /* 手机端：确保同一时间只显示一个固定头部 */
-    .mobile-fixed-header,
-    .chip-mobile-fixed-header,
-    .energy-mobile-fixed-header,
-    .currency-mobile-fixed-header {
-        transition: none !important;
-    }
-    
-    /* 确保货币页面的固定头部正确显示 */
-    #newsPage .currency-mobile-fixed-header {
-        display: flex !important;
-    }
-    
-    /* 其他页面隐藏货币头部 */
-    #vehiclesPage .currency-mobile-fixed-header,
-    #chipPage .currency-mobile-fixed-header,
-    #energyPage .currency-mobile-fixed-header,
-    #calculatorPage .currency-mobile-fixed-header,
-    #wallpaperPage .currency-mobile-fixed-header {
-        display: none !important;
-    }
 }
     </style>
     <!-- 芯片计算器专用样式 -->
@@ -2986,19 +2965,29 @@
     let isExecutingSearch = false;
     
     function executeSearch(searchValue) {
-    const searchTerm = searchValue;
-    const currentCarId = new URLSearchParams(window.location.search).get('car');
-    
-    if (currentCarId) {
-        if (isExecutingSearch) return;
-        isExecutingSearch = true;
-        clearAllFilters();
-        const newUrl = window.location.pathname;
-        history.replaceState(null, '', newUrl);
-        const headerBackBtn = document.getElementById('headerBackBtn');
-        if (headerBackBtn) headerBackBtn.style.display = 'none';
-        restoreList();
-        setTimeout(() => {
+        const searchTerm = searchValue;
+        const currentCarId = new URLSearchParams(window.location.search).get('car');
+        
+        if (currentCarId) {
+            if (isExecutingSearch) return;
+            isExecutingSearch = true;
+            clearAllFilters();
+            const newUrl = window.location.pathname;
+            history.replaceState(null, '', newUrl);
+            const headerBackBtn = document.getElementById('headerBackBtn');
+            if (headerBackBtn) headerBackBtn.style.display = 'none';
+            restoreList();
+            setTimeout(() => {
+                keyword = searchTerm;
+                const desktopInput = document.getElementById('searchInputDesktop');
+                const mobileInput = document.getElementById('searchInputMobile');
+                if (desktopInput && desktopInput.value !== keyword) desktopInput.value = keyword;
+                if (mobileInput && mobileInput.value !== keyword) mobileInput.value = keyword;
+                renderList();
+                window.scrollTo(0, 0);
+                isExecutingSearch = false;
+            }, 50);
+        } else {
             keyword = searchTerm;
             const desktopInput = document.getElementById('searchInputDesktop');
             const mobileInput = document.getElementById('searchInputMobile');
@@ -3006,26 +2995,8 @@
             if (mobileInput && mobileInput.value !== keyword) mobileInput.value = keyword;
             renderList();
             window.scrollTo(0, 0);
-            isExecutingSearch = false;
-        }, 50);
-    } else {
-        keyword = searchTerm;
-        const desktopInput = document.getElementById('searchInputDesktop');
-        const mobileInput = document.getElementById('searchInputMobile');
-        if (desktopInput && desktopInput.value !== keyword) desktopInput.value = keyword;
-        if (mobileInput && mobileInput.value !== keyword) mobileInput.value = keyword;
-        renderList();
-        window.scrollTo(0, 0);
+        }
     }
-}  // ← 添加这个闭合大括号
-
-function handleSearchInput(e) {
-    const value = e.target.value;
-    if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
-    searchDebounceTimer = setTimeout(() => {
-        executeSearch(value);
-    }, 300);
-}
     
     function handleSearchInput(e) {
         const value = e.target.value;
@@ -4181,12 +4152,12 @@ function filterCurrencies() {
 
 // 渲染货币列表
 function renderCurrenciesList() {
-    // 手机端：确保货币页面内容不被头部遮挡
+    // 🔥 添加这段：自动调整手机端货币页面的顶部边距
     if (window.innerWidth <= 768) {
-        const currencyHeader = document.getElementById('currencyMobileFixedHeader');
-        const currenciesGrid = document.getElementById('currenciesGrid');
-        if (currencyHeader && currenciesGrid && currencyHeader.style.display === 'flex') {
-            const headerHeight = currencyHeader.offsetHeight;
+        const fixedHeader = document.querySelector('.currency-mobile-fixed-header');
+        const currenciesGrid = document.querySelector('#newsPage .currencies-grid');
+        if (fixedHeader && currenciesGrid) {
+            const headerHeight = fixedHeader.offsetHeight;
             currenciesGrid.style.marginTop = headerHeight + 'px';
         }
     }
@@ -4394,107 +4365,88 @@ function updateCurrencyMobileFilterUI() {
         });
         
         const isMobile = isMobileDevice();
-if (isMobile) {
-    // ========== 先强制隐藏所有固定头部 ==========
-    const mobileHeader = document.getElementById('mobileFixedHeader');
-    const chipHeader = document.getElementById('chipMobileFixedHeader');
-    const energyHeader = document.getElementById('energyMobileFixedHeader');
-    const currencyHeader = document.getElementById('currencyMobileFixedHeader');
+        if (isMobile) {
+            if (pageId === 'vehicles') {
+                document.getElementById('mobileFixedHeader').style.display = 'flex';
+                document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
+                document.body.classList.add('has-fixed-header');
+                document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.mobile-tab-btn').forEach(t => { if (t.dataset.page === 'vehicles') t.classList.add('active'); });
+                const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
+                if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'block';
+            } else if (pageId === 'chip') {
+                document.getElementById('mobileFixedHeader').style.display = 'none';
+                document.getElementById('chipMobileFixedHeader').style.display = 'flex';
+                document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
+                document.body.classList.add('has-fixed-header');
+                document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.chip-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'chip') t.classList.add('active'); });
+                if (chipsData.length === 0) loadChipsData(); else renderChipsList();
+            } else if (pageId === 'energy') {
+                document.getElementById('mobileFixedHeader').style.display = 'none';
+                document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                document.getElementById('energyMobileFixedHeader').style.display = 'flex';
+                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
+                document.body.classList.add('has-fixed-header');
+                document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.energy-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'energy') t.classList.add('active'); });
+                if (energiesData.length === 0) loadEnergiesData(); else renderEnergiesList();
+            } else if (pageId === 'calculator') {
+                document.getElementById('mobileFixedHeader').style.display = 'flex';
+                document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
+                document.body.classList.add('has-fixed-header');
+                document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+                const calcBtns = document.querySelectorAll('.mobile-tab-btn');
+                for (let b of calcBtns) if (b.dataset.page === 'calculator') b.classList.add('active');
+                const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
+                if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'none';
+                if (typeof initCalculator === 'function') initCalculator();
+            } else if (pageId === 'news') {
+    document.getElementById('currencyMobileFixedHeader').style.display = 'flex';
+    document.body.classList.add('has-fixed-header');
     
-    if (mobileHeader) mobileHeader.style.display = 'none';
-    if (chipHeader) chipHeader.style.display = 'none';
-    if (energyHeader) energyHeader.style.display = 'none';
-    if (currencyHeader) currencyHeader.style.display = 'none';
+    document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.currency-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'news') t.classList.add('active'); });
     
-    // ========== 移除 has-fixed-header 类 ==========
-    document.body.classList.remove('has-fixed-header');
+    if (currenciesData.length === 0) loadCurrenciesData(); else renderCurrenciesList();
     
-    // ========== 根据目标页面显示对应的头部 ==========
-    if (pageId === 'vehicles') {
-        if (mobileHeader) mobileHeader.style.display = 'flex';
-        document.body.classList.add('has-fixed-header');
-        
-        document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.mobile-tab-btn').forEach(t => { if (t.dataset.page === 'vehicles') t.classList.add('active'); });
-        
-        const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
-        if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'block';
-        
-        const currentCarId = new URLSearchParams(window.location.search).get('car');
-        if (currentCarId) {
-            const newUrl = window.location.pathname;
-            history.replaceState(null, '', newUrl);
-            restoreList();
+    // 🔥 添加这段：重新调整货币页面边距
+    setTimeout(function() {
+        if (window.innerWidth <= 768) {
+            const fixedHeader = document.querySelector('.currency-mobile-fixed-header');
+            const currenciesGrid = document.querySelector('#newsPage .currencies-grid');
+            if (fixedHeader && currenciesGrid) {
+                const headerHeight = fixedHeader.offsetHeight;
+                currenciesGrid.style.marginTop = headerHeight + 'px';
+            }
         }
-        
-    } else if (pageId === 'chip') {
-        if (chipHeader) chipHeader.style.display = 'flex';
-        document.body.classList.add('has-fixed-header');
-        
-        document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.chip-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'chip') t.classList.add('active'); });
-        
-        if (chipsData.length === 0) loadChipsData(); else renderChipsList();
-        
-    } else if (pageId === 'energy') {
-        if (energyHeader) energyHeader.style.display = 'flex';
-        document.body.classList.add('has-fixed-header');
-        
-        document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.energy-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'energy') t.classList.add('active'); });
-        
-        if (energiesData.length === 0) loadEnergiesData(); else renderEnergiesList();
-        
-    } else if (pageId === 'calculator') {
-        if (mobileHeader) mobileHeader.style.display = 'flex';
-        document.body.classList.add('has-fixed-header');
-        
-        document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
-        const calcBtns = document.querySelectorAll('.mobile-tab-btn');
-        for (let b of calcBtns) if (b.dataset.page === 'calculator') b.classList.add('active');
-        
-        const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
-        if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'none';
-        
-        if (typeof initCalculator === 'function') initCalculator();
-        
-    } else if (pageId === 'news') {
-        if (currencyHeader) currencyHeader.style.display = 'flex';
-        document.body.classList.add('has-fixed-header');
-        
-        document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.currency-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'news') t.classList.add('active'); });
-        
-        if (currenciesData.length === 0) loadCurrenciesData(); else renderCurrenciesList();
-        
-        // 调整货币页面内容边距
-        setTimeout(function() {
-            if (currencyHeader) {
-                const headerHeight = currencyHeader.offsetHeight;
-                const currenciesGrid = document.querySelector('#newsPage .currencies-grid');
-                if (currenciesGrid) {
-                    currenciesGrid.style.marginTop = headerHeight + 'px';
+    }, 50);
+} else {
+                document.getElementById('mobileFixedHeader').style.display = 'none';
+                document.getElementById('chipMobileFixedHeader').style.display = 'none';
+                document.getElementById('energyMobileFixedHeader').style.display = 'none';
+                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
+                document.body.classList.remove('has-fixed-header');
+            }
+        } else {
+            const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
+            if (vehicleDesktopHeader) {
+                if (pageId === 'vehicles') {
+                    vehicleDesktopHeader.style.display = isInDetail ? 'none' : 'block';
+                } else {
+                    vehicleDesktopHeader.style.display = 'none';
                 }
             }
-        }, 50);
+        }
         
-    } else if (pageId === 'wallpaper') {
-        // 壁纸页面不需要固定头部
-        document.body.classList.remove('has-fixed-header');
-        
-        document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
-        
-    } else {
-        document.body.classList.remove('has-fixed-header');
+        currentPage = pageId;
+        window.scrollTo(0, 0);
     }
-    
-    // 确保页面显示
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-    const targetPage = document.getElementById(pageId + 'Page');
-    if (targetPage) targetPage.classList.add('active-page');
-    
-    window.scrollTo(0, 0);
-}
     
     // 返回键逻辑：先清空筛选条件，再按一次才退出网站
     function handleBackButton() {
@@ -4587,18 +4539,16 @@ if (isMobile) {
         });
         
         const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn');
-mobileTabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const pageId = btn.dataset.page;
-        if (pageId === 'vehicles') switchToPage('vehicles');
-        else if (pageId === 'chip') switchToPage('chip');
-        else if (pageId === 'energy') switchToPage('energy');
-        else if (pageId === 'calculator') switchToPage('calculator');
-        else if (pageId === 'news') switchToPage('news');
-        else if (pageId === 'wallpaper') switchToPage('wallpaper');
-        else switchToPage(pageId);
-    });
-});
+        mobileTabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const pageId = btn.dataset.page;
+                if (pageId === 'vehicles') switchToPage('vehicles');
+                else if (pageId === 'chip') switchToPage('chip');
+                else if (pageId === 'energy') switchToPage('energy');
+                else if (pageId === 'calculator') switchToPage('calculator');
+                else switchToPage(pageId);
+            });
+        });
     }
     
     // ========== 芯片计算器模块初始化 ==========
