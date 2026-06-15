@@ -2392,127 +2392,391 @@
             font-weight: 700;
         }
         
-        /* ========== 壁纸页面样式 ========== */
-        .wallpaper-container {
-            padding: 20px;
-        }
-        
-        .wallpapers-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-        }
-        
-        .wallpaper-card {
-            background: rgba(20, 20, 31, 0.85);
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid rgba(42, 42, 60, 0.5);
-            transition: transform 0.2s, border-color 0.2s;
-            cursor: pointer;
-        }
-        
-        .wallpaper-card:hover {
-            transform: translateY(-4px);
-            border-color: #feca57;
-        }
-        
-        .wallpaper-image {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-            background: #0a0a0f;
-        }
-        
-        .wallpaper-name {
-            padding: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #e2e2e6;
-            text-align: center;
-        }
-        
-        .loading-placeholder {
-            text-align: center;
-            padding: 60px;
-            color: #8a8aa3;
-            grid-column: 1 / -1;
-        }
-        
-        /* 壁纸预览弹窗 */
-        .wallpaper-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-        
-        .wallpaper-modal-content {
-            max-width: 90vw;
-            max-height: 90vh;
-            position: relative;
-        }
-        
-        .wallpaper-modal-media {
-            max-width: 100%;
-            max-height: 85vh;
-            border-radius: 12px;
-        }
-        
-        video.wallpaper-modal-media {
-            width: auto;
-            height: auto;
-        }
-        
-        .wallpaper-modal-close {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            font-size: 30px;
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        
-        .wallpaper-modal-name {
-            text-align: center;
-            color: white;
-            margin-top: 16px;
-            font-size: 1rem;
-        }
-        
-        /* 手机端：每行1个 */
-        @media (max-width: 768px) {
-            .wallpaper-container {
-                padding: 12px;
-            }
-            
-            .wallpapers-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            
-            .wallpaper-name {
-                font-size: 0.75rem;
-                padding: 10px;
-            }
-            
-            .wallpaper-modal-close {
-                top: -30px;
-                font-size: 25px;
-            }
-            
-            .wallpaper-modal-name {
-                font-size: 0.8rem;
-            }
-        }
+       /* ========== 精彩壁纸页面样式 ========== */
+/* 电脑端头部样式 */
+.wallpaper-desktop-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #0f0f17;
+    padding: 4px 0 0 0;
+    border-bottom: 1px solid #2a2a3c;
+    margin-bottom: 24px;
+}
+
+.wallpaper-desktop-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 6px 0;
+}
+
+.wallpaper-desktop-filter-bar {
+    background: #14141f;
+    border-radius: 20px;
+    padding: 16px 20px;
+    backdrop-filter: blur(8px);
+    border: 1px solid #2a2a3c;
+    margin-bottom: 0;
+}
+
+.wallpaper-desktop-filter-sections {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.wallpaper-desktop-filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.wallpaper-desktop-filter-section-title {
+    font-size: 0.75rem;
+    color: #feca57;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.wallpaper-desktop-filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.wallpaper-desktop-filter-option {
+    background: #2a2a3c;
+    border-radius: 30px;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    color: #a0a0b8;
+    transition: 0.2s;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.wallpaper-desktop-filter-option.active {
+    background: #feca57;
+    color: #1a1a2e;
+}
+
+.wallpaper-search-box {
+    margin-bottom: 16px;
+}
+
+.wallpaper-search-box input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 16px;
+    border-radius: 40px;
+    border: 1px solid #2a2a3c;
+    background: #1f1f2e;
+    color: #e2e2e6;
+    font-size: 0.9rem;
+    font-weight: 500;
+    outline: none;
+}
+
+.wallpaper-search-box input:focus {
+    border-color: #feca57;
+}
+
+/* 壁纸卡片网格 */
+.wallpapers-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.wallpaper-card {
+    background: rgba(20, 20, 31, 0.85);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(42, 42, 60, 0.5);
+    transition: transform 0.2s, border-color 0.2s;
+    cursor: pointer;
+}
+
+.wallpaper-card:hover {
+    transform: translateY(-4px);
+    border-color: #feca57;
+}
+
+.wallpaper-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: #0a0a0f;
+}
+
+.wallpaper-name {
+    padding: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #e2e2e6;
+    text-align: center;
+}
+
+.loading-placeholder {
+    text-align: center;
+    padding: 60px;
+    color: #8a8aa3;
+    grid-column: 1 / -1;
+}
+
+/* 壁纸预览弹窗 */
+.wallpaper-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.wallpaper-modal-content {
+    max-width: 90vw;
+    max-height: 90vh;
+    position: relative;
+}
+
+.wallpaper-modal-media {
+    max-width: 100%;
+    max-height: 85vh;
+    border-radius: 12px;
+}
+
+video.wallpaper-modal-media {
+    width: auto;
+    height: auto;
+}
+
+.wallpaper-modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.wallpaper-modal-name {
+    text-align: center;
+    color: white;
+    margin-top: 16px;
+    font-size: 1rem;
+}
+
+/* 手机端样式 */
+@media (max-width: 768px) {
+    /* 电脑端头部在手机端隐藏 */
+    .wallpaper-desktop-header {
+        display: none !important;
+    }
+    
+    /* 手机端固定头部显示 */
+    .wallpaper-mobile-fixed-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #0f0f17;
+        border-bottom: 1px solid #2a2a3c;
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .wallpaper-mobile-top-bar {
+        padding: 8px 12px;
+        border-bottom: 1px solid #2a2a3c;
+    }
+    
+    .wallpaper-mobile-logo-area {
+        text-align: center;
+        cursor: pointer;
+        padding-bottom: 2px;
+    }
+    
+    .wallpaper-mobile-logo-area h1 {
+        font-size: 1rem;
+        background: linear-gradient(135deg, #ff6b6b, #feca57);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: 800;
+    }
+    
+    .wallpaper-mobile-logo-area p {
+        font-size: 0.5rem;
+        color: #8a8aa3;
+        font-weight: 500;
+    }
+    
+    .wallpaper-mobile-nav-tabs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+        margin-top: 4px;
+    }
+    
+    .wallpaper-mobile-tab-btn {
+        padding: 6px 2px;
+        font-size: 0.65rem;
+        border-radius: 16px;
+        text-align: center;
+        background: #1a1a2a;
+        border: none;
+        cursor: pointer;
+        color: #a0a0b8;
+        font-weight: 700;
+    }
+    
+    .wallpaper-mobile-tab-btn.active {
+        background: #feca57;
+        color: #1a1a2e;
+    }
+    
+    .wallpaper-mobile-filter-sticky {
+        padding: 8px 12px;
+        background: #0a0a0f;
+        border-bottom: 1px solid #2a2a3c;
+    }
+    
+    .wallpaper-filter-row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    
+    .wallpaper-mobile-search-box {
+        flex: 2;
+    }
+    
+    .wallpaper-mobile-search-box input {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        background: #1f1f2e;
+        border: 1px solid #2a2a3c;
+        border-radius: 30px;
+        color: #e2e2e6;
+        outline: none;
+    }
+    
+    .wallpaper-mobile-search-box input:focus {
+        border-color: #feca57;
+    }
+    
+    .wallpaper-category-dropdown-btn {
+        background: #1f1f2e;
+        border: 1px solid #2a2a3c;
+        border-radius: 30px;
+        padding: 6px 14px;
+        font-size: 0.75rem;
+        cursor: pointer;
+        color: #e2e2e6;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+    
+    .wallpaper-category-dropdown-btn .arrow {
+        font-size: 0.6rem;
+        transition: transform 0.2s;
+    }
+    
+    .wallpaper-category-dropdown-btn.active .arrow {
+        transform: rotate(180deg);
+    }
+    
+    .wallpaper-category-dropdown-panel {
+        background: #1a1a2a;
+        border-radius: 16px;
+        margin-top: 8px;
+        padding: 10px;
+        border: 1px solid #2a2a3c;
+        display: none;
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        z-index: 210;
+    }
+    
+    .wallpaper-category-dropdown-panel.show {
+        display: block;
+    }
+    
+    .wallpaper-mobile-filter-section {
+        margin-bottom: 12px;
+    }
+    
+    .wallpaper-mobile-filter-section-title {
+        font-size: 0.65rem;
+        color: #feca57;
+        margin-bottom: 5px;
+        padding-left: 4px;
+        font-weight: 700;
+    }
+    
+    .wallpaper-mobile-filter-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .wallpaper-mobile-filter-option {
+        background: #2a2a3c;
+        border-radius: 30px;
+        padding: 6px 12px;
+        font-size: 0.7rem;
+        cursor: pointer;
+        color: #a0a0b8;
+        font-weight: 600;
+        display: inline-block;
+        white-space: nowrap;
+    }
+    
+    .wallpaper-mobile-filter-option.active {
+        background: #feca57;
+        color: #1a1a2e;
+    }
+    
+    /* 手机端网格 - 每行1个 */
+    .wallpapers-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 160px;
+        padding: 12px;
+    }
+    
+    .wallpaper-name {
+        font-size: 0.75rem;
+        padding: 10px;
+    }
+    
+    .wallpaper-modal-close {
+        top: -30px;
+        font-size: 25px;
+    }
+    
+    .wallpaper-modal-name {
+        font-size: 0.8rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -2528,7 +2792,7 @@
             <button class="tab-btn" data-page="energy">赋能系统</button>
             <button class="tab-btn" data-page="calculator">芯片要求计算器</button>
             <button class="tab-btn" data-page="news">游戏货币统计</button>
-            <button class="tab-btn" data-page="wallpaper">游戏壁纸</button>
+            <button class="tab-btn" data-page="wallpaper">精彩壁纸</button>
         </div>
     </div>
     
@@ -2545,7 +2809,7 @@
                 <button class="mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
                 <button class="mobile-tab-btn" data-page="news">游戏货币统计</button>
-                <button class="mobile-tab-btn" data-page="wallpaper">游戏壁纸</button>
+                <button class="mobile-tab-btn" data-page="wallpaper">精彩壁纸</button>
             </div>
         </div>
         <div class="mobile-filter-sticky" id="vehicleMobileFilter">
@@ -2599,8 +2863,8 @@
                 <button class="chip-mobile-tab-btn active" data-page="chip">芯片系统</button>
                 <button class="chip-mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="chip-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
-                <button class="chip-mobile-tab-btn" data-page="news">爆料信息</button>
-                <button class="chip-mobile-tab-btn" data-page="wallpaper">游戏壁纸</button>
+                <button class="chip-mobile-tab-btn" data-page="news">游戏货币统计</button>
+                <button class="chip-mobile-tab-btn" data-page="wallpaper">精彩壁纸</button>
             </div>
         </div>
         <div class="chip-mobile-filter-sticky">
@@ -2640,8 +2904,8 @@
                 <button class="energy-mobile-tab-btn" data-page="chip">芯片系统</button>
                 <button class="energy-mobile-tab-btn active" data-page="energy">赋能系统</button>
                 <button class="energy-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
-                <button class="energy-mobile-tab-btn" data-page="news">爆料信息</button>
-                <button class="energy-mobile-tab-btn" data-page="wallpaper">游戏壁纸</button>
+                <button class="energy-mobile-tab-btn" data-page="news">游戏货币统计</button>
+                <button class="energy-mobile-tab-btn" data-page="wallpaper">精彩壁纸</button>
             </div>
         </div>
         <div class="energy-mobile-filter-sticky">
@@ -2887,7 +3151,7 @@
                 <button class="currency-mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="currency-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
                 <button class="currency-mobile-tab-btn active" data-page="news">游戏货币统计</button>
-                <button class="currency-mobile-tab-btn" data-page="wallpaper">游戏壁纸</button>
+                <button class="currency-mobile-tab-btn" data-page="wallpaper">精彩壁纸</button>
             </div>
         </div>
         <div class="currency-mobile-filter-sticky">
@@ -2912,15 +3176,75 @@
     <div class="stats-text" id="currencyStatsText">加载中...</div>
 </div>
 
-<!-- 游戏壁纸页面 -->
-<!-- 游戏壁纸页面 -->
+
+<!-- 精彩壁纸页面 -->
 <div id="wallpaperPage" class="page">
-    <div class="wallpaper-container">
-        <h2 style="color: #e2e2e6; margin-bottom: 20px; font-weight: 800;">游戏壁纸</h2>
-        <div class="wallpapers-grid" id="wallpapersGrid">
-            <div class="loading-placeholder">加载中...</div>
+    <!-- 电脑端头部（只有搜索框，没有导航） -->
+    <div class="wallpaper-desktop-header">
+        <div class="wallpaper-desktop-header-top">
+            <span class="page-title">精彩壁纸</span>
+        </div>
+        <div class="wallpaper-desktop-filter-bar">
+            <div class="wallpaper-search-box">
+                <input type="text" id="wallpaperSearchInputDesktop" placeholder="搜索壁纸名称...">
+            </div>
+            <div class="wallpaper-desktop-filter-sections">
+                <div class="wallpaper-desktop-filter-section">
+                    <div class="wallpaper-desktop-filter-section-title">壁纸类型</div>
+                    <div class="wallpaper-desktop-filter-options" id="wallpaperDesktopTypeOptions">
+                        <div class="wallpaper-desktop-filter-option active" data-type="all">全部</div>
+                        <div class="wallpaper-desktop-filter-option" data-type="video">动态壁纸</div>
+                        <div class="wallpaper-desktop-filter-option" data-type="image">静态壁纸</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    
+    <!-- 手机端固定头部（带导航栏） -->
+    <div class="wallpaper-mobile-fixed-header" id="wallpaperMobileFixedHeader" style="display: none;">
+        <div class="wallpaper-mobile-top-bar">
+            <div class="wallpaper-mobile-logo-area" onclick="location.reload()">
+                <h1>王牌竞速 · 数据整合站</h1>
+                <p>核心档案 · 赛车数据</p>
+            </div>
+            <div class="wallpaper-mobile-nav-tabs" id="wallpaperMobileNavTabs">
+                <button class="wallpaper-mobile-tab-btn" data-page="vehicles">车辆数据</button>
+                <button class="wallpaper-mobile-tab-btn" data-page="chip">芯片系统</button>
+                <button class="wallpaper-mobile-tab-btn" data-page="energy">赋能系统</button>
+                <button class="wallpaper-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
+                <button class="wallpaper-mobile-tab-btn" data-page="news">游戏货币统计</button>
+                <button class="wallpaper-mobile-tab-btn active" data-page="wallpaper">精彩壁纸</button>
+            </div>
+        </div>
+        <div class="wallpaper-mobile-filter-sticky">
+            <div class="wallpaper-filter-row">
+                <div class="wallpaper-mobile-search-box">
+                    <input type="text" id="wallpaperSearchInputMobile" placeholder="搜索壁纸名称...">
+                </div>
+                <div class="wallpaper-category-dropdown-btn" id="wallpaperCategoryDropdownBtn">
+                    <span>筛选</span>
+                    <span class="arrow">▼</span>
+                </div>
+            </div>
+            <div class="wallpaper-category-dropdown-panel" id="wallpaperCategoryDropdownPanel">
+                <div class="wallpaper-mobile-filter-section">
+                    <div class="wallpaper-mobile-filter-section-title">壁纸类型</div>
+                    <div class="wallpaper-mobile-filter-options" id="wallpaperMobileTypeOptions">
+                        <div class="wallpaper-mobile-filter-option active" data-type="all">全部</div>
+                        <div class="wallpaper-mobile-filter-option" data-type="video">动态壁纸</div>
+                        <div class="wallpaper-mobile-filter-option" data-type="image">静态壁纸</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 壁纸卡片网格 -->
+    <div class="wallpapers-grid" id="wallpapersGrid">
+        <div class="loading-placeholder">加载中...</div>
+    </div>
+    <div class="stats-text" id="wallpaperStatsText">加载壁纸数据...</div>
 </div>
 
 <script>
@@ -4734,6 +5058,7 @@ function showWallpaperPreview(url, name, type) {
                 document.getElementById('chipMobileFixedHeader').style.display = 'none';
                 document.getElementById('energyMobileFixedHeader').style.display = 'none';
                 document.getElementById('currencyMobileFixedHeader').style.display = 'none';
+                document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.mobile-tab-btn').forEach(t => { if (t.dataset.page === 'vehicles') t.classList.add('active'); });
@@ -4744,6 +5069,7 @@ function showWallpaperPreview(url, name, type) {
                 document.getElementById('chipMobileFixedHeader').style.display = 'flex';
                 document.getElementById('energyMobileFixedHeader').style.display = 'none';
                 document.getElementById('currencyMobileFixedHeader').style.display = 'none';
+                document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.chip-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'chip') t.classList.add('active'); });
@@ -4762,6 +5088,7 @@ function showWallpaperPreview(url, name, type) {
                 document.getElementById('chipMobileFixedHeader').style.display = 'none';
                 document.getElementById('energyMobileFixedHeader').style.display = 'none';
                 document.getElementById('currencyMobileFixedHeader').style.display = 'none';
+                document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 const calcBtns = document.querySelectorAll('.mobile-tab-btn');
@@ -4774,17 +5101,25 @@ function showWallpaperPreview(url, name, type) {
             document.getElementById('chipMobileFixedHeader').style.display = 'none';
             document.getElementById('energyMobileFixedHeader').style.display = 'none';
             document.getElementById('currencyMobileFixedHeader').style.display = 'flex';
+            document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';    
             document.body.classList.add('has-fixed-header');
             document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.currency-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'news') t.classList.add('active'); });
             if (currenciesData.length === 0) loadCurrenciesData(); else renderCurrenciesList();
-        } else {
-                document.getElementById('mobileFixedHeader').style.display = 'none';
-                document.getElementById('chipMobileFixedHeader').style.display = 'none';
-                document.getElementById('energyMobileFixedHeader').style.display = 'none';
-                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
-                document.body.classList.remove('has-fixed-header');
-            }
+        } else if (pageId === 'wallpaper') {
+    // 显示手机端壁纸头部，隐藏其他头部
+    document.getElementById('mobileFixedHeader').style.display = 'none';
+    document.getElementById('chipMobileFixedHeader').style.display = 'none';
+    document.getElementById('energyMobileFixedHeader').style.display = 'none';
+    document.getElementById('currencyMobileFixedHeader').style.display = 'none';
+    document.getElementById('wallpaperMobileFixedHeader').style.display = 'flex';
+    document.body.classList.add('has-fixed-header');
+    
+    document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn, .wallpaper-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.wallpaper-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'wallpaper') t.classList.add('active'); });
+    
+    if (wallpapersData.length === 0) loadWallpapersData(); else renderWallpapersList();
+}
         } else {
             const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
             if (vehicleDesktopHeader) {
@@ -4890,7 +5225,7 @@ function showWallpaperPreview(url, name, type) {
             });
         });
         
-        const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn');
+        const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn, .wallpaper-mobile-tab-btn');
         mobileTabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const pageId = btn.dataset.page;
