@@ -5155,20 +5155,11 @@ function showWallpaperPreview(url, name, type) {
     // 标记正在预览
     window.isViewingWallpaperDetail = true;
     
-    // 保存当前页面ID，防止切换页面时丢失
-    const pageBeforePreview = currentPage;
-    
-    // 关闭弹窗的函数
+    // 关闭弹窗的函数（不操作history）
     function closeWallpaperModal() {
-        // 如果弹窗已经被移除，则不再执行
-        if (!document.body.contains(modal)) return;
-        
-        if (modal && modal.remove) {
-            modal.remove();
-        }
+        if (!modal || !modal.remove) return;
+        modal.remove();
         document.body.style.overflow = '';
-        
-        // 关键：先标记预览结束
         window.isViewingWallpaperDetail = false;
         
         // 移除popstate监听
@@ -5176,36 +5167,36 @@ function showWallpaperPreview(url, name, type) {
             window.removeEventListener('popstate', window._wallpaperBackHandler);
             window._wallpaperBackHandler = null;
         }
-        
-        // 通过 replaceState 移除我们之前添加的历史记录，避免返回时页面跳转
-        // 这可以防止浏览器再按返回键时跳转到车辆数据
-        if (history.state && history.state.wallpaperModal) {
-            history.back();
-        }
     }
     
-    // 监听返回键
+    // 监听返回键 - 只关闭弹窗，不改变页面
     window._wallpaperBackHandler = function(e) {
         if (window.isViewingWallpaperDetail) {
-            // 阻止浏览器的默认返回行为
+            // 关键：阻止默认行为，但不调用 history.back()
             e.preventDefault();
             e.stopPropagation();
-            // 调用关闭弹窗
             closeWallpaperModal();
         }
     };
     window.addEventListener('popstate', window._wallpaperBackHandler);
     
-    // 压入一个历史状态，用于捕获返回键
+    // 添加一个历史记录，用于捕获返回键
     history.pushState({ wallpaperModal: true }, '');
     
-    // 绑定关闭事件
+    // 绑定关闭按钮事件
     const closeBtn = modal.querySelector('.wallpaper-modal-close');
     if (closeBtn) {
-        closeBtn.addEventListener('click', closeWallpaperModal);
+        closeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeWallpaperModal();
+        });
     }
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeWallpaperModal();
+    
+    // 点击遮罩层关闭
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeWallpaperModal();
+        }
     });
 }
 
@@ -5390,36 +5381,44 @@ function initWallpaperMobileDropdown() {
     }
     
     // 返回键逻辑：先清空筛选条件，再按一次才退出网站
-    function handleBackButton() {
-        const now = Date.now();
-        
-        if (isInDetail && currentPage === 'vehicles') {
-            handleVehicleBackToList();
+function handleBackButton() {
+    const now = Date.now();
+    
+    if (isInDetail && currentPage === 'vehicles') {
+        handleVehicleBackToList();
+        return true;
+    }
+    
+    if (currentPage === 'vehicles' && !isInDetail) {
+        if (handleVehicleListBack()) return true;
+    }
+    
+    if (currentPage === 'chip') {
+        if (handleChipBack()) return true;
+    }
+    
+    if (currentPage === 'energy') {
+        if (handleEnergyBack()) return true;
+    }
+    
+    // 新增：游戏精彩内容页面的返回键处理
+    if (currentPage === 'wallpaper') {
+        // 如果正在预览壁纸详情，关闭弹窗而不是退出
+        if (window.isViewingWallpaperDetail) {
+            const modal = document.querySelector('.wallpaper-modal');
+            if (modal) modal.remove();
+            document.body.style.overflow = '';
+            window.isViewingWallpaperDetail = false;
             return true;
         }
-        
-        if (currentPage === 'vehicles' && !isInDetail) {
-            if (handleVehicleListBack()) return true;
-        }
-        
-        if (currentPage === 'chip') {
-            if (handleChipBack()) return true;
-        }
-        
-        if (currentPage === 'energy') {
-            if (handleEnergyBack()) return true;
-        }
-        
-        if (currentPage === 'calculator') {
-        }
-        
+        // 没有预览弹窗时，按两次退出
         if (now - lastBackTime < 500) {
             if (window.history.length <= 1) window.close();
             else history.back();
         } else {
             lastBackTime = now;
-            const statsEl = document.getElementById("statsText");
-            if (statsEl && currentPage === 'vehicles') {
+            const statsEl = document.getElementById("wallpaperStatsText");
+            if (statsEl) {
                 const originalText = statsEl.innerText;
                 statsEl.innerText = "再按一次退出";
                 statsEl.style.color = "#feca57";
@@ -5427,36 +5426,60 @@ function initWallpaperMobileDropdown() {
                     statsEl.innerText = originalText;
                     statsEl.style.color = "#8a8aa3";
                 }, 1500);
-            } else if (currentPage === 'chip') {
-                const statsEl = document.getElementById("chipStatsText");
-                if (statsEl) {
-                    const originalText = statsEl.innerText;
-                    statsEl.innerText = "再按一次退出";
-                    statsEl.style.color = "#feca57";
-                    setTimeout(() => {
-                        statsEl.innerText = originalText;
-                        statsEl.style.color = "#8a8aa3";
-                    }, 1500);
-                }
-            } else if (currentPage === 'energy') {
-                const statsEl = document.getElementById("energyStatsText");
-                if (statsEl) {
-                    const originalText = statsEl.innerText;
-                    statsEl.innerText = "再按一次退出";
-                    statsEl.style.color = "#feca57";
-                    setTimeout(() => {
-                        statsEl.innerText = originalText;
-                        statsEl.style.color = "#8a8aa3";
-                    }, 1500);
-                }
-            } else if (currentPage === 'calculator') {
-                alert("再按一次退出");
             } else {
                 alert("再按一次退出");
             }
         }
         return true;
     }
+    
+    if (currentPage === 'calculator') {
+    }
+    
+    if (now - lastBackTime < 500) {
+        if (window.history.length <= 1) window.close();
+        else history.back();
+    } else {
+        lastBackTime = now;
+        const statsEl = document.getElementById("statsText");
+        if (statsEl && currentPage === 'vehicles') {
+            const originalText = statsEl.innerText;
+            statsEl.innerText = "再按一次退出";
+            statsEl.style.color = "#feca57";
+            setTimeout(() => {
+                statsEl.innerText = originalText;
+                statsEl.style.color = "#8a8aa3";
+            }, 1500);
+        } else if (currentPage === 'chip') {
+            const statsEl = document.getElementById("chipStatsText");
+            if (statsEl) {
+                const originalText = statsEl.innerText;
+                statsEl.innerText = "再按一次退出";
+                statsEl.style.color = "#feca57";
+                setTimeout(() => {
+                    statsEl.innerText = originalText;
+                    statsEl.style.color = "#8a8aa3";
+                }, 1500);
+            }
+        } else if (currentPage === 'energy') {
+            const statsEl = document.getElementById("energyStatsText");
+            if (statsEl) {
+                const originalText = statsEl.innerText;
+                statsEl.innerText = "再按一次退出";
+                statsEl.style.color = "#feca57";
+                setTimeout(() => {
+                    statsEl.innerText = originalText;
+                    statsEl.style.color = "#8a8aa3";
+                }, 1500);
+            }
+        } else if (currentPage === 'calculator') {
+            alert("再按一次退出");
+        } else {
+            alert("再按一次退出");
+        }
+    }
+    return true;
+}
     
     function initTabs() {
         document.querySelectorAll('.sidebar .tab-btn').forEach(btn => {
