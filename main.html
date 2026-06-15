@@ -2812,6 +2812,22 @@ video.wallpaper-modal-media {
         padding-top: 0 !important;
     }
 }   
+   /* 壁纸预览弹窗中的类型标签样式 */
+.wallpaper-modal-type {
+    text-align: center;
+    color: #feca57;
+    margin-top: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* 手机端适配 */
+@media (max-width: 768px) {
+    .wallpaper-modal-type {
+        font-size: 0.7rem;
+        margin-top: 6px;
+    }
+}     
     </style>
 </head>
 <body>
@@ -5112,10 +5128,16 @@ function bindWallpaperTypeFilters() {
 }
 
 function showWallpaperPreview(url, name, type) {
+    // 保存当前滚动位置（可选）
+    const scrollY = window.scrollY;
+    
+    // 创建遮罩层容器
     const modal = document.createElement('div');
     modal.className = 'wallpaper-modal';
+    modal.setAttribute('data-wallpaper-modal', 'true');
     
-    const isVideo = type === 'video';
+    // 判断是否为视频格式（包括动态壁纸、CG、PV等）
+    const isVideo = type === 'video' || type === 'cg' || type === 'pv';
     const mediaHtml = isVideo
         ? `<video class="wallpaper-modal-media" src="${url}" controls autoplay loop></video>`
         : `<img class="wallpaper-modal-media" src="${url}" alt="${name}">`;
@@ -5125,14 +5147,66 @@ function showWallpaperPreview(url, name, type) {
             <span class="wallpaper-modal-close">&times;</span>
             ${mediaHtml}
             <div class="wallpaper-modal-name">${name}</div>
+            <div class="wallpaper-modal-type">${getTypeText(type)}</div>
         </div>
     `;
     document.body.appendChild(modal);
     
-    modal.querySelector('.wallpaper-modal-close').addEventListener('click', () => modal.remove());
-    modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+    // 标记正在预览详情页
+    window.isViewingWallpaperDetail = true;
+    
+    // 添加返回键监听（只添加一次）
+    if (!window._wallpaperBackHandler) {
+        window._wallpaperBackHandler = function(e) {
+            // 检测是否按了返回键（popstate事件）
+            if (window.isViewingWallpaperDetail) {
+                e.preventDefault();
+                closeWallpaperModal();
+            }
+        };
+        window.addEventListener('popstate', window._wallpaperBackHandler);
+        
+        // 在history中压入一个状态，用于捕获返回键
+        history.pushState({ wallpaperModal: true }, '');
+    }
+    
+    // 关闭弹窗的函数
+    function closeWallpaperModal() {
+        if (modal && modal.remove) {
+            modal.remove();
+        }
+        window.isViewingWallpaperDetail = false;
+        
+        // 移除history状态，恢复到之前的状态
+        if (window._wallpaperBackHandler) {
+            window.removeEventListener('popstate', window._wallpaperBackHandler);
+            window._wallpaperBackHandler = null;
+        }
+        
+        // 可选：恢复滚动位置
+        // window.scrollTo(0, scrollY);
+    }
+    
+    // 绑定关闭事件
+    const closeBtn = modal.querySelector('.wallpaper-modal-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeWallpaperModal);
+    }
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeWallpaperModal();
+    });
 }
 
+ // 辅助函数：将type转换为中文显示
+function getTypeText(type) {
+    const typeMap = {
+        'video': '动态壁纸',
+        'image': '静态壁纸',
+        'cg': 'CG动画',
+        'pv': '宣传PV'
+    };
+    return typeMap[type] || '精彩内容';
+}   
 // 初始化手机端壁纸下拉面板
 // 初始化手机端壁纸下拉面板
 function initWallpaperMobileDropdown() {
