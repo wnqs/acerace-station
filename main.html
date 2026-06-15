@@ -5076,7 +5076,6 @@ function bindWallpaperTypeFilters() {
         opt._typeHandler = () => {
             const type = opt.dataset.type;
             wallpaperTypeFilter = type;
-            // 更新UI激活状态
             desktopTypeOptions.forEach(o => o.classList.remove('active'));
             opt.classList.add('active');
             renderWallpapersList();
@@ -5084,11 +5083,12 @@ function bindWallpaperTypeFilters() {
         opt.addEventListener('click', opt._typeHandler);
     });
     
-    // 手机端类型筛选
+    // 手机端类型筛选 - 直接绑定到选项，不依赖下拉面板
     const mobileTypeOptions = document.querySelectorAll('#wallpaperMobileTypeOptions .wallpaper-mobile-filter-option');
     mobileTypeOptions.forEach(opt => {
         opt.removeEventListener('click', opt._typeHandler);
-        opt._typeHandler = () => {
+        opt._typeHandler = (e) => {
+            e.stopPropagation();
             const type = opt.dataset.type;
             wallpaperTypeFilter = type;
             // 更新UI激活状态
@@ -5129,11 +5129,15 @@ function showWallpaperPreview(url, name, type) {
 }
 
 // 初始化手机端壁纸下拉面板
+// 初始化手机端壁纸下拉面板
 function initWallpaperMobileDropdown() {
     const dropdownBtn = document.getElementById("wallpaperCategoryDropdownBtn");
     const dropdownPanel = document.getElementById("wallpaperCategoryDropdownPanel");
+    
     if (dropdownBtn && dropdownPanel) {
+        // 移除旧事件避免重复绑定
         dropdownBtn.removeEventListener('click', dropdownBtn._dropdownHandler);
+        
         dropdownBtn._dropdownHandler = (e) => {
             e.stopPropagation();
             dropdownPanel.classList.toggle('show');
@@ -5141,12 +5145,18 @@ function initWallpaperMobileDropdown() {
         };
         dropdownBtn.addEventListener('click', dropdownBtn._dropdownHandler);
         
+        // 点击其他地方关闭下拉面板
         document.removeEventListener('click', document._closeWallpaperDropdown);
-        document._closeWallpaperDropdown = () => {
-            dropdownPanel.classList.remove('show');
-            dropdownBtn.classList.remove('active');
+        document._closeWallpaperDropdown = (e) => {
+            // 确保点击的不是下拉按钮和面板内部
+            if (!dropdownBtn.contains(e.target) && !dropdownPanel.contains(e.target)) {
+                dropdownPanel.classList.remove('show');
+                dropdownBtn.classList.remove('active');
+            }
         };
         document.addEventListener('click', document._closeWallpaperDropdown);
+        
+        // 防止点击面板内部时关闭
         dropdownPanel.addEventListener('click', (e) => e.stopPropagation());
     }
 }
