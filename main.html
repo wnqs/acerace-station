@@ -3270,10 +3270,12 @@ video.wallpaper-modal-media {
     // 芯片搭配数据变量
     let chipRecommendations = {};
     
-    // 页面状态
-    let currentPage = "vehicles";
-    let lastBackTime = 0;
-    let isInDetail = false;
+   // 页面状态
+let currentPage = "vehicles";
+let lastBackTime = 0;
+let isInDetail = false;
+let modalActive = false;        // 👈 添加这一行
+let previousScrollY = 0;        // 👈 添加这一行
     
     const EXTRA_RACING_ICON_CARS = ["女武神"];
     const RACING_ICON_URL = "https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png";
@@ -4985,15 +4987,15 @@ function showWallpaperPreview(url, name, type) {
     if (modalActive) {
         const existingModal = document.querySelector('.wallpaper-modal');
         if (existingModal) existingModal.remove();
-        window.removeEventListener('popstate', popstateHandler);
+        document.body.style.overflow = '';
         modalActive = false;
     }
     
     // 保存当前滚动位置
     previousScrollY = window.scrollY;
     
-    // 保存当前历史状态（只添加一个标记，不改变页面）
-    history.pushState({ modalPreview: true, fromPage: 'wallpaper' }, '');
+    // 添加历史记录
+    history.pushState({ modalPreview: true }, '');
     
     const modal = document.createElement('div');
     modal.className = 'wallpaper-modal';
@@ -5012,31 +5014,21 @@ function showWallpaperPreview(url, name, type) {
     `;
     document.body.appendChild(modal);
     modalActive = true;
-    
-    // 禁止页面滚动
     document.body.style.overflow = 'hidden';
     
+    // 关闭弹窗的函数
     function closeModal() {
-        if (modal && modal.remove) {
-            modal.remove();
-        }
+        if (modal && modal.remove) modal.remove();
         modalActive = false;
-        // 恢复页面滚动
         document.body.style.overflow = '';
-        // 恢复滚动位置
         window.scrollTo(0, previousScrollY);
-        // 移除监听器
-        window.removeEventListener('popstate', popstateHandler);
-        // 移除添加的历史记录（不触发页面跳转）
+        // 移除历史记录，避免返回键问题
         history.replaceState(null, '', window.location.pathname);
     }
     
+    // 返回键处理函数
     function popstateHandler(e) {
-        // 只处理由本弹窗添加的历史记录
-        if (modalActive && e.state && e.state.modalPreview) {
-            closeModal();
-        } else if (modalActive) {
-            // 兜底处理
+        if (modalActive) {
             closeModal();
         }
     }
@@ -5051,7 +5043,7 @@ function showWallpaperPreview(url, name, type) {
         if (e.target === modal) closeModal();
     });
     
-    // 防止弹窗内的视频/图片点击冒泡
+    // 防止弹窗内的媒体元素点击冒泡
     const mediaElement = modal.querySelector('.wallpaper-modal-media');
     if (mediaElement) {
         mediaElement.addEventListener('click', (e) => e.stopPropagation());
@@ -5102,7 +5094,15 @@ function showWallpaperPreview(url, name, type) {
     }
     
     function switchToPage(pageId) {
-        if (currentPage === pageId) return;
+    // 切换页面时关闭可能打开的壁纸预览弹窗
+    if (modalActive) {
+        const modal = document.querySelector('.wallpaper-modal');
+        if (modal) modal.remove();
+        modalActive = false;
+        document.body.style.overflow = '';
+    }
+    
+    if (currentPage === pageId) return;
         
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         document.getElementById(pageId + 'Page').classList.add('active-page');
@@ -5204,10 +5204,8 @@ function showWallpaperPreview(url, name, type) {
         if (modal) modal.remove();
         modalActive = false;
         document.body.style.overflow = '';
-        // 移除历史记录
         history.replaceState(null, '', window.location.pathname);
-        window.removeEventListener('popstate', popstateHandler);
-        return true;  // 阻止继续执行退出逻辑
+        return true;
     }
     
     const now = Date.now();
