@@ -5128,7 +5128,7 @@ function bindWallpaperTypeFilters() {
 }
 
 function showWallpaperPreview(url, name, type) {
-    // 保存当前滚动位置（可选）
+    // 保存当前滚动位置
     const scrollY = window.scrollY;
     
     // 创建遮罩层容器
@@ -5152,40 +5152,48 @@ function showWallpaperPreview(url, name, type) {
     `;
     document.body.appendChild(modal);
     
+    // 禁止页面滚动（可选）
+    document.body.style.overflow = 'hidden';
+    
     // 标记正在预览详情页
     window.isViewingWallpaperDetail = true;
     
-    // 添加返回键监听（只添加一次）
-    if (!window._wallpaperBackHandler) {
-        window._wallpaperBackHandler = function(e) {
-            // 检测是否按了返回键（popstate事件）
-            if (window.isViewingWallpaperDetail) {
-                e.preventDefault();
-                closeWallpaperModal();
-            }
-        };
-        window.addEventListener('popstate', window._wallpaperBackHandler);
-        
-        // 在history中压入一个状态，用于捕获返回键
-        history.pushState({ wallpaperModal: true }, '');
-    }
+    // 保存当前页面状态
+    const currentPageId = currentPage;
     
     // 关闭弹窗的函数
     function closeWallpaperModal() {
         if (modal && modal.remove) {
             modal.remove();
         }
+        // 恢复页面滚动
+        document.body.style.overflow = '';
         window.isViewingWallpaperDetail = false;
         
-        // 移除history状态，恢复到之前的状态
+        // 移除popstate监听
         if (window._wallpaperBackHandler) {
             window.removeEventListener('popstate', window._wallpaperBackHandler);
             window._wallpaperBackHandler = null;
         }
         
-        // 可选：恢复滚动位置
-        // window.scrollTo(0, scrollY);
+        // 关键修复：如果当前页面不是游戏精彩内容，就切换回去
+        if (currentPage !== 'wallpaper') {
+            switchToPage('wallpaper');
+        }
     }
+    
+    // 监听返回键
+    window._wallpaperBackHandler = function(e) {
+        if (window.isViewingWallpaperDetail) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeWallpaperModal();
+        }
+    };
+    window.addEventListener('popstate', window._wallpaperBackHandler);
+    
+    // 压入一个历史状态，用于捕获返回键
+    history.pushState({ wallpaperModal: true, fromPage: currentPage }, '');
     
     // 绑定关闭事件
     const closeBtn = modal.querySelector('.wallpaper-modal-close');
@@ -5284,6 +5292,14 @@ function initWallpaperMobileDropdown() {
     }
     
     function switchToPage(pageId) {
+            // 如果正在预览壁纸详情，先关闭弹窗再切换
+    if (window.isViewingWallpaperDetail) {
+        // 手动关闭弹窗（如果存在）
+        const modal = document.querySelector('.wallpaper-modal');
+        if (modal) modal.remove();
+        document.body.style.overflow = '';
+        window.isViewingWallpaperDetail = false;
+    }
         if (currentPage === pageId) return;
         
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
