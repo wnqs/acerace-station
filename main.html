@@ -5134,7 +5134,6 @@ function showWallpaperPreview(url, name, type) {
     modal.className = 'wallpaper-modal';
     modal.setAttribute('data-wallpaper-modal', 'true');
     
-    // 判断是否为视频格式
     const isVideo = type === 'video' || type === 'cg' || type === 'pv';
     const mediaHtml = isVideo
         ? `<video class="wallpaper-modal-media" src="${url}" controls autoplay loop></video>`
@@ -5150,16 +5149,14 @@ function showWallpaperPreview(url, name, type) {
     `;
     document.body.appendChild(modal);
     
-    // 禁止页面滚动
     document.body.style.overflow = 'hidden';
-    
-    // 标记正在预览
     window.isViewingWallpaperDetail = true;
     
-    // 关闭弹窗的函数（不操作history）
+    // 关闭弹窗函数 - 只关闭弹窗，不做任何页面切换
     function closeWallpaperModal() {
-        if (!modal || !modal.remove) return;
-        modal.remove();
+        if (modal && modal.remove) {
+            modal.remove();
+        }
         document.body.style.overflow = '';
         window.isViewingWallpaperDetail = false;
         
@@ -5170,10 +5167,9 @@ function showWallpaperPreview(url, name, type) {
         }
     }
     
-    // 监听返回键 - 只关闭弹窗，不改变页面
+    // 监听返回键 - 只关闭弹窗，不退出
     window._wallpaperBackHandler = function(e) {
         if (window.isViewingWallpaperDetail) {
-            // 关键：阻止默认行为，但不调用 history.back()
             e.preventDefault();
             e.stopPropagation();
             closeWallpaperModal();
@@ -5181,23 +5177,16 @@ function showWallpaperPreview(url, name, type) {
     };
     window.addEventListener('popstate', window._wallpaperBackHandler);
     
-    // 添加一个历史记录，用于捕获返回键
+    // 添加历史记录用于捕获返回键
     history.pushState({ wallpaperModal: true }, '');
     
-    // 绑定关闭按钮事件
+    // 绑定关闭按钮
     const closeBtn = modal.querySelector('.wallpaper-modal-close');
     if (closeBtn) {
-        closeBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            closeWallpaperModal();
-        });
+        closeBtn.addEventListener('click', closeWallpaperModal);
     }
-    
-    // 点击遮罩层关闭
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            closeWallpaperModal();
-        }
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeWallpaperModal();
     });
 }
 
@@ -5363,7 +5352,7 @@ function initWallpaperMobileDropdown() {
     
     document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn, .wallpaper-mobile-tab-btn').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.wallpaper-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'wallpaper') t.classList.add('active'); });
-    
+    currentPage = 'wallpaper';
     if (wallpapersData.length === 0) loadWallpapersData(); else renderWallpapersList();
 }
         } else {
@@ -5416,34 +5405,21 @@ function handleBackButton() {
         if (handleEnergyBack()) return true;
     }
     
-    // 新增：游戏精彩内容页面的返回键处理
+        // ===== 游戏精彩内容页面 =====
     if (currentPage === 'wallpaper') {
-        // 如果正在预览壁纸详情，关闭弹窗而不是退出
+        // 如果正在预览壁纸详情，关闭弹窗（不退出）
         if (window.isViewingWallpaperDetail) {
             const modal = document.querySelector('.wallpaper-modal');
             if (modal) modal.remove();
             document.body.style.overflow = '';
             window.isViewingWallpaperDetail = false;
-            return true;
+            return true;  // 返回，不退出
         }
-        // 没有预览弹窗时，按两次退出
-        if (now - lastBackTime < 500) {
-            if (window.history.length <= 1) window.close();
-            else history.back();
-        } else {
-            lastBackTime = now;
-            const statsEl = document.getElementById("wallpaperStatsText");
-            if (statsEl) {
-                const originalText = statsEl.innerText;
-                statsEl.innerText = "再按一次退出";
-                statsEl.style.color = "#feca57";
-                setTimeout(() => {
-                    statsEl.innerText = originalText;
-                    statsEl.style.color = "#8a8aa3";
-                }, 1500);
-            } else {
-                alert("再按一次退出");
-            }
+        // 没有弹窗时，直接退出网站（不跳转到车辆数据）
+        if (window.history.length <= 1) window.close();
+        else {
+            // 直接关闭页面，不返回上一页
+            window.close();
         }
         return true;
     }
