@@ -3256,9 +3256,6 @@ video.wallpaper-modal-media {
     let activeTooltipTimer = null;
     let currentTooltipElement = null;
     let searchDebounceTimer = null;
-    let wallpapersData = [];
-    let wallpaperKeyword = "";
-    let wallpaperFilters = { type: "all" };
     
     // 芯片数据变量
     let chipsData = [];
@@ -4927,7 +4924,6 @@ let wallpapersData = [];
 
 async function loadWallpapersData() {
     const grid = document.getElementById("wallpapersGrid");
-    const stats = document.getElementById("wallpaperStatsText");
     try {
         const response = await fetch('./wallpapers.json');
         if (!response.ok) throw new Error('加载失败');
@@ -4937,103 +4933,48 @@ async function loadWallpapersData() {
         console.log('加载 wallpapers.json 失败');
         wallpapersData = [];
         if (grid) grid.innerHTML = '<div class="loading-placeholder">暂无壁纸数据</div>';
-        if (stats) stats.innerText = "加载失败，请检查 wallpapers.json";
         return;
     }
-    
-    // 初始化筛选器
-    initWallpaperDesktopFilters();
-    initWallpaperMobileFilters();
-    
-    // 绑定搜索框事件（电脑端）
-    const desktopSearch = document.getElementById("wallpaperSearchInputDesktop");
-    if (desktopSearch) {
-        desktopSearch.removeEventListener('input', wallpaperSearchHandler);
-        desktopSearch.addEventListener('input', wallpaperSearchHandler);
-    }
-    
-    // 绑定搜索框事件（手机端）
-    const mobileSearch = document.getElementById("wallpaperSearchInputMobile");
-    if (mobileSearch) {
-        mobileSearch.removeEventListener('input', wallpaperSearchHandler);
-        mobileSearch.addEventListener('input', wallpaperSearchHandler);
-    }
-    
-    renderWallpapersList();
-}
-// 筛选壁纸函数
-function filterWallpapers() {
-    let filtered = [...wallpapersData];
-    
-    // 类型筛选
-    if (wallpaperFilters.type !== "all") {
-        filtered = filtered.filter(wp => wp.type === wallpaperFilters.type);
-    }
-    
-    // 关键词搜索
-    if (wallpaperKeyword && wallpaperKeyword.trim() !== "") {
-        const keyword = wallpaperKeyword.trim().toLowerCase();
-        filtered = filtered.filter(wp => wp.name.toLowerCase().includes(keyword));
-    }
-    
-    return filtered;
-}
-// 统一的搜索处理函数（放在 loadWallpapersData 函数外面）
-function wallpaperSearchHandler(e) {
-    wallpaperKeyword = e.target.value.toLowerCase();
     renderWallpapersList();
 }
 
 function renderWallpapersList() {
-    const filtered = filterWallpapers();
     const grid = document.getElementById("wallpapersGrid");
-    const stats = document.getElementById("wallpaperStatsText");
     if (!grid) return;
     
-    if (filtered.length === 0) {
-        grid.innerHTML = '<div class="loading-placeholder">没有找到相关壁纸</div>';
-        if (stats) stats.innerText = "共 0 张壁纸";
+    if (wallpapersData.length === 0) {
+        grid.innerHTML = '<div class="loading-placeholder">暂无壁纸数据</div>';
         return;
     }
     
-    grid.innerHTML = filtered.map(wp => {
+    grid.innerHTML = wallpapersData.map(wp => {
         const isVideo = wp.type === 'video';
         const mediaContent = isVideo
-            ? `<video class="wallpaper-image" muted loop playsinline poster="${wp.thumbnail || ''}" preload="none">
+            ? `<video class="wallpaper-image" muted loop playsinline poster="${wp.thumbnail || ''}">
                     <source src="${wp.url}" type="video/mp4">
                </video>`
             : `<img class="wallpaper-image" src="${wp.url}" loading="lazy" onerror="this.src='https://placehold.co/400x225?text=加载失败'">`;
         
-        const typeTag = isVideo ? ' 动态壁纸' : ' 静态壁纸';
-        
         return `
             <div class="wallpaper-card" data-url="${wp.url}" data-name="${wp.name}" data-type="${wp.type || 'image'}">
                 ${mediaContent}
-                <div class="wallpaper-name">
-                    ${escapeHtml(wp.name)}
-                    <span style="display: block; font-size: 0.6rem; color: #feca57; margin-top: 4px;">${typeTag}</span>
-                </div>
+                <div class="wallpaper-name">${wp.name}</div>
             </div>
         `;
     }).join("");
     
-    if (stats) stats.innerText = `共 ${filtered.length} 张壁纸`;
-    
-    // 重新绑定点击预览事件
+    // 绑定点击预览事件
     document.querySelectorAll('.wallpaper-card').forEach(card => {
-        card.removeEventListener('click', wallpaperCardClickHandler);
-        card.addEventListener('click', wallpaperCardClickHandler);
+        card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const url = card.dataset.url;
+            const name = card.dataset.name;
+            const type = card.dataset.type;
+            showWallpaperPreview(url, name, type);
+        });
     });
 }
 
-// 壁纸卡片点击处理函数
-function wallpaperCardClickHandler(e) {
-    e.stopPropagation();
-    const url = this.dataset.url;
-    const name = this.dataset.name;
-    const type = this.dataset.type;
-    showWallpaperPreview(url, name, type);
-}
 function showWallpaperPreview(url, name, type) {
     const modal = document.createElement('div');
     modal.className = 'wallpaper-modal';
