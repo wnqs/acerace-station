@@ -5384,8 +5384,22 @@ function initWallpaperMobileDropdown() {
 function handleBackButton() {
     const now = Date.now();
     
-    if (isInDetail && currentPage === 'vehicles') {
-        handleVehicleBackToList();
+        // ===== 车辆数据页面 =====
+    if (currentPage === 'vehicles') {
+        // 如果正在查看详情，返回列表（不清空筛选）
+        if (isInDetail) {
+            handleVehicleBackToList();
+            return true;
+        }
+        // 如果有激活的筛选条件，先清空筛选
+        if (activeFilters.position || activeFilters.specialty || activeFilters.quality || keyword) {
+            clearAllFilters();
+            clearAllSearchBoxes();
+            return true;
+        }
+        // 没有筛选条件时，退出网站
+        if (window.history.length <= 1) window.close();
+        else history.back();
         return true;
     }
     
