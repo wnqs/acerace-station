@@ -65,6 +65,24 @@
       "url": "https://videotourl.com/videos/1781486772378-887ddde8-05c2-4b45-ab5a-0a24c30d7093.mp4",
       "type": "video",
       "thumbnail": "https://s3.bmp.ovh/2026/06/15/0JHZhkIY.png"
-    }
-  ]
+    },
+    {
+      "name": "捷豹",
+      "url": "https://s3.bmp.ovh/2026/06/14/yOAxhy36.png",
+      "type": "image",
+      "thumbnail": "https://s3.bmp.ovh/2026/06/14/yOAxhy36.png"
+    },
+    {
+      "name": "呼伦贝尔",
+      "url": "https://s3.bmp.ovh/2026/06/14/Uy590xMM.png",
+      "type": "image",
+      "thumbnail": "https://s3.bmp.ovh/2026/06/14/Uy590xMM.png"
+     },
+     {
+      "name": "兔子爱丽丝时装",
+      "url": "https://free.picui.cn/free/20260615/c44dd2211b7478cb613a10c5b259199b.png",
+      "type": "image",
+      "thumbnail": "https://free.picui.cn/free/20260615/c44dd2211b7478cb613a10c5b259199b.png"
+        }
+    ]
 }
