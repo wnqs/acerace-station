@@ -4330,17 +4330,17 @@ video.wallpaper-modal-media {
             mobileType.innerHTML = types.map(t => `<div class="chip-mobile-filter-option" data-filter="type" data-value="${t}">${t}</div>`).join("");
             
             document.querySelectorAll('#chipMobileQualityOptions .chip-mobile-filter-option, #chipMobileShapeOptions .chip-mobile-filter-option, #chipMobileTypeOptions .chip-mobile-filter-option').forEach(opt => {
-                opt.addEventListener('click', () => {
-                    const filterType = opt.dataset.filter;
-                    const value = opt.dataset.value;
-                    if (chipFilters[filterType] === value) chipFilters[filterType] = "";
-                    else chipFilters[filterType] = value;
-                    updateChipMobileFilterUI();
-                    renderChipsList();
-                    document.getElementById("chipCategoryDropdownPanel")?.classList.remove("show");
-                    document.getElementById("chipCategoryDropdownBtn")?.classList.remove("active");
-                });
-            });
+    opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const filterType = opt.dataset.filter;
+        const value = opt.dataset.value;
+        if (chipFilters[filterType] === value) chipFilters[filterType] = "";
+        else chipFilters[filterType] = value;
+        updateChipMobileFilterUI();
+        renderChipsList();
+        // 注意：删除了关闭面板的两行代码，让面板保持展开
+    });
+});
         }
         
         const dropdownBtn = document.getElementById("chipCategoryDropdownBtn");
@@ -4594,17 +4594,17 @@ video.wallpaper-modal-media {
             mobileFunc.innerHTML = funcs.map(f => `<div class="energy-mobile-filter-option" data-filter="func" data-value="${f}">${f}</div>`).join("");
             
             document.querySelectorAll('#energyMobileTypeOptions .energy-mobile-filter-option, #energyMobileFuncOptions .energy-mobile-filter-option').forEach(opt => {
-                opt.addEventListener('click', () => {
-                    const filterType = opt.dataset.filter;
-                    const value = opt.dataset.value;
-                    if (energyFilters[filterType] === value) energyFilters[filterType] = "";
-                    else energyFilters[filterType] = value;
-                    updateEnergyMobileFilterUI();
-                    renderEnergiesList();
-                    document.getElementById("energyCategoryDropdownPanel")?.classList.remove("show");
-                    document.getElementById("energyCategoryDropdownBtn")?.classList.remove("active");
-                });
-            });
+    opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const filterType = opt.dataset.filter;
+        const value = opt.dataset.value;
+        if (energyFilters[filterType] === value) energyFilters[filterType] = "";
+        else energyFilters[filterType] = value;
+        updateEnergyMobileFilterUI();
+        renderEnergiesList();
+        // 删除了关闭面板的两行代码
+    });
+});
         }
         
         const dropdownBtn = document.getElementById("energyCategoryDropdownBtn");
