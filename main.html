@@ -4975,7 +4975,20 @@ function renderWallpapersList() {
     });
 }
 
+let modalActive = false;  // 全局标记弹窗是否打开
+
 function showWallpaperPreview(url, name, type) {
+    // 如果已有弹窗打开，先关闭
+    if (modalActive) {
+        const existingModal = document.querySelector('.wallpaper-modal');
+        if (existingModal) existingModal.remove();
+        window.removeEventListener('popstate', popstateHandler);
+        modalActive = false;
+    }
+    
+    // 保存当前历史状态
+    history.pushState({ modalOpen: true }, '');
+    
     const modal = document.createElement('div');
     modal.className = 'wallpaper-modal';
     
@@ -4992,9 +5005,37 @@ function showWallpaperPreview(url, name, type) {
         </div>
     `;
     document.body.appendChild(modal);
+    modalActive = true;
     
-    modal.querySelector('.wallpaper-modal-close').addEventListener('click', () => modal.remove());
-    modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+    function closeModal() {
+        if (modal && modal.remove) {
+            modal.remove();
+        }
+        modalActive = false;
+        window.removeEventListener('popstate', popstateHandler);
+        // 只有当历史记录是由这个弹窗添加的才回退
+        if (history.length > 1 && window.location.hash !== '') {
+            history.back();
+        }
+    }
+    
+    function popstateHandler(e) {
+        if (modalActive) {
+            closeModal();
+        }
+    }
+    
+    window.addEventListener('popstate', popstateHandler);
+    
+    modal.querySelector('.wallpaper-modal-close').addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    
+    const mediaElement = modal.querySelector('.wallpaper-modal-media');
+    if (mediaElement) {
+        mediaElement.addEventListener('click', (e) => e.stopPropagation());
+    }
 }
     // ========== 导航和页面切换函数 ==========
     function handleVehicleBackToList() {
