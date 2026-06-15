@@ -4977,6 +4977,9 @@ function renderWallpapersList() {
 
 let modalActive = false;  // 全局标记弹窗是否打开
 
+let modalActive = false;
+let previousScrollY = 0;  // 保存滚动位置
+
 function showWallpaperPreview(url, name, type) {
     // 如果已有弹窗打开，先关闭
     if (modalActive) {
@@ -4986,8 +4989,11 @@ function showWallpaperPreview(url, name, type) {
         modalActive = false;
     }
     
-    // 保存当前历史状态
-    history.pushState({ modalOpen: true }, '');
+    // 保存当前滚动位置
+    previousScrollY = window.scrollY;
+    
+    // 保存当前历史状态（只添加一个标记，不改变页面）
+    history.pushState({ modalPreview: true, fromPage: 'wallpaper' }, '');
     
     const modal = document.createElement('div');
     modal.className = 'wallpaper-modal';
@@ -5007,31 +5013,45 @@ function showWallpaperPreview(url, name, type) {
     document.body.appendChild(modal);
     modalActive = true;
     
+    // 禁止页面滚动
+    document.body.style.overflow = 'hidden';
+    
     function closeModal() {
         if (modal && modal.remove) {
             modal.remove();
         }
         modalActive = false;
+        // 恢复页面滚动
+        document.body.style.overflow = '';
+        // 恢复滚动位置
+        window.scrollTo(0, previousScrollY);
+        // 移除监听器
         window.removeEventListener('popstate', popstateHandler);
-        // 只有当历史记录是由这个弹窗添加的才回退
-        if (history.length > 1 && window.location.hash !== '') {
-            history.back();
-        }
+        // 移除添加的历史记录（不触发页面跳转）
+        history.replaceState(null, '', window.location.pathname);
     }
     
     function popstateHandler(e) {
-        if (modalActive) {
+        // 只处理由本弹窗添加的历史记录
+        if (modalActive && e.state && e.state.modalPreview) {
+            closeModal();
+        } else if (modalActive) {
+            // 兜底处理
             closeModal();
         }
     }
     
     window.addEventListener('popstate', popstateHandler);
     
+    // 点击叉号关闭
     modal.querySelector('.wallpaper-modal-close').addEventListener('click', closeModal);
+    
+    // 点击背景关闭
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
     
+    // 防止弹窗内的视频/图片点击冒泡
     const mediaElement = modal.querySelector('.wallpaper-modal-media');
     if (mediaElement) {
         mediaElement.addEventListener('click', (e) => e.stopPropagation());
@@ -5178,7 +5198,19 @@ function showWallpaperPreview(url, name, type) {
     
     // 返回键逻辑：先清空筛选条件，再按一次才退出网站
     function handleBackButton() {
-        const now = Date.now();
+    // 如果预览弹窗是打开状态，只关闭弹窗，不执行退出逻辑
+    if (modalActive) {
+        const modal = document.querySelector('.wallpaper-modal');
+        if (modal) modal.remove();
+        modalActive = false;
+        document.body.style.overflow = '';
+        // 移除历史记录
+        history.replaceState(null, '', window.location.pathname);
+        window.removeEventListener('popstate', popstateHandler);
+        return true;  // 阻止继续执行退出逻辑
+    }
+    
+    const now = Date.now();
         
         if (isInDetail && currentPage === 'vehicles') {
             handleVehicleBackToList();
