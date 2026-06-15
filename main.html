@@ -2827,7 +2827,18 @@ video.wallpaper-modal-media {
         font-size: 0.7rem;
         margin-top: 6px;
     }
-}     
+}  
+    /* 视频无预览图时的占位样式 */
+.video-no-preview {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.video-no-preview:hover {
+    transform: scale(1.02);
+}
+.wallpaper-card:hover .video-no-preview {
+    transform: scale(1.02);
+}    
     </style>
 </head>
 <body>
@@ -5035,10 +5046,17 @@ function renderWallpapersList() {
     grid.innerHTML = filtered.map(wp => {
         const isVideo = wp.type === 'video';
         const mediaContent = isVideo
-            ? `<video class="wallpaper-image" muted loop playsinline poster="${wp.thumbnail || ''}">
-                    <source src="${wp.url}" type="video/mp4">
-               </video>`
-            : `<img class="wallpaper-image" src="${wp.url}" loading="lazy" onerror="this.src='https://placehold.co/400x225?text=加载失败'">`;
+    ? (wp.thumbnail && wp.thumbnail !== ''
+        ? `<video class="wallpaper-image" muted loop playsinline poster="${wp.thumbnail}" preload="metadata">
+                <source src="${wp.url}" type="video/mp4">
+                您的浏览器不支持视频播放
+           </video>`
+        : `<div class="wallpaper-image video-no-preview" style="background: linear-gradient(135deg, #1a1a2a, #0f0f1a); display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                <div style="font-size: 48px; margin-bottom: 10px;">🎬</div>
+                <div style="font-size: 12px; color: #8a8aa3;">${wp.type === 'cg' ? 'CG动画' : '宣传PV'}</div>
+           </div>`
+    )
+    : `<img class="wallpaper-image" src="${wp.url}" loading="lazy" onerror="this.src='https://placehold.co/400x225?text=加载失败'">`;
         
         return `
             <div class="wallpaper-card" data-url="${wp.url}" data-name="${wp.name}" data-type="${wp.type || 'image'}">
