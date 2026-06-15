@@ -5128,15 +5128,12 @@ function bindWallpaperTypeFilters() {
 }
 
 function showWallpaperPreview(url, name, type) {
-    // 保存当前滚动位置
-    const scrollY = window.scrollY;
-    
     // 创建遮罩层容器
     const modal = document.createElement('div');
     modal.className = 'wallpaper-modal';
     modal.setAttribute('data-wallpaper-modal', 'true');
     
-    // 判断是否为视频格式（包括动态壁纸、CG、PV等）
+    // 判断是否为视频格式
     const isVideo = type === 'video' || type === 'cg' || type === 'pv';
     const mediaHtml = isVideo
         ? `<video class="wallpaper-modal-media" src="${url}" controls autoplay loop></video>`
@@ -5152,21 +5149,17 @@ function showWallpaperPreview(url, name, type) {
     `;
     document.body.appendChild(modal);
     
-    // 禁止页面滚动（可选）
+    // 禁止页面滚动
     document.body.style.overflow = 'hidden';
     
-    // 标记正在预览详情页
+    // 标记正在预览
     window.isViewingWallpaperDetail = true;
-    
-    // 保存当前页面状态
-    const currentPageId = currentPage;
     
     // 关闭弹窗的函数
     function closeWallpaperModal() {
         if (modal && modal.remove) {
             modal.remove();
         }
-        // 恢复页面滚动
         document.body.style.overflow = '';
         window.isViewingWallpaperDetail = false;
         
@@ -5174,11 +5167,6 @@ function showWallpaperPreview(url, name, type) {
         if (window._wallpaperBackHandler) {
             window.removeEventListener('popstate', window._wallpaperBackHandler);
             window._wallpaperBackHandler = null;
-        }
-        
-        // 关键修复：如果当前页面不是游戏精彩内容，就切换回去
-        if (currentPage !== 'wallpaper') {
-            switchToPage('wallpaper');
         }
     }
     
@@ -5192,8 +5180,8 @@ function showWallpaperPreview(url, name, type) {
     };
     window.addEventListener('popstate', window._wallpaperBackHandler);
     
-    // 压入一个历史状态，用于捕获返回键
-    history.pushState({ wallpaperModal: true, fromPage: currentPage }, '');
+    // 压入历史状态
+    history.pushState({ wallpaperModal: true }, '');
     
     // 绑定关闭事件
     const closeBtn = modal.querySelector('.wallpaper-modal-close');
@@ -5290,16 +5278,7 @@ function initWallpaperMobileDropdown() {
             if (mobileFilter) mobileFilter.style.display = isDetail ? 'none' : 'block';
         }
     }
-    
-    function switchToPage(pageId) {
-            // 如果正在预览壁纸详情，先关闭弹窗再切换
-    if (window.isViewingWallpaperDetail) {
-        // 手动关闭弹窗（如果存在）
-        const modal = document.querySelector('.wallpaper-modal');
-        if (modal) modal.remove();
-        document.body.style.overflow = '';
-        window.isViewingWallpaperDetail = false;
-    }
+ function switchToPage(pageId) {
         if (currentPage === pageId) return;
         
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
