@@ -2759,7 +2759,7 @@ video.wallpaper-modal-media {
     .wallpapers-grid {
         grid-template-columns: 1fr;
         gap: 16px;
-        margin-top: 160px;
+        /* margin-top: 160px; 已移除，由新CSS处理 */
         padding: 12px;
     }
     
@@ -2777,6 +2777,41 @@ video.wallpaper-modal-media {
         font-size: 0.8rem;
     }
 }
+     /* 壁纸页面手机端修复 - 消除双重边距 */
+@media (max-width: 768px) {
+    #wallpaperPage {
+        margin-top: -10px;  /* 向上回拉一点 */
+    }
+    
+    #wallpaperPage .main-content {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+    
+    /* 确保壁纸页面的手机头部正常显示 */
+    .wallpaper-mobile-fixed-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #0f0f17;
+        border-bottom: 1px solid #2a2a3c;
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* 壁纸页面内容区域需要避开固定头部的高度 */
+    body.has-fixed-header #wallpaperPage {
+        margin-top: 0;
+        padding-top: 110px;  /* 给固定头部留出空间 */
+    }
+    
+    .wallpapers-grid {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+}   
     </style>
 </head>
 <body>
