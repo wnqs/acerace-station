@@ -91,8 +91,6 @@
     "type": "image",
     "thumbnail": "https://free.picui.cn/free/20260615/0a04bb0e387fe2c5ce4bdd0a097050bc.png"
 },
-
-// CG动画
 {
     "name": "阿斯顿马丁 Valkyrie AMR Pro静态展示",
     "url": "https://videotourl.com/videos/1781527831578-4109c56a-4557-43a2-b75c-8d990b2a756c.mp4",
@@ -123,8 +121,6 @@
     "type": "cg",
     "thumbnail": ""
 },
-
-// PV
 {
     "name": "卓卓",
     "url": "https://videotourl.com/videos/1781527994508-47af235f-82ba-450e-b84f-3b615a77729d.mp4",
@@ -167,8 +163,6 @@
     "type": "pv",
     "thumbnail": ""
 },
-
-// 西理系列（建议归为PV或单独分类，这里先按PV处理）
 {
     "name": "西理早上（0-12）",
     "url": "https://videotourl.com/videos/1781526989962-99f61363-3ccd-426e-9e4f-6415e315e6ad.mp4",
