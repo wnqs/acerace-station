@@ -5155,12 +5155,20 @@ function showWallpaperPreview(url, name, type) {
     // 标记正在预览
     window.isViewingWallpaperDetail = true;
     
+    // 保存当前页面ID，防止切换页面时丢失
+    const pageBeforePreview = currentPage;
+    
     // 关闭弹窗的函数
     function closeWallpaperModal() {
+        // 如果弹窗已经被移除，则不再执行
+        if (!document.body.contains(modal)) return;
+        
         if (modal && modal.remove) {
             modal.remove();
         }
         document.body.style.overflow = '';
+        
+        // 关键：先标记预览结束
         window.isViewingWallpaperDetail = false;
         
         // 移除popstate监听
@@ -5168,19 +5176,27 @@ function showWallpaperPreview(url, name, type) {
             window.removeEventListener('popstate', window._wallpaperBackHandler);
             window._wallpaperBackHandler = null;
         }
+        
+        // 通过 replaceState 移除我们之前添加的历史记录，避免返回时页面跳转
+        // 这可以防止浏览器再按返回键时跳转到车辆数据
+        if (history.state && history.state.wallpaperModal) {
+            history.back();
+        }
     }
     
     // 监听返回键
     window._wallpaperBackHandler = function(e) {
         if (window.isViewingWallpaperDetail) {
+            // 阻止浏览器的默认返回行为
             e.preventDefault();
             e.stopPropagation();
+            // 调用关闭弹窗
             closeWallpaperModal();
         }
     };
     window.addEventListener('popstate', window._wallpaperBackHandler);
     
-    // 压入历史状态
+    // 压入一个历史状态，用于捕获返回键
     history.pushState({ wallpaperModal: true }, '');
     
     // 绑定关闭事件
