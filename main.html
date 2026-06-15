@@ -4919,8 +4919,10 @@ function updateCurrencyMobileFilterUI() {
         }
         return false;
     }
-    // ========== 壁纸数据加载 ==========
+    // ========== 壁纸数据加载和筛选 ==========
 let wallpapersData = [];
+let wallpaperKeyword = "";
+let wallpaperTypeFilter = "all"; // all, video, image
 
 async function loadWallpapersData() {
     const grid = document.getElementById("wallpapersGrid");
@@ -4935,19 +4937,45 @@ async function loadWallpapersData() {
         if (grid) grid.innerHTML = '<div class="loading-placeholder">暂无壁纸数据</div>';
         return;
     }
+    
+    // 绑定搜索输入事件
+    bindWallpaperSearchEvents();
+    // 绑定类型筛选事件
+    bindWallpaperTypeFilters();
+    
     renderWallpapersList();
 }
 
+// 筛选壁纸
+function filterWallpapers() {
+    return wallpapersData.filter(wp => {
+        // 关键词筛选
+        if (wallpaperKeyword && !wp.name.toLowerCase().includes(wallpaperKeyword.toLowerCase())) {
+            return false;
+        }
+        // 类型筛选
+        if (wallpaperTypeFilter !== "all" && wp.type !== wallpaperTypeFilter) {
+            return false;
+        }
+        return true;
+    });
+}
+
+// 渲染壁纸列表
 function renderWallpapersList() {
     const grid = document.getElementById("wallpapersGrid");
+    const stats = document.getElementById("wallpaperStatsText");
     if (!grid) return;
     
-    if (wallpapersData.length === 0) {
-        grid.innerHTML = '<div class="loading-placeholder">暂无壁纸数据</div>';
+    const filtered = filterWallpapers();
+    
+    if (filtered.length === 0) {
+        grid.innerHTML = '<div class="loading-placeholder">暂无匹配的壁纸</div>';
+        if (stats) stats.innerText = "共 0 个壁纸";
         return;
     }
     
-    grid.innerHTML = wallpapersData.map(wp => {
+    grid.innerHTML = filtered.map(wp => {
         const isVideo = wp.type === 'video';
         const mediaContent = isVideo
             ? `<video class="wallpaper-image" muted loop playsinline poster="${wp.thumbnail || ''}">
@@ -4963,15 +4991,83 @@ function renderWallpapersList() {
         `;
     }).join("");
     
+    if (stats) stats.innerText = `共 ${filtered.length} 个壁纸`;
+    
     // 绑定点击预览事件
     document.querySelectorAll('.wallpaper-card').forEach(card => {
-        card.addEventListener('click', (e) => {
+        card.removeEventListener('click', card._previewHandler);
+        card._previewHandler = (e) => {
             e.stopPropagation();
             const url = card.dataset.url;
             const name = card.dataset.name;
             const type = card.dataset.type;
             showWallpaperPreview(url, name, type);
-        });
+        };
+        card.addEventListener('click', card._previewHandler);
+    });
+}
+
+// 绑定电脑端和手机端的搜索输入事件
+function bindWallpaperSearchEvents() {
+    // 电脑端搜索框
+    const desktopSearch = document.getElementById('wallpaperSearchInputDesktop');
+    if (desktopSearch) {
+        desktopSearch.removeEventListener('input', desktopSearch._wallpaperHandler);
+        desktopSearch._wallpaperHandler = (e) => {
+            wallpaperKeyword = e.target.value;
+            renderWallpapersList();
+        };
+        desktopSearch.addEventListener('input', desktopSearch._wallpaperHandler);
+    }
+    
+    // 手机端搜索框
+    const mobileSearch = document.getElementById('wallpaperSearchInputMobile');
+    if (mobileSearch) {
+        mobileSearch.removeEventListener('input', mobileSearch._wallpaperHandler);
+        mobileSearch._wallpaperHandler = (e) => {
+            wallpaperKeyword = e.target.value;
+            renderWallpapersList();
+        };
+        mobileSearch.addEventListener('input', mobileSearch._wallpaperHandler);
+    }
+}
+
+// 绑定电脑端和手机端的类型筛选事件
+function bindWallpaperTypeFilters() {
+    // 电脑端类型筛选
+    const desktopTypeOptions = document.querySelectorAll('#wallpaperDesktopTypeOptions .wallpaper-desktop-filter-option');
+    desktopTypeOptions.forEach(opt => {
+        opt.removeEventListener('click', opt._typeHandler);
+        opt._typeHandler = () => {
+            const type = opt.dataset.type;
+            wallpaperTypeFilter = type;
+            // 更新UI激活状态
+            desktopTypeOptions.forEach(o => o.classList.remove('active'));
+            opt.classList.add('active');
+            renderWallpapersList();
+        };
+        opt.addEventListener('click', opt._typeHandler);
+    });
+    
+    // 手机端类型筛选
+    const mobileTypeOptions = document.querySelectorAll('#wallpaperMobileTypeOptions .wallpaper-mobile-filter-option');
+    mobileTypeOptions.forEach(opt => {
+        opt.removeEventListener('click', opt._typeHandler);
+        opt._typeHandler = () => {
+            const type = opt.dataset.type;
+            wallpaperTypeFilter = type;
+            // 更新UI激活状态
+            mobileTypeOptions.forEach(o => o.classList.remove('active'));
+            opt.classList.add('active');
+            renderWallpapersList();
+            
+            // 关闭手机端下拉面板
+            const dropdownPanel = document.getElementById('wallpaperCategoryDropdownPanel');
+            const dropdownBtn = document.getElementById('wallpaperCategoryDropdownBtn');
+            if (dropdownPanel) dropdownPanel.classList.remove('show');
+            if (dropdownBtn) dropdownBtn.classList.remove('active');
+        };
+        opt.addEventListener('click', opt._typeHandler);
     });
 }
 
@@ -4995,6 +5091,29 @@ function showWallpaperPreview(url, name, type) {
     
     modal.querySelector('.wallpaper-modal-close').addEventListener('click', () => modal.remove());
     modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+}
+
+// 初始化手机端壁纸下拉面板
+function initWallpaperMobileDropdown() {
+    const dropdownBtn = document.getElementById("wallpaperCategoryDropdownBtn");
+    const dropdownPanel = document.getElementById("wallpaperCategoryDropdownPanel");
+    if (dropdownBtn && dropdownPanel) {
+        dropdownBtn.removeEventListener('click', dropdownBtn._dropdownHandler);
+        dropdownBtn._dropdownHandler = (e) => {
+            e.stopPropagation();
+            dropdownPanel.classList.toggle('show');
+            dropdownBtn.classList.toggle('active');
+        };
+        dropdownBtn.addEventListener('click', dropdownBtn._dropdownHandler);
+        
+        document.removeEventListener('click', document._closeWallpaperDropdown);
+        document._closeWallpaperDropdown = () => {
+            dropdownPanel.classList.remove('show');
+            dropdownBtn.classList.remove('active');
+        };
+        document.addEventListener('click', document._closeWallpaperDropdown);
+        dropdownPanel.addEventListener('click', (e) => e.stopPropagation());
+    }
 }
     // ========== 导航和页面切换函数 ==========
     function handleVehicleBackToList() {
