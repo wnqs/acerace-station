@@ -2392,7 +2392,7 @@
             font-weight: 700;
         }
         
-       /* ========== 精彩壁纸页面样式 ========== */
+       /* ========== 游戏精彩内容页面样式 ========== */
 /* 电脑端头部样式 */
 .wallpaper-desktop-header {
     position: sticky;
@@ -2827,7 +2827,7 @@ video.wallpaper-modal-media {
             <button class="tab-btn" data-page="energy">赋能系统</button>
             <button class="tab-btn" data-page="calculator">芯片要求计算器</button>
             <button class="tab-btn" data-page="news">游戏货币统计</button>
-            <button class="tab-btn" data-page="wallpaper">精彩壁纸</button>
+            <button class="tab-btn" data-page="wallpaper">游戏精彩内容</button>
         </div>
     </div>
     
@@ -2844,7 +2844,7 @@ video.wallpaper-modal-media {
                 <button class="mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
                 <button class="mobile-tab-btn" data-page="news">游戏货币统计</button>
-                <button class="mobile-tab-btn" data-page="wallpaper">精彩壁纸</button>
+                <button class="mobile-tab-btn" data-page="wallpaper">游戏精彩内容</button>
             </div>
         </div>
         <div class="mobile-filter-sticky" id="vehicleMobileFilter">
@@ -2899,7 +2899,7 @@ video.wallpaper-modal-media {
                 <button class="chip-mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="chip-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
                 <button class="chip-mobile-tab-btn" data-page="news">游戏货币统计</button>
-                <button class="chip-mobile-tab-btn" data-page="wallpaper">精彩壁纸</button>
+                <button class="chip-mobile-tab-btn" data-page="wallpaper">游戏精彩内容</button>
             </div>
         </div>
         <div class="chip-mobile-filter-sticky">
@@ -2940,7 +2940,7 @@ video.wallpaper-modal-media {
                 <button class="energy-mobile-tab-btn active" data-page="energy">赋能系统</button>
                 <button class="energy-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
                 <button class="energy-mobile-tab-btn" data-page="news">游戏货币统计</button>
-                <button class="energy-mobile-tab-btn" data-page="wallpaper">精彩壁纸</button>
+                <button class="energy-mobile-tab-btn" data-page="wallpaper">游戏精彩内容</button>
             </div>
         </div>
         <div class="energy-mobile-filter-sticky">
@@ -3186,7 +3186,7 @@ video.wallpaper-modal-media {
                 <button class="currency-mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="currency-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
                 <button class="currency-mobile-tab-btn active" data-page="news">游戏货币统计</button>
-                <button class="currency-mobile-tab-btn" data-page="wallpaper">精彩壁纸</button>
+                <button class="currency-mobile-tab-btn" data-page="wallpaper">游戏精彩内容</button>
             </div>
         </div>
         <div class="currency-mobile-filter-sticky">
@@ -3212,26 +3212,28 @@ video.wallpaper-modal-media {
 </div>
 
 
-<!-- 精彩壁纸页面 -->
+<!-- 游戏精彩内容页面 -->
 <div id="wallpaperPage" class="page">
     <!-- 电脑端头部（只有搜索框，没有导航） -->
     <div class="wallpaper-desktop-header">
         <div class="wallpaper-desktop-header-top">
-            <span class="page-title">精彩壁纸</span>
+            <span class="page-title">游戏精彩内容</span>
         </div>
         <div class="wallpaper-desktop-filter-bar">
             <div class="wallpaper-search-box">
                 <input type="text" id="wallpaperSearchInputDesktop" placeholder="搜索壁纸名称...">
             </div>
             <div class="wallpaper-desktop-filter-sections">
-                <div class="wallpaper-desktop-filter-section">
-                    <div class="wallpaper-desktop-filter-section-title">壁纸类型</div>
-                    <div class="wallpaper-desktop-filter-options" id="wallpaperDesktopTypeOptions">
+               <div class="wallpaper-desktop-filter-section">
+                   <div class="wallpaper-desktop-filter-section-title">内容分类</div>
+                   <div class="wallpaper-desktop-filter-options" id="wallpaperDesktopTypeOptions">
                         <div class="wallpaper-desktop-filter-option active" data-type="all">全部</div>
                         <div class="wallpaper-desktop-filter-option" data-type="video">动态壁纸</div>
                         <div class="wallpaper-desktop-filter-option" data-type="image">静态壁纸</div>
-                    </div>
-                </div>
+                        <div class="wallpaper-desktop-filter-option" data-type="cg">CG动画</div>
+                        <div class="wallpaper-desktop-filter-option" data-type="pv">宣传PV</div>
+                   </div>
+               </div>
             </div>
         </div>
     </div>
@@ -3249,7 +3251,7 @@ video.wallpaper-modal-media {
                 <button class="wallpaper-mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="wallpaper-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
                 <button class="wallpaper-mobile-tab-btn" data-page="news">游戏货币统计</button>
-                <button class="wallpaper-mobile-tab-btn active" data-page="wallpaper">精彩壁纸</button>
+                <button class="wallpaper-mobile-tab-btn active" data-page="wallpaper">游戏精彩内容</button>
             </div>
         </div>
         <div class="wallpaper-mobile-filter-sticky">
@@ -3264,13 +3266,15 @@ video.wallpaper-modal-media {
             </div>
             <div class="wallpaper-category-dropdown-panel" id="wallpaperCategoryDropdownPanel">
                 <div class="wallpaper-mobile-filter-section">
-                    <div class="wallpaper-mobile-filter-section-title">壁纸类型</div>
-                    <div class="wallpaper-mobile-filter-options" id="wallpaperMobileTypeOptions">
-                        <div class="wallpaper-mobile-filter-option active" data-type="all">全部</div>
-                        <div class="wallpaper-mobile-filter-option" data-type="video">动态壁纸</div>
-                        <div class="wallpaper-mobile-filter-option" data-type="image">静态壁纸</div>
-                    </div>
-                </div>
+    <div class="wallpaper-mobile-filter-section-title">内容分类</div>
+    <div class="wallpaper-mobile-filter-options" id="wallpaperMobileTypeOptions">
+        <div class="wallpaper-mobile-filter-option active" data-type="all">全部</div>
+        <div class="wallpaper-mobile-filter-option" data-type="video">动态壁纸</div>
+        <div class="wallpaper-mobile-filter-option" data-type="image">静态壁纸</div>
+        <div class="wallpaper-mobile-filter-option" data-type="cg">CG动画</div>
+        <div class="wallpaper-mobile-filter-option" data-type="pv">宣传PV</div>
+    </div>
+</div>
             </div>
         </div>
     </div>
