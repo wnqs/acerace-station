@@ -1370,6 +1370,45 @@
                 padding: 16px 12px !important;
             }
         }
+        /* 分类按钮样式 */
+.wallpaper-category-btn {
+    background: rgba(42, 42, 60, 0.7);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #a0a0b8;
+    transition: all 0.2s;
+}
+
+.wallpaper-category-btn.active {
+    background: #feca57;
+    color: #1a1a2e;
+}
+
+.wallpaper-category-btn:hover:not(.active) {
+    background: rgba(254, 202, 87, 0.2);
+    color: #feca57;
+}
+
+/* 手机端分类按钮适配 */
+@media (max-width: 768px) {
+    .category-tabs {
+        gap: 8px !important;
+        overflow-x: auto;
+        flex-wrap: nowrap !important;
+        padding-bottom: 8px;
+    }
+    
+    .wallpaper-category-btn {
+        padding: 6px 14px;
+        font-size: 0.7rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+}
         /* ========== 游戏货币统计页面样式 ========== */
 .currency-desktop-header {
     position: sticky;
@@ -2912,11 +2951,15 @@
     <div class="stats-text" id="currencyStatsText">加载中...</div>
 </div>
 
-<!-- 游戏壁纸页面 -->
-<!-- 游戏壁纸页面 -->
+<!-- 壁纸、CG、PV 页面 -->
 <div id="wallpaperPage" class="page">
     <div class="wallpaper-container">
-        <h2 style="color: #e2e2e6; margin-bottom: 20px; font-weight: 800;">游戏壁纸</h2>
+        <div class="category-tabs" style="display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 1px solid rgba(42,42,60,0.5); padding-bottom: 12px;">
+            <button class="wallpaper-category-btn active" data-category="dynamic">动态壁纸</button>
+            <button class="wallpaper-category-btn" data-category="cg">CG</button>
+            <button class="wallpaper-category-btn" data-category="pv">PV</button>
+            <button class="wallpaper-category-btn" data-category="static">静态壁纸</button>
+        </div>
         <div class="wallpapers-grid" id="wallpapersGrid">
             <div class="loading-placeholder">加载中...</div>
         </div>
@@ -4595,20 +4638,33 @@ function updateCurrencyMobileFilterUI() {
         }
         return false;
     }
-    // ========== 壁纸数据加载 ==========
-let wallpapersData = [];
+    // ========== 壁纸、CG、PV 数据加载 ==========
+let resourcesData = [];
+let currentWallpaperCategory = "dynamic"; // 当前选中的分类：dynamic, cg, pv, static
 
 async function loadWallpapersData() {
     const grid = document.getElementById("wallpapersGrid");
     try {
-        const response = await fetch('./wallpapers.json');
+        const response = await fetch('./resources.json');
         if (!response.ok) throw new Error('加载失败');
         const data = await response.json();
-        wallpapersData = data.wallpapers || [];
+        // 支持两种数据格式
+        if (data.resources && Array.isArray(data.resources)) {
+            resourcesData = data.resources;
+        } else if (data.wallpapers && Array.isArray(data.wallpapers)) {
+            // 兼容旧格式
+            resourcesData = data.wallpapers.map(item => ({
+                ...item,
+                category: item.category || "dynamic"
+            }));
+        } else {
+            resourcesData = [];
+        }
+        console.log('资源数据加载成功，共', resourcesData.length, '项');
     } catch (error) {
-        console.log('加载 wallpapers.json 失败');
-        wallpapersData = [];
-        if (grid) grid.innerHTML = '<div class="loading-placeholder">暂无壁纸数据</div>';
+        console.log('加载 resources.json 失败，使用默认数据', error);
+        resourcesData = [];
+        if (grid) grid.innerHTML = '<div class="loading-placeholder">暂无资源数据<br>请创建 resources.json 文件</div>';
         return;
     }
     renderWallpapersList();
@@ -4618,40 +4674,80 @@ function renderWallpapersList() {
     const grid = document.getElementById("wallpapersGrid");
     if (!grid) return;
     
-    if (wallpapersData.length === 0) {
-        grid.innerHTML = '<div class="loading-placeholder">暂无壁纸数据</div>';
+    // 按当前分类筛选
+    const filtered = resourcesData.filter(item => item.category === currentWallpaperCategory);
+    
+    if (filtered.length === 0) {
+        grid.innerHTML = `<div class="loading-placeholder">暂无${getCategoryName(currentWallpaperCategory)}内容</div>`;
         return;
     }
     
-    grid.innerHTML = wallpapersData.map(wp => {
-        const isVideo = wp.type === 'video';
+    grid.innerHTML = filtered.map(item => {
+        const isVideo = item.type === 'video';
         const mediaContent = isVideo
-            ? `<video class="wallpaper-image" muted loop playsinline poster="${wp.thumbnail || ''}">
-                    <source src="${wp.url}" type="video/mp4">
+            ? `<video class="wallpaper-image" muted loop playsinline poster="${item.thumbnail || ''}">
+                    <source src="${item.url}" type="video/mp4">
                </video>`
-            : `<img class="wallpaper-image" src="${wp.url}" loading="lazy" onerror="this.src='https://placehold.co/400x225?text=加载失败'">`;
+            : `<img class="wallpaper-image" src="${item.url}" loading="lazy" onerror="this.src='https://placehold.co/400x225?text=加载失败'">`;
         
         return `
-            <div class="wallpaper-card" data-url="${wp.url}" data-name="${wp.name}" data-type="${wp.type || 'image'}">
+            <div class="wallpaper-card" data-url="${item.url}" data-name="${item.name}" data-type="${item.type || 'image'}">
                 ${mediaContent}
-                <div class="wallpaper-name">${wp.name}</div>
+                <div class="wallpaper-name">${item.name}</div>
             </div>
         `;
     }).join("");
     
     // 绑定点击预览事件
     document.querySelectorAll('.wallpaper-card').forEach(card => {
-        card.addEventListener('click', (e) => {
+        card.removeEventListener('click', card._previewHandler);
+        card._previewHandler = (e) => {
             e.stopPropagation();
             const url = card.dataset.url;
             const name = card.dataset.name;
             const type = card.dataset.type;
             showWallpaperPreview(url, name, type);
-        });
+        };
+        card.addEventListener('click', card._previewHandler);
     });
 }
 
+function getCategoryName(category) {
+    const names = {
+        dynamic: "动态壁纸",
+        cg: "CG",
+        pv: "PV",
+        static: "静态壁纸"
+    };
+    return names[category] || "资源";
+}
+
+function initWallpaperCategoryTabs() {
+    const btns = document.querySelectorAll('.wallpaper-category-btn');
+    btns.forEach(btn => {
+        btn.removeEventListener('click', btn._categoryHandler);
+        btn._categoryHandler = () => {
+            const category = btn.dataset.category;
+            if (!category) return;
+            
+            // 更新按钮状态
+            btns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // 更新当前分类并重新渲染
+            currentWallpaperCategory = category;
+            renderWallpapersList();
+        };
+        btn.addEventListener('click', btn._categoryHandler);
+    });
+}
+
+// 预览弹窗函数保持不变
 function showWallpaperPreview(url, name, type) {
+    // 移除已存在的弹窗
+    const existingModal = document.querySelector('.wallpaper-modal');
+    if (existingModal) existingModal.remove();
+    
     const modal = document.createElement('div');
     modal.className = 'wallpaper-modal';
     
@@ -4778,27 +4874,20 @@ function showWallpaperPreview(url, name, type) {
             document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.currency-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'news') t.classList.add('active'); });
             if (currenciesData.length === 0) loadCurrenciesData(); else renderCurrenciesList();
-        } else {
-                document.getElementById('mobileFixedHeader').style.display = 'none';
-                document.getElementById('chipMobileFixedHeader').style.display = 'none';
-                document.getElementById('energyMobileFixedHeader').style.display = 'none';
-                document.getElementById('currencyMobileFixedHeader').style.display = 'none';
-                document.body.classList.remove('has-fixed-header');
-            }
-        } else {
-            const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
-            if (vehicleDesktopHeader) {
-                if (pageId === 'vehicles') {
-                    vehicleDesktopHeader.style.display = isInDetail ? 'none' : 'block';
-                } else {
-                    vehicleDesktopHeader.style.display = 'none';
-                }
-            }
-        }
-        
-        currentPage = pageId;
-        window.scrollTo(0, 0);
+        } else if (pageId === 'wallpaper') {
+        document.getElementById('mobileFixedHeader').style.display = 'none';
+        document.getElementById('chipMobileFixedHeader').style.display = 'none';
+        document.getElementById('energyMobileFixedHeader').style.display = 'none';
+        document.getElementById('currencyMobileFixedHeader').style.display = 'none';
+        document.body.classList.remove('has-fixed-header');
+        setTimeout(() => {
+            initWallpaperCategoryTabs();
+        }, 50);
     }
+    
+    currentPage = pageId;
+    window.scrollTo(0, 0);
+}
     
     // 返回键逻辑：先清空筛选条件，再按一次才退出网站
     function handleBackButton() {
@@ -6028,12 +6117,16 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
     }  // <--- initCalculator 函数结束
     
     document.addEventListener('DOMContentLoaded', () => {
-        initTabs();
-        loadData();
-        if (document.getElementById('calculatorPage') && document.getElementById('calcCarType')) {
-            setTimeout(() => initCalculator(), 100);
-        }
-    });
+    initTabs();
+    loadData();
+    if (document.getElementById('calculatorPage') && document.getElementById('calcCarType')) {
+        setTimeout(() => initCalculator(), 100);
+    }
+    // 初始化壁纸分类按钮
+    setTimeout(() => {
+        initWallpaperCategoryTabs();
+    }, 200);
+});
 </script>
 </body>
 </html>
