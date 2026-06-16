@@ -100,7 +100,7 @@
       "name": "王牌竞速s16赛季CG（主题曲）",
       "url": "https://videotourl.com/videos/1781526163972-a0bb241d-f9cc-4e25-87bf-610995160d9a.mp4",
       "type": "cg",
-      "thumbnail": ""
+      "thumbnail": "https://s3.bmp.ovh/2026/06/16/uDLBajp6.png"
     },
     {
       "name": "S18-美人鱼时装CG",
@@ -118,7 +118,7 @@
       "name": "圣骑士CG超级无敌删减版",
       "url": "https://videotourl.com/videos/1781527947537-3d447048-8c8c-480c-8919-e75b611c4d55.mp4",
       "type": "cg",
-      "thumbnail": ""
+      "thumbnail": "https://s3.bmp.ovh/2026/06/16/LeWF0i0z.png"
     },
     {
       "name": "卓卓",
@@ -185,6 +185,13 @@
       "url": "https://videotourl.com/videos/1781527174697-b331e1cf-8d3a-46cd-b073-ee3146c8c1ca.mp4",
       "type": "pv",
       "thumbnail": "https://a1.boltp.com/2026/06/15/6a30069a29174.png"
+    },
+    {   
+      "name": "圣骑士车姬",
+      "url": "https://videotourl.com/videos/1781570863611-26e53000-dbd3-4e1f-94f3-87f0fb78f9a4.mp4",
+      "type": "pv",
+      "thumbnail": "https://s3.bmp.ovh/2026/06/16/z9qIG7at.png"
+
         }
     ]
 }
