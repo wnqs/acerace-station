@@ -59,7 +59,7 @@
       "quality": "传说",
       "position": "辅助",
       "specialty": "城市",
-      "imageUrl": "https://s3.bmp.ovh/2026/05/31/1GXnWhYc.png",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/16/8oDe7lNI.png",
       "positionIcon": "辅助",
       "specialtyIcon": "城市",
       "description": "隐身并为队友充能",
@@ -1067,7 +1067,7 @@
       "quality": "稀有",
       "position": "辅助",
       "specialty": "城市",
-      "imageUrl": "https://s3.bmp.ovh/2026/06/02/5x8v5ZKC.png",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/16/v6dPDWHG.png",
       "positionIcon": "辅助",
       "specialtyIcon": "城市",
       "description": "缩小全队车型",
@@ -1888,7 +1888,7 @@
       "quality": "史诗",
       "position": "辅助",
       "specialty": "城市",
-      "imageUrl": "https://s3.bmp.ovh/2026/06/02/DkHClBew.png",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/16/2dVfDJ1l.png",
       "positionIcon": "辅助",
       "specialtyIcon": "城市",
       "description": "缩小全队车型",
@@ -1915,7 +1915,8 @@
       "skills": {
         "ult": {
           "name": "纳米科技",
-          "desc": "500米范围内全队缩小车型，持续5秒。自身保持加速，并持续为附近50米内的全体非辅助位队友每秒充能15%，持续6秒。车型缩小时，质量并不会减少",
+          "desc": "500米范围内全队缩小车型，持续5秒。自身保持加速，并持续为附近50米内的全体非辅助位队友每秒充能15%，持续6秒。车型缩小时，质量并不会减少
+          进阶：车辆最高速度提升10km/h",
           "recu": "纳米科技可以充能两次且能量达到70%即可使用",
           "ultPassive": ""
         },
@@ -2601,7 +2602,7 @@
       "quality": "史诗",
       "position": "辅助",
       "specialty": "场地",
-      "imageUrl": "https://s3.bmp.ovh/2026/06/04/o5jNbJj5.png",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/16/C7wg4qQY.png",
       "positionIcon": "辅助",
       "specialtyIcon": "场地",
       "description": "发生碰撞时向前弹跳",
@@ -2628,7 +2629,8 @@
       "skills": {
         "ult": {
           "name": "杂耍戏法",
-          "desc": "加速推进并使队友获得隐身。加速期间如果发生碰撞（车墙或者车车），将会结束加速，并且旋转跳跃到路面前方位置，同时给1200米内全体非辅助位队友补充35%大招能量",
+          "desc": "加速推进并使队友获得隐身。加速期间如果发生碰撞（车墙或者车车），将会结束加速，并且旋转跳跃到路面前方位置，同时给1200米内全体非辅助位队友补充35%大招能量
+          进阶：旋转跳跃时若存在超车行为，则在空中进行二次跳跃；提升旋转跳跃的推进速度和持续时间",
           "recu": "杂耍戏法可以充能两次",
           "ultPassive": ""
         },
@@ -3783,7 +3785,7 @@
         },
         "passive": {
           "name": "一举两得",
-          "desc": "友方全体前2次叠加额外速度增益时额外叠加一层；敌方全体开局前20秒内无法净化和获得额外涡轮且只能通过漂移获取集气量"
+          "desc": "友方全体前2次叠加额外速度增益时额外叠加一层；敌方全体开局前20秒内无法净化和获得额外涡轮且只能通过漂移获取集气量（命中类型：锁定类）"
         },
         "features": [
           { "name": "额外叠速", "desc": "友方全体叠加速度增益时额外获得一层", "color": "紫" },
@@ -4179,7 +4181,7 @@
         "power": "7.66",
         "durability": "110",
         "nitroCharge": "27.0%",
-        "startCharge": "27.0%",
+        "startCharge": "42.0%",
         "nitroDuration": "6.00 s",
         "nitroSpeed": { "blue": "22.00 km/h", "purple": "33.00 km/h" },
         "turboDuration": { "blue": "0.70 s", "purple": "2.10 s" },
@@ -4227,7 +4229,7 @@
       "specialtyIcon": "城市",
       "description": "在赛道中制造墙体",
       "skillName": "障碍重重",
-      "searchKeywords": ["保时捷 Panamera Turbo S", "障碍重重", "卷土重来", "墙建犯", "帕梅", "帕拉梅拉"],
+      "searchKeywords": ["保时捷 Panamera Turbo S", "障碍重重", "卷土重来", "墙建犯", "保时捷帕梅","保时捷帕美", "帕拉梅拉"],
       "registerDate": "2024-09-27",
       "vehicleType": "真实阵营",
       "manufacturer": "保时捷",
@@ -4249,7 +4251,7 @@
       "skills": {
         "ult": {
           "name": "障碍重重",
-          "desc": "加速推进，极速提升50km/h，持续7秒。开始大招时在800米范围内排名最前的敌方车辆前方放置墙体阻挡：墙体类型随机（1.遮挡赛道中央10米；2.遮挡赛道左侧；3.遮挡赛道右侧）；墙体持续存在7秒，可以被清障效果清除；撞击到墙体的敌方车辆将在0.2秒后清除周围15米范围内的放置物",
+          "desc": "加速推进，极速提升50km/h，持续7秒。开始大招时在800米范围内排名最前的敌方车辆前方放置墙体阻挡：墙体类型随机（1.遮挡赛道中央10米、 2.遮挡赛道左侧、3.遮挡赛道右侧）；墙体持续存在7秒，可以被清障效果清除；撞击到墙体的敌方车辆将在0.2秒后清除周围15米范围内的放置物（命中类型：实体放置类）",
           "recu": "障碍重重可以充能两次并在开局时获得20%大招能量",
           "ultPassive": ""
         },
@@ -4849,7 +4851,7 @@
         "power": "7.71",
         "durability": "135",
         "nitroCharge": "29.0%",
-        "startCharge": "29.0%",
+        "startCharge": "39.0%",
         "nitroDuration": "6.00 s",
         "nitroSpeed": { "blue": "25.00 km/h", "purple": "37.50 km/h" },
         "turboDuration": { "blue": "0.68 s", "purple": "2.04 s" },
@@ -4860,7 +4862,7 @@
       "skills": {
         "ult": {
           "name": "吞噬光阴",
-          "desc": "加速推进，极速提升40km/h，持续8秒。加速开始时干扰200米范围内敌方车辆，使其本局比赛完成时间+0.3秒",
+          "desc": "加速推进，极速提升40km/h，持续8秒。加速开始时干扰200米范围内敌方车辆，使其本局比赛完成时间+0.3秒（命中类型：锁定无视隐身类）",
           "recu": "吞噬光阴可以充能两次。解锁大招被动：敌方车辆每4次使用氮气，本局比赛完成时间+0.3秒",
           "ultPassive": ""
         },
@@ -4975,7 +4977,8 @@
         },
         "passive": {
           "name": "涡轮封锁",
-          "desc": "敌方车辆每次使用大招或氮气后2秒内无法获得和使用涡轮"
+          "desc": "敌方车辆每次使用大招或氮气后2秒内无法获得和使用涡轮（开局时施加状态，命中类型
+：直接命中）"
         },
         "features": [
           { "name": "锁定干扰", "desc": "自动锁定范围内的目标", "color": "黄" },
@@ -5177,7 +5180,7 @@
         },
         "passive": {
           "name": "限速装置",
-          "desc": "开局13秒后，每次使用大招时使赛道中的敌方车辆的平地速度在7秒内无法超过300km/h"
+          "desc": "开局13秒后，每次使用大招时使赛道中的敌方车辆的平地速度在7秒内无法超过300km/h（命中类型：锁定类）"
         },
         "features": [
           { "name": "克制锁定", "desc": "可以反弹敌方的锁定类干扰", "color": "紫" },
@@ -5221,7 +5224,7 @@
       "skills": {
         "ult": {
           "name": "刀片跑法",
-          "desc": "加速前进，极速提升60km/h，持续7.5秒，期间：保持自动巡航；每次超过其他车辆会延长2.5秒持续时间；首次点击方向键时，会倾斜车身；若转向方向与倾斜方向一致，过弯时不会减速",
+          "desc": "加速前进，极速提升60km/h，持续7.5秒，期间：保持自动巡航；每次超过其他车辆会延长2.5秒持续时间；首次点击方向键时，会倾斜车身；若转向方向与倾斜方向一致，过弯时不会减速；进阶：车辆最高速度提升25km/h；大招期间倾斜方向可以自由切换",
           "recu": "刀片跑法可以充能两次",
           "ultPassive": ""
         },
@@ -5420,7 +5423,7 @@
       "skills": {
         "ult": {
           "name": "扰流系统",
-          "desc": "加速推进，极速提升45km/h并且在车辆周身制造混乱的气体湍流干扰50米内的敌方车辆：极速降低30km/h；封禁氮气效果，并失去芯片、尾流效果；被动：开局25秒内，敌方车辆失去尾流效果且只能通过漂移获得集气量",
+          "desc": "加速推进，极速提升45km/h并且在车辆周身制造混乱的气体湍流干扰50米内的敌方车辆：极速降低30km/h；封禁氮气效果，并失去芯片、尾流效果；被动：开局25秒内，敌方车辆失去尾流效果且只能通过漂移获得集气量（命中类型：锁定类）；进阶：车辆最高速度提升3km/h；车辆的耐久度提升20",
           "recu": "乱流下的敌方车辆无法使用大招，扰流系统可以充能两次",
           "ultPassive": ""
         },
@@ -5462,7 +5465,7 @@
         "power": "8.09",
         "durability": "115",
         "nitroCharge": "35.0%",
-        "startCharge": "35.0%",
+        "startCharge": "42.0%",
         "nitroDuration": "5.40 s",
         "nitroSpeed": { "blue": "22.20 km/h", "purple": "33.30 km/h" },
         "turboDuration": { "blue": "0.63 s", "purple": "1.89 s" },
@@ -5526,7 +5529,7 @@
       "skills": {
         "ult": {
           "name": "扰流系统",
-          "desc": "加速推进，极速提升45km/h并且在车辆周身制造混乱的气体湍流干扰50米内的敌方车辆：极速降低30km/h；封禁氮气效果，并失去芯片、尾流效果；被动：开局25秒内，敌方车辆失去尾流效果且只能通过漂移获得集气量",
+          "desc": "加速推进，极速提升45km/h并且在车辆周身制造混乱的气体湍流干扰50米内的敌方车辆：极速降低30km/h；封禁氮气效果，并失去芯片、尾流效果；被动：开局25秒内，敌方车辆失去尾流效果且只能通过漂移获得集气量（命中类型：锁定类）",
           "recu": "乱流下的敌方车辆无法使用大招，扰流系统可以充能两次",
           "ultPassive": ""
         },
@@ -5567,8 +5570,8 @@
         "topSpeed": "217.0 km/h",
         "power": "8.00",
         "durability": "100",
-        "nitroCharge": "30.0%",
-        "startCharge": "30.0%",
+        "nitroCharge": "30.0%（30.0%+20.0%）",
+        "startCharge": "50.0%",
         "nitroDuration": "5.60 s",
         "nitroSpeed": { "blue": "24.40 km/h", "purple": "36.60 km/h" },
         "turboDuration": { "blue": "0.70 s", "purple": "2.10 s" },
@@ -6165,7 +6168,8 @@
         },
         "passive": {
           "name": "打乱节奏",
-          "desc": "敌方车辆每次使用氮气后，氮气键消失2.5秒。越野车：在沙地、草地、雪地等特殊地形中减速效果减少50%，并且额外获得自动集气"
+          "desc": "敌方车辆每次使用氮气后，氮气键消失2.5秒（开局时施加状态，命中类型
+：直接命中）。越野车：在沙地、草地、雪地等特殊地形中减速效果减少50%，并且额外获得自动集气"
         },
         "features": [
           { "name": "越野车", "desc": "越野车在特殊地形中获得减速减免和额外集气", "color": "紫" },
@@ -6354,7 +6358,7 @@
         "power": "7.81",
         "durability": "140",
         "nitroCharge": "26.0%",
-        "startCharge": "26.0%",
+        "startCharge": "51.0%",
         "nitroDuration": "5.60 s",
         "nitroSpeed": { "blue": "24.80 km/h", "purple": "37.20 km/h" },
         "turboDuration": { "blue": "0.61 s", "purple": "1.83 s" },
@@ -6371,7 +6375,7 @@
         },
         "passive": {
           "name": "威能咆哮",
-          "desc": "开局时威吓全部敌方，使其混乱12秒；敌方受到威吓12秒后，每次使用氮气时15%概率进入1.5秒混乱状态。越野车：在沙地、草地、雪地等特殊地形中减速效果减少50%，并且额外获得自动集气"
+          "desc": "开局时威吓全部敌方，使其混乱12秒；敌方受到威吓12秒后，每次使用氮气时15%概率进入1.5秒混乱状态（命中类型：锁定类）。越野车：在沙地、草地、雪地等特殊地形中减速效果减少50%，并且额外获得自动集气"
         },
         "features": [
           { "name": "越野车", "desc": "越野车在特殊地形中获得减速减免和额外集气", "color": "紫" },
@@ -6496,7 +6500,7 @@
       "quality": "传说",
       "position": "干扰",
       "specialty": "城市",
-      "imageUrl": "https://s3.bmp.ovh/2026/06/12/yOIkmn7H.png",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/16/BYpsdKf4.png",
       "positionIcon": "干扰",
       "specialtyIcon": "城市",
       "description": "潜伏在阴影中伏击敌方车辆",
@@ -6547,7 +6551,7 @@
       "quality": "传说",
       "position": "干扰",
       "specialty": "场地",
-      "imageUrl": "https://s3.bmp.ovh/2026/06/12/bzc4xFG9.png",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/16/jQ9mNF6f.png",
       "positionIcon": "干扰",
       "specialtyIcon": "场地",
       "description": "潜伏在阴影中伏击敌方车辆",
@@ -6651,7 +6655,7 @@
       "quality": "传说",
       "position": "竞速",
       "specialty": "城市",
-      "imageUrl": "https://s3.bmp.ovh/2026/06/12/2XgQN0hm.png",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/16/KWUzvaPb.png",
       "positionIcon": "竞速",
       "specialtyIcon": "城市",
       "description": "人车合一，不能受任何干扰",
@@ -7059,7 +7063,7 @@
       "quality": "传说",
       "position": "竞速",
       "specialty": "山路",
-      "imageUrl": "https://a1.boltp.com/2026/06/12/6a2c17ad67e4a.png",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/16/PTG3rHu5.png",
       "positionIcon": "竞速",
       "specialtyIcon": "山路",
       "description": "牺牲耐久来强化自身",
@@ -7320,7 +7324,7 @@
       "quality": "传说",
       "position": "竞速",
       "specialty": "山路",
-      "imageUrl": "https://a1.boltp.com/2026/06/12/6a2c20675a5b8.png",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/16/md3cKF5V.png",
       "positionIcon": "竞速",
       "specialtyIcon": "山路",
       "description": "赛场幽灵，碰撞闪烁",
@@ -7371,7 +7375,7 @@
       "quality": "史诗",
       "position": "干扰",
       "specialty": "山路",
-      "imageUrl": "https://a1.boltp.com/2026/06/12/6a2c21cea68bb.png",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/16/obi05rWE.png",
       "positionIcon": "干扰",
       "specialtyIcon": "山路",
       "description": "迅猛跃起砸击猎物",
@@ -7387,7 +7391,7 @@
         "power": "7.19",
         "durability": "130",
         "nitroCharge": "27.0%",
-        "startCharge": "27.0%",
+        "startCharge": "47.0%",
         "nitroDuration": "5.60 s",
         "nitroSpeed": { "blue": "20.20 km/h", "purple": "30.30 km/h" },
         "turboDuration": { "blue": "0.55 s", "purple": "1.65 s" },
@@ -7399,7 +7403,7 @@
         "ult": {
           "name": "质量效应",
           "desc": "迅速向前跃起并高速前进：期间保持自动巡航；极速提升60km/h；最多持续4秒；落地时激起震荡波震飞周围敌方车辆：损失60点耐久值并被震击；成功命中目标时，自充能50%",
-          "recu": "质量效应可以充能两次。解锁大招被动：开局时重击全部敌方，使其在本局内每次使用氮气时损失8点耐久值和600集气量",
+          "recu": "质量效应可以充能两次。解锁大招被动：开局时重击全部敌方，使其在本局内每次使用氮气时损失8点耐久值和600集气量（命中类型：锁定类）",
           "ultPassive": ""
         },
         "passive": {
@@ -7431,8 +7435,8 @@
       "skillName": "质量效应",
       "searchKeywords": ["泰坦", "质量效应", "崎岖制造者"],
       "registerDate": "2021-08-27",
-      "vehicleType": "真实阵营",
-      "manufacturer": "福特",
+      "vehicleType": "幻想阵营",
+      "manufacturer": "混沌",
       "acquisition": "补给箱 / 赛车学院",
       "acquisitionIcon": "https://s3.bmp.ovh/2026/05/31/rK9Tjs84.png",
       "stats": {
@@ -7440,7 +7444,7 @@
         "power": "7.32",
         "durability": "130",
         "nitroCharge": "26.0%",
-        "startCharge": "26.0%",
+        "startCharge": "46.0%",
         "nitroDuration": "5.60 s",
         "nitroSpeed": { "blue": "24.00 km/h", "purple": "36.00 km/h" },
         "turboDuration": { "blue": "0.56 s", "purple": "1.68 s" },
@@ -7452,12 +7456,12 @@
         "ult": {
           "name": "质量效应",
           "desc": "迅速向前跃起并高速前进：期间保持自动巡航；极速提升60km/h；最多持续4秒；落地时激起震荡波震飞周围敌方车辆：损失60点耐久值并被震击；成功命中目标时，自充能50%",
-          "recu": "质量效应可以充能两次。解锁大招被动：开局时重击全部敌方，使其在本局内每次使用氮气时损失8点耐久值和600集气量",
+          "recu": "质量效应可以充能两次。解锁大招被动：开局时重击全部敌方，使其在本局内每次使用氮气时损失8点耐久值和600集气量（命中类型：锁定类）",
           "ultPassive": ""
         },
         "passive": {
           "name": "崎岖制造者",
-          "desc": "每5秒使120米范围内敌方车辆5秒内无法净化且极速-8km/h。越野车：在沙地、草地、雪地等特殊地形中减速效果减少50%，并且额外获得自动集气"
+          "desc": "每5秒使120米范围内敌方车辆5秒内无法净化且极速-8km/h（命中类型：锁定类）。越野车：在沙地、草地、雪地等特殊地形中减速效果减少50%，并且额外获得自动集气"
         },
         "features": [
           { "name": "越野车", "desc": "越野车在特殊地形中获得减速减免和额外集气", "color": "紫" },
@@ -7504,7 +7508,8 @@
       "skills": {
         "ult": {
           "name": "龙卷冲锋",
-          "desc": "跃起一段高度并在空中旋转，伴随周边生成的龙卷风加速前进：期间极速提升80km/h；保持自动巡航；滞空时间与腾空高度有关；落地后加速效果变为60km/h，并延长下一次氮气，落地加速时长和氮气延时与滞空期间车辆旋转的圈数有关",
+          "desc": "跃起一段高度并在空中旋转，伴随周边生成的龙卷风加速前进：期间极速提升80km/h；保持自动巡航；滞空时间与腾空高度有关；落地后加速效果变为60km/h，并延长下一次氮气，落地加速时长和氮气延时与滞空期间车辆旋转的圈数有关；进阶：对方阵营出现保时捷赛车时车辆速度提升20km/h；大招空中旋转每多1圈，落地获得4%充能；车辆最高速度提升5km/h
+          /",
           "recu": "龙卷冲锋可以充能两次",
           "ultPassive": ""
         },
@@ -7684,7 +7689,7 @@
       "quality": "传说",
       "position": "干扰",
       "specialty": "场地",
-      "imageUrl": "https://a1.boltp.com/2026/06/12/6a2c29811de26.png",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/16/qHPPprb1.png",
       "positionIcon": "干扰",
       "specialtyIcon": "场地",
       "description": "释放电场扰乱敌方车辆",
@@ -7815,7 +7820,7 @@
       "skills": {
         "ult": {
           "name": "扰流系统",
-          "desc": "加速推进，极速提升45km/h并且在车辆周身制造混乱的气体湍流干扰50米内的敌方辆：极速降低30km/h；封禁氮气效果，并失去芯片、尾流效果；被动：开局25秒内，敌方车辆失去尾流效果且只能通过漂移获得集气量",
+          "desc": "加速推进，极速提升45km/h并且在车辆周身制造混乱的气体湍流干扰50米内的敌方辆：极速降低30km/h；封禁氮气效果，并失去芯片、尾流效果；被动：开局25秒内，敌方车辆失去尾流效果且只能通过漂移获得集气量（命中类型：锁定类）",
           "recu": "乱流下的敌方车辆无法使用大招，扰流系统可以充能两次",
           "ultPassive": ""
         },
@@ -8227,7 +8232,7 @@
         "power": "8.14",
         "durability": "180",
         "nitroCharge": "32.0%",
-        "startCharge": "32.0%",
+        "startCharge": "57.0%",
         "nitroDuration": "5.00 s",
         "nitroSpeed": { "blue": "26.00 km/h", "purple": "39.00 km/h" },
         "turboDuration": { "blue": "0.60 s", "purple": "1.80 s" },
@@ -9348,7 +9353,7 @@
         "ult": {
           "name": "直排喷火",
           "desc": "喷射出灼热的火焰并推进车辆加速，极速提升60km/h，持续7.5秒。火焰会在车尾扩散使接触到的敌方车辆被灼烧10秒：极速降低25km/h；失去尾流和芯片效果（V型芯片除外）；大招期间长按大招（达到0.5秒及以上）可获得爆发推进：获得22km/h的额外加速；火焰灼烧范围扩大到100米并转换为锁定类；自身每秒额外消耗10%大招能量",
-          "recu": "直排喷火可以充能两次。解锁大招被动：开局时灼烧敌方全体，使其失去芯片效果持续15秒",
+          "recu": "直排喷火可以充能两次。解锁大招被动：开局时灼烧敌方全体，使其失去芯片效果持续15秒（命中类型：锁定类）",
           "ultPassive": ""
         },
         "passive": {
@@ -9372,7 +9377,7 @@
       "quality": "稀有",
       "position": "干扰",
       "specialty": "场地",
-      "imageUrl": "https://free.picui.cn/free/20260613/22f9ff50069f7389183462fa20e52110.png",
+      "imageUrl": "https://s3.bmp.ovh/2026/06/16/OL228Y77.png",
       "positionIcon": "干扰",
       "specialtyIcon": "场地",
       "description": "撞飞放置物和敌方车辆",
