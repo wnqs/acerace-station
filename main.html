@@ -475,7 +475,21 @@
         .card-image.normal::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(76,175,80,0.08) 2px, rgba(76,175,80,0.08) 4px); pointer-events: none; }
         .card-image.normal::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.12), transparent 70%); pointer-events: none; }
         .card-image img { max-width: 100%; max-height: 100%; object-fit: contain; position: relative; z-index: 2; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
-        
+        /* ====== 进阶车辆 - 卡片列表 ====== */
+.car-card[data-name="禅"] .card-image,
+.car-card[data-name="侧翼刀锋"] .card-image,
+.car-card[data-name="保时捷 911 GT2 RS"] .card-image,
+.car-card[data-name="五菱宏光 MINI EV"] .card-image,
+.car-card[data-name="杂耍者"] .card-image,
+.car-card[data-name="领克03 TCR"] .card-image {
+    background: linear-gradient(to bottom, 
+        #9a517d 0%, 
+        #b2618c 20%, 
+        #c3688f 60%, 
+        #db7698 80%, 
+        #ef9eaf 100%
+    ) !important;
+}
         .acquisition-icon { position: absolute; bottom: 12px; right: 12px; width: 64px; height: 64px; cursor: pointer; z-index: 10; transition: transform 0.2s; background: transparent; border-radius: 0; }
         .acquisition-icon:hover { transform: scale(1.08); }
         .acquisition-icon img { width: 100%; height: 100%; object-fit: contain; }
@@ -495,21 +509,7 @@
         .meta-item img { width: 16px; height: 16px; max-width: 16px; max-height: 16px; object-fit: contain; }
         .car-description { font-size: 0.75rem; color: #8a8aa3; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; line-height: 1.4; font-weight: 400; }
         .stats-text { text-align: center; padding: 16px; color: #8a8aa3; font-weight: 500; }
-        /* ====== 进阶车辆 - 卡片列表 ====== */
-.car-card[data-name="禅"] .card-image,
-.car-card[data-name="侧翼刀锋"] .card-image,
-.car-card[data-name="保时捷 911 GT2 RS"] .card-image,
-.car-card[data-name="五菱宏光 MINI EV"] .card-image,
-.car-card[data-name="杂耍者"] .card-image,
-.car-card[data-name="领克03 TCR"] .card-image {
-    background: linear-gradient(to bottom, 
-        #9a517d 0%, 
-        #b2618c 20%, 
-        #c3688f 60%, 
-        #db7698 80%, 
-        #ef9eaf 100%
-    ) !important;
-}
+        
         .detail-container { background: #14141f; border-radius: 24px; border: 1px solid #2a2a3c; position: relative; overflow: visible; margin-bottom: 24px; }
         .detail-header { display: flex; gap: 30px; padding: 20px 40px 20px 40px; flex-wrap: wrap; }
         .detail-image { flex: 2; min-width: 280px; border-radius: 24px; display: flex; align-items: center; justify-content: center; padding: 50px 40px; border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; }
@@ -549,20 +549,7 @@
         .detail-image.normal::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(76,175,80,0.08) 2px, rgba(76,175,80,0.08) 4px); pointer-events: none; }
         .detail-image.normal::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(76,175,80,0.1), transparent 70%); pointer-events: none; }
         .detail-image img { width: 100%; max-height: 420px; object-fit: contain; position: relative; z-index: 2; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5)); }
-        
-        .detail-acquisition-area { position: absolute; top: 20px; left: 20px; display: flex; align-items: center; gap: 14px; background: transparent; backdrop-filter: none; padding: 0; border-radius: 0; border: none; z-index: 15; }
-        .detail-acquisition-icon { width: 108px; height: 108px; cursor: pointer; transition: transform 0.2s; background: transparent; border-radius: 0; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3)); }
-        .detail-acquisition-icon:hover { transform: scale(1.05); }
-        .detail-acquisition-icon img { width: 100%; height: 100%; object-fit: contain; }
-        .detail-acquisition-text { font-size: 0.95rem; color: #feca57; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap; text-shadow: 0 0 2px rgba(0,0,0,0.5); background: transparent; padding: 4px 0; border-radius: 0; backdrop-filter: none; }
-        
-        .detail-info-panel { flex: 1; min-width: 260px; background: rgba(15,15,26,0.8); backdrop-filter: blur(10px); border-radius: 24px; padding: 20px; border: 1px solid rgba(255,255,255,0.08); }
-        .detail-name { font-size: 1.7rem; font-weight: 800; color: #e2e2e6; margin-bottom: 16px; letter-spacing: -0.2px; word-break: break-word; }
-        .detail-badges { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
-        .badge { background: rgba(255,255,255,0.08); padding: 6px 14px; border-radius: 40px; font-size: 0.8rem; color: #a0a0b8; display: flex; align-items: center; gap: 8px; font-weight: 500; }
-        .badge img { width: 18px; height: 18px; }
-        .quality-badge-large { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #ffffff; padding: 6px 16px; border-radius: 40px; font-weight: 800; font-size: 0.9rem; box-shadow: 0 2px 12px rgba(230,180,34,0.5); border: 1px solid #ffd966; letter-spacing: 1px; text-transform: uppercase; }
-        /* ====== 👇 在这里添加进阶车辆详情页代码 ====== */
+         /* ====== 👇 在这里添加进阶车辆详情页代码 ====== */
 /* 进阶车辆 - 详情页 */
 .detail-image[data-name="禅"],
 .detail-image[data-name="侧翼刀锋"],
@@ -578,6 +565,19 @@
         #ef9eaf 100%
     ) !important;
 }
+        .detail-acquisition-area { position: absolute; top: 20px; left: 20px; display: flex; align-items: center; gap: 14px; background: transparent; backdrop-filter: none; padding: 0; border-radius: 0; border: none; z-index: 15; }
+        .detail-acquisition-icon { width: 108px; height: 108px; cursor: pointer; transition: transform 0.2s; background: transparent; border-radius: 0; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3)); }
+        .detail-acquisition-icon:hover { transform: scale(1.05); }
+        .detail-acquisition-icon img { width: 100%; height: 100%; object-fit: contain; }
+        .detail-acquisition-text { font-size: 0.95rem; color: #feca57; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap; text-shadow: 0 0 2px rgba(0,0,0,0.5); background: transparent; padding: 4px 0; border-radius: 0; backdrop-filter: none; }
+        
+        .detail-info-panel { flex: 1; min-width: 260px; background: rgba(15,15,26,0.8); backdrop-filter: blur(10px); border-radius: 24px; padding: 20px; border: 1px solid rgba(255,255,255,0.08); }
+        .detail-name { font-size: 1.7rem; font-weight: 800; color: #e2e2e6; margin-bottom: 16px; letter-spacing: -0.2px; word-break: break-word; }
+        .detail-badges { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+        .badge { background: rgba(255,255,255,0.08); padding: 6px 14px; border-radius: 40px; font-size: 0.8rem; color: #a0a0b8; display: flex; align-items: center; gap: 8px; font-weight: 500; }
+        .badge img { width: 18px; height: 18px; }
+        .quality-badge-large { background: linear-gradient(135deg, #e6b422, #c49b1a); color: #ffffff; padding: 6px 16px; border-radius: 40px; font-weight: 800; font-size: 0.9rem; box-shadow: 0 2px 12px rgba(230,180,34,0.5); border: 1px solid #ffd966; letter-spacing: 1px; text-transform: uppercase; }
+       
         .info-rows { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 18px; }
         .info-row { display: flex; background: rgba(0,0,0,0.3); padding: 10px 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.05); }
         .info-label { width: 90px; color: #8a8aa3; font-size: 0.75rem; font-weight: 600; }
