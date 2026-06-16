@@ -2867,6 +2867,65 @@ video.wallpaper-modal-media {
     background-size: cover;
     background-position: center;
 }
+   /* ====== 品质背景图 ====== */
+
+/* 传说品质 */
+.car-card[data-quality="传说"] .card-image,
+.detail-image[data-quality="传说"] {
+    background-image: url('https://s3.bmp.ovh/2026/06/16/DPTLai8B.png') !important;
+    background-size: cover;
+    background-position: center;
+}
+
+/* 史诗品质 */
+.car-card[data-quality="史诗"] .card-image,
+.detail-image[data-quality="史诗"] {
+    background-image: url('https://s3.bmp.ovh/2026/06/16/PUbE6moU.png') !important;
+    background-size: cover;
+    background-position: center;
+}
+
+/* 稀有品质 */
+.car-card[data-quality="稀有"] .card-image,
+.detail-image[data-quality="稀有"] {
+    background-image: url('https://s3.bmp.ovh/2026/06/16/19yZlr7v.png') !important;
+    background-size: cover;
+    background-position: center;
+}
+
+/* 普通品质 */
+.car-card[data-quality="普通"] .card-image,
+.detail-image[data-quality="普通"] {
+    background-image: url('https://s3.bmp.ovh/2026/06/16/7isVWrO5.png') !important;
+    background-size: cover;
+    background-position: center;
+}
+
+/* ====== 进阶车辆特殊背景（覆盖品质背景） ====== */
+
+/* 进阶车辆列表 - 卡片 */
+.car-card[data-name="禅"] .card-image,
+.car-card[data-name="侧翼刀锋"] .card-image,
+.car-card[data-name="保时捷 911 GT2 RS"] .card-image,
+.car-card[data-name="五菱宏光 MINI EV"] .card-image,
+.car-card[data-name="杂耍者"] .card-image,
+.car-card[data-name="领克03 TCR"] .card-image {
+    background-image: url('https://s3.bmp.ovh/2026/06/16/jMCvxUrw.png') !important;
+    background-size: cover;
+    background-position: center;
+}
+
+/* 进阶车辆列表 - 详情页 */
+.detail-image[data-name="禅"],
+.detail-image[data-name="侧翼刀锋"],
+.detail-image[data-name="保时捷 911 GT2 RS"],
+.detail-image[data-name="五菱宏光 MINI EV"],
+.detail-image[data-name="杂耍者"],
+.detail-image[data-name="领克03 TCR"] {
+    background-image: url('https://s3.bmp.ovh/2026/06/16/jMCvxUrw.png') !important;
+    background-size: cover;
+    background-position: center;
+}     
     </style>
 </head>
 <body>
@@ -4092,7 +4151,7 @@ video.wallpaper-modal-media {
             let positionIcon = POSITION_ICONS[car.position] || POSITION_ICONS["辅助"];
             let specialtyIcon = SPECIALTY_ICONS[car.specialty] || SPECIALTY_ICONS["场地"];
             let extraRacingHtml = EXTRA_RACING_ICON_CARS.includes(car.name) ? `<div class="meta-item"><img src="${RACING_ICON_URL}"><span>竞速</span></div>` : '';
-            return `<div class="car-card ${borderClass}" data-id="${car.id}" data-acquisition="${car.acquisition}">
+            return `<div class="car-card ${borderClass}" data-id="${car.id}" data-acquisition="${car.acquisition}"data-quality="${car.quality}" data-name="${car.name}">
                         <div class="card-image ${bgClass}">
                             <img src="${car.imageUrl}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/400x200?text=Car'">
                             <div class="acquisition-icon" data-acq="${car.acquisition.replace(/"/g, '&quot;')}"><img src="${car.acquisitionIcon}" referrerpolicy="no-referrer"></div>
@@ -4191,7 +4250,7 @@ video.wallpaper-modal-media {
         }
         
         let html = `<div class="detail-container">
-            <div class="detail-header"><div class="detail-image ${bgClass}" data-acquisition="${car.acquisition}"><img src="${car.imageUrl}" onerror="this.src='https://placehold.co/600x400?text=Car'"><div class="detail-acquisition-area"><div class="detail-acquisition-icon"><img src="${car.acquisitionIcon}"></div><span class="detail-acquisition-text">${car.acquisition}</span></div></div>
+            <div class="detail-header"><div class="detail-image ${bgClass}" data-acquisition="${car.acquisition}"data-quality="${car.quality}" data-name="${car.name}"><img src="${car.imageUrl}" onerror="this.src='https://placehold.co/600x400?text=Car'"><div class="detail-acquisition-area"><div class="detail-acquisition-icon"><img src="${car.acquisitionIcon}"></div><span class="detail-acquisition-text">${car.acquisition}</span></div></div>
             <div class="detail-info-panel"><div class="detail-name">${car.name}</div><div class="detail-badges"><span class="quality-badge-large">${car.quality}</span><div class="badge"><img src="${positionIcon}"> ${car.position}位</div><div class="badge"><img src="${specialtyIcon}"> ${car.specialty}</div></div>
             <div class="info-rows"><div class="info-row"><span class="info-label">注册日期</span><span class="info-value">${car.registerDate || '未知'}</span></div><div class="info-row"><span class="info-label">车辆类型</span><span class="info-value">${car.vehicleType || '未知'}</span></div><div class="info-row"><span class="info-label">厂商</span><span class="info-value">${car.manufacturer || '未知'}</span></div></div></div></div>
             <div class="features-section"><div class="section-title">车辆特点</div><div class="features-horizontal">${featuresHtml}</div></div>
