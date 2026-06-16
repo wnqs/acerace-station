@@ -2854,6 +2854,12 @@ video.wallpaper-modal-media {
 }
 .wallpaper-card:hover .video-no-preview {
     transform: scale(1.02);
+}  
+    /* 耀世珍宝车辆 - 专属背景图 */
+.car-card[data-acquisition="耀世珍宝"] .card-image {
+    background-image: url('https://s3.bmp.ovh/2026/06/16/JgBbNVCa.png');
+    background-size: cover;
+    background-position: center;
 }    
     </style>
 </head>
@@ -4080,7 +4086,7 @@ video.wallpaper-modal-media {
             let positionIcon = POSITION_ICONS[car.position] || POSITION_ICONS["辅助"];
             let specialtyIcon = SPECIALTY_ICONS[car.specialty] || SPECIALTY_ICONS["场地"];
             let extraRacingHtml = EXTRA_RACING_ICON_CARS.includes(car.name) ? `<div class="meta-item"><img src="${RACING_ICON_URL}"><span>竞速</span></div>` : '';
-            return `<div class="car-card ${borderClass}" data-id="${car.id}">
+            return `<div class="car-card ${borderClass}" data-id="${car.id}" data-acquisition="${car.acquisition}">
                         <div class="card-image ${bgClass}">
                             <img src="${car.imageUrl}" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/400x200?text=Car'">
                             <div class="acquisition-icon" data-acq="${car.acquisition.replace(/"/g, '&quot;')}"><img src="${car.acquisitionIcon}" referrerpolicy="no-referrer"></div>
