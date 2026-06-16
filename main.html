@@ -5044,7 +5044,7 @@ function renderWallpapersList() {
     }
     
     grid.innerHTML = filtered.map(wp => {
-        const isVideo = wp.type === 'video';
+        const isVideo = type === 'video' || type === 'cg' || type === 'pv';
         const mediaContent = isVideo
     ? (wp.thumbnail && wp.thumbnail !== ''
         ? `<video class="wallpaper-image" muted loop playsinline poster="${wp.thumbnail}" preload="metadata">
