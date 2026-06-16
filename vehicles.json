@@ -69,7 +69,7 @@
       "vehicleType": "幻想阵营",
       "manufacturer": "创世纪",
       "acquisition": "补给箱/赛车学院",
-      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/gsI0LDZl.png",
+      "acquisitionIcon": "https://s3.bmp.ovh/2026/05/31/rK9Tjs84.png",
       "stats": {
         "topSpeed": "213.3 km/h",
         "power": "7.53",
@@ -86,7 +86,7 @@
       "skills": {
         "ult": {
           "name": "未来位面",
-          "desc": "穿越到另一个位面，加速6.5秒并持续为1000米内全体非辅助位队友每秒补充6%大招充能。加速期间进入隐身状态，如果和其他车辆接触，为队友提供额外5000集气（上限1次）并激活涡轮。",
+          "desc": "穿越到另一个位面，加速6.5秒并持续为1000米内全体非辅助位队友每秒补充6%大招充能。<br><br>加速期间进入隐身状态，如果和其他车辆接触，为队友提供额外5000集气（上限1次）并激活涡轮。",
           "recu": "未来位面可以充能两次",
           "ultPassive": ""
         },
