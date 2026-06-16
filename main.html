@@ -2861,6 +2861,12 @@ video.wallpaper-modal-media {
     background-size: cover;
     background-position: center;
 }    
+   /* 耀世臻藏车辆 - 详情页背景图（新增） */
+.detail-image[data-acquisition="耀世臻藏"] {
+    background-image: url('https://s3.bmp.ovh/2026/06/16/JgBbNVCa.png');
+    background-size: cover;
+    background-position: center;
+}
     </style>
 </head>
 <body>
@@ -4185,7 +4191,7 @@ video.wallpaper-modal-media {
         }
         
         let html = `<div class="detail-container">
-            <div class="detail-header"><div class="detail-image ${bgClass}"><img src="${car.imageUrl}" onerror="this.src='https://placehold.co/600x400?text=Car'"><div class="detail-acquisition-area"><div class="detail-acquisition-icon"><img src="${car.acquisitionIcon}"></div><span class="detail-acquisition-text">${car.acquisition}</span></div></div>
+            <div class="detail-header"><div class="detail-image ${bgClass}" data-acquisition="${car.acquisition}"><img src="${car.imageUrl}" onerror="this.src='https://placehold.co/600x400?text=Car'"><div class="detail-acquisition-area"><div class="detail-acquisition-icon"><img src="${car.acquisitionIcon}"></div><span class="detail-acquisition-text">${car.acquisition}</span></div></div>
             <div class="detail-info-panel"><div class="detail-name">${car.name}</div><div class="detail-badges"><span class="quality-badge-large">${car.quality}</span><div class="badge"><img src="${positionIcon}"> ${car.position}位</div><div class="badge"><img src="${specialtyIcon}"> ${car.specialty}</div></div>
             <div class="info-rows"><div class="info-row"><span class="info-label">注册日期</span><span class="info-value">${car.registerDate || '未知'}</span></div><div class="info-row"><span class="info-label">车辆类型</span><span class="info-value">${car.vehicleType || '未知'}</span></div><div class="info-row"><span class="info-label">厂商</span><span class="info-value">${car.manufacturer || '未知'}</span></div></div></div></div>
             <div class="features-section"><div class="section-title">车辆特点</div><div class="features-horizontal">${featuresHtml}</div></div>
