@@ -5971,15 +5971,45 @@ function handleBackButton() {
 }
         
         function getEnergyValuesCalc(carName, chipType, isDoubleCycle) {
-            if (!carName) return { firstEnergy: "--", cycleEnergy: "--" };
-            if (chipType === 'maoxin') {
-                if (carName === "猫眠梦") return { firstEnergy: 66, cycleEnergy: 66 };
-                else return { firstEnergy: 90, cycleEnergy: isDoubleCycle ? 190 : 90 };
-            }
-            if (chipType === 'xianqu') return { firstEnergy: 80, cycleEnergy: isDoubleCycle ? 180 : 80 };
-            let firstEnergy = getVehicleFirstEnergy(carName);
-            return { firstEnergy, cycleEnergy: isDoubleCycle ? firstEnergy * 2 : firstEnergy };
+    if (!carName) return { firstEnergy: "--", cycleEnergy: "--" };
+    
+    // ===== 检查是否携带“未来”赋能 =====
+    const mainEff = document.getElementById('calcMainEff');
+    const subEff = document.getElementById('calcSubEff');
+    const hasFuture = mainEff && subEff && (mainEff.value === 'future' || subEff.value === 'future');
+    
+    if (hasFuture) {
+        const specialThreshold = specialFirstEnergyMap[carName];
+        if (specialThreshold !== undefined && specialThreshold < 90) {
+            return {
+                firstEnergy: specialThreshold,
+                cycleEnergy: isDoubleCycle ? specialThreshold * 2 : specialThreshold
+            };
         }
+        return {
+            firstEnergy: 90,
+            cycleEnergy: isDoubleCycle ? 190 : 90
+        };
+    }
+    
+    // 猫芯逻辑
+    if (chipType === 'maoxin') {
+        if (carName === "猫眠梦") return { firstEnergy: 66, cycleEnergy: 66 };
+        else return { firstEnergy: 90, cycleEnergy: isDoubleCycle ? 190 : 90 };
+    }
+    
+    // 先驱者专属芯片
+    if (chipType === 'xianqu') {
+        return { firstEnergy: 80, cycleEnergy: isDoubleCycle ? 180 : 80 };
+    }
+    
+    // 普通车辆
+    let firstEnergy = getVehicleFirstEnergy(carName);
+    return { 
+        firstEnergy: firstEnergy, 
+        cycleEnergy: isDoubleCycle ? firstEnergy * 2 : firstEnergy 
+    };
+}
         
         function getCycleChargeEfficiencyCalc(car) {
             let hasRefuse = calcMainEff.value === 'refuse' || calcSubEff.value === 'refuse';
@@ -6120,21 +6150,24 @@ function handleBackButton() {
         }
         
         function updateCalcEnergyDisplays() {
-            let car = getCalcCurrentCar();
-            if (!car) {
-                calcFirstEnergyDisplay.textContent = '--';
-                calcCycleEnergyDisplay.textContent = '--';
-                return;
-            }
-            let carName = car.name;
-            let chip = calcVSlot.value;
-            let isAssist = calcCarType.value === 'assist';
-            let isDoubleCycle = isAssist && calcCycleMode.value === 'cycle';
-            let energy = getEnergyValuesCalc(carName, chip, isDoubleCycle);
-            calcFirstEnergyDisplay.textContent = energy.firstEnergy;
-            calcCycleEnergyDisplay.textContent = energy.cycleEnergy;
-            updateCalcCycleModeVisibility();
-        }
+    let car = getCalcCurrentCar();
+    if (!car) {
+        calcFirstEnergyDisplay.textContent = '--';
+        calcCycleEnergyDisplay.textContent = '--';
+        return;
+    }
+    let carName = car.name;
+    let chip = calcVSlot.value;
+    let isAssist = calcCarType.value === 'assist';
+    let isDoubleCycle = isAssist && calcCycleMode.value === 'cycle';
+    
+    // getEnergyValuesCalc 已经包含了“未来”判断
+    let energy = getEnergyValuesCalc(carName, chip, isDoubleCycle);
+    
+    calcFirstEnergyDisplay.textContent = energy.firstEnergy;
+    calcCycleEnergyDisplay.textContent = energy.cycleEnergy;
+    updateCalcCycleModeVisibility();
+}
         
         function updateCalcCycleModeVisibility() {
             let container = document.getElementById('calcCycleModeContainer');
@@ -6603,29 +6636,9 @@ function handleBackButton() {
             const sp = parseInt(calcSpecialize.value);
             let overrideR = parseFloat(calcOverrideR.value) || 0;
             const energyVals = getEnergyValuesCalc(car.name, calcVSlot.value, isDoubleCycle);
-            // ===== 添加：检查是否携带“未来”赋能 =====
-const mainEff = document.getElementById('calcMainEff');
-const subEff = document.getElementById('calcSubEff');
-const hasFuture = mainEff && subEff && (mainEff.value === 'future' || subEff.value === 'future');
-
-let futureFirst = energyVals.firstEnergy;
-let futureCycle = energyVals.cycleEnergy;
-if (hasFuture) {
-    // 优先检查车辆特殊阈值
-    const specialThreshold = specialFirstEnergyMap[car.name];
-    if (specialThreshold !== undefined && specialThreshold < 90) {
-        // 车辆特殊阈值低于90，使用车辆特殊阈值
-        targetFirst = specialThreshold;
-        targetCycle = isDoubleCycle ? specialThreshold * 2 : specialThreshold;
-    } else {
-        // 使用未来赋能的值
-        targetFirst = 90;
-        targetCycle = isDoubleCycle ? 190 : 90;
-    }
-}
-// ===== 添加结束 =====
-            const targetCycle = futureCycle;
-const targetStart = futureFirst;   // 使用上面定义的 targetFirst
+            // 直接使用 getEnergyValuesCalc 的结果（已包含未来判断）
+const targetStart = energyVals.firstEnergy;
+const targetCycle = energyVals.cycleEnergy;
             const specCharge = sp === 10 ? 10 : 0;
             const nitroVal = car.nitro;
             const startVal = car.start;
