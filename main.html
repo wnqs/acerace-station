@@ -2937,6 +2937,7 @@ video.wallpaper-modal-media {
     background-size: cover;
     background-position: center;
 }
+   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>     
     </style>
 </head>
 <body>
@@ -6746,8 +6747,7 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
         return;
     }
     try {
-        // 使用你确认可用的 BootCDN 地址
-        const html2canvas = (await import('https://cdn.bootcdn.net/ajax/libs/html2canvas/1.4.1/html2canvas.esm.js')).default;
+        // 直接使用全局 html2canvas，不再动态 import
         let canvas = await html2canvas(resultDiv, { 
             scale: 2, 
             backgroundColor: getComputedStyle(resultDiv).backgroundColor 
