@@ -3888,7 +3888,6 @@ function formatSkillText(text) {
     function formatChipRecommendation(content) {
     if (!content) return '';
     
-    // 按行分割
     const lines = content.split('\n');
     if (lines.length === 0) return '';
     
@@ -3898,8 +3897,6 @@ function formatSkillText(text) {
     
     let html = '';
     let isMobile = window.innerWidth <= 768;
-    
-    // 判断是否是配置行（标题行）
     const configKeywords = ['芯', '循环', '猫芯', '神芯', '效率', '一大'];
     
     for (let i = 0; i < lines.length; i++) {
@@ -3909,7 +3906,6 @@ function formatSkillText(text) {
             continue;
         }
         
-        // 判断是否是配置行
         let isConfigLine = false;
         for (const kw of configKeywords) {
             if (line.includes(kw)) {
@@ -3919,19 +3915,14 @@ function formatSkillText(text) {
         }
         
         if (isConfigLine) {
-            // 配置行：单独占一行，加粗放大
             html += `<div class="chip-recommendation-config" style="font-size: ${isMobile ? '0.95rem' : '1.15rem'}; font-weight: 800; color: #feca57; margin-bottom: ${isMobile ? '10px' : '16px'}; line-height: 1.6; width: 100%;">${highlightNumbers(line)}</div>`;
         } else {
-            // 普通行：拆分每个配置项
             const items = line.split(/\s+/).filter(item => item.trim() !== '');
-            
             if (isMobile) {
-                // 手机端：每个配置项占一行
                 for (const item of items) {
                     html += `<div class="chip-recommendation-item" style="font-size: 0.8rem; font-weight: 600; color: #e2e2e6; line-height: 1.8; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); word-break: break-word; white-space: normal;">${highlightNumbers(item)}</div>`;
                 }
             } else {
-                // 电脑端：一行显示多个，每个配置项独立
                 html += `<div class="chip-recommendation-items-row">`;
                 for (const item of items) {
                     html += `<span class="chip-recommendation-item">${highlightNumbers(item)}</span>`;
@@ -3944,9 +3935,7 @@ function formatSkillText(text) {
     return html;
 }
         
-        return html;
-    }
-    
+
     // 为芯片要求搭配添加折叠功能
     function initChipRecommendationToggle() {
         const toggleBtn = document.getElementById('chipRecoToggleBtn');
