@@ -6651,6 +6651,7 @@ function handleBackButton() {
             if (!isNaN(customHuiInput) && customHuiInput > 0) {
                 if (customHuiInput < minHuiNeeded) {
                     warningSpan.innerHTML = `⚠️ 目标汇能不能低于最小汇能 ${minHuiFormatted}%，已使用最小值`;
+                    warningSpan.style.color = '#ff6b6b'; 
                     useCustomHui = false;
                     finalHuiValue = minHuiNeeded;
                 } else {
@@ -6659,6 +6660,7 @@ function handleBackButton() {
                     finalHuiValue = customHuiInput;
                     if (finalHuiValue > maxHui) {
                         warningSpan.innerHTML = `⚠️ 目标汇能超过芯片上限 ${maxHui}%，已自动限制为上限值`;
+                        warningSpan.style.color = '#ff6b6b';
                         finalHuiValue = maxHui;
                     }
                 }
