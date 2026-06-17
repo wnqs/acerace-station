@@ -6756,42 +6756,51 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
     // 获取结果文本
     let text = resultDiv.innerText;
     
-    // 创建 Canvas
+    // 获取设备像素比（提高清晰度）
+    const scale = 3; // 放大倍数，3倍清晰度
+    const baseWidth = 800;
+    const baseHeight = 500;
+    
+    // 创建 Canvas（实际尺寸放大）
     let canvas = document.createElement('canvas');
+    canvas.width = baseWidth * scale;
+    canvas.height = baseHeight * scale;
     let ctx = canvas.getContext('2d');
     
-    // 设置画布大小
-    canvas.width = 600;
-    canvas.height = 420;
+    // 缩放所有绘制操作
+    ctx.scale(scale, scale);
+    
+    // ====== 以下所有坐标都按 baseWidth/baseHeight 来写 ======
     
     // 绘制背景
     ctx.fillStyle = '#1a1a2e';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, baseWidth, baseHeight);
     
     // 绘制边框
     ctx.strokeStyle = '#feca57';
     ctx.lineWidth = 2;
-    ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
+    ctx.strokeRect(15, 15, baseWidth - 30, baseHeight - 30);
     
     // 绘制标题
     ctx.fillStyle = '#feca57';
-    ctx.font = 'bold 18px sans-serif';
-    ctx.fillText('王牌竞速 · 芯片计算结果', 20, 45);
+    ctx.font = 'bold 24px sans-serif';
+    ctx.fillText('王牌竞速 · 芯片计算结果', 30, 55);
     
     // 绘制分割线
     ctx.strokeStyle = '#feca57';
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(20, 55);
-    ctx.lineTo(canvas.width - 20, 55);
+    ctx.moveTo(30, 70);
+    ctx.lineTo(baseWidth - 30, 70);
     ctx.stroke();
     
     // 绘制结果内容
     ctx.fillStyle = '#e2e2e6';
-    ctx.font = '13px monospace';
+    ctx.font = '16px monospace';
     let lines = text.split('\n');
-    let y = 80;
-    let maxWidth = canvas.width - 40;
+    let y = 105;
+    let maxWidth = baseWidth - 60;
+    let lineHeight = 28;
     
     for (let line of lines) {
         let displayLine = line.trim();
@@ -6803,24 +6812,25 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
                 }
                 displayLine += '...';
             }
-            ctx.fillText(displayLine, 20, y);
-            y += 24;
-            if (y > canvas.height - 20) break;
+            ctx.fillText(displayLine, 30, y);
+            y += lineHeight;
+            if (y > baseHeight - 50) break;
         }
     }
     
     // 绘制底部信息
     ctx.fillStyle = '#8a8aa3';
-    ctx.font = '11px sans-serif';
+    ctx.font = '14px sans-serif';
     let footer = '王牌竞速 · 数据整合站';
-    ctx.fillText(footer, canvas.width - 20 - ctx.measureText(footer).width, canvas.height - 15);
+    ctx.fillText(footer, baseWidth - 30 - ctx.measureText(footer).width, baseHeight - 25);
     
     // 生成图片下载
     let link = document.createElement('a');
     link.download = '王牌竞速_芯片结果.png';
+    // 使用 image/png 无损格式，质量高
     link.href = canvas.toDataURL('image/png');
     link.click();
-    showCopySuccess('截图已保存为图片');
+    showCopySuccess('高清截图已保存');
 }
         
         initCalcCarTypeSelect();
