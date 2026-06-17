@@ -2938,72 +2938,65 @@ video.wallpaper-modal-media {
     background-position: center;
 }
    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script> 
-     /* ====== 芯片搭配样式 ====== */
+    /* ====== 芯片搭配样式 ====== */
 
-/* 配置行（标题） */
-.chip-recommendation-config {
-    font-size: 1.15rem;
+/* 配置行（标题）- 大号、黄色、加粗 */
+.chip-config-title {
+    font-size: 1.3rem;
     font-weight: 800;
     color: #feca57;
-    margin-bottom: 16px;
     line-height: 1.6;
     width: 100%;
+    margin-top: 6px;
+    margin-bottom: 2px;
 }
 
 /* 电脑端：配置项行 */
-.chip-recommendation-items-row {
+.chip-config-items-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px 24px;
-    margin-bottom: 12px;
-    padding: 8px 0;
-    align-items: center;
+    gap: 4px 20px;
+    margin-bottom: 0;
+    padding: 0;
+    align-items: baseline;
 }
 
-/* 电脑端：单个配置项 */
-.chip-recommendation-item {
-    font-size: 0.95rem;
-    font-weight: 600;
+/* 电脑端：每个配置项 */
+.chip-config-item {
+    font-size: 0.92rem;
+    font-weight: 500;
     color: #e2e2e6;
-    line-height: 1.8;
-    white-space: nowrap;
+    line-height: 2;
+    white-space: nowrap !important;
     display: inline-block;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 4px 14px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: background 0.2s;
+    padding: 0;
 }
 
-.chip-recommendation-item:hover {
-    background: rgba(255, 255, 255, 0.1);
+/* 数字标红 */
+.red-number {
+    color: #ff6b6b !important;
+    font-weight: 700;
 }
 
 /* ====== 手机端适配 ====== */
 @media (max-width: 768px) {
-    .chip-recommendation-config {
-        font-size: 0.95rem !important;
-        margin-bottom: 10px !important;
+    .chip-config-title {
+        font-size: 1.1rem !important;
+        margin-top: 8px !important;
+        margin-bottom: 2px !important;
     }
-    
-    .chip-recommendation-items-row {
+    .chip-config-items-row {
         display: block !important;
-        margin-bottom: 4px !important;
-        padding: 0 !important;
+        gap: 0 !important;
     }
-    
-    .chip-recommendation-item {
+    .chip-config-item {
         font-size: 0.8rem !important;
-        padding: 6px 0 !important;
-        border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+        line-height: 1.9 !important;
         white-space: normal !important;
         display: block !important;
         word-break: break-word !important;
-        background: transparent !important;
-        border: none !important;
-        border-radius: 0 !important;
     }
-}   
+}  
     </style>
 </head>
 <body>
@@ -3884,7 +3877,6 @@ function formatSkillText(text) {
         }
     }
     
-    // 格式化芯片搭配内容：配置行字体放大变黄，要求行间距增大，每个要求完整换行
     function formatChipRecommendation(content) {
     if (!content) return '';
     
@@ -3902,7 +3894,6 @@ function formatSkillText(text) {
     for (let i = 0; i < lines.length; i++) {
         let line = lines[i].trim();
         if (line === '') {
-            html += `<div style="height: ${isMobile ? '12px' : '16px'};"></div>`;
             continue;
         }
         
@@ -3915,17 +3906,25 @@ function formatSkillText(text) {
         }
         
         if (isConfigLine) {
-            html += `<div class="chip-recommendation-config" style="font-size: ${isMobile ? '0.95rem' : '1.15rem'}; font-weight: 800; color: #feca57; margin-bottom: ${isMobile ? '10px' : '16px'}; line-height: 1.6; width: 100%;">${highlightNumbers(line)}</div>`;
+            // 配置行（标题）：大号、黄色、加粗
+            html += `<div class="chip-config-title" style="font-size: ${isMobile ? '1.1rem' : '1.3rem'}; font-weight: 800; color: #feca57; line-height: 1.6; width: 100%; margin-top: ${i > 0 ? '6px' : '0'}; margin-bottom: 2px;">
+                        ${highlightNumbers(line)}
+                    </div>`;
         } else {
             const items = line.split(/\s+/).filter(item => item.trim() !== '');
+            
             if (isMobile) {
                 for (const item of items) {
-                    html += `<div class="chip-recommendation-item" style="font-size: 0.8rem; font-weight: 600; color: #e2e2e6; line-height: 1.8; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); word-break: break-word; white-space: normal;">${highlightNumbers(item)}</div>`;
+                    html += `<div class="chip-config-item" style="font-size: 0.8rem; font-weight: 500; color: #e2e2e6; line-height: 1.9; padding: 0; word-break: break-word; white-space: normal; text-align: left;">
+                                ${highlightNumbers(item)}
+                            </div>`;
                 }
             } else {
-                html += `<div class="chip-recommendation-items-row">`;
+                html += `<div class="chip-config-items-row" style="display: flex; flex-wrap: wrap; gap: 4px 20px; margin-bottom: 0; padding: 0; align-items: baseline;">`;
                 for (const item of items) {
-                    html += `<span class="chip-recommendation-item">${highlightNumbers(item)}</span>`;
+                    html += `<nobr class="chip-config-item" style="font-size: 0.92rem; font-weight: 500; color: #e2e2e6; line-height: 2; display: inline-block; padding: 0; margin-right: 20px;">
+                                ${highlightNumbers(item)}
+                            </nobr>`;
                 }
                 html += `</div>`;
             }
