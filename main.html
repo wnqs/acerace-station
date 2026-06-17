@@ -4229,8 +4229,10 @@ function formatSkillText(text) {
             const newUrl = window.location.pathname + '?car=' + id;
             history.pushState({ carId: id }, '', newUrl);
         }
+        isInDetail = true;
         const headerBackBtn = document.getElementById('headerBackBtn');
         if (headerBackBtn) headerBackBtn.style.display = 'block';
+       
         clearAllSearchBoxes();
         renderDetailById(id);
     }
@@ -5367,31 +5369,69 @@ function initWallpaperMobileDropdown() {
 }
     // ========== 导航和页面切换函数 ==========
     function handleVehicleBackToList() {
-        returnToVehicleList();
+    // 1. 重置筛选条件
+    activeFilters = { position: "", specialty: "", quality: "" };
+    keyword = "";
+    
+    // 2. 清空搜索框
+    clearAllSearchBoxes();
+    
+    // 3. 更新手机端筛选UI
+    if (isMobileDevice()) {
+        updateFilterUI();
+    } else {
+        updateDesktopFilterUI();
     }
     
-    function handleVehicleListBack() {
-        const hasActiveFilter = activeFilters.position || activeFilters.specialty || activeFilters.quality || keyword;
-        if (hasActiveFilter) {
-            clearAllFilters();
-            clearAllSearchBoxes();
-            return true;
-        }
-        return false;
+    // 4. 标记不在详情页
+    isInDetail = false;
+    
+    // 5. 隐藏返回按钮
+    const headerBackBtn = document.getElementById('headerBackBtn');
+    if (headerBackBtn) headerBackBtn.style.display = 'none';
+    
+    // 6. 重新渲染车辆列表
+    renderList();
+    
+    // 7. 确保车辆数据页面是激活状态
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+    document.getElementById('vehiclesPage').classList.add('active-page');
+    
+    // 8. 滚动到顶部
+    window.scrollTo(0, 0);
+}
+    
+   function returnToVehicleList() {
+    // 1. 重置筛选条件
+    activeFilters = { position: "", specialty: "", quality: "" };
+    keyword = "";
+    clearAllSearchBoxes();
+    
+    // 2. 更新UI
+    if (isMobileDevice()) {
+        updateFilterUI();
+    } else {
+        updateDesktopFilterUI();
     }
     
-    function returnToVehicleList() {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('car')) {
-            const newUrl = window.location.pathname;
-            history.replaceState(null, '', newUrl);
-        }
-        updateDetailState(false);
-        restoreList();
-        if (currentPage !== 'vehicles') {
-            switchToPage('vehicles');
-        }
+    // 3. 清除URL参数
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('car')) {
+        const newUrl = window.location.pathname;
+        history.replaceState(null, '', newUrl);
     }
+    
+    // 4. 更新详情页状态
+    updateDetailState(false);
+    
+    // 5. 恢复列表（注意：restoreList 内部会调用 renderList）
+    restoreList();
+    
+    // 6. 确保在车辆数据页面
+    if (currentPage !== 'vehicles') {
+        switchToPage('vehicles');
+    }
+}
     
     function updateDetailState(isDetail) {
         isInDetail = isDetail;
