@@ -5974,9 +5974,9 @@ function handleBackButton() {
     if (!carName) return { firstEnergy: "--", cycleEnergy: "--" };
     
     // ===== 检查是否携带“未来”赋能 =====
-    const mainEff = document.getElementById('mainEff').value;
-    const subEff = document.getElementById('subEff').value;
-    const hasFuture = (mainEff === 'future' || subEff === 'future');
+    const mainEff = document.getElementById('calcMainEff').value;
+    const subEff = document.getElementById('calcSubEff').value;
+    const hasFuture = mainEffEl && subEffEl && (mainEffEl.value === 'future' || subEffEl.value === 'future');
     
     if (hasFuture) {
         // 优先检查车辆特殊阈值（如爱玛造梦师70%）
