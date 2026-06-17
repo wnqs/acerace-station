@@ -5971,51 +5971,15 @@ function handleBackButton() {
 }
         
         function getEnergyValuesCalc(carName, chipType, isDoubleCycle) {
-    if (!carName) return { firstEnergy: "--", cycleEnergy: "--" };
-    
-    // ===== 检查是否携带“未来”赋能 =====
-    const mainEff = document.getElementById('calcMainEff').value;
-    const subEff = document.getElementById('calcSubEff').value;
-    const hasFuture = mainEffEl && subEffEl && (mainEffEl.value === 'future' || subEffEl.value === 'future');
-    
-    if (hasFuture) {
-        // 优先检查车辆特殊阈值（如爱玛造梦师70%）
-        const specialThreshold = specialFirstEnergyMap[carName];
-        if (specialThreshold !== undefined && specialThreshold < 90) {
-            // 车辆特殊阈值低于90，使用车辆特殊阈值
-            return {
-                firstEnergy: specialThreshold,
-                cycleEnergy: isDoubleCycle ? specialThreshold * 2 : specialThreshold
-            };
+            if (!carName) return { firstEnergy: "--", cycleEnergy: "--" };
+            if (chipType === 'maoxin') {
+                if (carName === "猫眠梦") return { firstEnergy: 66, cycleEnergy: 66 };
+                else return { firstEnergy: 90, cycleEnergy: isDoubleCycle ? 190 : 90 };
+            }
+            if (chipType === 'xianqu') return { firstEnergy: 80, cycleEnergy: isDoubleCycle ? 180 : 80 };
+            let firstEnergy = getVehicleFirstEnergy(carName);
+            return { firstEnergy, cycleEnergy: isDoubleCycle ? firstEnergy * 2 : firstEnergy };
         }
-        // 否则使用未来赋能的值
-        return {
-            firstEnergy: 90,
-            cycleEnergy: isDoubleCycle ? 190 : 90
-        };
-    }
-    
-    // ===== 原有逻辑：猫芯 =====
-    if (chipType === 'maoxin') {
-        if (carName === "猫眠梦") {
-            return { firstEnergy: 66, cycleEnergy: 66 };
-        } else {
-            return { firstEnergy: 90, cycleEnergy: isDoubleCycle ? 190 : 90 };
-        }
-    }
-    
-    // ===== 原有逻辑：先驱者专属芯片 =====
-    if (chipType === 'xianqu') {
-        return { firstEnergy: 80, cycleEnergy: isDoubleCycle ? 180 : 80 };
-    }
-    
-    // ===== 原有逻辑：普通车辆 =====
-    let firstEnergy = getVehicleFirstEnergy(carName);
-    return { 
-        firstEnergy: firstEnergy, 
-        cycleEnergy: isDoubleCycle ? firstEnergy * 2 : firstEnergy 
-    };
-}
         
         function getCycleChargeEfficiencyCalc(car) {
             let hasRefuse = calcMainEff.value === 'refuse' || calcSubEff.value === 'refuse';
