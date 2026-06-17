@@ -6745,7 +6745,7 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
                 return;
             }
             try {
-                const html2canvas = (await import('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.esm.js')).default;
+                const html2canvas = (await import('https://cdn.bootcdn.net/ajax/libs/html2canvas/1.4.1/html2canvas.esm.js')).default;
                 let canvas = await html2canvas(resultDiv, { scale: 2, backgroundColor: getComputedStyle(resultDiv).backgroundColor });
                 let link = document.createElement('a');
                 link.download = '王牌竞速_芯片结果.png';
