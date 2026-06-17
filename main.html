@@ -2937,7 +2937,73 @@ video.wallpaper-modal-media {
     background-size: cover;
     background-position: center;
 }
-   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>     
+   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script> 
+     /* ====== 芯片搭配样式 ====== */
+
+/* 配置行（标题） */
+.chip-recommendation-config {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #feca57;
+    margin-bottom: 16px;
+    line-height: 1.6;
+    width: 100%;
+}
+
+/* 电脑端：配置项行 */
+.chip-recommendation-items-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    margin-bottom: 12px;
+    padding: 8px 0;
+    align-items: center;
+}
+
+/* 电脑端：单个配置项 */
+.chip-recommendation-item {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #e2e2e6;
+    line-height: 1.8;
+    white-space: nowrap;
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: background 0.2s;
+}
+
+.chip-recommendation-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ====== 手机端适配 ====== */
+@media (max-width: 768px) {
+    .chip-recommendation-config {
+        font-size: 0.95rem !important;
+        margin-bottom: 10px !important;
+    }
+    
+    .chip-recommendation-items-row {
+        display: block !important;
+        margin-bottom: 4px !important;
+        padding: 0 !important;
+    }
+    
+    .chip-recommendation-item {
+        font-size: 0.8rem !important;
+        padding: 6px 0 !important;
+        border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+        white-space: normal !important;
+        display: block !important;
+        word-break: break-word !important;
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+    }
+}   
     </style>
 </head>
 <body>
@@ -3820,69 +3886,63 @@ function formatSkillText(text) {
     
     // 格式化芯片搭配内容：配置行字体放大变黄，要求行间距增大，每个要求完整换行
     function formatChipRecommendation(content) {
-        if (!content) return '';
-        const lines = content.split('\n');
-        if (lines.length === 0) return '';
+    if (!content) return '';
+    
+    // 按行分割
+    const lines = content.split('\n');
+    if (lines.length === 0) return '';
+    
+    const highlightNumbers = (text) => {
+        return text.replace(/(\d+(?:\.\d+)?)/g, '<span class="red-number">$1</span>');
+    };
+    
+    let html = '';
+    let isMobile = window.innerWidth <= 768;
+    
+    // 判断是否是配置行（标题行）
+    const configKeywords = ['芯', '循环', '猫芯', '神芯', '效率', '一大'];
+    
+    for (let i = 0; i < lines.length; i++) {
+        let line = lines[i].trim();
+        if (line === '') {
+            html += `<div style="height: ${isMobile ? '12px' : '16px'};"></div>`;
+            continue;
+        }
         
-        const highlightNumbers = (text) => {
-            return text.replace(/(\d+(?:\.\d+)?)/g, '<span class="red-number">$1</span>');
-        };
-        
-        // 判断是否是配置行（包含"芯"、"循环"等关键词，且不以"-"开头）
-        const isConfigLine = (line) => {
-            if (line.trim().startsWith('-')) return false;
-            const configKeywords = ['芯', '循环', '神芯', '猫芯', '效率', '一大', '气循环', '氮气'];
-            for (const kw of configKeywords) {
-                if (line.includes(kw)) return true;
+        // 判断是否是配置行
+        let isConfigLine = false;
+        for (const kw of configKeywords) {
+            if (line.includes(kw)) {
+                isConfigLine = true;
+                break;
             }
-            return false;
-        };
+        }
         
-        let html = '';
-        let currentRequirements = [];
-        
-        for (let i = 0; i < lines.length; i++) {
-            const line = lines[i].trim();
-            if (line === '') continue;
+        if (isConfigLine) {
+            // 配置行：单独占一行，加粗放大
+            html += `<div class="chip-recommendation-config" style="font-size: ${isMobile ? '0.95rem' : '1.15rem'}; font-weight: 800; color: #feca57; margin-bottom: ${isMobile ? '10px' : '16px'}; line-height: 1.6; width: 100%;">${highlightNumbers(line)}</div>`;
+        } else {
+            // 普通行：拆分每个配置项
+            const items = line.split(/\s+/).filter(item => item.trim() !== '');
             
-            let cleanLine = line;
-            let isRequirement = false;
-            if (cleanLine.startsWith('-')) {
-                cleanLine = cleanLine.substring(1).trim();
-                isRequirement = true;
-            }
-            
-            if (isConfigLine(line) && !isRequirement) {
-                // 如果之前有收集的要求行，先输出
-                if (currentRequirements.length > 0) {
-                    html += '<div class="chip-recommendation-requirements-row">';
-                    for (const req of currentRequirements) {
-                        html += `<span class="chip-recommendation-requirement">${highlightNumbers(req)}</span>`;
-                    }
-                    html += '</div>';
-                    currentRequirements = [];
+            if (isMobile) {
+                // 手机端：每个配置项占一行
+                for (const item of items) {
+                    html += `<div class="chip-recommendation-item" style="font-size: 0.8rem; font-weight: 600; color: #e2e2e6; line-height: 1.8; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); word-break: break-word; white-space: normal;">${highlightNumbers(item)}</div>`;
                 }
-                // 输出配置行
-                html += `<div class="chip-recommendation-config">${highlightNumbers(cleanLine)}</div>`;
             } else {
-                // 要求行：收集起来，按空格拆分每个独立要求
-                const parts = cleanLine.split(/\s+/);
-                for (const part of parts) {
-                    if (part.trim()) {
-                        currentRequirements.push(part.trim());
-                    }
+                // 电脑端：一行显示多个，每个配置项独立
+                html += `<div class="chip-recommendation-items-row">`;
+                for (const item of items) {
+                    html += `<span class="chip-recommendation-item">${highlightNumbers(item)}</span>`;
                 }
+                html += `</div>`;
             }
         }
-        
-        // 输出最后剩余的要求行
-        if (currentRequirements.length > 0) {
-            html += '<div class="chip-recommendation-requirements-row">';
-            for (const req of currentRequirements) {
-                html += `<span class="chip-recommendation-requirement">${highlightNumbers(req)}</span>`;
-            }
-            html += '</div>';
-        }
+    }
+    
+    return html;
+}
         
         return html;
     }
