@@ -6753,24 +6753,36 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
         return;
     }
     
+    // ====== 获取车辆名称 ======
+    let carName = "未知车辆";
+    let carModelSelect = document.getElementById('carModel');
+    if (carModelSelect && carModelSelect.options && carModelSelect.selectedIndex >= 0) {
+        let selectedOption = carModelSelect.options[carModelSelect.selectedIndex];
+        if (selectedOption && selectedOption.text) {
+            let fullText = selectedOption.text;
+            let nameMatch = fullText.match(/^(.+?)\s*\(/);
+            if (nameMatch) {
+                carName = nameMatch[1].trim();
+            } else {
+                carName = fullText.split('(')[0].trim() || "未知车辆";
+            }
+        }
+    }
+    
     // 获取结果文本
     let text = resultDiv.innerText;
     
-    // 获取设备像素比（提高清晰度）
-    const scale = 3; // 放大倍数，3倍清晰度
+    // 获取设备像素比
+    const scale = 3;
     const baseWidth = 800;
     const baseHeight = 500;
     
-    // 创建 Canvas（实际尺寸放大）
+    // 创建 Canvas
     let canvas = document.createElement('canvas');
     canvas.width = baseWidth * scale;
     canvas.height = baseHeight * scale;
     let ctx = canvas.getContext('2d');
-    
-    // 缩放所有绘制操作
     ctx.scale(scale, scale);
-    
-    // ====== 以下所有坐标都按 baseWidth/baseHeight 来写 ======
     
     // 绘制背景
     ctx.fillStyle = '#1a1a2e';
@@ -6786,26 +6798,30 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
     ctx.font = 'bold 24px sans-serif';
     ctx.fillText('王牌竞速 · 芯片计算结果', 30, 55);
     
+    // 绘制车辆名称（在标题下方显示）
+    ctx.fillStyle = '#a0a0b8';
+    ctx.font = '16px sans-serif';
+    ctx.fillText('车辆：' + carName, 30, 82);
+    
     // 绘制分割线
     ctx.strokeStyle = '#feca57';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(30, 70);
-    ctx.lineTo(baseWidth - 30, 70);
+    ctx.moveTo(30, 95);
+    ctx.lineTo(baseWidth - 30, 95);
     ctx.stroke();
     
     // 绘制结果内容
     ctx.fillStyle = '#e2e2e6';
-    ctx.font = '16px monospace';
+    ctx.font = '15px monospace';
     let lines = text.split('\n');
-    let y = 105;
+    let y = 125;
     let maxWidth = baseWidth - 60;
-    let lineHeight = 28;
+    let lineHeight = 26;
     
     for (let line of lines) {
         let displayLine = line.trim();
         if (displayLine) {
-            // 如果行太长，截断
             if (ctx.measureText(displayLine).width > maxWidth) {
                 while (ctx.measureText(displayLine + '...').width > maxWidth && displayLine.length > 5) {
                     displayLine = displayLine.slice(0, -1);
@@ -6820,17 +6836,18 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
     
     // 绘制底部信息
     ctx.fillStyle = '#8a8aa3';
-    ctx.font = '14px sans-serif';
+    ctx.font = '13px sans-serif';
     let footer = '王牌竞速 · 数据整合站';
     ctx.fillText(footer, baseWidth - 30 - ctx.measureText(footer).width, baseHeight - 25);
     
     // 生成图片下载
     let link = document.createElement('a');
-    link.download = '王牌竞速_芯片结果.png';
-    // 使用 image/png 无损格式，质量高
+    // 文件名：车辆名_芯片要求计算结果.png
+    let fileName = carName + ' 芯片要求计算结果.png';
+    link.download = fileName;
     link.href = canvas.toDataURL('image/png');
     link.click();
-    showCopySuccess('高清截图已保存');
+    showCopySuccess('高清截图已保存：' + fileName);
 }
         
         initCalcCarTypeSelect();
