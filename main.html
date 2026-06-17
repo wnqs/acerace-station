@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>王牌竞速 · 数据整合站</title>
     <style>
-        <script src="https://https://cdn.bootcdn.net/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
-</script>
+        
         /* =====1===== 基础样式保持不变 ========== */
         * {
             margin: 0;
@@ -6741,17 +6740,14 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
         }
         
         async function shareCalcScreenshot() {
-    let resultDiv = document.getElementById('calcResultArea');
+    let resultDiv = document.getElementById('resultArea');
     if (!resultDiv.innerText || resultDiv.innerText.includes('等待计算')) {
-        showCalcCopySuccess('请先点击计算按钮生成结果');
+        showCopySuccess('请先点击计算按钮生成结果');
         return;
     }
     try {
-        // 检查 html2canvas 是否已通过 script 标签加载
-        if (typeof html2canvas === 'undefined') {
-            showCalcCopySuccess('截图库加载中，请稍后重试');
-            return;
-        }
+        // 动态导入 ES Module
+        const html2canvas = (await import('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.esm.js')).default;
         let canvas = await html2canvas(resultDiv, { 
             scale: 2, 
             backgroundColor: getComputedStyle(resultDiv).backgroundColor 
@@ -6760,10 +6756,10 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
         link.download = '王牌竞速_芯片结果.png';
         link.href = canvas.toDataURL();
         link.click();
-        showCalcCopySuccess('截图已保存为图片');
-    } catch (e) {
+        showCopySuccess('截图已保存为图片');
+    } catch(e) {
         console.error('截图失败:', e);
-        showCalcCopySuccess('截图生成失败，请重试');
+        showCopySuccess('截图生成失败，请重试');
     }
 }
         
