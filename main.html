@@ -3613,7 +3613,7 @@ function formatSkillText(text) {
     result = result.replace(/命中类型：/g, '命中类型|||');
     
     // 原有替换：将中文冒号、英文冒号、分号替换为换行
-    result = result.replace(/([：:；;])\s*/g, '$1\n');
+    result = result.replace(/([；;])\s*/g, '$1\n');
     
     // ===== 新增恢复逻辑 =====
     // 将特殊占位符恢复为“命中类型：”（注意这里的冒号是中文冒号，不会被再次替换）
