@@ -6603,8 +6603,30 @@ function handleBackButton() {
             const sp = parseInt(calcSpecialize.value);
             let overrideR = parseFloat(calcOverrideR.value) || 0;
             const energyVals = getEnergyValuesCalc(car.name, calcVSlot.value, isDoubleCycle);
-            const targetCycle = energyVals.cycleEnergy;
-            const targetStart = energyVals.firstEnergy;
+            // ===== 添加：检查是否携带“未来”赋能 =====
+const mainEff = document.getElementById('calcMainEff');
+const subEff = document.getElementById('calcSubEff');
+const hasFuture = mainEff && subEff && (mainEff.value === 'future' || subEff.value === 'future');
+
+let targetFirst = energyVals.firstEnergy;
+let targetCycle = energyVals.cycleEnergy;
+
+if (hasFuture) {
+    // 优先检查车辆特殊阈值
+    const specialThreshold = specialFirstEnergyMap[car.name];
+    if (specialThreshold !== undefined && specialThreshold < 90) {
+        // 车辆特殊阈值低于90，使用车辆特殊阈值
+        targetFirst = specialThreshold;
+        targetCycle = isDoubleCycle ? specialThreshold * 2 : specialThreshold;
+    } else {
+        // 使用未来赋能的值
+        targetFirst = 90;
+        targetCycle = isDoubleCycle ? 190 : 90;
+    }
+}
+// ===== 添加结束 =====
+            const targetCycle = targetCycle;  // 使用上面定义的 targetCycle
+const targetStart = targetFirst;   // 使用上面定义的 targetFirst
             const specCharge = sp === 10 ? 10 : 0;
             const nitroVal = car.nitro;
             const startVal = car.start;
