@@ -6608,9 +6608,8 @@ const mainEff = document.getElementById('calcMainEff');
 const subEff = document.getElementById('calcSubEff');
 const hasFuture = mainEff && subEff && (mainEff.value === 'future' || subEff.value === 'future');
 
-let targetFirst = energyVals.firstEnergy;
-let targetCycle = energyVals.cycleEnergy;
-
+let futureFirst = energyVals.firstEnergy;
+let futureCycle = energyVals.cycleEnergy;
 if (hasFuture) {
     // 优先检查车辆特殊阈值
     const specialThreshold = specialFirstEnergyMap[car.name];
@@ -6625,8 +6624,8 @@ if (hasFuture) {
     }
 }
 // ===== 添加结束 =====
-            const targetCycle = targetCycle;  // 使用上面定义的 targetCycle
-const targetStart = targetFirst;   // 使用上面定义的 targetFirst
+            const targetCycle = futureCycle;
+const targetStart = futureFirst;   // 使用上面定义的 targetFirst
             const specCharge = sp === 10 ? 10 : 0;
             const nitroVal = car.nitro;
             const startVal = car.start;
