@@ -5369,49 +5369,12 @@ function initWallpaperMobileDropdown() {
 }
     // ========== 导航和页面切换函数 ==========
     function handleVehicleBackToList() {
-    // 1. 重置筛选条件
-    activeFilters = { position: "", specialty: "", quality: "" };
-    keyword = "";
-    
-    // 2. 清空搜索框
-    clearAllSearchBoxes();
-    
-    // 3. 更新手机端筛选UI
+    // 1. 不清空筛选条件，保留 activeFilters 的值
+    // 2. 但需要刷新 UI 高亮状态
     if (isMobileDevice()) {
-        updateFilterUI();
+        updateFilterUI();  // 更新手机端筛选高亮
     } else {
-        updateDesktopFilterUI();
-    }
-    
-    // 4. 标记不在详情页
-    isInDetail = false;
-    
-    // 5. 隐藏返回按钮
-    const headerBackBtn = document.getElementById('headerBackBtn');
-    if (headerBackBtn) headerBackBtn.style.display = 'none';
-    
-    // 6. 重新渲染车辆列表
-    renderList();
-    
-    // 7. 确保车辆数据页面是激活状态
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-    document.getElementById('vehiclesPage').classList.add('active-page');
-    
-    // 8. 滚动到顶部
-    window.scrollTo(0, 0);
-}
-    
-   function returnToVehicleList() {
-    // 1. 重置筛选条件
-    activeFilters = { position: "", specialty: "", quality: "" };
-    keyword = "";
-    clearAllSearchBoxes();
-    
-    // 2. 更新UI
-    if (isMobileDevice()) {
-        updateFilterUI();
-    } else {
-        updateDesktopFilterUI();
+        updateDesktopFilterUI();  // 更新电脑端筛选高亮
     }
     
     // 3. 清除URL参数
@@ -5421,13 +5384,45 @@ function initWallpaperMobileDropdown() {
         history.replaceState(null, '', newUrl);
     }
     
-    // 4. 更新详情页状态
+    // 4. 标记不在详情页
+    isInDetail = false;
     updateDetailState(false);
     
-    // 5. 恢复列表（注意：restoreList 内部会调用 renderList）
-    restoreList();
+    // 5. 重新渲染列表（保留筛选条件）
+    renderList();
     
     // 6. 确保在车辆数据页面
+    if (currentPage !== 'vehicles') {
+        switchToPage('vehicles');
+    }
+    
+    // 7. 滚动到顶部
+    window.scrollTo(0, 0);
+}
+    
+   function returnToVehicleList() {
+    // 1. 不清空筛选条件，只刷新UI高亮
+    if (isMobileDevice()) {
+        updateFilterUI();
+    } else {
+        updateDesktopFilterUI();
+    }
+    
+    // 2. 清除URL参数
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('car')) {
+        const newUrl = window.location.pathname;
+        history.replaceState(null, '', newUrl);
+    }
+    
+    // 3. 更新状态
+    isInDetail = false;
+    updateDetailState(false);
+    
+    // 4. 恢复列表
+    restoreList();
+    
+    // 5. 确保在车辆数据页面
     if (currentPage !== 'vehicles') {
         switchToPage('vehicles');
     }
