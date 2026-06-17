@@ -2951,17 +2951,17 @@ video.wallpaper-modal-media {
     margin-bottom: 2px;
 }
 
-/* 电脑端：配置项行 */
+/* 电脑端：要求行 */
 .chip-config-items-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px 20px;
+    gap: 4px 40px;    /* 4px=行间距，40px=同一行内要求之间的左右间距 */
     margin-bottom: 0;
     padding: 0;
     align-items: baseline;
 }
 
-/* 电脑端：每个配置项 */
+/* 电脑端：每个要求 */
 .chip-config-item {
     font-size: 0.92rem;
     font-weight: 500;
@@ -2996,7 +2996,7 @@ video.wallpaper-modal-media {
         display: block !important;
         word-break: break-word !important;
     }
-}  
+}
     </style>
 </head>
 <body>
@@ -3889,7 +3889,8 @@ function formatSkillText(text) {
     
     let html = '';
     let isMobile = window.innerWidth <= 768;
-    const configKeywords = ['芯', '循环', '猫芯', '神芯', '效率', '一大'];
+    // 精确匹配配置行关键词
+    const configKeywords = ['神芯', '猫芯', '一大'];
     
     for (let i = 0; i < lines.length; i++) {
         let line = lines[i].trim();
@@ -3906,11 +3907,12 @@ function formatSkillText(text) {
         }
         
         if (isConfigLine) {
-            // 配置行（标题）：大号、黄色、加粗
+            // ===== 配置行：大号、黄色、加粗 =====
             html += `<div class="chip-config-title" style="font-size: ${isMobile ? '1.1rem' : '1.3rem'}; font-weight: 800; color: #feca57; line-height: 1.6; width: 100%; margin-top: ${i > 0 ? '6px' : '0'}; margin-bottom: 2px;">
                         ${highlightNumbers(line)}
                     </div>`;
         } else {
+            // ===== 要求行：拆分每个要求 =====
             const items = line.split(/\s+/).filter(item => item.trim() !== '');
             
             if (isMobile) {
@@ -3920,9 +3922,10 @@ function formatSkillText(text) {
                             </div>`;
                 }
             } else {
-                html += `<div class="chip-config-items-row" style="display: flex; flex-wrap: wrap; gap: 4px 20px; margin-bottom: 0; padding: 0; align-items: baseline;">`;
+                // ===== 电脑端：一行多个要求 =====
+                html += `<div class="chip-config-items-row" style="display: flex; flex-wrap: wrap; gap: 4px 40px; margin-bottom: 0; padding: 0; align-items: baseline;">`;
                 for (const item of items) {
-                    html += `<nobr class="chip-config-item" style="font-size: 0.92rem; font-weight: 500; color: #e2e2e6; line-height: 2; display: inline-block; padding: 0; margin-right: 20px;">
+                    html += `<nobr class="chip-config-item" style="font-size: 0.92rem; font-weight: 500; color: #e2e2e6; line-height: 2; display: inline-block; padding: 0;">
                                 ${highlightNumbers(item)}
                             </nobr>`;
                 }
