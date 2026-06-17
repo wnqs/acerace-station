@@ -2995,6 +2995,7 @@ video.wallpaper-modal-media {
         white-space: normal !important;
         display: block !important;
         word-break: break-word !important;
+        padding: 2px 0 !important;
     }
 }
     </style>
@@ -3889,14 +3890,11 @@ function formatSkillText(text) {
     
     let html = '';
     let isMobile = window.innerWidth <= 768;
-    // 精确匹配配置行关键词
     const configKeywords = ['神芯', '猫芯', '一大'];
     
     for (let i = 0; i < lines.length; i++) {
         let line = lines[i].trim();
-        if (line === '') {
-            continue;
-        }
+        if (line === '') continue;
         
         let isConfigLine = false;
         for (const kw of configKeywords) {
@@ -3907,26 +3905,27 @@ function formatSkillText(text) {
         }
         
         if (isConfigLine) {
-            // ===== 配置行：大号、黄色、加粗 =====
-            html += `<div class="chip-config-title" style="font-size: ${isMobile ? '1.1rem' : '1.3rem'}; font-weight: 800; color: #feca57; line-height: 1.6; width: 100%; margin-top: ${i > 0 ? '6px' : '0'}; margin-bottom: 2px;">
+            // 配置行：大号、黄色、加粗
+            html += `<div class="chip-config-title" style="font-size: ${isMobile ? '1.1rem' : '1.3rem'}; font-weight: 800; color: #feca57; line-height: 1.6; width: 100%; margin-top: ${i > 0 ? '8px' : '0'}; margin-bottom: 2px;">
                         ${highlightNumbers(line)}
                     </div>`;
         } else {
-            // ===== 要求行：拆分每个要求 =====
-            const items = line.split(/\s+/).filter(item => item.trim() !== '');
+            // 按 ； 分隔每个要求
+            const items = line.split('；').filter(item => item.trim() !== '');
             
             if (isMobile) {
+                // 手机端：每个要求占一行
                 for (const item of items) {
-                    html += `<div class="chip-config-item" style="font-size: 0.8rem; font-weight: 500; color: #e2e2e6; line-height: 1.9; padding: 0; word-break: break-word; white-space: normal; text-align: left;">
-                                ${highlightNumbers(item)}
+                    html += `<div class="chip-config-item" style="font-size: 0.8rem; font-weight: 500; color: #e2e2e6; line-height: 1.9; padding: 2px 0; word-break: break-word; white-space: normal; text-align: left;">
+                                ${highlightNumbers(item.trim())}
                             </div>`;
                 }
             } else {
-                // ===== 电脑端：一行多个要求 =====
+                // 电脑端：一行多个要求，自动换行
                 html += `<div class="chip-config-items-row" style="display: flex; flex-wrap: wrap; gap: 4px 40px; margin-bottom: 0; padding: 0; align-items: baseline;">`;
                 for (const item of items) {
-                    html += `<nobr class="chip-config-item" style="font-size: 0.92rem; font-weight: 500; color: #e2e2e6; line-height: 2; display: inline-block; padding: 0;">
-                                ${highlightNumbers(item)}
+                    html += `<nobr class="chip-config-item" style="font-size: 0.92rem; font-weight: 500; color: #e2e2e6; line-height: 2; display: inline-block; padding: 0; white-space: nowrap;">
+                                ${highlightNumbers(item.trim())}
                             </nobr>`;
                 }
                 html += `</div>`;
