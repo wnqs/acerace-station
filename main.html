@@ -6697,7 +6697,7 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
         }
         
         function copyCalcResult() {
-            let resultDiv = document.getElementById('resultArea');
+            let resultDiv = document.getElementById('calcResultArea');
             let txt = resultDiv.innerText;
             if (txt && txt !== '等待计算...' && !txt.includes('等待计算')) {
                 navigator.clipboard.writeText(txt).then(() => showCalcCopySuccess('结果已复制')).catch(() => showCalcCopySuccess('结果已复制'));
