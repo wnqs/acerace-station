@@ -6697,7 +6697,7 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
         }
         
         function copyCalcResult() {
-            let resultDiv = document.getElementById('calcResultArea');
+            let resultDiv = document.getElementById('resultArea');
             let txt = resultDiv.innerText;
             if (txt && txt !== '等待计算...' && !txt.includes('等待计算')) {
                 navigator.clipboard.writeText(txt).then(() => showCalcCopySuccess('结果已复制')).catch(() => showCalcCopySuccess('结果已复制'));
@@ -6746,8 +6746,8 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
         return;
     }
     try {
-        // 动态导入 ES Module
-        const html2canvas = (await import('https://unpkg.zhimg.com/html2canvas@1.4.1/dist/html2canvas.esm.js')).default;
+        // 使用你确认可用的 BootCDN 地址
+        const html2canvas = (await import('https://cdn.bootcdn.net/ajax/libs/html2canvas/1.4.1/html2canvas.esm.js')).default;
         let canvas = await html2canvas(resultDiv, { 
             scale: 2, 
             backgroundColor: getComputedStyle(resultDiv).backgroundColor 
