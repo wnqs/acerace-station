@@ -556,7 +556,7 @@
       "acquisition": "黑金会员",
       "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/a8Du85YQ.png",
       "stats": {
-        "topSpeed": "213.20 km/h",
+        "topSpeed": "210.10 km/h",
         "power": "8.3",
         "durability": "160.00",
         "nitroCharge": "40%",
@@ -577,7 +577,7 @@
         },
         "passive": {
           "name": "全向感知",
-          "desc": "每次使用氮气时，使敌方全体失去隐身效果（锁定类，无视隐身）"
+          "desc": "命中类型：锁定类/无视隐身<br>每次使用氮气时，使敌方全体失去隐身效果"
         },
         "features": [
           { "name": "破除隐身", "desc": "破除对方的隐身效果", "color": "红" },
