@@ -6747,7 +6747,7 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
     }
     try {
         // 动态导入 ES Module
-        const html2canvas = (await import('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.esm.js')).default;
+        const html2canvas = (await import('https://cdn.jsdelivr.net/npm/html2canvas/dist/html2canvas.min.js')).default;
         let canvas = await html2canvas(resultDiv, { 
             scale: 2, 
             backgroundColor: getComputedStyle(resultDiv).backgroundColor 
