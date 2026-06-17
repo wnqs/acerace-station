@@ -6740,7 +6740,7 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
         }
         
         async function shareCalcScreenshot() {
-    let resultDiv = document.getElementById('resultArea');
+    let resultDiv = document.getElementById('calcResultArea');
     if (!resultDiv.innerText || resultDiv.innerText.includes('等待计算')) {
         showCopySuccess('请先点击计算按钮生成结果');
         return;
