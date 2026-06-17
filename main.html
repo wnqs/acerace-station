@@ -6755,7 +6755,7 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
     
     // ====== 获取车辆名称 ======
     let carName = "未知车辆";
-    let carModelSelect = document.getElementById('carModel');
+    let carModelSelect = document.getElementById('calcCarModel');
     if (carModelSelect && carModelSelect.options && carModelSelect.selectedIndex >= 0) {
         let selectedOption = carModelSelect.options[carModelSelect.selectedIndex];
         if (selectedOption && selectedOption.text) {
