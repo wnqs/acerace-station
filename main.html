@@ -3993,7 +3993,27 @@ body.dark-mode .calculator-container {
 </div>
     </div>
 </div>
+<!-- 以太/催化剂专属额外增益 -->
+<div id="calcYitaiExtraOptions" style="display:none; margin-top:12px; padding:12px; background:var(--special-bg); border-radius:24px;">
+    <div class="option-title">以太/催化剂专属额外增益</div>
+    <div class="option-row" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+        <div style="flex: 1; min-width: 120px;">
+            <label style="font-size: 0.7rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 4px;">额外充能效率提升 (%)</label>
+            <input type="number" id="calcExtraEff" step="any" value="0" min="0" max="100" style="width: 100%; padding: 6px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem;">
+            <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
+                ?
+                <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 4px 8px; border-radius: 6px; font-size: 0.6rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">手动输入额外充能效率百分比，作用于首大和循环能量</span>
+            </span>
+        </div>
+        <div style="flex: 1; min-width: 120px;">
+            <label style="font-size: 0.7rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 4px;">额外起步充能</label>
+            <input type="number" id="calcExtraStart" step="any" value="0" style="width: 100%; padding: 6px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem;">
+        </div>
+    </div>
+</div>
 
+<!-- 车辆专属浮动充能选项 -->
+<div id="calcVehicleSpecialOptionsContainer" class="vehicle-special-options" style="display:none;"></div>
 <!-- ④ 赋能选择 -->
 <div class="config-section">
     <div class="section-title"><span class="num">4</span> 赋能选择</div>
@@ -7028,29 +7048,33 @@ function handleBackButton() {
         }
         
         function updateCalcCarList() {
-            let type = calcCarType.value;
-            let sub = calcCarSubType.value;
-            let list = carsDB[type]?.[sub] || [];
-            calcCarModel.innerHTML = '';
-            if (list.length === 0) {
-                let opt = document.createElement('option');
-                opt.value = '';
-                opt.textContent = '请先选择定位和专精';
-                calcCarModel.appendChild(opt);
-            } else {
-                list.forEach(c => {
-                    let opt = document.createElement('option');
-                    opt.value = JSON.stringify(c);
-                    opt.textContent = `${c.name} (${c.chips}) 起步${c.start} 氮气${c.nitro}`;
-                    calcCarModel.appendChild(opt);
-                });
-            }
-            updateCalcCarIcon();
-            updateCalcVSlotOptions();
-            updateCalcEnergyDisplays();
-            let car = getCalcCurrentCar();
-            calcYitaiExtraOptions.style.display = (car && (car.name === "以太" || car.name === "催化剂")) ? 'block' : 'none';
-        }
+    let type = calcCarType.value;
+    let sub = calcCarSubType.value;
+    let list = carsDB[type]?.[sub] || [];
+    calcCarModel.innerHTML = '';
+    if (list.length === 0) {
+        let opt = document.createElement('option');
+        opt.value = '';
+        opt.textContent = '请先选择定位和专精';
+        calcCarModel.appendChild(opt);
+    } else {
+        list.forEach(c => {
+            let opt = document.createElement('option');
+            opt.value = JSON.stringify(c);
+            opt.textContent = `${c.name} (${c.chips}) 起步${c.start} 氮气${c.nitro}`;
+            calcCarModel.appendChild(opt);
+        });
+    }
+    updateCalcCarIcon();
+    updateCalcVSlotOptions();
+    updateCalcEnergyDisplays();
+    let car = getCalcCurrentCar();
+    // 添加安全判断，防止元素不存在时报错
+    let yitaiOptions = document.getElementById('calcYitaiExtraOptions');
+    if (yitaiOptions) {
+        yitaiOptions.style.display = (car && (car.name === "以太" || car.name === "催化剂")) ? 'block' : 'none';
+    }
+}
         
         function updateCalcSubTypeOptions() {
             let type = calcCarType.value;
@@ -7743,14 +7767,17 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
         initCalcSearchBox();
         
         calcCarModel.addEventListener('change', () => {
-            updateCalcCarIcon();
-            updateCalcEnergyDisplays();
-            updateCalcVSlotOptions();
-            let car = getCalcCurrentCar();
-            calcYitaiExtraOptions.style.display = (car && (car.name === "以太" || car.name === "催化剂")) ? 'block' : 'none';
-            updateCalcToggleState();
-            setDefaultOverrideR(); 
-        });
+    updateCalcCarIcon();
+    updateCalcEnergyDisplays();
+    updateCalcVSlotOptions();
+    let car = getCalcCurrentCar();
+    let yitaiOptions = document.getElementById('calcYitaiExtraOptions');
+    if (yitaiOptions) {
+        yitaiOptions.style.display = (car && (car.name === "以太" || car.name === "催化剂")) ? 'block' : 'none';
+    }
+    updateCalcToggleState();
+    setDefaultOverrideR();
+});
         calcVSlot.addEventListener('change', () => {
             updateCalcVSlotIcon();
             updateCalcEnergyDisplays();
