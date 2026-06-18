@@ -3096,7 +3096,7 @@ video.wallpaper-modal-media {
 @media (min-width: 769px) {
     .calc-title {
         white-space: nowrap;
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 }
 
@@ -3108,6 +3108,11 @@ video.wallpaper-modal-media {
         word-break: break-word;
     }
 }
+  /* 让右侧四行均匀分布 */
+.car-form-right .row2 {
+    flex: 1 !important;
+    align-items: center !important;
+} 
     </style>
 </head>
 <body>
@@ -3400,10 +3405,10 @@ video.wallpaper-modal-media {
             </div>
         </div>
 
-        <!-- 框1：车辆信息 -->
+        <!-- 框1：车辆相关配置选择 -->
         <div class="config-section">
-            <div class="section-title">车辆信息</div>
-            <div class="car-layout-new" style="display: flex; gap: 16px; align-items: flex-start;">
+            <div class="section-title">车辆相关配置选择</div>
+            <div class="car-layout-new" style="display: flex; gap: 16px; align-items: stretch;">
                 <!-- 图片 -->
                 <div class="car-icon-large" style="flex: 0 0 280px;">
                     <div class="car-icon" id="calcCarIcon" style="border-radius: 16px; overflow: hidden; background: linear-gradient(145deg, #1a1a2e, #0f0f1a); border: 1px solid rgba(255,255,255,0.08); aspect-ratio: 1/1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px;">
@@ -3413,7 +3418,7 @@ video.wallpaper-modal-media {
                     </div>
                 </div>
                 <!-- 右侧控件 -->
-                <div class="car-form-right" style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+                <div class="car-form-right" style="flex: 1; display: flex; flex-direction: column; gap: 4px;justify-content: space-between;">
                     <!-- 搜索框 -->
                     <div class="search-container" style="margin-bottom: 0;">
                         <input type="text" id="calcCarSearchInput" class="search-input" placeholder="搜索车辆名称或关键词 (如: 比亚迪/byd/毒药/拉法...)" autocomplete="off" style="width: 50%; padding: 6px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem;">
@@ -3483,10 +3488,10 @@ video.wallpaper-modal-media {
             </div>
         </div>
 
-        <!-- 框2：氮气与充能 -->
+        <!-- 框2：氮气数量选择 -->
         <div class="config-section">
             <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; margin-bottom: 6px;">
-    <div class="section-title" style="margin-bottom: 0;">氮气与充能</div>
+    <div class="section-title" style="margin-bottom: 0;">氮气数量选择</div>
     
 </div>
             <!-- 首大能量 + 首大氮气数量 + 循环能量 + 循环氮气数量 + 4气3气（同行） -->
