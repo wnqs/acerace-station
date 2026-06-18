@@ -7074,6 +7074,7 @@ function handleBackButton() {
     if (yitaiOptions) {
         yitaiOptions.style.display = (car && (car.name === "以太" || car.name === "催化剂")) ? 'block' : 'none';
     }
+        updateCalcToggleState();
 }
         
         function updateCalcSubTypeOptions() {
@@ -7242,14 +7243,25 @@ function handleBackButton() {
         }
         
         function renderCalcSpecialOptionsContent() {
-            if (!document.getElementById('calcSpecialToggleCheckbox') || !document.getElementById('calcSpecialToggleCheckbox').checked) return;
-            let car = getCalcCurrentCar();
-            if (!car) return;
-            let carName = car.name;
-            if (!VEHICLES_WITH_SPECIAL_BONUS.includes(carName)) return;
-            let isDoubleCycle = calcCycleMode.value === 'cycle';
-            let container = calcVehicleSpecialContainer;
-            let html = '<div class="option-group"><div class="option-title">车辆专属浮动充能</div>';
+    // 如果开关未勾选，不显示（但自动模式下已勾选）
+    const checkbox = document.getElementById('calcSpecialToggleCheckbox');
+    if (!checkbox || !checkbox.checked) {
+        // 如果未勾选但确实有特殊增益，自动勾选
+        let car = getCalcCurrentCar();
+        if (car && VEHICLES_WITH_SPECIAL_BONUS.includes(car.name)) {
+            checkbox.checked = true;
+        } else {
+            return;
+        }
+    }
+    
+    let car = getCalcCurrentCar();
+    if (!car) return;
+    let carName = car.name;
+    if (!VEHICLES_WITH_SPECIAL_BONUS.includes(carName)) return;
+    let isDoubleCycle = calcCycleMode.value === 'cycle';
+    let container = calcVehicleSpecialContainer;
+    let html = '<div class="option-group"><div class="option-title" style="font-size:0.8rem; font-weight:600; color:var(--text-primary); margin-bottom:6px;">车辆专属浮动充能</div>';
             if (carName === "迈凯伦 Senna") {
                 html += `<div class="option-row"><div><label>🔁 普通循环秒数(1-10)</label><select id="calcSennaHuiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能2%</span></span></div><div><label>🎯 首大秒数(1-10)</label><select id="calcSennaJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select></div></div>`;
             } else if (carName === "五菱宏光 MINI EV") {
@@ -7297,56 +7309,80 @@ function handleBackButton() {
         }
         
         function updateCalcToggleState() {
-            let car = getCalcCurrentCar();
-            const specialToggleContainer = document.getElementById('calcSpecialToggleContainer');
-            const toggleHint = document.querySelector('.calculator-container .toggle-hint');
-            if (!car) {
-                if (specialToggleContainer) specialToggleContainer.style.display = 'none';
-                if (toggleHint) toggleHint.style.display = 'none';
-                calcVehicleSpecialContainer.innerHTML = '';
-                calcVehicleSpecialContainer.style.display = 'none';
-                return;
-            }
-            if (specialToggleContainer) specialToggleContainer.style.display = 'flex';
-            if (toggleHint) toggleHint.style.display = 'block';
-            const hasSpecial = checkCalcVehicleHasSpecialBonus();
-            const checkbox = document.getElementById('calcSpecialToggleCheckbox');
-            if (checkbox) {
-                if (checkbox.checked) {
-                    if (hasSpecial) {
-                        renderCalcSpecialOptionsContent();
-                    } else {
-                        calcVehicleSpecialContainer.innerHTML = '';
-                        calcVehicleSpecialContainer.style.display = 'none';
-                    }
+    let car = getCalcCurrentCar();
+    const specialToggleContainer = document.getElementById('calcSpecialToggleContainer');
+    const toggleHint = document.querySelector('.calculator-container .toggle-hint');
+    const checkbox = document.getElementById('calcSpecialToggleCheckbox');
+    
+    if (!car) {
+        if (specialToggleContainer) specialToggleContainer.style.display = 'none';
+        if (toggleHint) toggleHint.style.display = 'none';
+        calcVehicleSpecialContainer.innerHTML = '';
+        calcVehicleSpecialContainer.style.display = 'none';
+        return;
+    }
+    
+    // 显示开关容器
+    if (specialToggleContainer) specialToggleContainer.style.display = 'flex';
+    if (toggleHint) toggleHint.style.display = 'block';
+    
+    const hasSpecial = checkCalcVehicleHasSpecialBonus();
+    
+    // 自动勾选复选框（如果有特殊增益）
+    if (checkbox) {
+        checkbox.checked = hasSpecial;
+    }
+    
+    if (hasSpecial) {
+        // 有特殊增益 → 自动显示选项
+        renderCalcSpecialOptionsContent();
+        if (checkbox) checkbox.checked = true;
+    } else {
+        // 没有特殊增益 → 隐藏选项
+        calcVehicleSpecialContainer.innerHTML = '';
+        calcVehicleSpecialContainer.style.display = 'none';
+        if (checkbox) checkbox.checked = false;
+    }
+}
+        
+        function createCalcToggleSwitch() {
+    if (document.getElementById('calcSpecialToggleContainer')) return;
+    
+    // 确保 calcVehicleSpecialContainer 存在
+    if (!calcVehicleSpecialContainer) {
+        console.warn('calcVehicleSpecialContainer 不存在，跳过创建开关');
+        return;
+    }
+    
+    const toggleHtml = `<div id="calcSpecialToggleContainer" class="toggle-switch" style="margin-bottom:12px; display:flex; padding:10px 16px;">
+        <input type="checkbox" id="calcSpecialToggleCheckbox" checked>
+        <label for="calcSpecialToggleCheckbox" id="calcSpecialToggleLabel" style="font-size:0.85rem; cursor:pointer; font-weight:600;">🔘 显示车辆专属浮动充能选项</label>
+        <span class="info-icon" style="display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; background:#4a5568; color:white; border-radius:50%; font-size:10px; font-weight:bold; cursor:help; position:relative; margin-left:auto;">
+            ?
+            <span class="tooltip-text" style="position:absolute; bottom:100%; left:50%; transform:translateX(-50%); background:#1e293b; color:white; padding:4px 8px; border-radius:6px; font-size:0.6rem; white-space:nowrap; z-index:100; pointer-events:none; opacity:0; transition:opacity 0.2s; margin-bottom:4px;">关闭后隐藏自充能选项，开启后若车辆有独立增益则显示对应选项</span>
+        </span>
+    </div>
+    <div class="toggle-hint" style="font-size:0.65rem; color:#ffaaaa; margin-bottom:8px; padding-left:4px;">⚠️ 每次切换车辆后都先将此开关重新开关一次，才能正确显示车辆是否有独立增益效果</div>`;
+    
+    calcVehicleSpecialContainer.insertAdjacentHTML('beforebegin', toggleHtml);
+    
+    const checkbox = document.getElementById('calcSpecialToggleCheckbox');
+    if (checkbox) {
+        checkbox.addEventListener('change', function () {
+            if (this.checked) {
+                if (checkCalcVehicleHasSpecialBonus()) {
+                    renderCalcSpecialOptionsContent();
                 } else {
                     calcVehicleSpecialContainer.innerHTML = '';
                     calcVehicleSpecialContainer.style.display = 'none';
                 }
+            } else {
+                calcVehicleSpecialContainer.innerHTML = '';
+                calcVehicleSpecialContainer.style.display = 'none';
             }
-        }
-        
-        function createCalcToggleSwitch() {
-            if (document.getElementById('calcSpecialToggleContainer')) return;
-            const toggleHtml = `<div id="calcSpecialToggleContainer" class="toggle-switch" style="margin-bottom:16px; display:flex;"><input type="checkbox" id="calcSpecialToggleCheckbox" checked><label for="calcSpecialToggleCheckbox" id="calcSpecialToggleLabel">🔘 显示车辆专属浮动充能选项</label><span class="info-icon">?<span class="tooltip-text">关闭后隐藏自充能选项，开启后若车辆有独立增益则显示对应选项</span></span></div><div class="toggle-hint">⚠️ 每次切换车辆后都先将此开关重新开关一次，才能正确显示车辆是否有独立增益效果</div>`;
-            calcVehicleSpecialContainer.insertAdjacentHTML('beforebegin', toggleHtml);
-            const checkbox = document.getElementById('calcSpecialToggleCheckbox');
-            if (checkbox) {
-                checkbox.addEventListener('change', function () {
-                    if (this.checked) {
-                        if (checkCalcVehicleHasSpecialBonus()) {
-                            renderCalcSpecialOptionsContent();
-                        } else {
-                            calcVehicleSpecialContainer.innerHTML = '';
-                            calcVehicleSpecialContainer.style.display = 'none';
-                        }
-                    } else {
-                        calcVehicleSpecialContainer.innerHTML = '';
-                        calcVehicleSpecialContainer.style.display = 'none';
-                    }
-                });
-            }
-        }
+        });
+    }
+}
         
         function initCalcSearchBox() {
             const searchInput = document.getElementById('calcCarSearchInput');
