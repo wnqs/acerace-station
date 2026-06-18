@@ -3125,14 +3125,7 @@ video.wallpaper-modal-media {
     outline: none !important;
     box-shadow: none !important;
 } 
-     /* 车辆专属浮动充能 - 统一字体大小 */
-/* 专属浮动充能 - 只改标题文字大小 */
-#calcVehicleSpecialOptionsContainer .option-title {
-    font-size: 0.6rem !important;
-    font-weight: 600;
-    color: #e2e2e6;
-    margin-bottom: 2px;
-}
+     
     </style>
 </head>
 <body>
@@ -6831,8 +6824,12 @@ function handleBackButton() {
         
         function createCalcToggleSwitch() {
             if (document.getElementById('calcSpecialToggleContainer')) return;
-            const toggleHtml = `<div id="calcSpecialToggleContainer" class="toggle-switch" style="margin-bottom:16px; display:flex;"><input type="checkbox" id="calcSpecialToggleCheckbox" checked><label for="calcSpecialToggleCheckbox" id="calcSpecialToggleLabel">🔘 显示车辆专属浮动充能选项</label><span class="info-icon">?<span class="tooltip-text">关闭后隐藏自充能选项，开启后若车辆有独立增益则显示对应选项</span></span></div><div class="toggle-hint">⚠️ 每次切换车辆后都先将此开关重新开关一次，才能正确显示车辆是否有独立增益效果</div>`;
-            calcVehicleSpecialContainer.insertAdjacentHTML('beforebegin', toggleHtml);
+            const toggleHtml = `<div id="calcSpecialToggleContainer" class="toggle-switch" style="margin-bottom:16px; display:flex; align-items:center; gap:8px; height:32px;">
+    <input type="checkbox" id="calcSpecialToggleCheckbox" checked>
+    <label for="calcSpecialToggleCheckbox" id="calcSpecialToggleLabel" style="font-size:0.7rem; font-weight:600; color:#a0a0b8; cursor:pointer;">显示车辆专属浮动充能选项</label>
+    <span class="info-icon">?<span class="tooltip-text">关闭后隐藏自充能选项，开启后若车辆有独立增益则显示对应选项</span></span>
+</div>
+<div class="toggle-hint" style="font-size:0.55rem; color:#ffaaaa; margin-bottom:4px;">⚠️ 每次切换车辆后都先将此开关重新开关一次，才能正确显示车辆是否有独立增益效果</div>`;
             const checkbox = document.getElementById('calcSpecialToggleCheckbox');
             if (checkbox) {
                 checkbox.addEventListener('change', function () {
