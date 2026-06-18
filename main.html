@@ -3980,17 +3980,17 @@ body.dark-mode .calculator-container {
                 <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
             </select>
         </div>
-        <div style="display: flex; align-items: center; gap: 6px; margin-left: 8px;">
-            <span style="font-size: 0.7rem; font-weight: 600; color: #a0a0b8;">4气3气两大一循环：</span>
-            <select id="calcCycleMode" style="padding: 4px 8px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem;">
-                <option value="normal">否</option>
-                <option value="cycle">是</option>
-            </select>
-            <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
-                ?
-                <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 4px 8px; border-radius: 6px; font-size: 0.6rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">仅辅助位车辆且首大能量≥80时支持</span>
-            </span>
-        </div>
+        <div id="calcCycleModeContainer" style="display: flex; align-items: center; gap: 6px; margin-left: 8px;">
+    <span style="font-size: 0.7rem; font-weight: 600; color: #a0a0b8;">4气3气两大一循环：</span>
+    <select id="calcCycleMode" style="padding: 4px 8px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem;">
+        <option value="normal">否</option>
+        <option value="cycle">是</option>
+    </select>
+    <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
+        ?
+        <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 4px 8px; border-radius: 6px; font-size: 0.6rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">仅辅助位车辆且首大能量≥80时支持</span>
+    </span>
+</div>
     </div>
 </div>
 
@@ -6542,11 +6542,10 @@ function handleBackButton() {
     let iconContainer = document.getElementById('calcCarIcon');
     if (!iconContainer) return;
     
-    // 清空容器，保留结构
+    // 清空容器
     iconContainer.innerHTML = '';
     
     if (!opt || !opt.value) {
-        // 没有选择车辆时显示占位
         let span = document.createElement('span');
         span.style.fontSize = '4rem';
         span.textContent = '🏎️';
@@ -6570,7 +6569,6 @@ function handleBackButton() {
     let start = '';
     let nitro = '';
     
-    // 解析车辆数据
     try {
         let carData = JSON.parse(opt.value);
         chips = carData.chips || '';
@@ -6578,7 +6576,6 @@ function handleBackButton() {
         nitro = carData.nitro || '';
     } catch(e) {}
     
-    // 添加车辆图片
     if (url) {
         let img = document.createElement('img');
         img.src = url;
@@ -6586,9 +6583,8 @@ function handleBackButton() {
         img.style.width = '100%';
         img.style.height = '60%';
         img.style.objectFit = 'contain';
-        img.onerror = function() { 
+        img.onerror = function() {
             this.style.display = 'none';
-            // 如果图片加载失败，显示占位图标
             let span = document.createElement('span');
             span.style.fontSize = '4rem';
             span.textContent = '🏎️';
@@ -6602,13 +6598,11 @@ function handleBackButton() {
         iconContainer.appendChild(span);
     }
     
-    // 添加车辆名称
     let nameDiv = document.createElement('div');
     nameDiv.className = 'car-name-display';
     nameDiv.textContent = name || '选择车辆';
     iconContainer.appendChild(nameDiv);
     
-    // 添加车辆规格信息
     let specDiv = document.createElement('div');
     specDiv.className = 'car-spec-display';
     specDiv.textContent = chips ? `${chips} · 起步${start} · 氮气${nitro}` : '—';
@@ -6967,23 +6961,26 @@ function handleBackButton() {
 }
         
         function updateCalcCycleModeVisibility() {
-            let container = document.getElementById('calcCycleModeContainer');
-            let type = calcCarType.value;
-            if (type !== 'assist') {
-                container.style.display = 'none';
-                if (calcCycleMode.value === 'cycle') calcCycleMode.value = 'normal';
-                updateCalcEnergyDisplays();
-                return;
-            }
-            let firstEnergy = parseInt(calcFirstEnergyDisplay.textContent);
-            if (isNaN(firstEnergy)) firstEnergy = 0;
-            container.style.display = firstEnergy >= 80 ? 'block' : 'none';
-            if (firstEnergy < 80 && calcCycleMode.value === 'cycle') {
-                calcCycleMode.value = 'normal';
-                updateCalcEnergyDisplays();
-            }
-            if (calcCycleNitroTooltip) calcCycleNitroTooltip.textContent = (calcCycleMode.value === 'cycle') ? '2个大招所需的氮气数量' : '1个大招所需的氮气数量';
-        }
+    let container = document.getElementById('calcCycleModeContainer');
+    // 如果元素不存在，直接返回，不报错
+    if (!container) return;
+    
+    let type = calcCarType.value;
+    if (type !== 'assist') {
+        container.style.display = 'none';
+        if (calcCycleMode.value === 'cycle') calcCycleMode.value = 'normal';
+        updateCalcEnergyDisplays();
+        return;
+    }
+    let firstEnergy = parseInt(calcFirstEnergyDisplay.textContent);
+    if (isNaN(firstEnergy)) firstEnergy = 0;
+    container.style.display = firstEnergy >= 80 ? 'flex' : 'none';
+    if (firstEnergy < 80 && calcCycleMode.value === 'cycle') {
+        calcCycleMode.value = 'normal';
+        updateCalcEnergyDisplays();
+    }
+    if (calcCycleNitroTooltip) calcCycleNitroTooltip.textContent = (calcCycleMode.value === 'cycle') ? '2个大招所需的氮气数量' : '1个大招所需的氮气数量';
+}
         
         function updateCalcVSlotOptions() {
             let opt = calcCarModel.options[calcCarModel.selectedIndex];
