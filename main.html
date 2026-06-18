@@ -2998,6 +2998,597 @@ video.wallpaper-modal-media {
         padding: 2px 0 !important;
     }
 }
+        /* ====== 五个板块样式 ====== */
+.config-section {
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 10px 16px;
+    margin-bottom: 6px;
+    background: rgba(255,255,255,0.02);
+}
+.config-section .section-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #feca57;
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.config-section .section-title .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background: #feca57;
+    color: #1a1a2e;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+.sub-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+.sub-options select {
+    padding: 2px 8px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    color: var(--text-primary);
+    font-size: 0.75rem;
+}
+.sub-options span {
+    font-size: 0.65rem;
+    color: #8a8aa3;
+}
+.energy-display {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #feca57;
+    background: rgba(254,202,87,0.08);
+    border: 1px solid rgba(254,202,87,0.15);
+    border-radius: 30px;
+    padding: 4px 14px;
+    min-width: 40px;
+    text-align: center;
+    display: inline-block;
+}
+.calculator-container .car-icon-large {
+    flex: 0 0 220px;
+    text-align: center;
+}
+.calculator-container .car-icon-large .car-icon {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background: var(--bg-hover);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+.calculator-container .car-icon-large .car-icon img {
+    width: 100%;
+    height: 60%;
+    object-fit: contain;
+}
+.calculator-container .car-icon-large .car-icon span {
+    font-size: 4rem;
+}
+.calculator-container .car-icon-large .car-name-display {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #e2e2e6;
+    margin-top: 8px;
+    text-align: center;
+}
+.calculator-container .car-icon-large .car-spec-display {
+    font-size: 0.6rem;
+    color: #8a8aa3;
+    text-align: center;
+    margin-top: 2px;
+}
+.calculator-container .car-form-right {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.calculator-container .row2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.calculator-container .row2 > div {
+    flex: 1;
+    min-width: 100px;
+}
+.calculator-container label {
+    display: block;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #8a8aa3 !important;
+    margin-bottom: 2px;
+    letter-spacing: 0.3px;
+}
+.calculator-container select, .calculator-container input {
+    width: 100%;
+    padding: 6px 12px;
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    font-size: 0.8rem;
+    transition: 0.2s;
+    color: #ffffff !important;
+}
+.calculator-container select option {
+    background-color: #1f1f2e;
+    color: #ffffff;
+}
+.calculator-container select:focus, .calculator-container input:focus {
+    outline: none;
+    border-color: #feca57;
+    box-shadow: 0 0 0 2px rgba(254,202,87,0.15);
+}
+.calculator-container button {
+    background: var(--btn-primary);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 0;
+}
+.calculator-container button:active {
+    transform: scale(0.97);
+}
+.calculator-container button:hover {
+    background: var(--btn-primary-hover);
+}
+.calculator-container .result-box {
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-top: 8px;
+    font-family: monospace;
+    font-size: 0.8rem;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #ffffff !important;
+    border: 1px solid rgba(255,255,255,0.06);
+    min-height: 80px;
+}
+.calculator-container .note {
+    font-size: 0.7rem;
+    color: #cccccc !important;
+    background: var(--note-bg);
+    padding: 10px 16px;
+    border-radius: 60px;
+    margin-top: 12px;
+}
+.calculator-container .usage-guide {
+    font-size: 0.75rem;
+    color: #dddddd !important;
+    background: var(--note-bg);
+    padding: 12px 18px;
+    border-radius: 16px;
+    margin-top: 8px;
+    line-height: 1.6;
+}
+.calculator-container .usage-guide summary {
+    cursor: pointer;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #feca57 !important;
+    font-size: 0.75rem;
+}
+.calculator-container .warning-tip {
+    color: #ffaaaa !important;
+    font-weight: 600;
+    background: rgba(185, 28, 28, 0.2);
+    padding: 8px 12px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    white-space: pre-line;
+}
+.calculator-container .energy-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.calculator-container .energy-row > div {
+    flex: 1;
+    min-width: 80px;
+}
+.calculator-container .vehicle-special-options {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 28px;
+    background: var(--special-bg);
+    border: 2px solid var(--special-border);
+}
+.calculator-container .option-group {
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 12px;
+}
+.calculator-container .option-title {
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+    color: #ffffff !important;
+}
+.calculator-container .option-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+.calculator-container .option-row > div {
+    flex: 1;
+    min-width: 120px;
+}
+.calculator-container .toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #2a2a3c 0%, #1e1e2e 100%);
+    border-radius: 60px;
+    border: 2px solid #4f46e5;
+    box-shadow: 0 2px 10px rgba(79, 70, 229, 0.4);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.calculator-container .toggle-switch:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.5);
+}
+.calculator-container .toggle-switch label {
+    margin-bottom: 0;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #ffffff !important;
+    letter-spacing: 0.5px;
+}
+.calculator-container .toggle-switch input {
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    cursor: pointer;
+    accent-color: #4f46e5;
+    transform: scale(1.1);
+}
+.calculator-container .toggle-hint {
+    font-size: 0.7rem;
+    color: #ffaaaa !important;
+    margin-bottom: 16px;
+    padding-left: 8px;
+    text-align: left;
+}
+.calculator-container .eff-select-row, .calculator-container .vslot-select-row, 
+.calculator-container .nitro-select-row, .calculator-container .car-type-row, 
+.calculator-container .car-subtype-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 30px;
+    padding: 2px 12px 2px 6px;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+.calculator-container .eff-select-row select, .calculator-container .vslot-select-row select,
+.calculator-container .nitro-select-row select, .calculator-container .car-type-row select,
+.calculator-container .car-subtype-row select {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 6px 4px;
+    color: #ffffff !important;
+    font-size: 0.8rem;
+}
+.calculator-container .eff-icon-preview, .calculator-container .vslot-icon-preview,
+.calculator-container .nitro-icon-preview, .calculator-container .car-type-icon-preview,
+.calculator-container .car-subtype-icon-preview {
+    width: 28px;
+    height: 28px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.calculator-container .eff-icon-preview img, .calculator-container .vslot-icon-preview img,
+.calculator-container .nitro-icon-preview img, .calculator-container .car-type-icon-preview img,
+.calculator-container .car-subtype-icon-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.calculator-container .cycle-mode-wrapper {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+.calculator-container .cycle-mode-wrapper select {
+    flex: 1;
+}
+.calculator-container .info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background: #4a5568;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: help;
+    flex-shrink: 0;
+    position: relative;
+}
+.calculator-container .info-icon .tooltip-text {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e293b;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.6rem;
+    white-space: nowrap;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    margin-bottom: 4px;
+}
+.calculator-container .info-icon:hover .tooltip-text {
+    opacity: 1;
+}
+.calculator-container .error-message {
+    background: rgba(255,0,0,0.08);
+    color: #ff6b6b;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    margin-bottom: 6px;
+    display: none;
+}
+.calculator-container .button-group {
+    display: flex;
+    gap: 8px;
+    margin-top: 0;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+.calculator-container .button-group button {
+    flex: 1;
+    margin-top: 0;
+    min-width: 80px;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    border-radius: 30px;
+}
+.calculator-container .btn-secondary {
+    background: rgba(255,255,255,0.08);
+    color: #a0a0b8;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.calculator-container .btn-secondary:hover {
+    background: rgba(255,255,255,0.15);
+}
+.calculator-container .btn-success {
+    background: rgba(16,185,129,0.2);
+    color: #34d399;
+    border: 1px solid rgba(16,185,129,0.3);
+}
+.calculator-container .btn-success:hover {
+    background: rgba(16,185,129,0.3);
+}
+.calculator-container .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.calculator-container .copy-success {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #10b981;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    z-index: 1000;
+    animation: fadeOut 2s ease forwards;
+}
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    70% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-20px); visibility: hidden; }
+}
+@media (max-width: 768px) {
+    .calculator-container .car-icon-large {
+        flex: 0 0 200px;
+    }
+    .calculator-container .car-icon-large .car-icon span {
+        font-size: 4rem;
+    }
+    .calculator-container .car-layout-new {
+        flex-direction: column;
+        align-items: center;
+    }
+    .calculator-container .car-form-right {
+        width: 100%;
+    }
+    .calculator-container .eff-select-row,
+    .calculator-container .vslot-select-row,
+    .calculator-container .car-type-row,
+    .calculator-container .car-subtype-row {
+        flex-wrap: wrap;
+    }
+    .calculator-container .energy-row {
+        flex-direction: column;
+    }
+    .calculator-container .header-top {
+        flex-direction: column;
+    }
+    .calculator-container .toggle-switch {
+        flex-wrap: wrap;
+    }
+}
+.calculator-container .custom-hui-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 16px;
+    padding: 12px;
+    background: var(--special-bg);
+    border-radius: 28px;
+    border: 1px solid var(--special-border);
+}
+.calculator-container .custom-hui-row label {
+    margin-bottom: 0;
+    white-space: nowrap;
+    color: #ffffff !important;
+}
+.calculator-container .custom-hui-row input {
+    width: 120px;
+    text-align: center;
+}
+.calculator-container .search-container {
+    margin-bottom: 6px;
+    position: relative;
+}
+.calculator-container .search-input {
+    width: 100%;
+    padding: 8px 14px;
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    font-size: 0.85rem;
+    transition: 0.2s;
+    color: #ffffff !important;
+}
+.calculator-container .search-input:focus {
+    outline: none;
+    border-color: #feca57;
+    box-shadow: 0 0 0 2px rgba(254,202,87,0.15);
+}
+.calculator-container .search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #1f1f2e;
+    border: 1px solid var(--border-medium);
+    border-radius: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    display: none;
+}
+.calculator-container .search-dropdown.show {
+    display: block;
+}
+.calculator-container .search-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #2a2a3c;
+    color: #ffffff !important;
+    transition: background 0.1s;
+}
+.calculator-container .search-item:hover {
+    background: #2a2a3c;
+}
+.calculator-container .search-item .car-name {
+    font-weight: 600;
+}
+.calculator-container .search-item .car-info {
+    font-size: 0.7rem;
+    color: #aaaaaa !important;
+    margin-top: 2px;
+}
+.calculator-container .eff-select-row select option.eff-red { color: #f87171; font-weight: 700; }
+.calculator-container .eff-select-row select option.eff-yellow { color: #fbbf24; font-weight: 700; }
+.calculator-container .eff-select-row select option.eff-green { color: #34d399; font-weight: 700; }
+.calculator-container .eff-select-row select option.eff-purple { color: #c084fc; font-weight: 700; }
+
+:root {
+    --btn-primary: #3b82f6;
+    --btn-primary-hover: #2563eb;
+    --btn-secondary: #64748b;
+    --btn-secondary-hover: #475569;
+    --btn-success: #10b981;
+    --btn-success-hover: #059669;
+    --info-icon-bg: #4a5568;
+    --info-icon-hover: #3b82f6;
+    --tooltip-bg: #334155;
+    --warning-red: #fca5a5;
+    --search-highlight: #1e1b4b;
+    --eff-red: #f87171;
+    --eff-yellow: #fbbf24;
+    --eff-green: #34d399;
+    --eff-purple: #c084fc;
+    --bg-card: #14141f;
+    --bg-hover: #1a1a2e;
+    --border-light: #2a2a3c;
+    --border-medium: #3a3a4c;
+    --bg-input: #1f1f2e;
+    --result-bg: #1a1a2e;
+    --note-bg: #1f1f2e;
+    --special-bg: #2d2a1a;
+    --special-border: #fbbf24;
+    --error-bg: #3b1e1e;
+    --error-text: #ff6b6b;
+    --energy-display-bg: #1f1f2e;
+    --icon-row-bg: #1f1f2e;
+}
+body.dark-mode .calculator-container {
+    --bg-card: #14141f;
+    --bg-hover: #1a1a2e;
+    --border-light: #2a2a3c;
+    --border-medium: #3a3a4c;
+    --bg-input: #1f1f2e;
+    --result-bg: #1a1a2e;
+    --note-bg: #1f1f2e;
+    --special-bg: #2d2a1a;
+    --special-border: #fbbf24;
+    --error-bg: #3b1e1e;
+    --error-text: #ff6b6b;
+    --energy-display-bg: #1f1f2e;
+    --icon-row-bg: #1f1f2e;
+}
     </style>
 </head>
 <body>
@@ -3247,41 +3838,47 @@ video.wallpaper-modal-media {
         <div id="calculatorPage" class="page">
             <div class="calculator-container">
                 <div class="header-top">
-                    <div class="card" style="margin-bottom:0; flex:1; margin-right:16px;">
-                        <h2>王牌竞速 · 芯片可行性计算器</h2>
-                        <div class="note">抖音搜索勿念情伤，加主页群聊天，不懂的随便问<br>游戏名和抖音名一样，欢迎各位加好友一起玩<br>欢迎王牌玩家反馈使用体验与bug，提出优化建议</div>
-                        <details class="usage-guide">
-                            <summary>📖 使用指南（使用前必看）</summary>
-                            <div style="margin-top: 8px;">
-                                <div class="warning-tip">
-                                    <strong>一、温馨提示：</strong><br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;1.使用前先刷新一下，以便使用最新版代码运行的网站，<br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;2.每次切换车辆后都先将车辆独立增益选项重新开关一次，若没有独立增益效果，则不会再显示，<br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;若有独立增益效果，则还会显示。只要记住重新开关一次即可（这是显示逻辑bug，无能为力）
-                                </div>
-                                <strong>二、新手不太会使用的就按我说的做：</strong><br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;1.先选择车辆<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;2.选择 V 型芯片<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;3、选择你要带的氮气类型<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;4、是否跨专精，辅助一般不跨专精，除了个例<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;5. 选择你第一个大招需要的氮气数量以及后续每个大招需要的氮气数量，一般都是 <br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 个 15 氮气首大+2 气循环或者 2 个 22 氮气首大+4 气循环，当然还有很多其他<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;搭配，如果这个看懂了，那么 4 气、3 气循环你也可以看懂<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;6.赋能就正常选就行<br>
-                                <br>
-                                <strong>三、4气、3气两大一循环：</strong>是指辅助从第2个大开始，第二个需要4个氮气，第3个大需要3个氮气，这2个大捆在<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一起看做一个大循环，因此循环氮气数量是7（默认，可手动更改）<br><br>
-                                <strong>四、缺一的循环能量秒数：</strong>4气、3气两大一循环下缺一要算两个大招的时间，十几秒起步<br><br>
-                                <strong>五、缺一的档位</strong>参考游戏内的不过多解释了<br><br>
-                                <strong>六、节奏的循环触发次数：</strong>4气、3气两大一循环下节奏要算两个大招触发的次数<br><br>
-                                <strong>七、其他所有额外充能：</strong>在计算4气、3气两大一循环时都默认会双倍触发<br><br>
-                                <strong>八、解释说明：</strong>我把毒药、amg等有起步额外能量的车的这个数值归在其他充能里面，因为它受反制和充<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;能效率影响，踏雪白驹是例外，因为只能单刷，所以为了计算方便就把它的起步额外能量算到起步充<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;能里了
-                            </div>
-                        </details>
-                    </div>
+    <div class="card" style="margin-bottom:0; flex:1; padding: 12px 20px;">
+        <h2 style="font-size: 1.2rem; font-weight: 700; margin: 0 0 4px 0; color: var(--text-primary);">
+            王牌竞速 · 芯片要求计算器（配合赋能多功能版）
+        </h2>
+        <div style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 4px;">
+            抖音搜勿念情伤 / 主页加群交流 / 反馈bug与建议
+        </div>
+        <details style="margin-top: 2px;">
+            <summary style="font-size: 0.75rem; font-weight: 600; color: #feca57; cursor: pointer;">
+                📖 使用指南（使用前必看）
+            </summary>
+            <div style="margin-top: 8px;">
+                <div class="warning-tip">
+                    <strong>一、温馨提示：</strong><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;1.使用前先刷新一下，以便使用最新版代码运行的网站，<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;2.每次切换车辆后都先将车辆独立增益选项重新开关一次，若没有独立增益效果，则不会再显示，<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;若有独立增益效果，则还会显示。只要记住重新开关一次即可（这是显示逻辑bug，无能为力）
                 </div>
+                <strong>二、新手不太会使用的就按我说的做：</strong><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;1.先选择车辆<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;2.选择 V 型芯片<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;3、选择你要带的氮气类型<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;4、是否跨专精，辅助一般不跨专精，除了个例<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;5. 选择你第一个大招需要的氮气数量以及后续每个大招需要的氮气数量，一般都是 <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 个 15 氮气首大+2 气循环或者 2 个 22 氮气首大+4 气循环，当然还有很多其他<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;搭配，如果这个看懂了，那么 4 气、3 气循环你也可以看懂<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;6.赋能就正常选就行<br>
+                <br>
+                <strong>三、4气、3气两大一循环：</strong>是指辅助从第2个大开始，第二个需要4个氮气，第3个大需要3个氮气，这2个大捆在<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一起看做一个大循环，因此循环氮气数量是7（默认，可手动更改）<br><br>
+                <strong>四、缺一的循环能量秒数：</strong>4气、3气两大一循环下缺一要算两个大招的时间，十几秒起步<br><br>
+                <strong>五、缺一的档位</strong>参考游戏内的不过多解释了<br><br>
+                <strong>六、节奏的循环触发次数：</strong>4气、3气两大一循环下节奏要算两个大招触发的次数<br><br>
+                <strong>七、其他所有额外充能：</strong>在计算4气、3气两大一循环时都默认会双倍触发<br><br>
+                <strong>八、解释说明：</strong>我把毒药、amg等有起步额外能量的车的这个数值归在其他充能里面，因为它受反制和充<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;能效率影响，踏雪白驹是例外，因为只能单刷，所以为了计算方便就把它的起步额外能量算到起步充<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;能里了
+            </div>
+        </details>
+    </div>
+</div>
                 <div class="card">
                     <div class="car-layout-new">
                         <div class="car-icon-large">
