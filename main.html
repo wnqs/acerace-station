@@ -3096,7 +3096,7 @@ video.wallpaper-modal-media {
 @media (min-width: 769px) {
     .calc-title {
         white-space: nowrap;
-        font-size: 1.2rem;
+        font-size: 1.5rem;
     }
 }
 
@@ -3115,10 +3115,16 @@ video.wallpaper-modal-media {
 } 
    /* 统一所有标题字体大小，小于顶部白字 */
 .config-section .section-title {
-    font-size: 0.9rem !important;
+    font-size: 1.2rem !important;
     font-weight: 700;
     color: #feca57;
 }     
+   /* 去掉计算器下拉框和输入框的白色外边框 */
+#calculatorPage select:focus,
+#calculatorPage input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+} 
     </style>
 </head>
 <body>
@@ -3495,46 +3501,47 @@ video.wallpaper-modal-media {
         </div>
 
         <!-- 框2：氮气数量选择 -->
-        <div class="config-section">
-            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; margin-bottom: 6px;">
-    <div class="section-title" style="margin-bottom: 0;">氮气数量选择</div>
-    
-</div>
-            <!-- 首大能量 + 首大氮气数量 + 循环能量 + 循环氮气数量 + 4气3气（同行） -->
-            <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 80px;">
-    <span style="font-size: 0.75rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">首大能量：</span>
-    <span id="calcFirstEnergyDisplay" style="font-size: 1.1rem; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.08); border: 1px solid rgba(254,202,87,0.15); border-radius: 30px; padding: 4px 16px; min-width: 45px; text-align: center;">--</span>
-</div>
-                <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 80px;">
-                    <span style="font-size: 0.75rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">首大氮气：</span>
-                    <select id="calcStartNitroCountDisplay" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.85rem; min-width: 60px;">; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.75rem;">
-                        <option value="0">0个</option><option value="1" selected>1个</option><option value="2">2个</option><option value="3">3个</option><option value="4">4个</option><option value="5">5个</option><option value="6">6个</option>
-                    </select>
-                </div>
-                <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 80px;">
-                    <span style="font-size: 0.75rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">循环能量：</span>
-                    <span class="energy-display" id="calcCycleEnergyDisplay" style="font-size: 1.1rem; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.08); border: 1px solid rgba(254,202,87,0.15); border-radius: 30px; padding: 4px 16px; min-width: 45px; text-align: center;">--</span>
-                </div>
-               <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 80px;">
-                    <span style="font-size: 0.75rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">循环氮气：</span>
-                    <select id="calcCycleNitroCountDisplay" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.85rem; min-width: 60px;">; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.75rem;">
-                        <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
-                    </select>
-                </div>
-                <!-- 4气3气两大一循环（放在同行，条件显示由JS控制） -->
-                <div id="calcCycleModeContainer" style="display: flex; align-items: center; gap: 4px; margin-left: 4px;">
-                    <span style="font-size: 0.6rem; font-weight: 600; color: #a0a0b8;">是否 4气、3气两大一循环：</span>
-                    <select id="calcCycleMode" style="padding: 2px 6px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.7rem;">
-                        <option value="normal">否</option>
-                        <option value="cycle">是</option>
-                    </select>
-                    <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background: #4a5568; color: white; border-radius: 50%; font-size: 9px; font-weight: bold; cursor: help; position: relative;">
-                        ?
-                        <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.55rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">仅辅助位车辆且首大能量≥80时支持</span>
-                    </span>
-                </div>
-            </div>
+<div class="config-section">
+    <!-- 第一行：标题 + 4气3气 -->
+    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 8px; flex-wrap: wrap;">
+        <div class="section-title" style="margin-bottom: 0; font-size: 0.9rem;">氮气数量选择</div>
+        <div id="calcCycleModeContainer" style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 0.7rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">是否 4气、3气两大一循环：</span>
+            <select id="calcCycleMode" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #e2e2e6; font-size: 0.8rem; height: 32px; min-width: 60px;">
+                <option value="normal">否</option>
+                <option value="cycle">是</option>
+            </select>
+            <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
+                ?
+                <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.55rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">仅辅助位车辆且首大能量≥80时支持</span>
+            </span>
+        </div>
+    </div>
 
+    <!-- 第二行：4个选项平均分配 -->
+    <div style="display: flex; gap: 8px; flex-wrap: nowrap; align-items: center; width: 100%;">
+        <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 0;">
+            <span style="font-size: 0.7rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">首大能量：</span>
+            <span id="calcFirstEnergyDisplay" style="font-size: 1rem; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.08); border: 1px solid rgba(254,202,87,0.15); border-radius: 30px; padding: 4px 12px; min-width: 40px; text-align: center; height: 32px; display: flex; align-items: center; justify-content: center;">--</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 0;">
+            <span style="font-size: 0.7rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">首大氮气：</span>
+            <select id="calcStartNitroCountDisplay" style="padding: 2px 8px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #e2e2e6; font-size: 0.85rem; height: 32px; min-width: 55px; flex: 1;">
+                <option value="0">0个</option><option value="1" selected>1个</option><option value="2">2个</option><option value="3">3个</option><option value="4">4个</option><option value="5">5个</option><option value="6">6个</option>
+            </select>
+        </div>
+        <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 0;">
+            <span style="font-size: 0.7rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">循环能量：</span>
+            <span class="energy-display" id="calcCycleEnergyDisplay" style="font-size: 1rem; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.08); border: 1px solid rgba(254,202,87,0.15); border-radius: 30px; padding: 4px 12px; min-width: 40px; text-align: center; height: 32px; display: flex; align-items: center; justify-content: center;">--</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 0;">
+            <span style="font-size: 0.7rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">循环氮气：</span>
+            <select id="calcCycleNitroCountDisplay" style="padding: 2px 8px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #e2e2e6; font-size: 0.85rem; height: 32px; min-width: 55px; flex: 1;">
+                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+            </select>
+        </div>
+    </div>
+</div>
             <!-- 车辆专属浮动充能选项 -->
             <div id="calcVehicleSpecialOptionsContainer" class="vehicle-special-options" style="display:none; margin-top: 4px; padding: 6px 10px;max-width: 70%; background:var(--special-bg); border-radius: 10px; border:1px solid var(--special-border);"></div>
 
