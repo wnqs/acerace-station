@@ -832,7 +832,7 @@
     
     #calculatorPage {
         overflow-x: hidden;
-        margin-top: -28px;
+        margin-top: -10px;
     }
     
     .calculator-container {
@@ -1927,6 +1927,534 @@
 }
 }
     </style>
+    
+        
+                /* 游戏资源数字标红样式 */
+        .currency-number-red {
+            color: #ff6b6b !important;
+            font-weight: 700;
+        }
+        
+       /* ========== 游戏精彩内容页面样式 ========== */
+/* 电脑端头部样式 */
+.wallpaper-desktop-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #0f0f17;
+    padding: 4px 0 0 0;
+    border-bottom: 1px solid #2a2a3c;
+    margin-bottom: 24px;
+}
+
+.wallpaper-desktop-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 6px 0;
+}
+
+.wallpaper-desktop-filter-bar {
+    background: #14141f;
+    border-radius: 20px;
+    padding: 16px 20px;
+    backdrop-filter: blur(8px);
+    border: 1px solid #2a2a3c;
+    margin-bottom: 0;
+}
+
+.wallpaper-desktop-filter-sections {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.wallpaper-desktop-filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.wallpaper-desktop-filter-section-title {
+    font-size: 0.75rem;
+    color: #feca57;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.wallpaper-desktop-filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.wallpaper-desktop-filter-option {
+    background: #2a2a3c;
+    border-radius: 30px;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    color: #a0a0b8;
+    transition: 0.2s;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.wallpaper-desktop-filter-option.active {
+    background: #feca57;
+    color: #1a1a2e;
+}
+
+.wallpaper-search-box {
+    margin-bottom: 16px;
+}
+
+.wallpaper-search-box input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 16px;
+    border-radius: 40px;
+    border: 1px solid #2a2a3c;
+    background: #1f1f2e;
+    color: #e2e2e6;
+    font-size: 0.9rem;
+    font-weight: 500;
+    outline: none;
+}
+
+.wallpaper-search-box input:focus {
+    border-color: #feca57;
+}
+
+/* 壁纸卡片网格 */
+.wallpapers-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.wallpaper-card {
+    background: rgba(20, 20, 31, 0.85);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(42, 42, 60, 0.5);
+    transition: transform 0.2s, border-color 0.2s;
+    cursor: pointer;
+}
+
+.wallpaper-card:hover {
+    transform: translateY(-4px);
+    border-color: #feca57;
+}
+
+.wallpaper-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: #0a0a0f;
+}
+
+.wallpaper-name {
+    padding: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #e2e2e6;
+    text-align: center;
+}
+
+.loading-placeholder {
+    text-align: center;
+    padding: 60px;
+    color: #8a8aa3;
+    grid-column: 1 / -1;
+}
+
+/* 壁纸预览弹窗 */
+.wallpaper-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.wallpaper-modal-content {
+    max-width: 90vw;
+    max-height: 90vh;
+    position: relative;
+}
+
+.wallpaper-modal-media {
+    max-width: 100%;
+    max-height: 85vh;
+    border-radius: 12px;
+}
+
+video.wallpaper-modal-media {
+    width: auto;
+    height: auto;
+}
+
+.wallpaper-modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.wallpaper-modal-name {
+    text-align: center;
+    color: white;
+    margin-top: 16px;
+    font-size: 1rem;
+}
+
+/* 手机端样式 */
+@media (max-width: 768px) {
+    /* 电脑端头部在手机端隐藏 */
+    .wallpaper-desktop-header {
+        display: none !important;
+    }
+    
+    /* 手机端固定头部显示 */
+    .wallpaper-mobile-fixed-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #0f0f17;
+        border-bottom: 1px solid #2a2a3c;
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .wallpaper-mobile-top-bar {
+        padding: 8px 12px;
+        border-bottom: 1px solid #2a2a3c;
+    }
+    
+    .wallpaper-mobile-logo-area {
+        text-align: center;
+        cursor: pointer;
+        padding-bottom: 2px;
+    }
+    
+    .wallpaper-mobile-logo-area h1 {
+        font-size: 1rem;
+        background: linear-gradient(135deg, #ff6b6b, #feca57);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: 800;
+    }
+    
+    .wallpaper-mobile-logo-area p {
+        font-size: 0.5rem;
+        color: #8a8aa3;
+        font-weight: 500;
+    }
+    
+    .wallpaper-mobile-nav-tabs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+        margin-top: 4px;
+    }
+    
+    .wallpaper-mobile-tab-btn {
+        padding: 6px 2px;
+        font-size: 0.65rem;
+        border-radius: 16px;
+        text-align: center;
+        background: #1a1a2a;
+        border: none;
+        cursor: pointer;
+        color: #a0a0b8;
+        font-weight: 700;
+    }
+    
+    .wallpaper-mobile-tab-btn.active {
+        background: #feca57;
+        color: #1a1a2e;
+    }
+    
+    .wallpaper-mobile-filter-sticky {
+        padding: 8px 12px;
+        background: #0a0a0f;
+        border-bottom: 1px solid #2a2a3c;
+    }
+    
+    .wallpaper-filter-row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    
+    .wallpaper-mobile-search-box {
+        flex: 2;
+    }
+    
+    .wallpaper-mobile-search-box input {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        background: #1f1f2e;
+        border: 1px solid #2a2a3c;
+        border-radius: 30px;
+        color: #e2e2e6;
+        outline: none;
+    }
+    
+    .wallpaper-mobile-search-box input:focus {
+        border-color: #feca57;
+    }
+    
+    .wallpaper-category-dropdown-btn {
+        background: #1f1f2e;
+        border: 1px solid #2a2a3c;
+        border-radius: 30px;
+        padding: 6px 14px;
+        font-size: 0.75rem;
+        cursor: pointer;
+        color: #e2e2e6;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+    
+    .wallpaper-category-dropdown-btn .arrow {
+        font-size: 0.6rem;
+        transition: transform 0.2s;
+    }
+    
+    .wallpaper-category-dropdown-btn.active .arrow {
+        transform: rotate(180deg);
+    }
+    
+    .wallpaper-category-dropdown-panel {
+        background: #1a1a2a;
+        border-radius: 16px;
+        margin-top: 8px;
+        padding: 10px;
+        border: 1px solid #2a2a3c;
+        display: none;
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        z-index: 210;
+    }
+    
+    .wallpaper-category-dropdown-panel.show {
+        display: block;
+    }
+    
+    .wallpaper-mobile-filter-section {
+        margin-bottom: 12px;
+    }
+    
+    .wallpaper-mobile-filter-section-title {
+        font-size: 0.65rem;
+        color: #feca57;
+        margin-bottom: 5px;
+        padding-left: 4px;
+        font-weight: 700;
+    }
+    
+    .wallpaper-mobile-filter-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .wallpaper-mobile-filter-option {
+        background: #2a2a3c;
+        border-radius: 30px;
+        padding: 6px 12px;
+        font-size: 0.7rem;
+        cursor: pointer;
+        color: #a0a0b8;
+        font-weight: 600;
+        display: inline-block;
+        white-space: nowrap;
+    }
+    
+    .wallpaper-mobile-filter-option.active {
+        background: #feca57;
+        color: #1a1a2e;
+    }
+    
+    /* 手机端网格 - 每行1个 */
+    .wallpapers-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        /* margin-top: 160px; 已移除，由新CSS处理 */
+        padding: 12px;
+    }
+    
+    .wallpaper-name {
+        font-size: 0.75rem;
+        padding: 10px;
+    }
+    
+    .wallpaper-modal-close {
+        top: -30px;
+        font-size: 25px;
+    }
+    
+    .wallpaper-modal-name {
+        font-size: 0.8rem;
+    }
+}
+     /* 壁纸页面手机端修复 - 消除双重边距 */
+@media (max-width: 768px) {
+    #wallpaperPage {
+        margin-top: -20px;  /* 向上回拉一点 */
+    }
+    
+    #wallpaperPage .main-content {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+    
+    /* 确保壁纸页面的手机头部正常显示 */
+    .wallpaper-mobile-fixed-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #0f0f17;
+        border-bottom: 1px solid #2a2a3c;
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* 壁纸页面内容区域需要避开固定头部的高度 */
+    body.has-fixed-header #wallpaperPage {
+        margin-top: 0;
+        padding-top: 20px;  /* 给固定头部留出空间 */
+    }
+    
+    .wallpapers-grid {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+}   
+   /* 壁纸预览弹窗中的类型标签样式 */
+.wallpaper-modal-type {
+    text-align: center;
+    color: #feca57;
+    margin-top: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* 手机端适配 */
+@media (max-width: 768px) {
+    .wallpaper-modal-type {
+        font-size: 0.7rem;
+        margin-top: 6px;
+    }
+}  
+    /* 视频无预览图时的占位样式 */
+.video-no-preview {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.video-no-preview:hover {
+    transform: scale(1.02);
+}
+.wallpaper-card:hover .video-no-preview {
+    transform: scale(1.02);
+}  
+    /* 耀世臻藏车辆 - 专属背景图 */
+.car-card[data-acquisition="耀世臻藏"] .card-image {
+    background-image: url('https://s3.bmp.ovh/2026/06/16/pYHvmRMC.png');
+    background-size: cover;
+    background-position: center;
+}    
+   /* 耀世臻藏车辆 - 详情页背景图（新增） */
+.detail-image[data-acquisition="耀世臻藏"] {
+    background-image: url('https://s3.bmp.ovh/2026/06/16/pYHvmRMC.png');
+    background-size: cover;
+    background-position: center;
+}
+   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script> 
+    /* ====== 芯片搭配样式 ====== */
+
+/* 配置行（标题）- 大号、黄色、加粗 */
+.chip-config-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #feca57;
+    line-height: 1.6;
+    width: 100%;
+    margin-top: 6px;
+    margin-bottom: 2px;
+}
+
+/* 电脑端：要求行 */
+.chip-config-items-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 40px;    /* 4px=行间距，40px=同一行内要求之间的左右间距 */
+    margin-bottom: 0;
+    padding: 0;
+    align-items: baseline;
+}
+
+/* 电脑端：每个要求 */
+.chip-config-item {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: #e2e2e6;
+    line-height: 2;
+    white-space: nowrap !important;
+    display: inline-block;
+    padding: 0;
+}
+
+/* 数字标红 */
+.red-number {
+    color: #ff6b6b !important;
+    font-weight: 700;
+}
+
+/* ====== 手机端适配 ====== */
+@media (max-width: 768px) {
+    .chip-config-title {
+        font-size: 1.1rem !important;
+        margin-top: 8px !important;
+        margin-bottom: 2px !important;
+    }
+    .chip-config-items-row {
+        display: block !important;
+        gap: 0 !important;
+    }
+    .chip-config-item {
+        font-size: 0.8rem !important;
+        line-height: 1.9 !important;
+        white-space: normal !important;
+        display: block !important;
+        word-break: break-word !important;
+        padding: 2px 0 !important;
+    }
+}
     <!-- 芯片计算器专用样式 -->
     <style>
         .calculator-container {
@@ -2552,533 +3080,6 @@
             --energy-display-bg: #1f1f2e;
             --icon-row-bg: #1f1f2e;
         }
-        
-                /* 游戏资源数字标红样式 */
-        .currency-number-red {
-            color: #ff6b6b !important;
-            font-weight: 700;
-        }
-        
-       /* ========== 游戏精彩内容页面样式 ========== */
-/* 电脑端头部样式 */
-.wallpaper-desktop-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: #0f0f17;
-    padding: 4px 0 0 0;
-    border-bottom: 1px solid #2a2a3c;
-    margin-bottom: 24px;
-}
-
-.wallpaper-desktop-header-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 0 6px 0;
-}
-
-.wallpaper-desktop-filter-bar {
-    background: #14141f;
-    border-radius: 20px;
-    padding: 16px 20px;
-    backdrop-filter: blur(8px);
-    border: 1px solid #2a2a3c;
-    margin-bottom: 0;
-}
-
-.wallpaper-desktop-filter-sections {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-}
-
-.wallpaper-desktop-filter-section {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.wallpaper-desktop-filter-section-title {
-    font-size: 0.75rem;
-    color: #feca57;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
-
-.wallpaper-desktop-filter-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.wallpaper-desktop-filter-option {
-    background: #2a2a3c;
-    border-radius: 30px;
-    padding: 6px 14px;
-    font-size: 0.75rem;
-    cursor: pointer;
-    color: #a0a0b8;
-    transition: 0.2s;
-    display: inline-flex;
-    align-items: center;
-    white-space: nowrap;
-    font-weight: 600;
-}
-
-.wallpaper-desktop-filter-option.active {
-    background: #feca57;
-    color: #1a1a2e;
-}
-
-.wallpaper-search-box {
-    margin-bottom: 16px;
-}
-
-.wallpaper-search-box input {
-    width: 100%;
-    max-width: 400px;
-    padding: 10px 16px;
-    border-radius: 40px;
-    border: 1px solid #2a2a3c;
-    background: #1f1f2e;
-    color: #e2e2e6;
-    font-size: 0.9rem;
-    font-weight: 500;
-    outline: none;
-}
-
-.wallpaper-search-box input:focus {
-    border-color: #feca57;
-}
-
-/* 壁纸卡片网格 */
-.wallpapers-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-}
-
-.wallpaper-card {
-    background: rgba(20, 20, 31, 0.85);
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid rgba(42, 42, 60, 0.5);
-    transition: transform 0.2s, border-color 0.2s;
-    cursor: pointer;
-}
-
-.wallpaper-card:hover {
-    transform: translateY(-4px);
-    border-color: #feca57;
-}
-
-.wallpaper-image {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    background: #0a0a0f;
-}
-
-.wallpaper-name {
-    padding: 12px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #e2e2e6;
-    text-align: center;
-}
-
-.loading-placeholder {
-    text-align: center;
-    padding: 60px;
-    color: #8a8aa3;
-    grid-column: 1 / -1;
-}
-
-/* 壁纸预览弹窗 */
-.wallpaper-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.wallpaper-modal-content {
-    max-width: 90vw;
-    max-height: 90vh;
-    position: relative;
-}
-
-.wallpaper-modal-media {
-    max-width: 100%;
-    max-height: 85vh;
-    border-radius: 12px;
-}
-
-video.wallpaper-modal-media {
-    width: auto;
-    height: auto;
-}
-
-.wallpaper-modal-close {
-    position: absolute;
-    top: -40px;
-    right: 0;
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.wallpaper-modal-name {
-    text-align: center;
-    color: white;
-    margin-top: 16px;
-    font-size: 1rem;
-}
-
-/* 手机端样式 */
-@media (max-width: 768px) {
-    /* 电脑端头部在手机端隐藏 */
-    .wallpaper-desktop-header {
-        display: none !important;
-    }
-    
-    /* 手机端固定头部显示 */
-    .wallpaper-mobile-fixed-header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: #0f0f17;
-        border-bottom: 1px solid #2a2a3c;
-        z-index: 200;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .wallpaper-mobile-top-bar {
-        padding: 8px 12px;
-        border-bottom: 1px solid #2a2a3c;
-    }
-    
-    .wallpaper-mobile-logo-area {
-        text-align: center;
-        cursor: pointer;
-        padding-bottom: 2px;
-    }
-    
-    .wallpaper-mobile-logo-area h1 {
-        font-size: 1rem;
-        background: linear-gradient(135deg, #ff6b6b, #feca57);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        font-weight: 800;
-    }
-    
-    .wallpaper-mobile-logo-area p {
-        font-size: 0.5rem;
-        color: #8a8aa3;
-        font-weight: 500;
-    }
-    
-    .wallpaper-mobile-nav-tabs {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 4px;
-        margin-top: 4px;
-    }
-    
-    .wallpaper-mobile-tab-btn {
-        padding: 6px 2px;
-        font-size: 0.65rem;
-        border-radius: 16px;
-        text-align: center;
-        background: #1a1a2a;
-        border: none;
-        cursor: pointer;
-        color: #a0a0b8;
-        font-weight: 700;
-    }
-    
-    .wallpaper-mobile-tab-btn.active {
-        background: #feca57;
-        color: #1a1a2e;
-    }
-    
-    .wallpaper-mobile-filter-sticky {
-        padding: 8px 12px;
-        background: #0a0a0f;
-        border-bottom: 1px solid #2a2a3c;
-    }
-    
-    .wallpaper-filter-row {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-    }
-    
-    .wallpaper-mobile-search-box {
-        flex: 2;
-    }
-    
-    .wallpaper-mobile-search-box input {
-        width: 100%;
-        padding: 8px 12px;
-        font-size: 0.8rem;
-        background: #1f1f2e;
-        border: 1px solid #2a2a3c;
-        border-radius: 30px;
-        color: #e2e2e6;
-        outline: none;
-    }
-    
-    .wallpaper-mobile-search-box input:focus {
-        border-color: #feca57;
-    }
-    
-    .wallpaper-category-dropdown-btn {
-        background: #1f1f2e;
-        border: 1px solid #2a2a3c;
-        border-radius: 30px;
-        padding: 6px 14px;
-        font-size: 0.75rem;
-        cursor: pointer;
-        color: #e2e2e6;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        white-space: nowrap;
-        font-weight: 700;
-        flex-shrink: 0;
-    }
-    
-    .wallpaper-category-dropdown-btn .arrow {
-        font-size: 0.6rem;
-        transition: transform 0.2s;
-    }
-    
-    .wallpaper-category-dropdown-btn.active .arrow {
-        transform: rotate(180deg);
-    }
-    
-    .wallpaper-category-dropdown-panel {
-        background: #1a1a2a;
-        border-radius: 16px;
-        margin-top: 8px;
-        padding: 10px;
-        border: 1px solid #2a2a3c;
-        display: none;
-        position: absolute;
-        left: 12px;
-        right: 12px;
-        z-index: 210;
-    }
-    
-    .wallpaper-category-dropdown-panel.show {
-        display: block;
-    }
-    
-    .wallpaper-mobile-filter-section {
-        margin-bottom: 12px;
-    }
-    
-    .wallpaper-mobile-filter-section-title {
-        font-size: 0.65rem;
-        color: #feca57;
-        margin-bottom: 5px;
-        padding-left: 4px;
-        font-weight: 700;
-    }
-    
-    .wallpaper-mobile-filter-options {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-    
-    .wallpaper-mobile-filter-option {
-        background: #2a2a3c;
-        border-radius: 30px;
-        padding: 6px 12px;
-        font-size: 0.7rem;
-        cursor: pointer;
-        color: #a0a0b8;
-        font-weight: 600;
-        display: inline-block;
-        white-space: nowrap;
-    }
-    
-    .wallpaper-mobile-filter-option.active {
-        background: #feca57;
-        color: #1a1a2e;
-    }
-    
-    /* 手机端网格 - 每行1个 */
-    .wallpapers-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-        /* margin-top: 160px; 已移除，由新CSS处理 */
-        padding: 12px;
-    }
-    
-    .wallpaper-name {
-        font-size: 0.75rem;
-        padding: 10px;
-    }
-    
-    .wallpaper-modal-close {
-        top: -30px;
-        font-size: 25px;
-    }
-    
-    .wallpaper-modal-name {
-        font-size: 0.8rem;
-    }
-}
-     /* 壁纸页面手机端修复 - 消除双重边距 */
-@media (max-width: 768px) {
-    #wallpaperPage {
-        margin-top: -20px;  /* 向上回拉一点 */
-    }
-    
-    #wallpaperPage .main-content {
-        margin-top: 0 !important;
-        padding-top: 0 !important;
-    }
-    
-    /* 确保壁纸页面的手机头部正常显示 */
-    .wallpaper-mobile-fixed-header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: #0f0f17;
-        border-bottom: 1px solid #2a2a3c;
-        z-index: 200;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    /* 壁纸页面内容区域需要避开固定头部的高度 */
-    body.has-fixed-header #wallpaperPage {
-        margin-top: 0;
-        padding-top: 20px;  /* 给固定头部留出空间 */
-    }
-    
-    .wallpapers-grid {
-        margin-top: 0 !important;
-        padding-top: 0 !important;
-    }
-}   
-   /* 壁纸预览弹窗中的类型标签样式 */
-.wallpaper-modal-type {
-    text-align: center;
-    color: #feca57;
-    margin-top: 8px;
-    font-size: 0.8rem;
-    font-weight: 500;
-}
-
-/* 手机端适配 */
-@media (max-width: 768px) {
-    .wallpaper-modal-type {
-        font-size: 0.7rem;
-        margin-top: 6px;
-    }
-}  
-    /* 视频无预览图时的占位样式 */
-.video-no-preview {
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-.video-no-preview:hover {
-    transform: scale(1.02);
-}
-.wallpaper-card:hover .video-no-preview {
-    transform: scale(1.02);
-}  
-    /* 耀世臻藏车辆 - 专属背景图 */
-.car-card[data-acquisition="耀世臻藏"] .card-image {
-    background-image: url('https://s3.bmp.ovh/2026/06/16/pYHvmRMC.png');
-    background-size: cover;
-    background-position: center;
-}    
-   /* 耀世臻藏车辆 - 详情页背景图（新增） */
-.detail-image[data-acquisition="耀世臻藏"] {
-    background-image: url('https://s3.bmp.ovh/2026/06/16/pYHvmRMC.png');
-    background-size: cover;
-    background-position: center;
-}
-   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script> 
-    /* ====== 芯片搭配样式 ====== */
-
-/* 配置行（标题）- 大号、黄色、加粗 */
-.chip-config-title {
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: #feca57;
-    line-height: 1.6;
-    width: 100%;
-    margin-top: 6px;
-    margin-bottom: 2px;
-}
-
-/* 电脑端：要求行 */
-.chip-config-items-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px 40px;    /* 4px=行间距，40px=同一行内要求之间的左右间距 */
-    margin-bottom: 0;
-    padding: 0;
-    align-items: baseline;
-}
-
-/* 电脑端：每个要求 */
-.chip-config-item {
-    font-size: 0.92rem;
-    font-weight: 500;
-    color: #e2e2e6;
-    line-height: 2;
-    white-space: nowrap !important;
-    display: inline-block;
-    padding: 0;
-}
-
-/* 数字标红 */
-.red-number {
-    color: #ff6b6b !important;
-    font-weight: 700;
-}
-
-/* ====== 手机端适配 ====== */
-@media (max-width: 768px) {
-    .chip-config-title {
-        font-size: 1.1rem !important;
-        margin-top: 8px !important;
-        margin-bottom: 2px !important;
-    }
-    .chip-config-items-row {
-        display: block !important;
-        gap: 0 !important;
-    }
-    .chip-config-item {
-        font-size: 0.8rem !important;
-        line-height: 1.9 !important;
-        white-space: normal !important;
-        display: block !important;
-        word-break: break-word !important;
-        padding: 2px 0 !important;
-    }
-}
     </style>
 </head>
 <body>
