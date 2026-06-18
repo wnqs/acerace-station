@@ -3465,24 +3465,23 @@ video.wallpaper-modal-media {
     
 </div>
             <!-- 首大能量 + 首大氮气数量 + 循环能量 + 循环氮气数量 + 4气3气（同行） -->
-            <div style="display: flex; gap: 8px; flex-wrap: nowrap; align-items: center; width: 100%;overflow-x: auto;">
-                <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 80px;">
-                    <span style="font-size: 0.75rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">首大能量：</span>
-                    <span style="font-size: 0.75rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">首大能量：</span>; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.08); border: 1px solid rgba(254,202,87,0.15); border-radius: 30px; padding: 2px 10px; min-width: 30px; text-align: center;">--</span>
-                </div>
+            <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 80px;">
+    <span style="font-size: 0.75rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">首大能量：</span>
+    <span id="calcFirstEnergyDisplay" style="font-size: 1.1rem; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.08); border: 1px solid rgba(254,202,87,0.15); border-radius: 30px; padding: 4px 16px; min-width: 45px; text-align: center;">--</span>
+</div>
                 <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 80px;">
                     <span style="font-size: 0.75rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">首大氮气：</span>
-                    <select <select id="calcStartNitroCountDisplay" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.85rem; min-width: 60px;">; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.75rem;">
+                    <select id="calcStartNitroCountDisplay" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.85rem; min-width: 60px;">; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.75rem;">
                         <option value="0">0个</option><option value="1" selected>1个</option><option value="2">2个</option><option value="3">3个</option><option value="4">4个</option><option value="5">5个</option><option value="6">6个</option>
                     </select>
                 </div>
                 <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 80px;">
                     <span style="font-size: 0.75rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">循环能量：</span>
-                    <span class="energy-display" id="calcCycleEnergyDisplay" style="font-size: 1.1rem; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.08); border: 1px solid rgba(254,202,87,0.15); border-radius: 30px; padding: 4px 16px; min-width: 45px; text-align: center;">--</span>; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.08); border: 1px solid rgba(254,202,87,0.15); border-radius: 30px; padding: 2px 10px; min-width: 30px; text-align: center;">--</span>
+                    <span class="energy-display" id="calcCycleEnergyDisplay" style="font-size: 1.1rem; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.08); border: 1px solid rgba(254,202,87,0.15); border-radius: 30px; padding: 4px 16px; min-width: 45px; text-align: center;">--</span>
                 </div>
                <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 80px;">
                     <span style="font-size: 0.75rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">循环氮气：</span>
-                    <select <select id="calcCycleNitroCountDisplay" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.85rem; min-width: 60px;">; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.75rem;">
+                    <select id="calcCycleNitroCountDisplay" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.85rem; min-width: 60px;">; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.75rem;">
                         <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
                     </select>
                 </div>
