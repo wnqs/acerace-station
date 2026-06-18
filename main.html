@@ -3083,6 +3083,15 @@ video.wallpaper-modal-media {
         padding: 2px 0 !important;
     }
 }
+      /* 强制计算器页面所有文字变白 */
+#calculatorPage select,
+#calculatorPage input,
+#calcResultArea,
+#calcQueyiOptions select,
+#calcRhythmOptions select,
+#calcCustomHuiInput {
+    color: #e2e2e6 !important;
+}  
     </style>
 </head>
 <body>
@@ -3397,7 +3406,7 @@ video.wallpaper-modal-media {
 
                     <!-- 第一行：车型 + 是否专精 + 反制% -->
                     <div class="row2" style="display: flex; gap: 8px; flex-wrap: wrap;">
-                        <div style="flex: 3; min-width: 100px;">
+                        <div style="flex: 2; min-width: 70px;">
                             <label style="font-size: 0.55rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 1px;">车辆型号</label>
                             <select id="calcCarModel" style="width: 100%; padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.75rem;"></select>
                         </div>
