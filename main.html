@@ -6566,34 +6566,36 @@ function handleBackButton() {
         }
         
         function updateCalcToggleState() {
-            let car = getCalcCurrentCar();
-            const specialToggleContainer = document.getElementById('calcSpecialToggleContainer');
-            const toggleHint = document.querySelector('.calculator-container .toggle-hint');
-            if (!car) {
-                if (specialToggleContainer) specialToggleContainer.style.display = 'none';
-                if (toggleHint) toggleHint.style.display = 'none';
-                calcVehicleSpecialContainer.innerHTML = '';
-                calcVehicleSpecialContainer.style.display = 'none';
-                return;
-            }
-            if (specialToggleContainer) specialToggleContainer.style.display = 'flex';
-            if (toggleHint) toggleHint.style.display = 'block';
-            const hasSpecial = checkCalcVehicleHasSpecialBonus();
-            const checkbox = document.getElementById('calcSpecialToggleCheckbox');
-            if (checkbox) {
-                if (checkbox.checked) {
-                    if (hasSpecial) {
-                        renderCalcSpecialOptionsContent();
-                    } else {
-                        calcVehicleSpecialContainer.innerHTML = '';
-                        calcVehicleSpecialContainer.style.display = 'none';
-                    }
-                } else {
-                    calcVehicleSpecialContainer.innerHTML = '';
-                    calcVehicleSpecialContainer.style.display = 'none';
-                }
-            }
-        }
+    let car = getCalcCurrentCar();
+    const specialToggleContainer = document.getElementById('calcSpecialToggleContainer');
+    const toggleHint = document.querySelector('.calculator-container .toggle-hint');
+    const checkbox = document.getElementById('calcSpecialToggleCheckbox');
+    
+    if (!car) {
+        if (specialToggleContainer) specialToggleContainer.style.display = 'none';
+        if (toggleHint) toggleHint.style.display = 'none';
+        calcVehicleSpecialContainer.innerHTML = '';
+        calcVehicleSpecialContainer.style.display = 'none';
+        return;
+    }
+    
+    // 显示开关容器
+    if (specialToggleContainer) specialToggleContainer.style.display = 'flex';
+    if (toggleHint) toggleHint.style.display = 'block';
+    
+    const hasSpecial = checkCalcVehicleHasSpecialBonus();
+    
+    if (hasSpecial) {
+        // 有特殊增益 → 自动勾选并显示选项
+        if (checkbox) checkbox.checked = true;
+        renderCalcSpecialOptionsContent();
+    } else {
+        // 没有特殊增益 → 隐藏选项
+        calcVehicleSpecialContainer.innerHTML = '';
+        calcVehicleSpecialContainer.style.display = 'none';
+        if (checkbox) checkbox.checked = false;
+    }
+}
         
         function createCalcToggleSwitch() {
             if (document.getElementById('calcSpecialToggleContainer')) return;
