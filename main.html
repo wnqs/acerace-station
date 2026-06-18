@@ -3918,11 +3918,86 @@ body.dark-mode .calculator-container {
         </div>
     </div>
 </div>
-                <!-- ④ 赋能选择 -->
+
+<!-- ② 相关配置 -->
+<div class="config-section">
+    <div class="section-title"><span class="num">2</span> 相关配置</div>
+    <div class="row2" style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 120px;">
+            <label style="font-size: 0.6rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">V型槽</label>
+            <div class="vslot-select-row" style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 12px 2px 6px; border: 1px solid rgba(255,255,255,0.06);">
+                <div class="vslot-icon-preview" id="calcVslotIcon" style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;"><span>⚙️</span></div>
+                <select id="calcVSlot" style="flex: 1; border: none; background: transparent; padding: 6px 4px; color: var(--text-primary); font-size: 0.8rem;"></select>
+            </div>
+        </div>
+        <div style="flex: 1; min-width: 120px;">
+            <label style="font-size: 0.6rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">氮气类型</label>
+            <div class="nitro-select-row" style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 12px 2px 6px; border: 1px solid rgba(255,255,255,0.06);">
+                <div class="nitro-icon-preview" id="calcNitroIcon" style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;"><span>💨</span></div>
+                <select id="calcNitroType" style="flex: 1; border: none; background: transparent; padding: 6px 4px; color: var(--text-primary); font-size: 0.8rem;"></select>
+            </div>
+        </div>
+        <div style="flex: 0 0 80px;">
+            <label style="font-size: 0.6rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">专精</label>
+            <select id="calcSpecialize" style="width: 100%; padding: 6px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem;">
+                <option value="10">是</option>
+                <option value="0">否</option>
+            </select>
+        </div>
+        <div style="flex: 0 0 80px;">
+            <label style="font-size: 0.6rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">反制%</label>
+            <select id="calcOverrideR" style="width: 100%; padding: 6px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem;">
+                <option value="0">0%</option><option value="1">1%</option><option value="2">2%</option><option value="3">3%</option><option value="4">4%</option>
+                <option value="5">5%</option><option value="6">6%</option><option value="7">7%</option><option value="8">8%</option><option value="9">9%</option>
+                <option value="10">10%</option><option value="11">11%</option><option value="12">12%</option><option value="13">13%</option><option value="14">14%</option>
+                <option value="15">15%</option><option value="16">16%</option><option value="17">17%</option><option value="18" selected>18%</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<!-- ③ 能量选择 -->
+<div class="config-section">
+    <div class="section-title"><span class="num">3</span> 能量选择</div>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 0.7rem; font-weight: 600; color: #a0a0b8;">首大能量：</span>
+            <span class="energy-display" id="calcFirstEnergyDisplay" style="font-size: 1rem; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.08); border: 1px solid rgba(254,202,87,0.15); border-radius: 30px; padding: 4px 14px; min-width: 40px; text-align: center;">--</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 0.7rem; font-weight: 600; color: #a0a0b8;">首大氮气：</span>
+            <select id="calcStartNitroCountDisplay" style="padding: 4px 8px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem;">
+                <option value="0">0个</option><option value="1" selected>1个</option><option value="2">2个</option><option value="3">3个</option><option value="4">4个</option><option value="5">5个</option><option value="6">6个</option>
+            </select>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 0.7rem; font-weight: 600; color: #a0a0b8;">循环能量：</span>
+            <span class="energy-display" id="calcCycleEnergyDisplay" style="font-size: 1rem; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.08); border: 1px solid rgba(254,202,87,0.15); border-radius: 30px; padding: 4px 14px; min-width: 40px; text-align: center;">--</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 0.7rem; font-weight: 600; color: #a0a0b8;">循环氮气：</span>
+            <select id="calcCycleNitroCountDisplay" style="padding: 4px 8px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem;">
+                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+            </select>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px; margin-left: 8px;">
+            <span style="font-size: 0.7rem; font-weight: 600; color: #a0a0b8;">4气3气两大一循环：</span>
+            <select id="calcCycleMode" style="padding: 4px 8px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem;">
+                <option value="normal">否</option>
+                <option value="cycle">是</option>
+            </select>
+            <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
+                ?
+                <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 4px 8px; border-radius: 6px; font-size: 0.6rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">仅辅助位车辆且首大能量≥80时支持</span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- ④ 赋能选择 -->
 <div class="config-section">
     <div class="section-title"><span class="num">4</span> 赋能选择</div>
     
-    <!-- 主赋能 + 次赋能 -->
     <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 6px;">
         <div style="flex: 1; min-width: 140px;">
             <label style="font-size: 0.6rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">主赋能</label>
@@ -3940,10 +4015,8 @@ body.dark-mode .calculator-container {
         </div>
     </div>
     
-    <!-- 颜色冲突提示 -->
     <div id="calcColorErrorMsg" class="error-message" style="display: none; background: rgba(255,0,0,0.08); color: #ff6b6b; padding: 6px 12px; border-radius: 8px; font-size: 0.7rem; margin-bottom: 6px;"></div>
     
-    <!-- 缺一选项 -->
     <div id="calcQueyiOptions" style="display:none; margin-bottom: 6px;">
         <div class="sub-options" style="display: flex; flex-wrap: wrap; gap: 10px 16px; padding: 6px 12px; background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px solid rgba(255,255,255,0.06);">
             <span style="font-size: 0.7rem; color: #a0a0b8;">缺一</span>
@@ -3964,7 +4037,6 @@ body.dark-mode .calculator-container {
         </div>
     </div>
     
-    <!-- 节奏选项 -->
     <div id="calcRhythmOptions" style="display:none; margin-bottom: 6px;">
         <div class="sub-options" style="display: flex; flex-wrap: wrap; gap: 10px 16px; padding: 6px 12px; background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px solid rgba(255,255,255,0.06);">
             <span style="font-size: 0.7rem; color: #a0a0b8;">节奏</span>
@@ -3979,7 +4051,6 @@ body.dark-mode .calculator-container {
         </div>
     </div>
     
-    <!-- 目标汇能 + 提示 -->
     <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 4px;">
         <div style="display: flex; align-items: center; gap: 6px;">
             <span style="font-size: 0.75rem; font-weight: 600; color: #a0a0b8;">目标汇能：</span>
