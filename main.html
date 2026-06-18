@@ -3476,7 +3476,7 @@ video.wallpaper-modal-media {
                 <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
             </select>
         </div>
-        <div style="display: flex; align-items: center; gap: 6px; margin-left: 8px;">
+       <div id="calcCycleModeContainer" style="display: flex; align-items: center; gap: 6px; margin-left: 8px;">
             <span style="font-size: 0.7rem; font-weight: 600; color: #a0a0b8;">4气3气两大一循环：</span>
             <select id="calcCycleMode" style="padding: 4px 8px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem;">
                 <option value="normal">否</option>
@@ -6410,23 +6410,27 @@ function handleBackButton() {
 }
         
         function updateCalcCycleModeVisibility() {
-            let container = document.getElementById('calcCycleModeContainer');
-            let type = calcCarType.value;
-            if (type !== 'assist') {
-                container.style.display = 'none';
-                if (calcCycleMode.value === 'cycle') calcCycleMode.value = 'normal';
-                updateCalcEnergyDisplays();
-                return;
-            }
-            let firstEnergy = parseInt(calcFirstEnergyDisplay.textContent);
-            if (isNaN(firstEnergy)) firstEnergy = 0;
-            container.style.display = firstEnergy >= 80 ? 'block' : 'none';
-            if (firstEnergy < 80 && calcCycleMode.value === 'cycle') {
-                calcCycleMode.value = 'normal';
-                updateCalcEnergyDisplays();
-            }
-            if (calcCycleNitroTooltip) calcCycleNitroTooltip.textContent = (calcCycleMode.value === 'cycle') ? '2个大招所需的氮气数量' : '1个大招所需的氮气数量';
-        }
+    let container = document.getElementById('calcCycleModeContainer');
+    // 如果元素不存在，直接返回，不报错
+    if (!container) return;
+    
+    let type = calcCarType.value;
+    if (type !== 'assist') {
+        container.style.display = 'none';
+        if (calcCycleMode.value === 'cycle') calcCycleMode.value = 'normal';
+        updateCalcEnergyDisplays();
+        return;
+    }
+    let firstEnergy = parseInt(calcFirstEnergyDisplay.textContent);
+    if (isNaN(firstEnergy)) firstEnergy = 0;
+    // 改为 flex 显示（与 HTML 中的 display:flex 一致）
+    container.style.display = firstEnergy >= 80 ? 'flex' : 'none';
+    if (firstEnergy < 80 && calcCycleMode.value === 'cycle') {
+        calcCycleMode.value = 'normal';
+        updateCalcEnergyDisplays();
+    }
+    if (calcCycleNitroTooltip) calcCycleNitroTooltip.textContent = (calcCycleMode.value === 'cycle') ? '2个大招所需的氮气数量' : '1个大招所需的氮气数量';
+}
         
         function updateCalcVSlotOptions() {
             let opt = calcCarModel.options[calcCarModel.selectedIndex];
