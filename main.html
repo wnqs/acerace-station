@@ -3125,7 +3125,34 @@ video.wallpaper-modal-media {
     outline: none !important;
     box-shadow: none !important;
 } 
-     
+    /* 全局问号提示样式 */
+.info-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: help;
+}
+.info-icon .tooltip-text {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e293b;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.6rem;
+    white-space: nowrap;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    margin-bottom: 6px;
+}
+.info-icon:hover .tooltip-text {
+    opacity: 1 !important;
+} 
     </style>
 </head>
 <body>
