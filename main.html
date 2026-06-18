@@ -27,6 +27,16 @@
                 background: linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 25%, #141425 50%, #0f0f1a 75%, #0a0a0f 100%);
                 background-attachment: fixed;
             }
+            .car-form-right select {
+    font-size: 0.85rem !important;
+    padding: 6px 12px !important;
+}
+.car-form-right label {
+    font-size: 0.7rem !important;
+}
+.car-type-row, .car-subtype-row, .vslot-select-row, .nitro-select-row {
+    padding: 4px 12px 4px 6px !important;
+}
             body::before {
                 content: '';
                 position: fixed;
@@ -3324,7 +3334,7 @@ video.wallpaper-modal-media {
         <!-- 顶部区域（已在上一步替换） -->
         <div class="header-top">
             <div class="card" style="margin-bottom:0; flex:1; padding: 20px 20px 12px 20px;">
-                <h2 style="font-size: 1.2rem; font-weight: 700; margin: 0 0 4px 0; color: var(--text-primary);">
+                <h2 style="font-size: 1rem; font-weight: 700; margin: 0 0 4px 0; color: var(--text-primary); word-break: break-word;">
                     王牌竞速 · 芯片要求计算器（配合赋能多功能版）
                 </h2>
                 <div style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 4px;">
@@ -3370,7 +3380,7 @@ video.wallpaper-modal-media {
             <div class="section-title">车辆信息</div>
             <div class="car-layout-new" style="display: flex; gap: 16px; align-items: flex-start;">
                 <!-- 图片 -->
-                <div class="car-icon-large" style="flex: 0 0 220px;">
+                <div class="car-icon-large" style="flex: 0 0 280px;">
                     <div class="car-icon" id="calcCarIcon" style="border-radius: 16px; overflow: hidden; background: linear-gradient(145deg, #1a1a2e, #0f0f1a); border: 1px solid rgba(255,255,255,0.08); aspect-ratio: 1/1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px;">
                         <span style="font-size: 4rem;">🏎️</span>
                         <div class="car-name-display" style="font-size: 0.75rem; font-weight: 700; color: #e2e2e6; margin-top: 6px; text-align: center;">选择车辆</div>
@@ -3381,24 +3391,24 @@ video.wallpaper-modal-media {
                 <div class="car-form-right" style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
                     <!-- 搜索框 -->
                     <div class="search-container" style="margin-bottom: 0;">
-                        <input type="text" id="calcCarSearchInput" class="search-input" placeholder="搜索车辆名称或关键词 (如: 比亚迪/byd/毒药/拉法...)" autocomplete="off" style="width: 100%; padding: 6px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem;">
+                        <input type="text" id="calcCarSearchInput" class="search-input" placeholder="搜索车辆名称或关键词 (如: 比亚迪/byd/毒药/拉法...)" autocomplete="off" style="width: 50%; padding: 6px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem;">
                         <div id="calcSearchDropdown" class="search-dropdown"></div>
                     </div>
 
                     <!-- 第一行：车型 + 是否专精 + 反制% -->
                     <div class="row2" style="display: flex; gap: 8px; flex-wrap: wrap;">
-                        <div style="flex: 2; min-width: 140px;">
+                        <div style="flex: 3; min-width: 100px;">
                             <label style="font-size: 0.55rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 1px;">车辆型号</label>
                             <select id="calcCarModel" style="width: 100%; padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.75rem;"></select>
                         </div>
-                        <div style="flex: 0 0 70px;">
+                        <div style="flex:1; min-width: 70px;">
                             <label style="font-size: 0.55rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 1px;">专精</label>
                             <select id="calcSpecialize" style="width: 100%; padding: 4px 8px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.75rem;">
                                 <option value="10">是</option>
                                 <option value="0">否</option>
                             </select>
                         </div>
-                        <div style="flex: 0 0 70px;">
+                        <div style="flex:1; min-width: 70px;">
                             <label style="font-size: 0.55rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 1px;">反制%</label>
                             <select id="calcOverrideR" style="width: 100%; padding: 4px 8px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.75rem;">
                                 <option value="0">0%</option><option value="1">1%</option><option value="2">2%</option><option value="3">3%</option><option value="4">4%</option>
@@ -3455,24 +3465,24 @@ video.wallpaper-modal-media {
     
 </div>
             <!-- 首大能量 + 首大氮气数量 + 循环能量 + 循环氮气数量 + 4气3气（同行） -->
-            <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center; width: 100%;">
+            <div style="display: flex; gap: 8px; flex-wrap: nowrap; align-items: center; width: 100%;overflow-x: auto;">
                 <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 80px;">
-                    <span style="font-size: 0.65rem; font-weight: 600; color: #a0a0b8;">首大能量：</span>
-                    <span class="energy-display" id="calcFirstEnergyDisplay" style="font-size: 0.9rem; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.08); border: 1px solid rgba(254,202,87,0.15); border-radius: 30px; padding: 2px 10px; min-width: 30px; text-align: center;">--</span>
+                    <span style="font-size: 0.75rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">首大能量：</span>
+                    <span style="font-size: 0.75rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">首大能量：</span>; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.08); border: 1px solid rgba(254,202,87,0.15); border-radius: 30px; padding: 2px 10px; min-width: 30px; text-align: center;">--</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 80px;">
-                    <span style="font-size: 0.65rem; font-weight: 600; color: #a0a0b8;">首大氮气：</span>
-                    <select id="calcStartNitroCountDisplay" style="padding: 2px 6px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.75rem;">
+                    <span style="font-size: 0.75rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">首大氮气：</span>
+                    <select <select id="calcStartNitroCountDisplay" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.85rem; min-width: 60px;">; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.75rem;">
                         <option value="0">0个</option><option value="1" selected>1个</option><option value="2">2个</option><option value="3">3个</option><option value="4">4个</option><option value="5">5个</option><option value="6">6个</option>
                     </select>
                 </div>
                 <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 80px;">
-                    <span style="font-size: 0.65rem; font-weight: 600; color: #a0a0b8;">循环能量：</span>
-                    <span class="energy-display" id="calcCycleEnergyDisplay" style="font-size: 0.9rem; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.08); border: 1px solid rgba(254,202,87,0.15); border-radius: 30px; padding: 2px 10px; min-width: 30px; text-align: center;">--</span>
+                    <span style="font-size: 0.75rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">循环能量：</span>
+                    <span class="energy-display" id="calcCycleEnergyDisplay" style="font-size: 1.1rem; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.08); border: 1px solid rgba(254,202,87,0.15); border-radius: 30px; padding: 4px 16px; min-width: 45px; text-align: center;">--</span>; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.08); border: 1px solid rgba(254,202,87,0.15); border-radius: 30px; padding: 2px 10px; min-width: 30px; text-align: center;">--</span>
                 </div>
                <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 80px;">
-                    <span style="font-size: 0.65rem; font-weight: 600; color: #a0a0b8;">循环氮气：</span>
-                    <select id="calcCycleNitroCountDisplay" style="padding: 2px 6px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.75rem;">
+                    <span style="font-size: 0.75rem; font-weight: 600; color: #a0a0b8; white-space: nowrap;">循环氮气：</span>
+                    <select <select id="calcCycleNitroCountDisplay" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.85rem; min-width: 60px;">; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.75rem;">
                         <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
                     </select>
                 </div>
@@ -3491,7 +3501,7 @@ video.wallpaper-modal-media {
             </div>
 
             <!-- 车辆专属浮动充能选项 -->
-            <div id="calcVehicleSpecialOptionsContainer" class="vehicle-special-options" style="display:none; margin-top: 4px; padding: 6px 10px; background:var(--special-bg); border-radius: 10px; border:1px solid var(--special-border);"></div>
+            <div id="calcVehicleSpecialOptionsContainer" class="vehicle-special-options" style="display:none; margin-top: 4px; padding: 6px 10px;max-width: 70%; background:var(--special-bg); border-radius: 10px; border:1px solid var(--special-border);"></div>
 
             <!-- 以太/催化剂专属额外增益 -->
             <div id="calcYitaiExtraOptions" style="display:none; margin-top: 4px; padding: 8px 12px; background:var(--special-bg); border-radius: 12px;">
@@ -3514,26 +3524,26 @@ video.wallpaper-modal-media {
             <div class="section-title">赋能选择</div>
            <div class="row2" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end;">
     <!-- 主赋能 -->
-    <div style="flex: 1; min-width: 100px; max-width: 160px;">
-        <label style="font-size: 0.6rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">主赋能</label>
+    <div style="flex: 1; min-width: 80px;">
+        <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">主赋能</label>
         <div class="eff-select-row" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 8px 2px 4px; border: 1px solid rgba(255,255,255,0.06); height: 32px;">
             <div class="eff-icon-preview" id="calcMainEffIcon" style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;"></div>
-            <select id="calcMainEff" style="flex: 1; border: none; background: transparent; padding: 2px 2px; color: var(--text-primary); font-size: 0.7rem; height: 28px;"></select>
+            <select <select id="calcMainEff" style="flex: 1; border: none; background: transparent; padding: 4px 8px; color: var(--text-primary); font-size: 0.85rem; height: 34px;">; color: var(--text-primary); font-size: 0.7rem; height: 28px;"></select>
         </div>
     </div>
     <!-- 次赋能 -->
-    <div style="flex: 1; min-width: 100px; max-width: 160px;">
-        <label style="font-size: 0.6rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">次赋能</label>
+    <div style="flex: 1; min-width: 80px;">
+        <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">次赋能</label>
         <div class="eff-select-row" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 8px 2px 4px; border: 1px solid rgba(255,255,255,0.06); height: 32px;">
             <div class="eff-icon-preview" id="calcSubEffIcon" style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;"></div>
-            <select id="calcSubEff" style="flex: 1; border: none; background: transparent; padding: 2px 2px; color: var(--text-primary); font-size: 0.7rem; height: 28px;"></select>
+            <select <select id="calcSubEff" style="flex: 1; border: none; background: transparent; padding: 4px 8px; color: var(--text-primary); font-size: 0.85rem; height: 34px;">; color: var(--text-primary); font-size: 0.7rem; height: 28px;"></select>
         </div>
     </div>
     <!-- 目标汇能 -->
-    <div style="flex: 1.5; min-width: 140px; max-width: 240px;">
-        <label style="font-size: 0.6rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">目标汇能 (%)</label>
+    <div style="flex: 1.2; min-width: 100px;">
+        <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">目标汇能 (%)</label>
         <div style="display: flex; align-items: center; gap: 4px; height: 32px;">
-            <input type="number" id="calcCustomHuiInput" step="0.25" value="0" min="0" style="flex: 1; padding: 2px 8px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.75rem; text-align: center; height: 32px; min-width: 60px;">
+            <input type="number" id="calcCustomHuiInput" step="0.25" value="0" min="0" style="flex: 1; padding: 4px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.85rem; text-align: center; height: 34px; min-width: 60px;">
             <span style="color: #8a8aa3; font-size: 0.7rem;">%</span>
             <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
                 ?
@@ -3544,33 +3554,33 @@ video.wallpaper-modal-media {
 </div>
             <div id="calcColorErrorMsg" class="error-message" style="display: none; background: rgba(255,0,0,0.08); color: #ff6b6b; padding: 4px 10px; border-radius: 6px; font-size: 0.65rem; margin-bottom: 4px;"></div>
             <div id="calcQueyiOptions" style="display:none; margin-top: 4px;">
-    <div class="sub-options" style="display: flex; flex-wrap: wrap; gap: 6px 12px; padding: 4px 10px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
-        <span style="font-size: 0.65rem; color: #a0a0b8;">缺一</span>
-        <span style="font-size: 0.6rem; color: #8a8aa3;">档位：</span>
-        <select id="calcQueyiLevel" style="padding: 1px 6px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.7rem;">
+    <div class="sub-options" style="display: flex; flex-wrap: nowrap; gap: 6px 12px; padding: 4px 10px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); align-items: center; overflow-x: auto;">
+        <span style="font-size: 0.75rem; color: #a0a0b8; white-space: nowrap;">缺一</span>
+        <span style="font-size: 0.7rem; color: #8a8aa3; white-space: nowrap;">档位：</span>
+        <select id="calcQueyiLevel" style="padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem; min-width: 80px;">
             <option value="0.8">Q1 (0.8/秒)</option>
             <option value="1.2">Q2 (1.2/秒)</option>
             <option value="2.0">Q3 (2.0/秒)</option>
         </select>
-        <span style="font-size: 0.6rem; color: #8a8aa3;">首大秒数：</span>
-        <select id="calcQueyiFirstSeconds" style="padding: 1px 6px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.7rem;">
+        <span style="font-size: 0.7rem; color: #8a8aa3; white-space: nowrap;">首大秒数：</span>
+        <select id="calcQueyiFirstSeconds" style="padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem; min-width: 60px;">
             <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6" selected>6</option><option value="7">7</option><option value="8">8</option>
         </select>
-        <span style="font-size: 0.6rem; color: #8a8aa3;">循环秒数：</span>
-        <select id="calcQueyiCycleSeconds" style="padding: 1px 6px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.7rem;">
+        <span style="font-size: 0.7rem; color: #8a8aa3; white-space: nowrap;">循环秒数：</span>
+        <select id="calcQueyiCycleSeconds" style="padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem; min-width: 60px;">
             <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7" selected>7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option>
         </select>
     </div>
 </div>
            <div id="calcRhythmOptions" style="display:none; margin-top: 4px;">
-    <div class="sub-options" style="display: flex; flex-wrap: wrap; gap: 6px 12px; padding: 4px 10px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
-        <span style="font-size: 0.65rem; color: #a0a0b8;">节奏</span>
-        <span style="font-size: 0.6rem; color: #8a8aa3;">首大触发次数：</span>
-        <select id="calcRhythmFirstCount" style="padding: 1px 6px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.7rem;">
+    <div class="sub-options" style="display: flex; flex-wrap: nowrap; gap: 6px 12px; padding: 4px 10px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); align-items: center; overflow-x: auto;">
+        <span style="font-size: 0.75rem; color: #a0a0b8; white-space: nowrap;">节奏</span>
+        <span style="font-size: 0.7rem; color: #8a8aa3; white-space: nowrap;">首大触发次数：</span>
+        <select id="calcRhythmFirstCount" style="padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem; min-width: 60px;">
             <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option>
         </select>
-        <span style="font-size: 0.6rem; color: #8a8aa3;">循环触发次数：</span>
-        <select id="calcRhythmCycleCount" style="padding: 1px 6px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.7rem;">
+        <span style="font-size: 0.7rem; color: #8a8aa3; white-space: nowrap;">循环触发次数：</span>
+        <select id="calcRhythmCycleCount" style="padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem; min-width: 60px;">
             <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
         </select>
     </div>
