@@ -3358,77 +3358,111 @@ video.wallpaper-modal-media {
                     </div>
                 </div>
                 <div class="card">
-                    <div class="config-section">
-   <div class="section-title">车辆选择</div>
+                   <!-- 车辆及其相关配置选择 -->
+<div class="config-section">
+    <div class="section-title">车辆及其相关配置选择</div>
     <div class="car-layout-new">
-                        <div class="car-icon-large">
-                            <div class="car-icon" id="calcCarIcon"><span>🏎️</span></div>
-                            <div class="note">当前车型预览</div>
-                        </div>
-                        <div class="car-form-right">
-                            <div class="search-container">
-                                <input type="text" id="calcCarSearchInput" class="search-input" placeholder="搜索车辆名称或关键词 (如: 比亚迪/byd/毒药/拉法...)" autocomplete="off">
-                                <div id="calcSearchDropdown" class="search-dropdown"></div>
-                            </div>
-                            <div class="row2">
-                                <div><label>车辆定位</label><div class="car-type-row"><div class="car-type-icon-preview" id="calcCarTypeIcon"></div><select id="calcCarType"></select></div></div>
-                                <div><label>专精</label><div class="car-subtype-row"><div class="car-subtype-icon-preview" id="calcCarSubTypeIcon"></div><select id="calcCarSubType"></select></div></div>
-                                <div><label>车辆型号</label><select id="calcCarModel"></select></div>
-                            </div>
-                       <div class="config-section">
-                            <div class="section-title">相关配置</div>
-                            <div class="row2">
-                                <div><label>V型槽</label><div class="vslot-select-row"><div class="vslot-icon-preview" id="calcVslotIcon"><span>⚙️</span></div><select id="calcVSlot"></select></div></div>
-                                <div id="calcCycleModeContainer" style="display: none;"><label>4气、3气两大一循环</label><div class="cycle-mode-wrapper"><select id="calcCycleMode"><option value="normal">否</option><option value="cycle">是</option></select><span class="info-icon">?<span class="tooltip-text">仅辅助位车辆且首大能量≥80时支持，自动设首大2个/循环7个22氮气</span></span></div></div>
-                                <div><label>氮气类型</label><div class="nitro-select-row"><div class="nitro-icon-preview" id="calcNitroIcon"><span>💨</span></div><select id="calcNitroType"></select></div></div>
-                                <div><label>专精</label><select id="calcSpecialize"><option value="10">是</option><option value="0">否</option></select></div>
-                            </div>
-                        </div>
-                        <div class="config-section">
-                            <div class="section-title">能量选择</div>
-                            <div class="energy-row"><div><label>首大能量</label><div class="energy-display" id="calcFirstEnergyDisplay">--</div></div><div><label>首大氮气数量</label><select id="calcStartNitroCountDisplay"><option value="0">0个</option><option value="1" selected>1个</option><option value="2">2个</option><option value="3">3个</option><option value="4">4个</option><option value="5">5个</option><option value="6">6个</option></select></div></div>
-                            <div class="energy-row"><div><label id="calcCycleEnergyLabel">循环能量</label><div class="energy-display" id="calcCycleEnergyDisplay">--</div></div><div><label>循环氮气数量</label><div class="cycle-mode-wrapper"><select id="calcCycleNitroCountDisplay"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select><span class="info-icon">?<span class="tooltip-text" id="calcCycleNitroTooltip">1个大招所需的氮气数量</span></span></div></div></div>
-                            <div><label>反制%</label><select id="calcOverrideR" style="width:100%; padding:10px 14px; border-radius:40px; border:1px solid var(--border-medium); background:var(--bg-input); font-size:0.85rem;"><option value="0">0%</option><option value="1">1%</option><option value="2">2%</option><option value="3">3%</option><option value="4">4%</option><option value="5">5%</option><option value="6">6%</option><option value="7">7%</option><option value="8">8%</option><option value="9">9%</option><option value="10">10%</option><option value="11">11%</option><option value="12">12%</option><option value="13">13%</option><option value="14">14%</option><option value="15">15%</option><option value="16">16%</option><option value="17">17%</option><option value="18">18%</option></select></div>
-                            </div>
-                            <div id="calcYitaiExtraOptions" style="display:none; margin-top:12px; padding:12px; background:var(--special-bg); border-radius:24px;"><div class="option-title">以太/催化剂专属额外增益</div><div class="option-row"><div><label>额外充能效率提升 (%)</label><input type="number" id="calcExtraEff" step="any" value="0" min="0" max="100"><span class="info-icon">?<span class="tooltip-text">手动输入额外充能效率百分比，作用于首大和循环能量</span></span></div><div><label>额外起步充能</label><input type="number" id="calcExtraStart" step="any" value="0"></div></div></div>
-                            <div id="calcVehicleSpecialOptionsContainer" class="vehicle-special-options" style="display:none;"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="config-section">
-                    <div class="section-title">赋能选择</div>
-                    <div class="row2"><div><label>主赋能</label><div class="eff-select-row"><div class="eff-icon-preview" id="calcMainEffIcon"></div><select id="calcMainEff"></select></div></div><div><label>次赋能</label><div class="eff-select-row"><div class="eff-icon-preview" id="calcSubEffIcon"></div><select id="calcSubEff"></select></div></div></div>
-                    <div id="calcColorErrorMsg" class="error-message" style="display: none;"></div>
-                    <div id="calcQueyiOptions" style="display:none; margin-top:12px;">
-                        <div class="queyi-row" style="display:flex; gap:12px; flex-wrap:wrap;">
-                            <div><label id="calcQueyiCycleLabel">缺一·循环能量秒数(1-15)</label><select id="calcQueyiCycleSeconds"><option value="0">0秒</option><option value="1">1秒</option><option value="2">2秒</option><option value="3">3秒</option><option value="4">4秒</option><option value="5">5秒</option><option value="6">6秒</option><option value="7" selected>7秒</option><option value="8">8秒</option><option value="9">9秒</option><option value="10">10秒</option><option value="11">11秒</option><option value="12">12秒</option><option value="13">13秒</option><option value="14">14秒</option><option value="15">15秒</option></select></div>
-                            <div><label>缺一·首大能量秒数(1-8)</label><select id="calcQueyiFirstSeconds"><option value="0">0秒</option><option value="1">1秒</option><option value="2">2秒</option><option value="3">3秒</option><option value="4">4秒</option><option value="5">5秒</option><option value="6" selected>6秒</option><option value="7">7秒</option><option value="8">8秒</option></select></div>
-                            <div><label>缺一档位</label><select id="calcQueyiLevel"><option value="0.8">Q1 (0.8/秒)</option><option value="1.2">Q2 (1.2/秒)</option><option value="2.0">Q3 (2.0/秒)</option></select></div>
-                        </div>
-                    </div>
-                    <div id="calcRhythmOptions" style="display:none; margin-top:12px;">
-                        <div class="rhythm-row" style="display:flex; gap:12px; flex-wrap:wrap;">
-                            <div><label id="calcRhythmCycleLabel">节奏·循环触发次数(1-4)</label><select id="calcRhythmCycleCount"><option value="0">0次</option><option value="1">1次</option><option value="2">2次</option><option value="3">3次</option><option value="4">4次</option></select></div>
-                            <div><label>节奏·首大触发次数(1-3)</label><select id="calcRhythmFirstCount"><option value="0">0次</option><option value="1">1次</option><option value="2">2次</option><option value="3">3次</option></select></div>
-                        </div>
-                    </div>
-                    <div class="custom-hui-row" id="calcCustomHuiRow" style="display: flex;">
-                        <label>目标汇能 (%)：</label>
-                        <input type="number" id="calcCustomHuiInput" step="0.25" value="0" min="0">
-                        <span class="info-icon" style="margin-left: 0;">?<span class="tooltip-text">输入大于等于最小汇能的数值，可降低先机需求（上限受芯片槽限制）</span></span>
-                        <span id="calcCustomHuiWarning" class="custom-hui-warning"></span>
-                    </div>
-                    </div>
-            <div class="config-section">
-                    <div class="section-title">计算结果</div>
-                    <div class="button-group"><button id="calcCalcBtn">计算汇能 & 先机</button><button id="calcResetBtn" class="btn-secondary">重置所有选项</button><button id="calcShareBtn" class="btn-success">📸 分享截图</button></div>
-                    <div class="result-box" id="calcResultArea"><div style="color:var(--text-muted); text-align:center;">等待计算...</div></div>
-                    <button id="calcCopyResultBtn" style="margin-top:12px; background:var(--btn-secondary);">📋 一键复制结果</button>
-            
+        <div class="car-icon-large">
+            <div class="car-icon" id="calcCarIcon"><span>🏎️</span></div>
+            <div class="note">当前车型预览</div>
+        </div>
+        <div class="car-form-right">
+            <!-- 搜索框 -->
+            <div class="search-container">
+                <input type="text" id="calcCarSearchInput" class="search-input" placeholder="搜索车辆名称或关键词 (如: 比亚迪/byd/毒药/拉法...)" autocomplete="off">
+                <div id="calcSearchDropdown" class="search-dropdown"></div>
             </div>
+            <!-- 定位 + 专精 + 车型 -->
+            <div class="row2">
+                <div><label>车辆定位</label><div class="car-type-row"><div class="car-type-icon-preview" id="calcCarTypeIcon"></div><select id="calcCarType"></select></div></div>
+                <div><label>专精</label><div class="car-subtype-row"><div class="car-subtype-icon-preview" id="calcCarSubTypeIcon"></div><select id="calcCarSubType"></select></div></div>
+                <div><label>车辆型号</label><select id="calcCarModel"></select></div>
+            </div>
+            <!-- V型槽 + 氮气类型 + 专精 + 反制 -->
+            <div class="row2">
+                <div><label>V型槽</label><div class="vslot-select-row"><div class="vslot-icon-preview" id="calcVslotIcon"><span>⚙️</span></div><select id="calcVSlot"></select></div></div>
+                <div><label>氮气类型</label><div class="nitro-select-row"><div class="nitro-icon-preview" id="calcNitroIcon"><span>💨</span></div><select id="calcNitroType"></select></div></div>
+                <div><label>专精</label><select id="calcSpecialize"><option value="10">是</option><option value="0">否</option></select></div>
+                <div><label>反制%</label><select id="calcOverrideR" style="width:100%; padding:10px 14px; border-radius:40px; border:1px solid var(--border-medium); background:var(--bg-input); font-size:0.85rem;"><option value="0">0%</option><option value="1">1%</option><option value="2">2%</option><option value="3">3%</option><option value="4">4%</option><option value="5">5%</option><option value="6">6%</option><option value="7">7%</option><option value="8">8%</option><option value="9">9%</option><option value="10">10%</option><option value="11">11%</option><option value="12">12%</option><option value="13">13%</option><option value="14">14%</option><option value="15">15%</option><option value="16">16%</option><option value="17">17%</option><option value="18">18%</option></select></div>
             </div>
         </div>
-     </div>
+    </div>
+</div>
+
+<!-- 氮气数量选择 -->
+<div class="config-section">
+    <div class="section-title">氮气数量选择</div>
+    <div class="energy-row"><div><label>首大能量</label><div class="energy-display" id="calcFirstEnergyDisplay">--</div></div><div><label>首大氮气数量</label><select id="calcStartNitroCountDisplay"><option value="0">0个</option><option value="1" selected>1个</option><option value="2">2个</option><option value="3">3个</option><option value="4">4个</option><option value="5">5个</option><option value="6">6个</option></select></div></div>
+    <div class="energy-row"><div><label id="calcCycleEnergyLabel">循环能量</label><div class="energy-display" id="calcCycleEnergyDisplay">--</div></div><div><label>循环氮气数量</label><div class="cycle-mode-wrapper"><select id="calcCycleNitroCountDisplay"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select><span class="info-icon">?<span class="tooltip-text" id="calcCycleNitroTooltip">1个大招所需的氮气数量</span></span></div></div></div>
+    <!-- 4气3气两大一循环（添加 id） -->
+    <div id="calcCycleModeContainer" style="display: flex; align-items: center; gap: 6px; margin-left: 8px;">
+        <span style="font-size: 0.7rem; font-weight: 600; color: #a0a0b8;">4气3气两大一循环：</span>
+        <select id="calcCycleMode" style="padding: 4px 8px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem;">
+            <option value="normal">否</option>
+            <option value="cycle">是</option>
+        </select>
+        <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
+            ?
+            <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 4px 8px; border-radius: 6px; font-size: 0.6rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">仅辅助位车辆且首大能量≥80时支持</span>
+        </span>
+    </div>
+</div>
+
+<!-- 以太/催化剂专属额外增益 -->
+<div id="calcYitaiExtraOptions" style="display:none; margin-top:8px; padding:10px 14px; background:var(--special-bg); border-radius:16px;">
+    <div class="option-title" style="font-size:0.8rem; font-weight:600; margin-bottom:6px; color:var(--text-primary);">以太/催化剂专属额外增益</div>
+    <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+        <div style="flex: 1; min-width: 140px;">
+            <label style="font-size:0.65rem; font-weight:600; color:#8a8aa3; display:block; margin-bottom:2px;">额外充能效率提升 (%)</label>
+            <input type="number" id="calcExtraEff" step="any" value="0" min="0" max="100" style="width:100%; padding:6px 12px; border-radius:30px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.05); color:var(--text-primary); font-size:0.8rem;">
+        </div>
+        <div style="flex: 1; min-width: 140px;">
+            <label style="font-size:0.65rem; font-weight:600; color:#8a8aa3; display:block; margin-bottom:2px;">额外起步充能</label>
+            <input type="number" id="calcExtraStart" step="any" value="0" style="width:100%; padding:6px 12px; border-radius:30px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.05); color:var(--text-primary); font-size:0.8rem;">
+        </div>
+    </div>
+</div>
+
+<!-- 车辆专属浮动充能选项 -->
+<div id="calcVehicleSpecialOptionsContainer" class="vehicle-special-options" style="display:none; margin-top:8px; padding:10px 14px; background:var(--special-bg); border-radius:16px; border:1px solid var(--special-border);"></div>
+
+<!-- ④ 赋能选择 -->
+<div class="config-section">
+    <div class="section-title">赋能选择</div>
+    <!-- 主赋能 + 次赋能 -->
+    <div class="row2">
+        <div><label>主赋能</label><div class="eff-select-row"><div class="eff-icon-preview" id="calcMainEffIcon"></div><select id="calcMainEff"></select></div></div>
+        <div><label>次赋能</label><div class="eff-select-row"><div class="eff-icon-preview" id="calcSubEffIcon"></div><select id="calcSubEff"></select></div></div>
+    </div>
+    <div id="calcColorErrorMsg" class="error-message" style="display: none;"></div>
+    <div id="calcQueyiOptions" style="display:none; margin-top:12px;">
+        <div class="queyi-row" style="display:flex; gap:12px; flex-wrap:wrap;">
+            <div><label id="calcQueyiCycleLabel">缺一·循环能量秒数(1-15)</label><select id="calcQueyiCycleSeconds"><option value="0">0秒</option><option value="1">1秒</option><option value="2">2秒</option><option value="3">3秒</option><option value="4">4秒</option><option value="5">5秒</option><option value="6">6秒</option><option value="7" selected>7秒</option><option value="8">8秒</option><option value="9">9秒</option><option value="10">10秒</option><option value="11">11秒</option><option value="12">12秒</option><option value="13">13秒</option><option value="14">14秒</option><option value="15">15秒</option></select></div>
+            <div><label>缺一·首大能量秒数(1-8)</label><select id="calcQueyiFirstSeconds"><option value="0">0秒</option><option value="1">1秒</option><option value="2">2秒</option><option value="3">3秒</option><option value="4">4秒</option><option value="5">5秒</option><option value="6" selected>6秒</option><option value="7">7秒</option><option value="8">8秒</option></select></div>
+            <div><label>缺一档位</label><select id="calcQueyiLevel"><option value="0.8">Q1 (0.8/秒)</option><option value="1.2">Q2 (1.2/秒)</option><option value="2.0">Q3 (2.0/秒)</option></select></div>
+        </div>
+    </div>
+    <div id="calcRhythmOptions" style="display:none; margin-top:12px;">
+        <div class="rhythm-row" style="display:flex; gap:12px; flex-wrap:wrap;">
+            <div><label id="calcRhythmCycleLabel">节奏·循环触发次数(1-4)</label><select id="calcRhythmCycleCount"><option value="0">0次</option><option value="1">1次</option><option value="2">2次</option><option value="3">3次</option><option value="4">4次</option></select></div>
+            <div><label>节奏·首大触发次数(1-3)</label><select id="calcRhythmFirstCount"><option value="0">0次</option><option value="1">1次</option><option value="2">2次</option><option value="3">3次</option></select></div>
+        </div>
+    </div>
+    <div class="custom-hui-row" id="calcCustomHuiRow" style="display: flex;">
+        <label>目标汇能 (%)：</label>
+        <input type="number" id="calcCustomHuiInput" step="0.25" value="0" min="0">
+        <span class="info-icon" style="margin-left: 0;">?<span class="tooltip-text">输入大于等于最小汇能的数值，可降低先机需求（上限受芯片槽限制）</span></span>
+        <span id="calcCustomHuiWarning" class="custom-hui-warning"></span>
+    </div>
+</div>
+
+<!-- ⑤ 计算结果 -->
+<div class="config-section">
+    <div class="section-title">计算结果</div>
+    <div class="button-group"><button id="calcCalcBtn">计算汇能 & 先机</button><button id="calcResetBtn" class="btn-secondary">重置所有选项</button><button id="calcShareBtn" class="btn-success">📸 分享截图</button></div>
+    <div class="result-box" id="calcResultArea"><div style="color:var(--text-muted); text-align:center;">等待计算...</div></div>
+    <button id="calcCopyResultBtn" style="margin-top:12px; background:var(--btn-secondary);">📋 一键复制结果</button>
+</div>
         
         <!-- 游戏资源获取统计页面 -->
 <div id="newsPage" class="page">
