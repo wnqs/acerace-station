@@ -1222,7 +1222,7 @@
             /* 手机端计算器页面样式 */
 #calculatorPage {
     padding: 0;
-    margin: 0;
+    margin: -60px 0 0 0;
     width: 100%;
 }
 
@@ -1253,8 +1253,9 @@
 }
 
 #calculatorPage .car-icon-large .car-icon {
-    width: 150px;
-    height: 150px;
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 16/9;
     margin: 0 auto;
 }
 
@@ -1263,14 +1264,27 @@
     min-width: 0;
 }
 
-#calculatorPage .row2 {
-    flex-direction: column;
-    gap: 12px;
+/* ===== 手机端车辆配置布局：每行两个 ===== */
+#calculatorPage .car-form-right .search-container input {
+    width: 100% !important;
 }
 
-#calculatorPage .row2 > div {
-    width: 100%;
+#calculatorPage .car-form-right .row2 {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+#calculatorPage .car-form-right .row2 > div {
+    flex: 0 0 calc(50% - 4px) !important;
     min-width: 0;
+    width: auto !important;
+}
+
+/* 车辆型号独占一行 */
+#calculatorPage .car-form-right .row2:first-child > div:first-child {
+    flex: 0 0 100% !important;
 }
 
 #calculatorPage .energy-row {
@@ -1344,7 +1358,63 @@
 #calculatorPage .usage-guide {
     font-size: 0.7rem;
 }
-        }
+  /* ===== 手机端氮气数量选择 ===== */
+
+/* 1. 是否4气3气两大一循环：文字变大，选项框变矮 */
+#calculatorPage .config-section #calcCycleModeContainer {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+}
+#calculatorPage .config-section #calcCycleModeContainer > span {
+    font-size: 0.75rem !important;
+}
+#calculatorPage .config-section #calcCycleModeContainer select {
+    height: 26px !important;
+    font-size: 0.65rem !important;
+    padding: 0 6px !important;
+}
+
+/* 2. 首大能量+首大氮气 和 循环能量+循环氮气 各占一行，各占一半 */
+#calculatorPage .config-section .nitro-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+}
+#calculatorPage .config-section .nitro-row > div {
+    flex: 0 0 calc(50% - 3px) !important;
+    min-width: 0 !important;
+}
+#calculatorPage .config-section .nitro-row select,
+#calculatorPage .config-section .nitro-row .energy-display {
+    height: 28px !important;
+    font-size: 0.75rem !important;
+    min-width: 40px !important;
+    flex: 1 !important;
+}
+#calculatorPage .config-section .nitro-row span {
+    font-size: 0.6rem !important;
+}
+
+/* 3. 车辆专属浮动充能下拉框铺满一行 */
+#calculatorPage #calcVehicleSpecialOptionsContainer {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+#calculatorPage #calcVehicleSpecialOptionsContainer .option-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+}
+#calculatorPage #calcVehicleSpecialOptionsContainer .option-row > div {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+#calculatorPage #calcVehicleSpecialOptionsContainer select {
+    width: 100% !important;
+    font-size: 0.65rem !important;
+}          
         
         @media (min-width: 769px) {
             .acquisition-icon { bottom: 2px; width: 70px; height: 70px; }
@@ -3541,7 +3611,7 @@ video.wallpaper-modal-media {
     </div>
 
     <!-- 第二行：4个选项平均分配 -->
-    <div style="display: flex; gap: 8px; flex-wrap: nowrap; align-items: center; width: 100%;">
+    <div class="nitro-row" style="display: flex; gap: 8px; flex-wrap: nowrap; align-items: center; width: 100%;">
     <!-- 首大能量 -->
     <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 0; border-radius: 30px; padding: 2px 8px;">
         <span style="font-size: 0.7rem; font-weight: 600; color: #c0c0d0!important; white-space: nowrap;">首大能量：</span>
