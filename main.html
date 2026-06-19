@@ -6821,30 +6821,25 @@ function handleBackButton() {
         
         function updateCalcToggleState() {
     let car = getCalcCurrentCar();
-    const specialToggleContainer = document.getElementById('calcSpecialToggleContainer');
-    const toggleHint = document.querySelector('.calculator-container .toggle-hint');
-    const checkbox = document.getElementById('calcSpecialToggleCheckbox');
-
+    
     if (!car) {
-        if (specialToggleContainer) specialToggleContainer.style.display = 'none';
-        if (toggleHint) toggleHint.style.display = 'none';
         calcVehicleSpecialContainer.innerHTML = '';
         calcVehicleSpecialContainer.style.display = 'none';
+        calcYitaiExtraOptions.style.display = 'none';
         return;
     }
 
-    if (specialToggleContainer) specialToggleContainer.style.display = 'flex';
-    if (toggleHint) toggleHint.style.display = 'block';
-
+    // 检查是否有车辆专属浮动充能
     const hasSpecial = checkCalcVehicleHasSpecialBonus();
-
+    
     if (hasSpecial) {
-        if (checkbox) checkbox.checked = true;
+        // 有专属增益 → 自动显示
         renderCalcSpecialOptionsContent();
+        calcVehicleSpecialContainer.style.display = 'block';
     } else {
+        // 没有专属增益 → 隐藏
         calcVehicleSpecialContainer.innerHTML = '';
         calcVehicleSpecialContainer.style.display = 'none';
-        if (checkbox) checkbox.checked = false;
     }
 
     // ===== 控制以太/催化剂专属选项 =====
@@ -6859,8 +6854,6 @@ function handleBackButton() {
         
         function createCalcToggleSwitch() {
     if (document.getElementById('calcSpecialToggleContainer')) return;
-    const toggleHtml = '<div id="calcSpecialToggleContainer" class="toggle-switch" style="margin-bottom:16px; display:flex; align-items:center; gap:8px; height:32px;"><input type="checkbox" id="calcSpecialToggleCheckbox" checked><label for="calcSpecialToggleCheckbox" id="calcSpecialToggleLabel" style="font-size:0.8rem; font-weight:600; color:#a0a0b8; cursor:pointer;">显示车辆专属浮动充能选项</label><span class="info-icon" style="display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; background:#4a5568; color:white; border-radius:50%; font-size:10px; font-weight:bold; cursor:help; position:relative;">?<span class="tooltip-text" style="position:absolute; bottom:100%; left:50%; transform:translateX(-50%); background:#1e293b; color:white; padding:3px 6px; border-radius:4px; font-size:0.7rem; white-space:nowrap; z-index:100; pointer-events:none; opacity:0; transition:opacity 0.2s; margin-bottom:4px;">关闭后隐藏自充能选项，开启后若车辆有独立增益则显示对应选项</span></span></div><div class="toggle-hint" style="font-size:0.7rem; color:#ffaaaa; margin-bottom:4px;">⚠️ 每次切换车辆后都先将此开关重新开关一次，才能正确显示车辆是否有独立增益效果</div>';
-    calcVehicleSpecialContainer.insertAdjacentHTML('beforebegin', toggleHtml);
     const checkbox = document.getElementById('calcSpecialToggleCheckbox');
     if (checkbox) {
         checkbox.addEventListener('change', function () {
