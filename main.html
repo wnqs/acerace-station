@@ -6595,7 +6595,7 @@ function handleBackButton() {
             updateCalcVSlotOptions();
             updateCalcEnergyDisplays();
             let car = getCalcCurrentCar();
-            calcYitaiExtraOptions.style.display = (car && (car.name === "以太" || car.name === "催化剂")) ? 'block' : 'none';
+            updateCalcToggleState();
         }
         
         function updateCalcSubTypeOptions() {
@@ -6824,7 +6824,7 @@ function handleBackButton() {
     const specialToggleContainer = document.getElementById('calcSpecialToggleContainer');
     const toggleHint = document.querySelector('.calculator-container .toggle-hint');
     const checkbox = document.getElementById('calcSpecialToggleCheckbox');
-    
+
     if (!car) {
         if (specialToggleContainer) specialToggleContainer.style.display = 'none';
         if (toggleHint) toggleHint.style.display = 'none';
@@ -6832,23 +6832,25 @@ function handleBackButton() {
         calcVehicleSpecialContainer.style.display = 'none';
         return;
     }
-    
-    // 显示开关容器
+
     if (specialToggleContainer) specialToggleContainer.style.display = 'flex';
     if (toggleHint) toggleHint.style.display = 'block';
-    
+
     const hasSpecial = checkCalcVehicleHasSpecialBonus();
-    
+
     if (hasSpecial) {
-        // 有特殊增益 → 自动勾选并显示选项
         if (checkbox) checkbox.checked = true;
         renderCalcSpecialOptionsContent();
     } else {
-        // 没有特殊增益 → 隐藏选项
         calcVehicleSpecialContainer.innerHTML = '';
         calcVehicleSpecialContainer.style.display = 'none';
         if (checkbox) checkbox.checked = false;
     }
+
+    // ===== 控制以太/催化剂专属选项 =====
+    const isAssist = calcCarType.value === 'assist';
+    const isYitaiOrCuihuaji = car && (car.name === "以太" || car.name === "催化剂");
+    calcYitaiExtraOptions.style.display = (isAssist && isYitaiOrCuihuaji) ? 'block' : 'none';
 }
         
         function createCalcToggleSwitch() {
@@ -6949,7 +6951,6 @@ function handleBackButton() {
         updateCalcVSlotOptions();
         updateCalcEnergyDisplays();
         car = getCalcCurrentCar();
-        calcYitaiExtraOptions.style.display = (car && (car.name === "以太" || car.name === "催化剂")) ? 'block' : 'none';
         updateCalcToggleState();
         setDefaultOverrideR();
     updateCalcCycleModeVisibility();
@@ -7302,15 +7303,13 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
         initCalcSearchBox();
         
         calcCarModel.addEventListener('change', () => {
-            updateCalcCarIcon();
-            updateCalcEnergyDisplays();
-            updateCalcVSlotOptions();
-            let car = getCalcCurrentCar();
-            calcYitaiExtraOptions.style.display = (car && (car.name === "以太" || car.name === "催化剂")) ? 'block' : 'none';
-            updateCalcToggleState();
-            setDefaultOverrideR();
-            updateCalcCycleModeVisibility();
-        });
+    updateCalcCarIcon();
+    updateCalcEnergyDisplays();
+    updateCalcVSlotOptions();
+    updateCalcToggleState();
+    setDefaultOverrideR();
+    updateCalcCycleModeVisibility();
+});
         calcVSlot.addEventListener('change', () => {
             updateCalcVSlotIcon();
             updateCalcEnergyDisplays();
