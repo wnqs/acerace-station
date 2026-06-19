@@ -6167,19 +6167,27 @@ function initWallpaperMobileDropdown() {
                 if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'none';
                 if (typeof initCalculator === 'function') initCalculator();
             } else if (pageId === 'news') { 
-            document.getElementById('mobileFixedHeader').style.display = 'none';
-            document.getElementById('chipMobileFixedHeader').style.display = 'none';
-            document.getElementById('energyMobileFixedHeader').style.display = 'none';
-            document.getElementById('currencyMobileFixedHeader').style.display = 'flex';
-            document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';    
-            document.body.classList.add('has-fixed-header');
-            document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.currency-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'news') t.classList.add('active'); });
-            if (currenciesData.length === 0) loadCurrenciesData(); else renderCurrenciesList();
-            document.getElementById('currenciesGrid').style.display = 'grid';
-            document.getElementById('currenciesGrid').style.visibility = 'visible';
+    // 手机端头部控制
+    document.getElementById('mobileFixedHeader').style.display = 'none';
+    document.getElementById('chipMobileFixedHeader').style.display = 'none';
+    document.getElementById('energyMobileFixedHeader').style.display = 'none';
+    document.getElementById('currencyMobileFixedHeader').style.display = 'flex';
+    document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';    
+    document.body.classList.add('has-fixed-header');
+    document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.currency-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'news') t.classList.add('active'); });
+    
+    // 加载数据
+    if (currenciesData.length === 0) loadCurrenciesData(); else renderCurrenciesList();
+    
+    // ===== 新增强制显示 =====
+    document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+    document.getElementById('newsPage').style.display = 'block';
+    document.getElementById('newsPage').style.visibility = 'visible';
+    document.querySelector('.main-content').innerHTML = document.getElementById('newsPage').innerHTML;
+}
             } else if (pageId === 'wallpaper') {
-    // 显示手机端壁纸头部，隐藏其他头部
+    // 手机端头部控制
     document.getElementById('mobileFixedHeader').style.display = 'none';
     document.getElementById('chipMobileFixedHeader').style.display = 'none';
     document.getElementById('energyMobileFixedHeader').style.display = 'none';
@@ -6190,9 +6198,15 @@ function initWallpaperMobileDropdown() {
     document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn, .wallpaper-mobile-tab-btn').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.wallpaper-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'wallpaper') t.classList.add('active'); });
     currentPage = 'wallpaper';
+    
+    // 加载数据
     if (wallpapersData.length === 0) loadWallpapersData(); else renderWallpapersList();
-    document.getElementById('wallpapersGrid').style.display = 'grid';
-    document.getElementById('wallpapersGrid').style.visibility = 'visible';
+    
+    // ===== 新增强制显示 =====
+    document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+    document.getElementById('wallpaperPage').style.display = 'block';
+    document.getElementById('wallpaperPage').style.visibility = 'visible';
+    document.querySelector('.main-content').innerHTML = document.getElementById('wallpaperPage').innerHTML;
 }
 } else {
     const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
