@@ -6627,6 +6627,7 @@ function handleBackButton() {
                 updateCalcSubTypeOptions();
                 updateCalcEnergyDisplays();
                 setDefaultOverrideR();
+                updateCalcCycleModeVisibility();
             });
             updateCalcCarTypeIcon();
         }
@@ -6947,7 +6948,7 @@ function handleBackButton() {
         updateCalcCarIcon();
         updateCalcVSlotOptions();
         updateCalcEnergyDisplays();
-        let car = getCalcCurrentCar();
+        car = getCalcCurrentCar();
         calcYitaiExtraOptions.style.display = (car && (car.name === "以太" || car.name === "催化剂")) ? 'block' : 'none';
         updateCalcToggleState();
         
