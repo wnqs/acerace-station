@@ -2135,6 +2135,7 @@
 #calculatorPage .car-layout-new {
     gap: 0px !important;
 }
+    
 }
     
     </style>
@@ -3340,7 +3341,22 @@ video.wallpaper-modal-media {
     align-items: center !important;
     flex-wrap: nowrap !important;
 }
-    
+ /* 强制显示游戏资源获取统计和游戏精彩内容页面 */
+#newsPage,
+#wallpaperPage {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    min-height: 500px !important;
+    overflow: visible !important;
+}
+#newsPage .currencies-grid,
+#wallpaperPage .wallpapers-grid {
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}   
 }
     
 
@@ -3397,11 +3413,22 @@ video.wallpaper-modal-media {
 .info-icon:hover .tooltip-text {
     opacity: 1 !important;
 } 
-    /* 电脑端氮气数量标签字体变大 */
-.calculator-container .config-section .nitro-row span {
-    font-size: 0.8rem !important;
-    font-weight: 600;
-    color: #d0d0e0 ;
+    /* 强制显示游戏资源获取统计和游戏精彩内容页面 */
+#newsPage,
+#wallpaperPage {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    min-height: 500px !important;
+    overflow: visible !important;
+}
+#newsPage .currencies-grid,
+#wallpaperPage .wallpapers-grid {
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
 }    
     </style>
 </head>
