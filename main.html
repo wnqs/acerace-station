@@ -3704,7 +3704,7 @@ video.wallpaper-modal-media {
     <!-- 第一行：标题 + 4气3气 -->
     <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 8px; flex-wrap: wrap;">
         <div class="section-title" style="margin-bottom: 0; font-size: 0.9rem;">氮气数量选择</div>
-        <div id="calcCycleModeContainer" style="display: flex; align-items: center; gap: 6px;">
+        <div id="calcCycleModeContainer" style="display: none; align-items: center; gap: 6px;">
             <span style="font-size: 0.7rem; font-weight: 600; color: #c0c0d0!important; white-space: nowrap;">是否 4气、3气两大一循环：</span>
             <select id="calcCycleMode" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #e2e2e6; font-size: 0.8rem; height: 32px; min-width: 60px;">
                 <option value="normal">否</option>
@@ -6680,6 +6680,7 @@ function handleBackButton() {
 }
         
         function updateCalcCycleModeVisibility() {
+            console.log('updateCalcCycleModeVisibility 被调用了，首大能量：', firstEnergy);
             let container = document.getElementById('calcCycleModeContainer');
             let type = calcCarType.value;
             if (type !== 'assist') {
@@ -6689,7 +6690,7 @@ function handleBackButton() {
             }
             let firstEnergy = parseInt(calcFirstEnergyDisplay.textContent);
             if (isNaN(firstEnergy)) firstEnergy = 0;
-            container.style.display = firstEnergy >= 80 ? 'block' : 'none';
+            container.style.display = (firstEnergy >= 80 && type === 'assist') ? 'flex' : 'none';
             if (firstEnergy < 80 && calcCycleMode.value === 'cycle') {
                 calcCycleMode.value = 'normal';
             }
