@@ -6084,8 +6084,9 @@ function initWallpaperMobileDropdown() {
         }
     }
  function switchToPage(pageId) {
-        if (currentPage === pageId) return;
-        
+     console.log('切换到页面：', pageId);   
+     if (currentPage === pageId) return;
+
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         document.getElementById(pageId + 'Page').classList.add('active-page');
         
