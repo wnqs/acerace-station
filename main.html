@@ -5577,6 +5577,7 @@ function filterCurrencies() {
 function renderCurrenciesList() {
     const filtered = filterCurrencies();
     const grid = document.getElementById("currenciesGrid");
+    const stats = document.getElementById("currencyStatsText");
     if (!grid) return;
     
     if (filtered.length === 0) {
@@ -5659,7 +5660,7 @@ function renderCurrenciesList() {
         `;
     }).join("");
     
-    stats.innerText = `共 ${filtered.length} 个游戏资源类型`;
+    if (stats) stats.innerText = `共 ${filtered.length} 个游戏资源类型`;
 }
 
 // 初始化电脑端筛选器
