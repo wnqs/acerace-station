@@ -1327,7 +1327,11 @@
     min-width: 0;
 }
 
-#calculatorPage .eff-icon-preview,
+#calculatorPage .eff-icon-preview {
+    width: 36px;
+    height: 36px;
+    margin-top: -2px;  /* ← 加上这行，向上移2px */
+}
 #calculatorPage .vslot-icon-preview,
 #calculatorPage .nitro-icon-preview,
 #calculatorPage .car-type-icon-preview,
@@ -1342,8 +1346,16 @@
 }
 
 #calculatorPage .button-group {
-    flex-direction: column;
-    gap: 10px;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+}
+#calculatorPage .button-group button {
+    flex: 0 0 calc(50% - 4px) !important;
+    width: auto !important;
+    font-size: 0.7rem !important;
+    padding: 8px 4px !important;
 }
 
 #calculatorPage .button-group button {
@@ -1371,7 +1383,53 @@
 #calculatorPage .usage-guide {
     font-size: 0.7rem;
 }
-   
+
+   /* 手机端缺一选项布局 */
+#calculatorPage #calcQueyiOptions .sub-options {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px 8px !important;
+    align-items: center !important;
+}
+#calculatorPage #calcQueyiOptions .sub-options > * {
+    flex: 0 0 auto !important;
+}
+/* 档位单独一行 */
+#calculatorPage #calcQueyiOptions .sub-options span:nth-child(1),
+#calculatorPage #calcQueyiOptions .sub-options span:nth-child(2),
+#calculatorPage #calcQueyiOptions .sub-options select:nth-child(3) {
+    flex: 0 0 auto !important;
+}
+/* 首大秒数 和 循环秒数 各占一半 */
+#calculatorPage #calcQueyiOptions .sub-options span:nth-child(4),
+#calculatorPage #calcQueyiOptions .sub-options select:nth-child(5) {
+    flex: 0 0 calc(50% - 4px) !important;
+}
+#calculatorPage #calcQueyiOptions .sub-options span:nth-child(6),
+#calculatorPage #calcQueyiOptions .sub-options select:nth-child(7) {
+    flex: 0 0 calc(50% - 4px) !important;
+}
+
+/* 手机端节奏选项布局 */
+#calculatorPage #calcRhythmOptions .sub-options {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px 8px !important;
+    align-items: center !important;
+}
+#calculatorPage #calcRhythmOptions .sub-options > * {
+    flex: 0 0 auto !important;
+}
+
+/* 首大触发次数 和 循环触发次数 各占一半 */
+#calculatorPage #calcRhythmOptions .sub-options span:nth-child(2),
+#calculatorPage #calcRhythmOptions .sub-options select:nth-child(3) {
+    flex: 0 0 calc(50% - 4px) !important;
+}
+#calculatorPage #calcRhythmOptions .sub-options span:nth-child(4),
+#calculatorPage #calcRhythmOptions .sub-options select:nth-child(5) {
+    flex: 0 0 calc(50% - 4px) !important;
+}         
   /* ===== 手机端氮气数量选择 ===== */
 
 /* 1. 是否4气3气两大一循环：文字变大，选项框变矮 */
