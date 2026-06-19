@@ -1358,6 +1358,30 @@
 #calculatorPage .usage-guide {
     font-size: 0.7rem;
 }
+   /* ===== 手机端车辆配置：调整顺序 ===== */
+
+/* 第1个 row2（车辆型号）→ 第1位 */
+#calculatorPage .car-form-right .row2:first-child {
+    order: 1 !important;
+}
+#calculatorPage .car-form-right .row2:first-child > div:first-child {
+    flex: 0 0 100% !important;
+}
+
+/* 第2个 row2（车辆定位+专精）→ 第2位 */
+#calculatorPage .car-form-right .row2:nth-child(2) {
+    order: 2 !important;
+}
+
+/* 第3个 row2（V型槽+氮气类型）→ 第3位 */
+#calculatorPage .car-form-right .row2:nth-child(3) {
+    order: 3 !important;
+}
+
+/* 第4个 row2（是否专精+反制）→ 第4位 */
+#calculatorPage .car-form-right .row2:nth-child(4) {
+    order: 4 !important;
+}         
   /* ===== 手机端氮气数量选择 ===== */
 
 /* 1. 是否4气3气两大一循环：文字变大，选项框变矮 */
