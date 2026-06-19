@@ -3451,7 +3451,7 @@ video.wallpaper-modal-media {
             <div class="car-layout-new" style="display: flex; gap: 16px; align-items: stretch;">
                 <!-- 图片 -->
                 <div class="car-icon-large" style="flex: 0 0 280px;">
-                    <div class="car-icon" id="calcCarIcon" style="border-radius: 16px; overflow: hidden; background: linear-gradient(145deg, #1a1a2e, #0f0f1a); border: 1px solid rgba(255,255,255,0.08); aspect-ratio: 1/1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px;">
+                    <div class="car-icon" id="calcCarIcon" style="border-radius: 4px; overflow: hidden; background: linear-gradient(145deg, #1a1a2e, #0f0f1a); border: 1px solid rgba(255,255,255,0.08); aspect-ratio: 1/1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px;">
                         <span style="font-size: 4rem;">🏎️</span>
                         <div class="car-name-display" style="font-size: 0.75rem; font-weight: 700; color: #e2e2e6; margin-top: 6px; text-align: center;">选择车辆</div>
                         <div class="car-spec-display" style="font-size: 0.55rem; color: #8a8aa3; text-align: center; margin-top: 2px;">—</div>
@@ -6150,6 +6150,7 @@ function handleBackButton() {
                 img.style.width = '100%';
                 img.style.height = '100%';
                 img.style.objectFit = 'contain';
+                img.style.transform = 'scale(1.2)';
                 img.onerror = function() { calcCarIcon.innerHTML = '<span style="font-size:6rem;">🏎️</span>'; };
                 calcCarIcon.appendChild(img);
             } else {
