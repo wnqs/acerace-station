@@ -1420,7 +1420,10 @@
 #calculatorPage #calcRhythmOptions .sub-options > * {
     flex: 0 0 auto !important;
 }
-
+/* "节奏"文字单独一行 */
+#calculatorPage #calcRhythmOptions .sub-options span:first-child {
+    flex: 0 0 100% !important;
+}
 /* 首大触发次数 和 循环触发次数 各占一半 */
 #calculatorPage #calcRhythmOptions .sub-options span:nth-child(2),
 #calculatorPage #calcRhythmOptions .sub-options select:nth-child(3) {
