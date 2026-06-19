@@ -6850,7 +6850,11 @@ function handleBackButton() {
     // ===== 控制以太/催化剂专属选项 =====
     const isAssist = calcCarType.value === 'assist';
     const isYitaiOrCuihuaji = car && (car.name === "以太" || car.name === "催化剂");
-    calcYitaiExtraOptions.style.display = (isAssist && isYitaiOrCuihuaji) ? 'block' : 'none';
+    if (isAssist && isYitaiOrCuihuaji) {
+        calcYitaiExtraOptions.style.display = 'block';
+    } else {
+        calcYitaiExtraOptions.style.display = 'none';  // ← 强制隐藏
+    }
 }
         
         function createCalcToggleSwitch() {
