@@ -2527,6 +2527,20 @@
             .calculator-container .toggle-switch {
                 flex-wrap: wrap;
             }
+            #calculatorPage .car-form-right .row2:first-child {
+        display: flex !important;
+        flex-wrap: wrap !important;
+    }
+    #calculatorPage .car-form-right .row2:first-child > div:first-child {
+        flex: 0 0 100% !important;
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+    #calculatorPage .car-form-right .row2:first-child > div:not(:first-child) {
+        flex: 0 0 calc(50% - 4px) !important;
+        min-width: 0 !important;
+        width: auto !important;
+    }
         }
         .calculator-container .custom-hui-row {
             display: flex;
