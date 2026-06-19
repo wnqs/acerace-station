@@ -2256,13 +2256,7 @@
             accent-color: #4f46e5;
             transform: scale(1.1);
         }
-        .calculator-container .toggle-hint {
-            font-size: 0.7rem;
-            color: #ffaaaa !important;
-            margin-bottom: 16px;
-            padding-left: 8px;
-            text-align: left;
-        }
+        
         .calculator-container .eff-select-row, .calculator-container .vslot-select-row, 
         .calculator-container .nitro-select-row, .calculator-container .car-type-row, 
         .calculator-container .car-subtype-row {
@@ -6765,7 +6759,6 @@ function handleBackButton() {
         }
         
         function renderCalcSpecialOptionsContent() {
-            if (!document.getElementById('calcSpecialToggleCheckbox') || !document.getElementById('calcSpecialToggleCheckbox').checked) return;
             let car = getCalcCurrentCar();
             if (!car) return;
             let carName = car.name;
@@ -6810,7 +6803,7 @@ function handleBackButton() {
             }
             html += '</div>';
             container.innerHTML = html;
-            container.style.display = 'block';
+            
         }
         
         function checkCalcVehicleHasSpecialBonus() {
@@ -6848,29 +6841,11 @@ function handleBackButton() {
     if (isAssist && isYitaiOrCuihuaji) {
         calcYitaiExtraOptions.style.display = 'block';
     } else {
-        calcYitaiExtraOptions.style.display = 'none';  // ← 强制隐藏
+        calcYitaiExtraOptions.style.display = 'none';
     }
 }
         
-        function createCalcToggleSwitch() {
-    if (document.getElementById('calcSpecialToggleContainer')) return;
-    const checkbox = document.getElementById('calcSpecialToggleCheckbox');
-    if (checkbox) {
-        checkbox.addEventListener('change', function () {
-            if (this.checked) {
-                if (checkCalcVehicleHasSpecialBonus()) {
-                    renderCalcSpecialOptionsContent();
-                } else {
-                    calcVehicleSpecialContainer.innerHTML = '';
-                    calcVehicleSpecialContainer.style.display = 'none';
-                }
-            } else {
-                calcVehicleSpecialContainer.innerHTML = '';
-                calcVehicleSpecialContainer.style.display = 'none';
-            }
-        });
-    }
-}
+        
         
         function initCalcSearchBox() {
             const searchInput = document.getElementById('calcCarSearchInput');
@@ -7295,7 +7270,6 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
         initCalcNitroSelect();
         updateCalcSubTypeOptions();
         updateCalcEnergyDisplays();
-        createCalcToggleSwitch();
         updateCalcToggleState();
         initCalcSearchBox();
         
