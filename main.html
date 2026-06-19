@@ -6506,7 +6506,6 @@ function handleBackButton() {
     
     calcFirstEnergyDisplay.textContent = energy.firstEnergy;
     calcCycleEnergyDisplay.textContent = energy.cycleEnergy;
-    updateCalcCycleModeVisibility();
 }
         
         function updateCalcCycleModeVisibility() {
@@ -6515,7 +6514,6 @@ function handleBackButton() {
             if (type !== 'assist') {
                 container.style.display = 'none';
                 if (calcCycleMode.value === 'cycle') calcCycleMode.value = 'normal';
-                updateCalcEnergyDisplays();
                 return;
             }
             let firstEnergy = parseInt(calcFirstEnergyDisplay.textContent);
@@ -6523,7 +6521,6 @@ function handleBackButton() {
             container.style.display = firstEnergy >= 80 ? 'block' : 'none';
             if (firstEnergy < 80 && calcCycleMode.value === 'cycle') {
                 calcCycleMode.value = 'normal';
-                updateCalcEnergyDisplays();
             }
             if (calcCycleNitroTooltip) calcCycleNitroTooltip.textContent = (calcCycleMode.value === 'cycle') ? '2个大招所需的氮气数量' : '1个大招所需的氮气数量';
         }
@@ -6615,27 +6612,30 @@ function handleBackButton() {
         }
         
         function initCalcCarTypeSelect() {
-            calcCarType.innerHTML = '';
-            carTypeOptions.forEach(o => {
-                let op = document.createElement('option');
-                op.value = o.value;
-                op.textContent = o.name;
-                calcCarType.appendChild(op);
-            });
-            calcCarType.addEventListener('change', () => {
-                updateCalcCarTypeIcon();
-                updateCalcSubTypeOptions();
-                updateCalcEnergyDisplays();
-                setDefaultOverrideR();
-                updateCalcCycleModeVisibility();
-            });
-            updateCalcCarTypeIcon();
-        }
+    calcCarType.innerHTML = '';
+    carTypeOptions.forEach(o => {
+        let op = document.createElement('option');
+        op.value = o.value;
+        op.textContent = o.name;
+        calcCarType.appendChild(op);
+    });
+    calcCarType.addEventListener('change', () => {
+        updateCalcCarTypeIcon();
+        updateCalcSubTypeOptions();
+        updateCalcEnergyDisplays();
+        setDefaultOverrideR();
+        updateCalcCycleModeVisibility();
+        updateCalcToggleState();  // ← 加上这行
+    });
+    updateCalcCarTypeIcon();
+}
         
         function initCalcCarSubTypeSelect() {
             calcCarSubType.addEventListener('change', () => {
                 updateCalcCarSubTypeIcon();
                 updateCalcCarList();
+                updateCalcEnergyDisplays();        // ← 必须有这行
+                updateCalcCycleModeVisibility(); 
             });
             updateCalcCarSubTypeIcon();
         }
@@ -7308,11 +7308,11 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
         
         calcCarModel.addEventListener('change', () => {
     updateCalcCarIcon();
-    updateCalcEnergyDisplays();
     updateCalcVSlotOptions();
+    updateCalcEnergyDisplays();        // ← 明确调用
+    updateCalcCycleModeVisibility();
     updateCalcToggleState();
     setDefaultOverrideR();
-    updateCalcCycleModeVisibility();
 });
         calcVSlot.addEventListener('change', () => {
             updateCalcVSlotIcon();
@@ -7328,6 +7328,7 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
             calcVSlot.addEventListener('change', () => {
                 updateCalcVSlotIcon();
                 updateCalcEnergyDisplays();
+                updateCalcCycleModeVisibility();
             });
         }
         
