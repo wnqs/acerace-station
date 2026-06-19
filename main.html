@@ -6902,16 +6902,12 @@ function handleBackButton() {
         const searchInput = document.getElementById('calcCarSearchInput');
         const dropdown = document.getElementById('calcSearchDropdown');
         const scrollY = window.scrollY;
-        
-        // ... 选择车辆的其他代码 ...
-        
-        searchInput.value = '';
-        dropdown.classList.remove('show');
-        searchInput.blur();
-    };
-})(car));
+
+        // 设置车辆类型
         calcCarType.value = carInfo.type;
         updateCalcCarTypeIcon();
+
+        // 设置专精选项
         let subs = { assist: ['venue', 'mountain', 'city'], race: ['city', 'mountain', 'venue'], jam: ['city', 'mountain', 'venue'], balance: ['city', 'mountain', 'venue'] }[carInfo.type] || [];
         const order = { 'city': 0, 'mountain': 1, 'venue': 2 };
         subs.sort((a, b) => order[a] - order[b]);
@@ -6924,6 +6920,8 @@ function handleBackButton() {
         });
         calcCarSubType.value = carInfo.sub;
         updateCalcCarSubTypeIcon();
+
+        // 设置车辆型号
         let list = carsDB[carInfo.type]?.[carInfo.sub] || [];
         calcCarModel.innerHTML = '';
         list.forEach(c => {
@@ -6932,6 +6930,7 @@ function handleBackButton() {
             opt.textContent = `${c.name} (${c.chips}) 起步${c.start} 氮气${c.nitro}`;
             calcCarModel.appendChild(opt);
         });
+
         const targetValue = JSON.stringify({
             name: carInfo.name,
             chips: carInfo.chips,
@@ -6945,18 +6944,21 @@ function handleBackButton() {
                 break;
             }
         }
+
         updateCalcCarIcon();
         updateCalcVSlotOptions();
         updateCalcEnergyDisplays();
         car = getCalcCurrentCar();
         calcYitaiExtraOptions.style.display = (car && (car.name === "以太" || car.name === "催化剂")) ? 'block' : 'none';
         updateCalcToggleState();
-        
+        setDefaultOverrideR();
+    updateCalcCycleModeVisibility();
+
         // 清空搜索框并关闭下拉框
         searchInput.value = '';
         dropdown.classList.remove('show');
-        searchInput.blur();  // 让搜索框失去焦点
-        
+        searchInput.blur();
+
         // 恢复滚动位置
         setTimeout(() => {
             window.scrollTo(0, scrollY);
