@@ -6149,7 +6149,7 @@ function initWallpaperMobileDropdown() {
             document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.currency-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'news') t.classList.add('active'); });
             if (currenciesData.length === 0) loadCurrenciesData(); else renderCurrenciesList();
-        } else if (pageId === 'wallpaper') {
+            } else if (pageId === 'wallpaper') {
     // 显示手机端壁纸头部，隐藏其他头部
     document.getElementById('mobileFixedHeader').style.display = 'none';
     document.getElementById('chipMobileFixedHeader').style.display = 'none';
@@ -6163,16 +6163,25 @@ function initWallpaperMobileDropdown() {
     currentPage = 'wallpaper';
     if (wallpapersData.length === 0) loadWallpapersData(); else renderWallpapersList();
 }
-        } else {
-            const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
-            if (vehicleDesktopHeader) {
-                if (pageId === 'vehicles') {
-                    vehicleDesktopHeader.style.display = isInDetail ? 'none' : 'block';
-                } else {
-                    vehicleDesktopHeader.style.display = 'none';
-                }
-            }
-        }
+} else {
+    const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
+    const currencyDesktopHeader = document.querySelector('.currency-desktop-header');
+    const wallpaperDesktopHeader = document.querySelector('.wallpaper-desktop-header');
+    
+    // 隐藏所有电脑端头部
+    if (vehicleDesktopHeader) vehicleDesktopHeader.style.display = 'none';
+    if (currencyDesktopHeader) currencyDesktopHeader.style.display = 'none';
+    if (wallpaperDesktopHeader) wallpaperDesktopHeader.style.display = 'none';
+    
+    // 显示对应的头部
+    if (pageId === 'vehicles') {
+        if (vehicleDesktopHeader) vehicleDesktopHeader.style.display = isInDetail ? 'none' : 'block';
+    } else if (pageId === 'news') {
+        if (currencyDesktopHeader) currencyDesktopHeader.style.display = 'block';
+    } else if (pageId === 'wallpaper') {
+        if (wallpaperDesktopHeader) wallpaperDesktopHeader.style.display = 'block';
+    }
+}
         
         currentPage = pageId;
         window.scrollTo(0, 0);
