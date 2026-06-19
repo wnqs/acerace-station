@@ -3142,7 +3142,7 @@ video.wallpaper-modal-media {
     color: #fff;
     padding: 4px 10px;
     border-radius: 6px;
-    font-size: 0.8rem;
+    font-size: 1rem;
     white-space: nowrap;
     z-index: 9999;
     pointer-events: none;
@@ -3494,14 +3494,14 @@ video.wallpaper-modal-media {
                         <div style="flex: 1; min-width: 120px;">
                             <label style="font-size: 0.55rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 1px;">车辆定位</label>
                             <div class="car-type-row" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 10px 2px 4px; border: 1px solid rgba(255,255,255,0.06);">
-                                <div class="car-type-icon-preview" id="calcCarTypeIcon" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;"></div>
+                                <div class="car-type-icon-preview" id="calcCarTypeIcon" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;"></div>
                                 <select id="calcCarType" style="flex: 1; border: none; background: transparent; padding: 4px 2px; color: var(--text-primary); font-size: 0.75rem;"></select>
                             </div>
                         </div>
                         <div style="flex: 1; min-width: 120px;">
                             <label style="font-size: 0.55rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 1px;">专精</label>
                             <div class="car-subtype-row" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 10px 2px 4px; border: 1px solid rgba(255,255,255,0.06);">
-                                <div class="car-subtype-icon-preview" id="calcCarSubTypeIcon" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;"></div>
+                                <div class="car-subtype-icon-preview" id="calcCarSubTypeIcon" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;"></div>
                                 <select id="calcCarSubType" style="flex: 1; border: none; background: transparent; padding: 4px 2px; color: var(--text-primary); font-size: 0.75rem;"></select>
                             </div>
                         </div>
@@ -3512,14 +3512,14 @@ video.wallpaper-modal-media {
                         <div style="flex: 1; min-width: 120px;">
                             <label style="font-size: 0.55rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 1px;">V型槽</label>
                             <div class="vslot-select-row" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 10px 2px 4px; border: 1px solid rgba(255,255,255,0.06);">
-                                <div class="vslot-icon-preview" id="calcVslotIcon" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;"><span>⚙️</span></div>
+                                <div class="vslot-icon-preview" id="calcVslotIcon" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;"><span>⚙️</span></div>
                                 <select id="calcVSlot" style="flex: 1; border: none; background: transparent; padding: 4px 2px; color: var(--text-primary); font-size: 0.75rem;"></select>
                             </div>
                         </div>
                         <div style="flex: 1; min-width: 120px;">
                             <label style="font-size: 0.55rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 1px;">氮气类型</label>
                             <div class="nitro-select-row" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 10px 2px 4px; border: 1px solid rgba(255,255,255,0.06);">
-                                <div class="nitro-icon-preview" id="calcNitroIcon" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;"><span>💨</span></div>
+                                <div class="nitro-icon-preview" id="calcNitroIcon" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;"><span>💨</span></div>
                                 <select id="calcNitroType" style="flex: 1; border: none; background: transparent; padding: 4px 2px; color: var(--text-primary); font-size: 0.75rem;"></select>
                             </div>
                         </div>
@@ -3534,14 +3534,14 @@ video.wallpaper-modal-media {
     <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 8px; flex-wrap: wrap;">
         <div class="section-title" style="margin-bottom: 0; font-size: 0.9rem;">氮气数量选择</div>
         <div id="calcCycleModeContainer" style="display: flex; align-items: center; gap: 6px;">
-            <span style="font-size: 0.7rem; font-weight: 600; color: #c0c0d0; white-space: nowrap;">是否 4气、3气两大一循环：</span>
+            <span style="font-size: 0.7rem; font-weight: 600; color: #c0c0d0!important; white-space: nowrap;">是否 4气、3气两大一循环：</span>
             <select id="calcCycleMode" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #e2e2e6; font-size: 0.8rem; height: 32px; min-width: 60px;">
                 <option value="normal">否</option>
                 <option value="cycle">是</option>
             </select>
             <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
                 ?
-                <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.55rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">仅辅助位车辆且首大能量≥80时支持</span>
+                <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.7rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">仅辅助位车辆且首大能量≥80时支持</span>
             </span>
         </div>
     </div>
@@ -3550,24 +3550,24 @@ video.wallpaper-modal-media {
     <div style="display: flex; gap: 8px; flex-wrap: nowrap; align-items: center; width: 100%;">
     <!-- 首大能量 -->
     <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 0; border-radius: 30px; padding: 2px 8px;">
-        <span style="font-size: 0.7rem; font-weight: 600; color: #c0c0d0; white-space: nowrap;">首大能量：</span>
+        <span style="font-size: 0.7rem; font-weight: 600; color: #c0c0d0!important; white-space: nowrap;">首大能量：</span>
         <span id="calcFirstEnergyDisplay" style="font-size: 1rem; font-weight: 700; color: #feca57; background: rgba(254,202,87,0.15); border: 1px solid rgba(254,202,87,0.25); border-radius: 30px; padding: 4px 8px; text-align: center; height: 32px; display: flex; align-items: center; justify-content: center; flex: 1; min-width: 0;">--</span>
     </div>
     <!-- 首大氮气 -->
     <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 0; border-radius: 30px; padding: 2px 8px;">
-        <span style="font-size: 0.7rem; font-weight: 600; color: #c0c0d0; white-space: nowrap;">首大氮气：</span>
+        <span style="font-size: 0.7rem; font-weight: 600; color: #c0c0d0!important; white-space: nowrap;">首大氮气：</span>
         <select id="calcStartNitroCountDisplay" style="padding: 2px 8px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.08); color: #e2e2e6; font-size: 0.85rem; height: 32px; flex: 1; min-width: 0;">
             <option value="0">0个</option><option value="1" selected>1个</option><option value="2">2个</option><option value="3">3个</option><option value="4">4个</option><option value="5">5个</option><option value="6">6个</option>
         </select>
     </div>
     <!-- 循环能量 -->
     <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 0; border-radius: 30px; padding: 2px 8px;">
-        <span style="font-size: 0.7rem; font-weight: 600; color: #c0c0d0; white-space: nowrap;">循环能量：</span>
+        <span style="font-size: 0.7rem; font-weight: 600; color: #c0c0d0!important; white-space: nowrap;">循环能量：</span>
         <span class="energy-display" id="calcCycleEnergyDisplay" style="font-size: 1rem; font-weight: 700; color: #feca57 !important; background: rgba(254,202,87,0.15); border: 1px solid rgba(254,202,87,0.25); border-radius: 30px; padding: 4px 8px; text-align: center; height: 32px; display: flex; align-items: center; justify-content: center; flex: 1; min-width: 0;">--</span>
     </div>
     <!-- 循环氮气 -->
     <div style="display: flex; align-items: center; gap: 4px; flex: 1; min-width: 0; border-radius: 30px; padding: 2px 8px;">
-        <span style="font-size: 0.7rem; font-weight: 600; color: #c0c0d0; white-space: nowrap;">循环氮气：</span>
+        <span style="font-size: 0.7rem; font-weight: 600; color: #c0c0d0!important; white-space: nowrap;">循环氮气：</span>
         <select id="calcCycleNitroCountDisplay" style="padding: 2px 8px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.08); color: #e2e2e6; font-size: 0.85rem; height: 32px; flex: 1; min-width: 0;">
             <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
         </select>
@@ -3600,27 +3600,27 @@ video.wallpaper-modal-media {
     <div style="flex: 1; min-width: 80px;">
         <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">主赋能</label>
         <div class="eff-select-row" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 8px 2px 4px; border: 1px solid rgba(255,255,255,0.06); height: 32px;">
-            <div class="eff-icon-preview" id="calcMainEffIcon" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;"></div>
-            <select <select id="calcMainEff" style="flex: 1; border: none; background: transparent; padding: 4px 8px; color: var(--text-primary); font-size: 0.85rem; height: 34px;">; color: var(--text-primary); font-size: 0.7rem; height: 28px;"></select>
+            <div class="eff-icon-preview" id="calcMainEffIcon" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;"></div>
+            <select <select id="calcMainEff" style="flex: 1; border: none; background: transparent; padding: 4px 8px; color: var(--text-primary); font-size: 0.85rem; height: 40px;">; color: var(--text-primary); font-size: 0.7rem; height: 28px;"></select>
         </div>
     </div>
     <!-- 次赋能 -->
     <div style="flex: 1; min-width: 80px;">
         <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">次赋能</label>
         <div class="eff-select-row" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 8px 2px 4px; border: 1px solid rgba(255,255,255,0.06); height: 32px;">
-            <div class="eff-icon-preview" id="calcSubEffIcon" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;"></div>
-            <select <select id="calcSubEff" style="flex: 1; border: none; background: transparent; padding: 4px 8px; color: var(--text-primary); font-size: 0.85rem; height: 34px;">; color: var(--text-primary); font-size: 0.7rem; height: 28px;"></select>
+            <div class="eff-icon-preview" id="calcSubEffIcon" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;"></div>
+            <select <select id="calcSubEff" style="flex: 1; border: none; background: transparent; padding: 4px 8px; color: var(--text-primary); font-size: 0.85rem; height: 40px;">; color: var(--text-primary); font-size: 0.7rem; height: 28px;"></select>
         </div>
     </div>
     <!-- 目标汇能 -->
     <div style="flex: 1.2; min-width: 100px;">
         <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">目标汇能 (%)</label>
-        <div style="display: flex; align-items: center; gap: 4px; height: 32px;">
+        <div style="display: flex; align-items: center; gap: 4px; height: 40px;">
             <input type="number" id="calcCustomHuiInput" step="0.25" value="0" min="0" style="flex: 1; padding: 4px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.85rem; text-align: center; height: 34px; min-width: 60px;">
             <span style="color: #8a8aa3; font-size: 0.7rem;">%</span>
             <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
                 ?
-                <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.55rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">不能输入低于最小汇能值</span>
+                <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.7rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">不能输入低于最小汇能值</span>
             </span>
         </div>
     </div>
@@ -6851,7 +6851,7 @@ function handleBackButton() {
         
         function createCalcToggleSwitch() {
     if (document.getElementById('calcSpecialToggleContainer')) return;
-    const toggleHtml = '<div id="calcSpecialToggleContainer" class="toggle-switch" style="margin-bottom:16px; display:flex; align-items:center; gap:8px; height:32px;"><input type="checkbox" id="calcSpecialToggleCheckbox" checked><label for="calcSpecialToggleCheckbox" id="calcSpecialToggleLabel" style="font-size:0.8rem; font-weight:600; color:#a0a0b8; cursor:pointer;">显示车辆专属浮动充能选项</label><span class="info-icon" style="display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; background:#4a5568; color:white; border-radius:50%; font-size:10px; font-weight:bold; cursor:help; position:relative;">?<span class="tooltip-text" style="position:absolute; bottom:100%; left:50%; transform:translateX(-50%); background:#1e293b; color:white; padding:3px 6px; border-radius:4px; font-size:0.55rem; white-space:nowrap; z-index:100; pointer-events:none; opacity:0; transition:opacity 0.2s; margin-bottom:4px;">关闭后隐藏自充能选项，开启后若车辆有独立增益则显示对应选项</span></span></div><div class="toggle-hint" style="font-size:0.55rem; color:#ffaaaa; margin-bottom:4px;">⚠️ 每次切换车辆后都先将此开关重新开关一次，才能正确显示车辆是否有独立增益效果</div>';
+    const toggleHtml = '<div id="calcSpecialToggleContainer" class="toggle-switch" style="margin-bottom:16px; display:flex; align-items:center; gap:8px; height:32px;"><input type="checkbox" id="calcSpecialToggleCheckbox" checked><label for="calcSpecialToggleCheckbox" id="calcSpecialToggleLabel" style="font-size:0.8rem; font-weight:600; color:#a0a0b8; cursor:pointer;">显示车辆专属浮动充能选项</label><span class="info-icon" style="display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; background:#4a5568; color:white; border-radius:50%; font-size:10px; font-weight:bold; cursor:help; position:relative;">?<span class="tooltip-text" style="position:absolute; bottom:100%; left:50%; transform:translateX(-50%); background:#1e293b; color:white; padding:3px 6px; border-radius:4px; font-size:0.7rem; white-space:nowrap; z-index:100; pointer-events:none; opacity:0; transition:opacity 0.2s; margin-bottom:4px;">关闭后隐藏自充能选项，开启后若车辆有独立增益则显示对应选项</span></span></div><div class="toggle-hint" style="font-size:0.7rem; color:#ffaaaa; margin-bottom:4px;">⚠️ 每次切换车辆后都先将此开关重新开关一次，才能正确显示车辆是否有独立增益效果</div>';
     calcVehicleSpecialContainer.insertAdjacentHTML('beforebegin', toggleHtml);
     const checkbox = document.getElementById('calcSpecialToggleCheckbox');
     if (checkbox) {
