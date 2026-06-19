@@ -6184,9 +6184,8 @@ function initWallpaperMobileDropdown() {
     document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
     document.getElementById('newsPage').style.display = 'block';
     document.getElementById('newsPage').style.visibility = 'visible';
-    document.querySelector('.main-content').innerHTML = document.getElementById('newsPage').innerHTML;}
-            } 
- } else if (pageId === 'wallpaper') {
+    document.querySelector('.main-content').innerHTML = document.getElementById('newsPage').innerHTML;
+    }else if (pageId === 'wallpaper') {
     // 手机端头部控制
     document.getElementById('mobileFixedHeader').style.display = 'none';
     document.getElementById('chipMobileFixedHeader').style.display = 'none';
@@ -6206,13 +6205,14 @@ function initWallpaperMobileDropdown() {
     document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
     document.getElementById('wallpaperPage').style.display = 'block';
     document.getElementById('wallpaperPage').style.visibility = 'visible';
-    document.querySelector('.main-content').innerHTML = document.getElementById('wallpaperPage').innerHTML;
-}
+    document.querySelector('.main-content').innerHTML = document.getElementById('wallpaperPage').innerHTML;}
+
  else {
     const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
     const currencyDesktopHeader = document.querySelector('.currency-desktop-header');
     const wallpaperDesktopHeader = document.querySelector('.wallpaper-desktop-header');
-    
+            
+     } 
     // 隐藏所有电脑端头部
     if (vehicleDesktopHeader) vehicleDesktopHeader.style.display = 'none';
     if (currencyDesktopHeader) currencyDesktopHeader.style.display = 'none';
