@@ -1452,7 +1452,19 @@
 #calculatorPage #calcRhythmOptions .sub-options span:nth-child(4),
 #calculatorPage #calcRhythmOptions .sub-options select:nth-child(5) {
     flex: 0 0 calc(50% - 4px) !important;
-}         
+}   
+  /* 手机端：目标汇能单独一行 */
+#calculatorPage .row2:has(#calcCustomHuiInput) {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    margin-top: 4px !important;
+}
+#calculatorPage .row2:has(#calcCustomHuiInput) > div {
+    flex: 0 0 calc(50% - 3px) !important;
+    max-width: calc(50% - 3px) !important;
+    min-width: 0 !important;
+}          
   /* ===== 手机端氮气数量选择 ===== */
 
 /* 1. 是否4气3气两大一循环：文字变大，选项框变矮 */
