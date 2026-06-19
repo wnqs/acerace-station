@@ -1283,8 +1283,15 @@
 }
 
 /* 车辆型号独占一行 */
+/* 车辆型号独占一行，是否专精和反制各占一半 */
+#calculatorPage .car-form-right .row2:first-child {
+    flex-wrap: wrap !important;
+}
 #calculatorPage .car-form-right .row2:first-child > div:first-child {
     flex: 0 0 100% !important;
+}
+#calculatorPage .car-form-right .row2:first-child > div:not(:first-child) {
+    flex: 0 0 calc(50% - 4px) !important;
 }
 
 #calculatorPage .energy-row {
