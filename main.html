@@ -6680,7 +6680,6 @@ function handleBackButton() {
 }
         
         function updateCalcCycleModeVisibility() {
-            console.log('updateCalcCycleModeVisibility 被调用了，首大能量：', firstEnergy);
             let container = document.getElementById('calcCycleModeContainer');
             let type = calcCarType.value;
             if (type !== 'assist') {
@@ -6690,6 +6689,7 @@ function handleBackButton() {
             }
             let firstEnergy = parseInt(calcFirstEnergyDisplay.textContent);
             if (isNaN(firstEnergy)) firstEnergy = 0;
+            console.log('updateCalcCycleModeVisibility 被调用了，首大能量：', firstEnergy);
             container.style.display = (firstEnergy >= 80 && type === 'assist') ? 'flex' : 'none';
             if (firstEnergy < 80 && calcCycleMode.value === 'cycle') {
                 calcCycleMode.value = 'normal';
