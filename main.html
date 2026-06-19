@@ -6185,7 +6185,8 @@ function initWallpaperMobileDropdown() {
     document.getElementById('newsPage').style.display = 'block';
     document.getElementById('newsPage').style.visibility = 'visible';
     document.querySelector('.main-content').innerHTML = document.getElementById('newsPage').innerHTML;}
-            } else if (pageId === 'wallpaper') {
+            } 
+ } else if (pageId === 'wallpaper') {
     // 手机端头部控制
     document.getElementById('mobileFixedHeader').style.display = 'none';
     document.getElementById('chipMobileFixedHeader').style.display = 'none';
@@ -6207,7 +6208,7 @@ function initWallpaperMobileDropdown() {
     document.getElementById('wallpaperPage').style.visibility = 'visible';
     document.querySelector('.main-content').innerHTML = document.getElementById('wallpaperPage').innerHTML;
 }
-} else {
+ else {
     const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
     const currencyDesktopHeader = document.querySelector('.currency-desktop-header');
     const wallpaperDesktopHeader = document.querySelector('.wallpaper-desktop-header');
