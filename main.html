@@ -5577,16 +5577,12 @@ function filterCurrencies() {
 function renderCurrenciesList() {
     const filtered = filterCurrencies();
     const grid = document.getElementById("currenciesGrid");
-    const stats = document.getElementById("currencyStatsText");
     if (!grid) return;
     
     if (filtered.length === 0) {
         grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px; color:#8a8aa3;">暂无游戏资源数据</div>';
-        if (stats) stats.innerText = "共 0 个游戏资源类型";
         return;
     }
-    // ... 后面的代码中用到 stats 的地方也加上 if (stats) 判断
-}
     
     function formatCurrencyItem(itemText) {
     if (!itemText) return itemText;
