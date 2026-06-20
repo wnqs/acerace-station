@@ -6157,6 +6157,10 @@ function initWallpaperMobileDropdown() {
             document.getElementById('newsPage').style.marginTop = '155px';
                 document.getElementById('newsPage').style.paddingLeft = '24px';
 document.getElementById('newsPage').style.paddingRight = '16px';
+                document.getElementById('newsPage').style.marginLeft = '0px';
+document.getElementById('newsPage').style.marginRight = '0px';
+document.getElementById('newsPage').style.paddingLeft = '12px';
+document.getElementById('newsPage').style.paddingRight = '12px';
         } else if (pageId === 'wallpaper') {
     // 显示手机端壁纸头部，隐藏其他头部
     document.getElementById('mobileFixedHeader').style.display = 'none';
@@ -6172,7 +6176,11 @@ document.getElementById('newsPage').style.paddingRight = '16px';
     if (wallpapersData.length === 0) loadWallpapersData(); else renderWallpapersList();
     document.getElementById('wallpaperPage').style.marginTop = '145px';
     document.getElementById('wallpaperPage').style.paddingLeft = '24px';
-document.getElementById('wallpaperPage').style.paddingRight = '16px';            
+document.getElementById('wallpaperPage').style.paddingRight = '16px';
+                document.getElementById('wallpaperPage').style.marginLeft = '0px';
+document.getElementById('wallpaperPage').style.marginRight = '0px';
+document.getElementById('wallpaperPage').style.paddingLeft = '12px';
+document.getElementById('wallpaperPage').style.paddingRight = '12px';
 }
         } else {
             const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
