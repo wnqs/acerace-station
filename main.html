@@ -1489,27 +1489,7 @@
     color: #d0d0e0 ;
 }
 
-/* 3. 车辆专属浮动充能下拉框铺满一行 */
-#calculatorPage #calcVehicleSpecialOptionsContainer {
-    max-width: 100% !important;
-    width: 100% !important;
-}
-#calculatorPage #calcVehicleSpecialOptionsContainer .option-row {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 4px !important;
-}
-#calculatorPage #calcVehicleSpecialOptionsContainer .option-row > div {
-    flex: 1 !important;
-    min-width: 0 !important;
-}
-#calculatorPage #calcVehicleSpecialOptionsContainer select {
-    width: 100% !important;
-    height: 32px !important;
-    min-height: 32px !important;
-    font-size: 0.65rem !important;
-    padding: 2px 6px !important;
-}
+
 }           
    
       @media (min-width: 769px) {
@@ -3328,6 +3308,30 @@ video.wallpaper-modal-media {
     height: 100% !important;
     object-fit: contain !important;
     display: block !important;
+}
+    /* 3. 车辆专属浮动充能下拉框铺满一行 */
+#calculatorPage #calcVehicleSpecialOptionsContainer {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+#calculatorPage #calcVehicleSpecialOptionsContainer .option-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+}
+#calculatorPage #calcVehicleSpecialOptionsContainer .option-row > div {
+    flex: 1 !important;
+    min-width: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    height: 36px !important;  /* 统一高度 */
+}
+#calculatorPage #calcVehicleSpecialOptionsContainer select {
+    width: 100% !important;
+    height: 32px !important;
+    min-height: 32px !important;
+    font-size: 0.65rem !important;
+    padding: 2px 6px !important;
 }
 }
   /* 让右侧四行均匀分布 */
