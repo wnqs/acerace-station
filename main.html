@@ -7159,6 +7159,7 @@ function handleBackButton() {
 
         // 设置车辆类型
         calcCarType.value = carInfo.type;
+        calcSpecialize.value = '10';
         updateCalcCarTypeIcon();
 
         // 设置专精选项
@@ -7557,6 +7558,7 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
     updateCalcCycleModeVisibility();
     updateCalcToggleState();
     setDefaultOverrideR();
+    calcSpecialize.value = '10';        
 });
         calcVSlot.addEventListener('change', () => {
             updateCalcVSlotIcon();
