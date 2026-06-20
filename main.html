@@ -3429,6 +3429,7 @@ video.wallpaper-modal-media {
     justify-content: center !important;
     margin: 0 !important;
     padding: 0 !important;
+    align-self: center !important;
 }
 #calculatorPage .eff-icon-preview img {
     width: 100% !important;
@@ -3437,6 +3438,19 @@ video.wallpaper-modal-media {
     display: block !important;
     margin: 0 !important;
     padding: 0 !important;
+}
+    /* 手机端：主次赋能和目标汇能的label回到选项框上方 */
+@media (max-width: 768px) {
+    #calculatorPage .eff-row > div > div,
+    #calculatorPage .hui-row > div > div {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+    #calculatorPage .eff-row label,
+    #calculatorPage .hui-row label {
+        margin-bottom: 2px !important;
+        font-size: 0.7rem !important;
+    }
 }
 }     
     </style>
@@ -3884,26 +3898,31 @@ video.wallpaper-modal-media {
            <div class="row2" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end;">
     <!-- 主赋能 -->
     <div class="row2 eff-row" style="flex: 1; min-width: 80px;">
-        <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">主赋能</label>
-        <div class="eff-select-row" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 8px 2px 4px; border: 1px solid rgba(255,255,255,0.06); height: 40px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+        <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; white-space: nowrap;">主赋能</label>
+        <div class="eff-select-row" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 8px 2px 4px; border: 1px solid rgba(255,255,255,0.06); height: 40px; flex: 1;">
             <div class="eff-icon-preview" id="calcMainEffIcon" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;"></div>
             <select id="calcMainEff" style="flex: 1; border: none; background: transparent; padding: 4px 8px; color: var(--text-primary); font-size: 0.85rem; height: 44px;"></select>
         </div>
     </div>
+</div>
     <!-- 次赋能 -->
-    <div class="row2 eff-row" style="flex: 1; min-width: 80px;">
-        <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">次赋能</label>
-        <div class="eff-select-row" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 8px 2px 4px; border: 1px solid rgba(255,255,255,0.06); height: 40px;">
+   <div class="row2 eff-row" style="flex: 1; min-width: 80px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+        <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; white-space: nowrap;">次赋能</label>
+        <div class="eff-select-row" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 8px 2px 4px; border: 1px solid rgba(255,255,255,0.06); height: 40px; flex: 1;">
             <div class="eff-icon-preview" id="calcSubEffIcon" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;"></div>
             <select id="calcSubEff" style="flex: 1; border: none; background: transparent; padding: 4px 8px; color: var(--text-primary); font-size: 0.85rem; height: 44px;"></select>
         </div>
     </div>
+</div>
      <div id="calcColorErrorMsg" class="error-message" style="display: none; background: rgba(255,0,0,0.08); color: #ff6b6b; padding: 4px 10px; border-radius: 6px; font-size: 0.65rem; margin-bottom: 4px;"></div>           
     <!-- 目标汇能 -->
-    <divdiv class="row2 hui-row" style="flex: 1.2; min-width: 100px;">
-        <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">目标汇能 (%)</label>
+<div class="row2 hui-row" style="flex: 1.2; min-width: 100px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+        <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; white-space: nowrap;">目标汇能 (%)</label>
         <span id="calcCustomHuiWarning" class="custom-hui-warning" style="font-size: 0.6rem; color: #ff6b6b;"></span>
-        <div style="display: flex; align-items: center; gap: 4px; height: 40px;">
+        <div style="display: flex; align-items: center; gap: 4px; height: 40px; flex: 1;">
             <input type="number" id="calcCustomHuiInput" step="0.25" value="0" min="0" style="flex: 1; padding: 4px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.85rem; text-align: center; height: 34px; min-width: 60px;">
             <span style="color: #8a8aa3; font-size: 0.7rem;">%</span>
             <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
