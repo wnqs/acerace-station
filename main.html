@@ -3298,6 +3298,18 @@ video.wallpaper-modal-media {
     backdrop-filter: blur(4px) !important;
     -webkit-backdrop-filter: blur(4px) !important;
 }
+    /* 电脑端筛选选项选中状态 */
+.desktop-filter-option.active,
+.desktop-quality-option.active {
+    background: #feca57 !important;
+    color: #1a1a2e !important;
+}
+
+/* 同时确保文字在选中时变黑 */
+.desktop-filter-option.active span,
+.desktop-quality-option.active span {
+    color: #1a1a2e !important;
+}
 }
 
 /* 手机端：允许换行 */
