@@ -82,14 +82,17 @@
                 margin-bottom: 24px;
             }
             .desktop-filter-bar {
-                background: rgba(20, 20, 31, 0.6);
-                backdrop-filter: blur(8px);
-                border: 1px solid rgba(42, 42, 60, 0.5);
-            }
+    background: rgba(20, 20, 31, 0.7) !important;  /* 半透明背景 */
+    backdrop-filter: blur(12px) !important;         /* 毛玻璃模糊效果 */
+    -webkit-backdrop-filter: blur(12px) !important; /* Safari兼容 */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
             .search-box input {
-                border: 1px solid rgba(42, 42, 60, 0.8);
-                background: rgba(31, 31, 46, 0.8);
-            }
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
             .desktop-filter-option, .desktop-quality-option {
                 background: rgba(42, 42, 60, 0.7);
             }
