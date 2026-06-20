@@ -3425,6 +3425,37 @@ video.wallpaper-modal-media {
     width: 100% !important;
     box-sizing: border-box !important;
 }
+    /* 手机端修复游戏资源获取统计页面偏移 */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    #newsPage .currencies-grid {
+        position: relative !important;
+        left: 0 !important;
+        margin: 0 !important;
+        padding: 0 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    #wallpaperPage .wallpapers-grid {
+        position: relative !important;
+        left: 0 !important;
+        margin: 0 !important;
+        padding: 0 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
 }     
     </style>
 </head>
