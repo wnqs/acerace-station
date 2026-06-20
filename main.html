@@ -3406,88 +3406,6 @@ video.wallpaper-modal-media {
         padding: 3px 8px !important;
         margin: 4px 0 !important;
     }
-    /* 手机端修复游戏资源获取统计和游戏精彩内容偏右 */
-#newsPage,
-#wallpaperPage {
-    margin-left: 0px !important;
-    margin-right: 0px !important;
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-    box-sizing: border-box !important;
-    width: 100% !important;
-}
-#newsPage .currencies-grid,
-#wallpaperPage .wallpapers-grid {
-    margin-left: 0px !important;
-    margin-right: 0px !important;
-    padding-left: 0px !important;
-    padding-right: 0px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-    /* 手机端修复游戏资源获取统计页面偏移 */
-
-    .main-content {
-        padding: 0 !important;
-        margin: 0 !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    body {
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    #newsPage .currencies-grid {
-        position: relative !important;
-        left: 0 !important;
-        margin: 0 !important;
-        padding: 0 12px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    #wallpaperPage .wallpapers-grid {
-        position: relative !important;
-        left: 0 !important;
-        margin: 0 !important;
-        padding: 0 12px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-/* 手机端主次赋能图标垂直居中，文字正常显示 */
-#calculatorPage .eff-select-row {
-    display: flex !important;
-    align-items: center !important;
-    height: 44px !important;
-    padding: 2px 8px 2px 4px !important;
-    box-sizing: border-box !important;
-}
-#calculatorPage .eff-select-row select {
-    height: 38px !important;
-    font-size: 0.8rem !important;
-    padding: 2px 4px !important;
-    color: #e2e2e6 !important;
-}
-#calculatorPage .eff-icon-preview {
-    width: 32px !important;
-    height: 32px !important;
-    flex-shrink: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    align-self: center !important;
-}
-#calculatorPage .eff-icon-preview img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: contain !important;
-    display: block !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
 }     
     </style>
 </head>
@@ -3945,7 +3863,7 @@ video.wallpaper-modal-media {
         <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">次赋能</label>
         <div class="eff-select-row" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 8px 2px 4px; border: 1px solid rgba(255,255,255,0.06); height: 40px;">
             <div class="eff-icon-preview" id="calcSubEffIcon" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;"></div>
-            <select <select id="calcSubEff" style="flex: 1; border: none; background: transparent; padding: 4px 8px; color: var(--text-primary); font-size: 0.85rem; height: 44px;">; color: var(--text-primary); font-size: 0.7rem; height: 28px;"></select>
+            <select <select id="calcSubEff" style="flex: 1; border: none; background: transparent; padding: 4px 8px; color: var(--text-primary); font-size: 0.85rem; height: 4px;">; color: var(--text-primary); font-size: 0.7rem; height: 28px;"></select>
         </div>
     </div>
      <div id="calcColorErrorMsg" class="error-message" style="display: none; background: rgba(255,0,0,0.08); color: #ff6b6b; padding: 4px 10px; border-radius: 6px; font-size: 0.65rem; margin-bottom: 4px;"></div>           
@@ -6236,13 +6154,6 @@ function initWallpaperMobileDropdown() {
             document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.currency-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'news') t.classList.add('active'); });
             if (currenciesData.length === 0) loadCurrenciesData(); else renderCurrenciesList();
-            document.getElementById('newsPage').style.marginTop = '155px';
-                document.getElementById('newsPage').style.paddingLeft = '24px';
-document.getElementById('newsPage').style.paddingRight = '16px';
-                document.getElementById('newsPage').style.marginLeft = '0px';
-document.getElementById('newsPage').style.marginRight = '0px';
-document.getElementById('newsPage').style.paddingLeft = '12px';
-document.getElementById('newsPage').style.paddingRight = '12px';
         } else if (pageId === 'wallpaper') {
     // 显示手机端壁纸头部，隐藏其他头部
     document.getElementById('mobileFixedHeader').style.display = 'none';
@@ -6256,13 +6167,6 @@ document.getElementById('newsPage').style.paddingRight = '12px';
     document.querySelectorAll('.wallpaper-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'wallpaper') t.classList.add('active'); });
     currentPage = 'wallpaper';
     if (wallpapersData.length === 0) loadWallpapersData(); else renderWallpapersList();
-    document.getElementById('wallpaperPage').style.marginTop = '145px';
-    document.getElementById('wallpaperPage').style.paddingLeft = '24px';
-document.getElementById('wallpaperPage').style.paddingRight = '16px';
-                document.getElementById('wallpaperPage').style.marginLeft = '0px';
-document.getElementById('wallpaperPage').style.marginRight = '0px';
-document.getElementById('wallpaperPage').style.paddingLeft = '12px';
-document.getElementById('wallpaperPage').style.paddingRight = '12px';
 }
         } else {
             const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
