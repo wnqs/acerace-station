@@ -3397,10 +3397,9 @@ video.wallpaper-modal-media {
     display: block !important;
     font-size: 0.5rem !important;
     color: #ff6b6b !important;
-    margin-top: 2px !important;
+    margin-bottom: 2px !important;
     white-space: normal !important;
     word-break: break-word !important;
-    max-width: 100% !important;
 }
     #calculatorPage #calcColorErrorMsg {
         font-size: 0.55rem !important;
@@ -3871,10 +3870,10 @@ video.wallpaper-modal-media {
     <!-- 目标汇能 -->
     <divdiv class="row2 hui-row" style="flex: 1.2; min-width: 100px;">
         <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">目标汇能 (%)</label>
+        <span id="calcCustomHuiWarning" class="custom-hui-warning" style="font-size: 0.6rem; color: #ff6b6b;"></span>
         <div style="display: flex; align-items: center; gap: 4px; height: 40px;">
             <input type="number" id="calcCustomHuiInput" step="0.25" value="0" min="0" style="flex: 1; padding: 4px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.85rem; text-align: center; height: 34px; min-width: 60px;">
             <span style="color: #8a8aa3; font-size: 0.7rem;">%</span>
-            <span id="calcCustomHuiWarning" class="custom-hui-warning" style="font-size: 0.6rem; color: #ff6b6b;"></span>
             <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
                 ?
                 <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.7rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">不能输入低于最小汇能值</span>
