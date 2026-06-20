@@ -1505,8 +1505,11 @@
 }
 #calculatorPage #calcVehicleSpecialOptionsContainer select {
     width: 100% !important;
+    height: 32px !important;
+    min-height: 32px !important;
     font-size: 0.65rem !important;
-} 
+    padding: 2px 6px !important;
+}
 }           
    
       @media (min-width: 769px) {
@@ -7000,39 +7003,39 @@ function handleBackButton() {
             let container = calcVehicleSpecialContainer;
             let html = '<div class="option-group"><div class="option-title">车辆专属浮动充能</div>';
             if (carName === "迈凯伦 Senna") {
-                html += `<div class="option-row"><div><label>🔁 普通循环秒数(1-10)</label><select id="calcSennaHuiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能2%</span></span></div><div><label>🎯 首大秒数(1-10)</label><select id="calcSennaJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select></div></div>`;
+                html += `<div class="option-row"><div><label> 普通循环秒数(1-10)</label><select id="calcSennaHuiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能2%</span></span></div><div><label> 首大秒数(1-10)</label><select id="calcSennaJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select></div></div>`;
             } else if (carName === "五菱宏光 MINI EV") {
-                html += `<div class="option-row"><div><label>🔁 普通循环次数(1-8)</label><select id="calcWulingHuiTimes">${[...Array(9).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每次小喷自充能1%</span></span></div><div><label>🎯 首大次数(1-6)</label><select id="calcWulingJiTimes">${[...Array(7).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
+                html += `<div class="option-row"><div><label> 普通循环次数(1-8)</label><select id="calcWulingHuiTimes">${[...Array(9).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每次小喷自充能1%</span></span></div><div><label> 首大次数(1-6)</label><select id="calcWulingJiTimes">${[...Array(7).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
             } else if (carName === "平行巡洋舰") {
                 if (isDoubleCycle) {
-                    html += `<div class="option-row"><div><label>🔁 4气3气两大一循环秒数(1-25)</label><select id="calcPingxingHuiSec">${[...Array(26).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能1.5%</span></span></div><div><label>🎯 首大秒数(1-10)</label><select id="calcPingxingJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select></div></div>`;
+                    html += `<div class="option-row"><div><label> 4气3气两大一循环秒数(1-25)</label><select id="calcPingxingHuiSec">${[...Array(26).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能1.5%</span></span></div><div><label> 首大秒数(1-10)</label><select id="calcPingxingJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select></div></div>`;
                 } else {
-                    html += `<div class="option-row"><div><label>🔁 普通循环秒数(1-15)</label><select id="calcPingxingHuiSec">${[...Array(16).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能1.5%</span></span></div><div><label>🎯 首大秒数(1-10)</label><select id="calcPingxingJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select></div></div>`;
+                    html += `<div class="option-row"><div><label> 普通循环秒数(1-15)</label><select id="calcPingxingHuiSec">${[...Array(16).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能1.5%</span></span></div><div><label> 首大秒数(1-10)</label><select id="calcPingxingJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select></div></div>`;
                 }
             } else if (carName === "奥迪TT RS") {
-                html += `<div class="option-row"><div><label>🎯 首大秒数(1-10)</label><select id="calcAudiTTJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能2%，仅首大能量生效</span></span></div></div>`;
+                html += `<div class="option-row"><div><label> 首大秒数(1-10)</label><select id="calcAudiTTJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能2%，仅首大能量生效</span></span></div></div>`;
             } else if (carName === "爱玛 晴天") {
                 if (isDoubleCycle) {
-                    html += `<div class="option-row"><div><label>🔁 4气3气两大一循环秒数(1-20)</label><select id="calcAimaHuiSec">${[...Array(21).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能0.7%</span></span></div><div><label>🎯 首大秒数(1-10)</label><select id="calcAimaJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select></div></div>`;
+                    html += `<div class="option-row"><div><label> 4气3气两大一循环秒数(1-20)</label><select id="calcAimaHuiSec">${[...Array(21).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能0.7%</span></span></div><div><label> 首大秒数(1-10)</label><select id="calcAimaJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select></div></div>`;
                 } else {
-                    html += `<div class="option-row"><div><label>🔁 普通循环秒数(1-15)</label><select id="calcAimaHuiSec">${[...Array(16).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能0.7%</span></span></div><div><label>🎯 首大秒数(1-10)</label><select id="calcAimaJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select></div></div>`;
+                    html += `<div class="option-row"><div><label> 普通循环秒数(1-15)</label><select id="calcAimaHuiSec">${[...Array(16).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每秒自充能0.7%</span></span></div><div><label>首大秒数(1-10)</label><select id="calcAimaJiSec">${[...Array(11).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select></div></div>`;
                 }
             } else if (carName === "阿斯顿马丁 Vanquish") {
-                html += `<div class="option-row"><div><label>🔁 普通循环次数(1-10)</label><select id="calcVanquishHuiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每次漂移自充能4%</span></span></div><div><label>🎯 首大次数(1-10)</label><select id="calcVanquishJiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
+                html += `<div class="option-row"><div><label> 普通循环次数(1-10)</label><select id="calcVanquishHuiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每次漂移自充能4%</span></span></div><div><label> 首大次数(1-10)</label><select id="calcVanquishJiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
             } else if (carName === "宝马X5") {
-                html += `<div class="option-row"><div><label>🔁 普通循环秒数(1-15)</label><select id="calcBaomaHuiSec">${[...Array(16).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">开局10秒后处于第五名及以后每秒自充能2%</span></span></div></div>`;
+                html += `<div class="option-row"><div><label> 普通循环秒数(1-15)</label><select id="calcBaomaHuiSec">${[...Array(16).keys()].map(i => `<option value="${i}">${i}秒</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">开局10秒后处于第五名及以后每秒自充能2%</span></span></div></div>`;
             } else if (carName === "幻蝶") {
                 if (isDoubleCycle) {
-                    html += `<div class="option-row"><div><label>🔁 4气3气两大一循环次数(1-8)</label><select id="calcHuanDieHuiTimes">${[...Array(9).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每3秒自充能7.5%</span></span></div><div><label>🎯 首大次数(1-4)</label><select id="calcHuanDieJiTimes">${[...Array(5).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
+                    html += `<div class="option-row"><div><label> 4气3气两大一循环次数(1-8)</label><select id="calcHuanDieHuiTimes">${[...Array(9).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每3秒自充能7.5%</span></span></div><div><label> 首大次数(1-4)</label><select id="calcHuanDieJiTimes">${[...Array(5).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
                 } else {
-                    html += `<div class="option-row"><div><label>🔁 普通循环次数(1-6)</label><select id="calcHuanDieHuiTimes">${[...Array(7).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每3秒自充能7.5%</span></span></div><div><label>🎯 首大次数(1-4)</label><select id="calcHuanDieJiTimes">${[...Array(5).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
+                    html += `<div class="option-row"><div><label> 普通循环次数(1-6)</label><select id="calcHuanDieHuiTimes">${[...Array(7).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每3秒自充能7.5%</span></span></div><div><label> 首大次数(1-4)</label><select id="calcHuanDieJiTimes">${[...Array(5).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
                 }
             } else if (carName === "风行者") {
-                html += `<div class="option-row"><div><label>🔁 普通循环次数(1-10)</label><select id="calcFengxingHuiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每次释放氮气自充能7%</span></span></div><div><label>🎯 首大次数(1-10)</label><select id="calcFengxingJiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
+                html += `<div class="option-row"><div><label> 普通循环次数(1-10)</label><select id="calcFengxingHuiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每次释放氮气自充能7%</span></span></div><div><label> 首大次数(1-10)</label><select id="calcFengxingJiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
             } else if (carName === "英菲尼迪 Prototype") {
-                html += `<div class="option-row"><div><label>🔁 普通循环次数(1-10)</label><select id="calcInfinitiHuiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每次使用紫色涡轮自充能5%</span></span></div><div><label>🎯 首大次数(1-10)</label><select id="calcInfinitiJiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
+                html += `<div class="option-row"><div><label> 普通循环次数(1-10)</label><select id="calcInfinitiHuiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每次使用紫色涡轮自充能5%</span></span></div><div><label> 首大次数(1-10)</label><select id="calcInfinitiJiTimes">${[...Array(11).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select></div></div>`;
             } else if (carName === "梅赛德斯-AMG GT Black Series") {
-                html += `<div class="option-row"><div><label>🔁 普通循环次数(0-5)</label><select id="calcAmgHuiTimes">${[...Array(6).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每次经过圈自充能15%</span></span></div></div>`;
+                html += `<div class="option-row"><div><label> 普通循环次数(0-5)</label><select id="calcAmgHuiTimes">${[...Array(6).keys()].map(i => `<option value="${i}">${i}次</option>`).join('')}</select><span class="info-icon">?<span class="tooltip-text">每次经过圈自充能15%</span></span></div></div>`;
             }
             html += '</div>';
             container.innerHTML = html;
