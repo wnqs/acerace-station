@@ -6154,7 +6154,9 @@ function initWallpaperMobileDropdown() {
             document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.currency-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'news') t.classList.add('active'); });
             if (currenciesData.length === 0) loadCurrenciesData(); else renderCurrenciesList();
-            document.getElementById('newsPage').style.marginTop = '120px';    
+            document.getElementById('newsPage').style.marginTop = '145px';
+                document.getElementById('newsPage').style.paddingLeft = '16px';
+document.getElementById('newsPage').style.paddingRight = '16px';
         } else if (pageId === 'wallpaper') {
     // 显示手机端壁纸头部，隐藏其他头部
     document.getElementById('mobileFixedHeader').style.display = 'none';
@@ -6168,7 +6170,9 @@ function initWallpaperMobileDropdown() {
     document.querySelectorAll('.wallpaper-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'wallpaper') t.classList.add('active'); });
     currentPage = 'wallpaper';
     if (wallpapersData.length === 0) loadWallpapersData(); else renderWallpapersList();
-    document.getElementById('wallpaperPage').style.marginTop = '120px';            
+    document.getElementById('wallpaperPage').style.marginTop = '145px';
+    document.getElementById('wallpaperPage').style.paddingLeft = '16px';
+document.getElementById('wallpaperPage').style.paddingRight = '16px';            
 }
         } else {
             const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
