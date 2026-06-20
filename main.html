@@ -3182,6 +3182,17 @@ video.wallpaper-modal-media {
         margin-top: 0 !important;
         padding-top: 0 !important;
     }
+    /* 手机端目标汇能警告在右边 */
+    #calculatorPage .hui-row .custom-hui-warning {
+        display: inline !important;
+        margin-left: 4px !important;
+        font-size: 0.5rem !important;
+    }
+    #calculatorPage #calcColorErrorMsg {
+        font-size: 0.55rem !important;
+        padding: 3px 8px !important;
+        margin: 4px 0 !important;
+    }
 }   
    /* 壁纸预览弹窗中的类型标签样式 */
 .wallpaper-modal-type {
@@ -3298,7 +3309,14 @@ video.wallpaper-modal-media {
         white-space: nowrap;
         font-size: 1.5rem;
     }
+    /* 电脑端目标汇能警告在目标汇能上方 */
+#calculatorPage .hui-row .custom-hui-warning {
+    display: block !important;
+    margin-bottom: 4px !important;
+    font-size: 0.6rem !important;
 }
+}
+    
 
 /* 手机端：允许换行 */
 @media (max-width: 768px) {
@@ -3353,54 +3371,12 @@ video.wallpaper-modal-media {
 .info-icon:hover .tooltip-text {
     opacity: 1 !important;
 } 
-    
-   /* ===== 赋能选择布局 ===== */
-
-/* 电脑端：目标汇能警告在目标汇能选项名字右边 */
-@media (min-width: 769px) {
-    #calculatorPage .hui-row .custom-hui-warning {
-        display: inline !important;
-        margin-left: 8px !important;
-        font-size: 0.6rem !important;
-        color: #ff6b6b !important;
-    }
-    #calculatorPage #calcColorErrorMsg {
-        font-size: 0.65rem !important;
-        padding: 4px 10px !important;
-        margin: 4px 0 8px 0 !important;
-    }
     /* 电脑端氮气数量标签字体变大 */
 .calculator-container .config-section .nitro-row span {
     font-size: 0.8rem !important;
     font-weight: 600;
     color: #d0d0e0 ;
-}  
-}
-
-/* 手机端：主次赋能各占一半，目标汇能占一半 */
-@media (max-width: 768px) {
-    #calculatorPage .eff-row > div {
-        flex: 0 0 calc(50% - 4px) !important;
-        max-width: calc(50% - 4px) !important;
-        min-width: 0 !important;
-    }
-    #calculatorPage .hui-row > div {
-        flex: 0 0 calc(50% - 4px) !important;
-        max-width: calc(50% - 4px) !important;
-        min-width: 0 !important;
-    }
-    #calculatorPage .hui-row .custom-hui-warning {
-        display: inline !important;
-        margin-left: 4px !important;
-        font-size: 0.5rem !important;
-        color: #ff6b6b !important;
-    }
-    #calculatorPage #calcColorErrorMsg {
-        font-size: 0.55rem !important;
-        padding: 3px 8px !important;
-        margin: 4px 0 !important;
-    }
-}     
+}    
     </style>
 </head>
 <body>
@@ -3845,7 +3821,7 @@ video.wallpaper-modal-media {
             <div class="section-title">赋能选择</div>
            <div class="row2" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end;">
     <!-- 主赋能 -->
-    <div class="row2 eff-row" style="flex: 1; min-width: 80px;">
+    <div style="flex: 1; min-width: 80px;">
         <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">主赋能</label>
         <div class="eff-select-row" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 8px 2px 4px; border: 1px solid rgba(255,255,255,0.06); height: 40px;">
             <div class="eff-icon-preview" id="calcMainEffIcon" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;"></div>
@@ -3853,16 +3829,16 @@ video.wallpaper-modal-media {
         </div>
     </div>
     <!-- 次赋能 -->
-    <div class="row2 eff-row" style="flex: 1; min-width: 80px;">
+    <div style="flex: 1; min-width: 80px;">
         <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">次赋能</label>
         <div class="eff-select-row" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); border-radius: 30px; padding: 2px 8px 2px 4px; border: 1px solid rgba(255,255,255,0.06); height: 40px;">
             <div class="eff-icon-preview" id="calcSubEffIcon" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;"></div>
             <select <select id="calcSubEff" style="flex: 1; border: none; background: transparent; padding: 4px 8px; color: var(--text-primary); font-size: 0.85rem; height: 4px;">; color: var(--text-primary); font-size: 0.7rem; height: 28px;"></select>
         </div>
     </div>
-     <div id="calcColorErrorMsg" class="error-message" style="display: none; background: rgba(255,0,0,0.08); color: #ff6b6b; padding: 4px 10px; border-radius: 6px; font-size: 0.65rem; margin-bottom: 4px;"></div>           
+    <div id="calcColorErrorMsg" class="error-message" style="display: none; background: rgba(255,0,0,0.08); color: #ff6b6b; padding: 4px 10px; border-radius: 6px; font-size: 0.65rem; margin-bottom: 4px;"></div>
     <!-- 目标汇能 -->
-    <divdiv class="row2 hui-row" style="flex: 1.2; min-width: 100px;">
+    <div style="flex: 1.2; min-width: 100px;">
         <label style="font-size: 0.75rem; font-weight: 600; color: #8a8aa3; display: block; margin-bottom: 2px;">目标汇能 (%)</label>
         <div style="display: flex; align-items: center; gap: 4px; height: 40px;">
             <input type="number" id="calcCustomHuiInput" step="0.25" value="0" min="0" style="flex: 1; padding: 4px 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.85rem; text-align: center; height: 34px; min-width: 60px;">
@@ -3875,7 +3851,7 @@ video.wallpaper-modal-media {
         </div>
     </div>
 </div>
-           
+            
             <div id="calcQueyiOptions" style="display:none; margin-top: 4px;">
     <div class="sub-options" style="display: flex; flex-wrap: nowrap; gap: 6px 12px; padding: 4px 10px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); align-items: center; overflow-x: auto;">
         <span style="font-size: 0.75rem; color: #a0a0b8; white-space: nowrap;">缺一</span>
@@ -3909,7 +3885,6 @@ video.wallpaper-modal-media {
     </div>
 </div>
             
-        </div>
 
         <!-- 框4：计算结果 -->
         <div class="config-section">
