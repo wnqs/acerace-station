@@ -6839,17 +6839,18 @@ function handleBackButton() {
             let base = [{ value: "shenxin", name: "神剑号之芯" }, { value: "shengxin", name: "圣骑士之芯" }, { value: "xiaolu", name: "效率" }, { value: "leiji", name: "累计" }, { value: "feichi", name: "飞驰" }, { value: "tujin", name: "突进" }, { value: "jianren", name: "坚韧" }, { value: "chongci", name: "冲刺" }, { value: "shensu", name: "神速" }];
             let opts = [...base];
             let vehicleFirstEnergy = getVehicleFirstEnergy(carName);
-           if (carName === "先驱者") {
-    opts.unshift({ value: "xianqu", name: "先驱者专属芯片（修竹）" });
-} else if (carName === "摇尾萌萌虎") {
-    opts.unshift({ value: "xiaofeng", name: "摇尾萌萌虎专属芯片（啸风白虎）" });
-}
+            let showMaoxin = (carName === "猫眠梦") || (vehicleFirstEnergy >= 90);
+            if (carName === "先驱者") {
+            opts.unshift({ value: "xianqu", name: "先驱者专属芯片（修竹）" });
+            } else if (carName === "摇尾萌萌虎") {
+            opts.unshift({ value: "xiaofeng", name: "摇尾萌萌虎专属芯片（啸风白虎）" });
+            }
 
 // 猫芯独立判断，所有满足条件的车辆都能显示
-if (showMaoxin) {
-    opts.unshift({ value: "maoxin", name: "猫眠梦之芯" });
-}
-            opts.forEach(o => {
+            if (showMaoxin) {
+                opts.unshift({ value: "maoxin", name: "猫眠梦之芯" });
+              }
+                opts.forEach(o => {
                 let op = document.createElement('option');
                 op.value = o.value;
                 op.textContent = o.name;
