@@ -6226,6 +6226,9 @@ function handleBackButton() {
             isInDetail = false;
             updateDetailState(false);
             renderList();
+            filtered = filterAndSortVehicles();
+// 重新渲染
+renderList();
         if (currentPage !== 'vehicles') {
             switchToPage('vehicles');
         }
