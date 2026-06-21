@@ -6582,7 +6582,14 @@ function handleBackButton() {
     let percentValue = value;
     if (percentValue > 30) percentValue = 30;
     if (percentValue <= 0) return "0.0%";
-    // 向上取整到一位小数
+    
+    // 检查是否是整数（小数点后全为0）
+    let rounded = Math.round(percentValue * 1000) / 1000;
+    if (Math.abs(rounded - Math.round(rounded)) < 0.001) {
+        return Math.round(rounded).toFixed(1) + "%";
+    }
+    
+    // 非整数：小数位直接进1
     let formatted = Math.ceil(percentValue * 10) / 10;
     return formatted.toFixed(1) + "%";
 }
