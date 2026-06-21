@@ -6607,7 +6607,7 @@ function handleBackButton() {
         if (specialThreshold !== undefined && specialThreshold < 90) {
             return {
                 firstEnergy: specialThreshold,
-                cycleEnergy: isDoubleCycle ? specialThreshold * 2 : specialThreshold
+                cycleEnergy: isDoubleCycle ? specialThreshold + 100 : specialThreshold
             };
         }
         return {
