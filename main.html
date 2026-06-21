@@ -6265,11 +6265,7 @@ renderList();
             return true;  // 返回，不退出
         }
         // 没有弹窗时，直接退出网站（不跳转到车辆数据）
-        if (window.history.length <= 1) window.close();
-        else {
-            // 直接关闭页面，不返回上一页
-            window.close();
-        }
+        
         return true;
     }
     
