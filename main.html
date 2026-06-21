@@ -6642,7 +6642,7 @@ function handleBackButton() {
     let firstEnergy = getVehicleFirstEnergy(carName);
     return { 
         firstEnergy: firstEnergy, 
-        cycleEnergy: isDoubleCycle ? firstEnergy * 2 : firstEnergy 
+        cycleEnergy: isDoubleCycle ?  firstEnergy+ 100: firstEnergy 
     };
 }
         
