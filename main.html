@@ -7324,7 +7324,8 @@ const targetCycle = energyVals.cycleEnergy;
                 warningSpan.innerHTML = '';
             }
             let finalHuiFormatted = formatHuiCalc(finalHuiValue);
-            const nitroPartFirst = nitroVal * (1 + finalHuiValue / 100) * resist * (1 + firstEff / 100) * startNitroCount * nitroRatio;
+            const huiForJi = parseFloat(finalHuiFormatted);
+const nitroPartFirst = nitroVal * (1 + huiForJi / 100) * resist * (1 + firstEff / 100) * startNitroCount * nitroRatio;
             const specPartFirst = specCharge * resist * (1 + firstEff / 100) * startNitroCount * nitroRatio;
             const vehiclePartFirst = (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + firstEff / 100);
             const effPartFirst = (firstEffFixed + firstEffFloating) * resist * (1 + firstEff / 100);
