@@ -6213,24 +6213,36 @@ function handleBackButton() {
     
         // ===== 车辆数据页面 =====
     if (currentPage === 'vehicles') {
-        // 如果正在查看详情，返回列表（不清空筛选）
-        if (isInDetail) {
-            clearAllFilters();
-            clearAllSearchBoxes();
-            handleVehicleBackToList();
-            return true;
-       }
-        // 如果有激活的筛选条件，先清空筛选
-        if (activeFilters.position || activeFilters.specialty || activeFilters.quality || keyword) {
-            clearAllFilters();
-            clearAllSearchBoxes();
-            return true;
+    // 如果正在查看详情，清空筛选并返回列表
+    if (isInDetail) {
+        clearAllFilters();
+        clearAllSearchBoxes();
+        // 清除URL参数
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('car')) {
+            const newUrl = window.location.pathname;
+            history.replaceState(null, '', newUrl);
         }
-        // 没有筛选条件时，退出网站
-        if (window.history.length <= 1) window.close();
-        else history.back();
+        isInDetail = false;
+        updateDetailState(false);
+        renderList();
+        if (currentPage !== 'vehicles') {
+            switchToPage('vehicles');
+        }
+        window.scrollTo(0, 0);
         return true;
-    }    
+    }
+    // 如果有激活的筛选条件，先清空筛选
+    if (activeFilters.position || activeFilters.specialty || activeFilters.quality || keyword) {
+        clearAllFilters();
+        clearAllSearchBoxes();
+        return true;
+    }
+    // 没有筛选条件时，退出网站
+    if (window.history.length <= 1) window.close();
+    else history.back();
+    return true;
+}    
     if (currentPage === 'chip') {
         if (handleChipBack()) return true;
     }
