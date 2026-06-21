@@ -5621,9 +5621,9 @@ function renderCurrenciesList() {
     let result = itemText;
     
     // 检查是否包含"小计:"
-    if (result.includes('小计:')) {
+    if (result.includes('小计：') || result.includes('小计:')) {
         // 将"小计:"后面的所有数字都标红（包括用顿号、逗号、文字分隔的多个数字）
-        result = result.replace(/小计:([^（\n]*)/g, function(match, content) {
+        result = result.replace(/小计[：:]([^（\n]*)/g, function(match, content) {
             // 标红内容中的所有数字
             const highlightedContent = content.replace(/(\d+(?:\.\d+)?)/g, '<span class="currency-number-red">$1</span>');
             return '小计:' + highlightedContent;
