@@ -6223,9 +6223,9 @@ function handleBackButton() {
             const newUrl = window.location.pathname;
             history.replaceState(null, '', newUrl);
         }
-        isInDetail = false;
-        updateDetailState(false);
-        renderList();
+            isInDetail = false;
+            updateDetailState(false);
+            renderList();
         if (currentPage !== 'vehicles') {
             switchToPage('vehicles');
         }
@@ -6240,19 +6240,19 @@ function handleBackButton() {
     }
     // 没有筛选条件时，退出网站
     if (window.history.length <= 1) window.close();
-    else history.back();
-    return true;
-}    
-    if (currentPage === 'chip') {
+        else history.back();
+       return true;
+  }    
+        if (currentPage === 'chip') {
         if (handleChipBack()) return true;
     }
     
-    if (currentPage === 'energy') {
+        if (currentPage === 'energy') {
         if (handleEnergyBack()) return true;
     }
     
         // ===== 游戏精彩内容页面 =====
-    if (currentPage === 'wallpaper') {
+        if (currentPage === 'wallpaper') {
         // 如果正在预览壁纸详情，关闭弹窗（不退出）
         if (window.isViewingWallpaperDetail) {
             const modal = document.querySelector('.wallpaper-modal');
