@@ -4397,6 +4397,7 @@ function formatSkillText(text) {
     
     function clearAllFilters() {
         activeFilters = { position: "", specialty: "", quality: "" };
+        keyword = "";
         if (isMobileDevice()) {
             updateFilterUI();
         } else {
