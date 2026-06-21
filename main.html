@@ -6214,9 +6214,11 @@ function handleBackButton() {
     if (currentPage === 'vehicles') {
         // 如果正在查看详情，返回列表（不清空筛选）
         if (isInDetail) {
+            clearAllFilters();
+            clearAllSearchBoxes();
             handleVehicleBackToList();
             return true;
-        }
+       }
         // 如果有激活的筛选条件，先清空筛选
         if (activeFilters.position || activeFilters.specialty || activeFilters.quality || keyword) {
             clearAllFilters();
@@ -6227,12 +6229,7 @@ function handleBackButton() {
         if (window.history.length <= 1) window.close();
         else history.back();
         return true;
-    }
-    
-    if (currentPage === 'vehicles' && !isInDetail) {
-        if (handleVehicleListBack()) return true;
-    }
-    
+    }    
     if (currentPage === 'chip') {
         if (handleChipBack()) return true;
     }
