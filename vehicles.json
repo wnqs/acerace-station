@@ -9416,6 +9416,62 @@
       },
       "ultIcon": "https://free.picui.cn/free/20260613/7042f42063c244791648b4718d3348c7.png",
       "passiveIcon": "https://free.picui.cn/free/20260613/9d1cbdd2db545fd03959a1e4f6bdcf9e.png"
-    }
-  ]
+    },
+    {
+  "id": "xiaoyao",
+  "name": "逍遥",
+  "quality": "传说",
+  "acquisition": "王牌补给",
+  "acquisitionIcon": "https://s3.bmp.ovh/2026/06/22/bauo1qac.png",
+  "description": "快意恩仇，自在逍遥",
+  "registerDate": "2026-06-19",
+  "vehicleType": "幻想阵营",
+  "manufacturer": "平行世界",
+  "position": "竞速",
+  "specialty": "城市",
+  "searchKeywords": [],
+  "imageUrl": "https://s3.bmp.ovh/2026/06/22/bTgceRgZ.png",
+  "chipSlots": ["circle", "circle", "rhombus", "rhombus", "vslot", "hexagon"],
+  "stats": {
+    "topSpeed": "217.0 km/h",
+    "power": "8.54",
+    "durability": "120",
+    "nitroCharge": "18.0%",
+    "startCharge": "38.0%（18.0%+20.0%）",
+    "nitroDuration": "10.0 s",
+    "nitroSpeed": {
+      "blue": "28.20 km/h",
+      "purple": "42.30 km/h"
+    },
+    "turboDuration": {
+      "blue": "0.68 s",
+      "purple": "2.04 s"
+    },
+    "turboSpeed": {
+      "blue": "6.80 km/h",
+      "purple": "10.20 km/h"
+    },
+    "ultPower": "8"
+  },
+  "ultIcon": "https://s3.bmp.ovh/2026/06/22/MIfX94TX.png",
+  "skills": {
+    "ult": {
+      "name": "快意恩仇",
+      "desc": "加速推进，极速提升极速提升85km/h，持续10秒。加速期间：<br>·每次受到锁定类干扰效果后与进行干扰的敌方同归于尽（使进行干扰的敌方也受到相同干扰效果）<br>·每次受到干扰或辅助时本局内极速+3km/h（上限30km/h）<br>·首次叠加至满层后，每次使用大招时友方全体恢复15点耐久值",
+      "recu": "快意恩仇可以充能两次并在开局时获得20%大招能量",
+      "ultPassive": ""
+    },
+    "passive": {
+      "name": "自在逍遥",
+      "desc": "氮气期间可再次使用氮气，每次使用氮气时获得500集气量",
+      "icon": "https://s3.bmp.ovh/2026/06/22/l4EJUzvb.png"
+    },
+    "features": [
+      { "name": "氮气重复", "color": "紫", "desc": "·氮气持续期间可重复释放/·可用于出弯并获得充能/·每个氮气生效时间独立计算，不会额外叠加极速" },
+      { "name": "同归于尽", "color": "红", "desc": "受到锁定干扰时，使敌方也承受同样的干扰效果" },
+      { "name": "高极速", "color": "蓝", "desc": "技能提供大量极速加成" },
+      { "name": "友方耐久", "color": "蓝", "desc": "为友方恢复耐久值" },
+      { "name": "自动集气", "color": "蓝", "desc": "技能可以自动获取氮气" }
+    ]
+  }
 }
