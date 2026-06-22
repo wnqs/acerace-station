@@ -54,6 +54,58 @@
       "passiveIcon": "https://s3.bmp.ovh/2026/05/31/DvCedD2q.png"
     },
     {
+  "id": "shenjianhao",
+  "name": "神剑号",
+  "quality": "传说",
+  "position": "竞速",
+  "specialty": "山路",
+  "imageUrl": "https://s3.bmp.ovh/2026/06/22/cR8zfRLT.png",
+  "positionIcon": "竞速",
+  "specialtyIcon": "山路",
+  "description": "多级推进，三档加速",
+  "skillName": "三重推进",
+  "searchKeywords": ["神剑号", "三重推进", "自动集氮", "多级推进"],
+  "registerDate": "2021-07-23",
+  "vehicleType": "幻想阵营",
+  "manufacturer": "平行世界",
+  "acquisition": "王牌补给",
+  "acquisitionIcon": "https://s3.bmp.ovh/2026/06/10/ukFZPPkj.png",
+  "stats": {
+    "topSpeed": "234.0 km/h",
+    "power": "7.53",
+    "durability": "100",
+    "nitroCharge": "29.0%",
+    "startCharge": "29.0%",
+    "nitroDuration": "5.20 s",
+    "nitroSpeed": { "blue": "29.00 km/h", "purple": "43.50 km/h" },
+    "turboDuration": { "blue": "0.57 s", "purple": "1.71 s" },
+    "turboSpeed": { "blue": "4.40 km/h", "purple": "6.60 km/h" },
+    "ultPower": "9"
+  },
+  "chipSlots": ["circle", "circle", "rhombus", "rhombus", "vslot", "hexagon"],
+  "skills": {
+    "ult": {
+      "name": "三重推进",
+      "desc": "激活多级推进加速，加速推进并提升极速。持续期间再次点击大招可以升级推进强度，最多可提升两次。升级推进后加速效果更强，但持续时间更短，最大可提升极速终阶极速提升90km/h<br>一阶持续时间10秒，极速提升40km/h<br>二阶持续时间8秒，极速提升60km/h<br>终阶持续时间6秒，极速提升90km/h",
+      "recu": "三重推进可以充能两次",
+      "ultPassive": ""
+    },
+    "passive": {
+      "name": "自动集氮",
+      "desc": "每秒获得240集气量，每次集满一管氮气时净化自身负面效果"
+    },
+    "features": [
+      { "name": "多段释放", "desc": "大招期间可以多次点击触发额外效果", "color": "黄" },
+      { "name": "高极速", "desc": "技能提供大量极速加成", "color": "蓝" },
+      { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" },
+      { "name": "快速出弯", "desc": "拥有额外的退出漂移能力", "color": "蓝" },
+      { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
+    ]
+  },
+  "ultIcon": "https://s3.bmp.ovh/2026/06/08/tqer3hjO.png",
+  "passiveIcon": "https://s3.bmp.ovh/2026/06/08/FaFW6QvD.png"
+},
+    {
       "id": "ether",
       "name": "以太",
       "quality": "传说",
