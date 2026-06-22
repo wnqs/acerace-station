@@ -9421,17 +9421,19 @@
   "id": "xiaoyao",
   "name": "逍遥",
   "quality": "传说",
-  "acquisition": "王牌补给",
-  "acquisitionIcon": "https://s3.bmp.ovh/2026/06/22/bauo1qac.png",
+  "position": "竞速",
+  "specialty": "城市",
+  "imageUrl": "https://s3.bmp.ovh/2026/06/22/bTgceRgZ.png",
+  "positionIcon": "竞速",
+  "specialtyIcon": "城市",
   "description": "快意恩仇，自在逍遥",
+  "skillName": "快意恩仇",
+  "searchKeywords": ["逍遥", "快意恩仇", "自在逍遥"],
   "registerDate": "2026-06-19",
   "vehicleType": "幻想阵营",
   "manufacturer": "平行世界",
-  "position": "竞速",
-  "specialty": "城市",
-  "searchKeywords": [],
-  "imageUrl": "https://s3.bmp.ovh/2026/06/22/bTgceRgZ.png",
-  "chipSlots": ["circle", "circle", "rhombus", "rhombus", "vslot", "hexagon"],
+  "acquisition": "王牌补给",
+  "acquisitionIcon": "https://s3.bmp.ovh/2026/06/22/bauo1qac.png",
   "stats": {
     "topSpeed": "217.0 km/h",
     "power": "8.54",
@@ -9439,21 +9441,12 @@
     "nitroCharge": "18.0%",
     "startCharge": "38.0%（18.0%+20.0%）",
     "nitroDuration": "10.0 s",
-    "nitroSpeed": {
-      "blue": "28.20 km/h",
-      "purple": "42.30 km/h"
-    },
-    "turboDuration": {
-      "blue": "0.68 s",
-      "purple": "2.04 s"
-    },
-    "turboSpeed": {
-      "blue": "6.80 km/h",
-      "purple": "10.20 km/h"
-    },
+    "nitroSpeed": { "blue": "28.20 km/h", "purple": "42.30 km/h" },
+    "turboDuration": { "blue": "0.68 s", "purple": "2.04 s" },
+    "turboSpeed": { "blue": "6.80 km/h", "purple": "10.20 km/h" },
     "ultPower": "8"
   },
-  "ultIcon": "https://s3.bmp.ovh/2026/06/22/MIfX94TX.png",
+  "chipSlots": ["circle", "circle", "rhombus", "rhombus", "vslot", "hexagon"],
   "skills": {
     "ult": {
       "name": "快意恩仇",
@@ -9463,15 +9456,18 @@
     },
     "passive": {
       "name": "自在逍遥",
-      "desc": "氮气期间可再次使用氮气，每次使用氮气时获得500集气量",
-      "icon": "https://s3.bmp.ovh/2026/06/22/l4EJUzvb.png"
+      "desc": "氮气期间可再次使用氮气，每次使用氮气时获得500集气量"
     },
     "features": [
-      { "name": "氮气重复", "color": "紫", "desc": "·氮气持续期间可重复释放/·可用于出弯并获得充能/·每个氮气生效时间独立计算，不会额外叠加极速" },
-      { "name": "同归于尽", "color": "红", "desc": "受到锁定干扰时，使敌方也承受同样的干扰效果" },
-      { "name": "高极速", "color": "蓝", "desc": "技能提供大量极速加成" },
-      { "name": "友方耐久", "color": "蓝", "desc": "为友方恢复耐久值" },
-      { "name": "自动集气", "color": "蓝", "desc": "技能可以自动获取氮气" }
+      { "name": "氮气重复", "desc": "·氮气持续期间可重复释放/·可用于出弯并获得充能/·每个氮气生效时间独立计算，不会额外叠加极速", "color": "紫" },
+      { "name": "同归于尽", "desc": "受到锁定干扰时，使敌方也承受同样的干扰效果", "color": "红" },
+      { "name": "高极速", "desc": "技能提供大量极速加成", "color": "蓝" },
+      { "name": "友方耐久", "desc": "为友方恢复耐久值", "color": "蓝" },
+      { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
     ]
-  }
+  },
+  "ultIcon": "https://s3.bmp.ovh/2026/06/22/MIfX94TX.png",
+  "passiveIcon": "https://s3.bmp.ovh/2026/06/22/l4EJUzvb.png"
+}
+  
  }
