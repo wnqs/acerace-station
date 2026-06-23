@@ -3,7 +3,7 @@
     {
       "id": "commemorative_coin",
       "name": "纪念币",
-      "icon": "https://cdn.jsdelivr.net/gh/wnqs/picture/img/jinianbi.png",
+      "icon": "https://fastly.jsdelivr.net/gh/wnqs/picture/img/jinianbi.png",
       "paid": {
         "title": "月卡/黑金党",
         "items": [
@@ -34,7 +34,7 @@
     {
       "id": "universal_parts",
       "name": "万能零件",
-      "icon": "https://cdn.jsdelivr.net/gh/wnqs/picture/img/wnlj.png",
+      "icon": "https://fastly.jsdelivr.net/gh/wnqs/picture/img/wnlj.png",
       "paid": {
         "title": "月卡/黑金党",
         "items": [
@@ -76,7 +76,7 @@
    {
   "id": "gift_points",
   "name": "礼品点",
-  "icon": "https://cdn.jsdelivr.net/gh/wnqs/picture/img/lipindian.png",
+  "icon": "https://fastly.jsdelivr.net/gh/wnqs/picture/img/lipindian.png",
   "paid": {
     "title": "月卡/黑金党",
     "items": [
@@ -115,7 +115,7 @@
 {
   "id": "blueprint",
   "name": "蓝图",
-  "icon": "https://cdn.jsdelivr.net/gh/wnqs/picture/img/lantu.png",
+  "icon": "https://fastly.jsdelivr.net/gh/wnqs/picture/img/lantu.png",
   "paid": {
     "title": "月卡/黑金党",
     "items": [
@@ -152,7 +152,7 @@
 {
   "id": "gold_coin",
   "name": "金币",
-  "icon": "https://cdn.jsdelivr.net/gh/wnqs/picture/img/jinbi.png",
+  "icon": "https://fastly.jsdelivr.net/gh/wnqs/picture/img/jinbi.png",
   "paid": {
     "title": "月卡/黑金党",
     "items": [
@@ -193,7 +193,7 @@
 { 
   "id": "ace_supply_ticket",
   "name": "王牌补给券",
-  "icon": "https://cdn.jsdelivr.net/gh/wnqs/picture/img/wpbjq.png",
+  "icon": "https://fastly.jsdelivr.net/gh/wnqs/picture/img/wpbjq.png",
   "paid": {
     "title": "月卡/黑金党",
     "items": [
@@ -221,7 +221,7 @@
 {
   "id": "procurement_coupon",
   "name": "采购券",
-  "icon": "https://cdn.jsdelivr.net/gh/wnqs/picture/img/caigouquan.png",
+  "icon": "https://fastly.jsdelivr.net/gh/wnqs/picture/img/caigouquan.png",
   "paid": {
     "title": "月卡/黑金党",
     "items": [
@@ -264,7 +264,7 @@
     {
       "id": "chip_pack",
       "name": "芯片包",
-      "icon": "https://cdn.jsdelivr.net/gh/wnqs/picture/img/xinpianbao.png",
+      "icon": "https://fastly.jsdelivr.net/gh/wnqs/picture/img/xinpianbao.png",
       "paid": {
         "title": "月卡/黑金党",
         "items": [
