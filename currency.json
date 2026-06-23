@@ -3,38 +3,34 @@
     {
       "id": "commemorative_coin",
       "name": "纪念币",
-      "icon": "https://fastly.jsdelivr.net/gh/wnqs/picture/img/jinianbi.png",
+      "icon": "https://s3.bmp.ovh/2026/06/14/tcO6tBOL.png",
       "paid": {
         "title": "月卡/黑金党",
         "items": [
-          "每日100活跃度——30   小计:1680",
+          "每日100活跃度——30   小计:680",
           "每周活跃——200   小计:1600",
           "排位冲段任务——200",
           "赛季奖励——1800",
           "月卡——购卡立得300+每日30    小计:2280",
-          "黑金会员——450",
-          "车姬大作战每日榜单挑战5次——10   小计:560",
-          "车姬大作战排位对战到达4000分——300"
+          "黑金会员——450"
         ],
-        "total": "总计:8870纪念币"
+        "total": "总计:7010纪念币"
       },
       "free": {
         "title": "零氪党",
         "items": [
-          "每日100活跃度——30   小计:1680",
+          "每日100活跃度——30   小计:680",
           "每周活跃——200   小计:1600",
           "排位冲段任务——200",
-          "赛季奖励——1800",
-          "车姬大作战每日榜单挑战5次——10   小计:560",
-          "车姬大作战排位对战到达4000分——300"
+          "赛季奖励——1800"
         ],
-        "total": "总计:6140纪念币"
+        "total": "总计:4280纪念币"
       }
     },
     {
       "id": "universal_parts",
       "name": "万能零件",
-      "icon": "https://fastly.jsdelivr.net/gh/wnqs/picture/img/wnlj.png",
+      "icon": "https://s3.bmp.ovh/2026/06/14/Tm706MgN.png",
       "paid": {
         "title": "月卡/黑金党",
         "items": [
@@ -76,7 +72,7 @@
    {
   "id": "gift_points",
   "name": "礼品点",
-  "icon": "https://fastly.jsdelivr.net/gh/wnqs/picture/img/lipindian.png",
+  "icon": "https://s3.bmp.ovh/2026/06/14/fQ3i0Pc4.png",
   "paid": {
     "title": "月卡/黑金党",
     "items": [
@@ -115,7 +111,7 @@
 {
   "id": "blueprint",
   "name": "蓝图",
-  "icon": "https://fastly.jsdelivr.net/gh/wnqs/picture/img/lantu.png",
+  "icon": "https://s3.bmp.ovh/2026/06/14/5tKuC3Gb.png",
   "paid": {
     "title": "月卡/黑金党",
     "items": [
@@ -152,7 +148,7 @@
 {
   "id": "gold_coin",
   "name": "金币",
-  "icon": "https://fastly.jsdelivr.net/gh/wnqs/picture/img/jinbi.png",
+  "icon": "https://s3.bmp.ovh/2026/06/14/0nD2jDtS.png",
   "paid": {
     "title": "月卡/黑金党",
     "items": [
@@ -193,7 +189,7 @@
 { 
   "id": "ace_supply_ticket",
   "name": "王牌补给券",
-  "icon": "https://fastly.jsdelivr.net/gh/wnqs/picture/img/wpbjq.png",
+  "icon": "https://s3.bmp.ovh/2026/06/14/TivtVZqu.png",
   "paid": {
     "title": "月卡/黑金党",
     "items": [
@@ -221,7 +217,7 @@
 {
   "id": "procurement_coupon",
   "name": "采购券",
-  "icon": "https://fastly.jsdelivr.net/gh/wnqs/picture/img/caigouquan.png",
+  "icon": "https://s3.bmp.ovh/2026/06/14/Gz5kiVzM.png",
   "paid": {
     "title": "月卡/黑金党",
     "items": [
@@ -264,7 +260,7 @@
     {
       "id": "chip_pack",
       "name": "芯片包",
-      "icon": "https://fastly.jsdelivr.net/gh/wnqs/picture/img/xinpianbao.png",
+      "icon": "https://s3.bmp.ovh/2026/06/14/taeMeKAb.png",
       "paid": {
         "title": "月卡/黑金党",
         "items": [
