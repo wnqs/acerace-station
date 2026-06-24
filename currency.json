@@ -3,7 +3,7 @@
     {
       "id": "commemorative_coin",
       "name": "纪念币",
-      "icon": "https://s3.bmp.ovh/2026/06/14/tcO6tBOL.png",
+      "icon": "https://a1.boltp.com/2026/06/24/6a3b66b397185.png",
       "paid": {
         "title": "月卡/黑金党",
         "items": [
@@ -34,7 +34,7 @@
     {
       "id": "universal_parts",
       "name": "万能零件",
-      "icon": "https://s3.bmp.ovh/2026/06/14/Tm706MgN.png",
+      "icon": "https://a1.boltp.com/2026/06/24/6a3b66b3a1577.png",
       "paid": {
         "title": "月卡/黑金党",
         "items": [
@@ -76,7 +76,7 @@
    {
   "id": "gift_points",
   "name": "礼品点",
-  "icon": "https://s3.bmp.ovh/2026/06/14/fQ3i0Pc4.png",
+  "icon": "https://a1.boltp.com/2026/06/24/6a3b66b388d7d.png",
   "paid": {
     "title": "月卡/黑金党",
     "items": [
@@ -115,7 +115,7 @@
 {
   "id": "blueprint",
   "name": "蓝图",
-  "icon": "https://s3.bmp.ovh/2026/06/14/5tKuC3Gb.png",
+  "icon": "https://a1.boltp.com/2026/06/24/6a3b66b3e5e1f.png",
   "paid": {
     "title": "月卡/黑金党",
     "items": [
@@ -152,7 +152,7 @@
 {
   "id": "gold_coin",
   "name": "金币",
-  "icon": "https://s3.bmp.ovh/2026/06/14/0nD2jDtS.png",
+  "icon": "https://a1.boltp.com/2026/06/24/6a3b66b3c7344.png",
   "paid": {
     "title": "月卡/黑金党",
     "items": [
@@ -193,7 +193,7 @@
 { 
   "id": "ace_supply_ticket",
   "name": "王牌补给券",
-  "icon": "https://s3.bmp.ovh/2026/06/14/TivtVZqu.png",
+  "icon": "https://a1.boltp.com/2026/06/24/6a3b66b53b68b.png",
   "paid": {
     "title": "月卡/黑金党",
     "items": [
@@ -221,7 +221,7 @@
 {
   "id": "procurement_coupon",
   "name": "采购券",
-  "icon": "https://s3.bmp.ovh/2026/06/14/Gz5kiVzM.png",
+  "icon": "https://a1.boltp.com/2026/06/24/6a3b66b375d92.png",
   "paid": {
     "title": "月卡/黑金党",
     "items": [
@@ -264,7 +264,7 @@
     {
       "id": "chip_pack",
       "name": "芯片包",
-      "icon": "https://s3.bmp.ovh/2026/06/14/taeMeKAb.png",
+      "icon": "https://a1.boltp.com/2026/06/24/6a3b66b4c8b89.png",
       "paid": {
         "title": "月卡/黑金党",
         "items": [
