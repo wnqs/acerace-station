@@ -8,7 +8,7 @@
       "quality": "传说",
       "position": "辅助",
       "specialty": "场地",
-      "imageUrl": "https://s3.bmp.ovh/2026/05/31/nO9zhXwQ.png",
+      "imageUrl": "https://a1.boltp.com/2026/06/24/6a3be67a27ed9.png",
       "positionIcon": "辅助",
       "specialtyIcon": "场地",
       "description": "远距离充能并解控",
@@ -18,7 +18,7 @@
       "vehicleType": "真实阵营",
       "manufacturer": "比亚迪",
       "acquisition": "补给箱/赛车学院",
-      "acquisitionIcon": "https://s3.bmp.ovh/2026/05/31/rK9Tjs84.png",
+      "acquisitionIcon": "https://a1.boltp.com/2026/06/24/6a3be27e1d2a9.png",
       "stats": {
         "topSpeed": "214.2 km/h",
         "power": "7.47",
@@ -50,8 +50,8 @@
           { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" }
         ]
       },
-      "ultIcon": "https://s3.bmp.ovh/2026/06/06/4d2zTnwa.png",
-      "passiveIcon": "https://s3.bmp.ovh/2026/05/31/DvCedD2q.png"
+      "ultIcon": "https://a1.boltp.com/2026/06/24/6a3be67a5f245.png",
+      "passiveIcon": "https://a1.boltp.com/2026/06/24/6a3be67a181f1.png"
     },
     {
   "id": "shenjianhao",
@@ -545,7 +545,7 @@
       "quality": "传说",
       "position": "辅助",
       "specialty": "城市",
-      "imageUrl": "https://s3.bmp.ovh/2026/05/31/73qJ9XWx.png",
+      "imageUrl": "https://a1.boltp.com/2026/06/24/6a3be45807337.png",
       "positionIcon": "辅助",
       "specialtyIcon": "城市",
       "description": "为队友补满一管大招能量",
@@ -587,8 +587,8 @@
           { "name": "友方充能", "desc": "为队友提供大招充能", "color": "蓝" }
         ]
       },
-      "ultIcon": "https://s3.bmp.ovh/2026/06/06/pX6uLKlC.png",
-      "passiveIcon": "https://s3.bmp.ovh/2026/06/01/svxPuHd9.png"
+      "ultIcon": "https://a1.boltp.com/2026/06/24/6a3be4b65ae8f.png",
+      "passiveIcon": "https://a1.boltp.com/2026/06/24/6a3be4b64f35a.png"
     },
     {
       "id": "fangchengbao_bao8",
@@ -596,7 +596,7 @@
       "quality": "传说",
       "position": "辅助",
       "specialty": "城市",
-      "imageUrl": "https://s3.bmp.ovh/2026/06/19/l9V9AKB6.png",
+      "imageUrl": "https://a1.boltp.com/2026/06/24/6a3be1c085d96.png",
       "positionIcon": "辅助",
       "specialtyIcon": "城市",
       "description": "远距离高能量，释放氮气破隐，无法选中",
@@ -606,7 +606,7 @@
       "vehicleType": "真实阵营",
       "manufacturer": "比亚迪",
       "acquisition": "黑金会员",
-      "acquisitionIcon": "https://s3.bmp.ovh/2026/06/01/a8Du85YQ.png",
+      "acquisitionIcon": "https://a1.boltp.com/2026/06/24/6a3be27e24385.png",
       "stats": {
         "topSpeed": "210.10 km/h",
         "power": "8.3",
@@ -638,8 +638,8 @@
           { "name": "锁定干扰", "desc": "自动锁定范围内的目标", "color": "黄" }
         ]
       },
-      "ultIcon": "https://s3.bmp.ovh/2026/06/06/eg8CZngd.png",
-      "passiveIcon": "https://s3.bmp.ovh/2026/06/01/06v2mW9w.png"
+      "ultIcon": "https://a1.boltp.com/2026/06/24/6a3be3a8ad429.png",
+      "passiveIcon": "https://a1.boltp.com/2026/06/24/6a3be3a8863e2.png"
     },
     {
       "id": "bmw_m4_csl",
@@ -9518,8 +9518,8 @@
       { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
     ]
   },
-  "ultIcon": "https://s3.bmp.ovh/2026/06/22/MIfX94TX.png",
-  "passiveIcon": "https://s3.bmp.ovh/2026/06/22/l4EJUzvb.png"
+  "ultIcon": "https://a1.boltp.com/2026/06/24/6a3be5b660e1f.png",
+  "passiveIcon": "https://a1.boltp.com/2026/06/24/6a3be5b65c7b4.png"
    }
  ]   
 }
