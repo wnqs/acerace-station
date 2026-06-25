@@ -3185,13 +3185,13 @@ video.wallpaper-modal-media {
 }  
     /* 耀世臻藏车辆 - 专属背景图 */
 .car-card[data-acquisition="耀世臻藏"] .card-image {
-    background-image: url('https://s3.bmp.ovh/2026/06/16/pYHvmRMC.png');
+    background-image: url('https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/fc890049-ab85-47b7-8d66-a3959f3862b9.png');
     background-size: cover;
     background-position: center;
 }    
    /* 耀世臻藏车辆 - 详情页背景图（新增） */
 .detail-image[data-acquisition="耀世臻藏"] {
-    background-image: url('https://s3.bmp.ovh/2026/06/16/pYHvmRMC.png');
+    background-image: url('https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/fc890049-ab85-47b7-8d66-a3959f3862b9.png');
     background-size: cover;
     background-position: center;
 }
@@ -4143,35 +4143,35 @@ video.wallpaper-modal-media {
     let isInDetail = false;
     
     const EXTRA_RACING_ICON_CARS = ["女武神"];
-    const RACING_ICON_URL = "https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png";
+    const RACING_ICON_URL = "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3dff9aca-3af3-47c0-bf76-cce424c2d846.png";
     const qualityWeight = { "传说": 4, "史诗": 3, "稀有": 2, "普通": 1 };
     const positionWeight = { "竞速": 3, "辅助": 2, "干扰": 1, "天平": 2 };
     const qualityOverrides = { "mini jcw": "稀有", "风神": "传说", "幻蝶": "传说" };
     
     const CHIP_ICONS = {
-        circle: "https://s3.bmp.ovh/2026/05/31/OnUTepDT.png",
-        triangle: "https://s3.bmp.ovh/2026/05/31/J5FiGMmt.png",
-        rhombus: "https://s3.bmp.ovh/2026/05/31/pw68CH6t.png",
-        hexagon: "https://s3.bmp.ovh/2026/05/31/2vWKj9Ev.png",
-        vslot: "https://s3.bmp.ovh/2026/05/31/Guvt6llt.png"
+        circle: "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/a83f677d-34a5-4ec9-a2c3-a1ee9948e6a0.png",
+        triangle: "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/4ae94d05-cde3-4718-b5ff-78aa669cd4f8.png",
+        rhombus: "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/115fccc6-7229-4bf9-a530-4dc8562f7cf4.png",
+        hexagon: "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/4de60050-47d8-472f-8fe7-d1f43d276814.png",
+        vslot: "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/22ea020f-99df-4248-844b-66c91f8dec12.png"
     };
     const POSITION_ICONS = {
-        "辅助": "https://s3.bmp.ovh/2026/05/31/mtc05q5R.png",
-        "竞速": "https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png",
-        "干扰": "https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png",
-        "天平": "https://s3.bmp.ovh/2026/05/31/S38JRfCL.png"
+        "辅助": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/76986bb0-a074-42e8-9f7a-acf66eb19ea3.png",
+        "竞速": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3dff9aca-3af3-47c0-bf76-cce424c2d846.png",
+        "干扰": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3275e576-7547-4a19-94e9-71725a09c902.png",
+        "天平": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/57b6bd90-c852-4ee7-9720-e9a58f07914c.png"
     };
     const SPECIALTY_ICONS = {
-        "城市": "https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png",
-        "山路": "https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png",
-        "场地": "https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png"
+        "城市": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/cab840bc-ee68-4bff-9d26-0919a8836907.png",
+        "山路": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/fb120b3c-bceb-4d2d-b282-428f6d0bbf3a.png",
+        "场地": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/9bdee65d-6c29-4170-ba12-cd60bf8fdfac.png"
     };
     
     // ========== 车辆数据库 ==========
-    const carTypeOptions=[{value:"assist",name:"辅助位",icon:"https://s3.bmp.ovh/2026/05/31/mtc05q5R.png"},{value:"race",name:"竞速位",icon:"https://s3.bmp.ovh/2026/05/31/7k3ksZ5K.png"},{value:"jam",name:"干扰位",icon:"https://s3.bmp.ovh/2026/05/31/yoQTZbOL.png"},{value:"balance",name:"天平位",icon:"https://s3.bmp.ovh/2026/05/31/S38JRfCL.png"}];
-    const carSubTypeOptions=[{value:"city",name:"城市",icon:"https://s3.bmp.ovh/2026/05/31/nNwRnfQf.png"},{value:"mountain",name:"山路",icon:"https://s3.bmp.ovh/2026/05/31/2y6MiwXC.png"},{value:"venue",name:"场地",icon:"https://s3.bmp.ovh/2026/05/31/qGyMY5a6.png"}];
-    const allVSlotOptions=[{value:"shenxin",name:"神剑号之芯",icon:"https://s3.bmp.ovh/2026/05/29/CYJg8Tet.png"},{value:"maoxin",name:"猫眠梦之芯",icon:"https://s3.bmp.ovh/2026/05/29/iTqrWqI7.png"},{value:"xianqu",name:"先驱者专属芯片（修竹）",icon:"https://s3.bmp.ovh/2026/05/29/6r78MrBU.png"},{value:"xiaofeng",name:"摇尾萌萌虎专属芯片（啸风白虎）",icon:"https://s3.bmp.ovh/2026/05/29/byosRStY.png"},{value:"shengxin",name:"圣骑士之芯",icon:"https://s3.bmp.ovh/2026/05/29/Hr6P82JF.png"},{value:"xiaolu",name:"效率",icon:"https://s3.bmp.ovh/2026/05/29/dIffRM5n.png"},{value:"leiji",name:"累计",icon:"https://s3.bmp.ovh/2026/05/29/b1hoabhg.png"},{value:"feichi",name:"飞驰",icon:"https://s3.bmp.ovh/2026/05/29/hcTlzo56.png"},{value:"tujin",name:"突进",icon:"https://s3.bmp.ovh/2026/05/29/WuT3bH3Q.png"},{value:"jianren",name:"坚韧",icon:"https://s3.bmp.ovh/2026/05/29/TKBXNb64.png"},{value:"chongci",name:"冲刺",icon:"https://s3.bmp.ovh/2026/05/29/QTOlIeXi.png"},{value:"shensu",name:"神速",icon:"https://s3.bmp.ovh/2026/05/29/rU5pVwLP.png"}];
-    const nitroOptions=[{value:"3x2",name:"3×2 (32氮气)",icon:"https://s3.bmp.ovh/2026/05/29/kNiCdMqA.png"},{value:"2x2",name:"2×2 (22氮气)",icon:"https://s3.bmp.ovh/2026/05/29/B4o57dJK.png"},{value:"1x5",name:"1×5 (15氮气)",icon:"https://s3.bmp.ovh/2026/05/29/mbcW1Wt3.png"}];
+    const carTypeOptions=[{value:"assist",name:"辅助位",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/76986bb0-a074-42e8-9f7a-acf66eb19ea3.png"},{value:"race",name:"竞速位",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3dff9aca-3af3-47c0-bf76-cce424c2d846.png"},{value:"jam",name:"干扰位",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3275e576-7547-4a19-94e9-71725a09c902.png"},{value:"balance",name:"天平位",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/57b6bd90-c852-4ee7-9720-e9a58f07914c.png"}];
+    const carSubTypeOptions=[{value:"city",name:"城市",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/cab840bc-ee68-4bff-9d26-0919a8836907.png"},{value:"mountain",name:"山路",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/fb120b3c-bceb-4d2d-b282-428f6d0bbf3a.png"},{value:"venue",name:"场地",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/9bdee65d-6c29-4170-ba12-cd60bf8fdfac.png"}];
+    const allVSlotOptions=[{value:"shenxin",name:"神剑号之芯",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/061e3d38-61d4-4140-a587-7ed55f4c380e.png"},{value:"maoxin",name:"猫眠梦之芯",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/48cbc830-ec91-4179-abb7-74a145380bb8.png"},{value:"xianqu",name:"先驱者专属芯片（修竹）",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/1d123ce5-649e-436f-b4e5-e9ed55ada5e0.png"},{value:"xiaofeng",name:"摇尾萌萌虎专属芯片（啸风白虎）",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/97c9e2a1-9d3d-471b-8fb7-51a723f80626.png"},{value:"shengxin",name:"圣骑士之芯",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/6d1f095d-461b-4d6c-9d6d-f288cce76d31.png"},{value:"xiaolu",name:"效率",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/a821e52d-78dd-4678-8739-845cd8e4b9c8.png"},{value:"leiji",name:"累计",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/02140760-5e48-4eb4-9bd7-47ee1641dba1.png"},{value:"feichi",name:"飞驰",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/fec0d2c7-5787-46d3-ab6d-068469a6cd0e.png"},{value:"tujin",name:"突进",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3d9dcb5a-fef1-42c6-a509-3ebe1fd75b88.png"},{value:"jianren",name:"坚韧",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/0c9f8bd8-3707-45df-8a37-3f27037bd75c.png"},{value:"chongci",name:"冲刺",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/945ad976-f9e0-49ea-98c4-7f5b9334fd87.png"},{value:"shensu",name:"神速",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/c923ed3e-a6c3-4430-9603-d4ea52d32518.png"}];
+    const nitroOptions=[{value:"3x2",name:"3×2 (32氮气)",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/c8cf8c48-3e23-4387-9dfb-2f0adbf47dbc.png"},{value:"2x2",name:"2×2 (22氮气)",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/16f40689-73af-4f20-99a6-da5035e4b9aa.png"},{value:"1x5",name:"1×5 (15氮气)",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/41af781b-3ae8-454e-9f43-c4d6c5af23a5.png"}];
     const skillIcons={"bugan":"https://s3.bmp.ovh/2026/05/29/r7SIeutb.png","yuwo":"https://s3.bmp.ovh/2026/05/29/nErU9A7B.png","queyi":"https://s3.bmp.ovh/2026/05/29/NqyuKLEx.png","adaptive":"https://s3.bmp.ovh/2026/05/29/6W9MVJzL.png","huifeng":"https://s3.bmp.ovh/2026/05/29/4mRqWuKy.png","resurgence":"https://s3.bmp.ovh/2026/05/29/09axY9Ve.png","future":"https://s3.bmp.ovh/2026/05/29/oYEeBtCp.png","huaxin":"https://s3.bmp.ovh/2026/05/29/M7eqcDo9.png","nengyuan":"https://s3.bmp.ovh/2026/05/29/3TG3fI8y.png","refuse":"https://s3.bmp.ovh/2026/05/29/jhypMW7s.png","jifeng":"https://s3.bmp.ovh/2026/05/29/dCgTeyW4.png","guibu":"https://s3.bmp.ovh/2026/05/29/CdphoPvb.png","rhythm":"https://s3.bmp.ovh/2026/05/29/PAwSMZVh.png","tongzhou":"https://s3.bmp.ovh/2026/05/29/oakQbBqV.png"};
     const mainEffList=[{value:"none",name:"无",color:null,icon:null},{value:"refuse",name:"拒绝溢出",color:"yellow",icon:skillIcons.refuse},{value:"jifeng",name:"疾风步",color:"yellow",icon:skillIcons.jifeng},{value:"adaptive",name:"自适应",color:"green",icon:skillIcons.adaptive},{value:"huifeng",name:"汇丰",color:"purple",icon:skillIcons.huifeng},{value:"resurgence",name:"复苏",color:"purple",icon:skillIcons.resurgence}];
     const subEffList=[{value:"none",name:"无",color:null,icon:null},{value:"bugan",name:"不甘",color:"red",icon:skillIcons.bugan},{value:"yuwo",name:"与我",color:"red",icon:skillIcons.yuwo},{value:"queyi",name:"缺一",color:"red",icon:skillIcons.queyi},{value:"guibu",name:"硅步",color:"yellow",icon:skillIcons.guibu},{value:"rhythm",name:"节奏",color:"yellow",icon:skillIcons.rhythm},{value:"tongzhou",name:"同舟",color:"yellow",icon:skillIcons.tongzhou},{value:"future",name:"未来",color:"purple",icon:skillIcons.future},{value:"huaxin",name:"花信风",color:"purple",icon:skillIcons.huaxin},{value:"nengyuan",name:"能源回收",color:"purple",icon:skillIcons.nengyuan}];
