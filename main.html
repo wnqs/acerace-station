@@ -7365,6 +7365,10 @@ renderList();
             // 直接使用 getEnergyValuesCalc 的结果（已包含未来判断）
 const targetStart = energyVals.firstEnergy;
 const targetCycle = energyVals.cycleEnergy;
+            // ===== 竞速专属：循环装置氮气充能 =====
+const raceNitroEnabled = parseInt(document.getElementById('calcRaceNitroToggle').value) === 1;
+const raceNitroStartBonus = raceNitroEnabled ? startNitroCount * 0.13 : 0;
+const raceNitroCycleBonus = raceNitroEnabled ? cycleNitroCount * 0.13 : 0;
             const specCharge = sp === 10 ? 10 : 0;
             const nitroVal = car.nitro;
             const startVal = car.start;
@@ -7432,12 +7436,7 @@ const targetCycle = energyVals.cycleEnergy;
             }
             let finalHuiFormatted = formatHuiCalc(finalHuiValue);
             const huiForJi = parseFloat(finalHuiFormatted);
-            // ===== 竞速专属：循环装置氮气充能 =====
-const raceNitroEnabled = parseInt(document.getElementById('calcRaceNitroToggle').value) === 1;
-// 首大循环装置充能 = 首大氮气数量 × 13%（不受反制影响，不乘氮气系数）
-const raceNitroStartBonus = raceNitroEnabled ? startNitroCount * 0.13 : 0;
-// 后续大招循环装置充能 = 循环氮气数量 × 13%
-const raceNitroCycleBonus = raceNitroEnabled ? cycleNitroCount * 0.13 : 0;
+            
 const nitroPartFirst = nitroVal * (1 + huiForJi / 100) * resist * (1 + firstEff / 100) * startNitroCount * nitroRatio;
             const specPartFirst = specCharge * resist * (1 + firstEff / 100) * startNitroCount * nitroRatio;
             const vehiclePartFirst = (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + firstEff / 100);
