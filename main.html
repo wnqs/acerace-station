@@ -7367,8 +7367,8 @@ const targetStart = energyVals.firstEnergy;
 const targetCycle = energyVals.cycleEnergy;
             // ===== 竞速专属：循环装置氮气充能 =====
 const raceNitroEnabled = parseInt(document.getElementById('calcRaceNitroToggle').value) === 1;
-const raceNitroStartBonus = raceNitroEnabled ? startNitroCount * 0.13 : 0;
-const raceNitroCycleBonus = raceNitroEnabled ? cycleNitroCount * 0.13 : 0;
+const raceNitroStartBonus = raceNitroEnabled ? startNitroCount * 13 : 0;
+const raceNitroCycleBonus = raceNitroEnabled ? cycleNitroCount * 13 : 0;
             const specCharge = sp === 10 ? 10 : 0;
             const nitroVal = car.nitro;
             const startVal = car.start;
