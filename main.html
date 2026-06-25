@@ -3458,6 +3458,18 @@ video.wallpaper-modal-media {
 .calculator-container details div div strong {
     color: #feca57 !important;
 }
+  /* 竞速专属：循环装置氮气充能 + 辅助专属：4气3气两大一循环 */
+#calcCycleModeContainer,
+#calcRaceNitroContainer {
+    display: none !important;
+    align-items: center;
+    gap: 6px;
+}
+/* 显示状态由JS控制 */
+#calcCycleModeContainer.show,
+#calcRaceNitroContainer.show {
+    display: inline-flex !important;
+}      
         
     </style>
 </head>
@@ -3845,6 +3857,18 @@ video.wallpaper-modal-media {
             <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
                 ?
                 <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.7rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">仅辅助位车辆且首大能量≥80时支持</span>
+            </span>
+        </div>
+            <!-- 竞速位专属：循环装置氮气充能 -->
+        <div id="calcRaceNitroContainer" style="display: none; align-items: center; gap: 6px;">
+            <span style="font-size: 0.7rem; font-weight: 600; color:#ffffff!important; white-space: nowrap;">循环装置氮气充能：</span>
+            <select id="calcRaceNitroToggle" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #e2e2e6; font-size: 0.8rem; height: 32px; min-width: 60px;">
+                <option value="0">否</option>
+                <option value="1">是</option>
+            </select>
+            <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
+                ?
+                <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.55rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">每次释放氮气获得13%大招充能，总充能=氮气数量×13%</span>
             </span>
         </div>
     </div>
@@ -6840,22 +6864,53 @@ renderList();
 }
         
         function updateCalcCycleModeVisibility() {
-            let container = document.getElementById('calcCycleModeContainer');
-            let type = calcCarType.value;
-            if (type !== 'assist') {
-                container.style.display = 'none';
-                if (calcCycleMode.value === 'cycle') calcCycleMode.value = 'normal';
-                return;
+    const container = document.getElementById('calcCycleModeContainer');
+    const raceContainer = document.getElementById('calcRaceNitroContainer');
+    const type = calcCarType.value;
+    const firstEnergy = parseInt(calcFirstEnergyDisplay.textContent) || 0;
+    const calcCycleNitroTooltip = document.getElementById('calcCycleNitroTooltip');
+    
+    // 先全部隐藏
+    container.style.display = 'none';
+    container.classList.remove('show');
+    raceContainer.style.display = 'none';
+    raceContainer.classList.remove('show');
+    
+    // 辅助位：显示4气3气两大一循环（首大能量≥80时）
+    if (type === 'assist') {
+        if (firstEnergy >= 80) {
+            container.style.display = 'flex';
+            container.classList.add('show');
+            // 竞速选项强制关闭
+            document.getElementById('calcRaceNitroToggle').value = '0';
+            // 更新提示文字
+            if (calcCycleNitroTooltip) {
+                calcCycleNitroTooltip.textContent = (calcCycleMode.value === 'cycle') ? '2个大招所需的氮气数量' : '1个大招所需的氮气数量';
             }
-            let firstEnergy = parseInt(calcFirstEnergyDisplay.textContent);
-            if (isNaN(firstEnergy)) firstEnergy = 0;
-            console.log('updateCalcCycleModeVisibility 被调用了，首大能量：', firstEnergy);
-            container.style.display = (firstEnergy >= 80 && type === 'assist') ? 'flex' : 'none';
-            if (firstEnergy < 80 && calcCycleMode.value === 'cycle') {
+        } else {
+            container.style.display = 'none';
+            if (calcCycleMode.value === 'cycle') {
                 calcCycleMode.value = 'normal';
             }
-            if (calcCycleNitroTooltip) calcCycleNitroTooltip.textContent = (calcCycleMode.value === 'cycle') ? '2个大招所需的氮气数量' : '1个大招所需的氮气数量';
         }
+    } 
+    // 竞速位：显示循环装置氮气充能
+    else if (type === 'race') {
+        raceContainer.style.display = 'flex';
+        raceContainer.classList.add('show');
+        // 辅助选项强制关闭
+        if (calcCycleMode.value === 'cycle') {
+            calcCycleMode.value = 'normal';
+        }
+    } 
+    // 干扰/天平：都不显示
+    else {
+        if (calcCycleMode.value === 'cycle') {
+            calcCycleMode.value = 'normal';
+        }
+        document.getElementById('calcRaceNitroToggle').value = '0';
+    }
+}
         
         function updateCalcVSlotOptions() {
             let opt = calcCarModel.options[calcCarModel.selectedIndex];
@@ -7221,6 +7276,7 @@ renderList();
         // 设置车辆类型
         calcCarType.value = carInfo.type;
         calcCycleMode.value = 'normal';
+        document.getElementById('calcRaceNitroToggle').value = '0';
         calcSpecialize.value = '10';
         updateCalcCarTypeIcon();
 
@@ -7339,7 +7395,7 @@ const targetCycle = energyVals.cycleEnergy;
                 const specPart = specCharge * resist * (1 + cycleEff / 100) * cycleNitroCount * nitroRatio;
                 const vehiclePart = (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + cycleEff / 100);
                 const effPart = (cycleEffFixed + cycleEffFloating) * resist * (1 + cycleEff / 100);
-                const neededFromNitro = Math.max(0, targetCycle - specPart - vehiclePart - effPart);
+                const neededFromNitro = Math.max(0, targetCycle - specPart - vehiclePart - effPart- raceNitroCycleBonus);
                 if (neededFromNitro > 0) {
                     const perNitroNeededRaw = neededFromNitro / (cycleNitroCount * nitroRatio);
                     const perNitroNeededAfterEfficiency = perNitroNeededRaw / (resist * (1 + cycleEff / 100));
@@ -7381,7 +7437,13 @@ const nitroPartFirst = nitroVal * (1 + huiForJi / 100) * resist * (1 + firstEff 
             const vehiclePartFirst = (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + firstEff / 100);
             const effPartFirst = (firstEffFixed + firstEffFloating) * resist * (1 + firstEff / 100);
             const startContribution = startVal + extraStartBonus;
-            const totalWithoutJi = startContribution + nitroPartFirst + specPartFirst + vehiclePartFirst + effPartFirst;
+            const totalWithoutJi = startContribution + nitroPartFirst + specPartFirst + vehiclePartFirst + effPartFirst+ raceNitroStartBonus;
+            // ===== 竞速专属：循环装置氮气充能 =====
+const raceNitroEnabled = parseInt(document.getElementById('calcRaceNitroToggle').value) === 1;
+// 首大循环装置充能 = 首大氮气数量 × 13%（不受反制影响，不乘氮气系数）
+const raceNitroStartBonus = raceNitroEnabled ? startNitroCount * 0.13 : 0;
+// 后续大招循环装置充能 = 循环氮气数量 × 13%
+const raceNitroCycleBonus = raceNitroEnabled ? cycleNitroCount * 0.13 : 0;
             let finalJiRaw = 0;
             let note = "";
             if (totalWithoutJi >= targetStart) {
@@ -7488,6 +7550,7 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
             calcRhythmCycleCount.value = '0';
             calcRhythmFirstCount.value = '0';
             calcCustomHuiInput.value = '';
+            document.getElementById('calcRaceNitroToggle').value = '0';
             calcCustomHuiWarning.innerHTML = '';
             document.getElementById('calcColorErrorMsg').style.display = 'none';
             updateCalcEnergyDisplays();
@@ -7622,7 +7685,8 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
     updateCalcToggleState();
     setDefaultOverrideR();
     calcSpecialize.value = '10';
-    calcCycleMode.value = 'normal';        
+    calcCycleMode.value = 'normal';
+    document.getElementById('calcRaceNitroToggle').value = '0';        
 });
         calcVSlot.addEventListener('change', () => {
             updateCalcVSlotIcon();
