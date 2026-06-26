@@ -7212,15 +7212,13 @@ renderList();
         <option value="3">三阶 (30%)</option>
         <option value="4" selected>四阶 (40%)</option>
     </select></div></div>`;
-}
-          } else if (carName === "仰望U9") {
+    } else if (carName === "仰望U9") {
     html += `<div class="option-row"><div><label> 敌方真实车数量(0-5)：</label>
         <select id="calcU9Count">
             ${[...Array(6).keys()].map(i => `<option value="${i}">${i}辆</option>`).join('')}
         </select>
         <span class="info-icon">?<span class="tooltip-text">敌方真实车数量 × 14.4% = 专属浮动充能，仅普通循环生效</span></span>
     </div></div>`;
-}  
         } else if (carName === "保时捷 918 Spyder") {
     html += `<div class="option-row"><div><label> 大招期间释放氮气数量(0-6)：</label>
         <select id="calc918Count">
