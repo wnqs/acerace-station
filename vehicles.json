@@ -430,6 +430,65 @@
       }
     },
     {
+  "id": "qingguihaoran",
+  "name": "清规·浩然",
+  "quality": "传说",
+  "position": "干扰",
+  "specialty": "山路",
+  "imageUrl": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/8194b136-4c59-4a21-b9f3-dc1f13d77427.png",
+  "positionIcon": "干扰",
+  "specialtyIcon": "山路",
+  "description": "召唤剑阵，御剑飞行",
+  "skillName": "浩然剑阵",
+  "searchKeywords": ["清规", "浩然", "飞剑", "剑阵", "御剑", "干扰", "山路", "平行世界"],
+  "registerDate": "2026-06-26",
+  "vehicleType": "幻想阵营",
+  "manufacturer": "平行世界",
+  "acquisition": "限时活动",
+  "acquisitionIcon": "https://a1.boltp.com/2026/06/24/6a3be27ff2960.png",
+  "stats": {
+    "topSpeed": "221.0 km/h",
+    "power": "8.37",
+    "durability": "110",
+    "nitroCharge": "33.0%",
+    "startCharge": "33.0%",
+    "nitroDuration": "5.60 s",
+    "nitroSpeed": { "blue": "24.00 km/h", "purple": "36.00 km/h" },
+    "turboDuration": { "blue": "0.70 s", "purple": "2.10 s" },
+    "turboSpeed": { "blue": "8.20 km/h", "purple": "12.30 km/h" },
+    "ultPower": "7"
+  },
+  "chipSlots": ["circle", "circle", "rhombus", "vslot", "hexagon", "hexagon"],
+  "skills": {
+    "ult": {
+      "name": "浩然剑阵",
+      "desc": "加速推进，8秒内极速+40km/h，加速开始时在600米范围内敌方全体前方50米随机落下一种持续存在7秒的剑阵：<br>紫电剑阵：触碰后7秒内只能通过漂移获取集气量<br>青冥剑阵：7秒内耐久损失翻倍<br>玉衡剑阵：7秒内闪现距离降低50%",
+      "recu": "浩然剑阵可以充能两次",
+      "ultPassive": ""
+    },
+    "passive": {
+      "name": "浩然正气",
+      "desc": "每3次使用大招立即刷新SP技能CD"
+    },
+    "features": [
+      { "name": "干扰集气", "desc": "干扰敌方的集气获取", "color": "红" },
+      { "name": "放置干扰", "desc": "目标触碰到放置物时命中，不受混乱、反弹、闪避、隐身效果影响，无法命中具有无法选中的敌方", "color": "黄" },
+      { "name": "自动巡航", "desc": "沿预设路线自动行驶，通过弯道时会失速，不会脱离预设路线", "color": "蓝" },
+      { "name": "刷新SP", "desc": "刷新自身或友方的SP技能冷却时间", "color": "蓝" },
+      { "name": "削弱闪现", "desc": "降低敌方的闪现距离", "color": "红" },
+      { "name": "耐久损失", "desc": "使敌方耐久损失", "color": "红" }
+    ]
+  },
+  "ultIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/b08d2fd4-a215-46d0-96d1-f5b79d44c529.png",
+  "passiveIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/91398835-e612-4dbb-a0bb-923206fece3a.png",
+  "sp": {
+    "name": "万剑归宗",
+    "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/827b80e2-e9b0-4a43-bc38-8c967ea1f9a5.png",
+    "desc": "5秒内极速+40km/h并进入御剑飞行状态，期间过弯不减速",
+    "cooltime": "15秒"
+   }
+    },
+    {
       "id": "youlongjinghong",
       "name": "游龙惊鸿",
       "quality": "传说",
