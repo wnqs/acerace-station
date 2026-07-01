@@ -1790,13 +1790,7 @@
       "name": "可塔娜CG",
       "url": "https://img.pagehost.cn/autoupload/d0Lz5t_DFJ56R3LYqLu26LKXl_QqVl-bpSwqP4fJO68/20260701/HENl/%E5%8F%AF%E5%A1%94%E5%A8%9CCG-1219.mp4",
       "type": "cg",
-      "thumbnail": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/4c48f5f6-36bb-4bf3-8544-49002376cd48.png"
-    },
-    {
-      "name": "王牌竞速s16赛季CG（主题曲）",
-      "url": "https://img.pagehost.cn/autoupload/d0Lz5t_DFJ56R3LYqLu26LKXl_QqVl-bpSwqP4fJO68/20260630/brNa/s16sj.mp4",
-      "type": "cg",
-      "thumbnail": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/c60a43ec-7708-4eae-ad46-ba2a995725d4.png"
+      "thumbnail": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/e524c0dc-bdf2-4357-918f-14ad52b7cef6.png"
     },
     {
      "name": "柯尼塞格one1动态展示",
@@ -1904,7 +1898,7 @@
       "name": "奔驰S静态展示",
       "url": "https://img.pagehost.cn/autoupload/d0Lz5t_DFJ56R3LYqLu26LKXl_QqVl-bpSwqP4fJO68/20260701/LAmZ/%E5%A5%94%E9%A9%B0S%E9%9D%99%E6%80%81%E5%B1%95%E7%A4%BA.mp4",
       "type": "cg",
-      "thumbnail": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/fd914a56-4e65-48b3-a12a-034d766ac8aa.png"
+      "thumbnail": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/728ba9af-6390-4acc-860c-6be74bc689fb.png"
     },
     {
       "name": "星穹幻音静态展示",
@@ -1949,12 +1943,6 @@
       "thumbnail": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/2f61edd2-be15-4f91-ba67-eeeb3e8285ea.png"
     },
     {
-      "name": "开服CG",
-      "url": "https://img.pagehost.cn/autoupload/d0Lz5t_DFJ56R3LYqLu26LKXl_QqVl-bpSwqP4fJO68/20260630/P57k/%E5%BC%80%E6%9C%8DCG.mp4",
-      "type": "cg",
-      "thumbnail": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/e9b513b0-5d5d-401d-bd8a-4185227feaef.png"
-    },
-    {
       "name": "幻蝶静态展示",
       "url": "https://img.pagehost.cn/autoupload/d0Lz5t_DFJ56R3LYqLu26LKXl_QqVl-bpSwqP4fJO68/20260630/ZJCy/%E5%B9%BB%E8%9D%B6%E9%9D%99%E6%80%81%E5%B1%95%E7%A4%BA.mp4",
       "type": "cg",
@@ -1983,6 +1971,12 @@
       "url": "https://img.pagehost.cn/autoupload/d0Lz5t_DFJ56R3LYqLu26LKXl_QqVl-bpSwqP4fJO68/20260630/Uvr3/sqscg.mp4",
       "type": "cg",
       "thumbnail": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/5190655f-7747-464f-9ef6-95506770db31.png"
+    },
+    {
+      "name": "王牌竞速s16赛季CG（主题曲）",
+      "url": "https://img.pagehost.cn/autoupload/d0Lz5t_DFJ56R3LYqLu26LKXl_QqVl-bpSwqP4fJO68/20260630/brNa/s16sj.mp4",
+      "type": "cg",
+      "thumbnail": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/c60a43ec-7708-4eae-ad46-ba2a995725d4.png"
     },
     {
       "name": "王牌竞速718CG",
@@ -2110,7 +2104,13 @@
       "type": "cg",
       "thumbnail": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/0cf2d914-f0a6-4104-b57d-04d111cc128f.png"
   },
-    {  
+    { 
+      "name": "开服CG",
+      "url": "https://img.pagehost.cn/autoupload/d0Lz5t_DFJ56R3LYqLu26LKXl_QqVl-bpSwqP4fJO68/20260630/P57k/%E5%BC%80%E6%9C%8DCG.mp4",
+      "type": "cg",
+      "thumbnail": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/e9b513b0-5d5d-401d-bd8a-4185227feaef.png"
+    },
+    {
       "name": "上线视频",
       "url": "https://img.pagehost.cn/autoupload/d0Lz5t_DFJ56R3LYqLu26LKXl_QqVl-bpSwqP4fJO68/20260701/0eyd/%E4%B8%8A%E7%BA%BF%E8%A7%86%E9%A2%91_v7.mp4",
       "type": "cg",
