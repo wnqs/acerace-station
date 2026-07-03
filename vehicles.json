@@ -9505,7 +9505,7 @@
       "turboSpeed": { "blue": "7.60 km/h", "purple": "11.40 km/h" },
       "ultPower": "7"
     },
-    "chipSlots": ["circle", "circle", "triangle", "diamond", "vslot", "hexagon"],
+    "chipSlots": ["circle", "circle", "triangle", "rhombus", "hexagon", "vslot"],
     "skills": {
       "ult": {
         "name": "不忘初心",
@@ -9558,7 +9558,7 @@
       "turboSpeed": { "blue": "7.20 km/h", "purple": "10.80 km/h" },
       "ultPower": "8"
     },
-    "chipSlots": ["circle", "circle", "triangle", "diamond", "vslot", "hexagon"],
+    "chipSlots": ["circle", "circle", "triangle", "rhombus", "hexagon", "vslot"],
     "skills": {
       "ult": {
         "name": "历久弥坚",
@@ -9609,7 +9609,7 @@
       "turboSpeed": { "blue": "8.20 km/h", "purple": "12.30 km/h" },
       "ultPower": "10"
     },
-    "chipSlots": ["circle", "circle", "triangle", "diamond", "diamond", "vslot"],
+    "chipSlots": ["circle", "circle", "triangle", "rhombus", "rhombus", "vslot"],
     "skills": {
       "ult": {
         "name": "音速传说",
@@ -9661,7 +9661,7 @@
         "turboSpeed": { "blue": "7.50 km/h", "purple": "11.30 km/h" },
         "ultPower": "6"
       },
-      "chipSlots": ["circle", "circle", "triangle", "triangle", "vslot", "hexagon"],
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "rhombus", "vslot"],
       "skills": {
         "ult": {
           "name": "硬汉模式",
