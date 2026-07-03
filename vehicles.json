@@ -9477,7 +9477,163 @@
       "passiveIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/2d5f01e6-1be8-41d3-8c3e-b26b5161527b.png"
     },
     {
-      "id": "zhanshen",
+      "id": "honda_civic_type_r",
+    "name": "本田 Civic Type R",
+    "quality": "史诗",
+    "position": "辅助",
+    "specialty": "城市",
+    "imageUrl": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/e3b9ed0a-0416-480f-9e34-92a3f39c09af.png",
+    "positionIcon": "辅助",
+    "specialtyIcon": "城市",
+    "description": "队友无视驱散，敌方无法净化",
+    "skillName": "不忘初心",
+    "searchKeywords": [],
+    "registerDate": "2026-07-03",
+    "vehicleType": "真实阵营",
+    "manufacturer": "本田",
+    "acquisition": "限时活动（周年狂欢卡）",
+    "acquisitionIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/a22352ad-6fa6-4850-b477-b404569df50b.png",
+    "stats": {
+      "topSpeed": "220.0 km/h",
+      "power": "7.95",
+      "durability": "100",
+      "nitroCharge": "39.0%",
+      "startCharge": "39.0%",
+      "nitroDuration": "6.00 s",
+      "nitroSpeed": { "blue": "23.00 km/h", "purple": "34.50 km/h" },
+      "turboDuration": { "blue": "0.80 s", "purple": "2.40 s" },
+      "turboSpeed": { "blue": "7.60 km/h", "purple": "11.40 km/h" },
+      "ultPower": "7"
+    },
+    "chipSlots": ["circle", "circle", "triangle", "diamond", "vslot", "hexagon"],
+    "skills": {
+      "ult": {
+        "name": "不忘初心",
+        "desc": "加速推进，7秒内极速+30km/h，持续7秒。加速开始时：<br>·为900米范围内非辅助位队友提供28%大招能量<br>·使500米范围内非辅助队友7秒内不会被驱散额外速度增益<br>·同时使500米范围内敌方7秒内无法净化",
+        "recu": "不忘初心可以充能两次",
+        "ultPassive": ""
+      },
+      "passive": {
+        "name": "一路同行",
+        "desc": "友方全体大招能量达到95%即可使用"
+      },
+      "features": [
+        { "name": "守护极速", "desc": "使友方的额外极速增益不会被干扰效果清除", "color": "蓝" },
+        { "name": "克制净化", "desc": "使敌方无法净化负面效果", "color": "紫" },
+        { "name": "单次充能", "desc": "为友方提供单次辅助充能", "color": "蓝" },
+        { "name": "锁定干扰", "desc": "·自动锁定范围内的目标<br>·无法命中具有隐身、无法选中、闪避的敌方", "color": "黄" },
+        { "name": "提前放大", "desc": "全队大招能量95%时即可释放", "color": "蓝" },
+        { "name": "无视隐身", "desc": "锁定类、触碰类干扰可以额外命中隐身的敌方", "color": "紫" }
+      ]
+    },
+    "ultIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/1c54f0f8-98c0-43c2-b671-d1d652a71135.png",
+    "passiveIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/0e78ab28-319f-4960-96d3-b15ced0eabc0.png"
+  },
+  {
+    "id": "lotus_evija_x",
+    "name": "莲花 Evija X",
+    "quality": "传说",
+    "position": "竞速",
+    "specialty": "城市",
+    "imageUrl": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/b27198c7-4187-4dc5-af34-36cfc3af9d9e.png",
+    "positionIcon": "竞速",
+    "specialtyIcon": "城市",
+    "description": "只要不是第1名大招就不会结束",
+    "skillName": "历久弥坚",
+    "searchKeywords": [],
+    "registerDate": "2026-07-03",
+    "vehicleType": "真实阵营",
+    "manufacturer": "莲花",
+    "acquisition": "珍宝阁",
+    "acquisitionIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/8e538448-f5ed-4589-9c59-26dad6538df3.png",
+    "stats": {
+      "topSpeed": "221.0 km/h",
+      "power": "8.72",
+      "durability": "115",
+      "nitroCharge": "25.0%",
+      "startCharge": "25.0%",
+      "nitroDuration": "4.80 s",
+      "nitroSpeed": { "blue": "24.60 km/h", "purple": "36.90 km/h" },
+      "turboDuration": { "blue": "0.63 s", "purple": "1.89 s" },
+      "turboSpeed": { "blue": "7.20 km/h", "purple": "10.80 km/h" },
+      "ultPower": "8"
+    },
+    "chipSlots": ["circle", "circle", "triangle", "diamond", "vslot", "hexagon"],
+    "skills": {
+      "ult": {
+        "name": "历久弥坚",
+        "desc": "获得无时间限制的加速推进，极速+70km/h。大招开启8秒后首次成为第1名时，大招加速将会在3秒后结束",
+        "recu": "历久弥坚可以充能两次",
+        "ultPassive": ""
+      },
+      "passive": {
+        "name": "力挽狂澜",
+        "desc": "每7秒解除自身负面效果并在7秒内获得等同于自身名次倍数的极速+8km/h（上限48km/h）和每秒自动获得200集气量（上限1200集气量）效果"
+      },
+      "features": [
+        { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" },
+        { "name": "高极速", "desc": "技能提供大量极速加成", "color": "蓝" },
+        { "name": "无限加速", "desc": "成为第1名前获得无限时长的加速效果", "color": "紫" },
+        { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
+      ]
+    },
+    "ultIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/0d724b77-4c3c-4117-b34a-32fcf610a969.png",
+    "passiveIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/ec4299f1-6e0a-4f7f-a7df-d839c76aea00.png"
+  },
+  {
+    "id": "bugatti_veyron",
+    "name": "布加迪 Veyron",
+    "quality": "传说",
+    "position": "竞速",
+    "specialty": "城市",
+    "imageUrl": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3169d139-6354-4d46-9c16-6943532ae267.png",
+    "positionIcon": "竞速",
+    "specialtyIcon": "城市",
+    "description": "激活脉冲获得额外加速",
+    "skillName": "音速传说",
+    "searchKeywords": ["威龙", "布加迪威龙"],
+    "registerDate": "2026-07-03",
+    "vehicleType": "真实阵营",
+    "manufacturer": "布加迪",
+    "acquisition": "珍宝阁",
+    "acquisitionIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/8e538448-f5ed-4589-9c59-26dad6538df3.png",
+    "stats": {
+      "topSpeed": "215.0 km/h",
+      "power": "8.59",
+      "durability": "115",
+      "nitroCharge": "32.0%",
+      "startCharge": "32.0%",
+      "nitroDuration": "5.00 s",
+      "nitroSpeed": { "blue": "25.80 km/h", "purple": "38.70 km/h" },
+      "turboDuration": { "blue": "0.70 s", "purple": "2.10 s" },
+      "turboSpeed": { "blue": "8.20 km/h", "purple": "12.30 km/h" },
+      "ultPower": "10"
+    },
+    "chipSlots": ["circle", "circle", "triangle", "diamond", "diamond", "vslot"],
+    "skills": {
+      "ult": {
+        "name": "音速传说",
+        "desc": "加速推进，8秒内极速+110km/h。加速期间：<br>·敌方车辆每次使用大招时为自身提供5%大招能量<br>·敌方车辆每5次使用氮气时为自身提供5000集气量<br>·敌方车辆每10次使用涡轮时将自身氮气和涡轮染色5秒<br>被动：开局时激活脉冲5秒，激活期间每次使用大招本局内极速+7km/h（上限叠加至35km/h）",
+        "recu": "音速传说可以充能两次",
+        "ultPassive": ""
+      },
+      "passive": {
+        "name": "音速脉冲",
+        "desc": "每5次使用氮气时净化自身并激活脉冲5秒，开局时获得3500集气量"
+      },
+      "features": [
+        { "name": "超级染色", "desc": "可以将涡轮、氮气变为紫色", "color": "蓝" },
+        { "name": "自充能", "desc": "技能可以补充大招能量", "color": "蓝" },
+        { "name": "高极速", "desc": "技能提供大量极速加成", "color": "蓝" },
+        { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" },
+        { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" }
+     ]
+    },
+    "ultIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/ddab70b9-89b7-4b3c-a042-fb9f11cfbae2.png",
+    "passiveIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/6fcb0fb6-e63f-4dfe-ac26-9ae4dd9263c7.png"
+    },
+  {  
+    "id": "zhanshen",
       "name": "战神",
       "quality": "稀有",
       "position": "干扰",
