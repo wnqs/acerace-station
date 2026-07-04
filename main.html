@@ -6849,6 +6849,7 @@ function initWallpaperMobileDropdown() {
                 document.getElementById('energyMobileFixedHeader').style.display = 'none';
                 document.getElementById('currencyMobileFixedHeader').style.display = 'none';
                 document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
+                document.getElementById('balanceMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.mobile-tab-btn').forEach(t => { if (t.dataset.page === 'vehicles') t.classList.add('active'); });
@@ -6860,6 +6861,7 @@ function initWallpaperMobileDropdown() {
                 document.getElementById('energyMobileFixedHeader').style.display = 'none';
                 document.getElementById('currencyMobileFixedHeader').style.display = 'none';
                 document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
+                document.getElementById('balanceMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.chip-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'chip') t.classList.add('active'); });
@@ -6869,6 +6871,8 @@ function initWallpaperMobileDropdown() {
                 document.getElementById('chipMobileFixedHeader').style.display = 'none';
                 document.getElementById('energyMobileFixedHeader').style.display = 'flex';
                 document.getElementById('currencyMobileFixedHeader').style.display = 'none';
+                document.getElementById('balanceMobileFixedHeader').style.display = 'none';
+                document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.energy-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'energy') t.classList.add('active'); });
@@ -6879,6 +6883,7 @@ function initWallpaperMobileDropdown() {
                 document.getElementById('energyMobileFixedHeader').style.display = 'none';
                 document.getElementById('currencyMobileFixedHeader').style.display = 'none';
                 document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
+                document.getElementById('balanceMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 const calcBtns = document.querySelectorAll('.mobile-tab-btn');
@@ -6903,6 +6908,7 @@ function initWallpaperMobileDropdown() {
     document.getElementById('energyMobileFixedHeader').style.display = 'none';
     document.getElementById('currencyMobileFixedHeader').style.display = 'none';
     document.getElementById('wallpaperMobileFixedHeader').style.display = 'flex';
+    document.getElementById('balanceMobileFixedHeader').style.display = 'none';
     document.body.classList.add('has-fixed-header');
     
     document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn, .wallpaper-mobile-tab-btn').forEach(t => t.classList.remove('active'));
@@ -6910,19 +6916,32 @@ function initWallpaperMobileDropdown() {
     currentPage = 'wallpaper';
     if (wallpapersData.length === 0) loadWallpapersData(); else renderWallpapersList();
   }else if (pageId === 'balance') {
+    // 隐藏所有其他手机端头部
     document.getElementById('mobileFixedHeader').style.display = 'none';
     document.getElementById('chipMobileFixedHeader').style.display = 'none';
     document.getElementById('energyMobileFixedHeader').style.display = 'none';
     document.getElementById('currencyMobileFixedHeader').style.display = 'none';
     document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
+    // 显示平衡头部
     document.getElementById('balanceMobileFixedHeader').style.display = 'flex';
     document.body.classList.add('has-fixed-header');
-    document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.mobile-tab-btn').forEach(t => { if (t.dataset.page === 'balance') t.classList.add('active'); });
-    const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
+    
+    // 更新导航按钮激活状态（包含 balance 按钮）
+    document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn, .wallpaper-mobile-tab-btn, .balance-mobile-tab-btn').forEach(function(t) {
+        t.classList.remove('active');
+    });
+    document.querySelectorAll('.balance-mobile-tab-btn').forEach(function(t) {
+        if (t.dataset.page === 'balance') t.classList.add('active');
+    });
+    
+    // 隐藏电脑端筛选栏（如果有）
+    var vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
     if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'none';
+    
+    // 渲染数据
     if (typeof renderBalanceList === 'function') renderBalanceList(balanceData);
     if (typeof initBalanceFilters === 'function') initBalanceFilters();
+    if (typeof initBalanceMobileFilters === 'function') initBalanceMobileFilters();  // ← 新增这行
 }
        
         } else {
