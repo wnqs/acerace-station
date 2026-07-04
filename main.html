@@ -6875,16 +6875,21 @@ function initWallpaperMobileDropdown() {
 }
        
         } else {
-            const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
-            if (vehicleDesktopHeader) {
-                if (pageId === 'vehicles') {
-                    vehicleDesktopHeader.style.display = isInDetail ? 'none' : 'block';
-                } else {
-                    vehicleDesktopHeader.style.display = 'none';
-                }
-            }
-        }
-        
+    const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
+    const balanceDesktopHeader = document.querySelector('.balance-desktop-header');
+    
+    // 先全部隐藏
+    if (vehicleDesktopHeader) vehicleDesktopHeader.style.display = 'none';
+    if (balanceDesktopHeader) balanceDesktopHeader.style.display = 'none';
+    
+    // 再显示对应的
+    if (pageId === 'vehicles') {
+        if (vehicleDesktopHeader) vehicleDesktopHeader.style.display = isInDetail ? 'none' : 'block';
+    } else if (pageId === 'balance') {
+        if (balanceDesktopHeader) balanceDesktopHeader.style.display = 'block';
+    }
+}
+ }       
         currentPage = pageId;
         window.scrollTo(0, 0);
     }
