@@ -8417,6 +8417,20 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
             setTimeout(() => initCalculator(), 100);
         }
     });
+    async function loadBalanceData() {
+        try {
+            const response = await fetch('./balance.json');
+            if (!response.ok) throw new Error('加载失败');
+            const data = await response.json();
+            balanceData = data || [];
+            renderBalanceList();
+            initBalanceFilters();
+        } catch (error) {
+            console.log('加载 balance.json 失败');
+            balanceData = [];
+            renderBalanceList();
+        }
+    }
 </script>
 </body>
 </html>
