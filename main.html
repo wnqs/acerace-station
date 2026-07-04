@@ -3399,6 +3399,203 @@ video.wallpaper-modal-media {
 .calculator-container details div div strong {
     color: #feca57 !important;
 }
+ /* ===== 手机端平衡调整头部 ===== */
+.balance-mobile-fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #0f0f17;
+    border-bottom: 1px solid #2a2a3c;
+    z-index: 200;
+    display: none;
+    flex-direction: column;
+}
+
+.balance-mobile-top-bar {
+    padding: 8px 12px;
+    border-bottom: 1px solid #2a2a3c;
+}
+
+.balance-mobile-logo-area {
+    text-align: center;
+    cursor: pointer;
+    padding-bottom: 2px;
+}
+
+.balance-mobile-logo-area h1 {
+    font-size: 1rem;
+    background: linear-gradient(135deg, #ff6b6b, #feca57);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 800;
+}
+
+.balance-mobile-logo-area p {
+    font-size: 0.5rem;
+    color: #8a8aa3;
+    font-weight: 500;
+}
+
+.balance-mobile-nav-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.balance-mobile-tab-btn {
+    padding: 6px 2px;
+    font-size: 0.65rem;
+    border-radius: 16px;
+    text-align: center;
+    background: #1a1a2a;
+    border: none;
+    cursor: pointer;
+    color: #a0a0b8;
+    font-weight: 700;
+}
+
+.balance-mobile-tab-btn.active {
+    background: #feca57;
+    color: #1a1a2e;
+}
+
+.balance-mobile-filter-sticky {
+    padding: 8px 12px;
+    background: #0a0a0f;
+    border-bottom: 1px solid #2a2a3c;
+}
+
+.balance-filter-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.balance-mobile-search-box {
+    flex: 2;
+}
+
+.balance-mobile-search-box input {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    background: #1f1f2e;
+    border: 1px solid #2a2a3c;
+    border-radius: 30px;
+    color: #e2e2e6;
+    outline: none;
+}
+
+.balance-mobile-search-box input:focus {
+    border-color: #feca57;
+}
+
+.balance-mobile-version-select {
+    background: #2a2a3c;
+    color: #e2e2e6;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 30px;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    outline: none;
+    cursor: pointer;
+    font-weight: 600;
+    flex-shrink: 0;
+    min-width: 100px;
+}
+
+.balance-mobile-version-select:focus {
+    border-color: #feca57;
+}
+
+.balance-mobile-version-select option {
+    background: #1f1f2e;
+    color: #e2e2e6;
+}
+}
+/* 手机端平衡调整页面内容样式 - 限定在 balancePage 内 */
+@media (max-width: 768px) {
+    /* 电脑端头部在手机端隐藏 */
+    .balance-desktop-header {
+        display: none !important;
+    }
+    
+    /* 手机端版本卡片 */
+    #balancePage .balance-version-header {
+        padding: 12px 16px;
+    }
+    
+    #balancePage .version-number {
+        font-size: 0.95rem;
+    }
+    
+    #balancePage .stat-badge {
+        font-size: 0.65rem;
+        padding: 2px 10px;
+    }
+    
+    #balancePage .adjust-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    #balancePage .vehicle-card-header {
+        gap: 10px;
+    }
+    
+    #balancePage .vehicle-icon {
+        width: 36px;
+        height: 36px;
+    }
+    
+    #balancePage .vehicle-name {
+        font-size: 0.8rem;
+    }
+    
+    #balancePage .vehicle-tags .tag {
+        font-size: 0.55rem;
+    }
+    
+    /* 手机端芯片卡片 - 限定在 balancePage 内 */
+    #balancePage .balance-chip-card {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+    
+    #balancePage .balance-chip-card .chip-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    #balancePage .balance-chip-card .chip-name {
+        font-size: 0.75rem;
+    }
+    
+    #balancePage .balance-chip-card .chip-detail {
+        font-size: 0.7rem;
+    }
+    
+    /* 手机端赋能卡片 - 限定在 balancePage 内 */
+    #balancePage .balance-energy-card {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+    
+    #balancePage .balance-energy-card .energy-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    #balancePage .balance-energy-card .energy-name {
+        font-size: 0.75rem;
+    }
+    
+    #balancePage .balance-energy-card .energy-detail {
+        font-size: 0.7rem;
+    }
+}   
 }
   /* 让右侧四行均匀分布 */
 .car-form-right .row2 {
@@ -3470,7 +3667,378 @@ video.wallpaper-modal-media {
 #calcRaceNitroContainer.show {
     display: inline-flex !important;
 }      
-        
+   /* ========== 平衡调整页面样式（电脑端） ========== */
+.balance-desktop-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #0f0f17;
+    padding: 4px 0 0 0;
+    border-bottom: 1px solid #2a2a3c;
+    margin-bottom: 24px;
+}
+
+.balance-desktop-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 6px 0;
+}
+
+.balance-desktop-filter-bar {
+    background: #14141f;
+    border-radius: 20px;
+    padding: 16px 20px;
+    backdrop-filter: blur(8px);
+    border: 1px solid #2a2a3c;
+    margin-bottom: 0;
+}
+
+.balance-search-box {
+    margin-bottom: 16px;
+}
+
+.balance-search-box input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 16px;
+    border-radius: 40px;
+    border: 1px solid #2a2a3c;
+    background: #1f1f2e;
+    color: #e2e2e6;
+    font-size: 0.9rem;
+    font-weight: 500;
+    outline: none;
+}
+
+.balance-search-box input:focus {
+    border-color: #feca57;
+}
+
+.balance-desktop-filter-sections {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.balance-desktop-filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.balance-desktop-filter-section-title {
+    font-size: 0.75rem;
+    color: #feca57;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.balance-version-select {
+    background: #2a2a3c;
+    color: #e2e2e6;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 30px;
+    padding: 6px 16px;
+    font-size: 0.8rem;
+    outline: none;
+    cursor: pointer;
+    font-weight: 600;
+    min-width: 140px;
+}
+
+.balance-version-select:focus {
+    border-color: #feca57;
+}
+
+.balance-version-select option {
+    background: #1f1f2e;
+    color: #e2e2e6;
+}
+
+/* 版本列表容器 */
+.balance-list {
+    margin-top: 0;
+}
+
+/* 版本卡片 */
+#balancePage .balance-version {
+    background: rgba(20, 20, 31, 0.85);
+    border: 1px solid rgba(42, 42, 60, 0.5);
+    border-radius: 16px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+#balancePage .balance-version:hover {
+    border-color: #feca57;
+}
+
+#balancePage .balance-version-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    cursor: pointer;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#balancePage .balance-version-header:hover {
+    background: rgba(255,255,255,0.03);
+}
+
+#balancePage .version-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+#balancePage .version-number {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #feca57;
+}
+
+#balancePage .version-date {
+    font-size: 0.8rem;
+    color: #8a8aa3;
+}
+
+#balancePage .version-stats {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#balancePage .stat-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.06);
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: #a0a0b8;
+}
+
+#balancePage .stat-badge.vehicle { color: #ff6b6b; }
+#balancePage .stat-badge.chip { color: #4a9eff; }
+#balancePage .stat-badge.energy { color: #feca57; }
+
+#balancePage .version-arrow {
+    font-size: 0.8rem;
+    color: #8a8aa3;
+    transition: transform 0.3s;
+}
+
+#balancePage .balance-version-header.expanded .version-arrow {
+    transform: rotate(180deg);
+}
+
+#balancePage .balance-version-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding: 0 20px;
+}
+
+#balancePage .balance-version-content.open {
+    max-height: 5000px;
+    padding: 0 20px 20px 20px;
+}
+
+#balancePage .adjust-section {
+    margin-top: 16px;
+}
+
+#balancePage .adjust-section:first-child {
+    margin-top: 0;
+}
+
+#balancePage .adjust-section-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #feca57;
+    margin-bottom: 12px;
+    padding-left: 8px;
+    border-left: 3px solid #feca57;
+}
+
+#balancePage .adjust-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    align-items: stretch;
+}
+
+/* 车辆调整卡片 - 限定在 balancePage 内 */
+#balancePage .vehicle-card {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+#balancePage .vehicle-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+#balancePage .vehicle-icon {
+    width: 180px;
+    height: 120px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.05);
+}
+
+#balancePage .vehicle-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#balancePage .vehicle-info {
+    flex: 1;
+}
+
+#balancePage .vehicle-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #e2e2e6;
+}
+
+#balancePage .vehicle-tags {
+    display: flex;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+#balancePage .vehicle-tags .tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.65rem;
+    color: #a0a0b8;
+}
+
+#balancePage .vehicle-tags .tag img {
+    width: 14px;
+    height: 14px;
+}
+
+#balancePage .vehicle-adjustments {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+#balancePage .adjust-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    padding: 6px 10px;
+}
+
+#balancePage .adjust-type {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #feca57;
+    margin-bottom: 2px;
+}
+
+#balancePage .adjust-detail {
+    font-size: 0.75rem;
+    color: #a0a0b8;
+    line-height: 1.5;
+}
+
+#balancePage .adjust-icon {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+}
+
+#balancePage .adjust-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* 芯片调整卡片 - 限定在 balancePage 内，与 chipPage 区分 */
+#balancePage .balance-chip-card {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 12px 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#balancePage .balance-chip-card .chip-icon {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+}
+
+#balancePage .balance-chip-card .chip-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#balancePage .balance-chip-card .chip-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #e2e2e6;
+}
+
+#balancePage .balance-chip-card .chip-detail {
+    font-size: 0.75rem;
+    color: #a0a0b8;
+}
+
+/* 赋能调整卡片 - 限定在 balancePage 内，与 energyPage 区分 */
+#balancePage .balance-energy-card {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 12px 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#balancePage .balance-energy-card .energy-icon {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+}
+
+#balancePage .balance-energy-card .energy-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#balancePage .balance-energy-card .energy-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #e2e2e6;
+}
+
+#balancePage .balance-energy-card .energy-detail {
+    font-size: 0.75rem;
+    color: #a0a0b8;
+}     
     </style>
 </head>
 <body>
@@ -4130,7 +4698,63 @@ video.wallpaper-modal-media {
             </div>
         </div>
     </div>
-    
+  <!-- ========== 平衡调整页面 ========== -->
+<div id="balancePage" class="page">
+    <!-- 电脑端头部 -->
+    <div class="balance-desktop-header" id="balanceDesktopHeader">
+        <div class="balance-desktop-header-top">
+            <span class="page-title">平衡调整</span>
+        </div>
+        <div class="balance-desktop-filter-bar">
+            <div class="balance-search-box">
+                <input type="text" id="balanceSearchInputDesktop" placeholder="搜索车辆、芯片、赋能名称...">
+            </div>
+            <div class="balance-desktop-filter-sections">
+                <div class="balance-desktop-filter-section">
+                    <div class="balance-desktop-filter-section-title">版本</div>
+                    <select id="balanceVersionFilterDesktop" class="balance-version-select">
+                        <option value="all">全部版本</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 手机端固定头部 -->
+    <div class="balance-mobile-fixed-header" id="balanceMobileFixedHeader" style="display: none;">
+        <div class="balance-mobile-top-bar">
+            <div class="balance-mobile-logo-area" onclick="location.reload()">
+                <h1>王牌竞速 · 数据整合站</h1>
+                <p>核心档案 · 赛车数据</p>
+            </div>
+            <div class="balance-mobile-nav-tabs" id="balanceMobileNavTabs">
+                <button class="balance-mobile-tab-btn" data-page="vehicles">车辆数据</button>
+                <button class="balance-mobile-tab-btn active" data-page="balance">平衡调整</button>
+                <button class="balance-mobile-tab-btn" data-page="chip">芯片系统</button>
+                <button class="balance-mobile-tab-btn" data-page="energy">赋能系统</button>
+                <button class="balance-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
+                <button class="balance-mobile-tab-btn" data-page="news">游戏资源获取统计</button>
+                <button class="balance-mobile-tab-btn" data-page="wallpaper">游戏精彩内容</button>
+            </div>
+        </div>
+        <div class="balance-mobile-filter-sticky">
+            <div class="balance-filter-row">
+                <div class="balance-mobile-search-box">
+                    <input type="text" id="balanceSearchInputMobile" placeholder="搜索车辆、芯片、赋能名称...">
+                </div>
+                <select id="balanceVersionFilterMobile" class="balance-mobile-version-select">
+                    <option value="all">全部版本</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- 版本列表 -->
+    <div class="balance-list" id="balanceList">
+        <div style="text-align:center;padding:60px;color:#8a8aa3;">暂无平衡性调整数据</div>
+    </div>
+    <div class="stats-text" id="balanceStatsText">加载中...</div>
+</div>  
     <!-- 壁纸卡片网格 -->
     <div class="wallpapers-grid" id="wallpapersGrid">
         <div class="loading-placeholder">加载中...</div>
@@ -4644,7 +5268,362 @@ function formatSkillText(text) {
             }
         }
     }
+    // ==================== 平衡调整功能 ====================
+
+// ===== 平衡调整数据变量 =====
+var balanceData = [];
+var balanceKeyword = "";
+var balanceVersionFilter = "all";
+
+// ===== 加载平衡调整 JSON 数据 =====
+async function loadBalanceData() {
+    try {
+        var response = await fetch('./balance.json');
+        if (!response.ok) throw new Error('加载失败');
+        var data = await response.json();
+        balanceData = data || [];
+        renderBalanceList();
+        initBalanceFilters();
+    } catch (error) {
+        console.log('加载 balance.json 失败');
+        balanceData = [];
+        renderBalanceList();
+    }
+}
+
+// ===== 初始化筛选器（电脑端+手机端） =====
+function initBalanceFilters() {
+    // 电脑端搜索框
+    var desktopSearch = document.getElementById('balanceSearchInputDesktop');
+    if (desktopSearch) {
+        desktopSearch.removeEventListener('input', desktopSearch._handler);
+        desktopSearch._handler = function() {
+            balanceKeyword = this.value;
+            renderBalanceList();
+        };
+        desktopSearch.addEventListener('input', desktopSearch._handler);
+    }
     
+    // 手机端搜索框
+    var mobileSearch = document.getElementById('balanceSearchInputMobile');
+    if (mobileSearch) {
+        mobileSearch.removeEventListener('input', mobileSearch._handler);
+        mobileSearch._handler = function() {
+            balanceKeyword = this.value;
+            renderBalanceList();
+        };
+        mobileSearch.addEventListener('input', mobileSearch._handler);
+    }
+    
+    // 电脑端版本筛选
+    var desktopVersion = document.getElementById('balanceVersionFilterDesktop');
+    if (desktopVersion) {
+        desktopVersion.removeEventListener('change', desktopVersion._handler);
+        desktopVersion._handler = function() {
+            balanceVersionFilter = this.value;
+            renderBalanceList();
+        };
+        desktopVersion.addEventListener('change', desktopVersion._handler);
+    }
+    
+    // 手机端版本筛选
+    var mobileVersion = document.getElementById('balanceVersionFilterMobile');
+    if (mobileVersion) {
+        mobileVersion.removeEventListener('change', mobileVersion._handler);
+        mobileVersion._handler = function() {
+            balanceVersionFilter = this.value;
+            renderBalanceList();
+        };
+        mobileVersion.addEventListener('change', mobileVersion._handler);
+    }
+    
+    // 更新版本下拉选项
+    updateBalanceVersionOptions();
+}
+
+// ===== 更新版本下拉选项 =====
+function updateBalanceVersionOptions() {
+    var versions = balanceData.map(function(v) { return v.version; });
+    var uniqueVersions = [];
+    var seen = {};
+    for (var i = 0; i < versions.length; i++) {
+        if (!seen[versions[i]]) {
+            seen[versions[i]] = true;
+            uniqueVersions.push(versions[i]);
+        }
+    }
+    uniqueVersions.sort(function(a, b) { return parseFloat(b) - parseFloat(a); });
+    
+    // 电脑端
+    var desktopSelect = document.getElementById('balanceVersionFilterDesktop');
+    if (desktopSelect) {
+        var currentVal = desktopSelect.value;
+        desktopSelect.innerHTML = '<option value="all">全部版本</option>';
+        for (var j = 0; j < uniqueVersions.length; j++) {
+            var opt = document.createElement('option');
+            opt.value = uniqueVersions[j];
+            opt.textContent = '版本 ' + uniqueVersions[j];
+            desktopSelect.appendChild(opt);
+        }
+        for (var k = 0; k < desktopSelect.options.length; k++) {
+            if (desktopSelect.options[k].value === currentVal) {
+                desktopSelect.selectedIndex = k;
+                break;
+            }
+        }
+    }
+    
+    // 手机端
+    var mobileSelect = document.getElementById('balanceVersionFilterMobile');
+    if (mobileSelect) {
+        var currentVal2 = mobileSelect.value;
+        mobileSelect.innerHTML = '<option value="all">全部版本</option>';
+        for (var m = 0; m < uniqueVersions.length; m++) {
+            var opt2 = document.createElement('option');
+            opt2.value = uniqueVersions[m];
+            opt2.textContent = '版本 ' + uniqueVersions[m];
+            mobileSelect.appendChild(opt2);
+        }
+        for (var n = 0; n < mobileSelect.options.length; n++) {
+            if (mobileSelect.options[n].value === currentVal2) {
+                mobileSelect.selectedIndex = n;
+                break;
+            }
+        }
+    }
+}
+
+// ===== 从 vehiclesData 查找车辆信息 =====
+function findVehicleData(vehicleName) {
+    if (typeof vehiclesData === 'undefined' || !vehiclesData) return null;
+    for (var i = 0; i < vehiclesData.length; i++) {
+        if (vehiclesData[i].name === vehicleName) return vehiclesData[i];
+    }
+    return null;
+}
+
+// ===== 渲染平衡调整列表 =====
+function renderBalanceList() {
+    var container = document.getElementById('balanceList');
+    var stats = document.getElementById('balanceStatsText');
+    if (!container) return;
+    
+    var filtered = [];
+    for (var i = 0; i < balanceData.length; i++) {
+        var ver = balanceData[i];
+        if (balanceVersionFilter !== 'all' && ver.version !== balanceVersionFilter) continue;
+        
+        if (balanceKeyword) {
+            var kw = balanceKeyword.toLowerCase();
+            var allItems = [];
+            if (ver.vehicles) {
+                for (var v = 0; v < ver.vehicles.length; v++) {
+                    allItems.push(ver.vehicles[v]);
+                }
+            }
+            if (ver.chips) {
+                for (var c = 0; c < ver.chips.length; c++) {
+                    allItems.push(ver.chips[c]);
+                }
+            }
+            if (ver.energies) {
+                for (var e = 0; e < ver.energies.length; e++) {
+                    allItems.push(ver.energies[e]);
+                }
+            }
+            var match = false;
+            for (var a = 0; a < allItems.length; a++) {
+                if (allItems[a].name && allItems[a].name.toLowerCase().includes(kw)) {
+                    match = true;
+                    break;
+                }
+            }
+            if (!match) continue;
+        }
+        filtered.push(ver);
+    }
+    
+    if (filtered.length === 0) {
+        container.innerHTML = '<div style="text-align:center;padding:60px;color:#8a8aa3;">暂无匹配的平衡调整数据</div>';
+        if (stats) stats.innerText = "共 0 个版本";
+        return;
+    }
+    
+    filtered.sort(function(a, b) { return parseFloat(b.version) - parseFloat(a.version); });
+    
+    var html = '';
+    for (var idx = 0; idx < filtered.length; idx++) {
+        var ver = filtered[idx];
+        html += buildVersionHtml(ver);
+    }
+    container.innerHTML = html;
+    if (stats) stats.innerText = "共 " + filtered.length + " 个版本";
+}
+
+// ===== 生成版本 HTML =====
+function buildVersionHtml(ver) {
+    var statsHtml = buildStatsHtml(ver);
+    var contentHtml = buildContentHtml(ver);
+    
+    return '<div class="balance-version">' +
+        '<div class="balance-version-header" onclick="toggleBalanceVersion(this)">' +
+            '<div class="version-info">' +
+                '<span class="version-number">版本 ' + ver.version + '</span>' +
+                '<span class="version-date">' + (ver.date || '') + '</span>' +
+            '</div>' +
+            '<div class="version-stats">' + statsHtml + '</div>' +
+            '<span class="version-arrow">▼</span>' +
+        '</div>' +
+        '<div class="balance-version-content">' + contentHtml + '</div>' +
+    '</div>';
+}
+
+// ===== 生成统计标签 =====
+function buildStatsHtml(ver) {
+    var html = '';
+    var vCount = ver.vehicles ? ver.vehicles.length : 0;
+    var cCount = ver.chips ? ver.chips.length : 0;
+    var eCount = ver.energies ? ver.energies.length : 0;
+    
+    if (vCount > 0) html += '<span class="stat-badge vehicle">车辆调整：' + vCount + '</span>';
+    if (cCount > 0) html += '<span class="stat-badge chip">芯片调整：' + cCount + '</span>';
+    if (eCount > 0) html += '<span class="stat-badge energy">赋能调整：' + eCount + '</span>';
+    return html || '<span class="stat-badge" style="color:#8a8aa3;">无调整</span>';
+}
+
+// ===== 生成详细内容 =====
+function buildContentHtml(ver) {
+    var html = '';
+    
+    // 车辆调整
+    if (ver.vehicles && ver.vehicles.length > 0) {
+        html += '<div class="adjust-section">' +
+            '<div class="adjust-section-title">车辆调整</div>' +
+            '<div class="adjust-grid">';
+        for (var i = 0; i < ver.vehicles.length; i++) {
+            html += buildVehicleAdjustmentHtml(ver.vehicles[i]);
+        }
+        html += '</div></div>';
+    }
+    
+    // 芯片调整
+    if (ver.chips && ver.chips.length > 0) {
+        html += '<div class="adjust-section">' +
+            '<div class="adjust-section-title">芯片调整</div>' +
+            '<div class="adjust-grid">';
+        for (var j = 0; j < ver.chips.length; j++) {
+            html += buildChipAdjustmentHtml(ver.chips[j]);
+        }
+        html += '</div></div>';
+    }
+    
+    // 赋能调整
+    if (ver.energies && ver.energies.length > 0) {
+        html += '<div class="adjust-section">' +
+            '<div class="adjust-section-title">赋能调整</div>' +
+            '<div class="adjust-grid">';
+        for (var k = 0; k < ver.energies.length; k++) {
+            html += buildEnergyAdjustmentHtml(ver.energies[k]);
+        }
+        html += '</div></div>';
+    }
+    
+    return html || '<div style="color:#8a8aa3;padding:12px 0;">暂无详细调整内容</div>';
+}
+
+// ===== 生成车辆调整 HTML =====
+function buildVehicleAdjustmentHtml(v) {
+    var vehicle = findVehicleData(v.name);
+    var icon = vehicle ? vehicle.imageUrl : '';
+    var position = vehicle ? vehicle.position : '';
+    var specialty = vehicle ? vehicle.specialty : '';
+    
+    var adjustmentsHtml = '';
+    for (var i = 0; i < v.adjustments.length; i++) {
+        var adj = v.adjustments[i];
+        var skillIcon = '';
+        var typeLabel = '';
+        if (adj.type === 'ult') {
+            skillIcon = vehicle ? vehicle.ultIcon : '';
+            typeLabel = '大招调整';
+        } else if (adj.type === 'passive') {
+            skillIcon = vehicle ? vehicle.passiveIcon : '';
+            typeLabel = '被动调整';
+        } else if (adj.type === 'sp') {
+            skillIcon = (vehicle && vehicle.sp) ? vehicle.sp.icon : '';
+            typeLabel = 'SP调整';
+        } else {
+            typeLabel = '基础数值调整';
+        }
+        adjustmentsHtml += '<div class="adjust-item">' +
+            (skillIcon ? '<div class="adjust-icon"><img src="' + skillIcon + '"></div>' : '') +
+            '<div>' +
+                '<div class="adjust-type">' + typeLabel + '</div>' +
+                '<div class="adjust-detail">' + adj.detail + '</div>' +
+            '</div>' +
+        '</div>';
+    }
+    
+    return '<div class="vehicle-card">' +
+        '<div class="vehicle-card-header">' +
+            '<div class="vehicle-icon"><img src="' + icon + '" alt="' + v.name + '"></div>' +
+            '<div class="vehicle-info">' +
+                '<div class="vehicle-name">' + v.name + '</div>' +
+                '<div class="vehicle-tags">' +
+                    '<span class="tag"><img src="' + (POSITION_ICONS[position] || '') + '"> ' + position + '</span>' +
+                    '<span class="tag"><img src="' + (SPECIALTY_ICONS[specialty] || '') + '"> ' + specialty + '</span>' +
+                '</div>' +
+            '</div>' +
+        '</div>' +
+        '<div class="vehicle-adjustments">' + adjustmentsHtml + '</div>' +
+    '</div>';
+}
+
+// ===== 生成芯片调整 HTML =====
+function buildChipAdjustmentHtml(c) {
+    return '<div class="balance-chip-card">' +
+        '<div class="chip-icon"><img src="' + (c.icon || '') + '"></div>' +
+        '<div>' +
+            '<div class="chip-name">' + c.name + '</div>' +
+            '<div class="chip-detail">' + c.detail + '</div>' +
+        '</div>' +
+    '</div>';
+}
+
+// ===== 生成赋能调整 HTML =====
+function buildEnergyAdjustmentHtml(e) {
+    return '<div class="balance-energy-card">' +
+        '<div class="energy-icon"><img src="' + (e.icon || '') + '"></div>' +
+        '<div>' +
+            '<div class="energy-name">' + e.name + '</div>' +
+            '<div class="energy-detail">' + e.detail + '</div>' +
+        '</div>' +
+    '</div>';
+}
+
+// ===== 展开/收起 =====
+function toggleBalanceVersion(header) {
+    var content = header.nextElementSibling;
+    var isOpen = content.classList.contains('open');
+    
+    var allOpen = document.querySelectorAll('.balance-version-content.open');
+    for (var i = 0; i < allOpen.length; i++) {
+        if (allOpen[i] !== content) {
+            allOpen[i].classList.remove('open');
+            allOpen[i].previousElementSibling.classList.remove('expanded');
+        }
+    }
+    
+    if (isOpen) {
+        content.classList.remove('open');
+        header.classList.remove('expanded');
+    } else {
+        content.classList.add('open');
+        header.classList.add('expanded');
+    }
+}
+
+// ==================== 平衡调整功能结束 ====================
     async function loadData() {
         try {
             const vehiclesUrl = './vehicles.json';
@@ -6251,6 +7230,26 @@ function initWallpaperMobileDropdown() {
     currentPage = 'wallpaper';
     if (wallpapersData.length === 0) loadWallpapersData(); else renderWallpapersList();
 }
+   } else if (pageId === 'balance') {
+    // 隐藏所有其他手机端头部
+    document.getElementById('mobileFixedHeader').style.display = 'none';
+    document.getElementById('chipMobileFixedHeader').style.display = 'none';
+    document.getElementById('energyMobileFixedHeader').style.display = 'none';
+    document.getElementById('currencyMobileFixedHeader').style.display = 'none';
+    document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
+    document.getElementById('balanceMobileFixedHeader').style.display = 'flex';
+    document.body.classList.add('has-fixed-header');
+    
+    document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .balance-mobile-tab-btn').forEach(function(t) {
+        t.classList.remove('active');
+    });
+    document.querySelectorAll('.balance-mobile-tab-btn').forEach(function(t) {
+        if (t.dataset.page === 'balance') t.classList.add('active');
+    });
+    
+    if (typeof renderBalanceList === 'function') renderBalanceList();
+    if (typeof initBalanceFilters === 'function') initBalanceFilters();
+}         
         } else {
             const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
             if (vehicleDesktopHeader) {
@@ -6396,7 +7395,7 @@ renderList();
             });
         });
         
-        const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn, .wallpaper-mobile-tab-btn');
+        const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn, .wallpaper-mobile-tab-btn, .balance-mobile-tab-btn');
         mobileTabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const pageId = btn.dataset.page;
@@ -6405,7 +7404,8 @@ renderList();
                 else if (pageId === 'energy') switchToPage('energy');
                 else if (pageId === 'calculator') switchToPage('calculator');
                 else if (pageId === 'news') switchToPage('news');
-                else if (pageId === 'wallpaper') switchToPage('wallpaper');  // ← 确保这一行存在
+                else if (pageId === 'wallpaper') switchToPage('wallpaper');
+                else if (pageId === 'balance') switchToPage('balance');    // ← 确保这一行存在
                 else switchToPage(pageId);
             });
         });
