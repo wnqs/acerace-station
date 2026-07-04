@@ -6790,8 +6790,7 @@ function initWallpaperMobileDropdown() {
     document.querySelectorAll('.wallpaper-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'wallpaper') t.classList.add('active'); });
     currentPage = 'wallpaper';
     if (wallpapersData.length === 0) loadWallpapersData(); else renderWallpapersList();
-}
-     } else if (pageId === 'balance') {
+  }else if (pageId === 'balance') {
     document.getElementById('mobileFixedHeader').style.display = 'flex';
     document.getElementById('chipMobileFixedHeader').style.display = 'none';
     document.getElementById('energyMobileFixedHeader').style.display = 'none';
