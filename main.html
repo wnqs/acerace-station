@@ -3786,7 +3786,41 @@ video.wallpaper-modal-media {
         font-size: 0.7rem;
     }
 }
-        
+ // ===== 从 vehiclesData 查找车辆信息（加在这里） =====
+function findVehicleData(vehicleName) {
+    if (typeof vehiclesData === 'undefined' || !vehiclesData) return null;
+    return vehiclesData.find(v => v.name === vehicleName);
+}
+
+function getVehicleIcon(vehicleName) {
+    const data = findVehicleData(vehicleName);
+    return data ? data.imageUrl : '';
+}
+
+function getVehiclePosition(vehicleName) {
+    const data = findVehicleData(vehicleName);
+    return data ? data.position : '';
+}
+
+function getVehicleSpecialty(vehicleName) {
+    const data = findVehicleData(vehicleName);
+    return data ? data.specialty : '';
+}
+
+function getUltIcon(vehicleName) {
+    const data = findVehicleData(vehicleName);
+    return data ? data.ultIcon : '';
+}
+
+function getPassiveIcon(vehicleName) {
+    const data = findVehicleData(vehicleName);
+    return data ? data.passiveIcon : '';
+}
+
+function getSpIcon(vehicleName) {
+    const data = findVehicleData(vehicleName);
+    return data && data.sp ? data.sp.icon : '';
+}       
    // ===== 平衡调整数据（后续从 JSON 加载） =====
 let balanceData = [];
 let balanceKeyword = "";
@@ -5294,41 +5328,7 @@ function formatSkillText(text) {
             if (statsEl) statsEl.innerText = "加载失败，请查看控制台(F12)";
         }
     }
-    // ===== 从 vehiclesData 查找车辆信息（加在这里，loadData 函数外面） =====
-function findVehicleData(vehicleName) {
-    if (typeof vehiclesData === 'undefined' || !vehiclesData) return null;
-    return vehiclesData.find(v => v.name === vehicleName);
-}
-
-function getVehicleIcon(vehicleName) {
-    const data = findVehicleData(vehicleName);
-    return data ? data.imageUrl : '';
-}
-
-function getVehiclePosition(vehicleName) {
-    const data = findVehicleData(vehicleName);
-    return data ? data.position : '';
-}
-
-function getVehicleSpecialty(vehicleName) {
-    const data = findVehicleData(vehicleName);
-    return data ? data.specialty : '';
-}
-
-function getUltIcon(vehicleName) {
-    const data = findVehicleData(vehicleName);
-    return data ? data.ultIcon : '';
-}
-
-function getPassiveIcon(vehicleName) {
-    const data = findVehicleData(vehicleName);
-    return data ? data.passiveIcon : '';
-}
-
-function getSpIcon(vehicleName) {
-    const data = findVehicleData(vehicleName);
-    return data && data.sp ? data.sp.icon : '';
-}
+    
     function filterAndSortVehicles() {
         let filtered = vehiclesData.filter(v => {
             if (activeFilters.position && v.position !== activeFilters.position) return false;
