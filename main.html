@@ -3615,68 +3615,69 @@ video.wallpaper-modal-media {
     border-left: 3px solid #feca57;
 }
 
-.adjust-grid {
+#balancePage .adjust-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
 }
 
-.vehicle-card {
+/* 只作用于平衡调整页面 */
+#balancePage .vehicle-card {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 12px;
     padding: 14px 16px;
     border: 1px solid rgba(255,255,255,0.06);
 }
-.vehicle-card-header {
+#balancePage .vehicle-card-header {
     display: flex;
     align-items: center;
     gap: 12px;
     margin-bottom: 10px;
 }
-.vehicle-icon {
-    width: 44px;
-    height: 44px;
+#balancePage .vehicle-icon {
+    width: 180px;
+    height: 180px;
     border-radius: 8px;
     overflow: hidden;
     flex-shrink: 0;
     background: rgba(255,255,255,0.05);
 }
-.vehicle-icon img {
+#balancePage .vehicle-icon img {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
-.vehicle-info {
+#balancePage .vehicle-info {
     flex: 1;
 }
-.vehicle-name {
+#balancePage .vehicle-name {
     font-size: 0.9rem;
     font-weight: 700;
     color: #e2e2e6;
 }
-.vehicle-tags {
+#balancePage .vehicle-tags {
     display: flex;
     gap: 8px;
     margin-top: 2px;
 }
-.vehicle-tags .tag {
+#balancePage .vehicle-tags .tag {
     display: flex;
     align-items: center;
     gap: 4px;
     font-size: 0.65rem;
     color: #a0a0b8;
 }
-.vehicle-tags .tag img {
+#balancePage .vehicle-tags .tag img {
     width: 14px;
     height: 14px;
 }
-.vehicle-adjustments {
+#balancePage .vehicle-adjustments {
     display: flex;
     flex-direction: column;
     gap: 6px;
     margin-top: 6px;
 }
-.adjust-item {
+#balancePage .adjust-item {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -3684,23 +3685,23 @@ video.wallpaper-modal-media {
     border-radius: 8px;
     padding: 6px 10px;
 }
-.adjust-icon {
-    width: 24px;
-    height: 24px;
+#balancePage .adjust-icon {
+    width: 100px;
+    height: 100px;
     flex-shrink: 0;
 }
-.adjust-icon img {
+#balancePage .adjust-icon img {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
-.adjust-detail {
+#balancePage .adjust-detail {
     font-size: 0.75rem;
     color: #a0a0b8;
 }
 
-.chip-card,
-.energy-card {
+#balancePage .chip-card,
+#balancePage .energy-card {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 12px;
     padding: 12px 16px;
@@ -3709,26 +3710,26 @@ video.wallpaper-modal-media {
     align-items: center;
     gap: 12px;
 }
-.chip-card .chip-icon,
-.energy-card .energy-icon {
-    width: 32px;
-    height: 32px;
+#balancePage .chip-card .chip-icon,
+#balancePage .energy-card .energy-icon {
+    width: 100px;
+    height: 100px;
     flex-shrink: 0;
 }
-.chip-card .chip-icon img,
-.energy-card .energy-icon img {
+#balancePage .chip-card .chip-icon img,
+#balancePage .energy-card .energy-icon img {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
-.chip-card .chip-name,
-.energy-card .energy-name {
+#balancePage .chip-card .chip-name,
+#balancePage .energy-card .energy-name {
     font-size: 0.85rem;
     font-weight: 600;
     color: #e2e2e6;
 }
-.chip-card .chip-detail,
-.energy-card .energy-detail {
+#balancePage .chip-card .chip-detail,
+#balancePage .energy-card .energy-detail {
     font-size: 0.75rem;
     color: #a0a0b8;
 }
@@ -5029,9 +5030,9 @@ function buildStatsHtml(ver) {
     const cCount = ver.chips ? ver.chips.length : 0;
     const eCount = ver.energies ? ver.energies.length : 0;
     
-    if (vCount > 0) html += `<span class="stat-badge vehicle">🚗 车辆：${vCount}</span>`;
-    if (cCount > 0) html += `<span class="stat-badge chip">💠 芯片：${cCount}</span>`;
-    if (eCount > 0) html += `<span class="stat-badge energy">⚡ 赋能：${eCount}</span>`;
+    if (vCount > 0) html += `<span class="stat-badge vehicle"> 车辆调整：${vCount}</span>`;
+    if (cCount > 0) html += `<span class="stat-badge chip"> 芯片调整：${cCount}</span>`;
+    if (eCount > 0) html += `<span class="stat-badge energy"> 赋能调整：${eCount}</span>`;
     return html || `<span class="stat-badge" style="color:#8a8aa3;">无调整</span>`;
 }
 
