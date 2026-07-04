@@ -7262,8 +7262,7 @@ function initWallpaperMobileDropdown() {
     document.querySelectorAll('.wallpaper-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'wallpaper') t.classList.add('active'); });
     currentPage = 'wallpaper';
     if (wallpapersData.length === 0) loadWallpapersData(); else renderWallpapersList();
-}
-    else if (pageId === 'balance') {
+  }else if (pageId === 'balance') {
     // 隐藏所有其他手机端头部
     document.getElementById('mobileFixedHeader').style.display = 'none';
     document.getElementById('chipMobileFixedHeader').style.display = 'none';
@@ -7297,7 +7296,7 @@ function initWallpaperMobileDropdown() {
         currentPage = pageId;
         window.scrollTo(0, 0);
     }
-    
+  }   
     // 返回键逻辑：先清空筛选条件，再按一次才退出网站
 function handleBackButton() {
     const now = Date.now();
