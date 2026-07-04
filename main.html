@@ -3619,13 +3619,14 @@ video.wallpaper-modal-media {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+    align-items: stretch;
 }
 
 /* 只作用于平衡调整页面 */
 #balancePage .vehicle-card {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 12px;
-    padding: 14px 16px;
+    padding: 10px 12px;
     border: 1px solid rgba(255,255,255,0.06);
 }
 #balancePage .vehicle-card-header {
@@ -3636,7 +3637,7 @@ video.wallpaper-modal-media {
 }
 #balancePage .vehicle-icon {
     width: 180px;
-    height: 180px;
+    height: 120px;
     border-radius: 8px;
     overflow: hidden;
     flex-shrink: 0;
@@ -3679,15 +3680,29 @@ video.wallpaper-modal-media {
 }
 #balancePage .adjust-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
     background: rgba(255,255,255,0.03);
     border-radius: 8px;
     padding: 6px 10px;
 }
+/* 调整类型标题 - 黄色加粗 */
+#balancePage .adjust-type {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #feca57;
+    margin-bottom: 2px;
+}
+
+/* 调整内容 - 白色正常大小 */
+#balancePage .adjust-detail {
+    font-size: 0.75rem;
+    color: #a0a0b8;
+    line-height: 1.5;
+}        
 #balancePage .adjust-icon {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     flex-shrink: 0;
 }
 #balancePage .adjust-icon img {
@@ -5053,17 +5068,30 @@ function buildContentHtml(ver) {
                         const specialty = vehicle ? vehicle.specialty : '';
                         
                         const adjustmentsHtml = v.adjustments.map(adj => {
-                            let skillIcon = '';
-                            if (adj.type === 'ult') skillIcon = vehicle ? vehicle.ultIcon : '';
-                            else if (adj.type === 'passive') skillIcon = vehicle ? vehicle.passiveIcon : '';
-                            else if (adj.type === 'sp') skillIcon = (vehicle && vehicle.sp) ? vehicle.sp.icon : '';
-                            return `
-                                <div class="adjust-item">
-                                    ${skillIcon ? `<div class="adjust-icon"><img src="${skillIcon}"></div>` : ''}
-                                    <div class="adjust-detail">${adj.detail}</div>
-                                </div>
-                            `;
-                        }).join('');
+    let skillIcon = '';
+    let typeLabel = '';
+    if (adj.type === 'ult') {
+        skillIcon = vehicle ? vehicle.ultIcon : '';
+        typeLabel = '大招调整';
+    } else if (adj.type === 'passive') {
+        skillIcon = vehicle ? vehicle.passiveIcon : '';
+        typeLabel = '被动调整';
+    } else if (adj.type === 'sp') {
+        skillIcon = (vehicle && vehicle.sp) ? vehicle.sp.icon : '';
+        typeLabel = 'SP调整';
+    } else {
+        typeLabel = '基础数值调整';
+    }
+    return `
+        <div class="adjust-item">
+            ${skillIcon ? `<div class="adjust-icon"><img src="${skillIcon}"></div>` : ''}
+            <div>
+                <div class="adjust-type">${typeLabel}</div>
+                <div class="adjust-detail">${adj.detail}</div>
+            </div>
+        </div>
+    `;
+}).join('');
                         
                         return `
                             <div class="adjust-card vehicle-card">
