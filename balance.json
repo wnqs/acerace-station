@@ -23,7 +23,7 @@
                 ]
             },
             {
-                "name": "宝马i8",
+                "name": "宝马 i8",
                 "adjustments": [
                     { "type": "ult", "detail": "加速效果：8km/h→15km/h；新增效果：命中敌方车辆时，使其损失6%大招能量" }
                 ]
