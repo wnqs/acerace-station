@@ -3900,10 +3900,7 @@ function buildContentHtml(ver) {
             </div>
         `;
     }
-   } 
-   }
-   } 
-    }      
+    
     // 芯片调整
     if (ver.chips && ver.chips.length > 0) {
         html += `
@@ -3922,7 +3919,6 @@ function buildContentHtml(ver) {
                 </div>
             </div>
         `;
-    }
     }
     
     // 赋能调整
@@ -3944,7 +3940,7 @@ function buildContentHtml(ver) {
             </div>
         `;
     }
-   } 
+    
     return html || '<div style="color:#8a8aa3;padding:12px 0;">暂无详细调整内容</div>';
 }
 // 展开/收起
