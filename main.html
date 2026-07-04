@@ -3619,13 +3619,14 @@ video.wallpaper-modal-media {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+    align-items: stretch;
 }
 
 /* 只作用于平衡调整页面 */
 #balancePage .vehicle-card {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 12px;
-    padding: 14px 16px;
+    padding: 10px 12px;
     border: 1px solid rgba(255,255,255,0.06);
 }
 #balancePage .vehicle-card-header {
@@ -3636,7 +3637,7 @@ video.wallpaper-modal-media {
 }
 #balancePage .vehicle-icon {
     width: 180px;
-    height: 180px;
+    height: 120px;
     border-radius: 8px;
     overflow: hidden;
     flex-shrink: 0;
@@ -3679,15 +3680,29 @@ video.wallpaper-modal-media {
 }
 #balancePage .adjust-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
     background: rgba(255,255,255,0.03);
     border-radius: 8px;
     padding: 6px 10px;
 }
+/* 调整类型标题 - 黄色加粗 */
+#balancePage .adjust-type {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #feca57;
+    margin-bottom: 2px;
+}
+
+/* 调整内容 - 白色正常大小 */
+#balancePage .adjust-detail {
+    font-size: 0.75rem;
+    color: #a0a0b8;
+    line-height: 1.5;
+}        
 #balancePage .adjust-icon {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     flex-shrink: 0;
 }
 #balancePage .adjust-icon img {
@@ -4416,7 +4431,7 @@ video.wallpaper-modal-media {
     <!-- 手机端固定头部（带导航栏） -->
     <div class="wallpaper-mobile-fixed-header" id="wallpaperMobileFixedHeader" style="display: none;">
         <div class="wallpaper-mobile-top-bar">
-            <div class="wallpaper-mobile-logo-area" onclick="location.reload()">
+            <div class="wallpaper-mobile-logo-area" onclick="location.reload()">         
                 <h1>王牌竞速 · 数据整合站</h1>
                 <p>核心档案 · 赛车数据</p>
             </div>
@@ -4460,7 +4475,44 @@ video.wallpaper-modal-media {
     </div>
     <div class="stats-text" id="wallpaperStatsText">加载壁纸数据...</div>
 </div>
-
+<!-- 手机端平衡调整固定头部（加在这里 ↓） -->
+<div class="balance-mobile-fixed-header" id="balanceMobileFixedHeader" style="display: none;">
+    <div class="balance-mobile-top-bar">
+        <div class="balance-mobile-logo-area" onclick="location.reload()">
+            <h1>王牌竞速 · 数据整合站</h1>
+            <p>核心档案 · 赛车数据</p>
+        </div>
+        <div class="balance-mobile-nav-tabs" id="balanceMobileNavTabs">
+            <button class="balance-mobile-tab-btn" data-page="vehicles">车辆数据</button>
+            <button class="balance-mobile-tab-btn active" data-page="balance">平衡调整</button>
+            <button class="balance-mobile-tab-btn" data-page="chip">芯片系统</button>
+            <button class="balance-mobile-tab-btn" data-page="energy">赋能系统</button>
+            <button class="balance-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
+            <button class="balance-mobile-tab-btn" data-page="news">游戏资源获取统计</button>
+            <button class="balance-mobile-tab-btn" data-page="wallpaper">游戏精彩内容</button>
+        </div>
+    </div>
+    <div class="balance-mobile-filter-sticky">
+        <div class="balance-filter-row">
+            <div class="balance-mobile-search-box">
+                <input type="text" id="balanceSearchInputMobile" placeholder="搜索车辆、芯片、赋能名称...">
+            </div>
+            <div class="balance-category-dropdown-btn" id="balanceCategoryDropdownBtn">
+                <span>筛选</span>
+                <span class="arrow">▼</span>
+            </div>
+        </div>
+        <div class="balance-category-dropdown-panel" id="balanceCategoryDropdownPanel">
+            <div class="balance-mobile-filter-section">
+                <div class="balance-mobile-filter-section-title">版本筛选</div>
+                <div class="balance-mobile-filter-options" id="balanceMobileVersionOptions">
+                    <div class="balance-mobile-filter-option active" data-version="all">全部</div>
+                    <div class="balance-mobile-filter-option" data-version="1.0">1.0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     // ==================== 全局变量 ====================
     let vehiclesData = [];
@@ -5053,17 +5105,30 @@ function buildContentHtml(ver) {
                         const specialty = vehicle ? vehicle.specialty : '';
                         
                         const adjustmentsHtml = v.adjustments.map(adj => {
-                            let skillIcon = '';
-                            if (adj.type === 'ult') skillIcon = vehicle ? vehicle.ultIcon : '';
-                            else if (adj.type === 'passive') skillIcon = vehicle ? vehicle.passiveIcon : '';
-                            else if (adj.type === 'sp') skillIcon = (vehicle && vehicle.sp) ? vehicle.sp.icon : '';
-                            return `
-                                <div class="adjust-item">
-                                    ${skillIcon ? `<div class="adjust-icon"><img src="${skillIcon}"></div>` : ''}
-                                    <div class="adjust-detail">${adj.detail}</div>
-                                </div>
-                            `;
-                        }).join('');
+    let skillIcon = '';
+    let typeLabel = '';
+    if (adj.type === 'ult') {
+        skillIcon = vehicle ? vehicle.ultIcon : '';
+        typeLabel = '大招调整';
+    } else if (adj.type === 'passive') {
+        skillIcon = vehicle ? vehicle.passiveIcon : '';
+        typeLabel = '被动调整';
+    } else if (adj.type === 'sp') {
+        skillIcon = (vehicle && vehicle.sp) ? vehicle.sp.icon : '';
+        typeLabel = 'SP调整';
+    } else {
+        typeLabel = '基础数值调整';
+    }
+    return `
+        <div class="adjust-item">
+            ${skillIcon ? `<div class="adjust-icon"><img src="${skillIcon}"></div>` : ''}
+            <div>
+                <div class="adjust-type">${typeLabel}</div>
+                <div class="adjust-detail">${adj.detail}</div>
+            </div>
+        </div>
+    `;
+}).join('');
                         
                         return `
                             <div class="adjust-card vehicle-card">
@@ -6792,11 +6857,12 @@ function initWallpaperMobileDropdown() {
     currentPage = 'wallpaper';
     if (wallpapersData.length === 0) loadWallpapersData(); else renderWallpapersList();
   }else if (pageId === 'balance') {
-    document.getElementById('mobileFixedHeader').style.display = 'flex';
+    document.getElementById('mobileFixedHeader').style.display = 'none';
     document.getElementById('chipMobileFixedHeader').style.display = 'none';
     document.getElementById('energyMobileFixedHeader').style.display = 'none';
     document.getElementById('currencyMobileFixedHeader').style.display = 'none';
     document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
+    document.getElementById('balanceMobileFixedHeader').style.display = 'flex';
     document.body.classList.add('has-fixed-header');
     document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.mobile-tab-btn').forEach(t => { if (t.dataset.page === 'balance') t.classList.add('active'); });
