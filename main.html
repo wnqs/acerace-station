@@ -792,7 +792,7 @@
             }
             .mobile-nav-tabs {
                 display: grid;
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(4, 1fr);
                 gap: 4px;
                 margin-top: 4px;
             }
@@ -3470,7 +3470,305 @@ video.wallpaper-modal-media {
 #calcRaceNitroContainer.show {
     display: inline-flex !important;
 }      
-        
+  /* ===== 平衡调整界面 ===== */
+.balance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0 16px 0;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.balance-header .page-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff6b6b, #feca57);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.balance-filter-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.balance-search-box {
+    flex: 1;
+    min-width: 200px;
+}
+.balance-search-box input {
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    color: #e2e2e6;
+    font-size: 0.85rem;
+    outline: none;
+}
+.balance-search-box input:focus {
+    border-color: #feca57;
+}
+.balance-search-box input::placeholder {
+    color: #8a8aa3;
+}
+.balance-version-select {
+    background: #1f1f2e;
+    color: #e2e2e6;
+    border: 1px solid #2a2a3c;
+    border-radius: 30px;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    outline: none;
+    cursor: pointer;
+}
+
+.balance-version {
+    background: rgba(20, 20, 31, 0.85);
+    border: 1px solid rgba(42, 42, 60, 0.5);
+    border-radius: 16px;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+.balance-version:hover {
+    border-color: #feca57;
+}
+
+.balance-version-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    cursor: pointer;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.balance-version-header:hover {
+    background: rgba(255,255,255,0.03);
+}
+.version-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.version-number {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #feca57;
+}
+.version-date {
+    font-size: 0.8rem;
+    color: #8a8aa3;
+}
+.version-stats {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.stat-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.06);
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: #a0a0b8;
+}
+.stat-badge.vehicle { color: #ff6b6b; }
+.stat-badge.chip { color: #4a9eff; }
+.stat-badge.energy { color: #feca57; }
+.version-arrow {
+    font-size: 0.8rem;
+    color: #8a8aa3;
+    transition: transform 0.3s;
+}
+.balance-version-header.expanded .version-arrow {
+    transform: rotate(180deg);
+}
+
+.balance-version-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding: 0 20px;
+}
+.balance-version-content.open {
+    max-height: 5000px;
+    padding: 0 20px 20px 20px;
+}
+
+.adjust-section {
+    margin-top: 16px;
+}
+.adjust-section:first-child {
+    margin-top: 0;
+}
+.adjust-section-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #feca57;
+    margin-bottom: 12px;
+    padding-left: 8px;
+    border-left: 3px solid #feca57;
+}
+
+.adjust-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.vehicle-card {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 14px 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+.vehicle-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+.vehicle-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.05);
+}
+.vehicle-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.vehicle-info {
+    flex: 1;
+}
+.vehicle-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #e2e2e6;
+}
+.vehicle-tags {
+    display: flex;
+    gap: 8px;
+    margin-top: 2px;
+}
+.vehicle-tags .tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.65rem;
+    color: #a0a0b8;
+}
+.vehicle-tags .tag img {
+    width: 14px;
+    height: 14px;
+}
+.vehicle-adjustments {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 6px;
+}
+.adjust-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    padding: 6px 10px;
+}
+.adjust-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+.adjust-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.adjust-detail {
+    font-size: 0.75rem;
+    color: #a0a0b8;
+}
+
+.chip-card,
+.energy-card {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 12px 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.chip-card .chip-icon,
+.energy-card .energy-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+.chip-card .chip-icon img,
+.energy-card .energy-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.chip-card .chip-name,
+.energy-card .energy-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #e2e2e6;
+}
+.chip-card .chip-detail,
+.energy-card .energy-detail {
+    font-size: 0.75rem;
+    color: #a0a0b8;
+}
+
+@media (max-width: 768px) {
+    .balance-filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    .balance-search-box {
+        min-width: unset;
+    }
+    .balance-version-header {
+        padding: 12px 16px;
+    }
+    .version-number {
+        font-size: 0.95rem;
+    }
+    .stat-badge {
+        font-size: 0.65rem;
+        padding: 2px 10px;
+    }
+    .adjust-grid {
+        grid-template-columns: 1fr;
+    }
+    .vehicle-card-header {
+        gap: 10px;
+    }
+    .vehicle-icon {
+        width: 36px;
+        height: 36px;
+    }
+    .vehicle-name {
+        font-size: 0.8rem;
+    }
+    .vehicle-tags .tag {
+        font-size: 0.55rem;
+    }
+}      
     </style>
 </head>
 <body>
@@ -3482,6 +3780,7 @@ video.wallpaper-modal-media {
         </div>
         <div class="nav-tabs">
             <button class="tab-btn active" data-page="vehicles">车辆数据</button>
+            <button class="tab-btn" data-page="balance">平衡调整</button>
             <button class="tab-btn" data-page="chip">芯片系统</button>
             <button class="tab-btn" data-page="energy">赋能系统</button>
             <button class="tab-btn" data-page="calculator">芯片要求计算器</button>
@@ -3499,6 +3798,7 @@ video.wallpaper-modal-media {
             </div>
             <div class="mobile-nav-tabs" id="mobileNavTabs">
                 <button class="mobile-tab-btn active" data-page="vehicles">车辆数据</button>
+                <button class="mobile-tab-btn" data-page="balance">平衡调整</button>
                 <button class="mobile-tab-btn" data-page="chip">芯片系统</button>
                 <button class="mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
@@ -3657,7 +3957,29 @@ video.wallpaper-modal-media {
             <div class="cars-grid" id="carsGrid"></div>
             <div class="stats-text" id="statsText">加载中...</div>
         </div>
-        
+        <!-- 平衡调整页面 -->
+<div id="balancePage" class="page">
+    <div class="balance-header">
+        <span class="page-title">平衡调整</span>
+    </div>
+    
+    <!-- 搜索和筛选栏 -->
+    <div class="balance-filter-bar">
+        <div class="balance-search-box">
+            <input type="text" id="balanceSearchInput" placeholder="搜索车辆、芯片、赋能名称...">
+        </div>
+        <div class="balance-filter-options">
+            <select id="balanceVersionFilter" class="balance-version-select">
+                <option value="all">全部版本</option>
+            </select>
+        </div>
+    </div>
+    
+    <!-- 版本列表 -->
+    <div class="balance-list" id="balanceList">
+        <div style="text-align:center;padding:60px;color:#8a8aa3;">暂无平衡性调整数据</div>
+    </div>
+</div>
         <!-- 芯片系统页面 - 电脑端使用desktop-header，手机端被CSS隐藏 -->
         <div id="chipPage" class="page">
             <div class="chip-desktop-header">
@@ -4644,7 +4966,224 @@ function formatSkillText(text) {
             }
         }
     }
+    // ===== 从 vehiclesData 查找车辆信息 =====
+function findVehicleData(vehicleName) {
+    if (typeof vehiclesData === 'undefined' || !vehiclesData) return null;
+    return vehiclesData.find(v => v.name === vehicleName);
+}
+
+// ===== 平衡调整数据变量 =====
+let balanceData = [];
+let balanceKeyword = "";
+let balanceVersionFilter = "all";
+
+// ===== 渲染平衡调整列表 =====
+function renderBalanceList() {
+    const container = document.getElementById('balanceList');
+    if (!container) return;
     
+    let filtered = balanceData.filter(ver => {
+        if (balanceVersionFilter !== 'all' && ver.version !== balanceVersionFilter) return false;
+        if (balanceKeyword) {
+            const kw = balanceKeyword.toLowerCase();
+            const allItems = [...(ver.vehicles || []), ...(ver.chips || []), ...(ver.energies || [])];
+            const match = allItems.some(item => item.name.toLowerCase().includes(kw));
+            if (!match) return false;
+        }
+        return true;
+    });
+    
+    if (filtered.length === 0) {
+        container.innerHTML = '<div style="text-align:center;padding:60px;color:#8a8aa3;">暂无匹配的平衡调整数据</div>';
+        return;
+    }
+    
+    const sorted = [...filtered].sort((a, b) => parseFloat(b.version) - parseFloat(a.version));
+    
+    container.innerHTML = sorted.map((ver) => {
+        const statsHtml = buildStatsHtml(ver);
+        const contentHtml = buildContentHtml(ver);
+        
+        return `
+            <div class="balance-version">
+                <div class="balance-version-header" onclick="toggleBalanceVersion(this)">
+                    <div class="version-info">
+                        <span class="version-number">版本 ${ver.version}</span>
+                        <span class="version-date">${ver.date || ''}</span>
+                    </div>
+                    <div class="version-stats">${statsHtml}</div>
+                    <span class="version-arrow">▼</span>
+                </div>
+                <div class="balance-version-content">
+                    ${contentHtml}
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// ===== 生成统计标签 =====
+function buildStatsHtml(ver) {
+    let html = '';
+    const vCount = ver.vehicles ? ver.vehicles.length : 0;
+    const cCount = ver.chips ? ver.chips.length : 0;
+    const eCount = ver.energies ? ver.energies.length : 0;
+    
+    if (vCount > 0) html += `<span class="stat-badge vehicle">🚗 车辆：${vCount}</span>`;
+    if (cCount > 0) html += `<span class="stat-badge chip">💠 芯片：${cCount}</span>`;
+    if (eCount > 0) html += `<span class="stat-badge energy">⚡ 赋能：${eCount}</span>`;
+    return html || `<span class="stat-badge" style="color:#8a8aa3;">无调整</span>`;
+}
+
+// ===== 生成详细内容 =====
+function buildContentHtml(ver) {
+    let html = '';
+    
+    // 车辆调整
+    if (ver.vehicles && ver.vehicles.length > 0) {
+        html += `
+            <div class="adjust-section">
+                <div class="adjust-section-title">车辆调整</div>
+                <div class="adjust-grid">
+                    ${ver.vehicles.map(v => {
+                        const vehicle = findVehicleData(v.name);
+                        const icon = vehicle ? vehicle.imageUrl : '';
+                        const position = vehicle ? vehicle.position : '';
+                        const specialty = vehicle ? vehicle.specialty : '';
+                        
+                        const adjustmentsHtml = v.adjustments.map(adj => {
+                            let skillIcon = '';
+                            if (adj.type === 'ult') skillIcon = vehicle ? vehicle.ultIcon : '';
+                            else if (adj.type === 'passive') skillIcon = vehicle ? vehicle.passiveIcon : '';
+                            else if (adj.type === 'sp') skillIcon = (vehicle && vehicle.sp) ? vehicle.sp.icon : '';
+                            return `
+                                <div class="adjust-item">
+                                    ${skillIcon ? `<div class="adjust-icon"><img src="${skillIcon}"></div>` : ''}
+                                    <div class="adjust-detail">${adj.detail}</div>
+                                </div>
+                            `;
+                        }).join('');
+                        
+                        return `
+                            <div class="adjust-card vehicle-card">
+                                <div class="vehicle-card-header">
+                                    <div class="vehicle-icon"><img src="${icon}" alt="${v.name}"></div>
+                                    <div class="vehicle-info">
+                                        <div class="vehicle-name">${v.name}</div>
+                                        <div class="vehicle-tags">
+                                            <span class="tag position"><img src="${POSITION_ICONS[position] || ''}"> ${position}</span>
+                                            <span class="tag specialty"><img src="${SPECIALTY_ICONS[specialty] || ''}"> ${specialty}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="vehicle-adjustments">${adjustmentsHtml}</div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            </div>
+        `;
+    }
+    
+    // 芯片调整
+    if (ver.chips && ver.chips.length > 0) {
+        html += `
+            <div class="adjust-section">
+                <div class="adjust-section-title">芯片调整</div>
+                <div class="adjust-grid">
+                    ${ver.chips.map(c => `
+                        <div class="adjust-card chip-card">
+                            <div class="chip-icon"><img src="${c.icon || ''}"></div>
+                            <div>
+                                <div class="chip-name">${c.name}</div>
+                                <div class="chip-detail">${c.detail}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+    
+    // 赋能调整
+    if (ver.energies && ver.energies.length > 0) {
+        html += `
+            <div class="adjust-section">
+                <div class="adjust-section-title">赋能调整</div>
+                <div class="adjust-grid">
+                    ${ver.energies.map(e => `
+                        <div class="adjust-card energy-card">
+                            <div class="energy-icon"><img src="${e.icon || ''}"></div>
+                            <div>
+                                <div class="energy-name">${e.name}</div>
+                                <div class="energy-detail">${e.detail}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+    
+    return html || '<div style="color:#8a8aa3;padding:12px 0;">暂无详细调整内容</div>';
+}
+
+// ===== 展开/收起 =====
+function toggleBalanceVersion(header) {
+    const content = header.nextElementSibling;
+    const isOpen = content.classList.contains('open');
+    
+    document.querySelectorAll('.balance-version-content.open').forEach(el => {
+        if (el !== content) {
+            el.classList.remove('open');
+            el.previousElementSibling.classList.remove('expanded');
+        }
+    });
+    
+    if (isOpen) {
+        content.classList.remove('open');
+        header.classList.remove('expanded');
+    } else {
+        content.classList.add('open');
+        header.classList.add('expanded');
+    }
+}
+
+// ===== 绑定搜索和筛选事件 =====
+function initBalanceFilters() {
+    const searchInput = document.getElementById('balanceSearchInput');
+    const versionFilter = document.getElementById('balanceVersionFilter');
+    
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            balanceKeyword = this.value;
+            renderBalanceList();
+        });
+    }
+    
+    if (versionFilter) {
+        versionFilter.addEventListener('change', function() {
+            balanceVersionFilter = this.value;
+            renderBalanceList();
+        });
+    }
+}
+
+// ===== 加载平衡调整 JSON 数据 =====
+async function loadBalanceData() {
+    try {
+        const response = await fetch('./balance.json');
+        if (!response.ok) throw new Error('加载失败');
+        const data = await response.json();
+        balanceData = data || [];
+        renderBalanceList();
+        initBalanceFilters();
+    } catch (error) {
+        console.log('加载 balance.json 失败');
+        balanceData = [];
+        renderBalanceList();
+    }
+}
     async function loadData() {
         try {
             const vehiclesUrl = './vehicles.json';
@@ -4720,6 +5259,7 @@ function formatSkillText(text) {
             await loadEnergiesData();
             await loadCurrenciesData();
             await loadWallpapersData();
+            await loadBalanceData();
         } catch (error) {
             console.error('[加载错误]', error);
             const gridEl = document.getElementById("carsGrid");
@@ -6251,6 +6791,21 @@ function initWallpaperMobileDropdown() {
     currentPage = 'wallpaper';
     if (wallpapersData.length === 0) loadWallpapersData(); else renderWallpapersList();
 }
+     } else if (pageId === 'balance') {
+    document.getElementById('mobileFixedHeader').style.display = 'flex';
+    document.getElementById('chipMobileFixedHeader').style.display = 'none';
+    document.getElementById('energyMobileFixedHeader').style.display = 'none';
+    document.getElementById('currencyMobileFixedHeader').style.display = 'none';
+    document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
+    document.body.classList.add('has-fixed-header');
+    document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.mobile-tab-btn').forEach(t => { if (t.dataset.page === 'balance') t.classList.add('active'); });
+    const vehicleMobileFilter = document.getElementById('vehicleMobileFilter');
+    if (vehicleMobileFilter) vehicleMobileFilter.style.display = 'none';
+    if (typeof renderBalanceList === 'function') renderBalanceList(balanceData);
+    if (typeof initBalanceFilters === 'function') initBalanceFilters();
+}
+       
         } else {
             const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
             if (vehicleDesktopHeader) {
