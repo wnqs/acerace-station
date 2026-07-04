@@ -4018,22 +4018,6 @@ function initBalanceFilters() {
     }
 }
 
-// 加载平衡调整 JSON 数据
-async function loadBalanceData() {
-    try {
-        const response = await fetch('./balance.json');
-        if (!response.ok) throw new Error('加载失败');
-        const data = await response.json();
-        balanceData = data || [];
-        renderBalanceList();
-        initBalanceFilters();
-    } catch (error) {
-        console.log('加载 balance.json 失败');
-        balanceData = [];
-        renderBalanceList();
-    }
-}
-
     </style>
 </head>
 <body>
@@ -5236,7 +5220,21 @@ function formatSkillText(text) {
             }
         }
     }
-    
+    // ===== loadBalanceData 函数放在 loadData 的上面 =====
+async function loadBalanceData() {
+    try {
+        const response = await fetch('./balance.json');
+        if (!response.ok) throw new Error('加载失败');
+        const data = await response.json();
+        balanceData = data || [];
+        renderBalanceList();
+        initBalanceFilters();
+    } catch (error) {
+        console.log('加载 balance.json 失败');
+        balanceData = [];
+        renderBalanceList();
+    }
+}
     async function loadData() {
         try {
             const vehiclesUrl = './vehicles.json';
