@@ -3775,14 +3775,26 @@ video.wallpaper-modal-media {
         gap: 10px;
     }
     #balancePage .vehicle-icon {
-        width: 36px;
-        height: 36px;
+        width: 110px;
+        height: 80px;
     }
     #balancePage .vehicle-name {
         font-size: 0.8rem;
     }
     #balancePage .vehicle-tags .tag {
         font-size: 0.55rem;
+    }
+
+    /* 新增：手机端技能图标大小 */
+    #balancePage .adjust-icon {
+        width: 40px !important;
+        height: 40px !important;
+        flex-shrink: 0;
+    }
+    #balancePage .adjust-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
     }
 }      
     </style>
@@ -3871,6 +3883,7 @@ video.wallpaper-modal-media {
             <div class="chip-mobile-nav-tabs" id="chipMobileNavTabs">
                 <button class="chip-mobile-tab-btn" data-page="vehicles">车辆数据</button>
                 <button class="chip-mobile-tab-btn active" data-page="chip">芯片系统</button>
+                <button class="chip-mobile-tab-btn" data-page="balance">平衡调整</button>
                 <button class="chip-mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="chip-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
                 <button class="chip-mobile-tab-btn" data-page="news">游戏资源获取统计</button>
@@ -3911,6 +3924,7 @@ video.wallpaper-modal-media {
             </div>
             <div class="energy-mobile-nav-tabs" id="energyMobileNavTabs">
                 <button class="energy-mobile-tab-btn" data-page="vehicles">车辆数据</button>
+                <button class="energy-mobile-tab-btn" data-page="balance">平衡调整</button>
                 <button class="energy-mobile-tab-btn" data-page="chip">芯片系统</button>
                 <button class="energy-mobile-tab-btn active" data-page="energy">赋能系统</button>
                 <button class="energy-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
@@ -3973,29 +3987,7 @@ video.wallpaper-modal-media {
             <div class="cars-grid" id="carsGrid"></div>
             <div class="stats-text" id="statsText">加载中...</div>
         </div>
-        <!-- 平衡调整页面 -->
-<div id="balancePage" class="page">
-    <div class="balance-header">
-        <span class="page-title">平衡调整</span>
-    </div>
-    
-    <!-- 搜索和筛选栏 -->
-    <div class="balance-filter-bar">
-        <div class="balance-search-box">
-            <input type="text" id="balanceSearchInput" placeholder="搜索车辆、芯片、赋能名称...">
-        </div>
-        <div class="balance-filter-options">
-            <select id="balanceVersionFilter" class="balance-version-select">
-                <option value="all">全部版本</option>
-            </select>
-        </div>
-    </div>
-    
-    <!-- 版本列表 -->
-    <div class="balance-list" id="balanceList">
-        <div style="text-align:center;padding:60px;color:#8a8aa3;">暂无平衡性调整数据</div>
-    </div>
-</div>
+        
         <!-- 芯片系统页面 - 电脑端使用desktop-header，手机端被CSS隐藏 -->
         <div id="chipPage" class="page">
             <div class="chip-desktop-header">
@@ -4372,6 +4364,7 @@ video.wallpaper-modal-media {
             </div>
             <div class="currency-mobile-nav-tabs" id="currencyMobileNavTabs">
                 <button class="currency-mobile-tab-btn" data-page="vehicles">车辆数据</button>
+                <button class="currency-mobile-tab-btn" data-page="balance">平衡调整</button>
                 <button class="currency-mobile-tab-btn" data-page="chip">芯片系统</button>
                 <button class="currency-mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="currency-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
@@ -4437,6 +4430,7 @@ video.wallpaper-modal-media {
             </div>
             <div class="wallpaper-mobile-nav-tabs" id="wallpaperMobileNavTabs">
                 <button class="wallpaper-mobile-tab-btn" data-page="vehicles">车辆数据</button>
+                <button class="wallpaper-mobile-tab-btn" data-page="balance">平衡调整</button>
                 <button class="wallpaper-mobile-tab-btn" data-page="chip">芯片系统</button>
                 <button class="wallpaper-mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="wallpaper-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
@@ -4506,6 +4500,7 @@ video.wallpaper-modal-media {
             </div>
             <div class="balance-mobile-nav-tabs" id="balanceMobileNavTabs">
                 <button class="balance-mobile-tab-btn" data-page="vehicles">车辆数据</button>
+                <button class="balance-mobile-tab-btn" data-page="balance">平衡调整</button>
                 <button class="balance-mobile-tab-btn" data-page="chip">芯片系统</button>
                 <button class="balance-mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="balance-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
