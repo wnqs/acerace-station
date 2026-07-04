@@ -4225,7 +4225,34 @@ video.wallpaper-modal-media {
             <div class="cars-grid" id="carsGrid"></div>
             <div class="stats-text" id="statsText">加载中...</div>
         </div>
-        
+        <!-- ========== 平衡调整页面 ========== -->
+<div id="balancePage" class="page">
+    <!-- 电脑端头部 -->
+    <div class="balance-desktop-header" id="balanceDesktopHeader">
+        <div class="balance-desktop-header-top">
+            <span class="page-title">平衡调整</span>
+        </div>
+        <div class="balance-desktop-filter-bar">
+            <div class="balance-search-box">
+                <input type="text" id="balanceSearchInputDesktop" placeholder="搜索车辆、芯片、赋能名称...">
+            </div>
+            <div class="balance-desktop-filter-sections">
+                <div class="balance-desktop-filter-section">
+                    <div class="balance-desktop-filter-section-title">版本</div>
+                    <select id="balanceVersionFilterDesktop" class="balance-version-select">
+                        <option value="all">全部版本</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 版本列表 -->
+    <div class="balance-list" id="balanceList">
+        <div style="text-align:center;padding:60px;color:#8a8aa3;">暂无平衡性调整数据</div>
+    </div>
+    <div class="stats-text" id="balanceStatsText">加载中...</div>
+</div>
         <!-- 芯片系统页面 - 电脑端使用desktop-header，手机端被CSS隐藏 -->
         <div id="chipPage" class="page">
             <div class="chip-desktop-header">
