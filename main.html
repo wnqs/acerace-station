@@ -3768,23 +3768,24 @@ video.wallpaper-modal-media {
         font-size: 0.65rem;
         padding: 2px 10px;
     }
-    .adjust-grid {
+    #balancePage .adjust-grid {
         grid-template-columns: 1fr;
     }
-    .vehicle-card-header {
+    #balancePage .vehicle-card-header {
         gap: 10px;
     }
-    .vehicle-icon {
+    #balancePage .vehicle-icon {
         width: 36px;
         height: 36px;
     }
-    .vehicle-name {
+    #balancePage .vehicle-name {
         font-size: 0.8rem;
     }
-    .vehicle-tags .tag {
+    #balancePage .vehicle-tags .tag {
         font-size: 0.55rem;
     }
-}      
+}
+        
     </style>
 </head>
 <body>
@@ -4468,7 +4469,43 @@ video.wallpaper-modal-media {
             </div>
         </div>
     </div>
-    
+     <!-- ========== 手机端平衡调整固定头部（新增） ========== -->
+    <div class="balance-mobile-fixed-header" id="balanceMobileFixedHeader" style="display: none;">
+        <div class="balance-mobile-top-bar">
+            <div class="balance-mobile-logo-area" onclick="location.reload()">
+                <h1>王牌竞速 · 数据整合站</h1>
+                <p>核心档案 · 赛车数据</p>
+            </div>
+            <div class="balance-mobile-nav-tabs" id="balanceMobileNavTabs">
+                <button class="balance-mobile-tab-btn" data-page="vehicles">车辆数据</button>
+                <button class="balance-mobile-tab-btn active" data-page="balance">平衡调整</button>
+                <button class="balance-mobile-tab-btn" data-page="chip">芯片系统</button>
+                <button class="balance-mobile-tab-btn" data-page="energy">赋能系统</button>
+                <button class="balance-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
+                <button class="balance-mobile-tab-btn" data-page="news">游戏资源获取统计</button>
+                <button class="balance-mobile-tab-btn" data-page="wallpaper">游戏精彩内容</button>
+            </div>
+        </div>
+        <div class="balance-mobile-filter-sticky">
+            <div class="balance-filter-row">
+                <div class="balance-mobile-search-box">
+                    <input type="text" id="balanceSearchInputMobile" placeholder="搜索车辆、芯片、赋能名称...">
+                </div>
+                <div class="balance-category-dropdown-btn" id="balanceCategoryDropdownBtn">
+                    <span>筛选</span>
+                    <span class="arrow">▼</span>
+                </div>
+            </div>
+            <div class="balance-category-dropdown-panel" id="balanceCategoryDropdownPanel">
+                <div class="balance-mobile-filter-section">
+                    <div class="balance-mobile-filter-section-title">版本</div>
+                    <div class="balance-mobile-filter-options" id="balanceMobileVersionOptions">
+                        <!-- 由JS动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
     <!-- 壁纸卡片网格 -->
     <div class="wallpapers-grid" id="wallpapersGrid">
         <div class="loading-placeholder">加载中...</div>
@@ -5197,7 +5234,60 @@ function initBalanceFilters() {
         });
     }
 }
-
+// ===== 手机端平衡调整筛选器初始化 =====
+function initBalanceMobileFilters() {
+    // 获取所有版本号，填充到手机端筛选选项
+    const versionOptions = document.getElementById('balanceMobileVersionOptions');
+    if (!versionOptions) return;
+    
+    const versions = balanceData.map(v => v.version);
+    const uniqueVersions = [...new Set(versions)].sort((a, b) => parseFloat(b) - parseFloat(a));
+    
+    versionOptions.innerHTML = `<div class="balance-mobile-filter-option active" data-version="all">全部版本</div>` +
+        uniqueVersions.map(v => `<div class="balance-mobile-filter-option" data-version="${v}">版本 ${v}</div>`).join('');
+    
+    // 绑定点击事件
+    document.querySelectorAll('#balanceMobileVersionOptions .balance-mobile-filter-option').forEach(opt => {
+        opt.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const version = this.dataset.version;
+            balanceVersionFilter = version;
+            document.querySelectorAll('#balanceMobileVersionOptions .balance-mobile-filter-option').forEach(o => o.classList.remove('active'));
+            this.classList.add('active');
+            renderBalanceList();
+            // 关闭下拉面板
+            document.getElementById('balanceCategoryDropdownPanel')?.classList.remove('show');
+            document.getElementById('balanceCategoryDropdownBtn')?.classList.remove('active');
+        });
+    });
+    
+    // 绑定手机端搜索框
+    const mobileSearch = document.getElementById('balanceSearchInputMobile');
+    if (mobileSearch) {
+        mobileSearch.addEventListener('input', function() {
+            balanceKeyword = this.value;
+            renderBalanceList();
+        });
+    }
+    
+    // 绑定下拉按钮
+    const dropdownBtn = document.getElementById('balanceCategoryDropdownBtn');
+    const dropdownPanel = document.getElementById('balanceCategoryDropdownPanel');
+    if (dropdownBtn && dropdownPanel) {
+        dropdownBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownPanel.classList.toggle('show');
+            this.classList.toggle('active');
+        });
+        document.addEventListener('click', function() {
+            dropdownPanel.classList.remove('show');
+            dropdownBtn.classList.remove('active');
+        });
+        dropdownPanel.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+}
 // ===== 加载平衡调整 JSON 数据 =====
 async function loadBalanceData() {
     try {
@@ -6820,11 +6910,12 @@ function initWallpaperMobileDropdown() {
     currentPage = 'wallpaper';
     if (wallpapersData.length === 0) loadWallpapersData(); else renderWallpapersList();
   }else if (pageId === 'balance') {
-    document.getElementById('mobileFixedHeader').style.display = 'flex';
+    document.getElementById('mobileFixedHeader').style.display = 'none';
     document.getElementById('chipMobileFixedHeader').style.display = 'none';
     document.getElementById('energyMobileFixedHeader').style.display = 'none';
     document.getElementById('currencyMobileFixedHeader').style.display = 'none';
     document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
+    document.getElementById('balanceMobileFixedHeader').style.display = 'flex';
     document.body.classList.add('has-fixed-header');
     document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.mobile-tab-btn').forEach(t => { if (t.dataset.page === 'balance') t.classList.add('active'); });
@@ -6979,7 +7070,7 @@ renderList();
             });
         });
         
-        const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn, .wallpaper-mobile-tab-btn');
+        const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn, .wallpaper-mobile-tab-btn', .balance-mobile-tab-btn');
         mobileTabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const pageId = btn.dataset.page;
@@ -6988,7 +7079,8 @@ renderList();
                 else if (pageId === 'energy') switchToPage('energy');
                 else if (pageId === 'calculator') switchToPage('calculator');
                 else if (pageId === 'news') switchToPage('news');
-                else if (pageId === 'wallpaper') switchToPage('wallpaper');  // ← 确保这一行存在
+                else if (pageId === 'wallpaper') switchToPage('wallpaper');
+                else if (pageId === 'balance') switchToPage('balance');// ← 确保这一行存在
                 else switchToPage(pageId);
             });
         });
