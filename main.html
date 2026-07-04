@@ -4431,7 +4431,7 @@ video.wallpaper-modal-media {
     <!-- 手机端固定头部（带导航栏） -->
     <div class="wallpaper-mobile-fixed-header" id="wallpaperMobileFixedHeader" style="display: none;">
         <div class="wallpaper-mobile-top-bar">
-            <div class="wallpaper-mobile-logo-area" onclick="location.reload()">         
+            <div class="wallpaper-mobile-logo-area" onclick="location.reload()">
                 <h1>王牌竞速 · 数据整合站</h1>
                 <p>核心档案 · 赛车数据</p>
             </div>
@@ -4475,44 +4475,7 @@ video.wallpaper-modal-media {
     </div>
     <div class="stats-text" id="wallpaperStatsText">加载壁纸数据...</div>
 </div>
-<!-- 手机端平衡调整固定头部（加在这里 ↓） -->
-<div class="balance-mobile-fixed-header" id="balanceMobileFixedHeader" style="display: none;">
-    <div class="balance-mobile-top-bar">
-        <div class="balance-mobile-logo-area" onclick="location.reload()">
-            <h1>王牌竞速 · 数据整合站</h1>
-            <p>核心档案 · 赛车数据</p>
-        </div>
-        <div class="balance-mobile-nav-tabs" id="balanceMobileNavTabs">
-            <button class="balance-mobile-tab-btn" data-page="vehicles">车辆数据</button>
-            <button class="balance-mobile-tab-btn active" data-page="balance">平衡调整</button>
-            <button class="balance-mobile-tab-btn" data-page="chip">芯片系统</button>
-            <button class="balance-mobile-tab-btn" data-page="energy">赋能系统</button>
-            <button class="balance-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
-            <button class="balance-mobile-tab-btn" data-page="news">游戏资源获取统计</button>
-            <button class="balance-mobile-tab-btn" data-page="wallpaper">游戏精彩内容</button>
-        </div>
-    </div>
-    <div class="balance-mobile-filter-sticky">
-        <div class="balance-filter-row">
-            <div class="balance-mobile-search-box">
-                <input type="text" id="balanceSearchInputMobile" placeholder="搜索车辆、芯片、赋能名称...">
-            </div>
-            <div class="balance-category-dropdown-btn" id="balanceCategoryDropdownBtn">
-                <span>筛选</span>
-                <span class="arrow">▼</span>
-            </div>
-        </div>
-        <div class="balance-category-dropdown-panel" id="balanceCategoryDropdownPanel">
-            <div class="balance-mobile-filter-section">
-                <div class="balance-mobile-filter-section-title">版本筛选</div>
-                <div class="balance-mobile-filter-options" id="balanceMobileVersionOptions">
-                    <div class="balance-mobile-filter-option active" data-version="all">全部</div>
-                    <div class="balance-mobile-filter-option" data-version="1.0">1.0</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <script>
     // ==================== 全局变量 ====================
     let vehiclesData = [];
@@ -6857,12 +6820,11 @@ function initWallpaperMobileDropdown() {
     currentPage = 'wallpaper';
     if (wallpapersData.length === 0) loadWallpapersData(); else renderWallpapersList();
   }else if (pageId === 'balance') {
-    document.getElementById('mobileFixedHeader').style.display = 'none';
+    document.getElementById('mobileFixedHeader').style.display = 'flex';
     document.getElementById('chipMobileFixedHeader').style.display = 'none';
     document.getElementById('energyMobileFixedHeader').style.display = 'none';
     document.getElementById('currencyMobileFixedHeader').style.display = 'none';
     document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
-    document.getElementById('balanceMobileFixedHeader').style.display = 'flex';
     document.body.classList.add('has-fixed-header');
     document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.mobile-tab-btn').forEach(t => { if (t.dataset.page === 'balance') t.classList.add('active'); });
