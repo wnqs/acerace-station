@@ -6672,29 +6672,22 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
             }
             continue;
         }
-        
         // 还需要从副属性中获取的先机
         var remainingJi = needJi - jiFromMain;
-        
         // 总共可用的副属性槽数量
         var totalSubSlotsAvailable = diamondCount * subPerDiamond + totalSubSlots;
-        
         // 需要多少个副属性槽分配给先机（向上取整）
         var subJiNeeded = Math.ceil(remainingJi / subJi);
-        
         // 如果副属性槽不够，跳过这种分配
         if (subJiNeeded > totalSubSlotsAvailable) {
             continue;
         }
-        
         // 实际先机（可能略微超出需求）
         var actualJi = jiFromMain + subJiNeeded * subJi;
-        
         // 如果实际先机超过上限，跳过
         if (actualJi > maxJi) {
             continue;
-        }
-        
+        } 
         // 剩余副属性槽给汇能
         var subHuiCount = totalSubSlotsAvailable - subJiNeeded;
         var hui = huiFromMain + subHuiCount * subHui;
@@ -6703,12 +6696,10 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
             maxPossibleHui = hui;
         }
     }
-    
     // 如果没有任何分配方式能满足先机需求
     if (maxPossibleHui < 0) {
         return false;
     }
-    
     // 检查汇能需求是否能在满足先机的前提下达成
     return needHui <= maxPossibleHui;
 }
