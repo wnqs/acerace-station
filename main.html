@@ -6621,47 +6621,78 @@ function parseChipSlotsCalc(chipsStr) {
 function getMaxHuiCalc(chipsStr, carName) {
     let { diamondCount, totalSubSlots } = parseChipSlotsCalc(chipsStr);
     
-    // 只有保时捷 918 有 1.5 倍，其他车都是 1 倍
+    // 只有保时捷 918 有 1.5 倍
     var boost = 1;
-    if (carName && carName === "保时捷 918 Spyder") {
+    if (carName && carName.indexOf("918") !== -1) {
         boost = 1.5;
     }
     
-    var diamondHui = diamondCount * 9 * boost;
-    var subHui = totalSubSlots * 3;
+    // 区分菱形槽副槽和非菱形槽副槽
+    var diamondSubSlots = diamondCount * 3;
+    var normalSubSlots = totalSubSlots - diamondSubSlots;
     
-    return Math.floor(diamondHui + subHui);
+    // 菱形主属性汇能：每个菱形槽 9 汇能 × 增幅
+    var diamondMainHui = diamondCount * 9 * boost;
+    // 菱形副属性汇能：每个副槽 3 汇能 × 增幅
+    var diamondSubHui = diamondSubSlots * 3 * boost;
+    // 非菱形副属性汇能：每个副槽 3 汇能（无增幅）
+    var normalSubHui = normalSubSlots * 3;
+    
+    var total = Math.floor(diamondMainHui + diamondSubHui + normalSubHui);
+    console.log("getMaxHuiCalc:", carName, "boost:", boost, "total:", total);
+    return total;
 }
 
 function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, needJi, carName) {
-    // 只有保时捷 918 有 1.5 倍，其他车都是 1 倍
+    // 只有保时捷 918 有 1.5 倍
     var boost = 1;
-    if (carName && carName === "保时捷 918 Spyder") {
+    if (carName && carName.indexOf("918") !== -1) {
         boost = 1.5;
     }
     
     // ===== 参数定义 =====
-    var mainJi = 15 * boost;              // 主属性先机（918 为 22.5）
-    var mainHui = 9 * boost;              // 主属性汇能（918 为 13.5）
-    var diamondSubJi = 5 * boost;         // 菱形槽副属性先机（918 为 7.5）
-    var diamondSubHui = 3 * boost;        // 菱形槽副属性汇能（918 为 4.5）
-    var normalSubJi = 5;                  // 非菱形槽副属性先机（所有车都是 5）
-    var normalSubHui = 3;                 // 非菱形槽副属性汇能（所有车都是 3）
-    var maxJi = 30;                       // 先机上限（所有车统一 30）
+    var mainJi = 15 * boost;              // 主属性先机
+    var mainHui = 9 * boost;              // 主属性汇能
+    var diamondSubJi = 5 * boost;         // 菱形槽副属性先机
+    var diamondSubHui = 3 * boost;        // 菱形槽副属性汇能
+    var normalSubJi = 5;                  // 非菱形槽副属性先机（不变）
+    var normalSubHui = 3;                 // 非菱形槽副属性汇能（不变）
+    var maxJi = 30;                       // 先机上限
     
     var diamondSubSlots = diamondCount * 3;
     var normalSubSlots = totalSubSlots - diamondSubSlots;
     
+    console.log("===== canAchieveWithCompetitionCalc =====");
+    console.log("carName:", carName, "boost:", boost);
+    console.log("diamondCount:", diamondCount, "totalSubSlots:", totalSubSlots);
+    console.log("diamondSubSlots:", diamondSubSlots, "normalSubSlots:", normalSubSlots);
+    console.log("needHui:", needHui, "needJi:", needJi);
+    console.log("mainJi:", mainJi, "mainHui:", mainHui);
+    console.log("diamondSubJi:", diamondSubJi, "diamondSubHui:", diamondSubHui);
+    console.log("normalSubJi:", normalSubJi, "normalSubHui:", normalSubHui);
+    
     // ===== 边界检查 =====
-    if (needJi > maxJi) return false;
+    if (needJi > maxJi) {
+        console.log("❌ 先机需求超过上限 30");
+        return false;
+    }
     
     var maxHuiAllHui = diamondCount * mainHui + diamondSubSlots * diamondSubHui + normalSubSlots * normalSubHui;
-    if (needHui > maxHuiAllHui) return false;
+    console.log("最大汇能上限（所有词条堆汇能）:", maxHuiAllHui);
     
-    if (needJi <= 0) return needHui <= maxHuiAllHui;
+    if (needHui > maxHuiAllHui) {
+        console.log("❌ 汇能需求超过上限:", needHui, ">", maxHuiAllHui);
+        return false;
+    }
     
-    // ===== 核心计算 =====
+    if (needJi <= 0) {
+        console.log("✅ 无需先机，汇能可达成:", needHui, "<=", maxHuiAllHui);
+        return needHui <= maxHuiAllHui;
+    }
+    
+    // ===== 核心计算：枚举主属性给先机的数量 =====
     var bestHui = -1;
+    var bestPlan = "";
     
     for (var mainJiCount = 0; mainJiCount <= diamondCount; mainJiCount++) {
         var mainHuiCount = diamondCount - mainJiCount;
@@ -6669,12 +6700,19 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
         var huiFromMain = mainHuiCount * mainHui;
         var remainingJi = needJi - jiFromMain;
         
+        console.log("--- 主先机槽数:", mainJiCount, "主汇能槽数:", mainHuiCount, "主先机:", jiFromMain, "主汇能:", huiFromMain, "剩余需副先机:", remainingJi);
+        
         if (remainingJi <= 0) {
             var hui = huiFromMain + diamondSubSlots * diamondSubHui + normalSubSlots * normalSubHui;
-            if (hui > bestHui) bestHui = hui;
+            console.log("  主属性已满足先机，所有副槽给汇能 → 总汇能:", hui);
+            if (hui > bestHui) {
+                bestHui = hui;
+                bestPlan = "主先机:" + mainJiCount + ", 所有副槽给汇能";
+            }
             continue;
         }
         
+        // 枚举菱形副属性给先机的数量
         for (var diamondSubJiCount = 0; diamondSubJiCount <= diamondSubSlots; diamondSubJiCount++) {
             var diamondSubHuiCount = diamondSubSlots - diamondSubJiCount;
             var jiFromDiamondSub = diamondSubJiCount * diamondSubJi;
@@ -6682,24 +6720,42 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
             
             if (remainingAfterDiamondSub <= 0) {
                 var hui = huiFromMain + diamondSubHuiCount * diamondSubHui + normalSubSlots * normalSubHui;
-                if (hui > bestHui) bestHui = hui;
+                console.log("  菱形副先机:", diamondSubJiCount, "菱形副汇能:", diamondSubHuiCount, "普通副全汇能 → 总汇能:", hui);
+                if (hui > bestHui) {
+                    bestHui = hui;
+                    bestPlan = "主先机:" + mainJiCount + ", 菱形副先机:" + diamondSubJiCount;
+                }
                 continue;
             }
             
+            // 还需要普通副属性来补
             var normalSubJiNeeded = Math.ceil(remainingAfterDiamondSub / normalSubJi);
             if (normalSubJiNeeded > normalSubSlots) continue;
             
             var normalSubHuiCount = normalSubSlots - normalSubJiNeeded;
             var actualJi = jiFromMain + diamondSubJiCount * diamondSubJi + normalSubJiNeeded * normalSubJi;
+            
             if (actualJi > maxJi) continue;
             
             var hui = huiFromMain + diamondSubHuiCount * diamondSubHui + normalSubHuiCount * normalSubHui;
-            if (hui > bestHui) bestHui = hui;
+            console.log("  菱形副先机:", diamondSubJiCount, "普通副先机:", normalSubJiNeeded, "→ 总汇能:", hui);
+            if (hui > bestHui) {
+                bestHui = hui;
+                bestPlan = "主先机:" + mainJiCount + ", 菱形副先机:" + diamondSubJiCount + ", 普通副先机:" + normalSubJiNeeded;
+            }
         }
     }
     
-    if (bestHui < 0) return false;
-    return needHui <= bestHui;
+    console.log("最佳方案:", bestPlan, "最佳汇能:", bestHui);
+    
+    if (bestHui < 0) {
+        console.log("❌ 无法满足先机需求");
+        return false;
+    }
+    
+    var result = needHui <= bestHui;
+    console.log("最终结果:", result ? "✅ 可以达成" : "❌ 无法达成", "需求汇能:", needHui, "最大可达成汇能:", bestHui);
+    return result;
 }
         
         function formatHuiCalc(value) {
