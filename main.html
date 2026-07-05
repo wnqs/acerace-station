@@ -5277,6 +5277,7 @@ function initBalanceFilters() {
 }
 
 // 渲染平衡调整列表
+// 渲染平衡调整列表
 function renderBalanceList() {
     const grid = document.getElementById('balanceGrid');
     const stats = document.getElementById('balanceStatsText');
@@ -5300,104 +5301,106 @@ function renderBalanceList() {
         return;
     }
     
-    grid.innerHTML = filtered.map(item => {
-        // ===== 获取车辆图标（从 carIcons 调用） =====
-        let vehicleIconUrl = '';
+    grid.innerHTML = filtered.map(function(item) {
+        // ===== 获取车辆图标 =====
+        var vehicleIconUrl = '';
         if (item.vehicleName && carIcons[item.vehicleName]) {
             vehicleIconUrl = carIcons[item.vehicleName];
         }
         
-        // ===== 获取定位图标（从 POSITION_ICONS 调用） =====
-        let positionIconUrl = '';
+        // ===== 获取定位图标 =====
+        var positionIconUrl = '';
         if (item.position && POSITION_ICONS[item.position]) {
             positionIconUrl = POSITION_ICONS[item.position];
         }
         
-        // ===== 获取专精图标（从 SPECIALTY_ICONS 调用） =====
-        let specialtyIconUrl = '';
+        // ===== 获取专精图标 =====
+        var specialtyIconUrl = '';
         if (item.specialty && SPECIALTY_ICONS[item.specialty]) {
             specialtyIconUrl = SPECIALTY_ICONS[item.specialty];
         }
         
         // 构建调整项HTML
-        let adjustmentsHtml = '';
+        var adjustmentsHtml = '';
         if (item.adjustments && item.adjustments.length > 0) {
-            adjustmentsHtml = item.adjustments.map(adj => {
-                const isSkill = adj.type === '大招' || adj.type === '被动' || adj.type === 'SP';
-                const isChip = adj.type === '芯片';
-                const isEnergy = adj.type === '赋能';
-                const noSkillClass = (isChip || isEnergy) ? 'no-skill-icon' : '';
-                const typeClass = adj.changeType === '增强' ? 'enhance' : (adj.changeType === '削弱' ? 'nerf' : 'tweak');
+            var adjustmentItems = [];
+            for (var i = 0; i < item.adjustments.length; i++) {
+                var adj = item.adjustments[i];
+                var isSkill = adj.type === '大招' || adj.type === '被动' || adj.type === 'SP';
+                var isChip = adj.type === '芯片';
+                var isEnergy = adj.type === '赋能';
+                var noSkillClass = (isChip || isEnergy) ? 'no-skill-icon' : '';
+                var typeClass = adj.changeType === '增强' ? 'enhance' : (adj.changeType === '削弱' ? 'nerf' : 'tweak');
                 
-                let iconUrl = '';
-                let iconAlt = adj.type || '调整';
+                var iconUrl = '';
+                var iconAlt = adj.type || '调整';
                 
-                // ===== 技能图标（从车辆数据获取） =====
                 if (isSkill) {
                     if (adj.type === '大招' && item.vehicleName) {
-                        const carData = vehiclesData.find(v => v.name === item.vehicleName);
+                        var carData = vehiclesData.find(function(v) { return v.name === item.vehicleName; });
                         if (carData && carData.ultIcon) iconUrl = carData.ultIcon;
                     } else if (adj.type === '被动' && item.vehicleName) {
-                        const carData = vehiclesData.find(v => v.name === item.vehicleName);
-                        if (carData && carData.passiveIcon) iconUrl = carData.passiveIcon;
+                        var carData2 = vehiclesData.find(function(v) { return v.name === item.vehicleName; });
+                        if (carData2 && carData2.passiveIcon) iconUrl = carData2.passiveIcon;
                     } else if (adj.type === 'SP' && item.vehicleName) {
-                        const carData = vehiclesData.find(v => v.name === item.vehicleName);
-                        if (carData && carData.sp && carData.sp.icon) iconUrl = carData.sp.icon;
+                        var carData3 = vehiclesData.find(function(v) { return v.name === item.vehicleName; });
+                        if (carData3 && carData3.sp && carData3.sp.icon) iconUrl = carData3.sp.icon;
                     }
                     if (!iconUrl && adj.icon) iconUrl = adj.icon;
-                } 
-                // ===== 芯片图标（从 chipsData 获取） =====
-                else if (isChip && adj.chipName) {
-                    const chipData = chipsData.find(c => c.name === adj.chipName);
+                } else if (isChip && adj.chipName) {
+                    var chipData = chipsData.find(function(c) { return c.name === adj.chipName; });
                     if (chipData && chipData.icon) iconUrl = chipData.icon;
                     else if (adj.icon) iconUrl = adj.icon;
-                } 
-                // ===== 赋能图标（从 energiesData 获取） =====
-                else if (isEnergy && adj.energyName) {
-                    const energyData = energiesData.find(e => e.name === adj.energyName);
+                } else if (isEnergy && adj.energyName) {
+                    var energyData = energiesData.find(function(e) { return e.name === adj.energyName; });
                     if (energyData && energyData.icon) iconUrl = energyData.icon;
                     else if (adj.icon) iconUrl = adj.icon;
-                } 
-                // ===== 其他情况 =====
-                else if (adj.icon) {
+                } else if (adj.icon) {
                     iconUrl = adj.icon;
                 }
                 
-                const iconHtml = iconUrl ? `<img src="${iconUrl}" alt="${iconAlt}">` : `<span class="no-icon">${iconAlt}</span>`;
+                var iconHtml = iconUrl ? '<img src="' + iconUrl + '" alt="' + iconAlt + '">' : '<span class="no-icon">' + iconAlt + '</span>';
                 
-                return `<div class="balance-adjust-box ${noSkillClass}">
-                    <div class="balance-adjust-icon">${iconHtml}</div>
-                    <div class="balance-adjust-content">
-                        <div class="balance-adjust-type ${typeClass}">【${adj.changeType || '调整'}】</div>
-                        <div class="balance-adjust-desc">${adj.desc || ''}</div>
-                    </div>
-                </div>`;
-            }).join('');
+                adjustmentItems.push('<div class="balance-adjust-box ' + noSkillClass + '">' +
+                    '<div class="balance-adjust-icon">' + iconHtml + '</div>' +
+                    '<div class="balance-adjust-content">' +
+                        '<div class="balance-adjust-type ' + typeClass + '">【' + (adj.changeType || '调整') + '】</div>' +
+                        '<div class="balance-adjust-desc">' + (adj.desc || '') + '</div>' +
+                    '</div>' +
+                '</div>');
+            }
+            adjustmentsHtml = adjustmentItems.join('');
         }
         
         if (!adjustmentsHtml) {
             adjustmentsHtml = '<div style="color:#8a8aa3; font-size:0.75rem; padding:8px 0;">暂无调整详情</div>';
         }
         
-        return `<div class="balance-card">
-            <div class="balance-version-tag">${item.version || 'v1.0'}</div>
-            <div class="balance-image-area">
-                <div class="balance-vehicle-icon">
-                    <img src="${vehicleIconUrl || ''}" alt="${item.vehicleName || '车辆'}" onerror="this.src='https://placehold.co/60x60?text=🚗'">
-                </div>
-                <span class="balance-vehicle-name">${item.vehicleName || '未知车辆'}</span>
-                <div class="balance-position-icons">
-                    ${positionIconUrl ? `<div class="pos-icon"><img src="${positionIconUrl}" alt="${item.position || '定位'}"></div>` : ''}
-                    ${specialtyIconUrl ? `<div class="pos-icon"><img src="${specialtyIconUrl}" alt="${item.specialty || '专精'}"></div>` : ''}
-                </div>
-            </div>
-            <div class="balance-info">
-                ${adjustmentsHtml}
-            </div>
-        </div>`;
+        var positionIconsHtml = '';
+        if (positionIconUrl) {
+            positionIconsHtml = '<div class="pos-icon"><img src="' + positionIconUrl + '" alt="' + (item.position || '定位') + '"></div>';
+        }
+        if (specialtyIconUrl) {
+            positionIconsHtml += '<div class="pos-icon"><img src="' + specialtyIconUrl + '" alt="' + (item.specialty || '专精') + '"></div>';
+        }
+        var positionIconsWrapper = positionIconsHtml ? '<div class="balance-position-icons">' + positionIconsHtml + '</div>' : '';
+        
+        return '<div class="balance-card">' +
+            '<div class="balance-version-tag">' + (item.version || 'v1.0') + '</div>' +
+            '<div class="balance-image-area">' +
+                '<div class="balance-vehicle-icon">' +
+                    '<img src="' + (vehicleIconUrl || '') + '" alt="' + (item.vehicleName || '车辆') + '" onerror="this.src=\'https://placehold.co/60x60?text=🚗\'">' +
+                '</div>' +
+                '<span class="balance-vehicle-name">' + (item.vehicleName || '未知车辆') + '</span>' +
+                positionIconsWrapper +
+            '</div>' +
+            '<div class="balance-info">' +
+                adjustmentsHtml +
+            '</div>' +
+        '</div>';
     }).join('');
     
-    stats.innerText = `共 ${filtered.length} 项调整`;
+    stats.innerText = '共 ' + filtered.length + ' 项调整';
 }
     
     async function loadData() {
