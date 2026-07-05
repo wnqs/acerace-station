@@ -7027,6 +7027,9 @@ function initWallpaperMobileDropdown() {
     document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn, .wallpaper-mobile-tab-btn, .balance-mobile-tab-btn').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.balance-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'balance') t.classList.add('active'); });
     if (balanceData.length === 0) loadBalanceData(); else renderBalanceList();
+    currentPage = 'balance';            
+    window.scrollTo(0, 0);
+    return;  // ← 添加 return，避免继续执行后面的代码
 }
          else {
             const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
