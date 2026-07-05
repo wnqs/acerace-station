@@ -791,11 +791,16 @@
                 font-weight: 500;
             }
             .mobile-nav-tabs {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 4px;
-                margin-top: 4px;
-            }
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+}
+.mobile-nav-tabs .mobile-tab-btn:nth-child(n+5) {
+    grid-column: span 1;
+}
+.mobile-nav-tabs .mobile-tab-btn:nth-child(5) { grid-column: 1 / 2; }
+.mobile-nav-tabs .mobile-tab-btn:nth-child(6) { grid-column: 2 / 3; }
+.mobile-nav-tabs .mobile-tab-btn:nth-child(7) { grid-column: 3 / 4; }
             .mobile-tab-btn {
                 padding: 6px 2px;
                 font-size: 0.65rem;
@@ -949,12 +954,18 @@
                 color: #8a8aa3;
                 font-weight: 500;
             }
-            .chip-mobile-nav-tabs, .energy-mobile-nav-tabs {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 4px;
-                margin-top: 4px;
-            }
+            .chip-mobile-nav-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    margin-top: 4px;
+}
+.chip-mobile-nav-tabs .chip-mobile-tab-btn:nth-child(n+5) {
+    grid-column: span 1;
+}
+.chip-mobile-nav-tabs .chip-mobile-tab-btn:nth-child(5) { grid-column: 1 / 2; }
+.chip-mobile-nav-tabs .chip-mobile-tab-btn:nth-child(6) { grid-column: 2 / 3; }
+.chip-mobile-nav-tabs .chip-mobile-tab-btn:nth-child(7) { grid-column: 3 / 4; }
             .chip-mobile-tab-btn, .energy-mobile-tab-btn {
                 padding: 6px 2px;
                 font-size: 0.65rem;
@@ -2176,6 +2187,7 @@
         font-size: 0.65rem;
         color: #8a8aa3;
     }
+    
 </style>
     <style>
         .calculator-container {
@@ -3470,7 +3482,458 @@ video.wallpaper-modal-media {
 #calcRaceNitroContainer.show {
     display: inline-flex !important;
 }      
-        
+  /* ===== 平衡调整页面样式 ===== */
+.balance-desktop-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #0f0f17;
+    padding: 4px 0 0 0;
+    border-bottom: 1px solid #2a2a3c;
+    margin-bottom: 24px;
+}
+.balance-desktop-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 6px 0;
+}
+.balance-desktop-filter-bar {
+    background: rgba(20,20,31,0.7);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.balance-search-box input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 16px;
+    border-radius: 40px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.08) !important;
+    backdrop-filter: blur(4px);
+    color: #e2e2e6;
+    font-size: 0.9rem;
+    font-weight: 500;
+    outline: none;
+}
+.balance-search-box input:focus { border-color: #feca57; }
+.balance-desktop-filter-sections {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 12px;
+}
+.balance-desktop-filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.balance-desktop-filter-section-title {
+    font-size: 0.75rem;
+    color: #feca57;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+.balance-desktop-filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.balance-desktop-filter-option {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(4px);
+    border-radius: 30px;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    color: #a0a0b8;
+    transition: 0.2s;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.balance-desktop-filter-option.active {
+    background: #feca57;
+    color: #1a1a2e;
+}
+
+/* ===== 卡片样式 ===== */
+/* 电脑端：一行2个 */
+.balance-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.balance-card {
+    background: rgba(20,20,31,1);
+    backdrop-filter: blur(4px);
+    border-radius: 24px;
+    border: 2px solid rgba(42,42,60,0.5);
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+    position: relative;
+}
+.balance-card:hover {
+    transform: translateY(-4px);
+    border-color: #feca57;
+}
+
+/* 版本标签 - 左上角 */
+.balance-version-tag {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    z-index: 15;
+    background: rgba(254,202,87,0.15);
+    border: 1px solid rgba(254,202,87,0.3);
+    color: #feca57;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 30px;
+    letter-spacing: 0.5px;
+}
+
+/* 顶部：车辆图标 + 名称 同一行 */
+.balance-image-area {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: linear-gradient(145deg, #1a1a2a, #0f0f1a);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.balance-vehicle-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.balance-vehicle-icon img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+}
+
+.balance-vehicle-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #e2e2e6;
+    flex-shrink: 0;
+}
+
+/* 车辆信息区域 - 只放调整项 */
+.balance-info {
+    padding: 12px 16px 16px 16px;
+    background: rgba(20,20,31,0.7);
+    backdrop-filter: blur(4px);
+}
+
+/* 调整项：图标 + 描述 在同一行 */
+.balance-adjust-box {
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-left: 3px solid #feca57;
+}
+.balance-adjust-box:first-child { margin-top: 0; }
+
+.balance-adjust-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+.balance-adjust-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.balance-adjust-icon .no-icon {
+    font-size: 0.5rem;
+    color: #8a8aa3;
+}
+
+.balance-adjust-content {
+    flex: 1;
+    min-width: 0;
+}
+.balance-adjust-type {
+    font-size: 0.65rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+.balance-adjust-type.enhance { color: #40c468; }
+.balance-adjust-type.nerf { color: #ff6b6b; }
+.balance-adjust-type.tweak { color: #feca57; }
+
+.balance-adjust-desc {
+    font-size: 0.8rem;
+    color: #e2e2e6;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+/* 芯片/赋能调整（无技能图标，只显示名称+描述） */
+.balance-adjust-box.no-skill-icon {
+    border-left-color: #4a9eff;
+}
+.balance-adjust-box.no-skill-icon .balance-adjust-icon {
+    width: auto;
+    height: auto;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+.balance-adjust-box.no-skill-icon .balance-adjust-icon img {
+    width: 28px;
+    height: 28px;
+}
+.balance-adjust-box.no-skill-icon .balance-adjust-type {
+    color: #4a9eff;
+}
+
+/* ===== 手机端样式 ===== */
+@media (max-width: 768px) {
+    .balance-desktop-header { display: none !important; }
+
+    /* 手机端：一行1个 */
+    .balance-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .balance-vehicle-icon { width: 48px; height: 48px; }
+    .balance-vehicle-name { font-size: 0.9rem; }
+    .balance-adjust-icon { width: 32px; height: 32px; }
+    .balance-adjust-desc { font-size: 0.75rem; }
+    .balance-version-tag {
+        font-size: 0.55rem;
+        padding: 2px 10px;
+        top: 8px;
+        left: 10px;
+    }
+
+    /* ===== 手机端固定头部 ===== */
+    .balance-mobile-fixed-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #0f0f17;
+        border-bottom: 1px solid #2a2a3c;
+        z-index: 200;
+        display: none;
+        flex-direction: column;
+    }
+    .balance-mobile-top-bar {
+        padding: 8px 12px;
+        border-bottom: 1px solid #2a2a3c;
+    }
+    .balance-mobile-logo-area {
+        text-align: center;
+        cursor: pointer;
+        padding-bottom: 2px;
+    }
+    .balance-mobile-logo-area h1 {
+        font-size: 1rem;
+        background: linear-gradient(135deg, #ff6b6b, #feca57);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: 800;
+    }
+    .balance-mobile-logo-area p {
+        font-size: 0.5rem;
+        color: #8a8aa3;
+        font-weight: 500;
+    }
+
+    .balance-mobile-nav-tabs {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4px;
+        margin-top: 4px;
+    }
+    .balance-mobile-nav-tabs .balance-mobile-tab-btn:nth-child(n+5) {
+        grid-column: span 1;
+    }
+    .balance-mobile-nav-tabs .balance-mobile-tab-btn:nth-child(5) { grid-column: 1 / 2; }
+    .balance-mobile-nav-tabs .balance-mobile-tab-btn:nth-child(6) { grid-column: 2 / 3; }
+    .balance-mobile-nav-tabs .balance-mobile-tab-btn:nth-child(7) { grid-column: 3 / 4; }
+
+    .balance-mobile-tab-btn {
+        padding: 6px 2px;
+        font-size: 0.65rem;
+        border-radius: 16px;
+        text-align: center;
+        background: #1a1a2a;
+        border: none;
+        cursor: pointer;
+        color: #a0a0b8;
+        font-weight: 700;
+    }
+    .balance-mobile-tab-btn.active {
+        background: #feca57;
+        color: #1a1a2e;
+    }
+
+    .balance-mobile-filter-sticky {
+        padding: 8px 12px;
+        background: #0a0a0f;
+        border-bottom: 1px solid #2a2a3c;
+    }
+    .balance-filter-row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    .balance-mobile-search-box {
+        flex: 2;
+    }
+    .balance-mobile-search-box input {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        background: #1f1f2e;
+        border: 1px solid #2a2a3c;
+        border-radius: 30px;
+        color: #e2e2e6;
+        outline: none;
+    }
+    .balance-mobile-search-box input:focus { border-color: #feca57; }
+
+    .balance-category-dropdown-btn {
+        background: #1f1f2e;
+        border: 1px solid #2a2a3c;
+        border-radius: 30px;
+        padding: 6px 14px;
+        font-size: 0.75rem;
+        cursor: pointer;
+        color: #e2e2e6;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+    .balance-category-dropdown-btn .arrow {
+        font-size: 0.6rem;
+        transition: transform 0.2s;
+    }
+    .balance-category-dropdown-btn.active .arrow { transform: rotate(180deg); }
+
+    .balance-category-dropdown-panel {
+        background: #1a1a2a;
+        border-radius: 16px;
+        margin-top: 8px;
+        padding: 10px;
+        border: 1px solid #2a2a3c;
+        display: none;
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        z-index: 210;
+    }
+    .balance-category-dropdown-panel.show { display: block; }
+
+    .balance-mobile-filter-section {
+        margin-bottom: 12px;
+    }
+    .balance-mobile-filter-section:last-child { margin-bottom: 0; }
+    .balance-mobile-filter-section-title {
+        font-size: 0.65rem;
+        color: #feca57;
+        margin-bottom: 5px;
+        padding-left: 4px;
+        font-weight: 700;
+    }
+    .balance-mobile-filter-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .balance-mobile-filter-option {
+        background: #2a2a3c;
+        border-radius: 30px;
+        padding: 6px 12px;
+        font-size: 0.7rem;
+        cursor: pointer;
+        color: #a0a0b8;
+        font-weight: 600;
+        display: inline-block;
+        white-space: nowrap;
+    }
+    .balance-mobile-filter-option.active {
+        background: #feca57;
+        color: #1a1a2e;
+    }
+}
+ /* 👇 在这里添加手机端导航栏通用样式 👇 */
+/* ===== 手机端所有导航栏统一4+3布局 ===== */
+.mobile-nav-tabs,
+.chip-mobile-nav-tabs,
+.energy-mobile-nav-tabs,
+.currency-mobile-nav-tabs,
+.wallpaper-mobile-nav-tabs,
+.balance-mobile-nav-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.mobile-nav-tabs .mobile-tab-btn:nth-child(n+5),
+.chip-mobile-nav-tabs .chip-mobile-tab-btn:nth-child(n+5),
+.energy-mobile-nav-tabs .energy-mobile-tab-btn:nth-child(n+5),
+.currency-mobile-nav-tabs .currency-mobile-tab-btn:nth-child(n+5),
+.wallpaper-mobile-nav-tabs .wallpaper-mobile-tab-btn:nth-child(n+5),
+.balance-mobile-nav-tabs .balance-mobile-tab-btn:nth-child(n+5) {
+    grid-column: span 1;
+}
+.mobile-nav-tabs .mobile-tab-btn:nth-child(5),
+.chip-mobile-nav-tabs .chip-mobile-tab-btn:nth-child(5),
+.energy-mobile-nav-tabs .energy-mobile-tab-btn:nth-child(5),
+.currency-mobile-nav-tabs .currency-mobile-tab-btn:nth-child(5),
+.wallpaper-mobile-nav-tabs .wallpaper-mobile-tab-btn:nth-child(5),
+.balance-mobile-nav-tabs .balance-mobile-tab-btn:nth-child(5) {
+    grid-column: 1 / 2;
+}
+.mobile-nav-tabs .mobile-tab-btn:nth-child(6),
+.chip-mobile-nav-tabs .chip-mobile-tab-btn:nth-child(6),
+.energy-mobile-nav-tabs .energy-mobile-tab-btn:nth-child(6),
+.currency-mobile-nav-tabs .currency-mobile-tab-btn:nth-child(6),
+.wallpaper-mobile-nav-tabs .wallpaper-mobile-tab-btn:nth-child(6),
+.balance-mobile-nav-tabs .balance-mobile-tab-btn:nth-child(6) {
+    grid-column: 2 / 3;
+}
+.mobile-nav-tabs .mobile-tab-btn:nth-child(7),
+.chip-mobile-nav-tabs .chip-mobile-tab-btn:nth-child(7),
+.energy-mobile-nav-tabs .energy-mobile-tab-btn:nth-child(7),
+.currency-mobile-nav-tabs .currency-mobile-tab-btn:nth-child(7),
+.wallpaper-mobile-nav-tabs .wallpaper-mobile-tab-btn:nth-child(7),
+.balance-mobile-nav-tabs .balance-mobile-tab-btn:nth-child(7) {
+    grid-column: 3 / 4;
+}
+       
     </style>
 </head>
 <body>
@@ -3482,6 +3945,7 @@ video.wallpaper-modal-media {
         </div>
         <div class="nav-tabs">
             <button class="tab-btn active" data-page="vehicles">车辆数据</button>
+            <button class="tab-btn" data-page="balance">平衡调整</button>
             <button class="tab-btn" data-page="chip">芯片系统</button>
             <button class="tab-btn" data-page="energy">赋能系统</button>
             <button class="tab-btn" data-page="calculator">芯片要求计算器</button>
@@ -3499,6 +3963,7 @@ video.wallpaper-modal-media {
             </div>
             <div class="mobile-nav-tabs" id="mobileNavTabs">
                 <button class="mobile-tab-btn active" data-page="vehicles">车辆数据</button>
+                <button class="mobile-tab-btn" data-page="balance">平衡调整</button>
                 <button class="mobile-tab-btn" data-page="chip">芯片系统</button>
                 <button class="mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
@@ -3554,6 +4019,7 @@ video.wallpaper-modal-media {
             </div>
             <div class="chip-mobile-nav-tabs" id="chipMobileNavTabs">
                 <button class="chip-mobile-tab-btn" data-page="vehicles">车辆数据</button>
+                <button class="chip-tab-btn" data-page="balance">平衡调整</button>
                 <button class="chip-mobile-tab-btn active" data-page="chip">芯片系统</button>
                 <button class="chip-mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="chip-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
@@ -3595,6 +4061,7 @@ video.wallpaper-modal-media {
             </div>
             <div class="energy-mobile-nav-tabs" id="energyMobileNavTabs">
                 <button class="energy-mobile-tab-btn" data-page="vehicles">车辆数据</button>
+                <button class="energy-tab-btn" data-page="balance">平衡调整</button>
                 <button class="energy-mobile-tab-btn" data-page="chip">芯片系统</button>
                 <button class="energy-mobile-tab-btn active" data-page="energy">赋能系统</button>
                 <button class="energy-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
@@ -3622,7 +4089,45 @@ video.wallpaper-modal-media {
             </div>
         </div>
     </div>
-    
+    <!-- 手机端平衡调整固定头部 -->
+<div class="balance-mobile-fixed-header" id="balanceMobileFixedHeader" style="display: none;">
+    <div class="balance-mobile-top-bar">
+        <div class="balance-mobile-logo-area" onclick="location.reload()">
+            <h1>王牌竞速 · 数据整合站</h1>
+            <p>核心档案 · 赛车数据</p>
+        </div>
+        <div class="balance-mobile-nav-tabs" id="balanceMobileNavTabs">
+            <!-- 第一行：4个 -->
+            <button class="balance-mobile-tab-btn" data-page="vehicles">车辆数据</button>
+            <button class="balance-mobile-tab-btn active" data-page="balance">平衡调整</button>
+            <button class="balance-mobile-tab-btn" data-page="chip">芯片系统</button>
+            <button class="balance-mobile-tab-btn" data-page="energy">赋能系统</button>
+            <!-- 第二行：3个 -->
+            <button class="balance-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
+            <button class="balance-mobile-tab-btn" data-page="news">游戏资源获取统计</button>
+            <button class="balance-mobile-tab-btn" data-page="wallpaper">游戏精彩内容</button>
+        </div>
+    </div>
+    <div class="balance-mobile-filter-sticky">
+        <div class="balance-filter-row">
+            <div class="balance-mobile-search-box">
+                <input type="text" id="balanceSearchInputMobile" placeholder="搜索车辆、芯片、赋能名称...">
+            </div>
+            <div class="balance-category-dropdown-btn" id="balanceCategoryDropdownBtn">
+                <span>版本</span>
+                <span class="arrow">▼</span>
+            </div>
+        </div>
+        <div class="balance-category-dropdown-panel" id="balanceCategoryDropdownPanel">
+            <div class="balance-mobile-filter-section">
+                <div class="balance-mobile-filter-section-title">版本</div>
+                <div class="balance-mobile-filter-options" id="balanceMobileVersionOptions">
+                    <!-- 由JS动态生成 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="main-content">
         <!-- 车辆数据页面 -->
         <div id="vehiclesPage" class="page active-page">
@@ -3657,7 +4162,32 @@ video.wallpaper-modal-media {
             <div class="cars-grid" id="carsGrid"></div>
             <div class="stats-text" id="statsText">加载中...</div>
         </div>
-        
+        <!-- ===== 平衡调整页面 ===== -->
+<div id="balancePage" class="page">
+    <!-- 电脑端头部 -->
+    <div class="balance-desktop-header">
+        <div class="balance-desktop-header-top">
+            <span class="page-title">平衡调整</span>
+        </div>
+        <div class="balance-desktop-filter-bar">
+            <div class="balance-search-box">
+                <input type="text" id="balanceSearchInputDesktop" placeholder="搜索车辆、芯片、赋能名称...">
+            </div>
+            <div class="balance-desktop-filter-sections">
+                <div class="balance-desktop-filter-section">
+                    <div class="balance-desktop-filter-section-title">版本</div>
+                    <div class="balance-desktop-filter-options" id="balanceDesktopVersionOptions">
+                        <!-- 由JS动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 卡片网格 -->
+    <div class="balance-grid" id="balanceGrid"></div>
+    <div class="stats-text" id="balanceStatsText">加载中...</div>
+</div>
         <!-- 芯片系统页面 - 电脑端使用desktop-header，手机端被CSS隐藏 -->
         <div id="chipPage" class="page">
             <div class="chip-desktop-header">
@@ -4034,6 +4564,7 @@ video.wallpaper-modal-media {
             </div>
             <div class="currency-mobile-nav-tabs" id="currencyMobileNavTabs">
                 <button class="currency-mobile-tab-btn" data-page="vehicles">车辆数据</button>
+                <button class="currency-tab-btn" data-page="balance">平衡调整</button>
                 <button class="currency-mobile-tab-btn" data-page="chip">芯片系统</button>
                 <button class="currency-mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="currency-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
@@ -4099,6 +4630,7 @@ video.wallpaper-modal-media {
             </div>
             <div class="wallpaper-mobile-nav-tabs" id="wallpaperMobileNavTabs">
                 <button class="wallpaper-mobile-tab-btn" data-page="vehicles">车辆数据</button>
+                <button class="wallpaper-tab-btn" data-page="balance">平衡调整</button>
                 <button class="wallpaper-mobile-tab-btn" data-page="chip">芯片系统</button>
                 <button class="wallpaper-mobile-tab-btn" data-page="energy">赋能系统</button>
                 <button class="wallpaper-mobile-tab-btn" data-page="calculator">芯片要求计算器</button>
@@ -4644,7 +5176,247 @@ function formatSkillText(text) {
             }
         }
     }
+    // ========== 平衡调整数据 ==========
+let balanceData = [];
+let balanceFilters = { version: "all" };
+let balanceKeyword = "";
+
+// 加载平衡调整数据
+async function loadBalanceData() {
+    try {
+        const response = await fetch('./balance.json');
+        if (!response.ok) {
+            throw new Error('balance.json 加载失败');
+        }
+        const data = await response.json();
+        if (data.balances && Array.isArray(data.balances)) {
+            balanceData = data.balances;
+        } else {
+            balanceData = [];
+        }
+    } catch (error) {
+        console.error('[平衡调整数据加载错误]', error);
+        balanceData = [];
+    }
+    initBalanceFilters();
+    renderBalanceList();
+}
+
+// 初始化筛选器
+function initBalanceFilters() {
+    const versions = [...new Set(balanceData.map(item => item.version))].sort();
     
+    // 电脑端
+    const desktopContainer = document.getElementById('balanceDesktopVersionOptions');
+    if (desktopContainer) {
+        desktopContainer.innerHTML = `<div class="balance-desktop-filter-option active" data-version="all">全部</div>` +
+            versions.map(v => `<div class="balance-desktop-filter-option" data-version="${v}">${v}</div>`).join('');
+        desktopContainer.querySelectorAll('.balance-desktop-filter-option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                const version = this.dataset.version;
+                balanceFilters.version = version;
+                desktopContainer.querySelectorAll('.balance-desktop-filter-option').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+                renderBalanceList();
+            });
+        });
+    }
+    
+    // 手机端
+    const mobileContainer = document.getElementById('balanceMobileVersionOptions');
+    if (mobileContainer) {
+        mobileContainer.innerHTML = `<div class="balance-mobile-filter-option active" data-version="all">全部</div>` +
+            versions.map(v => `<div class="balance-mobile-filter-option" data-version="${v}">${v}</div>`).join('');
+        mobileContainer.querySelectorAll('.balance-mobile-filter-option').forEach(opt => {
+            opt.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const version = this.dataset.version;
+                balanceFilters.version = version;
+                mobileContainer.querySelectorAll('.balance-mobile-filter-option').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+                renderBalanceList();
+                document.getElementById('balanceCategoryDropdownPanel')?.classList.remove('show');
+                document.getElementById('balanceCategoryDropdownBtn')?.classList.remove('active');
+            });
+        });
+    }
+    
+    // 手机端下拉面板
+    const dropdownBtn = document.getElementById('balanceCategoryDropdownBtn');
+    const dropdownPanel = document.getElementById('balanceCategoryDropdownPanel');
+    if (dropdownBtn && dropdownPanel) {
+        dropdownBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownPanel.classList.toggle('show');
+            this.classList.toggle('active');
+        });
+        document.addEventListener('click', function() {
+            dropdownPanel.classList.remove('show');
+            dropdownBtn.classList.remove('active');
+        });
+        dropdownPanel.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+    
+    // 搜索框
+    const desktopSearch = document.getElementById('balanceSearchInputDesktop');
+    const mobileSearch = document.getElementById('balanceSearchInputMobile');
+    if (desktopSearch) {
+        desktopSearch.addEventListener('input', function() {
+            balanceKeyword = this.value;
+            renderBalanceList();
+        });
+    }
+    if (mobileSearch) {
+        mobileSearch.addEventListener('input', function() {
+            balanceKeyword = this.value;
+            renderBalanceList();
+        });
+    }
+}
+
+// 渲染平衡调整列表
+function renderBalanceList() {
+    const grid = document.getElementById('balanceGrid');
+    const stats = document.getElementById('balanceStatsText');
+    if (!grid) return;
+    
+    let filtered = balanceData.filter(item => {
+        if (balanceFilters.version !== 'all' && item.version !== balanceFilters.version) return false;
+        if (balanceKeyword) {
+            const kw = balanceKeyword.toLowerCase();
+            const matchVehicle = item.vehicleName && item.vehicleName.toLowerCase().includes(kw);
+            const matchChip = item.chipName && item.chipName.toLowerCase().includes(kw);
+            const matchEnergy = item.energyName && item.energyName.toLowerCase().includes(kw);
+            if (!matchVehicle && !matchChip && !matchEnergy) return false;
+        }
+        return true;
+    });
+    
+    if (filtered.length === 0) {
+        grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px; color:#8a8aa3;">暂无平衡调整数据<br><small style="font-size:0.7rem;">请创建 balance.json 文件并填入数据</small></div>';
+        stats.innerText = "共 0 项调整";
+        return;
+    }
+    
+    grid.innerHTML = filtered.map(item => {
+    // ===== 获取车辆图标（从 carIcons 调用） =====
+    let vehicleIconUrl = '';
+    if (item.vehicleName && carIcons[item.vehicleName]) {
+        vehicleIconUrl = carIcons[item.vehicleName];
+    }
+    
+    // ===== 获取定位图标（从 POSITION_ICONS 调用） =====
+    let positionIconUrl = '';
+    if (item.position && POSITION_ICONS[item.position]) {
+        positionIconUrl = POSITION_ICONS[item.position];
+    }
+    
+    // ===== 获取专精图标（从 SPECIALTY_ICONS 调用） =====
+    let specialtyIconUrl = '';
+    if (item.specialty && SPECIALTY_ICONS[item.specialty]) {
+        specialtyIconUrl = SPECIALTY_ICONS[item.specialty];
+    }
+    
+    // 构建调整项HTML
+    let adjustmentsHtml = '';
+    if (item.adjustments && item.adjustments.length > 0) {
+        adjustmentsHtml = item.adjustments.map(adj => {
+            const isSkill = adj.type === '大招' || adj.type === '被动' || adj.type === 'SP';
+            const isChip = adj.type === '芯片';
+            const isEnergy = adj.type === '赋能';
+            const noSkillClass = (isChip || isEnergy) ? 'no-skill-icon' : '';
+            const typeClass = adj.changeType === '增强' ? 'enhance' : (adj.changeType === '削弱' ? 'nerf' : 'tweak');
+            
+            let iconUrl = '';
+            let iconAlt = adj.type || '调整';
+            
+            // ===== 技能图标（从车辆数据获取） =====
+            if (isSkill) {
+                if (adj.type === '大招' && item.vehicleName) {
+                    const carData = vehiclesData.find(v => v.name === item.vehicleName);
+                    if (carData && carData.ultIcon) iconUrl = carData.ultIcon;
+                } else if (adj.type === '被动' && item.vehicleName) {
+                    const carData = vehiclesData.find(v => v.name === item.vehicleName);
+                    if (carData && carData.passiveIcon) iconUrl = carData.passiveIcon;
+                } else if (adj.type === 'SP' && item.vehicleName) {
+                    const carData = vehiclesData.find(v => v.name === item.vehicleName);
+                    if (carData && carData.sp && carData.sp.icon) iconUrl = carData.sp.icon;
+                }
+                if (!iconUrl && adj.icon) iconUrl = adj.icon;
+            } 
+            // ===== 芯片图标（从 chipsData 获取） =====
+            else if (isChip && adj.chipName) {
+                const chipData = chipsData.find(c => c.name === adj.chipName);
+                if (chipData && chipData.icon) iconUrl = chipData.icon;
+                else if (adj.icon) iconUrl = adj.icon;
+            } 
+            // ===== 赋能图标（从 energiesData 获取） =====
+            else if (isEnergy && adj.energyName) {
+                const energyData = energiesData.find(e => e.name === adj.energyName);
+                if (energyData && energyData.icon) iconUrl = energyData.icon;
+                else if (adj.icon) iconUrl = adj.icon;
+            } 
+            // ===== 其他情况 =====
+            else if (adj.icon) {
+                iconUrl = adj.icon;
+            }
+            
+            const iconHtml = iconUrl ? `<img src="${iconUrl}" alt="${iconAlt}">` : `<span class="no-icon">${iconAlt}</span>`;
+            
+            return `<div class="balance-adjust-box ${noSkillClass}">
+                <div class="balance-adjust-icon">${iconHtml}</div>
+                <div class="balance-adjust-content">
+                    <div class="balance-adjust-type ${typeClass}">【${adj.changeType || '调整'}】</div>
+                    <div class="balance-adjust-desc">${adj.desc || ''}</div>
+                </div>
+            </div>`;
+        }).join('');
+    }
+    
+    if (!adjustmentsHtml) {
+        adjustmentsHtml = '<div style="color:#8a8aa3; font-size:0.75rem; padding:8px 0;">暂无调整详情</div>';
+    }
+    
+    return `<div class="balance-card">
+        <div class="balance-version-tag">${item.version || 'v1.0'}</div>
+        <div class="balance-image-area">
+            <div class="balance-vehicle-icon">
+                <img src="${vehicleIconUrl || ''}" alt="${item.vehicleName || '车辆'}" onerror="this.src='https://placehold.co/60x60?text=🚗'">
+            </div>
+            <span class="balance-vehicle-name">${item.vehicleName || '未知车辆'}</span>
+            <div class="balance-position-icons">
+                ${positionIconUrl ? `<div class="pos-icon"><img src="${positionIconUrl}" alt="${item.position || '定位'}"></div>` : ''}
+                ${specialtyIconUrl ? `<div class="pos-icon"><img src="${specialtyIconUrl}" alt="${item.specialty || '专精'}"></div>` : ''}
+            </div>
+        </div>
+        <div class="balance-info">
+            ${adjustmentsHtml}
+        </div>
+    </div>`;
+}).join('');
+        }
+        
+        if (!adjustmentsHtml) {
+            adjustmentsHtml = '<div style="color:#8a8aa3; font-size:0.75rem; padding:8px 0;">暂无调整详情</div>';
+        }
+        
+        return `<div class="balance-card">
+            <div class="balance-version-tag">${item.version || 'v1.0'}</div>
+            <div class="balance-image-area">
+                <div class="balance-vehicle-icon">
+                    <img src="${vehicleIconUrl || ''}" alt="${item.vehicleName || '车辆'}" onerror="this.src='https://placehold.co/60x60?text=🚗'">
+                </div>
+                <span class="balance-vehicle-name">${item.vehicleName || '未知车辆'}</span>
+            </div>
+            <div class="balance-info">
+                ${adjustmentsHtml}
+            </div>
+        </div>`;
+    }).join('');
+    stats.innerText = `共 ${filtered.length} 项调整`;
+}
     async function loadData() {
         try {
             const vehiclesUrl = './vehicles.json';
@@ -4720,6 +5492,7 @@ function formatSkillText(text) {
             await loadEnergiesData();
             await loadCurrenciesData();
             await loadWallpapersData();
+            await loadBalanceData();
         } catch (error) {
             console.error('[加载错误]', error);
             const gridEl = document.getElementById("carsGrid");
@@ -6190,6 +6963,7 @@ function initWallpaperMobileDropdown() {
                 document.getElementById('energyMobileFixedHeader').style.display = 'none';
                 document.getElementById('currencyMobileFixedHeader').style.display = 'none';
                 document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
+                document.getElementById('balanceMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.mobile-tab-btn').forEach(t => { if (t.dataset.page === 'vehicles') t.classList.add('active'); });
@@ -6201,6 +6975,7 @@ function initWallpaperMobileDropdown() {
                 document.getElementById('energyMobileFixedHeader').style.display = 'none';
                 document.getElementById('currencyMobileFixedHeader').style.display = 'none';
                 document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
+                document.getElementById('balanceMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.chip-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'chip') t.classList.add('active'); });
@@ -6210,6 +6985,8 @@ function initWallpaperMobileDropdown() {
                 document.getElementById('chipMobileFixedHeader').style.display = 'none';
                 document.getElementById('energyMobileFixedHeader').style.display = 'flex';
                 document.getElementById('currencyMobileFixedHeader').style.display = 'none';
+                document.getElementById('balanceMobileFixedHeader').style.display = 'none';
+                document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.energy-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'energy') t.classList.add('active'); });
@@ -6220,6 +6997,7 @@ function initWallpaperMobileDropdown() {
                 document.getElementById('energyMobileFixedHeader').style.display = 'none';
                 document.getElementById('currencyMobileFixedHeader').style.display = 'none';
                 document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
+                document.getElementById('balanceMobileFixedHeader').style.display = 'none';
                 document.body.classList.add('has-fixed-header');
                 document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn').forEach(t => t.classList.remove('active'));
                 const calcBtns = document.querySelectorAll('.mobile-tab-btn');
@@ -6232,7 +7010,8 @@ function initWallpaperMobileDropdown() {
             document.getElementById('chipMobileFixedHeader').style.display = 'none';
             document.getElementById('energyMobileFixedHeader').style.display = 'none';
             document.getElementById('currencyMobileFixedHeader').style.display = 'flex';
-            document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';    
+            document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
+            document.getElementById('balanceMobileFixedHeader').style.display = 'none';    
             document.body.classList.add('has-fixed-header');
             document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.currency-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'news') t.classList.add('active'); });
@@ -6244,14 +7023,26 @@ function initWallpaperMobileDropdown() {
     document.getElementById('energyMobileFixedHeader').style.display = 'none';
     document.getElementById('currencyMobileFixedHeader').style.display = 'none';
     document.getElementById('wallpaperMobileFixedHeader').style.display = 'flex';
+    document.getElementById('balanceMobileFixedHeader').style.display = 'none';
     document.body.classList.add('has-fixed-header');
     
     document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn, .wallpaper-mobile-tab-btn').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.wallpaper-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'wallpaper') t.classList.add('active'); });
     currentPage = 'wallpaper';
     if (wallpapersData.length === 0) loadWallpapersData(); else renderWallpapersList();
+}else if (pageId === 'balance') {
+    document.getElementById('mobileFixedHeader').style.display = 'none';
+    document.getElementById('chipMobileFixedHeader').style.display = 'none';
+    document.getElementById('energyMobileFixedHeader').style.display = 'none';
+    document.getElementById('currencyMobileFixedHeader').style.display = 'none';
+    document.getElementById('wallpaperMobileFixedHeader').style.display = 'none';
+    document.getElementById('balanceMobileFixedHeader').style.display = 'flex';
+    document.body.classList.add('has-fixed-header');
+    document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn, .wallpaper-mobile-tab-btn, .balance-mobile-tab-btn').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.balance-mobile-tab-btn').forEach(t => { if (t.dataset.page === 'balance') t.classList.add('active'); });
+    if (balanceData.length === 0) loadBalanceData(); else renderBalanceList();
 }
-        } else {
+         else {
             const vehicleDesktopHeader = document.getElementById('vehicleDesktopHeader');
             if (vehicleDesktopHeader) {
                 if (pageId === 'vehicles') {
@@ -6396,11 +7187,12 @@ renderList();
             });
         });
         
-        const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn, .wallpaper-mobile-tab-btn');
+        const mobileTabBtns = document.querySelectorAll('.mobile-tab-btn, .chip-mobile-tab-btn, .energy-mobile-tab-btn, .currency-mobile-tab-btn, .wallpaper-mobile-tab-btn, .balance-mobile-tab-btn');
         mobileTabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const pageId = btn.dataset.page;
                 if (pageId === 'vehicles') switchToPage('vehicles');
+                else if (pageId === 'balance') switchToPage('balance');
                 else if (pageId === 'chip') switchToPage('chip');
                 else if (pageId === 'energy') switchToPage('energy');
                 else if (pageId === 'calculator') switchToPage('calculator');
