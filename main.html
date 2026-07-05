@@ -6628,49 +6628,89 @@ renderList();
     return Math.floor(diamondHui + subHui);
 }
 
-// canAchieveWithCompetitionCalc - 删除菱形增幅
+// canAchieveWithCompetitionCalc - 精确计算菱形槽词条分配
 function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, needJi, carName) {
-    // 菱形槽主属性：15先机（无增幅）
-    let diamondJi = 15;
-    // 菱形槽副属性：每个词条5先机，每个菱形槽3个词条（无增幅）
-    let diamondSubJi = 5 * 3;
-    // 单个菱形槽总先机 = 主属性 + 副属性
-    let diamondTotalJi = diamondJi + diamondSubJi;
-    // 菱形槽总先机上限 = 菱形槽数量 × 单个菱形槽总先机
-    let maxJiFromDiamond = diamondCount * diamondTotalJi;
-    // 先机上限30
-    let maxJi = Math.min(maxJiFromDiamond, 30);
+    // 菱形槽参数
+    var mainJi = 15;          // 主属性先机
+    var mainHui = 9;          // 主属性汇能
+    var subJi = 5;            // 副属性先机
+    var subHui = 3;           // 副属性汇能
+    var subPerDiamond = 3;    // 每个菱形槽3个副槽
     
-    // 单个菱形槽总汇能 = 主属性9 + 副属性(3×3)（无增幅）
-    let diamondTotalHui = 9 + (3 * 3);
-    // 菱形槽总汇能
-    let diamondHui = diamondCount * diamondTotalHui;
-    // 副槽汇能：每个副槽3汇
-    let subHui = totalSubSlots * 3;
-    // 总汇能上限
-    let maxHui = diamondHui + subHui;
+    var maxJi = 30;           // 先机上限
     
-    // 如果先机需求为0，只需检查汇能
+    // 如果先机需求为0，所有词条都堆汇能
     if (needJi <= 0) {
+        var totalHuiSlots = diamondCount * (1 + subPerDiamond) + totalSubSlots;
+        var maxHui = diamondCount * mainHui + (diamondCount * subPerDiamond + totalSubSlots) * subHui;
         return needHui <= maxHui;
     }
     
-    // 如果有先机需求，检查是否能在满足先机的情况下仍有足够汇能
-    let jiPerDiamond = diamondTotalJi;
-    let huiPerDiamond = diamondTotalHui;
-    
-    // 最少需要多少个菱形槽给先机才能满足 needJi
-    let minDiamondForJi = Math.ceil(needJi / jiPerDiamond);
-    if (minDiamondForJi > diamondCount) {
-        // 先机需求太大，全部菱形槽给先机都不够
+    // 如果先机需求超过上限，直接返回false
+    if (needJi > maxJi) {
         return false;
     }
     
-    // 剩余菱形槽给汇能 + 所有副槽给汇能
-    let remainingDiamond = diamondCount - minDiamondForJi;
-    let maxHuiWithJi = remainingDiamond * huiPerDiamond + subHui;
+    var maxPossibleHui = -1;
     
-    return needHui <= maxHuiWithJi && needJi <= maxJi;
+    // ===== 枚举主属性分配给先机的菱形槽数量 =====
+    for (var mainJiCount = 0; mainJiCount <= diamondCount; mainJiCount++) {
+        var mainHuiCount = diamondCount - mainJiCount;
+        
+        // 主属性提供的先机
+        var jiFromMain = mainJiCount * mainJi;
+        // 主属性提供的汇能
+        var huiFromMain = mainHuiCount * mainHui;
+        
+        // 如果主属性先机已经超过需求
+        if (jiFromMain >= needJi) {
+            // 所有副属性都给汇能
+            var totalSubForHui = diamondCount * subPerDiamond + totalSubSlots;
+            var hui = huiFromMain + totalSubForHui * subHui;
+            if (hui > maxPossibleHui) {
+                maxPossibleHui = hui;
+            }
+            continue;
+        }
+        
+        // 还需要从副属性中获取的先机
+        var remainingJi = needJi - jiFromMain;
+        
+        // 总共可用的副属性槽数量
+        var totalSubSlotsAvailable = diamondCount * subPerDiamond + totalSubSlots;
+        
+        // 需要多少个副属性槽分配给先机（向上取整）
+        var subJiNeeded = Math.ceil(remainingJi / subJi);
+        
+        // 如果副属性槽不够，跳过这种分配
+        if (subJiNeeded > totalSubSlotsAvailable) {
+            continue;
+        }
+        
+        // 实际先机（可能略微超出需求）
+        var actualJi = jiFromMain + subJiNeeded * subJi;
+        
+        // 如果实际先机超过上限，跳过
+        if (actualJi > maxJi) {
+            continue;
+        }
+        
+        // 剩余副属性槽给汇能
+        var subHuiCount = totalSubSlotsAvailable - subJiNeeded;
+        var hui = huiFromMain + subHuiCount * subHui;
+        
+        if (hui > maxPossibleHui) {
+            maxPossibleHui = hui;
+        }
+    }
+    
+    // 如果没有任何分配方式能满足先机需求
+    if (maxPossibleHui < 0) {
+        return false;
+    }
+    
+    // 检查汇能需求是否能在满足先机的前提下达成
+    return needHui <= maxPossibleHui;
 }
         
         function formatHuiCalc(value) {
