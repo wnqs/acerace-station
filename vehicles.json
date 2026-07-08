@@ -244,7 +244,7 @@
         "turboSpeed": { "blue": "8.00 km/h", "purple": "12.00 km/h" },
         "ultPower": "-"
       },
-      "chipSlots": ["circle", "circle", "rhombus", "vslot", "vslot", "hexagon"],
+      "chipSlots": ["circle", "triangle", "rhombus", "vslot", "vslot", "hexagon"],
       "skills": {
         "ult": {
           "name": "星痕破晓",
