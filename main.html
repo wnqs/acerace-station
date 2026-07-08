@@ -3845,33 +3845,36 @@ video.wallpaper-modal-media {
 
         <!-- 框2：氮气数量选择 -->
 <div class="config-section">
-    <!-- 第一行：标题 + 4气3气 -->
-    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 8px; flex-wrap: wrap;">
-        <div class="section-title" style="margin-bottom: 0; font-size: 0.9rem;">氮气数量选择</div>
-        <div id="calcCycleModeContainer" style="display: none; align-items: center; gap: 6px;">
-            <span style="font-size: 0.7rem; font-weight: 600; color: #ffffff!important; white-space: nowrap;">是否 4气、3气两大一循环：</span>
-            <select id="calcCycleMode" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #e2e2e6; font-size: 0.8rem; height: 32px; min-width: 60px;">
-                <option value="normal">否</option>
-                <option value="cycle">是</option>
-            </select>
-            <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
-                ?
-                <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.7rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">仅辅助位车辆且首大能量≥80时支持</span>
-            </span>
-        </div>
-            <!-- 竞速位专属：循环装置氮气充能 -->
-        <div id="calcRaceNitroContainer" style="display: none; align-items: center; gap: 6px;">
-            <span style="font-size: 0.7rem; font-weight: 600; color:#ffffff!important; white-space: nowrap;">循环装置氮气充能：</span>
-            <select id="calcRaceNitroToggle" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #e2e2e6; font-size: 0.8rem; height: 32px; min-width: 60px;">
-                <option value="0">否</option>
-                <option value="1">是</option>
-            </select>
-            <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
-                ?
-                <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.55rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">每次释放氮气获得13%大招充能，总充能=氮气数量×13%</span>
-            </span>
-        </div>
+    <!-- 第一行：标题 + 竞速循环装置 + 4气3气两大一循环 -->
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap;">
+    <div class="section-title" style="margin-bottom: 0; font-size: 0.9rem;">氮气数量选择</div>
+    
+    <!-- 竞速循环装置（竞速位显示） -->
+    <div id="calcRaceNitroContainer" style="display: none; align-items: center; gap: 6px;">
+        <span style="font-size: 0.7rem; font-weight: 600; color: #ffffff!important; white-space: nowrap;">循环装置充能：</span>
+        <select id="calcRaceNitroToggle" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #e2e2e6; font-size: 0.8rem; height: 32px; min-width: 60px;">
+            <option value="0">关闭</option>
+            <option value="1">开启</option>
+        </select>
+        <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
+            ?
+            <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.55rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">每次释放氮气获得13%大招充能，总充能=氮气数量×13%</span>
+        </span>
     </div>
+    
+    <!-- 4气3气两大一循环（辅助位显示 / 竞速位+隐匿猎手显示） -->
+    <div id="calcCycleModeContainer" style="display: none; align-items: center; gap: 6px;">
+        <span style="font-size: 0.7rem; font-weight: 600; color: #ffffff!important; white-space: nowrap;">是否 4气、3气两大一循环：</span>
+        <select id="calcCycleMode" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #e2e2e6; font-size: 0.8rem; height: 32px; min-width: 60px;">
+            <option value="normal">否</option>
+            <option value="cycle">是</option>
+        </select>
+        <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
+            ?
+            <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.7rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">辅助位首大能量≥80时支持 / 竞速位需隐匿猎手之芯</span>
+        </span>
+    </div>
+</div>
 
     <!-- 第二行：4个选项平均分配 -->
     <div class="nitro-row" style="display: flex; gap: 8px; flex-wrap: nowrap; align-items: center; width: 100%;">
@@ -4194,7 +4197,7 @@ video.wallpaper-modal-media {
     // ========== 车辆数据库 ==========
     const carTypeOptions=[{value:"assist",name:"辅助位",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/76986bb0-a074-42e8-9f7a-acf66eb19ea3.png"},{value:"race",name:"竞速位",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3dff9aca-3af3-47c0-bf76-cce424c2d846.png"},{value:"jam",name:"干扰位",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3275e576-7547-4a19-94e9-71725a09c902.png"},{value:"balance",name:"天平位",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/57b6bd90-c852-4ee7-9720-e9a58f07914c.png"}];
     const carSubTypeOptions=[{value:"city",name:"城市",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/cab840bc-ee68-4bff-9d26-0919a8836907.png"},{value:"mountain",name:"山路",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/fb120b3c-bceb-4d2d-b282-428f6d0bbf3a.png"},{value:"venue",name:"场地",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/9bdee65d-6c29-4170-ba12-cd60bf8fdfac.png"}];
-    const allVSlotOptions=[{value:"shenxin",name:"神剑号之芯",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/061e3d38-61d4-4140-a587-7ed55f4c380e.png"},{value:"maoxin",name:"猫眠梦之芯",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/48cbc830-ec91-4179-abb7-74a145380bb8.png"},{value:"xianqu",name:"先驱者专属芯片（修竹）",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/1d123ce5-649e-436f-b4e5-e9ed55ada5e0.png"},{value:"xiaofeng",name:"摇尾萌萌虎专属芯片（啸风白虎）",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/97c9e2a1-9d3d-471b-8fb7-51a723f80626.png"},{value:"shengxin",name:"圣骑士之芯",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/6d1f095d-461b-4d6c-9d6d-f288cce76d31.png"},{value:"xiaolu",name:"效率",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/a821e52d-78dd-4678-8739-845cd8e4b9c8.png"},{value:"leiji",name:"累计",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/02140760-5e48-4eb4-9bd7-47ee1641dba1.png"},{value:"feichi",name:"飞驰",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/fec0d2c7-5787-46d3-ab6d-068469a6cd0e.png"},{value:"tujin",name:"突进",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3d9dcb5a-fef1-42c6-a509-3ebe1fd75b88.png"},{value:"jianren",name:"坚韧",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/0c9f8bd8-3707-45df-8a37-3f27037bd75c.png"},{value:"chongci",name:"冲刺",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/945ad976-f9e0-49ea-98c4-7f5b9334fd87.png"},{value:"shensu",name:"神速",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/c923ed3e-a6c3-4430-9603-d4ea52d32518.png"}];
+    const allVSlotOptions=[{value:"yinni",name:"隐匿猎手之芯",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/aace45cb-d953-46d4-8975-ed09284a3353.png"},{value:"shenxin",name:"神剑号之芯",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/061e3d38-61d4-4140-a587-7ed55f4c380e.png"},{value:"maoxin",name:"猫眠梦之芯",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/48cbc830-ec91-4179-abb7-74a145380bb8.png"},{value:"xianqu",name:"先驱者专属芯片（修竹）",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/1d123ce5-649e-436f-b4e5-e9ed55ada5e0.png"},{value:"xiaofeng",name:"摇尾萌萌虎专属芯片（啸风白虎）",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/97c9e2a1-9d3d-471b-8fb7-51a723f80626.png"},{value:"shengxin",name:"圣骑士之芯",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/6d1f095d-461b-4d6c-9d6d-f288cce76d31.png"},{value:"xiaolu",name:"效率",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/a821e52d-78dd-4678-8739-845cd8e4b9c8.png"},{value:"leiji",name:"累计",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/02140760-5e48-4eb4-9bd7-47ee1641dba1.png"},{value:"feichi",name:"飞驰",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/fec0d2c7-5787-46d3-ab6d-068469a6cd0e.png"},{value:"tujin",name:"突进",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3d9dcb5a-fef1-42c6-a509-3ebe1fd75b88.png"},{value:"jianren",name:"坚韧",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/0c9f8bd8-3707-45df-8a37-3f27037bd75c.png"},{value:"chongci",name:"冲刺",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/945ad976-f9e0-49ea-98c4-7f5b9334fd87.png"},{value:"shensu",name:"神速",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/c923ed3e-a6c3-4430-9603-d4ea52d32518.png"}];
     const nitroOptions=[{value:"3x2",name:"3×2 (32氮气)",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/c8cf8c48-3e23-4387-9dfb-2f0adbf47dbc.png"},{value:"2x2",name:"2×2 (22氮气)",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/16f40689-73af-4f20-99a6-da5035e4b9aa.png"},{value:"1x5",name:"1×5 (15氮气)",icon:"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/41af781b-3ae8-454e-9f43-c4d6c5af23a5.png"}];
     const skillIcons={"bugan":"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/da3f90c1-024c-4f07-8d9b-5a40970bf725.png","yuwo":"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/9c832053-5366-4341-baaa-a27838bd4369.png","queyi":"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/c2c3de01-c73c-45be-aba9-3ea26644ea9e.png","adaptive":"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/e3b8ec02-19e0-4df4-b483-3c74c5534abd.png","huifeng":"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/f8ad4bbe-576b-4479-b74f-971bd7cb6401.png","resurgence":"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/8d675f5c-771e-42ae-b412-a8fc1874f1d8.png","future":"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/54bd8fa4-caa9-4305-81dc-ee84f8439c09.png","huaxin":"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/36d74f10-00a2-43cc-b11c-6556d93b9441.png","nengyuan":"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/d8f8f799-ebe3-4b28-a4ba-771732c48848.png","refuse":"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/1820528e-69fc-4de5-92a2-3fbb59b1c745.png","jifeng":"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/9d65f484-b8dc-4646-bca0-9ae71014bd67.png","guibu":"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/a60b92c2-f1db-407f-b95a-1e4631d9a3c9.png","rhythm":"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/2f3706e6-0ef6-4bf6-b983-c7b3bd9549d3.png","tongzhou":"https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/eec2d89b-f6a5-452c-a02b-5e529b0997ed.png"};
     const mainEffList=[{value:"none",name:"无",color:null,icon:null},{value:"refuse",name:"拒绝溢出",color:"yellow",icon:skillIcons.refuse},{value:"jifeng",name:"疾风步",color:"yellow",icon:skillIcons.jifeng},{value:"adaptive",name:"自适应",color:"green",icon:skillIcons.adaptive},{value:"huifeng",name:"汇丰",color:"purple",icon:skillIcons.huifeng},{value:"resurgence",name:"复苏",color:"purple",icon:skillIcons.resurgence}];
@@ -7003,11 +7006,12 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
 }
         
         function updateCalcCycleModeVisibility() {
-    const container = document.getElementById('calcCycleModeContainer');
-    const raceContainer = document.getElementById('calcRaceNitroContainer');
-    const type = calcCarType.value;
-    const firstEnergy = parseInt(calcFirstEnergyDisplay.textContent) || 0;
-    const calcCycleNitroTooltip = document.getElementById('calcCycleNitroTooltip');
+    var container = document.getElementById('calcCycleModeContainer');
+    var raceContainer = document.getElementById('calcRaceNitroContainer');
+    var type = calcCarType.value;
+    var firstEnergy = parseInt(calcFirstEnergyDisplay.textContent) || 0;
+    var calcCycleNitroTooltip = document.getElementById('calcCycleNitroTooltip');
+    var vSlot = calcVSlot.value;
     
     // 先全部隐藏
     container.style.display = 'none';
@@ -7015,39 +7019,47 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
     raceContainer.style.display = 'none';
     raceContainer.classList.remove('show');
     
-    // 辅助位：显示4气3气两大一循环（首大能量≥80时）
+    // ===== 辅助位 =====
     if (type === 'assist') {
         if (firstEnergy >= 80) {
             container.style.display = 'flex';
             container.classList.add('show');
-            // 竞速选项强制关闭
-            document.getElementById('calcRaceNitroToggle').value = '0';
-            // 更新提示文字
             if (calcCycleNitroTooltip) {
                 calcCycleNitroTooltip.textContent = (calcCycleMode.value === 'cycle') ? '2个大招所需的氮气数量' : '1个大招所需的氮气数量';
             }
         } else {
-            container.style.display = 'none';
             if (calcCycleMode.value === 'cycle') {
                 calcCycleMode.value = 'normal';
             }
         }
     } 
-    // 竞速位：显示循环装置氮气充能
+    // ===== 竞速位 =====
     else if (type === 'race') {
+        // 循环装置始终显示（由用户手动开关）
         raceContainer.style.display = 'flex';
         raceContainer.classList.add('show');
-        // 辅助选项强制关闭
-        if (calcCycleMode.value === 'cycle') {
-            calcCycleMode.value = 'normal';
+        
+        // 检查是否装备了隐匿猎手之芯
+        var hasYinNi = (vSlot === 'yinni');
+        if (hasYinNi) {
+            // 显示两大一循环选项
+            container.style.display = 'flex';
+            container.classList.add('show');
+            if (calcCycleNitroTooltip) {
+                calcCycleNitroTooltip.textContent = (calcCycleMode.value === 'cycle') ? '2个大招所需的氮气数量（隐匿猎手·两大一循环）' : '1个大招所需的氮气数量';
+            }
+        } else {
+            // 没有隐匿猎手，强制关闭两大一循环
+            if (calcCycleMode.value === 'cycle') {
+                calcCycleMode.value = 'normal';
+            }
         }
     } 
-    // 干扰/天平：都不显示
+    // ===== 干扰/天平 =====
     else {
         if (calcCycleMode.value === 'cycle') {
             calcCycleMode.value = 'normal';
         }
-        document.getElementById('calcRaceNitroToggle').value = '0';
     }
 }
         
@@ -7522,7 +7534,7 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
                 return;
             }
             const isAssist = calcCarType.value === 'assist';
-            const isDoubleCycle = (isAssist && calcCycleMode.value === 'cycle');
+            const isDoubleCycle = (isAssist && calcCycleMode.value === 'cycle') || (calcCarType.value === 'race' && calcVSlot.value === 'yinni' && calcCycleMode.value === 'cycle');
             let startNitroCount = parseFloat(calcStartNitroCount.value);
             let cycleNitroCount = parseFloat(calcCycleNitroCount.value);
             const nitroType = calcNitroType.value;
@@ -7536,6 +7548,11 @@ const targetCycle = energyVals.cycleEnergy;
 const raceNitroEnabled = parseInt(document.getElementById('calcRaceNitroToggle').value) === 1;
 const raceNitroStartBonus = raceNitroEnabled ? startNitroCount * 13 : 0;
 const raceNitroCycleBonus = raceNitroEnabled ? cycleNitroCount * 13 : 0;
+            // ===== 隐匿猎手之芯加成（仅两大一循环模式） =====
+var yinNiCycleBonus = 0;
+if (calcVSlot.value === 'yinni' && isDoubleCycle) {
+    yinNiCycleBonus = 15 * resist;
+}
             const specCharge = sp === 10 ? 10 : 0;
             const nitroVal = car.nitro;
             const startVal = car.start;
@@ -7566,7 +7583,7 @@ const raceNitroCycleBonus = raceNitroEnabled ? cycleNitroCount * 13 : 0;
                 const specPart = specCharge * resist * (1 + cycleEff / 100) * cycleNitroCount * nitroRatio;
                 const vehiclePart = (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + cycleEff / 100);
                 const effPart = (cycleEffFixed + cycleEffFloating) * resist * (1 + cycleEff / 100);
-                const neededFromNitro = Math.max(0, targetCycle - specPart - vehiclePart - effPart- raceNitroCycleBonus);
+                const neededFromNitro = Math.max(0, targetCycle - specPart - vehiclePart - effPart - raceNitroCycleBonus - yinNiCycleBonus);
                 if (neededFromNitro > 0) {
                     const perNitroNeededRaw = neededFromNitro / (cycleNitroCount * nitroRatio);
                     const perNitroNeededAfterEfficiency = perNitroNeededRaw / (resist * (1 + cycleEff / 100));
