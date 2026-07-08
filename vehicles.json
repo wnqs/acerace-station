@@ -237,7 +237,7 @@
         "power": "8.6",
         "durability": "120",
         "nitroCharge": "33.0%",
-        "startCharge": "50.5%",
+        "startCharge": "33.0%",
         "nitroDuration": "5.60 s",
         "nitroSpeed": { "blue": "20.00 km/h", "purple": "30.00 km/h" },
         "turboDuration": { "blue": "0.65 s", "purple": "1.95 s" },
