@@ -216,6 +216,62 @@
       }
     },
     {
+      "id": "bugatti_bolide",
+      "name": "布加迪 Bolide",
+      "quality": "传说",
+      "position": "竞速",
+      "specialty": "山路",
+      "imageUrl": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/11902f60-86d2-4956-9fca-e253b7640373.png",
+      "positionIcon": "竞速",
+      "specialtyIcon": "山路",
+      "description": "闪现可储存，星辰破晓隐身解控",
+      "skillName": "星痕破晓",
+      "searchKeywords": ["布加迪 Bolide", "Bolide", "布加迪", "闪现", "隐身", "解控", "竞速", "山路", "真实阵营"],
+      "registerDate": "2026-07-10",
+      "vehicleType": "真实阵营",
+      "manufacturer": "布加迪",
+      "acquisition": "耀世臻藏",
+      "acquisitionIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/b8525901-ca4f-47ab-b5fe-dbc160f33f12.png",
+      "stats": {
+        "topSpeed": "208.0 km/h",
+        "power": "8.6",
+        "durability": "120",
+        "nitroCharge": "33.0%",
+        "startCharge": "50.5%",
+        "nitroDuration": "5.60 s",
+        "nitroSpeed": { "blue": "20.00 km/h", "purple": "30.00 km/h" },
+        "turboDuration": { "blue": "0.65 s", "purple": "1.95 s" },
+        "turboSpeed": { "blue": "8.00 km/h", "purple": "12.00 km/h" },
+        "ultPower": "-"
+      },
+      "chipSlots": ["circle", "circle", "rhombus", "vslot", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "星痕破晓",
+          "desc": "加速推进，极速提升50km/h，持续8秒。加速开始时：<br>·若SP技能使用次数少于4次，则进入隐身状态8秒并增加2次SP技能使用次数<br>·否则净化自身并增加1次SP技能使用次数",
+          "recu": "星痕破晓可以充能2次且达到75%能量即可使用",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "电光火石",
+          "desc": "每5次使用氮气解除自身负面效果并增加1次SP技能使用次数，倒数计时开始时增加3次SP技能使用次数，每次获得SP技能使用次数时将涡轮和氮气染色3秒"
+        },
+        "features": [
+          { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" },
+          { "name": "隐身", "desc": "无视车辆间的碰撞/不会被"锁定类""触碰类"干扰命中", "color": "蓝" },
+          { "name": "闪现", "desc": "沿赛道预设路线向前快速位移", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/91b9efa9-27b3-459a-9e09-d0358f4a6959.png",
+      "passiveIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/b2a7f133-6646-47a9-82b4-ad93fc6acd7b.png",
+      "sp": {
+        "name": "飞火流星",
+        "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3d8ec2c6-e7a6-4df8-b8d8-49f1c68a314e.png",
+        "desc": "·存储上限:7次<br>·在有使用次数时才可使用，获得1700集气量并向前闪现35米",
+        "cooltime": "0.3秒"
+      }
+    },
+    {
       "id": "xianquzhe",
       "name": "先驱者",
       "quality": "传说",
