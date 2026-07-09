@@ -7506,6 +7506,11 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
     if (calcCycleNitroTooltip) {
         calcCycleNitroTooltip.textContent = isDoubleCycle ? '2个大招所需的氮气数量' : '1个大招所需的氮气数量';
     }
+// ===== 重新渲染专属充能选项 =====
+    var car = getCalcCurrentCar();
+    if (car && VEHICLES_WITH_SPECIAL_BONUS.includes(car.name)) {
+        renderCalcSpecialOptionsContent();
+    }
 }
     
         
@@ -7514,7 +7519,9 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
     if (!car) return;
     let carName = car.name;
     if (!VEHICLES_WITH_SPECIAL_BONUS.includes(carName)) return;
-    let isDoubleCycle = calcCycleMode.value === 'cycle';
+    // ===== 强制从 DOM 获取最新值 =====
+    var cycleModeSelect = document.getElementById('calcCycleMode');
+    var isDoubleCycle = cycleModeSelect ? cycleModeSelect.value === 'cycle' : false;
     let container = calcVehicleSpecialContainer;
     let html = '<div class="option-group"><div class="option-title">车辆专属浮动充能</div>';
     
