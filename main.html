@@ -7075,7 +7075,7 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
             let carName = opt.text.split('(')[0].trim();
             let cur = calcVSlot.value;
             calcVSlot.innerHTML = '';
-            let base = [{ value: "shenxin", name: "神剑号之芯" }, { value: "yinni", name: "隐匿猎手之芯" },{ value: "shengxin", name: "圣骑士之芯" }, { value: "xiaolu", name: "效率" }, { value: "leiji", name: "累计" }, { value: "feichi", name: "飞驰" }, { value: "tujin", name: "突进" }, { value: "jianren", name: "坚韧" }, { value: "chongci", name: "冲刺" }, { value: "shensu", name: "神速" }];
+            let base = [{ value: "shenxin", name: "神剑号之芯" },{ value: "shengxin", name: "圣骑士之芯" }, { value: "xiaolu", name: "效率" }, { value: "leiji", name: "累计" }, { value: "feichi", name: "飞驰" }, { value: "tujin", name: "突进" }, { value: "jianren", name: "坚韧" }, { value: "chongci", name: "冲刺" }, { value: "shensu", name: "神速" }];
             let opts = [...base];
             let vehicleFirstEnergy = getVehicleFirstEnergy(carName);
             let showMaoxin = (carName === "猫眠梦") || (vehicleFirstEnergy >= 90);
@@ -7084,12 +7084,11 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
             } else if (carName === "摇尾萌萌虎") {
             opts.unshift({ value: "xiaofeng", name: "摇尾萌萌虎专属芯片（啸风白虎）" });
             }
-            // ===== 隐匿猎手之芯：仅竞速位 + 首大能量 > 75 才显示 =====
-if (!(calcCarType.value === 'race' && vehicleFirstEnergy > 75)) {
-    opts = opts.filter(function(item) {
-        return item.value !== 'yinni';
-    });
-}
+            // ===== 猎芯：所有竞速位车辆（无能量要求） =====
+    if (calcCarType.value === 'race') {
+        // 插入到神芯和圣芯之间（索引1的位置）
+        opts.splice(1, 0, { value: "yinni", name: "隐匿猎手之芯" });
+    }
 // 猫芯独立判断，所有满足条件的车辆都能显示
             if (showMaoxin) {
                 opts.unshift({ value: "maoxin", name: "猫眠梦之芯" });
