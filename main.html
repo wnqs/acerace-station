@@ -7113,29 +7113,50 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
         }
         
         function updateCalcCarList() {
-            let type = calcCarType.value;
-            let sub = calcCarSubType.value;
-            let list = carsDB[type]?.[sub] || [];
-            calcCarModel.innerHTML = '';
-            if (list.length === 0) {
-                let opt = document.createElement('option');
-                opt.value = '';
-                opt.textContent = '请先选择定位和专精';
-                calcCarModel.appendChild(opt);
-            } else {
-                list.forEach(c => {
-                    let opt = document.createElement('option');
-                    opt.value = JSON.stringify(c);
-                    opt.textContent = `${c.name} (${c.chips}) 起步${c.start} 氮气${c.nitro}`;
-                    calcCarModel.appendChild(opt);
-                });
-            }
-            updateCalcCarIcon();
-            updateCalcVSlotOptions();
-            updateCalcEnergyDisplays();
-            let car = getCalcCurrentCar();
-            updateCalcToggleState();
+    let type = calcCarType.value;
+    let sub = calcCarSubType.value;
+    let list = carsDB[type]?.[sub] || [];
+    calcCarModel.innerHTML = '';
+    if (list.length === 0) {
+        let opt = document.createElement('option');
+        opt.value = '';
+        opt.textContent = '请先选择定位和专精';
+        calcCarModel.appendChild(opt);
+    } else {
+        list.forEach(c => {
+            let opt = document.createElement('option');
+            opt.value = JSON.stringify(c);
+            opt.textContent = `${c.name} (${c.chips}) 起步${c.start} 氮气${c.nitro}`;
+            calcCarModel.appendChild(opt);
+        });
+    }
+    updateCalcCarIcon();
+    
+    // ===== 切换车辆后重置V型槽和氮气数量 =====
+    calcVSlot.value = 'shenxin';
+    updateCalcVSlotIcon();
+    calcCycleMode.value = 'normal';
+    calcStartNitroCount.value = '2';
+    calcCycleNitroCount.value = '4';
+    
+    // ===== 重置循环氮气下拉框为 1-10 个，默认选中4 =====
+    var cycleSelect = document.getElementById('calcCycleNitroCountDisplay');
+    if (cycleSelect) {
+        cycleSelect.innerHTML = '';
+        for (var i = 1; i <= 10; i++) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = i + '个';
+            if (i === 4) opt.selected = true;
+            cycleSelect.appendChild(opt);
         }
+    }
+    
+    updateCalcEnergyDisplays();
+    let car = getCalcCurrentCar();
+    updateCalcToggleState();
+    updateCalcCycleModeVisibility();
+}
         
         function updateCalcSubTypeOptions() {
             let type = calcCarType.value;
@@ -7711,7 +7732,7 @@ const nitroPartFirst = nitroVal * (1 + huiForJi / 100) * resist * (1 + firstEff 
             else conclusion = '✅ 该需求在芯片词条竞争下【可以达成】';
             let nitroDesc = nitroType === '1x5' ? `${startNitroCount}个15首大` : (nitroType === '2x2' ? `${startNitroCount}个22首大` : `${startNitroCount}个32首大`);
 
-// ===== 两大一循环的描述（开启后无论奇偶数都显示两大一循环格式） =====
+// ===== 两大一循环的描述 =====
 var cycleDesc = '';
 var totalNitro = parseInt(calcCycleNitroCount.value) || 4;
 
@@ -7719,14 +7740,26 @@ if (isDoubleCycle) {
     var firstNitro = parseInt(calcStartNitroCount.value) || 2;
     var secondNitro = totalNitro - firstNitro;
     
-    // 7和9保持固定显示
-    if (totalNitro === 7) {
-        cycleDesc = ' + 4气、3气两大一循环';
-    } else if (totalNitro === 9) {
-        cycleDesc = ' + 5气、4气两大一循环';
+    // 判断奇偶数
+    if (totalNitro % 2 === 0) {
+        // 偶数：输出 "一半气循环"
+        var halfNitro = totalNitro / 2;
+        cycleDesc = ' + ' + halfNitro + '气循环';
     } else {
-        // 其他数值（包括偶数）动态显示
-        cycleDesc = ' + ' + firstNitro + '气、' + secondNitro + '气两大一循环';
+        // 奇数：输出 "X气、Y气两大一循环"
+        if (totalNitro === 7) {
+            cycleDesc = ' + 4气、3气两大一循环';
+        } else if (totalNitro === 9) {
+            cycleDesc = ' + 5气、4气两大一循环';
+        } else if (totalNitro === 11) {
+            cycleDesc = ' + 6气、5气两大一循环';
+        } else if (totalNitro === 13) {
+            cycleDesc = ' + 7气、6气两大一循环';
+        } else if (totalNitro === 15) {
+            cycleDesc = ' + 8气、7气两大一循环';
+        } else {
+            cycleDesc = ' + ' + firstNitro + '气、' + secondNitro + '气两大一循环';
+        }
     }
 } else {
     cycleDesc = ' + ' + totalNitro + '气循环';
