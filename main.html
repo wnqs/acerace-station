@@ -7286,11 +7286,11 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
     var cycleSelect = document.getElementById('calcCycleNitroCountDisplay');
     if (cycleSelect) {
         cycleSelect.innerHTML = '';
-        for (var i = 1; i <= 14; i++) {
+        for (var i = 1; i <= 10; i++) {
             var opt = document.createElement('option');
             opt.value = i;
             opt.textContent = i + '个';
-            if (i === 7) opt.selected = true;
+            if (i === 5) opt.selected = true;
             cycleSelect.appendChild(opt);
         }
     }
@@ -7309,8 +7309,7 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
     updateCalcToggleState();
     updateCalcCycleModeVisibility();
 }
-        
-        function updateCalcSubTypeOptions() {
+            function updateCalcSubTypeOptions() {
             let type = calcCarType.value;
             let subs = { assist: ['venue', 'mountain', 'city'], race: ['city', 'mountain', 'venue'], jam: ['city', 'mountain', 'venue'], balance: ['city', 'mountain', 'venue'] }[type] || [];
             const order = { 'city': 0, 'mountain': 1, 'venue': 2 };
