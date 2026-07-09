@@ -3871,7 +3871,7 @@ video.wallpaper-modal-media {
         </select>
         <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
             ?
-            <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.7rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">辅助位首大能量≥80时支持 / 竞速位需隐匿猎手之芯且首大>75</span>
+            <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.7rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">辅助位首大≥80时支持 / 竞速位需装备隐匿猎手之芯</span>
         </span>
     </div>
 </div>
@@ -6996,11 +6996,10 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
     let carName = car.name;
     let chip = calcVSlot.value;
     let type = calcCarType.value;
-    let firstEnergy = parseInt(calcFirstEnergyDisplay.textContent) || 0;
     
-    // 辅助位：首大≥80 | 竞速位：隐匿猎手 + 首大 > 75
+    // 辅助位：首大≥80 | 竞速位：隐匿猎手 + 两大一循环开启（无能量要求）
     let isDoubleCycle = (type === 'assist' && calcCycleMode.value === 'cycle') || 
-                        (type === 'race' && chip === 'yinni' && firstEnergy > 75 && calcCycleMode.value === 'cycle');
+                        (type === 'race' && chip === 'yinni' && calcCycleMode.value === 'cycle');
     
     let energy = getEnergyValuesCalc(carName, chip, isDoubleCycle);
     
@@ -7021,7 +7020,7 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
     raceContainer.style.display = 'none';
     raceContainer.classList.remove('show');
     
-    // 辅助位：首大能量≥80
+    // ===== 辅助位：首大能量≥80 =====
     if (type === 'assist') {
         if (firstEnergy >= 80) {
             container.style.display = 'flex';
@@ -7035,13 +7034,13 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
             }
         }
     } 
-    // 竞速位：首大能量 > 75 且 隐匿猎手之芯
+    // ===== 竞速位：装备隐匿猎手就显示两大一循环（无能量要求） =====
     else if (type === 'race') {
         raceContainer.style.display = 'flex';
         raceContainer.classList.add('show');
         
         var hasYinNi = (vSlot === 'yinni');
-        if (hasYinNi && firstEnergy > 75) {
+        if (hasYinNi) {
             container.style.display = 'flex';
             container.classList.add('show');
             if (calcCycleNitroTooltip) {
@@ -7053,6 +7052,7 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
             }
         }
     } 
+    // ===== 干扰/天平：不显示 =====
     else {
         if (calcCycleMode.value === 'cycle') {
             calcCycleMode.value = 'normal';
@@ -7243,10 +7243,9 @@ if (!(calcCarType.value === 'race' && vehicleFirstEnergy > 75)) {
         function handleCalcCycleModeChange() {
     var type = calcCarType.value;
     var vSlot = calcVSlot.value;
-    var firstEnergy = parseInt(calcFirstEnergyDisplay.textContent) || 0;
     
     var isAssist = (type === 'assist');
-    var isRaceWithYinNi = (type === 'race' && vSlot === 'yinni' && firstEnergy > 75);
+    var isRaceWithYinNi = (type === 'race' && vSlot === 'yinni');
     
     if (!isAssist && !isRaceWithYinNi) {
         calcCycleMode.value = 'normal';
@@ -7339,6 +7338,7 @@ if (!(calcCarType.value === 'race' && vehicleFirstEnergy > 75)) {
         calcCycleNitroTooltip.textContent = isDoubleCycle ? '2个大招所需的氮气数量' : '1个大招所需的氮气数量';
     }
 }
+    
         
         function renderCalcSpecialOptionsContent() {
             let car = getCalcCurrentCar();
@@ -7575,13 +7575,12 @@ if (!(calcCarType.value === 'race' && vehicleFirstEnergy > 75)) {
     const sp = parseInt(calcSpecialize.value);
     let overrideR = parseFloat(calcOverrideR.value) || 0;
     
-    // ===== 先定义 resist =====
+    // ===== resist 只定义一次 =====
     const resist = 1 - overrideR / 100;
     
-    // ===== 再定义 isDoubleCycle（竞速位需要首大 > 75） =====
-    const firstEnergy = parseInt(calcFirstEnergyDisplay.textContent) || 0;
+    // ===== isDoubleCycle：竞速位只检查猎芯+两大一循环开启（无能量要求） =====
     const isDoubleCycle = (isAssist && calcCycleMode.value === 'cycle') || 
-                          (calcCarType.value === 'race' && calcVSlot.value === 'yinni' && firstEnergy > 75 && calcCycleMode.value === 'cycle');
+                          (calcCarType.value === 'race' && calcVSlot.value === 'yinni' && calcCycleMode.value === 'cycle');
     
     const energyVals = getEnergyValuesCalc(car.name, calcVSlot.value, isDoubleCycle);
     const targetStart = energyVals.firstEnergy;
@@ -7592,26 +7591,30 @@ if (!(calcCarType.value === 'race' && vehicleFirstEnergy > 75)) {
     const raceNitroStartBonus = raceNitroEnabled ? startNitroCount * 13 : 0;
     const raceNitroCycleBonus = raceNitroEnabled ? cycleNitroCount * 13 : 0;
     
-    // ===== 隐匿猎手之芯加成（受反制影响） =====
+    // ===== 隐匿猎手之芯加成（只有两大一循环时才触发） =====
     var yinNiCycleBonus = 0;
     if (calcVSlot.value === 'yinni' && isDoubleCycle) {
         yinNiCycleBonus = 15 * resist;
     }
-            const specCharge = sp === 10 ? 10 : 0;
-            const nitroVal = car.nitro;
-            const startVal = car.start;
-            const nitroRatio = getNitroRatioCalc(nitroType);
-            const maxHui = getMaxHuiCalc(car.chips);
-            const cycleEff = getCycleChargeEfficiencyCalc(car);
-            const firstEff = getFirstChargeEfficiencyCalc(car);
-            let vehicleFirstFixed = vehicleFixedFirstBonusCalc[car.name] || 0;
-            let vehicleFirstFloating = getVehicleFloatingBonusCalc(car.name, 'first', isDoubleCycle);
-            let vehicleCycleFixed = 0;
-            if (isDoubleCycle) {
-                vehicleCycleFixed = vehicleFixedDoubleCycleBonusCalc[car.name] || 0;
-            } else {
-                vehicleCycleFixed = vehicleFixedNormalCycleBonusCalc[car.name] || 0;
-            }
+    
+    const specCharge = sp === 10 ? 10 : 0;
+    const nitroVal = car.nitro;
+    const startVal = car.start;
+    const nitroRatio = getNitroRatioCalc(nitroType);
+    const maxHui = getMaxHuiCalc(car.chips);
+    const cycleEff = getCycleChargeEfficiencyCalc(car);
+    const firstEff = getFirstChargeEfficiencyCalc(car);
+    
+    // ===== 注意：这里删除了重复的 const resist = 1 - overrideR / 100; =====
+    
+    let vehicleFirstFixed = vehicleFixedFirstBonusCalc[car.name] || 0;
+    let vehicleFirstFloating = getVehicleFloatingBonusCalc(car.name, 'first', isDoubleCycle);
+    let vehicleCycleFixed = 0;
+    if (isDoubleCycle) {
+        vehicleCycleFixed = vehicleFixedDoubleCycleBonusCalc[car.name] || 0;
+    } else {
+        vehicleCycleFixed = vehicleFixedNormalCycleBonusCalc[car.name] || 0;
+    }
             let vehicleCycleFloating = getVehicleFloatingBonusCalc(car.name, 'cycle', isDoubleCycle);
             let firstEffFixed = getFirstFixedEffBonusCalc();
             let firstEffFloating = getFirstFloatingEffBonusCalc();
@@ -7710,10 +7713,32 @@ const nitroPartFirst = nitroVal * (1 + huiForJi / 100) * resist * (1 + firstEff 
             else if (!achievable) conclusion = '❌ 汇能/先机需求超过芯片词条竞争上限，无法达成';
             else conclusion = '✅ 该需求在芯片词条竞争下【可以达成】';
             let nitroDesc = nitroType === '1x5' ? `${startNitroCount}个15首大` : (nitroType === '2x2' ? `${startNitroCount}个22首大` : `${startNitroCount}个32首大`);
-            let cycleDesc = isDoubleCycle ? ' + 4气、3气两大一循环' : ` + ${cycleNitroCount}气循环`;
-            let mainName = (mainEffList.find(e => e.value === calcMainEff.value) || { name: "无" }).name;
-let subName = (subEffList.find(e => e.value === calcSubEff.value) || { name: "无" }).name;
 
+// ===== 两大一循环的描述（根据循环氮气数量固定显示） =====
+var cycleDesc = '';
+if (isDoubleCycle) {
+    var totalNitro = parseInt(calcCycleNitroCount.value) || 7;
+    if (totalNitro === 7) {
+        cycleDesc = ' + 4气、3气两大一循环';
+    } else if (totalNitro === 9) {
+        cycleDesc = ' + 5气、4气两大一循环';
+    } else if (totalNitro === 11) {
+        cycleDesc = ' + 6气、5气两大一循环';
+    } else if (totalNitro === 13) {
+        cycleDesc = ' + 7气、6气两大一循环';
+    } else if (totalNitro === 15) {
+        cycleDesc = ' + 8气、7气两大一循环';
+    } else {
+        var firstNitro = parseInt(calcStartNitroCount.value) || 2;
+        var secondNitro = totalNitro - firstNitro;
+        cycleDesc = ' + ' + firstNitro + '气、' + secondNitro + '气两大一循环';
+    }
+} else {
+    cycleDesc = ' + ' + calcCycleNitroCount.value + '气循环';
+}
+
+let mainName = (mainEffList.find(e => e.value === calcMainEff.value) || { name: "无" }).name;
+let subName = (subEffList.find(e => e.value === calcSubEff.value) || { name: "无" }).name;
 // 处理次要赋能后面的括号说明（缺一或节奏）
 let subEffSuffix = '';
 
