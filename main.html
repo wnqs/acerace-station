@@ -7262,16 +7262,15 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
         updateCalcNitroIcon();
         calcStartNitroCount.value = '2';
         
-        // ===== 循环氮气只显示奇数（7, 9, 11, 13, 15） =====
+        // ===== 循环氮气恢复为 1-10 个（不再限制为奇数） =====
         var cycleSelect = document.getElementById('calcCycleNitroCountDisplay');
         if (cycleSelect) {
             cycleSelect.innerHTML = '';
-            var oddNumbers = [7, 9, 11, 13, 15];
-            for (var i = 0; i < oddNumbers.length; i++) {
+            for (var i = 1; i <= 10; i++) {
                 var opt = document.createElement('option');
-                opt.value = oddNumbers[i];
-                opt.textContent = oddNumbers[i] + '个';
-                if (oddNumbers[i] === 7) opt.selected = true;
+                opt.value = i;
+                opt.textContent = i + '个';
+                if (i === 7) opt.selected = true;
                 cycleSelect.appendChild(opt);
             }
         }
@@ -7331,7 +7330,6 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
             }
         }
     }
-    
     updateCalcEnergyDisplays();
     if (calcCycleNitroTooltip) {
         calcCycleNitroTooltip.textContent = isDoubleCycle ? '2个大招所需的氮气数量' : '1个大招所需的氮气数量';
