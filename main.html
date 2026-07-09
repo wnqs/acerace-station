@@ -7078,7 +7078,7 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
             let carName = opt.text.split('(')[0].trim();
             let cur = calcVSlot.value;
             calcVSlot.innerHTML = '';
-            let base = [{ value: "shenxin", name: "神剑号之芯" }, { value: "shengxin", name: "圣骑士之芯" }, { value: "xiaolu", name: "效率" }, { value: "leiji", name: "累计" }, { value: "feichi", name: "飞驰" }, { value: "tujin", name: "突进" }, { value: "jianren", name: "坚韧" }, { value: "chongci", name: "冲刺" }, { value: "shensu", name: "神速" }];
+            let base = [{ value: "shenxin", name: "神剑号之芯" }, { value: "yinni", name: "隐匿猎手之芯" },{ value: "shengxin", name: "圣骑士之芯" }, { value: "xiaolu", name: "效率" }, { value: "leiji", name: "累计" }, { value: "feichi", name: "飞驰" }, { value: "tujin", name: "突进" }, { value: "jianren", name: "坚韧" }, { value: "chongci", name: "冲刺" }, { value: "shensu", name: "神速" }];
             let opts = [...base];
             let vehicleFirstEnergy = getVehicleFirstEnergy(carName);
             let showMaoxin = (carName === "猫眠梦") || (vehicleFirstEnergy >= 90);
