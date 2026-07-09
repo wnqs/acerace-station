@@ -7604,7 +7604,6 @@ if (!(calcCarType.value === 'race' && vehicleFirstEnergy > 75)) {
             const maxHui = getMaxHuiCalc(car.chips);
             const cycleEff = getCycleChargeEfficiencyCalc(car);
             const firstEff = getFirstChargeEfficiencyCalc(car);
-            const resist = 1 - overrideR / 100;
             let vehicleFirstFixed = vehicleFixedFirstBonusCalc[car.name] || 0;
             let vehicleFirstFloating = getVehicleFloatingBonusCalc(car.name, 'first', isDoubleCycle);
             let vehicleCycleFixed = 0;
