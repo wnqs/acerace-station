@@ -7087,7 +7087,10 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
             } else if (carName === "摇尾萌萌虎") {
             opts.unshift({ value: "xiaofeng", name: "摇尾萌萌虎专属芯片（啸风白虎）" });
             }
-
+            // ===== 隐匿猎手之芯（仅竞速位车辆显示） =====
+            if (calcCarType.value === 'race') {
+            opts.push({ value: "yinni", name: "隐匿猎手之芯" });
+    }
 // 猫芯独立判断，所有满足条件的车辆都能显示
             if (showMaoxin) {
                 opts.unshift({ value: "maoxin", name: "猫眠梦之芯" });
