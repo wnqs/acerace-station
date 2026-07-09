@@ -3864,14 +3864,14 @@ video.wallpaper-modal-media {
     
     <!-- 4气3气两大一循环（辅助位显示 / 竞速位+隐匿猎手显示） -->
     <div id="calcCycleModeContainer" style="display: none; align-items: center; gap: 6px;">
-        <span style="font-size: 0.7rem; font-weight: 600; color: #ffffff!important; white-space: nowrap;">是否 4气、3气两大一循环：</span>
+        <span style="font-size: 0.7rem; font-weight: 600; color: #ffffff!important; white-space: nowrap;">是否两大一循环：</span>
         <select id="calcCycleMode" style="padding: 4px 10px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #e2e2e6; font-size: 0.8rem; height: 32px; min-width: 60px;">
             <option value="normal">否</option>
             <option value="cycle">是</option>
         </select>
         <span class="info-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: #4a5568; color: white; border-radius: 50%; font-size: 10px; font-weight: bold; cursor: help; position: relative;">
             ?
-            <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.7rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">辅助位首大能量≥80时支持 / 竞速位需隐匿猎手之芯</span>
+            <span class="tooltip-text" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 3px 6px; border-radius: 4px; font-size: 0.7rem; white-space: nowrap; z-index: 100; pointer-events: none; opacity: 0; transition: opacity 0.2s; margin-bottom: 4px;">辅助位首大能量≥80时支持 / 竞速位需隐匿猎手之芯且首大>75</span>
         </span>
     </div>
 </div>
@@ -6995,10 +6995,13 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
     }
     let carName = car.name;
     let chip = calcVSlot.value;
-    let isAssist = calcCarType.value === 'assist';
-    let isDoubleCycle = isAssist && calcCycleMode.value === 'cycle';
+    let type = calcCarType.value;
+    let firstEnergy = parseInt(calcFirstEnergyDisplay.textContent) || 0;
     
-    // getEnergyValuesCalc 已经包含了“未来”判断
+    // 辅助位：首大≥80 | 竞速位：隐匿猎手 + 首大 > 75
+    let isDoubleCycle = (type === 'assist' && calcCycleMode.value === 'cycle') || 
+                        (type === 'race' && chip === 'yinni' && firstEnergy > 75 && calcCycleMode.value === 'cycle');
+    
     let energy = getEnergyValuesCalc(carName, chip, isDoubleCycle);
     
     calcFirstEnergyDisplay.textContent = energy.firstEnergy;
@@ -7013,13 +7016,12 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
     var calcCycleNitroTooltip = document.getElementById('calcCycleNitroTooltip');
     var vSlot = calcVSlot.value;
     
-    // 先全部隐藏
     container.style.display = 'none';
     container.classList.remove('show');
     raceContainer.style.display = 'none';
     raceContainer.classList.remove('show');
     
-    // ===== 辅助位 =====
+    // 辅助位：首大能量≥80
     if (type === 'assist') {
         if (firstEnergy >= 80) {
             container.style.display = 'flex';
@@ -7033,29 +7035,24 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
             }
         }
     } 
-    // ===== 竞速位 =====
+    // 竞速位：首大能量 > 75 且 隐匿猎手之芯
     else if (type === 'race') {
-        // 循环装置始终显示（由用户手动开关）
         raceContainer.style.display = 'flex';
         raceContainer.classList.add('show');
         
-        // 检查是否装备了隐匿猎手之芯
         var hasYinNi = (vSlot === 'yinni');
-        if (hasYinNi) {
-            // 显示两大一循环选项
+        if (hasYinNi && firstEnergy > 75) {
             container.style.display = 'flex';
             container.classList.add('show');
             if (calcCycleNitroTooltip) {
-                calcCycleNitroTooltip.textContent = (calcCycleMode.value === 'cycle') ? '2个大招所需的氮气数量（隐匿猎手·两大一循环）' : '1个大招所需的氮气数量';
+                calcCycleNitroTooltip.textContent = (calcCycleMode.value === 'cycle') ? '2个大招所需的氮气数量' : '1个大招所需的氮气数量';
             }
         } else {
-            // 没有隐匿猎手，强制关闭两大一循环
             if (calcCycleMode.value === 'cycle') {
                 calcCycleMode.value = 'normal';
             }
         }
     } 
-    // ===== 干扰/天平 =====
     else {
         if (calcCycleMode.value === 'cycle') {
             calcCycleMode.value = 'normal';
@@ -7242,71 +7239,104 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
         }
         
         function handleCalcCycleModeChange() {
-            let isAssist = calcCarType.value === 'assist';
-            if (!isAssist) {
-                calcCycleMode.value = 'normal';
-                return;
+    var type = calcCarType.value;
+    var vSlot = calcVSlot.value;
+    var firstEnergy = parseInt(calcFirstEnergyDisplay.textContent) || 0;
+    
+    var isAssist = (type === 'assist');
+    var isRaceWithYinNi = (type === 'race' && vSlot === 'yinni' && firstEnergy > 75);
+    
+    if (!isAssist && !isRaceWithYinNi) {
+        calcCycleMode.value = 'normal';
+        return;
+    }
+    
+    var isDoubleCycle = calcCycleMode.value === 'cycle';
+    
+    if (calcCycleEnergyLabel) {
+        calcCycleEnergyLabel.innerHTML = isDoubleCycle ? '两大一循环能量' : '循环能量';
+    }
+    
+    if (isDoubleCycle) {
+        calcNitroType.value = '2x2';
+        updateCalcNitroIcon();
+        calcStartNitroCount.value = '2';
+        
+        // ===== 循环氮气只显示奇数（7, 9, 11, 13, 15） =====
+        var cycleSelect = document.getElementById('calcCycleNitroCountDisplay');
+        if (cycleSelect) {
+            cycleSelect.innerHTML = '';
+            var oddNumbers = [7, 9, 11, 13, 15];
+            for (var i = 0; i < oddNumbers.length; i++) {
+                var opt = document.createElement('option');
+                opt.value = oddNumbers[i];
+                opt.textContent = oddNumbers[i] + '个';
+                if (oddNumbers[i] === 7) opt.selected = true;
+                cycleSelect.appendChild(opt);
             }
-            let isDoubleCycle = calcCycleMode.value === 'cycle';
-            if (calcCycleEnergyLabel) {
-                calcCycleEnergyLabel.innerHTML = isDoubleCycle ? '4气、3气两大一循环能量' : '循环能量';
-            }
-            if (isDoubleCycle) {
-                calcNitroType.value = '2x2';
-                updateCalcNitroIcon();
-                calcStartNitroCount.value = '2';
-                calcCycleNitroCount.value = '7';
-                let cycleSecSelect = calcQueyiCycleSeconds;
-                if (cycleSecSelect) {
-                    cycleSecSelect.innerHTML = '';
-                    for (let i = 0; i <= 25; i++) {
-                        let opt = document.createElement('option');
-                        opt.value = i;
-                        opt.textContent = i + '秒';
-                        if (i === 7) opt.selected = true;
-                        cycleSecSelect.appendChild(opt);
-                    }
-                }
-                let rhythmCountSelect = calcRhythmCycleCount;
-                if (rhythmCountSelect) {
-                    rhythmCountSelect.innerHTML = '';
-                    for (let i = 0; i <= 8; i++) {
-                        let opt = document.createElement('option');
-                        opt.value = i;
-                        opt.textContent = i + '次';
-                        if (i === 0) opt.selected = true;
-                        rhythmCountSelect.appendChild(opt);
-                    }
-                }
-            } else {
-                calcStartNitroCount.value = '1';
-                calcCycleNitroCount.value = '4';
-                let cycleSecSelect = calcQueyiCycleSeconds;
-                if (cycleSecSelect) {
-                    cycleSecSelect.innerHTML = '';
-                    for (let i = 0; i <= 15; i++) {
-                        let opt = document.createElement('option');
-                        opt.value = i;
-                        opt.textContent = i + '秒';
-                        if (i === 7) opt.selected = true;
-                        cycleSecSelect.appendChild(opt);
-                    }
-                }
-                let rhythmCountSelect = calcRhythmCycleCount;
-                if (rhythmCountSelect) {
-                    rhythmCountSelect.innerHTML = '';
-                    for (let i = 0; i <= 4; i++) {
-                        let opt = document.createElement('option');
-                        opt.value = i;
-                        opt.textContent = i + '次';
-                        if (i === 0) opt.selected = true;
-                        rhythmCountSelect.appendChild(opt);
-                    }
-                }
-            }
-            updateCalcEnergyDisplays();
-            if (calcCycleNitroTooltip) calcCycleNitroTooltip.textContent = isDoubleCycle ? '2个大招所需的氮气数量' : '1个大招所需的氮气数量';
         }
+        
+        // 缺一循环秒数范围扩大到25秒
+        var cycleSecSelect = calcQueyiCycleSeconds;
+        if (cycleSecSelect) {
+            cycleSecSelect.innerHTML = '';
+            for (var i = 0; i <= 25; i++) {
+                var opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = i + '秒';
+                if (i === 7) opt.selected = true;
+                cycleSecSelect.appendChild(opt);
+            }
+        }
+        
+        // 节奏循环触发次数范围扩大到8次
+        var rhythmCountSelect = calcRhythmCycleCount;
+        if (rhythmCountSelect) {
+            rhythmCountSelect.innerHTML = '';
+            for (var i = 0; i <= 8; i++) {
+                var opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = i + '次';
+                if (i === 0) opt.selected = true;
+                rhythmCountSelect.appendChild(opt);
+            }
+        }
+    } else {
+        calcStartNitroCount.value = '1';
+        calcCycleNitroCount.value = '4';
+        
+        // 缺一循环秒数范围恢复正常（0-15秒）
+        var cycleSecSelect = calcQueyiCycleSeconds;
+        if (cycleSecSelect) {
+            cycleSecSelect.innerHTML = '';
+            for (var i = 0; i <= 15; i++) {
+                var opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = i + '秒';
+                if (i === 7) opt.selected = true;
+                cycleSecSelect.appendChild(opt);
+            }
+        }
+        
+        // 节奏循环触发次数范围恢复正常（0-4次）
+        var rhythmCountSelect = calcRhythmCycleCount;
+        if (rhythmCountSelect) {
+            rhythmCountSelect.innerHTML = '';
+            for (var i = 0; i <= 4; i++) {
+                var opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = i + '次';
+                if (i === 0) opt.selected = true;
+                rhythmCountSelect.appendChild(opt);
+            }
+        }
+    }
+    
+    updateCalcEnergyDisplays();
+    if (calcCycleNitroTooltip) {
+        calcCycleNitroTooltip.textContent = isDoubleCycle ? '2个大招所需的氮气数量' : '1个大招所需的氮气数量';
+    }
+}
         
         function renderCalcSpecialOptionsContent() {
             let car = getCalcCurrentCar();
@@ -7531,31 +7561,40 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
         }
         
         function calcCalculator() {
-            let car = getCalcCurrentCar();
-            if (!car) {
-                document.getElementById('calcResultArea').innerHTML = '<div style="text-align:center;">请先选择车辆</div>';
-                return;
-            }
-            const isAssist = calcCarType.value === 'assist';
-            const isDoubleCycle = (isAssist && calcCycleMode.value === 'cycle') || (calcCarType.value === 'race' && calcVSlot.value === 'yinni' && calcCycleMode.value === 'cycle');
-            let startNitroCount = parseFloat(calcStartNitroCount.value);
-            let cycleNitroCount = parseFloat(calcCycleNitroCount.value);
-            const nitroType = calcNitroType.value;
-            const sp = parseInt(calcSpecialize.value);
-            let overrideR = parseFloat(calcOverrideR.value) || 0;
-            const energyVals = getEnergyValuesCalc(car.name, calcVSlot.value, isDoubleCycle);
-            // 直接使用 getEnergyValuesCalc 的结果（已包含未来判断）
-const targetStart = energyVals.firstEnergy;
-const targetCycle = energyVals.cycleEnergy;
-            // ===== 竞速专属：循环装置氮气充能 =====
-const raceNitroEnabled = parseInt(document.getElementById('calcRaceNitroToggle').value) === 1;
-const raceNitroStartBonus = raceNitroEnabled ? startNitroCount * 13 : 0;
-const raceNitroCycleBonus = raceNitroEnabled ? cycleNitroCount * 13 : 0;
-            // ===== 隐匿猎手之芯加成（仅两大一循环模式） =====
-var yinNiCycleBonus = 0;
-if (calcVSlot.value === 'yinni' && isDoubleCycle) {
-    yinNiCycleBonus = 15 * resist;
-}
+    let car = getCalcCurrentCar();
+    if (!car) {
+        document.getElementById('calcResultArea').innerHTML = '<div style="text-align:center;">请先选择车辆</div>';
+        return;
+    }
+    const isAssist = calcCarType.value === 'assist';
+    let startNitroCount = parseFloat(calcStartNitroCount.value);
+    let cycleNitroCount = parseFloat(calcCycleNitroCount.value);
+    const nitroType = calcNitroType.value;
+    const sp = parseInt(calcSpecialize.value);
+    let overrideR = parseFloat(calcOverrideR.value) || 0;
+    
+    // ===== 先定义 resist =====
+    const resist = 1 - overrideR / 100;
+    
+    // ===== 再定义 isDoubleCycle（竞速位需要首大 > 75） =====
+    const firstEnergy = parseInt(calcFirstEnergyDisplay.textContent) || 0;
+    const isDoubleCycle = (isAssist && calcCycleMode.value === 'cycle') || 
+                          (calcCarType.value === 'race' && calcVSlot.value === 'yinni' && firstEnergy > 75 && calcCycleMode.value === 'cycle');
+    
+    const energyVals = getEnergyValuesCalc(car.name, calcVSlot.value, isDoubleCycle);
+    const targetStart = energyVals.firstEnergy;
+    const targetCycle = energyVals.cycleEnergy;
+    
+    // ===== 竞速专属：循环装置氮气充能 =====
+    const raceNitroEnabled = parseInt(document.getElementById('calcRaceNitroToggle').value) === 1;
+    const raceNitroStartBonus = raceNitroEnabled ? startNitroCount * 13 : 0;
+    const raceNitroCycleBonus = raceNitroEnabled ? cycleNitroCount * 13 : 0;
+    
+    // ===== 隐匿猎手之芯加成（受反制影响） =====
+    var yinNiCycleBonus = 0;
+    if (calcVSlot.value === 'yinni' && isDoubleCycle) {
+        yinNiCycleBonus = 15 * resist;
+    }
             const specCharge = sp === 10 ? 10 : 0;
             const nitroVal = car.nitro;
             const startVal = car.start;
@@ -7740,6 +7779,19 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
             document.getElementById('calcRaceNitroToggle').value = '0';
             calcCustomHuiWarning.innerHTML = '';
             document.getElementById('calcColorErrorMsg').style.display = 'none';
+            // ===== 新增：恢复循环氮气下拉框为普通模式（1-10个） =====
+    var cycleSelect = document.getElementById('calcCycleNitroCountDisplay');
+    if (cycleSelect) {
+        cycleSelect.innerHTML = '';
+        for (var i = 1; i <= 10; i++) {
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = i + '个';
+            if (i === 4) opt.selected = true;
+            cycleSelect.appendChild(opt);
+        }
+    }
+    // ===== 新增结束 =====
             updateCalcEnergyDisplays();
             showCalcCopySuccess('已重置所有选项');
         }
