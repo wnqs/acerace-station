@@ -257,9 +257,12 @@
           "desc": "每5次使用氮气解除自身负面效果并增加1次SP技能使用次数，倒数计时开始时增加3次SP技能使用次数，每次获得SP技能使用次数时将涡轮和氮气染色3秒"
         },
         "features": [
-          { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" },
+          { "name": "SP次数", "desc": "SP技能需要存储使用次数来使用", "color": "紫" },
+          { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" },
+          { "name": "闪现", "desc": "沿赛道预设路线向前快速位移", "color": "蓝" },
+          { "name": "提前放大", "desc": "大招能量不满100%时也可释放", "color": "蓝" },
           { "name": "隐身", "desc": "无视车辆间的碰撞/不会被锁定类、触碰类干扰命中", "color": "蓝" },
-          { "name": "闪现", "desc": "沿赛道预设路线向前快速位移", "color": "蓝" }
+          { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" }
         ]
       },
       "ultIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/91b9efa9-27b3-459a-9e09-d0358f4a6959.png",
