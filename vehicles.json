@@ -265,11 +265,11 @@
           { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" }
         ]
       },
-      "ultIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/91b9efa9-27b3-459a-9e09-d0358f4a6959.png",
-      "passiveIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/b2a7f133-6646-47a9-82b4-ad93fc6acd7b.png",
+      "ultIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/09613d2e-b431-4c48-9580-b4188617b087.png",
+      "passiveIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/524eaae2-08be-4427-bb32-88b7c78d2d65.png",
       "sp": {
         "name": "飞火流星",
-        "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3d8ec2c6-e7a6-4df8-b8d8-49f1c68a314e.png",
+        "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/fc36ac06-4dac-40c4-9924-1b2baa97cbe6.png",
         "desc": "·存储上限:7次<br>·在有使用次数时才可使用，获得1700集气量并向前闪现35米",
         "cooltime": "0.3秒"
       }
@@ -9585,8 +9585,8 @@
         { "name": "无视隐身", "desc": "锁定类、触碰类干扰可以额外命中隐身的敌方", "color": "紫" }
       ]
     },
-    "ultIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/1c54f0f8-98c0-43c2-b671-d1d652a71135.png",
-    "passiveIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/5017e151-47ce-4ad0-a80a-4fee6f8a2a10.png"
+    "ultIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/fa8313aa-71d8-4066-b01a-822e7a68a101.png",
+    "passiveIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/9c4762c0-3065-439c-a3dc-a1f58ac423eb.png"
   },
   {
     "id": "lotus_evija_x",
@@ -9636,8 +9636,8 @@
         { "name": "自动集气", "desc": "技能可以自动获取氮气", "color": "蓝" }
       ]
     },
-    "ultIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/0d724b77-4c3c-4117-b34a-32fcf610a969.png",
-    "passiveIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/83815e70-3b1b-471e-9b5e-c6ca3317f325.png"
+    "ultIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/1c39d31f-ef4c-4af6-a19a-5ae9b64fb81d.png",
+    "passiveIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3ded02e3-634e-42cb-830b-ce99b5b976e0.png"
   },
   {
     "id": "bugatti_veyron",
@@ -9688,8 +9688,8 @@
         { "name": "净化", "desc": "解除持续性的负面效果", "color": "蓝" }
      ]
     },
-    "ultIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/ddab70b9-89b7-4b3c-a042-fb9f11cfbae2.png",
-    "passiveIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/a3337375-ec1f-42b5-9751-0f44b9c80b43.png"
+    "ultIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/7597cf61-b0fa-4e2b-9448-3a18b5a19a8f.png",
+    "passiveIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/b1aaacb8-3cd8-4518-930e-2830c359e7b7.png"
     },
   {  
     "id": "zhanshen",
