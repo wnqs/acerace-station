@@ -882,13 +882,13 @@
         "durability": "135",
         "nitroCharge": "31.5%",
         "startCharge": "51.5%（31.5%+20.0%）",
-        "nitroDuration": "5.20 s",
+        "nitroDuration": "4.80 s",
         "nitroSpeed": { "blue": "34.00 km/h", "purple": "34.00 km/h" },
         "turboDuration": { "blue": "1.80 s", "purple": "1.80 s" },
         "turboSpeed": { "blue": "9.90 km/h", "purple": "9.90 km/h" },
         "ultPower": "5"
       },
-      "chipSlots": ["circle", "circle", "rhombus", "rhombus", "vslot", "hexagon"],
+      "chipSlots": ["circle", "vslot", "rhombus", "rhombus", "vslot", "hexagon"],
       "skills": {
         "ult": {
           "name": "空气切割",
@@ -1145,7 +1145,7 @@
         "power": "8.09",
         "durability": "150",
         "nitroCharge": "34.5%",
-        "startCharge": "49.5%（34.5%+15.0%）",
+        "startCharge": "54.5%（34.5%+20.0%）",
         "nitroDuration": "5.00 s",
         "nitroSpeed": { "blue": "20.00 km/h", "purple": "30.00 km/h" },
         "turboDuration": { "blue": "0.60 s", "purple": "1.80 s" },
@@ -1157,12 +1157,12 @@
         "ult": {
           "name": "风回电激",
           "desc": "加速推进，极速提升100km/h，持续6秒。每个大招可使本局内极速+5km/h，最多叠加至30km/h：<br>·首次叠至满层后在本局剩余时间内获得反弹、反哺效果（不受团魂、辅助核心加成）<br>·在敌方为自身施加锁定类干扰效果时将干扰效果反弹给敌方全体<br>·在队友为自己提供锁定类辅助效果时使队友也获得该辅助效果",
-          "recu": "风回电激可以充能两次并在开局时获得15%大招能量",
+          "recu": "风回电激可以充能两次并在开局时获得20%大招能量",
           "ultPassive": ""
         },
         "passive": {
           "name": "One:1",
-          "desc": "每秒自动获得140集气量，首次使用大招前进入隐身状态，每当主动释放的大招结束后，自动释放一次无消耗的大招"
+          "desc": "每秒自动获得280集气量，首次使用大招前进入隐身状态，每当主动释放的大招结束后，自动释放一次无消耗的大招"
         },
         "features": [
           { "name": "大招连发", "desc": "大招结束后会自动释放一个大招并隐藏按键", "color": "紫" },
@@ -9590,7 +9590,7 @@
     "name": "莲花 Evija X",
     "quality": "传说",
     "position": "竞速",
-    "specialty": "城市",
+    "specialty": "场地",
     "imageUrl": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/996a6fc8-41d7-45fc-b10b-2f6f48fd4639.png",
     "positionIcon": "竞速",
     "specialtyIcon": "城市",
