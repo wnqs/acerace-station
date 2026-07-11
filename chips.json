@@ -1,6 +1,17 @@
 {
   "chips": [
     {
+      "id": "chip_yinni_liehso",
+  "name": "隐匿猎手之芯",
+  "category": "车姬芯片",
+  "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/aace45cb-d953-46d4-8975-ed09284a3353.png",
+  "quality": "传说",
+  "shape": "V型芯片",
+  "type": "扩展",
+  "effectDescription": "极速+18km/h，但每次使用涡轮-0.5km/h（上限减少30次，加速不会被驱散，减速无法净化），每2次使用大招时充能16%（隐匿猎手装备时同时清空芯片减速）",
+  "effectNote": "毒药飞火专属芯片，售后这一块"
+    },
+    {
       "id": "chip_mianmian",
       "name": "猫眠梦之芯",
       "category": "车姬芯片",
