@@ -7946,6 +7946,11 @@ console.log("effectiveNitroCount:", effectiveNitroCount, "effectiveTarget:", eff
 // ===== 计算最小汇能 =====
 let minHuiNeeded = 0;
 const eff = useFirstFormula ? firstEff : cycleEff;
+// ===== 提前定义变量 =====
+let specPart = 0;
+let vehiclePart = 0;
+let effPart = 0;
+let neededFromNitro = 0;
 
 if (effectiveNitroCount * nitroRatio > 0) {
     
