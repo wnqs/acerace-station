@@ -7921,7 +7921,7 @@ if (isYinNiDouble) {
             // ≤80阈值 + 偶数循环：能量=阈值×2，氮气=循环数，猎芯不加，用循环公式
             effectiveTarget = targetStart * 2;
             effectiveNitroCount = cycleNitroCount;
-            effectiveYinNiBonus = 0;
+            effectiveYinNiBonus = 16 * resist;
             useFirstFormula = false;
         }
     }
