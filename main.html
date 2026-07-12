@@ -7941,7 +7941,7 @@ if (isYinNiDouble) {
         huiSubtractJi = false;
     }
 }
-}
+
 console.log("effectiveNitroCount:", effectiveNitroCount, "effectiveTarget:", effectiveTarget, "effectiveYinNiBonus:", effectiveYinNiBonus, "useFirstFormula:", useFirstFormula, "cycleNitroCount:", cycleNitroCount);
 // ===== 计算最小汇能 =====
 let minHuiNeeded = 0;
@@ -7984,7 +7984,7 @@ if (effectiveNitroCount * nitroRatio > 0) {
         minHuiNeeded = Math.max(0, rawX);
     }
 }
-  }          
+           
         console.log("=== minHuiNeeded 计算详情 ===");
 console.log("useFirstFormula:", useFirstFormula);
 console.log("effectiveNitroCount:", effectiveNitroCount);
@@ -8001,7 +8001,7 @@ console.log("perNitroNeededRaw:", perNitroNeededRaw);
 console.log("perNitroNeededAfterEfficiency:", perNitroNeededAfterEfficiency);
 console.log("rawX:", rawX);
 console.log("minHuiNeeded:", minHuiNeeded);
-}
+
 
 let minHuiFormatted = formatHuiCalc(minHuiNeeded);
 let customHuiInput = parseFloat(calcCustomHuiInput.value);
