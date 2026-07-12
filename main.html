@@ -7839,10 +7839,13 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
     const raceNitroCycleBonus = raceNitroEnabled ? cycleNitroCount * 13 : 0;
     
     // ===== 隐匿猎手之芯加成（只有两大一循环时才触发） =====
-    var yinNiCycleBonus = 0;
-    if (calcVSlot.value === 'yinni' && isDoubleCycle) {
-        yinNiCycleBonus = 15 * resist;
-    }
+var yinNiCycleBonus = 0;
+var isYinNi = (calcVSlot.value === 'yinni' && isDoubleCycle);
+var totalCycleNitro = parseInt(calcCycleNitroCount.value) || 4;
+
+if (isYinNi) {
+    yinNiCycleBonus = 15 * resist;
+}
     
     const specCharge = sp === 10 ? 10 : 0;
     const nitroVal = car.nitro;
@@ -7872,18 +7875,37 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
                 extraStartBonus = parseFloat(calcExtraStart.value) || 0;
             }
             let minHuiNeeded = 0;
-            if (cycleNitroCount * nitroRatio > 0) {
-                const specPart = specCharge * resist * (1 + cycleEff / 100) * cycleNitroCount * nitroRatio;
-                const vehiclePart = (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + cycleEff / 100);
-                const effPart = (cycleEffFixed + cycleEffFloating) * resist * (1 + cycleEff / 100);
-                const neededFromNitro = Math.max(0, targetCycle - specPart - vehiclePart - effPart - raceNitroCycleBonus - yinNiCycleBonus);
-                if (neededFromNitro > 0) {
-                    const perNitroNeededRaw = neededFromNitro / (cycleNitroCount * nitroRatio);
-                    const perNitroNeededAfterEfficiency = perNitroNeededRaw / (resist * (1 + cycleEff / 100));
-                    let rawX = (perNitroNeededAfterEfficiency - nitroVal) * 100 / nitroVal;
-                    minHuiNeeded = Math.max(0, rawX);
-                }
-            }
+
+// ===== 猎芯+两大一循环+偶数循环 特殊处理 =====
+if (isYinNi && totalCycleNitro % 2 === 0) {
+    // 偶数循环：首大 + 第2大，不加猎芯
+    const totalNitro = startNitroCount + totalCycleNitro / 2;
+    const totalTarget = targetStart * 2;
+    const ji = 30;
+    const baseEnergy = startVal + ji;
+    const effMultiplier = resist * (1 + firstEff / 100);
+    
+    if (totalNitro * nitroRatio > 0) {
+        const rawPerNitro = (totalTarget - baseEnergy) / (totalNitro * nitroRatio * effMultiplier);
+        let huiNeeded = (rawPerNitro - nitroVal - specCharge) / nitroVal * 100;
+        minHuiNeeded = Math.max(0, huiNeeded);
+    }
+    
+} else {
+    // ===== 普通模式 / 奇数循环（猎芯加在循环段） =====
+    if (cycleNitroCount * nitroRatio > 0) {
+        const specPart = specCharge * resist * (1 + cycleEff / 100) * cycleNitroCount * nitroRatio;
+        const vehiclePart = (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + cycleEff / 100);
+        const effPart = (cycleEffFixed + cycleEffFloating) * resist * (1 + cycleEff / 100);
+        const neededFromNitro = Math.max(0, targetCycle - specPart - vehiclePart - effPart - raceNitroCycleBonus - yinNiCycleBonus);
+        if (neededFromNitro > 0) {
+            const perNitroNeededRaw = neededFromNitro / (cycleNitroCount * nitroRatio);
+            const perNitroNeededAfterEfficiency = perNitroNeededRaw / (resist * (1 + cycleEff / 100));
+            let rawX = (perNitroNeededAfterEfficiency - nitroVal) * 100 / nitroVal;
+            minHuiNeeded = Math.max(0, rawX);
+        }
+    }
+}
             let minHuiFormatted = formatHuiCalc(minHuiNeeded);
             let customHuiInput = parseFloat(calcCustomHuiInput.value);
             if (isNaN(customHuiInput) || calcCustomHuiInput.value === '') {
@@ -7922,45 +7944,76 @@ const nitroPartFirst = nitroVal * (1 + huiForJi / 100) * resist * (1 + firstEff 
             const totalWithoutJi = startContribution + nitroPartFirst + specPartFirst + vehiclePartFirst + effPartFirst+ raceNitroStartBonus;
             
             let finalJiRaw = 0;
-            let note = "";
-            if (totalWithoutJi >= targetStart) {
-                finalJiRaw = 0;
-            } else {
-                let rawJi = (targetStart - totalWithoutJi) / resist;
-                if (rawJi > 30) {
-                    finalJiRaw = 30;
-                    const jiEnergyFixed = 30 * resist;
-                    const remainingForNitro = targetStart - startContribution - specPartFirst - vehiclePartFirst - effPartFirst - jiEnergyFixed;
-                    if (remainingForNitro > 0) {
-                        const perNitroNeededRaw2 = remainingForNitro / (startNitroCount * nitroRatio);
-                        const perNitroNeededAfterEfficiency2 = perNitroNeededRaw2 / (resist * (1 + firstEff / 100));
-                        let huiByFixed = (perNitroNeededAfterEfficiency2 - nitroVal) * 100 / nitroVal;
-                        if (huiByFixed < 0) huiByFixed = 0;
-                        finalHuiFormatted = formatHuiCalc(huiByFixed);
-                        finalHuiValue = huiByFixed;
-                        note = `<br><span style="color: var(--eff-yellow);">⚠️ 先机需求超过30%，触发上限。汇能重新计算为${finalHuiFormatted}%</span>`;
-                        const nitroPartFirst2 = nitroVal * (1 + finalHuiValue / 100) * resist * (1 + firstEff / 100) * startNitroCount * nitroRatio;
-                        const totalWithoutJi2 = startContribution + nitroPartFirst2 + specPartFirst + vehiclePartFirst + effPartFirst;
-                        if (totalWithoutJi2 < targetStart) {
-                            finalJiRaw = (targetStart - totalWithoutJi2) / resist;
-                            if (finalJiRaw > 30) finalJiRaw = 30;
-                        } else {
-                            finalJiRaw = 0;
-                        }
-                    }
-                } else {
-                    finalJiRaw = rawJi;
-                }
-            }
-            let finalJiFormatted = formatJiAdvancedCalc(finalJiRaw);
-            const { diamondCount, totalSubSlots } = parseChipSlotsCalc(car.chips);
-            const achievable = canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, parseFloat(finalHuiFormatted), finalJiRaw, car.name);
-            let conclusion = "";
-            if (parseFloat(finalHuiFormatted) > maxHui) conclusion = '❌ 汇能需求超过芯片理论最大值，无法达成';
-            else if (!achievable) conclusion = '❌ 汇能/先机需求超过芯片词条竞争上限，无法达成';
-            else conclusion = '✅ 该需求在芯片词条竞争下【可以达成】';
-            let nitroDesc = nitroType === '1x5' ? `${startNitroCount}个15首大` : (nitroType === '2x2' ? `${startNitroCount}个22首大` : `${startNitroCount}个32首大`);
+let note = "";
 
+// ===== 猎芯+两大一循环+偶数循环 特殊处理（用户手动输入汇能反推先机） =====
+if (isYinNi && totalCycleNitro % 2 === 0) {
+    const totalNitro = startNitroCount + totalCycleNitro / 2;
+    const totalTarget = targetStart * 2;
+    // 氮气充能 × 反制 × 充能效率
+    const effMultiplier = resist * (1 + firstEff / 100);
+    
+    // 氮气充能（已乘反制）
+    const nitroEnergy = (nitroVal * (1 + finalHuiValue / 100) + specCharge) * totalNitro * nitroRatio * effMultiplier;
+    // 先机要除反制才能得到原始值
+    let jiNeeded = (totalTarget - nitroEnergy - startVal) / resist;
+    finalJiRaw = Math.max(0, jiNeeded);
+    
+    // ===== 偶数循环触发先机上限，重新计算汇能 =====
+    if (finalJiRaw > 30) {
+        finalJiRaw = 30;
+        // 用30先机反推需要的汇能（先机实际效果 = 30 * resist）
+        const jiEnergy = 30 * resist;
+        // 每个氮气需要的充能 = (总需求 - 起步 - 先机) / (氮气数量 × 氮气系数 × 充能效率)
+        const remainingForNitro = (totalTarget - startVal - jiEnergy) / (totalNitro * nitroRatio * effMultiplier);
+        if (remainingForNitro > 0) {
+            let huiByFixed = (remainingForNitro - nitroVal - specCharge) / nitroVal * 100;
+            if (huiByFixed < 0) huiByFixed = 0;
+            finalHuiFormatted = formatHuiCalc(huiByFixed);
+            finalHuiValue = huiByFixed;
+            note = `<br><span style="color: var(--eff-yellow);">⚠️ 先机需求超过30%，触发上限。汇能重新计算为${finalHuiFormatted}%</span>`;
+        }
+    }
+}
+    
+} else if (totalWithoutJi >= targetStart) {
+    finalJiRaw = 0;
+} else {
+    let rawJi = (targetStart - totalWithoutJi) / resist;
+    if (rawJi > 30) {
+        finalJiRaw = 30;
+        const jiEnergyFixed = 30 * resist;
+        const remainingForNitro = targetStart - startContribution - specPartFirst - vehiclePartFirst - effPartFirst - jiEnergyFixed;
+        if (remainingForNitro > 0) {
+            const perNitroNeededRaw2 = remainingForNitro / (startNitroCount * nitroRatio);
+            const perNitroNeededAfterEfficiency2 = perNitroNeededRaw2 / (resist * (1 + firstEff / 100));
+            let huiByFixed = (perNitroNeededAfterEfficiency2 - nitroVal) * 100 / nitroVal;
+            if (huiByFixed < 0) huiByFixed = 0;
+            finalHuiFormatted = formatHuiCalc(huiByFixed);
+            finalHuiValue = huiByFixed;
+            note = `<br><span style="color: var(--eff-yellow);">⚠️ 先机需求超过30%，触发上限。汇能重新计算为${finalHuiFormatted}%</span>`;
+            const nitroPartFirst2 = nitroVal * (1 + finalHuiValue / 100) * resist * (1 + firstEff / 100) * startNitroCount * nitroRatio;
+            const totalWithoutJi2 = startContribution + nitroPartFirst2 + specPartFirst + vehiclePartFirst + effPartFirst;
+            if (totalWithoutJi2 < targetStart) {
+                finalJiRaw = (targetStart - totalWithoutJi2) / resist;
+                if (finalJiRaw > 30) finalJiRaw = 30;
+            } else {
+                finalJiRaw = 0;
+            }
+        }
+    } else {
+        finalJiRaw = rawJi;
+    }
+}
+
+let finalJiFormatted = formatJiAdvancedCalc(finalJiRaw);
+const { diamondCount, totalSubSlots } = parseChipSlotsCalc(car.chips);
+const achievable = canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, parseFloat(finalHuiFormatted), finalJiRaw, car.name);
+let conclusion = "";
+if (parseFloat(finalHuiFormatted) > maxHui) conclusion = '❌ 汇能需求超过芯片理论最大值，无法达成';
+else if (!achievable) conclusion = '❌ 汇能/先机需求超过芯片词条竞争上限，无法达成';
+else conclusion = '✅ 该需求在芯片词条竞争下【可以达成】';
+let nitroDesc = nitroType === '1x5' ? `${startNitroCount}个15首大` : (nitroType === '2x2' ? `${startNitroCount}个22首大` : `${startNitroCount}个32首大`);
 // ===== 两大一循环的描述 =====
 var cycleDesc = '';
 var totalNitro = parseInt(calcCycleNitroCount.value) || 4;
