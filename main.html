@@ -7889,10 +7889,24 @@ const isOdd = (cycleNitroCount % 2 !== 0);
 const isEven = (cycleNitroCount % 2 === 0);
 
 // ===== 计算有效参数 =====
+let useFirstFormulaForJi = false;            
 let effectiveTarget = targetCycle;
 let effectiveNitroCount = cycleNitroCount;
 let effectiveYinNiBonus = yinNiCycleBonus;
 let useFirstFormula = false;
+
+// ===== 判断模式 =====
+const isYinNiDouble = (calcVSlot.value === 'yinni' && isDoubleCycle);
+const isThreshold100 = (targetStart === 100);
+const isOdd = (cycleNitroCount % 2 !== 0);
+const isEven = (cycleNitroCount % 2 === 0);
+
+// ===== 计算有效参数 =====
+let effectiveTarget = targetCycle;
+let effectiveNitroCount = cycleNitroCount;
+let effectiveYinNiBonus = yinNiCycleBonus;
+let useFirstFormula = false;
+let useFirstFormulaForJi = false;
 
 if (isYinNiDouble) {
     if (isThreshold100) {
@@ -7902,12 +7916,14 @@ if (isYinNiDouble) {
             effectiveNitroCount = cycleNitroCount;
             effectiveYinNiBonus = 16 * resist;
             useFirstFormula = false;
+            useFirstFormulaForJi = false;
         } else {
             // 100阈值 + 偶数循环：能量×2，氮气=首大+循环/2，猎芯不加，用首大公式
             effectiveTarget = targetStart * 2;
             effectiveNitroCount = startNitroCount + cycleNitroCount / 2;
             effectiveYinNiBonus = 0;
             useFirstFormula = true;
+            useFirstFormulaForJi = true;
         }
     } else {
         // 阈值 ≤ 80
@@ -7917,12 +7933,14 @@ if (isYinNiDouble) {
             effectiveNitroCount = (cycleNitroCount - 1) / 2;
             effectiveYinNiBonus = 16 * resist;
             useFirstFormula = false;
+            useFirstFormulaForJi = false;
         } else {
-            // ≤80阈值 + 偶数循环：能量=阈值×2，氮气=循环数，猎芯不加，用循环公式
+            // ≤80阈值 + 偶数循环：能量=阈值×2，氮气=循环数，猎芯不加，用循环公式算汇能，首大公式算先机
             effectiveTarget = targetStart * 2;
             effectiveNitroCount = cycleNitroCount;
-            effectiveYinNiBonus = 16 * resist;
+            effectiveYinNiBonus = 0;
             useFirstFormula = false;
+            useFirstFormulaForJi = true;
         }
     }
 }
@@ -8009,15 +8027,15 @@ let note = "";
 
 if (isYinNiDouble) {
     // ===== 两大一循环：用 effective 参数计算总充能（不含先机） =====
-    const effJi = useFirstFormula ? firstEff : cycleEff;
-    const nitroEnergy = (nitroVal * (1 + finalHuiValue / 100)) * effectiveNitroCount * nitroRatio * resist * (1 + effJi / 100);
-    const specEnergy = specCharge * resist * (1 + effJi / 100) * effectiveNitroCount * nitroRatio;
-    const vehicleEnergy = useFirstFormula 
-        ? (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + effJi / 100)
-        : (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + effJi / 100);
-    const effEnergy = useFirstFormula
-        ? (firstEffFixed + firstEffFloating) * resist * (1 + effJi / 100)
-        : (cycleEffFixed + cycleEffFloating) * resist * (1 + effJi / 100);
+    const effJi = useFirstFormulaForJi ? firstEff : cycleEff;
+const nitroEnergy = (nitroVal * (1 + finalHuiValue / 100)) * effectiveNitroCount * nitroRatio * resist * (1 + effJi / 100);
+const specEnergy = specCharge * resist * (1 + effJi / 100) * effectiveNitroCount * nitroRatio;
+const vehicleEnergy = useFirstFormulaForJi 
+    ? (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + effJi / 100)
+    : (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + effJi / 100);
+const effEnergy = useFirstFormulaForJi
+    ? (firstEffFixed + firstEffFloating) * resist * (1 + effJi / 100)
+    : (cycleEffFixed + cycleEffFloating) * resist * (1 + effJi / 100);
     
     // 总充能（不含先机）
     const totalWithoutJiYinNi = startVal + nitroEnergy + specEnergy + vehicleEnergy + effEnergy + raceNitroCycleBonus + effectiveYinNiBonus;
