@@ -7892,121 +7892,76 @@ const isEven = (cycleNitroCount % 2 === 0);
 let effectiveTarget = targetCycle;
 let effectiveNitroCount = cycleNitroCount;
 let effectiveYinNiBonus = yinNiCycleBonus;
-let useFirstFormula = false;              // 汇能是否用首大公式
-let useFirstFormulaForJi = false;         // 先机是否用首大公式
-let jiTarget = targetStart;               // 先机目标（默认×1）
-let jiNitroCount = startNitroCount;       // 先机氮气数量（默认首大氮气数）
-let huiSubtractJi = false;                // 汇能是否减先机30
+let useFirstFormula = false;
 
 if (isYinNiDouble) {
-    if (isThreshold100 && isEven) {
-        // 100阈值 + 偶数循环
-        effectiveTarget = targetStart * 2;
-        effectiveNitroCount = startNitroCount + cycleNitroCount / 2;
-        effectiveYinNiBonus = 0;
-        useFirstFormula = true;
-        useFirstFormulaForJi = true;
-        jiTarget = targetStart * 2;
-        jiNitroCount = effectiveNitroCount;
-        huiSubtractJi = true;              // ← 只有这里减30先机
-    } else if (isThreshold100 && isOdd) {
-        // 100阈值 + 奇数循环
-        effectiveTarget = targetStart * 2;
-        effectiveNitroCount = cycleNitroCount;
-        effectiveYinNiBonus = 16 * resist;
-        useFirstFormula = false;
-        useFirstFormulaForJi = true;
-        jiTarget = targetStart;
-        jiNitroCount = startNitroCount;
-        huiSubtractJi = false;
-    } else if (!isThreshold100 && isOdd) {
-        // ≤80阈值 + 奇数循环
-        effectiveTarget = targetStart;
-        effectiveNitroCount = (cycleNitroCount - 1) / 2;
-        effectiveYinNiBonus = 16 * resist;
-        useFirstFormula = false;
-        useFirstFormulaForJi = true;
-        jiTarget = targetStart;
-        jiNitroCount = startNitroCount;
-        huiSubtractJi = false;
+    if (isThreshold100) {
+        if (isOdd) {
+            // 100阈值 + 奇数循环：能量×2，氮气=循环数，猎芯加，用循环公式
+            effectiveTarget = targetStart * 2;
+            effectiveNitroCount = cycleNitroCount;
+            effectiveYinNiBonus = 16 * resist;
+            useFirstFormula = false;
+        } else {
+            // 100阈值 + 偶数循环：能量×2，氮气=首大+循环/2，猎芯不加，用首大公式
+            effectiveTarget = targetStart * 2;
+            effectiveNitroCount = startNitroCount + cycleNitroCount / 2;
+            effectiveYinNiBonus = 0;
+            useFirstFormula = true;
+        }
     } else {
-        // ≤80阈值 + 偶数循环
-        effectiveTarget = targetStart * 2;
-        effectiveNitroCount = cycleNitroCount;
-        effectiveYinNiBonus = 0;
-        useFirstFormula = false;
-        useFirstFormulaForJi = true;
-        jiTarget = targetStart;
-        jiNitroCount = startNitroCount;
-        huiSubtractJi = false;
+        // 阈值 ≤ 80
+        if (isOdd) {
+            // ≤80阈值 + 奇数循环：能量=阈值，氮气=(循环-1)/2，猎芯加，用循环公式
+            effectiveTarget = targetStart;
+            effectiveNitroCount = (cycleNitroCount - 1) / 2;
+            effectiveYinNiBonus = 16 * resist;
+            useFirstFormula = false;
+        } else {
+            // ≤80阈值 + 偶数循环：能量=阈值×2，氮气=循环数，猎芯不加，用循环公式
+            effectiveTarget = targetStart * 2;
+            effectiveNitroCount = cycleNitroCount;
+            effectiveYinNiBonus = 16 * resist;
+            useFirstFormula = false;
+        }
     }
 }
-
 console.log("effectiveNitroCount:", effectiveNitroCount, "effectiveTarget:", effectiveTarget, "effectiveYinNiBonus:", effectiveYinNiBonus, "useFirstFormula:", useFirstFormula, "cycleNitroCount:", cycleNitroCount);
 // ===== 计算最小汇能 =====
 let minHuiNeeded = 0;
 const eff = useFirstFormula ? firstEff : cycleEff;
-// ===== 提前定义变量 =====
-let specPart = 0;
-let vehiclePart = 0;
-let effPart = 0;
-let neededFromNitro = 0;
 
 if (effectiveNitroCount * nitroRatio > 0) {
-    
-    // ===== 1. 专精氮气充能 =====
-    // 专精值 × 反制 × 充能效率 × 氮气数量 × 氮气系数
     const specPart = specCharge * resist * (1 + eff / 100) * effectiveNitroCount * nitroRatio;
-    
-    // ===== 2. 车辆充能 =====
-    // 首大公式：首大固定充能（如毒药20%）
-    // 循环公式：循环固定充能（如比亚迪汉15%）
     const vehiclePart = useFirstFormula 
-        ? (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + eff / 100)
-        : (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + eff / 100);
-    
-    // ===== 3. 赋能充能 =====
+    ? (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + eff / 100)
+    : (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + eff / 100);
     const effPart = useFirstFormula
         ? (firstEffFixed + firstEffFloating) * resist * (1 + eff / 100)
         : (cycleEffFixed + cycleEffFloating) * resist * (1 + eff / 100);
-    
-    // ===== 4. 先机扣除（只有100阈值+偶数循环才减30先机） =====
-    const jiSubtract = (useFirstFormula && isThreshold100 && isEven) ? 30 * resist : 0;
-    
-    // ===== 5. 还需要从氮气中获取的能量 =====
-    // 目标能量 - 起步充能 - 专精 - 车辆 - 赋能 - 循环装置 - 猎芯 - 先机
-    const neededFromNitro = Math.max(0, effectiveTarget - startVal - specPart - vehiclePart - effPart - raceNitroCycleBonus - effectiveYinNiBonus - jiSubtract);
-    
+    const neededFromNitro = Math.max(0, effectiveTarget - startVal - specPart - vehiclePart - effPart - raceNitroCycleBonus - effectiveYinNiBonus - 30 * resist);
     if (neededFromNitro > 0) {
-        // ===== 6. 每个氮气需要提供多少充能 =====
         const perNitroNeededRaw = neededFromNitro / (effectiveNitroCount * nitroRatio);
-        
-        // ===== 7. 反推在乘反制和效率之前的氮气基础值 =====
         const perNitroNeededAfterEfficiency = perNitroNeededRaw / (resist * (1 + eff / 100));
-        
-        // ===== 8. 计算需要多少汇能 =====
         let rawX = (perNitroNeededAfterEfficiency - nitroVal) * 100 / nitroVal;
         minHuiNeeded = Math.max(0, rawX);
+        console.log("=== minHuiNeeded 计算详情 ===");
+    console.log("useFirstFormula:", useFirstFormula);
+    console.log("effectiveNitroCount:", effectiveNitroCount);
+    console.log("effectiveTarget:", effectiveTarget);
+    console.log("effectiveYinNiBonus:", effectiveYinNiBonus);
+    console.log("eff:", eff);
+    console.log("specPart:", specPart);
+    console.log("vehiclePart:", vehiclePart);
+    console.log("effPart:", effPart);
+    console.log("raceNitroCycleBonus:", raceNitroCycleBonus);
+    console.log("neededFromNitro:", neededFromNitro);
+    console.log("perNitroNeededRaw:", perNitroNeededRaw);
+    console.log("perNitroNeededAfterEfficiency:", perNitroNeededAfterEfficiency);
+    console.log("rawX:", rawX);
+    console.log("minHuiNeeded:", minHuiNeeded);
     }
 }
-           
-        console.log("=== minHuiNeeded 计算详情 ===");
-console.log("useFirstFormula:", useFirstFormula);
-console.log("effectiveNitroCount:", effectiveNitroCount);
-console.log("effectiveTarget:", effectiveTarget);
-console.log("effectiveYinNiBonus:", effectiveYinNiBonus);
-console.log("eff:", eff);
-console.log("specPart:", specPart);
-console.log("vehiclePart:", vehiclePart);
-console.log("effPart:", effPart);
-console.log("raceNitroCycleBonus:", raceNitroCycleBonus);
-console.log("jiSubtract:", jiSubtract);  // ← 新增：显示扣了多少先机
-console.log("neededFromNitro:", neededFromNitro);
-console.log("perNitroNeededRaw:", perNitroNeededRaw);
-console.log("perNitroNeededAfterEfficiency:", perNitroNeededAfterEfficiency);
-console.log("rawX:", rawX);
-console.log("minHuiNeeded:", minHuiNeeded);
-
 
 let minHuiFormatted = formatHuiCalc(minHuiNeeded);
 let customHuiInput = parseFloat(calcCustomHuiInput.value);
@@ -8049,32 +8004,34 @@ const startContribution = startVal + extraStartBonus;
 const totalWithoutJi = startContribution + nitroPartFirst + specPartFirst + vehiclePartFirst + effPartFirst + raceNitroStartBonus;
 
 // ===== 计算先机需求 =====
-// ===== 计算先机需求 =====
 let finalJiRaw = 0;
 let note = "";
 
-// ===== 统一用首大公式反推先机 =====
-if (useFirstFormulaForJi) {
-    const effJi = firstEff;
-    const nitroEnergy = (nitroVal * (1 + finalHuiValue / 100)) * jiNitroCount * nitroRatio * resist * (1 + effJi / 100);
-    const specEnergy = specCharge * resist * (1 + effJi / 100) * jiNitroCount * nitroRatio;
-    const vehicleEnergy = (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + effJi / 100);
-    const effEnergy = (firstEffFixed + firstEffFloating) * resist * (1 + effJi / 100);
+if (isYinNiDouble) {
+    // ===== 两大一循环：用 effective 参数计算总充能（不含先机） =====
+    const effJi = useFirstFormula ? firstEff : cycleEff;
+    const nitroEnergy = (nitroVal * (1 + finalHuiValue / 100)) * effectiveNitroCount * nitroRatio * resist * (1 + effJi / 100);
+    const specEnergy = specCharge * resist * (1 + effJi / 100) * effectiveNitroCount * nitroRatio;
+    const vehicleEnergy = useFirstFormula 
+        ? (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + effJi / 100)
+        : (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + effJi / 100);
+    const effEnergy = useFirstFormula
+        ? (firstEffFixed + firstEffFloating) * resist * (1 + effJi / 100)
+        : (cycleEffFixed + cycleEffFloating) * resist * (1 + effJi / 100);
     
-    const totalWithoutJi = startVal + nitroEnergy + specEnergy + vehicleEnergy + effEnergy + raceNitroCycleBonus + effectiveYinNiBonus;
-    const target = jiTarget;
+    // 总充能（不含先机）
+    const totalWithoutJiYinNi = startVal + nitroEnergy + specEnergy + vehicleEnergy + effEnergy + raceNitroCycleBonus + effectiveYinNiBonus;
     
-    if (totalWithoutJi >= target) {
+    if (totalWithoutJiYinNi >= effectiveTarget) {
         finalJiRaw = 0;
     } else {
-        let rawJi = (target - totalWithoutJi) / resist;
+        let rawJi = (effectiveTarget - totalWithoutJiYinNi) / resist;
         if (rawJi > 30) {
             finalJiRaw = 30;
-            // 触发上限，重新计算汇能
             const jiEnergy = 30 * resist;
-            const remainingForNitro = target - startVal - specEnergy - vehicleEnergy - effEnergy - raceNitroCycleBonus - effectiveYinNiBonus - jiEnergy;
+            const remainingForNitro = effectiveTarget - startVal - specEnergy - vehicleEnergy - effEnergy - raceNitroCycleBonus - effectiveYinNiBonus - jiEnergy;
             if (remainingForNitro > 0) {
-                const perNitroNeededRaw3 = remainingForNitro / (jiNitroCount * nitroRatio);
+                const perNitroNeededRaw3 = remainingForNitro / (effectiveNitroCount * nitroRatio);
                 const perNitroNeededAfterEfficiency3 = perNitroNeededRaw3 / (resist * (1 + effJi / 100));
                 let huiByFixed = (perNitroNeededAfterEfficiency3 - nitroVal) * 100 / nitroVal;
                 if (huiByFixed < 0) huiByFixed = 0;
@@ -8088,10 +8045,10 @@ if (useFirstFormulaForJi) {
     }
     
 } else if (totalWithoutJi >= targetStart) {
-    // 普通模式：不需要先机
+    // ===== 普通模式：不需要先机 =====
     finalJiRaw = 0;
 } else {
-    // 普通模式：计算先机
+    // ===== 普通模式：计算先机 =====
     let rawJi = (targetStart - totalWithoutJi) / resist;
     if (rawJi > 30) {
         finalJiRaw = 30;
