@@ -21,7 +21,7 @@
       "id": "balance_vehicle_002",
       "type": "vehicle",
       "name": "柯尼塞格 Regera",
-      "icon": "https://placehold.co/48x48?text=Regera",
+      "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/bd0c6dda-0a18-4a73-b07a-be7d79ab9ff2.png",
       "version": "1.0",
       "adjustments": [
         {
@@ -34,7 +34,7 @@
       "id": "balance_vehicle_003",
       "type": "vehicle",
       "name": "法拉第",
-      "icon": "https://placehold.co/48x48?text=Faraday",
+      "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/31a1152a-d041-4ea5-8400-1cbc2571f9fa.png",
       "version": "1.0",
       "adjustments": [
         {
@@ -47,7 +47,7 @@
       "id": "balance_vehicle_004",
       "type": "vehicle",
       "name": "宝马i8",
-      "icon": "https://placehold.co/48x48?text=i8",
+      "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/69dce1f4-9985-47c5-98b7-95cda32f7666.png",
       "version": "1.0",
       "adjustments": [
         {
@@ -60,7 +60,7 @@
       "id": "balance_vehicle_005",
       "type": "vehicle",
       "name": "燃烧太阳",
-      "icon": "https://placehold.co/48x48?text=BurningSun",
+      "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/9cb738d7-82cd-48c2-9d4f-737e1cc2a9dd.png",
       "version": "1.0",
       "adjustments": [
         {
