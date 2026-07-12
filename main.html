@@ -7876,24 +7876,52 @@ if (isYinNi) {
             }
             let minHuiNeeded = 0;
 
-// ===== 猎芯+两大一循环+偶数循环 特殊处理 =====
-if (isYinNi && totalCycleNitro % 2 === 0) {
-    // 公式：氮气充能 + 专精氮气充能 + 起步充能 + 先机 ≥ 总需求
-    // 其中：氮气、专精、先机都受反制影响，起步不受
-    const totalNitro = startNitroCount + totalCycleNitro / 2;
+// ===== 判断模式 =====
+const isEvenCycle = (isYinNi && cycleNitroCount % 2 === 0);
+const isOddCycle = (isYinNi && cycleNitroCount % 2 !== 0);
+
+if (isEvenCycle) {
+    // ===== 猎芯+两大一循环+偶数循环 =====
+    // 目标能量 = 阈值 × 2
+    // 氮气数量 = 首大氮气数 + 循环氮气数/2
+    // 不加猎芯16
+    // 充能效率用首大段
+    
+    const totalNitro = startNitroCount + cycleNitroCount / 2;
     const totalTarget = targetStart * 2;
-    const ji = 30 * resist;  // 先机受反制影响
-    const specChargeEff = specCharge * resist;  // 专精氮气充能受反制影响
-    const baseEnergy = startVal + ji;  // 起步（不受反制）+ 先机（已乘反制）
-    const effMultiplier = resist * (1 + firstEff / 100);  // 氮气充能受反制影响
+    const effMultiplier = resist * (1 + firstEff / 100);
     
     if (totalNitro * nitroRatio > 0) {
+        const ji = 30 * resist;
+        const specChargeEff = specCharge * resist;
+        const baseEnergy = startVal + ji;
         const rawPerNitro = (totalTarget - baseEnergy) / (totalNitro * nitroRatio * effMultiplier);
         let huiNeeded = (rawPerNitro - nitroVal - specChargeEff) / nitroVal * 100;
         minHuiNeeded = Math.max(0, huiNeeded);
     }
-}else {
-    // ===== 普通模式 / 奇数循环（猎芯加在循环段） =====
+    
+} else if (isOddCycle) {
+    // ===== 猎芯+两大一循环+奇数循环 =====
+    // 目标能量 = 阈值 × 2
+    // 氮气数量 = 循环氮气数量
+    // 加猎芯16（受反制影响）
+    // 充能效率用循环段
+    
+    const totalTarget = targetStart * 2;
+    const yinNiBonus = 16 * resist;
+    const effMultiplier = resist * (1 + cycleEff / 100);
+    
+    if (cycleNitroCount * nitroRatio > 0) {
+        const ji = 30 * resist;
+        const specChargeEff = specCharge * resist;
+        const baseEnergy = startVal + ji + yinNiBonus;
+        const rawPerNitro = (totalTarget - baseEnergy) / (cycleNitroCount * nitroRatio * effMultiplier);
+        let huiNeeded = (rawPerNitro - nitroVal - specChargeEff) / nitroVal * 100;
+        minHuiNeeded = Math.max(0, huiNeeded);
+    }
+    
+} else {
+    // ===== 普通模式（原有逻辑） =====
     if (cycleNitroCount * nitroRatio > 0) {
         const specPart = specCharge * resist * (1 + cycleEff / 100) * cycleNitroCount * nitroRatio;
         const vehiclePart = (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + cycleEff / 100);
@@ -7947,11 +7975,19 @@ const nitroPartFirst = nitroVal * (1 + huiForJi / 100) * resist * (1 + firstEff 
             let finalJiRaw = 0;
 let note = "";
 
-// ===== 猎芯+两大一循环+偶数循环 特殊处理（用户手动输入汇能反推先机） =====
-if (isYinNi && totalCycleNitro % 2 === 0) {
-    const totalNitro = startNitroCount + totalCycleNitro / 2;
+// ===== 判断模式 =====
+const isEvenCycle = (isYinNi && cycleNitroCount % 2 === 0);
+const isOddCycle = (isYinNi && cycleNitroCount % 2 !== 0);
+
+if (isEvenCycle) {
+    // ===== 猎芯+两大一循环+偶数循环 =====
+    // 目标能量 = 阈值 × 2
+    // 氮气数量 = 首大氮气数 + 循环氮气数/2
+    // 不加猎芯16
+    // 充能效率用首大段
+    
+    const totalNitro = startNitroCount + cycleNitroCount / 2;
     const totalTarget = targetStart * 2;
-    // 氮气充能 × 反制 × 充能效率
     const effMultiplier = resist * (1 + firstEff / 100);
     
     // 氮气充能（已乘反制）
@@ -7963,9 +7999,7 @@ if (isYinNi && totalCycleNitro % 2 === 0) {
     // ===== 偶数循环触发先机上限，重新计算汇能 =====
     if (finalJiRaw > 30) {
         finalJiRaw = 30;
-        // 用30先机反推需要的汇能（先机实际效果 = 30 * resist）
         const jiEnergy = 30 * resist;
-        // 每个氮气需要的充能 = (总需求 - 起步 - 先机) / (氮气数量 × 氮气系数 × 充能效率)
         const remainingForNitro = (totalTarget - startVal - jiEnergy) / (totalNitro * nitroRatio * effMultiplier);
         if (remainingForNitro > 0) {
             let huiByFixed = (remainingForNitro - nitroVal - specCharge) / nitroVal * 100;
@@ -7975,11 +8009,43 @@ if (isYinNi && totalCycleNitro % 2 === 0) {
             note = `<br><span style="color: var(--eff-yellow);">⚠️ 先机需求超过30%，触发上限。汇能重新计算为${finalHuiFormatted}%</span>`;
         }
     }
-}
-   
- else if (totalWithoutJi >= targetStart) {
+    
+} else if (isOddCycle) {
+    // ===== 猎芯+两大一循环+奇数循环 =====
+    // 目标能量 = 阈值 × 2
+    // 氮气数量 = 循环氮气数量
+    // 加猎芯16（受反制影响）
+    // 充能效率用循环段
+    
+    const totalTarget = targetStart * 2;
+    const effMultiplier = resist * (1 + cycleEff / 100);
+    const yinNiBonus = 16 * resist;
+    
+    // 氮气充能（已乘反制）
+    const nitroEnergy = (nitroVal * (1 + finalHuiValue / 100) + specCharge) * cycleNitroCount * nitroRatio * effMultiplier;
+    // 先机要除反制才能得到原始值
+    let jiNeeded = (totalTarget - nitroEnergy - startVal - yinNiBonus) / resist;
+    finalJiRaw = Math.max(0, jiNeeded);
+    
+    // ===== 奇数循环触发先机上限，重新计算汇能 =====
+    if (finalJiRaw > 30) {
+        finalJiRaw = 30;
+        const jiEnergy = 30 * resist;
+        const remainingForNitro = (totalTarget - startVal - jiEnergy - yinNiBonus) / (cycleNitroCount * nitroRatio * effMultiplier);
+        if (remainingForNitro > 0) {
+            let huiByFixed = (remainingForNitro - nitroVal - specCharge) / nitroVal * 100;
+            if (huiByFixed < 0) huiByFixed = 0;
+            finalHuiFormatted = formatHuiCalc(huiByFixed);
+            finalHuiValue = huiByFixed;
+            note = `<br><span style="color: var(--eff-yellow);">⚠️ 先机需求超过30%，触发上限。汇能重新计算为${finalHuiFormatted}%</span>`;
+        }
+    }
+    
+} else if (totalWithoutJi >= targetStart) {
+    // ===== 普通模式：先机为0 =====
     finalJiRaw = 0;
 } else {
+    // ===== 普通模式：计算先机 =====
     let rawJi = (targetStart - totalWithoutJi) / resist;
     if (rawJi > 30) {
         finalJiRaw = 30;
