@@ -7959,7 +7959,7 @@ minHuiNeeded = Math.max(minHuiNeeded, minHuiFromYinNi);
                     let rawX = (perNitroNeededAfterEfficiency - nitroVal) * 100 / nitroVal;
                     minHuiNeeded = Math.max(0, rawX);
                 }
-            }
+            
             let minHuiFormatted = formatHuiCalc(minHuiNeeded);
             let customHuiInput = parseFloat(calcCustomHuiInput.value);
             if (isNaN(customHuiInput) || calcCustomHuiInput.value === '') {
@@ -8136,8 +8136,8 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
             let resultDemand = `<strong>【输出结果】</strong><br>${useCustomHui ? '用户指定汇能' : '最小汇能'}：${finalHuiFormatted}%<br>对应先机需求：${finalJiFormatted}`;
             let competitionResult = `<br><br><strong>【竞争判定】</strong><br>${conclusion}`;
             document.getElementById('calcResultArea').innerHTML = `${configSummary}${resultDemand}${note}${competitionResult}`;
-        }
         
+        }   
         function showCalcCopySuccess(msg) {
             let toast = document.createElement('div');
             toast.className = 'copy-success';
