@@ -8297,18 +8297,37 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
         document.getElementById('calcCopyResultBtn').addEventListener('click', copyCalcResult);
         document.getElementById('calcCalcBtn').addEventListener('click', calcCalculator);
         
-        function initCalcVSlotSelect() {
-            calcVSlot.addEventListener('change', () => {
-                updateCalcVSlotIcon();
-                updateCalcEnergyDisplays();
-                updateCalcCycleModeVisibility();
-            });
-        }
-        
-        // 初始化时调用一次
+        calcCarModel.addEventListener('change', () => {
+        updateCalcCarIcon();
+        updateCalcVSlotOptions();
+        updateCalcEnergyDisplays();
+        updateCalcCycleModeVisibility();
+        updateCalcToggleState();
         setDefaultOverrideR();
-    }  // <--- initCalculator 函数结束
+        calcSpecialize.value = '10';
+        calcCycleMode.value = 'normal';
+        document.getElementById('calcRaceNitroToggle').value = '0';
+    });
+        
+       // V型槽切换事件
+    calcVSlot.addEventListener('change', () => {
+        updateCalcVSlotIcon();
+        updateCalcEnergyDisplays();
+        updateCalcCycleModeVisibility();
+    });
     
+    // 两大一循环切换事件
+    calcCycleMode.addEventListener('change', handleCalcCycleModeChange);
+    
+    // 按钮事件
+    document.getElementById('calcResetBtn').addEventListener('click', resetCalcAllOptions);
+    document.getElementById('calcShareBtn').addEventListener('click', shareCalcScreenshot);
+    document.getElementById('calcCopyResultBtn').addEventListener('click', copyCalcResult);
+    document.getElementById('calcCalcBtn').addEventListener('click', calcCalculator);
+    
+    // 设置反制默认值
+    setDefaultOverrideR();
+}  // <--- initCalculator 函数在这里结束
     document.addEventListener('DOMContentLoaded', () => {
         initTabs();
         loadData();
