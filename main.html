@@ -7878,20 +7878,21 @@ if (isYinNi) {
 
 // ===== 猎芯+两大一循环+偶数循环 特殊处理 =====
 if (isYinNi && totalCycleNitro % 2 === 0) {
-    // 偶数循环：首大 + 第2大，不加猎芯
+    // 公式：氮气充能 + 专精氮气充能 + 起步充能 + 先机 ≥ 总需求
+    // 其中：氮气、专精、先机都受反制影响，起步不受
     const totalNitro = startNitroCount + totalCycleNitro / 2;
     const totalTarget = targetStart * 2;
-    const ji = 30;
-    const baseEnergy = startVal + ji;
-    const effMultiplier = resist * (1 + firstEff / 100);
+    const ji = 30 * resist;  // 先机受反制影响
+    const specChargeEff = specCharge * resist;  // 专精氮气充能受反制影响
+    const baseEnergy = startVal + ji;  // 起步（不受反制）+ 先机（已乘反制）
+    const effMultiplier = resist * (1 + firstEff / 100);  // 氮气充能受反制影响
     
     if (totalNitro * nitroRatio > 0) {
         const rawPerNitro = (totalTarget - baseEnergy) / (totalNitro * nitroRatio * effMultiplier);
-        let huiNeeded = (rawPerNitro - nitroVal - specCharge) / nitroVal * 100;
+        let huiNeeded = (rawPerNitro - nitroVal - specChargeEff) / nitroVal * 100;
         minHuiNeeded = Math.max(0, huiNeeded);
     }
-    
-} else {
+}else {
     // ===== 普通模式 / 奇数循环（猎芯加在循环段） =====
     if (cycleNitroCount * nitroRatio > 0) {
         const specPart = specCharge * resist * (1 + cycleEff / 100) * cycleNitroCount * nitroRatio;
