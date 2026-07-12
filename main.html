@@ -7934,12 +7934,12 @@ const eff = useFirstFormula ? firstEff : cycleEff;
 if (effectiveNitroCount * nitroRatio > 0) {
     const specPart = specCharge * resist * (1 + eff / 100) * effectiveNitroCount * nitroRatio;
     const vehiclePart = useFirstFormula 
-        ? (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + eff / 100)
-        : (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + eff / 100);
+    ? 0
+    : (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + eff / 100);
     const effPart = useFirstFormula
         ? (firstEffFixed + firstEffFloating) * resist * (1 + eff / 100)
         : (cycleEffFixed + cycleEffFloating) * resist * (1 + eff / 100);
-    const neededFromNitro = Math.max(0, effectiveTarget - specPart - vehiclePart - effPart - raceNitroCycleBonus - effectiveYinNiBonus);
+    const neededFromNitro = Math.max(0, effectiveTarget - startVal - specPart - vehiclePart - effPart - raceNitroCycleBonus - effectiveYinNiBonus - 30 * resist);
     if (neededFromNitro > 0) {
         const perNitroNeededRaw = neededFromNitro / (effectiveNitroCount * nitroRatio);
         const perNitroNeededAfterEfficiency = perNitroNeededRaw / (resist * (1 + eff / 100));
