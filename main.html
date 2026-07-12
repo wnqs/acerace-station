@@ -7945,6 +7945,21 @@ if (effectiveNitroCount * nitroRatio > 0) {
         const perNitroNeededAfterEfficiency = perNitroNeededRaw / (resist * (1 + eff / 100));
         let rawX = (perNitroNeededAfterEfficiency - nitroVal) * 100 / nitroVal;
         minHuiNeeded = Math.max(0, rawX);
+        console.log("=== minHuiNeeded 计算详情 ===");
+    console.log("useFirstFormula:", useFirstFormula);
+    console.log("effectiveNitroCount:", effectiveNitroCount);
+    console.log("effectiveTarget:", effectiveTarget);
+    console.log("effectiveYinNiBonus:", effectiveYinNiBonus);
+    console.log("eff:", eff);
+    console.log("specPart:", specPart);
+    console.log("vehiclePart:", vehiclePart);
+    console.log("effPart:", effPart);
+    console.log("raceNitroCycleBonus:", raceNitroCycleBonus);
+    console.log("neededFromNitro:", neededFromNitro);
+    console.log("perNitroNeededRaw:", perNitroNeededRaw);
+    console.log("perNitroNeededAfterEfficiency:", perNitroNeededAfterEfficiency);
+    console.log("rawX:", rawX);
+    console.log("minHuiNeeded:", minHuiNeeded);
     }
 }
 
