@@ -3599,8 +3599,8 @@ video.wallpaper-modal-media {
 }
 
 .balance-card-icon {
-    width: 48px;
-    height: 48px;
+    width: 150px;
+    height: 110px;
     flex-shrink: 0;
     border-radius: 12px;
     overflow: hidden;
@@ -3681,10 +3681,17 @@ video.wallpaper-modal-media {
     font-size: 0.95rem;
     font-weight: 700;
     color: #feca57;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     margin-bottom: 4px;
 }
-
+.balance-card-body .adjust-item .label-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
 /* 调整内容文字：白色 */
 .balance-card-body .adjust-item .content {
     font-size: 0.82rem;
@@ -3897,8 +3904,8 @@ video.wallpaper-modal-media {
     }
     
     .balance-card-icon {
-        width: 40px;
-        height: 40px;
+        width: 80px;
+        height: 60px;
     }
     
     .balance-card-name {
@@ -5427,8 +5434,13 @@ function highlightArrowNumbers(text) {
     return text.replace(/→\s*(\d+(?:\.\d+)?%?)/g, '→ <span class="red-number">$1</span>');
 } 
         const adjustmentsHtml = sortedAdjustments.map(adj => {
+    // 只有"基础数值调整"不显示图标，其他分类如果有 icon 才显示
+    let iconHtml = '';
+    if (adj.category !== '基础数值调整' && adj.icon) {
+        iconHtml = `<img class="label-icon" src="${adj.icon}" referrerpolicy="no-referrer" onerror="this.style.display='none'">`;
+    }
     return `<div class="adjust-item">
-                <span class="label">${adj.category}</span>
+                <span class="label">${iconHtml}${adj.category}</span>
                 <span class="content">${adj.content}</span>
             </div>`;
 }).join('');
