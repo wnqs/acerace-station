@@ -7852,7 +7852,7 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
     // ===== 隐匿猎手之芯加成（只有两大一循环时才触发） =====
     var yinNiCycleBonus = 0;
     if (calcVSlot.value === 'yinni' && isDoubleCycle) {
-        yinNiCycleBonus = 15 * resist;
+        yinNiCycleBonus = 16 * resist;
     }
     
     const specCharge = sp === 10 ? 10 : 0;
@@ -7926,7 +7926,7 @@ if (isYinNiDouble) {
         }
     }
 }
-
+console.log("effectiveNitroCount:", effectiveNitroCount, "effectiveTarget:", effectiveTarget, "effectiveYinNiBonus:", effectiveYinNiBonus, "useFirstFormula:", useFirstFormula, "cycleNitroCount:", cycleNitroCount);
 // ===== 计算最小汇能 =====
 let minHuiNeeded = 0;
 const eff = useFirstFormula ? firstEff : cycleEff;
