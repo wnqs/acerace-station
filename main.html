@@ -7974,11 +7974,6 @@ const nitroPartFirst = nitroVal * (1 + huiForJi / 100) * resist * (1 + firstEff 
             
             let finalJiRaw = 0;
 let note = "";
-
-// ===== 判断模式 =====
-const isEvenCycle = (isYinNi && cycleNitroCount % 2 === 0);
-const isOddCycle = (isYinNi && cycleNitroCount % 2 !== 0);
-
 if (isEvenCycle) {
     // ===== 猎芯+两大一循环+偶数循环 =====
     // 目标能量 = 阈值 × 2
