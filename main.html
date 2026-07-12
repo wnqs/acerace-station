@@ -7941,6 +7941,7 @@ if (isYinNiDouble) {
         huiSubtractJi = false;
     }
 }
+}
 console.log("effectiveNitroCount:", effectiveNitroCount, "effectiveTarget:", effectiveTarget, "effectiveYinNiBonus:", effectiveYinNiBonus, "useFirstFormula:", useFirstFormula, "cycleNitroCount:", cycleNitroCount);
 // ===== 计算最小汇能 =====
 let minHuiNeeded = 0;
@@ -7983,6 +7984,7 @@ if (effectiveNitroCount * nitroRatio > 0) {
         minHuiNeeded = Math.max(0, rawX);
     }
 }
+  }          
         console.log("=== minHuiNeeded 计算详情 ===");
 console.log("useFirstFormula:", useFirstFormula);
 console.log("effectiveNitroCount:", effectiveNitroCount);
@@ -8042,34 +8044,32 @@ const startContribution = startVal + extraStartBonus;
 const totalWithoutJi = startContribution + nitroPartFirst + specPartFirst + vehiclePartFirst + effPartFirst + raceNitroStartBonus;
 
 // ===== 计算先机需求 =====
+// ===== 计算先机需求 =====
 let finalJiRaw = 0;
 let note = "";
 
-if (isYinNiDouble) {
-    // ===== 两大一循环：用 effective 参数计算总充能（不含先机） =====
-    const effJi = useFirstFormulaForJi ? firstEff : cycleEff;
-const nitroEnergy = (nitroVal * (1 + finalHuiValue / 100)) * effectiveNitroCount * nitroRatio * resist * (1 + effJi / 100);
-const specEnergy = specCharge * resist * (1 + effJi / 100) * effectiveNitroCount * nitroRatio;
-const vehicleEnergy = useFirstFormulaForJi 
-    ? (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + effJi / 100)
-    : (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + effJi / 100);
-const effEnergy = useFirstFormulaForJi
-    ? (firstEffFixed + firstEffFloating) * resist * (1 + effJi / 100)
-    : (cycleEffFixed + cycleEffFloating) * resist * (1 + effJi / 100);
+// ===== 统一用首大公式反推先机 =====
+if (useFirstFormulaForJi) {
+    const effJi = firstEff;
+    const nitroEnergy = (nitroVal * (1 + finalHuiValue / 100)) * jiNitroCount * nitroRatio * resist * (1 + effJi / 100);
+    const specEnergy = specCharge * resist * (1 + effJi / 100) * jiNitroCount * nitroRatio;
+    const vehicleEnergy = (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + effJi / 100);
+    const effEnergy = (firstEffFixed + firstEffFloating) * resist * (1 + effJi / 100);
     
-    // 总充能（不含先机）
-    const totalWithoutJiYinNi = startVal + nitroEnergy + specEnergy + vehicleEnergy + effEnergy + raceNitroCycleBonus + effectiveYinNiBonus;
+    const totalWithoutJi = startVal + nitroEnergy + specEnergy + vehicleEnergy + effEnergy + raceNitroCycleBonus + effectiveYinNiBonus;
+    const target = jiTarget;
     
-    if (totalWithoutJiYinNi >= effectiveTarget) {
+    if (totalWithoutJi >= target) {
         finalJiRaw = 0;
     } else {
-        let rawJi = (effectiveTarget - totalWithoutJiYinNi) / resist;
+        let rawJi = (target - totalWithoutJi) / resist;
         if (rawJi > 30) {
             finalJiRaw = 30;
+            // 触发上限，重新计算汇能
             const jiEnergy = 30 * resist;
-            const remainingForNitro = effectiveTarget - startVal - specEnergy - vehicleEnergy - effEnergy - raceNitroCycleBonus - effectiveYinNiBonus - jiEnergy;
+            const remainingForNitro = target - startVal - specEnergy - vehicleEnergy - effEnergy - raceNitroCycleBonus - effectiveYinNiBonus - jiEnergy;
             if (remainingForNitro > 0) {
-                const perNitroNeededRaw3 = remainingForNitro / (effectiveNitroCount * nitroRatio);
+                const perNitroNeededRaw3 = remainingForNitro / (jiNitroCount * nitroRatio);
                 const perNitroNeededAfterEfficiency3 = perNitroNeededRaw3 / (resist * (1 + effJi / 100));
                 let huiByFixed = (perNitroNeededAfterEfficiency3 - nitroVal) * 100 / nitroVal;
                 if (huiByFixed < 0) huiByFixed = 0;
@@ -8083,10 +8083,10 @@ const effEnergy = useFirstFormulaForJi
     }
     
 } else if (totalWithoutJi >= targetStart) {
-    // ===== 普通模式：不需要先机 =====
+    // 普通模式：不需要先机
     finalJiRaw = 0;
 } else {
-    // ===== 普通模式：计算先机 =====
+    // 普通模式：计算先机
     let rawJi = (targetStart - totalWithoutJi) / resist;
     if (rawJi > 30) {
         finalJiRaw = 30;
