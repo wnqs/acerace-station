@@ -3565,7 +3565,36 @@ video.wallpaper-modal-media {
     color: #1a1a2e;
     border-color: #feca57;
 }
+/* 版本下拉框 */
+.balance-version-select,
+.balance-version-select-mobile {
+    width: 100%;
+    max-width: 200px;
+    padding: 6px 12px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    color: #e2e2e6;
+    font-size: 0.8rem;
+    outline: none;
+    cursor: pointer;
+}
 
+.balance-version-select:focus,
+.balance-version-select-mobile:focus {
+    border-color: #feca57;
+}
+
+.balance-version-select option,
+.balance-version-select-mobile option {
+    background: #1a1a2e;
+    color: #e2e2e6;
+}
+
+.balance-version-select-mobile {
+    max-width: 100%;
+    font-size: 0.7rem;
+}
 /* 调整卡片网格 - 电脑端一行2个 */
 .balance-grid {
     display: grid;
@@ -4173,11 +4202,12 @@ video.wallpaper-modal-media {
             <div class="balance-search-box">
                 <input type="text" id="balanceSearchInputDesktop" placeholder="搜索车辆、芯片、赋能名称...">
             </div>
-            <div class="balance-desktop-filter-sections">
-                <div class="balance-desktop-filter-section">
-                    <div class="balance-desktop-filter-section-title">版本筛选</div>
-                    <div class="balance-desktop-filter-options" id="balanceDesktopVersionOptions"></div>
-                </div>
+            <div class="balance-desktop-filter-section">
+    <div class="balance-desktop-filter-section-title">版本筛选</div>
+    <select class="balance-version-select" id="balanceDesktopVersionSelect">
+        <option value="">全部版本</option>
+    </select>
+</div>
             </div>
         </div>
     </div>
@@ -4699,21 +4729,13 @@ video.wallpaper-modal-media {
         </div>
     </div>
     <div class="balance-mobile-filter-sticky">
-        <div class="balance-filter-row">
-            <div class="balance-mobile-search-box">
-                <input type="text" id="balanceSearchInputMobile" placeholder="搜索车辆、芯片、赋能...">
-            </div>
-            <div class="balance-category-dropdown-btn" id="balanceCategoryDropdownBtn">
-                <span>版本</span>
-                <span class="arrow">▼</span>
-            </div>
+    <div class="balance-filter-row">
+        <div class="balance-mobile-search-box">
+            <input type="text" id="balanceSearchInputMobile" placeholder="搜索车辆、芯片、赋能...">
         </div>
-        <div class="balance-category-dropdown-panel" id="balanceCategoryDropdownPanel">
-            <div class="balance-mobile-filter-section">
-                <div class="balance-mobile-filter-section-title">版本筛选</div>
-                <div class="balance-mobile-filter-options" id="balanceMobileVersionOptions"></div>
-            </div>
-        </div>
+        <select class="balance-version-select-mobile" id="balanceMobileVersionSelect">
+            <option value="">全部版本</option>
+        </select>
     </div>
 </div>
 <script>
@@ -5370,7 +5392,6 @@ async function loadBalanceData() {
     }
     
     initBalanceVersionFilters();
-    initBalanceMobileDropdown();
     bindBalanceSearchEvents();
     renderBalanceList();
 }
@@ -5496,80 +5517,32 @@ function bindBalanceSearchEvents() {
     }
 }
 
-// 初始化平衡性调整的版本筛选器
 function initBalanceVersionFilters() {
     const versions = getBalanceVersions();
     
-    // 电脑端
-    const desktopContainer = document.getElementById("balanceDesktopVersionOptions");
-    if (desktopContainer) {
-        desktopContainer.innerHTML = `<div class="balance-desktop-filter-option active" data-version="">全部</div>` +
-            versions.map(v => `<div class="balance-desktop-filter-option" data-version="${v}">v${v}</div>`).join('');
-        
-        desktopContainer.querySelectorAll('.balance-desktop-filter-option').forEach(opt => {
-            opt.removeEventListener('click', opt._balanceVersionHandler);
-            opt._balanceVersionHandler = () => {
-                const version = opt.dataset.version;
-                balanceFilters.version = version;
-                desktopContainer.querySelectorAll('.balance-desktop-filter-option').forEach(o => o.classList.remove('active'));
-                opt.classList.add('active');
-                renderBalanceList();
-            };
-            opt.addEventListener('click', opt._balanceVersionHandler);
+    // 电脑端下拉框
+    const desktopSelect = document.getElementById("balanceDesktopVersionSelect");
+    if (desktopSelect) {
+        desktopSelect.innerHTML = `<option value="">全部版本</option>` +
+            versions.map(v => `<option value="${v}">v${v}</option>`).join('');
+        desktopSelect.addEventListener('change', function() {
+            balanceFilters.version = this.value;
+            renderBalancePanels();
         });
     }
     
-    // 手机端
-    const mobileContainer = document.getElementById("balanceMobileVersionOptions");
-    if (mobileContainer) {
-        mobileContainer.innerHTML = `<div class="balance-mobile-filter-option active" data-version="">全部</div>` +
-            versions.map(v => `<div class="balance-mobile-filter-option" data-version="${v}">v${v}</div>`).join('');
-        
-        mobileContainer.querySelectorAll('.balance-mobile-filter-option').forEach(opt => {
-            opt.removeEventListener('click', opt._balanceVersionHandler);
-            opt._balanceVersionHandler = (e) => {
-                e.stopPropagation();
-                const version = opt.dataset.version;
-                balanceFilters.version = version;
-                mobileContainer.querySelectorAll('.balance-mobile-filter-option').forEach(o => o.classList.remove('active'));
-                opt.classList.add('active');
-                renderBalanceList();
-                // 关闭手机端下拉面板
-                const panel = document.getElementById("balanceCategoryDropdownPanel");
-                const btn = document.getElementById("balanceCategoryDropdownBtn");
-                if (panel) panel.classList.remove('show');
-                if (btn) btn.classList.remove('active');
-            };
-            opt.addEventListener('click', opt._balanceVersionHandler);
+    // 手机端下拉框
+    const mobileSelect = document.getElementById("balanceMobileVersionSelect");
+    if (mobileSelect) {
+        mobileSelect.innerHTML = `<option value="">全部版本</option>` +
+            versions.map(v => `<option value="${v}">v${v}</option>`).join('');
+        mobileSelect.addEventListener('change', function() {
+            balanceFilters.version = this.value;
+            renderBalancePanels();
         });
     }
 }
 
-// 初始化手机端平衡性调整下拉面板
-function initBalanceMobileDropdown() {
-    const dropdownBtn = document.getElementById("balanceCategoryDropdownBtn");
-    const dropdownPanel = document.getElementById("balanceCategoryDropdownPanel");
-    if (dropdownBtn && dropdownPanel) {
-        dropdownBtn.removeEventListener('click', dropdownBtn._balanceDropdownHandler);
-        dropdownBtn._balanceDropdownHandler = (e) => {
-            e.stopPropagation();
-            dropdownPanel.classList.toggle('show');
-            dropdownBtn.classList.toggle('active');
-        };
-        dropdownBtn.addEventListener('click', dropdownBtn._balanceDropdownHandler);
-        
-        // 点击其他地方关闭
-        document.removeEventListener('click', document._closeBalanceDropdown);
-        document._closeBalanceDropdown = (e) => {
-            if (!dropdownBtn.contains(e.target) && !dropdownPanel.contains(e.target)) {
-                dropdownPanel.classList.remove('show');
-                dropdownBtn.classList.remove('active');
-            }
-        };
-        document.addEventListener('click', document._closeBalanceDropdown);
-        dropdownPanel.addEventListener('click', (e) => e.stopPropagation());
-    }
-}
     async function loadData() {
         try {
             const vehiclesUrl = './vehicles.json';
