@@ -5641,6 +5641,7 @@ function renderBalancePanels() {
                 <div class="balance-version-panel-header" onclick="toggleVersionPanel(this)">
                     <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
                         <span class="version-title">版本 ${version}</span>
+                        ${items[0].date ? `<span class="version-date">${items[0].date}</span>` : ''}
                         <span class="version-count">${items.length} 条调整</span>
                     </div>
                     <div>
