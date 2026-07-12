@@ -4,6 +4,10 @@
       "id": "balance_vehicle_001",
       "type": "vehicle",
       "name": "禅",
+      "position": "竞速",
+      "positionIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3dff9aca-3af3-47c0-bf76-cce424c2d846.png",
+      "specialty": "城市",
+      "specialtyIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/cab840bc-ee68-4bff-9d26-0919a8836907.png",
       "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/89cb6244-ac45-460d-a57b-4297361ef2f9.png",
       "version": "1.0",
       "date": "2021-8-27",
@@ -23,6 +27,10 @@
       "id": "balance_vehicle_002",
       "type": "vehicle",
       "name": "柯尼塞格 Regera",
+      "position": "竞速",
+      "positionIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3dff9aca-3af3-47c0-bf76-cce424c2d846.png",
+      "specialty": "城市",
+      "specialtyIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/cab840bc-ee68-4bff-9d26-0919a8836907.png",
       "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/bd0c6dda-0a18-4a73-b07a-be7d79ab9ff2.png",
       "version": "1.0",
       "adjustments": [
@@ -37,6 +45,10 @@
       "id": "balance_vehicle_003",
       "type": "vehicle",
       "name": "法拉第",
+      "position": "干扰",
+      "positionIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3275e576-7547-4a19-94e9-71725a09c902.png",
+      "specialty": "场地",
+      "specialtyIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/9bdee65d-6c29-4170-ba12-cd60bf8fdfac.png",
       "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/31a1152a-d041-4ea5-8400-1cbc2571f9fa.png",
       "version": "1.0",
       "adjustments": [
@@ -53,6 +65,10 @@
       "name": "宝马i8",
       "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/69dce1f4-9985-47c5-98b7-95cda32f7666.png",
       "version": "1.0",
+      "position": "干扰",
+      "positionIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3275e576-7547-4a19-94e9-71725a09c902.png",
+      "specialty": "山路",
+      "specialtyIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/fb120b3c-bceb-4d2d-b282-428f6d0bbf3a.png",
       "adjustments": [
         {
           "category": "大招调整",
@@ -67,6 +83,10 @@
       "name": "燃烧太阳",
       "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/9cb738d7-82cd-48c2-9d4f-737e1cc2a9dd.png",
       "version": "1.0",
+      "position": "干扰",
+      "positionIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3275e576-7547-4a19-94e9-71725a09c902.png",
+      "specialty": "场地",
+      "specialtyIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/9bdee65d-6c29-4170-ba12-cd60bf8fdfac.png",
       "adjustments": [
         {
           "category": "大招调整",
@@ -81,6 +101,10 @@
       "name": "杂耍者",
       "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/1359a58a-a0e7-42b8-9840-fd30b8026906.png",
       "version": "1.0",
+      "position": "辅助",
+      "positionIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/76986bb0-a074-42e8-9f7a-acf66eb19ea3.png",
+      "specialty": "场地",
+      "specialtyIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/9bdee65d-6c29-4170-ba12-cd60bf8fdfac.png",
       "adjustments": [
         {
           "category": "大招调整",
@@ -95,6 +119,10 @@
       "name": "大众 Beetle",
       "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/09048d33-7b32-42c8-ba9e-15115789b7b5.png",
       "version": "1.0",
+      "position": "辅助",
+      "positionIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/76986bb0-a074-42e8-9f7a-acf66eb19ea3.png",
+      "specialty": "城市",
+      "specialtyIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/cab840bc-ee68-4bff-9d26-0919a8836907.png",
       "adjustments": [
         {
           "category": "大招调整",
