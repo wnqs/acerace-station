@@ -7887,79 +7887,533 @@ const isYinNiDouble = (calcVSlot.value === 'yinni' && isDoubleCycle);
 const isThreshold100 = (targetStart === 100);
 const isOdd = (cycleNitroCount % 2 !== 0);
 const isEven = (cycleNitroCount % 2 === 0);
+const hasFuture = (calcMainEff.value === 'future' || calcSubEff.value === 'future');
 
-// ===== 计算有效参数 =====
-let effectiveTarget = targetCycle;
-let effectiveNitroCount = cycleNitroCount;
-let effectiveYinNiBonus = yinNiCycleBonus;
-let useFirstFormula = false;
-
-if (isYinNiDouble) {
-    if (isThreshold100) {
-        if (isOdd) {
-            // 100阈值 + 奇数循环：能量×2，氮气=循环数，猎芯加，用循环公式
-            effectiveTarget = targetStart * 2;
-            effectiveNitroCount = cycleNitroCount;
-            effectiveYinNiBonus = 16 * resist;
-            useFirstFormula = false;
-        } else {
-            // 100阈值 + 偶数循环：能量×2，氮气=首大+循环/2，猎芯不加，用首大公式
-            effectiveTarget = targetStart * 2;
-            effectiveNitroCount = startNitroCount + cycleNitroCount / 2;
-            effectiveYinNiBonus = 0;
-            useFirstFormula = true;
-        }
-    } else {
-        // 阈值 ≤ 80
-        if (isOdd) {
-            // ≤80阈值 + 奇数循环：能量=阈值，氮气=(循环-1)/2，猎芯加，用循环公式
-            effectiveTarget = targetStart;
-            effectiveNitroCount = (cycleNitroCount - 1) / 2;
-            effectiveYinNiBonus = 16 * resist;
-            useFirstFormula = false;
-        } else {
-            // ≤80阈值 + 偶数循环：能量=阈值×2，氮气=循环数，猎芯不加，用循环公式
-            effectiveTarget = targetStart * 2;
-            effectiveNitroCount = cycleNitroCount;
-            effectiveYinNiBonus = 16 * resist;
-            useFirstFormula = false;
-        }
-    }
+// ===== 首大公式 =====
+function calcFirstEnergy(huiValue, nitroCount, jiValue) {
+    const eff = firstEff;
+    const nitro = nitroVal * (1 + huiValue / 100) * nitroCount * nitroRatio * resist * (1 + eff / 100);
+    const spec = specCharge * resist * (1 + eff / 100) * nitroCount * nitroRatio;
+    const vehicle = (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + eff / 100);
+    const refuse = (calcMainEff.value === 'refuse' || calcSubEff.value === 'refuse') ? 5 * resist : 0;
+    const huaxin = (calcMainEff.value === 'huaxin' || calcSubEff.value === 'huaxin') ? 7 * resist : 0;
+    const queyi = (calcMainEff.value === 'queyi' || calcSubEff.value === 'queyi') ? 
+        parseFloat(calcQueyiFirstSeconds.value) * parseFloat(calcQueyiLevel.value) * resist : 0;
+    const effPart = (firstEffFixed + firstEffFloating) * resist * (1 + eff / 100);
+    
+    return startVal + nitro + spec + vehicle + effPart + refuse + huaxin + queyi + jiValue * resist + raceNitroStartBonus;
 }
-console.log("effectiveNitroCount:", effectiveNitroCount, "effectiveTarget:", effectiveTarget, "effectiveYinNiBonus:", effectiveYinNiBonus, "useFirstFormula:", useFirstFormula, "cycleNitroCount:", cycleNitroCount);
+
+// ===== 普通循环公式 =====
+function calcNormalCycleEnergy(huiValue, nitroCount) {
+    const eff = cycleEff;
+    const nitro = nitroVal * (1 + huiValue / 100) * nitroCount * nitroRatio * resist * (1 + eff / 100);
+    const spec = specCharge * resist * (1 + eff / 100) * nitroCount * nitroRatio;
+    const vehicle = (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + eff / 100);
+    const recovery = (calcMainEff.value === 'resurgence' || calcSubEff.value === 'resurgence') ? 12.5 * resist : 0;
+    const refuse = (calcMainEff.value === 'refuse' || calcSubEff.value === 'refuse') ? 5 * resist : 0;
+    const huaxin = (calcMainEff.value === 'huaxin' || calcSubEff.value === 'huaxin') ? 7 * resist : 0;
+    const queyi = (calcMainEff.value === 'queyi' || calcSubEff.value === 'queyi') ? 
+        parseFloat(calcQueyiCycleSeconds.value) * parseFloat(calcQueyiLevel.value) * resist : 0;
+    const energyRecovery = (calcMainEff.value === 'nengyuan' || calcSubEff.value === 'nengyuan') ? 10 * resist : 0;
+    const effPart = (cycleEffFixed + cycleEffFloating) * resist * (1 + eff / 100);
+    
+    return nitro + spec + vehicle + effPart + recovery + refuse + huaxin + queyi + energyRecovery + raceNitroCycleBonus;
+}
+
+// ===== 普通循环公式（仅≤80奇数时使用，加猎芯16） =====
+function calcNormalCycleEnergyWithYinNi(huiValue, nitroCount) {
+    return calcNormalCycleEnergy(huiValue, nitroCount) + 16 * resist;
+}
+
+// ===== 两大一循环公式 =====
+function calcDoubleCycleEnergy(huiValue, nitroCount) {
+    const eff = cycleEff;
+    const nitro = nitroVal * (1 + huiValue / 100) * nitroCount * nitroRatio * resist * (1 + eff / 100);
+    const spec = specCharge * resist * (1 + eff / 100) * nitroCount * nitroRatio;
+    const vehicle = (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + eff / 100);
+    const recovery = (calcMainEff.value === 'resurgence' || calcSubEff.value === 'resurgence') ? 25 * resist : 0;
+    const refuse = (calcMainEff.value === 'refuse' || calcSubEff.value === 'refuse') ? 5 * resist : 0;
+    const huaxin = (calcMainEff.value === 'huaxin' || calcSubEff.value === 'huaxin') ? 14 * resist : 0;
+    const queyi = (calcMainEff.value === 'queyi' || calcSubEff.value === 'queyi') ? 
+        parseFloat(calcQueyiCycleSeconds.value) * parseFloat(calcQueyiLevel.value) * resist : 0;
+    const energyRecovery = (calcMainEff.value === 'nengyuan' || calcSubEff.value === 'nengyuan') ? 20 * resist : 0;
+    const effPart = (cycleEffFixed + cycleEffFloating) * resist * (1 + eff / 100);
+    
+    return nitro + spec + vehicle + effPart + recovery + refuse + huaxin + queyi + energyRecovery + raceNitroCycleBonus;
+}
+
+// ===== 两大一循环公式（仅100奇数时使用，加猎芯16） =====
+function calcDoubleCycleEnergyWithYinNi(huiValue, nitroCount) {
+    return calcDoubleCycleEnergy(huiValue, nitroCount) + 16 * resist;
+}
+
+// ===== 场景1：100偶数不带未来（先机逐步降低0.1，汇能0.25一档） =====
+function calc100EvenNoFuture() {
+    const target = 200;
+    const firstNitro = startNitroCount;
+    const cycleNitro = cycleNitroCount / 2;
+    let bestHui = 0;
+    let bestJi = 30;
+    let found = false;
+    
+    for (let ji = 30; ji >= 0; ji -= 0.1) {
+        let hui = 0;
+        let step = 0.25;
+        let attempts = 0;
+        let maxAttempts = 10000;
+        
+        while (attempts < maxAttempts) {
+            const firstEnergy = calcFirstEnergy(hui, firstNitro, ji);
+            const cycleEnergy = calcNormalCycleEnergy(hui, cycleNitro);
+            const total = firstEnergy + cycleEnergy;
+            
+            if (total >= target && hui <= maxHui) {
+                bestHui = hui;
+                bestJi = ji;
+                found = true;
+                break;
+            }
+            hui += step;
+            attempts++;
+        }
+        if (found) break;
+    }
+    
+    if (!found) {
+        bestHui = maxHui;
+        bestJi = 0;
+    }
+    
+    bestJi = Math.round(bestJi * 10) / 10;
+    return { hui: bestHui, ji: bestJi };
+}
+
+// ===== 场景2：100奇数不带未来（首大 + 两大一循环，加猎芯） =====
+function calc100OddNoFuture() {
+    const target = 200;
+    const firstNitro = startNitroCount;
+    const cycleNitro = cycleNitroCount;
+    
+    let hui = 0;
+    let step = 0.25;
+    let attempts = 0;
+    let maxAttempts = 10000;
+    
+    while (attempts < maxAttempts) {
+        const firstEnergy = calcFirstEnergy(hui, firstNitro, 0);
+        const doubleEnergy = calcDoubleCycleEnergyWithYinNi(hui, cycleNitro);
+        if (firstEnergy + doubleEnergy >= target) break;
+        hui += step;
+        attempts++;
+    }
+    
+    const firstEnergyWithHui = calcFirstEnergy(hui, firstNitro, 0);
+    let ji = 0;
+    if (firstEnergyWithHui < 100) {
+        ji = Math.max(0, Math.min(30, (100 - firstEnergyWithHui) / resist));
+    }
+    ji = Math.round(ji * 10) / 10;
+    
+    return { hui: hui, ji: ji };
+}
+
+// ===== 场景3：100带未来（普通循环，不加猎芯） =====
+function calc100WithFuture() {
+    const target = 90;
+    const firstNitro = startNitroCount;
+    const cycleNitro = cycleNitroCount / 2;
+    
+    let hui = 0;
+    let step = 0.25;
+    let attempts = 0;
+    let maxAttempts = 10000;
+    
+    while (attempts < maxAttempts) {
+        const cycleEnergy = calcNormalCycleEnergy(hui, cycleNitro);
+        if (cycleEnergy >= target) break;
+        hui += step;
+        attempts++;
+    }
+    
+    const firstEnergyWithHui = calcFirstEnergy(hui, firstNitro, 0);
+    let ji = 0;
+    if (firstEnergyWithHui < 90) {
+        ji = Math.max(0, Math.min(30, (90 - firstEnergyWithHui) / resist));
+    }
+    ji = Math.round(ji * 10) / 10;
+    
+    return { hui: hui, ji: ji };
+}
+
+// ===== 场景4：≤80偶数不带未来（首大 + 普通循环，不加猎芯） =====
+function calc80EvenNoFuture() {
+    const target = targetStart;
+    const firstNitro = startNitroCount;
+    const cycleNitro = cycleNitroCount / 2;
+    
+    let hui = 0;
+    let step = 0.25;
+    let attempts = 0;
+    let maxAttempts = 10000;
+    
+    while (attempts < maxAttempts) {
+        const firstEnergy = calcFirstEnergy(hui, firstNitro, 0);
+        const cycleEnergy = calcNormalCycleEnergy(hui, cycleNitro);
+        if (firstEnergy + cycleEnergy >= target) break;
+        hui += step;
+        attempts++;
+    }
+    
+    const firstEnergyWithHui = calcFirstEnergy(hui, firstNitro, 0);
+    let ji = 0;
+    if (firstEnergyWithHui < targetStart) {
+        ji = Math.max(0, Math.min(30, (targetStart - firstEnergyWithHui) / resist));
+    }
+    ji = Math.round(ji * 10) / 10;
+    
+    return { hui: hui, ji: ji };
+}
+
+// ===== 场景5：≤80奇数不带未来（首大 + 普通循环，加猎芯16） =====
+function calc80OddNoFuture() {
+    const target = targetStart;
+    const firstNitro = startNitroCount;
+    const cycleNitro = (cycleNitroCount - 1) / 2;
+    
+    let hui = 0;
+    let step = 0.25;
+    let attempts = 0;
+    let maxAttempts = 10000;
+    
+    while (attempts < maxAttempts) {
+        const firstEnergy = calcFirstEnergy(hui, firstNitro, 0);
+        const cycleEnergy = calcNormalCycleEnergyWithYinNi(hui, cycleNitro);
+        if (firstEnergy + cycleEnergy >= target) break;
+        hui += step;
+        attempts++;
+    }
+    
+    const firstEnergyWithHui = calcFirstEnergy(hui, firstNitro, 0);
+    let ji = 0;
+    if (firstEnergyWithHui < targetStart) {
+        ji = Math.max(0, Math.min(30, (targetStart - firstEnergyWithHui) / resist));
+    }
+    ji = Math.round(ji * 10) / 10;
+    
+    return { hui: hui, ji: ji };
+}
+function calc100EvenNoFuture() {
+    const target = 200;
+    const firstNitro = startNitroCount;
+    const cycleNitro = cycleNitroCount / 2;
+    let bestHui = 0;
+    let bestJi = 30;
+    let found = false;
+    
+    console.log("===== 场景1: 100偶数不带未来 计算开始 =====");
+    console.log("车辆:", car.name);
+    console.log("首大氮气数:", firstNitro, "循环氮气数:", cycleNitro, "目标:", target);
+    console.log("芯片最大汇能上限:", maxHui);
+    console.log("起步充能(startVal):", startVal, "氮气充能(nitroVal):", nitroVal);
+    console.log("首大固定充能(vehicleFirstFixed):", vehicleFirstFixed);
+    console.log("专精(specCharge):", specCharge, "氮气系数(nitroRatio):", nitroRatio);
+    console.log("反制(resist):", resist);
+    console.log("先机从30开始, 每次降0.1, 汇能步长0.25");
+    console.log("计算公式: 首大(含先机) + 普通循环 ≥ 200");
+    console.log("猎芯16: 不加");
+    console.log("复苏: 用户选择才生效");
+    console.log("");
+    
+    for (let ji = 30; ji >= 0; ji -= 0.1) {
+        let hui = 0;
+        let step = 0.25;
+        let attempts = 0;
+        let maxAttempts = 10000;
+        
+        while (attempts < maxAttempts) {
+            const firstEnergy = calcFirstEnergy(hui, firstNitro, ji);
+            const cycleEnergy = calcNormalCycleEnergy(hui, cycleNitro);
+            const total = firstEnergy + cycleEnergy;
+            
+            if (total >= target && hui <= maxHui) {
+                bestHui = hui;
+                bestJi = ji;
+                found = true;
+                console.log("✅ 找到方案:");
+                console.log("  先机:", ji);
+                console.log("  汇能:", hui);
+                console.log("  首大能量:", firstEnergy.toFixed(2));
+                console.log("  循环能量:", cycleEnergy.toFixed(2));
+                console.log("  总能量:", total.toFixed(2));
+                console.log("  目标:", target);
+                break;
+            }
+            hui += step;
+            attempts++;
+        }
+        if (found) break;
+    }
+    
+    if (!found) {
+        bestHui = maxHui;
+        bestJi = 0;
+        console.log("❌ 未找到方案，使用芯片上限: 汇能=" + maxHui + ", 先机=0");
+    }
+    
+    bestJi = Math.round(bestJi * 10) / 10;
+    console.log("===== 场景1 计算结果 ===== 先机:", bestJi, "汇能:", bestHui);
+    console.log("");
+    return { hui: bestHui, ji: bestJi };
+}
+ function calc100OddNoFuture() {
+    const target = 200;
+    const firstNitro = startNitroCount;
+    const cycleNitro = cycleNitroCount;
+    
+    console.log("===== 场景2: 100奇数不带未来 计算开始 =====");
+    console.log("车辆:", car.name);
+    console.log("首大氮气数:", firstNitro, "循环氮气数:", cycleNitro, "目标:", target);
+    console.log("芯片最大汇能上限:", maxHui);
+    console.log("起步充能(startVal):", startVal, "氮气充能(nitroVal):", nitroVal);
+    console.log("首大固定充能(vehicleFirstFixed):", vehicleFirstFixed);
+    console.log("专精(specCharge):", specCharge, "氮气系数(nitroRatio):", nitroRatio);
+    console.log("反制(resist):", resist);
+    console.log("计算公式: 首大 + 两大一循环(含猎芯16) ≥ 200");
+    console.log("猎芯16: 加");
+    console.log("复苏: 用户选择才生效（两大一循环生效）");
+    console.log("");
+    
+    let hui = 0;
+    let step = 0.25;
+    let attempts = 0;
+    let maxAttempts = 10000;
+    
+    while (attempts < maxAttempts) {
+        const firstEnergy = calcFirstEnergy(hui, firstNitro, 0);
+        const doubleEnergy = calcDoubleCycleEnergyWithYinNi(hui, cycleNitro);
+        const total = firstEnergy + doubleEnergy;
+        
+        if (total >= target) {
+            console.log("✅ 找到方案:");
+            console.log("  汇能:", hui);
+            console.log("  首大能量:", firstEnergy.toFixed(2));
+            console.log("  两大一循环能量(含猎芯16):", doubleEnergy.toFixed(2));
+            console.log("  总能量:", total.toFixed(2));
+            console.log("  目标:", target);
+            break;
+        }
+        hui += step;
+        attempts++;
+    }
+    
+    const firstEnergyWithHui = calcFirstEnergy(hui, firstNitro, 0);
+    let ji = 0;
+    if (firstEnergyWithHui < 100) {
+        ji = Math.max(0, Math.min(30, (100 - firstEnergyWithHui) / resist));
+    }
+    ji = Math.round(ji * 10) / 10;
+    
+    console.log("===== 场景2 计算结果 ===== 汇能:", hui, "先机:", ji);
+    console.log("");
+    return { hui: hui, ji: ji };
+}
+ function calc100WithFuture() {
+    const target = 90;
+    const firstNitro = startNitroCount;
+    const cycleNitro = cycleNitroCount / 2;
+    
+    console.log("===== 场景3: 100带未来 计算开始 =====");
+    console.log("车辆:", car.name);
+    console.log("首大氮气数:", firstNitro, "循环氮气数:", cycleNitro);
+    console.log("汇能目标:", target, "显示目标: 180");
+    console.log("芯片最大汇能上限:", maxHui);
+    console.log("起步充能(startVal):", startVal, "氮气充能(nitroVal):", nitroVal);
+    console.log("专精(specCharge):", specCharge, "氮气系数(nitroRatio):", nitroRatio);
+    console.log("反制(resist):", resist);
+    console.log("计算公式: 普通循环 ≥ 90");
+    console.log("猎芯16: 不加");
+    console.log("未来赋能: 生效, 阈值改为90");
+    console.log("复苏: 用户选择才生效（普通循环生效）");
+    console.log("");
+    
+    let hui = 0;
+    let step = 0.25;
+    let attempts = 0;
+    let maxAttempts = 10000;
+    
+    while (attempts < maxAttempts) {
+        const cycleEnergy = calcNormalCycleEnergy(hui, cycleNitro);
+        if (cycleEnergy >= target) {
+            console.log("✅ 找到方案:");
+            console.log("  汇能:", hui);
+            console.log("  循环能量:", cycleEnergy.toFixed(2));
+            console.log("  目标:", target);
+            break;
+        }
+        hui += step;
+        attempts++;
+    }
+    
+    const firstEnergyWithHui = calcFirstEnergy(hui, firstNitro, 0);
+    let ji = 0;
+    if (firstEnergyWithHui < 90) {
+        ji = Math.max(0, Math.min(30, (90 - firstEnergyWithHui) / resist));
+    }
+    ji = Math.round(ji * 10) / 10;
+    
+    console.log("===== 场景3 计算结果 ===== 汇能:", hui, "先机:", ji);
+    console.log("");
+    return { hui: hui, ji: ji };
+}
+  function calc80EvenNoFuture() {
+    const target = targetStart;
+    const firstNitro = startNitroCount;
+    const cycleNitro = cycleNitroCount / 2;
+    
+    console.log("===== 场景4: ≤80偶数不带未来 计算开始 =====");
+    console.log("车辆:", car.name);
+    console.log("阈值:", targetStart, "首大氮气数:", firstNitro, "循环氮气数:", cycleNitro, "目标:", target);
+    console.log("芯片最大汇能上限:", maxHui);
+    console.log("起步充能(startVal):", startVal, "氮气充能(nitroVal):", nitroVal);
+    console.log("首大固定充能(vehicleFirstFixed):", vehicleFirstFixed);
+    console.log("专精(specCharge):", specCharge, "氮气系数(nitroRatio):", nitroRatio);
+    console.log("反制(resist):", resist);
+    console.log("计算公式: 首大 + 普通循环 ≥ 阈值");
+    console.log("猎芯16: 不加");
+    console.log("复苏: 用户选择才生效（普通循环生效）");
+    console.log("");
+    
+    let hui = 0;
+    let step = 0.25;
+    let attempts = 0;
+    let maxAttempts = 10000;
+    
+    while (attempts < maxAttempts) {
+        const firstEnergy = calcFirstEnergy(hui, firstNitro, 0);
+        const cycleEnergy = calcNormalCycleEnergy(hui, cycleNitro);
+        const total = firstEnergy + cycleEnergy;
+        
+        if (total >= target) {
+            console.log("✅ 找到方案:");
+            console.log("  汇能:", hui);
+            console.log("  首大能量:", firstEnergy.toFixed(2));
+            console.log("  循环能量:", cycleEnergy.toFixed(2));
+            console.log("  总能量:", total.toFixed(2));
+            console.log("  目标:", target);
+            break;
+        }
+        hui += step;
+        attempts++;
+    }
+    
+    const firstEnergyWithHui = calcFirstEnergy(hui, firstNitro, 0);
+    let ji = 0;
+    if (firstEnergyWithHui < targetStart) {
+        ji = Math.max(0, Math.min(30, (targetStart - firstEnergyWithHui) / resist));
+    }
+    ji = Math.round(ji * 10) / 10;
+    
+    console.log("===== 场景4 计算结果 ===== 汇能:", hui, "先机:", ji);
+    console.log("");
+    return { hui: hui, ji: ji };
+}
+  function calc80OddNoFuture() {
+    const target = targetStart;
+    const firstNitro = startNitroCount;
+    const cycleNitro = (cycleNitroCount - 1) / 2;
+    
+    console.log("===== 场景5: ≤80奇数不带未来 计算开始 =====");
+    console.log("车辆:", car.name);
+    console.log("阈值:", targetStart, "首大氮气数:", firstNitro, "循环氮气数:", cycleNitro, "目标:", target);
+    console.log("芯片最大汇能上限:", maxHui);
+    console.log("起步充能(startVal):", startVal, "氮气充能(nitroVal):", nitroVal);
+    console.log("首大固定充能(vehicleFirstFixed):", vehicleFirstFixed);
+    console.log("专精(specCharge):", specCharge, "氮气系数(nitroRatio):", nitroRatio);
+    console.log("反制(resist):", resist);
+    console.log("计算公式: 首大 + 普通循环(含猎芯16) ≥ 阈值");
+    console.log("猎芯16: 加");
+    console.log("复苏: 用户选择才生效（普通循环生效）");
+    console.log("");
+    
+    let hui = 0;
+    let step = 0.25;
+    let attempts = 0;
+    let maxAttempts = 10000;
+    
+    while (attempts < maxAttempts) {
+        const firstEnergy = calcFirstEnergy(hui, firstNitro, 0);
+        const cycleEnergy = calcNormalCycleEnergyWithYinNi(hui, cycleNitro);
+        const total = firstEnergy + cycleEnergy;
+        
+        if (total >= target) {
+            console.log("✅ 找到方案:");
+            console.log("  汇能:", hui);
+            console.log("  首大能量:", firstEnergy.toFixed(2));
+            console.log("  循环能量(含猎芯16):", cycleEnergy.toFixed(2));
+            console.log("  总能量:", total.toFixed(2));
+            console.log("  目标:", target);
+            break;
+        }
+        hui += step;
+        attempts++;
+    }
+    
+    const firstEnergyWithHui = calcFirstEnergy(hui, firstNitro, 0);
+    let ji = 0;
+    if (firstEnergyWithHui < targetStart) {
+        ji = Math.max(0, Math.min(30, (targetStart - firstEnergyWithHui) / resist));
+    }
+    ji = Math.round(ji * 10) / 10;
+    
+    console.log("===== 场景5 计算结果 ===== 汇能:", hui, "先机:", ji);
+    console.log("");
+    return { hui: hui, ji: ji };
+}          
+// ===== 主逻辑入口日志 =====
+console.log("========================================");
+console.log("========== 芯片计算器 开始 ==========");
+console.log("========================================");
+console.log("isYinNiDouble:", isYinNiDouble);
+console.log("isThreshold100:", isThreshold100);
+console.log("isOdd:", isOdd);
+console.log("isEven:", isEven);
+console.log("hasFuture:", hasFuture);
+console.log("cycleNitroCount:", cycleNitroCount);
+console.log("进入场景:", 
+    isYinNiDouble ? 
+        (isThreshold100 ? 
+            (isEven ? "100偶数不带未来" : "100奇数不带未来") + (hasFuture ? " + 未来" : "")
+            : (isEven ? "≤80偶数" : "≤80奇数")
+        ) : "非猎芯两大一循环"
+);
+console.log("========================================");
+console.log("");
 // ===== 计算最小汇能 =====
 let minHuiNeeded = 0;
-const eff = useFirstFormula ? firstEff : cycleEff;
+let finalJiRaw = 0;
 
-if (effectiveNitroCount * nitroRatio > 0) {
-    const specPart = specCharge * resist * (1 + eff / 100) * effectiveNitroCount * nitroRatio;
-    const vehiclePart = useFirstFormula 
-    ? (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + eff / 100)
-    : (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + eff / 100);
-    const effPart = useFirstFormula
-        ? (firstEffFixed + firstEffFloating) * resist * (1 + eff / 100)
-        : (cycleEffFixed + cycleEffFloating) * resist * (1 + eff / 100);
-    const neededFromNitro = Math.max(0, effectiveTarget - startVal - specPart - vehiclePart - effPart - raceNitroCycleBonus - effectiveYinNiBonus - 30 * resist);
-    if (neededFromNitro > 0) {
-        const perNitroNeededRaw = neededFromNitro / (effectiveNitroCount * nitroRatio);
-        const perNitroNeededAfterEfficiency = perNitroNeededRaw / (resist * (1 + eff / 100));
-        let rawX = (perNitroNeededAfterEfficiency - nitroVal) * 100 / nitroVal;
-        minHuiNeeded = Math.max(0, rawX);
-        console.log("=== minHuiNeeded 计算详情 ===");
-    console.log("useFirstFormula:", useFirstFormula);
-    console.log("effectiveNitroCount:", effectiveNitroCount);
-    console.log("effectiveTarget:", effectiveTarget);
-    console.log("effectiveYinNiBonus:", effectiveYinNiBonus);
-    console.log("eff:", eff);
-    console.log("specPart:", specPart);
-    console.log("vehiclePart:", vehiclePart);
-    console.log("effPart:", effPart);
-    console.log("raceNitroCycleBonus:", raceNitroCycleBonus);
-    console.log("neededFromNitro:", neededFromNitro);
-    console.log("perNitroNeededRaw:", perNitroNeededRaw);
-    console.log("perNitroNeededAfterEfficiency:", perNitroNeededAfterEfficiency);
-    console.log("rawX:", rawX);
-    console.log("minHuiNeeded:", minHuiNeeded);
+if (isYinNiDouble) {
+    if (isThreshold100 && isEven && !hasFuture) {
+        const result = calc100EvenNoFuture();
+        minHuiNeeded = result.hui;
+        finalJiRaw = result.ji;
+    } else if (isThreshold100 && isOdd && !hasFuture) {
+        const result = calc100OddNoFuture();
+        minHuiNeeded = result.hui;
+        finalJiRaw = result.ji;
+    } else if (isThreshold100 && hasFuture) {
+        const result = calc100WithFuture();
+        minHuiNeeded = result.hui;
+        finalJiRaw = result.ji;
+    } else if (!isThreshold100 && isEven) {
+        const result = calc80EvenNoFuture();
+        minHuiNeeded = result.hui;
+        finalJiRaw = result.ji;
+    } else if (!isThreshold100 && isOdd) {
+        const result = calc80OddNoFuture();
+        minHuiNeeded = result.hui;
+        finalJiRaw = result.ji;
     }
 }
 
@@ -8004,54 +8458,15 @@ const startContribution = startVal + extraStartBonus;
 const totalWithoutJi = startContribution + nitroPartFirst + specPartFirst + vehiclePartFirst + effPartFirst + raceNitroStartBonus;
 
 // ===== 计算先机需求 =====
-let finalJiRaw = 0;
+let finalJiRaw2 = 0;
 let note = "";
 
-if (isYinNiDouble) {
-    // ===== 两大一循环：用 effective 参数计算总充能（不含先机） =====
-    const effJi = useFirstFormula ? firstEff : cycleEff;
-    const nitroEnergy = (nitroVal * (1 + finalHuiValue / 100)) * effectiveNitroCount * nitroRatio * resist * (1 + effJi / 100);
-    const specEnergy = specCharge * resist * (1 + effJi / 100) * effectiveNitroCount * nitroRatio;
-    const vehicleEnergy = useFirstFormula 
-        ? (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + effJi / 100)
-        : (vehicleCycleFixed + vehicleCycleFloating) * resist * (1 + effJi / 100);
-    const effEnergy = useFirstFormula
-        ? (firstEffFixed + firstEffFloating) * resist * (1 + effJi / 100)
-        : (cycleEffFixed + cycleEffFloating) * resist * (1 + effJi / 100);
-    
-    // 总充能（不含先机）
-    const totalWithoutJiYinNi = startVal + nitroEnergy + specEnergy + vehicleEnergy + effEnergy + raceNitroCycleBonus + effectiveYinNiBonus;
-    
-    if (totalWithoutJiYinNi >= effectiveTarget) {
-        finalJiRaw = 0;
-    } else {
-        let rawJi = (effectiveTarget - totalWithoutJiYinNi) / resist;
-        if (rawJi > 30) {
-            finalJiRaw = 30;
-            const jiEnergy = 30 * resist;
-            const remainingForNitro = effectiveTarget - startVal - specEnergy - vehicleEnergy - effEnergy - raceNitroCycleBonus - effectiveYinNiBonus - jiEnergy;
-            if (remainingForNitro > 0) {
-                const perNitroNeededRaw3 = remainingForNitro / (effectiveNitroCount * nitroRatio);
-                const perNitroNeededAfterEfficiency3 = perNitroNeededRaw3 / (resist * (1 + effJi / 100));
-                let huiByFixed = (perNitroNeededAfterEfficiency3 - nitroVal) * 100 / nitroVal;
-                if (huiByFixed < 0) huiByFixed = 0;
-                finalHuiFormatted = formatHuiCalc(huiByFixed);
-                finalHuiValue = huiByFixed;
-                note = `<br><span style="color: var(--eff-yellow);">⚠️ 先机需求超过30%，触发上限。汇能重新计算为${finalHuiFormatted}%</span>`;
-            }
-        } else {
-            finalJiRaw = rawJi;
-        }
-    }
-    
-} else if (totalWithoutJi >= targetStart) {
-    // ===== 普通模式：不需要先机 =====
-    finalJiRaw = 0;
+if (totalWithoutJi >= targetStart) {
+    finalJiRaw2 = 0;
 } else {
-    // ===== 普通模式：计算先机 =====
     let rawJi = (targetStart - totalWithoutJi) / resist;
     if (rawJi > 30) {
-        finalJiRaw = 30;
+        finalJiRaw2 = 30;
         const jiEnergyFixed = 30 * resist;
         const remainingForNitro = targetStart - startContribution - specPartFirst - vehiclePartFirst - effPartFirst - jiEnergyFixed;
         if (remainingForNitro > 0) {
@@ -8065,17 +8480,22 @@ if (isYinNiDouble) {
             const nitroPartFirst2 = nitroVal * (1 + finalHuiValue / 100) * resist * (1 + firstEff / 100) * startNitroCount * nitroRatio;
             const totalWithoutJi2 = startContribution + nitroPartFirst2 + specPartFirst + vehiclePartFirst + effPartFirst;
             if (totalWithoutJi2 < targetStart) {
-                finalJiRaw = (targetStart - totalWithoutJi2) / resist;
-                if (finalJiRaw > 30) finalJiRaw = 30;
+                finalJiRaw2 = (targetStart - totalWithoutJi2) / resist;
+                if (finalJiRaw2 > 30) finalJiRaw2 = 30;
             } else {
-                finalJiRaw = 0;
+                finalJiRaw2 = 0;
             }
         }
     } else {
-        finalJiRaw = rawJi;
+        finalJiRaw2 = rawJi;
     }
 }
 
+if (finalJiRaw === 0 && !isYinNiDouble) {
+    finalJiRaw = finalJiRaw2;
+}
+
+finalJiRaw = Math.max(0, Math.min(30, finalJiRaw));
 let finalJiFormatted = formatJiAdvancedCalc(finalJiRaw);
             const { diamondCount, totalSubSlots } = parseChipSlotsCalc(car.chips);
             const achievable = canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, parseFloat(finalHuiFormatted), finalJiRaw, car.name);
