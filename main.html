@@ -7353,7 +7353,7 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
         setDefaultOverrideR();
         updateCalcCycleModeVisibility();
         updateCalcToggleState();
-        updateCycleTips();
+        updateCycleTips(targetStart);
     });
     updateCalcCarTypeIcon();
 }
@@ -7407,7 +7407,7 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
                 calcRhythmOptions.style.display = (val === 'rhythm') ? 'block' : 'none';
                 checkColorConflict();
                 updateCalcEnergyDisplays();
-                updateCycleTips();
+                updateCycleTips(targetStart);
             });
             updateCalcMainEffIcon();
             updateCalcSubEffIcon();
@@ -7527,8 +7527,8 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
         renderCalcSpecialOptionsContent();
     }
 }
-    function updateCycleTips() {
-    const isYinNi = calcVSlot.value === 'yinni';
+    function updateCycleTips(targetStart) {
+    const isYinNiDouble = (calcVSlot.value === 'yinni' && isDoubleCycle);
     const isThreshold100 = (targetStart === 100);
     const isOdd = (cycleNitroCount % 2 !== 0);
     const isEven = (cycleNitroCount % 2 === 0);
@@ -8652,32 +8652,33 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
 });
         // 循环氮气数量变化
 calcCycleNitroCount.addEventListener('change', () => {
-    updateCycleTips();
+    updateCycleTips(targetStart);
 });
 
 // 两大一循环开关变化
 calcCycleMode.addEventListener('change', () => {
     handleCalcCycleModeChange();
-    updateCycleTips();
+    updateCycleTips(targetStart);
 });
         calcVSlot.addEventListener('change', () => {
-            updateCalcVSlotIcon();
-            updateCalcEnergyDisplays();
-            updateCycleTips();
-        });
-        calcCycleMode.addEventListener('change', handleCalcCycleModeChange);
-        document.getElementById('calcResetBtn').addEventListener('click', resetCalcAllOptions);
-        document.getElementById('calcShareBtn').addEventListener('click', shareCalcScreenshot);
-        document.getElementById('calcCopyResultBtn').addEventListener('click', copyCalcResult);
-        document.getElementById('calcCalcBtn').addEventListener('click', calcCalculator);
-        
-        function initCalcVSlotSelect() {
-            calcVSlot.addEventListener('change', () => {
-                updateCalcVSlotIcon();
-                updateCalcEnergyDisplays();
-                updateCalcCycleModeVisibility();
-            });
-        }
+    updateCalcVSlotIcon();
+    updateCalcEnergyDisplays();
+    updateCalcCycleModeVisibility();  // ← 加上这行（从第二个事件中拿过来）
+    
+    // 获取 targetStart
+    let targetStart = 100;
+    let car = getCalcCurrentCar();
+    if (car) {
+        let carName = car.name;
+        let chip = calcVSlot.value;
+        let type = calcCarType.value;
+        let isDoubleCycle = (type === 'assist' && calcCycleMode.value === 'cycle') || 
+                            (type === 'race' && chip === 'yinni' && calcCycleMode.value === 'cycle');
+        let energy = getEnergyValuesCalc(carName, chip, isDoubleCycle);
+        targetStart = energy.firstEnergy || 100;
+    }
+    updateCycleTips(targetStart);
+});
         
         // 初始化时调用一次
         setDefaultOverrideR();
