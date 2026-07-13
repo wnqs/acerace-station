@@ -3970,12 +3970,13 @@ video.wallpaper-modal-media {
             <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6" selected>6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
         </select>
         <span style="font-size: 0.7rem; color: #8a8aa3; white-space: nowrap;">循环秒数：</span>
-        <select id="calcQueyiCycleSeconds" style="padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem; min-width: 60px;">
-            <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7" selected>7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option>
-        </select>
-    </div>
-</div>
-           <div id="calcRhythmOptions" style="display:none; margin-top: 4px;">
+<select id="calcQueyiCycleSeconds" style="padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem; min-width: 60px;">
+    <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7" selected>7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option>
+</select>
+<span id="cycleSecondsTip" style="font-size: 0.6rem; color: #feca57; margin-left: 4px; display: none; white-space: nowrap;"></span>
+
+<!-- 节奏 -->
+<div id="calcRhythmOptions" style="display:none; margin-top: 4px;">
     <div class="sub-options" style="display: flex; flex-wrap: nowrap; gap: 6px 12px; padding: 4px 10px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); align-items: center; overflow-x: auto;">
         <span style="font-size: 0.75rem; color: #a0a0b8; white-space: nowrap;">节奏</span>
         <span style="font-size: 0.7rem; color: #8a8aa3; white-space: nowrap;">首大触发次数：</span>
@@ -3984,8 +3985,9 @@ video.wallpaper-modal-media {
         </select>
         <span style="font-size: 0.7rem; color: #8a8aa3; white-space: nowrap;">循环触发次数：</span>
         <select id="calcRhythmCycleCount" style="padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem; min-width: 60px;">
-            <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
+            <!-- 由 JS 动态生成 -->
         </select>
+        <span id="rhythmCycleTip" style="font-size: 0.6rem; color: #feca57; margin-left: 4px; display: none; white-space: nowrap;"></span>
     </div>
 </div>
             <div style="margin-top: 4px;">
@@ -7215,7 +7217,60 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
         }
     }
 }
-        
+  function updateCycleTips() {
+    const isYinNi = calcVSlot.value === 'yinni';
+    const isThreshold100 = (targetStart === 100);
+    const isOdd = (cycleNitroCount % 2 !== 0);
+    const isEven = (cycleNitroCount % 2 === 0);
+    const hasFuture = (calcMainEff.value === 'future' || calcSubEff.value === 'future');
+    
+    const tip1 = document.getElementById('cycleSecondsTip');  // 缺一使用
+    const tip2 = document.getElementById('rhythmCycleTip');   // 节奏使用
+    
+    if (!tip1 && !tip2) return;
+    
+    let showTip = false;
+    let tipTextSeconds = '';
+    let tipTextRhythm = '';
+    
+    if (isYinNi) {
+        if (isThreshold100 && isEven) {
+            // 100偶数（带/不带未来）
+            showTip = true;
+            tipTextSeconds = '⚠️ 指第1个大招后，第2个大招开启前触发秒数';
+            tipTextRhythm = '⚠️ 指第1个大招后，第2个大招开启前触发次数';
+        } else if (isThreshold100 && isOdd && hasFuture) {
+            // 100奇数 + 带未来
+            showTip = true;
+            tipTextSeconds = '⚠️ 指第1个大招后，第2个大招开启前触发秒数';
+            tipTextRhythm = '⚠️ 指第1个大招后，第2个大招开启前触发次数';
+        } else if (isThreshold100 && isOdd && !hasFuture) {
+            // 100奇数 + 不带未来
+            showTip = true;
+            tipTextSeconds = '⚠️ 指第2个和第3个大招触发秒数';
+            tipTextRhythm = '⚠️ 指第2个和第3个大招触发次数';
+        } else if (!isThreshold100 && isEven) {
+            // ≤80偶数
+            showTip = true;
+            tipTextSeconds = '⚠️ 指第1个大招后，第2个大招开启前触发秒数';
+            tipTextRhythm = '⚠️ 指第1个大招后，第2个大招开启前触发次数';
+        } else if (!isThreshold100 && isOdd) {
+            // ≤80奇数
+            showTip = true;
+            tipTextSeconds = '⚠️ 指第2个大招开启后，第3个大招前触发秒数';
+            tipTextRhythm = '⚠️ 指第2个大招开启后，第3个大招前触发次数';
+        }
+    }
+    
+    if (tip1) {
+        tip1.style.display = showTip ? 'inline' : 'none';
+        tip1.textContent = tipTextSeconds;
+    }
+    if (tip2) {
+        tip2.style.display = showTip ? 'inline' : 'none';
+        tip2.textContent = tipTextRhythm;
+    }
+}      
         function updateCalcVSlotOptions() {
             let opt = calcCarModel.options[calcCarModel.selectedIndex];
             if (!opt || !opt.value) {
@@ -7404,6 +7459,7 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
                 calcRhythmOptions.style.display = (val === 'rhythm') ? 'block' : 'none';
                 checkColorConflict();
                 updateCalcEnergyDisplays();
+                updateCycleTips();
             });
             updateCalcMainEffIcon();
             updateCalcSubEffIcon();
@@ -7522,6 +7578,7 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
     if (car && VEHICLES_WITH_SPECIAL_BONUS.includes(car.name)) {
         renderCalcSpecialOptionsContent();
     }
+      updateCycleTips();      
 }
     
         
@@ -7899,6 +7956,8 @@ function calcFirstEnergy(huiValue, nitroCount, jiValue) {
     const huaxin = (calcMainEff.value === 'huaxin' || calcSubEff.value === 'huaxin') ? 7 * resist : 0;
     const queyi = (calcMainEff.value === 'queyi' || calcSubEff.value === 'queyi') ? 
         parseFloat(calcQueyiFirstSeconds.value) * parseFloat(calcQueyiLevel.value) * resist : 0;
+     const rhythm = (calcMainEff.value === 'rhythm' || calcSubEff.value === 'rhythm') ? 
+        parseInt(calcRhythmFirstCount.value) * 4 * resist : 0;
     const effPart = (firstEffFixed + firstEffFloating) * resist * (1 + eff / 100);
     
     return startVal + nitro + spec + vehicle + effPart + refuse + huaxin + queyi + jiValue * resist + raceNitroStartBonus;
@@ -7915,6 +7974,8 @@ function calcNormalCycleEnergy(huiValue, nitroCount) {
     const huaxin = (calcMainEff.value === 'huaxin' || calcSubEff.value === 'huaxin') ? 7 * resist : 0;
     const queyi = (calcMainEff.value === 'queyi' || calcSubEff.value === 'queyi') ? 
         parseFloat(calcQueyiCycleSeconds.value) * parseFloat(calcQueyiLevel.value) * resist : 0;
+    const rhythm = (calcMainEff.value === 'rhythm' || calcSubEff.value === 'rhythm') ? 
+        parseInt(calcRhythmCycleCount.value) * 4 * resist : 0;
     const energyRecovery = (calcMainEff.value === 'nengyuan' || calcSubEff.value === 'nengyuan') ? 10 * resist : 0;
     const effPart = (cycleEffFixed + cycleEffFloating) * resist * (1 + eff / 100);
     
@@ -7937,6 +7998,8 @@ function calcDoubleCycleEnergy(huiValue, nitroCount) {
     const huaxin = (calcMainEff.value === 'huaxin' || calcSubEff.value === 'huaxin') ? 14 * resist : 0;
     const queyi = (calcMainEff.value === 'queyi' || calcSubEff.value === 'queyi') ? 
         parseFloat(calcQueyiCycleSeconds.value) * parseFloat(calcQueyiLevel.value) * resist : 0;
+    const rhythm = (calcMainEff.value === 'rhythm' || calcSubEff.value === 'rhythm') ? 
+        parseInt(calcRhythmCycleCount.value) * 4 * resist : 0;
     const energyRecovery = (calcMainEff.value === 'nengyuan' || calcSubEff.value === 'nengyuan') ? 20 * resist : 0;
     const effPart = (cycleEffFixed + cycleEffFloating) * resist * (1 + eff / 100);
     
