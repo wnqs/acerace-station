@@ -3973,6 +3973,7 @@ video.wallpaper-modal-media {
         <select id="calcQueyiCycleSeconds" style="padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem; min-width: 60px;">
             <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7" selected>7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option>
         </select>
+        <span id="cycleSecondsTip" style="font-size: 0.6rem; color: #feca57; margin-left: 4px; display: none; white-space: nowrap;"></span>
     </div>
 </div>
            <div id="calcRhythmOptions" style="display:none; margin-top: 4px;">
@@ -3982,6 +3983,7 @@ video.wallpaper-modal-media {
         <select id="calcRhythmFirstCount" style="padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem; min-width: 60px;">
             <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option>
         </select>
+        <span id="rhythmCycleTip" style="font-size: 0.6rem; color: #feca57; margin-left: 4px; display: none; white-space: nowrap;"></span>
         <span style="font-size: 0.7rem; color: #8a8aa3; white-space: nowrap;">循环触发次数：</span>
         <select id="calcRhythmCycleCount" style="padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); font-size: 0.8rem; min-width: 60px;">
             <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
@@ -7350,7 +7352,8 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
         updateCalcEnergyDisplays();
         setDefaultOverrideR();
         updateCalcCycleModeVisibility();
-        updateCalcToggleState();  // ← 加上这行
+        updateCalcToggleState();
+        updateCycleTips();
     });
     updateCalcCarTypeIcon();
 }
@@ -7404,6 +7407,7 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
                 calcRhythmOptions.style.display = (val === 'rhythm') ? 'block' : 'none';
                 checkColorConflict();
                 updateCalcEnergyDisplays();
+                updateCycleTips();
             });
             updateCalcMainEffIcon();
             updateCalcSubEffIcon();
@@ -7523,7 +7527,59 @@ function canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, needHui, nee
         renderCalcSpecialOptionsContent();
     }
 }
+    function updateCycleTips() {
+    const isYinNi = calcVSlot.value === 'yinni';
+    const isThreshold100 = (targetStart === 100);
+    const isOdd = (cycleNitroCount % 2 !== 0);
+    const isEven = (cycleNitroCount % 2 === 0);
+    const hasFuture = (calcMainEff.value === 'future' || calcSubEff.value === 'future');
     
+    const tip1 = document.getElementById('cycleSecondsTip');
+    const tip2 = document.getElementById('rhythmCycleTip');
+    
+    if (!tip1 && !tip2) return;
+    
+    let showTip = false;
+    let tipTextSeconds = '';
+    let tipTextRhythm = '';
+    
+    if (isYinNiDouble) {
+        if (isThreshold100 && isEven && !hasFuture) {
+            showTip = true;
+            tipTextSeconds = 'ⓘ 选择开启第1个大招后，第2个大招前触发的秒数';
+            tipTextRhythm = 'ⓘ 选择开启第1个大招后，第2个大招前触发的次数';
+        } else if (isThreshold100 && isEven && hasFuture) {
+            showTip = true;
+            tipTextSeconds = 'ⓘ 选择开启第1个大招后，第2个大招前触发的秒数';
+            tipTextRhythm = 'ⓘ 选择开启第1个大招后，第2个大招前触发的次数';
+        } else if (isThreshold100 && isOdd && hasFuture) {
+            showTip = true;
+            tipTextSeconds = 'ⓘ 选择开启第1个大招后，第2个大招前触发的秒数';
+            tipTextRhythm = 'ⓘ 选择开启第1个大招后，第2个大招前触发的次数';
+        } else if (isThreshold100 && isOdd && !hasFuture) {
+            showTip = true;
+            tipTextSeconds = 'ⓘ 选择开启第1个大招后第2、3两个大招触发的秒数';
+            tipTextRhythm = 'ⓘ 选择开启第1个大招后第2、3两个大招触发的次数';
+        } else if (!isThreshold100 && isEven) {
+            showTip = true;
+            tipTextSeconds = 'ⓘ 选择开启第1个大招后，第2个大招前触发的秒数';
+            tipTextRhythm = 'ⓘ 选择开启第1个大招后，第2个大招前触发的次数';
+        } else if (!isThreshold100 && isOdd) {
+            showTip = true;
+            tipTextSeconds = 'ⓘ 选择开启第2个大招后，第3个大招前触发的秒数';
+            tipTextRhythm = 'ⓘ 选择开启第2个大招后，第3个大招前触发的次数';
+        }
+    }
+    
+    if (tip1) {
+        tip1.style.display = showTip ? 'inline' : 'none';
+        tip1.textContent = tipTextSeconds;
+    }
+    if (tip2) {
+        tip2.style.display = showTip ? 'inline' : 'none';
+        tip2.textContent = tipTextRhythm;
+    }
+}
         
         function renderCalcSpecialOptionsContent() {
     let car = getCalcCurrentCar();
@@ -8594,9 +8650,20 @@ let configSummary = `<strong>【配置摘要】</strong><br>车辆：${car.name}
     calcCycleMode.value = 'normal';
     document.getElementById('calcRaceNitroToggle').value = '0';        
 });
+        // 循环氮气数量变化
+calcCycleNitroCount.addEventListener('change', () => {
+    updateCycleTips();
+});
+
+// 两大一循环开关变化
+calcCycleMode.addEventListener('change', () => {
+    handleCalcCycleModeChange();
+    updateCycleTips();
+});
         calcVSlot.addEventListener('change', () => {
             updateCalcVSlotIcon();
             updateCalcEnergyDisplays();
+            updateCycleTips();
         });
         calcCycleMode.addEventListener('change', handleCalcCycleModeChange);
         document.getElementById('calcResetBtn').addEventListener('click', resetCalcAllOptions);
