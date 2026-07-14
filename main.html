@@ -8246,39 +8246,7 @@ console.log("========================================");
 console.log("");
 // ===== 提前定义 diamondCount 和 totalSubSlots =====
 const { diamondCount, totalSubSlots } = parseChipSlotsCalc(car.chips);
-// ===== 👇 在这里添加用户手动输入汇能反推先机 =====
-// ===== 用户手动输入汇能反推先机（100偶不带未来） =====
-if (useCustomHui && isThreshold100 && isEven && !hasFuture) {
-    const userHui = parseFloat(calcCustomHuiInput.value);
-    const firstNitro = startNitroCount;
-    const cycleNitro = cycleNitroCount / 2;
-    
-    // 首大能量（不含先机）
-    const firstEnergyNoJi = calcFirstEnergy(userHui, firstNitro, 0);
-    // 总能量（不含先机）
-    const cycleEnergy = calcNormalCycleEnergy(userHui, cycleNitro);
-    const totalNoJi = firstEnergyNoJi + cycleEnergy;
-    
-    // 反推先机
-    let ji1 = (100 - firstEnergyNoJi) / resist;
-    let ji2 = (200 - totalNoJi) / resist;
-    let ji = Math.max(0, Math.ceil(Math.max(ji1, ji2) * 10) / 10);
-    ji = Math.min(ji, 30);
-    
-    // 判断芯片要求
-    const achievable = canAchieveWithCompetitionCalc(diamondCount, totalSubSlots, userHui, ji, car.name);
-    
-    if (achievable) {
-        finalHuiValue = userHui;
-        finalHuiFormatted = formatHuiCalc(userHui);
-        finalJiRaw = ji;
-        console.log("✅ 用户汇能:", userHui, "反推先机:", ji, "芯片要求满足");
-    } else {
-        console.log("❌ 用户汇能:", userHui, "反推先机:", ji, "芯片要求不满足，请提高汇能");
-        warningSpan.innerHTML = `⚠️ 当前汇能 ${userHui}% 无法满足芯片要求，请提高汇能`;
-        warningSpan.style.color = '#ff6b6b';
-    }
-}
+
 // ===== 计算最小汇能 =====
 let minHuiNeeded = 0;
 let finalJiRaw = 0;
