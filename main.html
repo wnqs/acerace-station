@@ -8338,36 +8338,20 @@ if (!isNaN(customHuiInput) && customHuiInput > 0) {
 
 let finalHuiFormatted = formatHuiCalc(finalHuiValue);
 const huiForJi = parseFloat(finalHuiFormatted);
-
-// ===== 计算首大总充能（不含先机）- 用于普通模式 =====
-const nitroPartFirst = nitroVal * (1 + huiForJi / 100) * resist * (1 + firstEff / 100) * startNitroCount * nitroRatio;
-const specPartFirst = specCharge * resist * (1 + firstEff / 100) * startNitroCount * nitroRatio;
-const vehiclePartFirst = (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + firstEff / 100);
-const effPartFirst = (firstEffFixed + firstEffFloating) * resist * (1 + firstEff / 100);
-const startContribution = startVal + extraStartBonus;
-const totalWithoutJi = startContribution + nitroPartFirst + specPartFirst + vehiclePartFirst + effPartFirst + raceNitroStartBonus;
-
-// ===== 计算先机需求 =====
-let finalJiRaw2 = 0;
-let note = "";
-// ===== 👇 在这里加 =====
-// ===== 100偶不带未来 - 用户手动输入汇能反推先机 =====
+// ===== 👇 100偶不带未来 - 用户手动输入汇能反推先机 =====
 if (useCustomHui && isThreshold100 && isEven && !hasFuture) {
     const userHui = parseFloat(finalHuiValue);
     const firstNitro = startNitroCount;
     const cycleNitro = cycleNitroCount / 2;
     
-    // 先机=0 时首大能量
     const firstEnergyNoJi = calcFirstEnergy(userHui, firstNitro, 0);
     const cycleEnergy = calcNormalCycleEnergy(userHui, cycleNitro);
     const totalNoJi = firstEnergyNoJi + cycleEnergy;
     
-    // 从两个公式反推先机
     let ji1 = (100 - firstEnergyNoJi) / resist;
     let ji2 = (200 - totalNoJi) / resist;
     let ji = Math.max(0, Math.ceil(Math.max(ji1, ji2) * 10) / 10);
     
-    // ===== 先机超过30，直接反馈无法达成 =====
     if (ji > 30) {
         ji = 30;
         note = `<br><span style="color: #ff6b6b;">❌ 用户汇能 ${userHui}% 反推先机需求超过30%，无法达成（请提高汇能）</span>`;
@@ -8375,7 +8359,6 @@ if (useCustomHui && isThreshold100 && isEven && !hasFuture) {
         warningSpan.style.color = '#ff6b6b';
         finalJiRaw = ji;
     } else {
-        // ===== 先机 ≤ 30，验证两个条件 =====
         const verifyFirst = calcFirstEnergy(userHui, firstNitro, ji);
         const verifyCycle = calcNormalCycleEnergy(userHui, cycleNitro);
         const verifyTotal = verifyFirst + verifyCycle;
@@ -8398,6 +8381,19 @@ if (useCustomHui && isThreshold100 && isEven && !hasFuture) {
         }
     }
 }
+// ===== 👆 结束 =====
+// ===== 计算首大总充能（不含先机）- 用于普通模式 =====
+const nitroPartFirst = nitroVal * (1 + huiForJi / 100) * resist * (1 + firstEff / 100) * startNitroCount * nitroRatio;
+const specPartFirst = specCharge * resist * (1 + firstEff / 100) * startNitroCount * nitroRatio;
+const vehiclePartFirst = (vehicleFirstFixed + vehicleFirstFloating) * resist * (1 + firstEff / 100);
+const effPartFirst = (firstEffFixed + firstEffFloating) * resist * (1 + firstEff / 100);
+const startContribution = startVal + extraStartBonus;
+const totalWithoutJi = startContribution + nitroPartFirst + specPartFirst + vehiclePartFirst + effPartFirst + raceNitroStartBonus;
+
+// ===== 计算先机需求 =====
+let finalJiRaw2 = 0;
+let note = "";
+
 if (totalWithoutJi >= targetStart) {
     finalJiRaw2 = 0;
 } else {
