@@ -224,7 +224,7 @@
       "imageUrl": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/07b093b9-2086-4d68-96a4-45584ba2db83.png",
       "positionIcon": "竞速",
       "specialtyIcon": "山路",
-      "description": "闪现可储存，星辰破晓隐身解控",
+      "description": "闪电七连鞭，绝杀！",
       "skillName": "星痕破晓",
       "searchKeywords": ["布加迪 Bolide", "Bolide", "布加迪", "闪现", "隐身", "解控", "竞速", "山路", "真实阵营", "飞火流星", "玻璃龙"],
       "registerDate": "2026-07-10",
@@ -326,6 +326,58 @@
       "ultIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/5b9c3a92-2fb5-479d-bd8a-01d32b6409ba.png",
       "passiveIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/e1ff195e-a6e6-4df2-9afc-bbc6a257a13b.png"
     },
+    {
+      "id": "niuwang",
+  "name": "丰田 GR SUPRA",
+  "quality": "传说",
+  "position": "干扰",
+  "specialty": "山路",
+  "imageUrl": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/386213c3-86df-47cf-8da8-314d013a4b42.png",
+  "positionIcon": "干扰",
+  "specialtyIcon": "山路",
+  "description": "召唤蛮牛，野蛮冲撞",
+  "skillName": "牛气冲天",
+  "searchKeywords": ["牛魔王", "GR SUPRA", "丰田", "蛮牛", "冲撞", "干扰", "山路"],
+  "registerDate": "2026-07-17",
+  "vehicleType": "真实阵营",
+  "manufacturer": "丰田",
+  "acquisition": "黑金会员",
+  "acquisitionIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/b60e2e6e-6315-47c3-96ec-ca9a0eb3e628.png",
+  "stats": {
+    "topSpeed": "214.0 km/h",
+    "power": "8.00",
+    "durability": "105",
+    "nitroCharge": "32.0%",
+    "startCharge": "32.0%",
+    "nitroDuration": "5.80 s",
+    "nitroSpeed": { "blue": "25.00 km/h", "purple": "37.50 km/h" },
+    "turboDuration": { "blue": "0.73 s", "purple": "2.19 s" },
+    "turboSpeed": { "blue": "7.40 km/h", "purple": "11.10 km/h" },
+    "ultPower": "6"
+  },
+  "chipSlots": ["circle", "circle", "triangle", "rhombus", "rhombus", "vslot"],
+  "skills": {
+    "ult": {
+      "name": "牛气冲天",
+      "desc": "命中类型：触碰类（不可净化）<br>加速推进，极速提升极速提升60km/h，持续7秒。加速开始时召唤蛮牛：<br>·蛮牛在赛道中以320km/h的速度狂奔7秒<br>·狂奔期间持续使触碰到的敌方车辆5秒内刹车键和涡轮键消失",
+      "recu": "牛气冲天可以充能两次",
+      "ultPassive": ""
+    },
+    "passive": {
+      "name": "野蛮冲撞",
+      "desc": "开启大招时若处于第4名及以后名次，蛮牛干扰范围由触碰周围车辆变为锁定50米范围内敌方车辆并附带击飞6米效果"
+    },
+    "features": [
+      { "name": "触碰干扰", "desc": "自身或技能效果触碰到敌方时命中/不受混乱、反弹、闪避效果影响/无法命中具有隐身、无法选中的敌方", "color": "黄" },
+      { "name": "击飞", "desc": "被击飞的敌人无法漂移", "color": "黄" },
+      { "name": "锁定干扰", "desc": "自动锁定范围内的目标/无法命中具有隐身、无法选中、闪避的敌方", "color": "黄" },
+      { "name": "刹车消失", "desc": "使敌方的刹车键消失", "color": "红" },
+      { "name": "涡轮消失", "desc": "使敌方的涡轮按键消失", "color": "红" }
+    ]
+  },
+  "ultIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/535cd977-22a0-4e46-a9ac-b65e55ae5df5.png",
+  "passiveIcon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/be6f7725-5e20-426a-a5e2-e8f966cfe384.png"
+ },
     {
       "id": "weilai_et9",
       "name": "蔚来ET9",
