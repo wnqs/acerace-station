@@ -413,7 +413,7 @@
         "category": "圆形芯片",
         "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/79588cf2-0f02-4832-afe8-6efedf4182fa.webp",
         "quality": "史诗",
-        "shape": "圆形",
+        "shape": "圆形芯片",
         "type": "扩展",
         "effectDescription": "极速+1.2",
         "effectNote": "平跑状态下的极限速度提高"
@@ -424,7 +424,7 @@
         "category": "圆形芯片",
         "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/0c500f1c-3618-4b91-9bbf-f91be56c7ff8.webp",
         "quality": "史诗",
-        "shape": "圆形",
+        "shape": "圆形芯片",
         "type": "扩展",
         "effectDescription": "耐久+15",
         "effectNote": "增加车辆的耐久上限"
@@ -435,7 +435,7 @@
         "category": "三角形芯片",
         "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/0c500f1c-3618-4b91-9bbf-f91be56c7ff8.webp",
         "quality": "史诗",
-        "shape": "三角形",
+        "shape": "三角形芯片",
         "type": "扩展",
         "effectDescription": "涡轮连发+15%",
         "effectNote": "连续涡轮触发几率提高"
@@ -446,7 +446,7 @@
         "category": "三角形芯片",
         "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/24e365bd-dc02-402f-b677-be62458c13a0.webp",
         "quality": "史诗",
-        "shape": "三角形",
+        "shape": "三角形芯片",
         "type": "扩展",
         "effectDescription": "氮气时间+16%",
         "effectNote": "使用氮气时持续时间百分比提高"
@@ -457,7 +457,7 @@
         "category": "三角形芯片",
         "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/0c160153-7ac4-48be-a238-9a93b7065c0c.webp",
         "quality": "史诗",
-        "shape": "三角形",
+        "shape": "三角形芯片",
         "type": "扩展",
         "effectDescription": "起步推进+2.5秒",
         "effectNote": "使用氮气时持续时间百分比提高"
@@ -468,7 +468,7 @@
         "category": "菱形芯片",
         "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/34c125b2-f62d-4fda-b51b-40af5d55a1be.webp",
         "quality": "史诗",
-        "shape": "菱形",
+        "shape": "菱形芯片",
         "type": "扩展",
         "effectDescription": "先机+15%",
         "effectNote": "开局时获得一定的大招能量，上限为30%"
@@ -479,7 +479,7 @@
         "category": "菱形芯片",
         "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/63b04b1b-9cac-40e2-a3bd-9c5e37550ee3.webp",
         "quality": "史诗",
-        "shape": "菱形",
+        "shape": "菱形芯片",
         "type": "扩展",
         "effectDescription": "汇能+3%",
         "effectNote": "使用氮气时大招充能百分比提高"
@@ -490,7 +490,7 @@
         "category": "菱形芯片",
         "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/9b356846-f3d7-4452-a8e4-7fe237cc53c8.webp",
         "quality": "史诗",
-        "shape": "菱形",
+        "shape": "菱形芯片",
         "type": "扩展",
         "effectDescription": "团魂+36%",
         "effectNote": "竞速车或干扰车装备时，受到辅助车的团队充能提高，上限为200%"
@@ -501,7 +501,7 @@
         "category": "菱形芯片",
         "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/6c6ac32c-4b2b-4176-b87a-e34a542cb285.webp",
         "quality": "史诗",
-        "shape": "菱形",
+        "shape": "菱形芯片",
         "type": "扩展",
         "effectDescription": "尾流集氮+28%",
         "effectNote": "尾流状态下集氮效率提高"
@@ -512,7 +512,7 @@
         "category": "菱形芯片",
         "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3f01dd07-a859-4988-b920-e939cfb6eac9.webp",
         "quality": "史诗",
-        "shape": "菱形",
+        "shape": "菱形芯片",
         "type": "扩展",
         "effectDescription": "漂移集氮+6%",
         "effectNote": "漂移状态下集氮效率提高"
@@ -523,7 +523,7 @@
         "category": "六边形芯片",
         "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/86f60c33-044f-4f2c-926a-720f48157046.webp",
         "quality": "史诗",
-        "shape": "六边形",
+        "shape": "六边形芯片",
         "type": "扩展",
         "effectDescription": "反制+5%",
         "effectNote": "降低敌方车辆的充能效果，充能效果降低上限为18%"
@@ -534,7 +534,7 @@
         "category": "六边形芯片",
         "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/3f01dd07-a859-4988-b920-e939cfb6eac9.webp",
         "quality": "史诗",
-        "shape": "六边形",
+        "shape": "六边形芯片",
         "type": "扩展",
         "effectDescription": "尾流提速+7.2",
         "effectNote": "尾流状态下平跑速度提高"
@@ -545,7 +545,7 @@
         "category": "六边形芯片",
         "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/26772416-0466-4abb-9469-6aa07bf2d14c.webp",
         "quality": "史诗",
-        "shape": "六边形",
+        "shape": "六边形芯片",
         "type": "扩展",
         "effectDescription": "尾流提速+3",
         "effectNote": "排名越落后，平跑速度越高"
@@ -556,7 +556,7 @@
         "category": "六边形芯片",
         "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/9c136589-cf60-4172-8053-5ddc36e77041.webp",
         "quality": "史诗",
-        "shape": "六边形",
+        "shape": "六边形芯片",
         "type": "扩展",
         "effectDescription": "进境+1.35",
         "effectNote": "随比赛进程的往后平跑速度提高"
@@ -567,7 +567,7 @@
         "category": "六边形芯片",
         "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/c4ca2b8d-710c-4b89-a0ee-6d4fb60a26a0.webp",
         "quality": "史诗",
-        "shape": "六边形",
+        "shape": "六边形芯片",
         "type": "扩展",
         "effectDescription": "先制+1.5",
         "effectNote": "排名越靠前，平跑速度越高"
@@ -578,7 +578,7 @@
         "category": "六边形芯片",
         "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/0051fc2e-aa3a-4c22-bacf-f402769865a9.webp",
         "quality": "史诗",
-        "shape": "六边形",
+        "shape": "六边形芯片",
         "type": "扩展",
         "effectDescription": "背水+4.8",
         "effectNote": "随耐久降低平跑速度提高"
