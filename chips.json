@@ -45,50 +45,7 @@
       "effectNote": "泛用性差"
     },
     {
-      "id": "chip_zhimei_xiiuhua",
-      "name": "至美：羞花",
-      "category": "车辆专属芯片",
-      "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/ebb03815-2f15-4a53-bc92-de1d2cc67416.png",
-      "quality": "传说",
-      "shape": "V型芯片",
-      "type": "扩展",
-      "effectDescription": "大招能量达到88%可使用,开局时获得25%大招能量，所有陷阱触发次数要求降低3次，陷阱获得的增益效果加成50%",
-      "effectNote": "隐匿猎手专属芯片"
-    },
-    {
-      "id": "chip_zhimei_chenyu",
-      "name": "至美：沉鱼",
-      "category": "车辆专属芯片",
-      "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/ebb03815-2f15-4a53-bc92-de1d2cc67416.png",
-      "quality": "传说",
-      "shape": "V型芯片",
-      "type": "扩展",
-      "effectDescription": "充能效率+10%，平跑速度上限变为 233km/h，每次使用大招时和成功反弹成功干扰效果时，本局极速+3.5km/h，上限叠加 10次",
-      "effectNote": "复仇者专属芯片"
-    },
-    {
-      "id": "chip_zhimei_luoyan",
-      "name": "至美：落雁",
-      "category": "车辆专属芯片",
-      "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/ebb03815-2f15-4a53-bc92-de1d2cc67416.png",
-      "quality": "传说",
-      "shape": "V型芯片",
-      "type": "扩展",
-      "effectDescription": "开局时获得 10000集气量， 辅助范围变为 500 米",
-      "effectNote": "幻蝶专属芯片"
-    },
-    {
-      "id": "chip_zhimei_biyue",
-      "name": "至美：闭月",
-      "category": "车辆专属芯片",
-      "icon": "https://backend.appmiaoda.com/projects/supabase316894448002838528/storage/v1/object/public/images/ebb03815-2f15-4a53-bc92-de1d2cc67416.png",
-      "quality": "传说",
-      "shape": "V型芯片",
-      "type": "扩展",
-      "effectDescription": "每次使用大招时损失20%当前大招能量，每次大招结束时获得40%大招能量",
-      "effectNote": "月宫圣使专属芯片"
-    },
-    {
+      
       "id": "chip_moran_xiuzhu",
       "name": "墨染：修竹",
       "category": "车辆专属芯片",
