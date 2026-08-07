@@ -2248,6 +2248,57 @@
       "passiveIcon": "https://tc-new.z.wiki/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/b8312475-c2e5-42d8-89ad-866860edae35.png/webp"
     },
     {
+      "id": "aimazaomengshi",
+      "name": "爱玛 造梦师",
+      "quality": "史诗",
+      "position": "辅助",
+      "specialty": "城市",
+      "imageUrl": "https://tc-new.z.wiki/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/1a06f95c-c4d9-4121-84e0-b762549f792d.png/webp",
+      "images": ["https://tc-new.z.wiki/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/b32dbcc4-1b5d-45a5-895d-fb0a1a6fb098.png/webp"],
+      "positionIcon": "辅助",
+      "specialtyIcon": "城市",
+      "description": "自动导航并为队友解控",
+      "skillName": "乍梦乍回",
+      "searchKeywords": ["爱玛", "乍梦乍回",, "城市猫" "游灵", "造梦师"],
+      "registerDate": "2023-09-29",
+      "vehicleType": "真实阵营",
+      "manufacturer": "爱玛",
+      "acquisition": "补给箱",
+      "acquisitionIcon": "https://tc-new.z.wiki/autoupload/q2nr6/20260807/4xqY/174X174/commonnew_supplyconversion.png/webp",
+      "stats": {
+        "topSpeed": "225.0 km/h",
+        "power": "7.62",
+        "durability": "90",
+        "nitroCharge": "35.0%",
+        "startCharge": "35.0%",
+        "nitroDuration": "5.80 s",
+        "nitroSpeed": { "blue": "20.00 km/h", "purple": "30.00 km/h" },
+        "turboDuration": { "blue": "0.65 s", "purple": "1.95 s" },
+        "turboSpeed": { "blue": "6.00 km/h", "purple": "9.00 km/h" },
+        "ultPower": "-15"
+      },
+      "chipSlots": ["circle", "circle", "triangle", "rhombus", "vslot", "hexagon"],
+      "skills": {
+        "ult": {
+          "name": "乍梦乍回",
+          "desc": "立即辅助范围1000米范围内非辅助位队友，并为其提供31%大招充能。自身进入最多持续10秒的梦境状态：<br>·极速提升25km/h<br>·保持自动巡航<br>·每秒获得500集气<br>·每秒恢复5点耐久",
+          "recu": "乍梦乍回达到70%能量即可使用",
+          "ultPassive": ""
+        },
+        "passive": {
+          "name": "逐梦",
+          "desc": "友方全体每累计使用12个氮气，自身获得5000集气量"
+        },
+        "features": [
+          { "name": "单次充能", "desc": "为友方提供单次辅助充能", "color": "蓝" },
+          { "name": "友方净化", "desc": "为队友净化负面效果", "color": "蓝" },
+          { "name": "自动巡航", "desc": "沿预设路线自动行驶/通过弯道时会失速/不会脱离预设路线", "color": "蓝" }
+        ]
+      },
+      "ultIcon": "https://tc-new.z.wiki/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/7444c39c-bcac-4f48-9f02-40b72f465acf.png/webp",
+      "passiveIcon": "https://tc-new.z.wiki/autoupload/q2nr6/20260807/0sq4/64X64/new_carport_icon_10237.png/webp"
+    },
+    {
       "id": "daixia_huoyun",
       "name": "逮虾货运",
       "quality": "传说",
@@ -6172,7 +6223,7 @@
       "name": "干扰者",
       "quality": "传说",
       "position": "干扰",
-      "specialty": "城市",
+      "specialty": "山路",
       "imageUrl": "https://a1.boltp.com/2026/06/12/6a2bbbd3a02db.png",
       "images": ["https://tc-new.z.wiki/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/769b157e-06c6-4efc-98d7-e4f7a6c95de3.png/webp",
           "https://tc-new.z.wiki/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/3830eac2-c1bd-4023-9965-77f4b527f2bb.png/webp",
@@ -6182,7 +6233,7 @@
           "https://tc-new.z.wiki/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/0d5b9b6c-2ab4-4a8b-b7c3-8fc1cdd75002.png/webp"
 ],
       "positionIcon": "干扰",
-      "specialtyIcon": "城市",
+      "specialtyIcon": "山路",
       "description": "制造混乱气流扰乱敌方车辆",
       "skillName": "扰流系统",
       "searchKeywords": ["干扰者", "扰流系统", "无中生有"],
@@ -8253,7 +8304,7 @@
       "name": "泰坦",
       "quality": "传说",
       "position": "干扰",
-      "specialty": "山路",
+      "specialty": "场地",
       "imageUrl": "https://a1.boltp.com/2026/06/12/6a2c235a4a4be.png",
       "images": ["https://tc-new.z.wiki/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/13cd0351-7a11-4ebc-849b-d2baf5c07568.png/webp",
           "https://tc-new.z.wiki/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/73994623-d45e-405a-a68c-308dda1be1fa.png/webp",
