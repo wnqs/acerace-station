@@ -482,7 +482,7 @@
         "shape": "三角形芯片",
         "type": "扩展",
         "effectDescription": "起步推进+2.5秒",
-        "effectNote": "使用氮气时持续时间百分比提高"
+        "effectNote": "起步加速时间提高"
     },
     {
         "id": "chip_xianji",
