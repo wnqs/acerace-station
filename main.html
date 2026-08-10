@@ -1750,7 +1750,7 @@ window.renderBalance = function () {
                 var ei = null;
                 var existsInData = list.some(function(x){if(x.name===e.name){ei=x.icon||null;return true;}return false;});
                 // 不在赋能系统中的特殊赋能图标映射（仅平衡性调整显示）
-                var extraIcons = {"破釜沉舟":"https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/cf83de12-9b6a-4b16-b04f-cdb929063f4c.png","反击号令":"https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/8c108fa9-ab1d-4c3c-bddf-7e7dbf70bc86.png","谋定而动":"https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/84674cee-32cd-4b09-bcbb-392837cf5970.png","分享痛楚":"https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/b7b511d3-a6f4-46c3-90a0-bfc6914d3c5c.png"};
+                var extraIcons = {"破釜沉舟":"https://tc-new.z.wiki/autoupload/q2nr6/20260810/FBf0/256X256/skill_red_05.png/webp","反击号令":"https://tc-new.z.wiki/autoupload/q2nr6/20260810/t7UF/256X256/skill_yellow_03.png/webp","谋定而动":"https://tc-new.z.wiki/autoupload/q2nr6/20260810/ia8w/256X256/skill_yellow_07.png/webp","分享痛楚":"https://tc-new.z.wiki/autoupload/q2nr6/20260810/GLXT/256X256/skill_red_03.png/webp"};
                 if(!ei && extraIcons[e.name]) ei = extraIcons[e.name];
                 function chHtml(ch){
                     return '<div class="b-adj-row"><span class="b-adj-type">'+ch.type+'</span><div class="b-adj-content">'+fmtC(ch.content)+'</div></div>';
