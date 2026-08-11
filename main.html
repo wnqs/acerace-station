@@ -316,6 +316,49 @@ main{max-width:var(--max-width);margin:0 auto;padding:calc(var(--nav-height) + 0
 .resource-total{padding:6px 6px 2px;font-size:1.15rem;font-weight:700;color:#fbbf24;border-top:1px solid var(--border-color);margin-top:6px}
 .number-red{color:#ff4757;font-weight:700}
 
+/* ===== 游戏内活动排期及攻略 ===== */
+.act-filter-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.act-filter-row input[type=text]{flex:1;max-width:280px;padding:8px 14px;border:1px solid var(--border-color);border-radius:8px;background:transparent;color:var(--text-primary);font-size:.85rem;font-family:var(--font-sans);outline:none;transition:border .2s}
+.act-filter-row input[type=text]:focus{border-color:var(--accent-cyan)}
+.act-date-wrap{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border-color);border-radius:8px;background:transparent;padding:0 10px;cursor:pointer;transition:border .2s}
+.act-date-wrap:hover,.act-date-wrap:focus-within{border-color:var(--accent-cyan)}
+.act-date-wrap input[type=date]{border:none;background:transparent;color:var(--text-primary);font-size:.85rem;font-family:var(--font-sans);outline:none;padding:7px 0;cursor:pointer}
+.act-date-label{font-size:.85rem;color:var(--text-muted);white-space:nowrap}
+.act-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,430px),1fr));gap:14px;padding:12px 0 30px}
+@media(max-width:600px){.act-grid{grid-template-columns:1fr}}
+.act-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);overflow:hidden;transition:all .3s;display:flex;flex-direction:column}
+.act-card:hover{border-color:var(--accent-cyan);transform:translateY(-2px);box-shadow:var(--shadow-glow)}
+.act-hd{display:flex;gap:12px;padding:12px 12px 10px;align-items:flex-start}
+.act-img{flex-shrink:0;width:140px;height:120px;border-radius:8px;overflow:hidden;background:rgba(0,0,0,.35)}
+.act-img img{width:100%;height:100%;display:block;object-fit:contain}
+.act-hd-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.act-name{font-size:1.08rem;font-weight:800;color:#00e5ff;text-shadow:0 0 12px rgba(0,229,255,.35);line-height:1.35;word-break:break-word}
+.act-name-sub{font-size:.78rem;font-weight:400;color:var(--text-muted);margin-top:2px}
+.act-time{font-size:.8rem;color:var(--text-primary);line-height:1.5;word-break:break-word}
+.act-time-label{color:var(--text-muted)}
+.act-badge{display:inline-block;align-self:flex-start;padding:2px 10px;border-radius:12px;font-size:.7rem;font-weight:700}
+.act-badge.upcoming{background:rgba(168,85,247,.2);color:#c084fc;border:1px solid rgba(168,85,247,.35)}
+.act-badge.active{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.35)}
+.act-badge.ended{background:rgba(148,163,184,.15);color:#94a3b8;border:1px solid rgba(148,163,184,.3)}
+.act-sec{padding:4px 14px}
+.act-sec-title{display:inline-block;font-size:.68rem;font-weight:700;color:#f5c542;background:rgba(245,197,66,.12);padding:1px 8px;border-radius:4px;margin-bottom:4px}
+.act-intro,.act-tips{font-size:.83rem;color:var(--text-primary);line-height:1.7;word-break:break-word}
+.act-intro img,.act-tips img{max-width:100%;height:auto;border-radius:6px;margin:4px 0;display:block}
+.act-intro .number-red,.act-tips .number-red{color:#ff4757;font-weight:700}
+.act-intro .act-red,.act-tips .act-red{color:#ff4757;font-weight:700}
+.act-intro .act-gold,.act-tips .act-gold{color:#f5c542;font-weight:700}
+.act-pool-link{padding:10px 14px 14px;margin-top:auto}
+.act-pool-link a{display:inline-block;padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:600;color:#00e5ff;border:1px solid rgba(0,240,255,.35);background:rgba(0,240,255,.08);transition:all .25s}
+.act-pool-link a:hover{background:rgba(0,240,255,.18);box-shadow:0 0 14px rgba(0,240,255,.3)}
+@media(max-width:768px){
+.act-hd{flex-direction:column;align-items:stretch}
+.act-img,.act-img img{width:100%}
+.act-img{height:140px}
+.act-name{font-size:.95rem}
+.act-intro,.act-tips{font-size:.78rem}
+.act-time{font-size:.75rem}
+}
+
 /* ===== 免费称号获取 ===== */
 .ach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:12px 0 30px}
 .ach-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);overflow:hidden;transition:all .3s;display:flex;flex-direction:column}
@@ -666,9 +709,11 @@ body::before{opacity:.9}
 .feat-card{flex:1 1 160px;max-width:200px;background:linear-gradient(160deg,rgba(20,28,46,.62),rgba(13,18,37,.55));border:1px solid rgba(0,240,255,.18);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .3s}
 .feat-card:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(0,240,255,.2);border-color:var(--accent-cyan)}
 .feat-img{height:100px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25);overflow:hidden}
-.feat-img img{width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box}
+.feat-img img{width:100%;height:100%;object-fit:cover;display:block}
+.feat-img img.feat-img-keep{object-fit:contain;padding:6px;box-sizing:border-box}
 .feat-info{padding:8px 10px 10px}
 .feat-name{font-size:.85rem;font-weight:700;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.feat-name-sub{display:block;font-size:.68rem;font-weight:400;color:var(--text-muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .feat-tag{display:inline-block;margin-top:4px;padding:1px 8px;border-radius:10px;font-size:.65rem;font-weight:600;background:rgba(0,240,255,.12);color:var(--accent-cyan)}
 @media(max-width:768px){
 .feat-card{flex:1 1 calc(50% - 5px);max-width:none}
@@ -801,7 +846,7 @@ mask-image:linear-gradient(to top,rgba(0,0,0,.95) 22%,rgba(0,0,0,.35) 62%,transp
 /* ===== 赛博 3D 欢迎弹窗（tracker 网格倾斜） ===== */
 .ww-overlay{position:fixed;inset:0;z-index:9999;background:rgba(3,6,14,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;animation:_wwFade .35s ease}
 @keyframes _wwFade{from{opacity:0}to{opacity:1}}
-.ww-close{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;border:2px solid rgba(255,255,255,.65);background:rgba(255,255,255,.08);color:#fff;font-size:1.1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;z-index:300;line-height:1;pointer-events:auto}
+.ww-close{position:absolute;top:-38px;right:-38px;width:34px;height:34px;border-radius:50%;border:2px solid rgba(255,255,255,.65);background:rgba(255,255,255,.08);color:#fff;font-size:1.1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;z-index:300;line-height:1;pointer-events:auto;box-shadow:0 2px 10px rgba(0,0,0,.45)}
 .ww-close:hover{background:rgba(255,255,255,.92);color:#0a0e1a;box-shadow:0 0 16px rgba(255,255,255,.6)}
 .ww-container{position:relative;width:280px;height:370px;transition:200ms}
 .ww-container:active{width:268px;height:358px}
@@ -885,9 +930,9 @@ mask-image:linear-gradient(to top,rgba(0,0,0,.95) 22%,rgba(0,0,0,.35) 62%,transp
 .ww-card:hover .ww-card-glare{opacity:1}
 .ww-card:hover .ww-corner-elements span{border-color:rgba(0,240,255,.9);box-shadow:0 0 10px rgba(0,240,255,.5)}
 .ww-noselect{-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
-@media(max-width:600px){.ww-container{width:270px;height:380px}.ww-avatar{width:74px;height:74px}.ww-title{font-size:26px;padding-top:14px}.ww-prompt{bottom:200px}.ww-avatar-text{bottom:112px;font-size:11px}.ww-social img{width:38px;height:38px}.ww-subtitle{bottom:32px}.ww-close{top:8px;right:8px;width:30px;height:30px}.ww-tracker{pointer-events:none}.ww-card{cursor:pointer}.ww-card.flip .ww-prompt{opacity:0}.ww-card.flip .ww-title{opacity:1;transform:translateY(-10px)}}
+@media(max-width:600px){.ww-container{width:270px;height:380px}.ww-avatar{width:74px;height:74px}.ww-title{font-size:26px;padding-top:14px}.ww-prompt{bottom:200px}.ww-avatar-text{bottom:112px;font-size:11px}.ww-social img{width:38px;height:38px}.ww-subtitle{bottom:32px}.ww-close{top:-33px;right:-33px;width:30px;height:30px}.ww-tracker{pointer-events:none}.ww-card{cursor:pointer}.ww-card.flip .ww-prompt{opacity:0}.ww-card.flip .ww-title{opacity:1;transform:translateY(-10px)}}
 /* 平板触屏（无 hover）：同手机逻辑，点击切换，尺寸更大 */
-@media(min-width:601px) and (max-width:1024px) and (hover:none){.ww-container{width:310px;height:430px}.ww-avatar{width:82px;height:82px}.ww-title{font-size:28px;padding-top:16px}.ww-prompt{bottom:232px}.ww-avatar-text{bottom:132px;font-size:12px}.ww-social img{width:42px;height:42px}.ww-subtitle{bottom:38px}.ww-close{top:10px;right:10px;width:34px;height:34px}.ww-tracker{pointer-events:none}.ww-card{cursor:pointer}.ww-card.flip .ww-prompt{opacity:0}.ww-card.flip .ww-title{opacity:1;transform:translateY(-10px)}}
+@media(min-width:601px) and (max-width:1024px) and (hover:none){.ww-container{width:310px;height:430px}.ww-avatar{width:82px;height:82px}.ww-title{font-size:28px;padding-top:16px}.ww-prompt{bottom:232px}.ww-avatar-text{bottom:132px;font-size:12px}.ww-social img{width:42px;height:42px}.ww-subtitle{bottom:38px}.ww-close{top:-38px;right:-38px;width:34px;height:34px}.ww-tracker{pointer-events:none}.ww-card{cursor:pointer}.ww-card.flip .ww-prompt{opacity:0}.ww-card.flip .ww-title{opacity:1;transform:translateY(-10px)}}
 </style>
     <link rel="icon" href="https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/8c8d4df2-bcf0-4e3b-95be-68ed722c05df.png">
 </head>
@@ -940,6 +985,7 @@ mask-image:linear-gradient(to top,rgba(0,0,0,.95) 22%,rgba(0,0,0,.35) 62%,transp
                 <li><a href="#/empower">赋能系统</a></li>
                 <li><a href="#/resources">资源获取</a></li>
                 <li><a href="#/pools">奖池价格</a></li>
+                <li><a href="#/activities">活动排期</a></li>
                 <li><a href="#/free-achievements">免费称号获取</a></li>
                 <li><a href="#/wallpaper-static">静态壁纸</a></li>
                 <li><a href="#/wallpaper-live">动态壁纸</a></li>
@@ -971,6 +1017,7 @@ window.renderHome = function () {
         { icon: '赋能',   name: '赋能系统',     desc: '赋能模块与推荐',     route: 'empower', iconImg: 'https://tc-new.z.wiki/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/f50a4557-2d5f-46ba-be32-b144e476eed8.png/webp' },
         { icon: '资源',   name: '资源获取',     desc: '全资源获取途径',     route: 'resources', iconImg: 'https://tc-new.z.wiki/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/04da1537-4d6c-4633-84a0-582d7eaf0dc1.png/webp' },
         { icon: '奖池',   name: '奖池价格',     desc: '所有奖池价格详情',   route: 'pools', iconImg: 'https://tc-new.z.wiki/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/e480956b-7edb-435e-9179-52bf82638846.png/webp' },
+        { icon: '活动',   name: '活动排期',     desc: '游戏内活动及攻略',   route: 'activities', iconImg: 'https://tc-new.z.wiki/autoupload/q2nr6/20260811/h8XD/1080X603/852a20cf2b0bdfd21623bce0a626862e.png/webp' },
         { icon: '称号',   name: '免费称号获取',     desc: '成就称号免费获取',     route: 'free-achievements', iconImg: 'https://tc-new.z.wiki/autoupload/q2nr6/20260807/69pA/330X100/achievement_95_07.png/webp' },
         { icon: '壁纸',   name: '静态壁纸',     desc: '精美壁纸收藏',       route: 'wallpaper-static', iconImg: 'https://tc-new.z.wiki/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/81cf21ab-3bc2-4787-8875-bfdb230483ba.jpeg/webp' },
         { icon: '动态',   name: '动态壁纸',     desc: '动态壁纸展示',       route: 'wallpaper-live', iconImg: 'https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/c064ed47-d129-4352-a52d-13cce9a4df46.png/webp' },
@@ -1027,20 +1074,48 @@ window.renderHome = function () {
             if (_tMatch(mlist[mi], ['pv'])) pvList.push(mlist[mi]);
         }
         function _byDate(a, b) { var da = new Date(a.registerDate || 0), db = new Date(b.registerDate || 0); if (isNaN(da.getTime())) return 1; if (isNaN(db.getTime())) return -1; return db - da; }
-        function fCard(img, name, tag, onclick) {
+        function fCard(img, name, tag, onclick, keepRatio, nameHtml) {
             return '<div class="feat-card" onclick="' + onclick + '"><div class="feat-img">' +
-                (img ? '<img src="' + img + '" loading="lazy" onerror="this.style.display=\'none\'">' : '<div style="font-size:1.6rem;color:var(--text-muted)">?</div>') +
-                '</div><div class="feat-info"><div class="feat-name">' + _esc(name) + '</div>' +
+                (img ? '<img src="' + img + '" loading="lazy" class="' + (keepRatio ? 'feat-img-keep' : '') + '" onerror="this.style.display=\'none\'">' : '<div style="font-size:1.6rem;color:var(--text-muted)">?</div>') +
+                '</div><div class="feat-info"><div class="feat-name">' + (nameHtml ? name : _esc(name)) + '</div>' +
                 (tag ? '<span class="feat-tag">' + _esc(tag) + '</span>' : '') + '</div></div>';
         }
         // 精选内容：每类第一个
         var cards = '';
         var vsorted = vlist.slice().sort(_byDate);
-        if (vsorted.length) cards += fCard(vsorted[0].imageUrl, vsorted[0].name, '车辆', 'window.showVehicleDetail(window.DATA_VEHICLES[' + vlist.indexOf(vsorted[0]) + ']);event.stopPropagation();');
-        if (clist.length) cards += fCard(clist[0].icon, clist[0].name, '芯片', "window.location.hash='#/chips'");
+        if (vsorted.length) cards += fCard(vsorted[0].imageUrl, vsorted[0].name, '车辆', 'window.showVehicleDetail(window.DATA_VEHICLES[' + vlist.indexOf(vsorted[0]) + ']);event.stopPropagation();', true);
+        if (clist.length) cards += fCard(clist[0].icon, clist[0].name, '芯片', "window.location.hash='#/chips'", true);
         var pdata = window.DATA_POOLS || { pools: [] };
         var plist = Array.isArray(pdata) ? pdata : (pdata.pools || []);
         if (plist.length) cards += fCard(plist[0].image, plist[0].name, '最新奖池', "window.location.hash='#/pools'");
+        // 精选活动：即将上线（最晚上线）+ 进行中（最近刚上线），实时按时间更新
+        (function(){
+            var adata = window.DATA_ACTIVITIES || { activities: [] };
+            var alist = (adata.activities && Array.isArray(adata.activities)) ? adata.activities : [];
+            if (!alist.length) return;
+            var today = new Date(); today.setHours(0,0,0,0);
+            function parseD(s){ if(!s)return null; var m=String(s).match(/(\d{4})[.\-\/年](\d{1,2})[.\-\/月](\d{1,2})/); return m?new Date(+m[1],+m[2]-1,+m[3]):null; }
+            function splitN(name){ var main=String(name||''),sub=''; var m=main.match(/^(.*?)[（(](.*?)[)）](.*)$/); if(m){main=(m[1]+m[3]).trim();sub=m[2].trim();} return main+(sub?'（'+sub+'）':''); }
+            var upcoming=[], active=[];
+            alist.forEach(function(a){
+                var s=parseD(a.start), e=parseD(a.end);
+                if(!s||!e)return;
+                if(today>e){ return; }
+                if(today>=s){ active.push({a:a,s:s,e:e}); }
+                else { upcoming.push({a:a,s:s,e:e}); }
+            });
+            upcoming.sort(function(x,y){ var d=(y.s-x.s); if(d!==0)return d; return (x.e||0)-(y.e||0); });  // 越晚上线越前；同日按结束越早越前
+            active.sort(function(x,y){ var d=(y.s-x.s); if(d!==0)return d; return (x.e||0)-(y.e||0); });    // 最近刚上线越前；同日按结束越早越前
+            var up = upcoming[0], ac = active[0];
+            function actNameHtml(name){
+                var main=String(name||''),sub='';
+                var m=main.match(/^(.*?)[（(](.*?)[)）](.*)$/);
+                if(m){ main=(m[1]+m[3]).trim(); sub=m[2].trim(); }
+                return _esc(main)+(sub?'<span class="feat-name-sub">'+_esc(sub)+'</span>':'');
+            }
+            if (up) cards += fCard(up.a.image, actNameHtml(up.a.name), '即将上线', "_act_jump('" + window._encName(up.a.name) + "')", false, true);
+            if (ac) cards += fCard(ac.a.image, actNameHtml(ac.a.name), '进行中', "_act_jump('" + window._encName(ac.a.name) + "')", false, true);
+        })();
         if (wsList.length) cards += fCard(wsList[0].thumbnail || wsList[0].url, wsList[0].name, '静态壁纸', "window.location.hash='#/wallpaper-static'");
         if (wlList.length) cards += fCard(wlList[0].thumbnail || wlList[0].url, wlList[0].name, '动态壁纸', "window.location.hash='#/wallpaper-live'");
         if (cgList.length) cards += fCard(cgList[0].thumbnail || cgList[0].url, cgList[0].name, 'CG', "window.location.hash='#/cg'");
@@ -1324,7 +1399,14 @@ function showVehicleDetail(car) {
         var out = '';
         for (var pi=0; pi<parts.length; pi++) {
             if (parts[pi]==='——' || parts[pi]==='—') {
-                out += '<span style="white-space:nowrap">'+parts[pi]+(parts[pi+1]||'')+'</span>';
+                // 破折号后的内容可能很长（如“29.9先+18汇/27.6先+20汇/…/0先+43.5汇”），
+                // 按 / 拆成短单元：每个单元整体不拆（inline-block + nowrap），放不下时整个单元换行，避免把容器撑宽
+                var segs = (parts[pi+1]||'').split('/');
+                for (var gi=0; gi<segs.length; gi++) {
+                    if (segs[gi]) {
+                        out += '<span style="display:inline-block;white-space:nowrap;vertical-align:top">'+(gi===0?parts[pi]:'/')+segs[gi]+'</span>';
+                    }
+                }
                 pi++;
             } else if (parts[pi]) {
                 var sub = parts[pi].split(/(-)/g);
@@ -1347,14 +1429,15 @@ function showVehicleDetail(car) {
             '<span style="font-weight:700;font-size:.85rem;color:#f5c542">芯片方案详情</span>' +
             '<span class="collapse-arrow"></span></div>' +
             '<div style="display:none;padding:8px 0 4px;word-break:break-word">';
-        var lines = carRec.content.split('\n');
+        // 兼容 \n 和字面 <br> 两种行分隔（数据里可能用 <br> 换行）
+        var lines = carRec.content.split(/\n|<br\s*\/?>/i);
         var configKW = ['神芯','圣芯','猫芯','专属芯','铸就巅峰','专精','跨专精','跨专','秒大','一大','累计'];
         lines.forEach(function(line) {
             line = line.trim();
             if (!line) return;
             var isTitle = configKW.some(function(kw) { return line.indexOf(kw) >= 0; });
             if (isTitle) {
-                recHtml += '<div style="color:#f5c542;font-weight:700;font-size:.82rem;margin:6px 0 3px">'+hlNums(fmtLine(line))+'</div>';
+                recHtml += '<div style="color:#f5c542;font-weight:700;font-size:.82rem;margin:6px 0 3px;word-break:break-word;overflow-wrap:break-word">'+hlNums(fmtLine(line))+'</div>';
             } else {
                 var items = line.split('；').filter(function(i){ return i.trim(); });
                 items.forEach(function(item){
@@ -2111,6 +2194,12 @@ window.renderPools = function () {
     app.innerHTML = html;
     var poolKeyword = '';
     var _si = document.getElementById('poolSearchInput');
+    // 从活动界面跳转定位：自动填入奖池名并滚动到对应卡片
+    if (window._poolJumpName) {
+        poolKeyword = window._poolJumpName;
+        if (_si) _si.value = poolKeyword;
+        window._poolJumpName = null;
+    }
     function renderPoolsList() {
         var data = window.DATA_POOLS || { pools: [] };
         var list = (data.pools && Array.isArray(data.pools)) ? data.pools : [];
@@ -2138,6 +2227,261 @@ window.renderPools = function () {
     }
     if (_si) _si.addEventListener('input', function() { poolKeyword = this.value; renderPoolsList(); });
     renderPoolsList();
+    // 若从活动界面跳转且当前有筛选，等待卡片渲染后滚动（轮询最多 3 秒）
+    if (poolKeyword) {
+        var _pt = 0;
+        (function _scrollPool(){
+            _pt++;
+            var first = document.querySelector('#poolsGrid .pool-card');
+            if (first) {
+                first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                first.style.outline = '2px solid var(--accent-cyan)';
+                setTimeout(function(){ first.style.outline = 'none'; }, 1500);
+                return;
+            }
+            if (_pt < 30) setTimeout(_scrollPool, 100);
+        })();
+    }
+};
+
+// ----- activities.js 游戏内活动排期及攻略（数据来自 activities.json）-----
+// 全局跳转函数（首页精选也可调用，避免依赖 renderActivities 先执行）
+// 活动/奖池名可能含引号、反斜杠等特殊字符，直接拼进内联 onclick 会破坏脚本（导致点击无反应或名字被转义吃掉）。
+// 统一用 encodeURIComponent 编码传输（输出只含 %XX 与字母数字及 -_.!~*() 等安全字符），接收端再解码。
+window._encName = function(s) {
+    return encodeURIComponent(String(s == null ? '' : s)).replace(/'/g, '%27');
+};
+window._decName = function(s) {
+    try { return decodeURIComponent(String(s || '')); } catch (e) { return String(s || ''); }
+};
+window._act_goPool = function(name) {
+    window._poolJumpName = window._decName(name);
+    window.location.hash = '#/pools';
+};
+window._act_jump = function(name) {
+    window._actJumpName = window._decName(name);
+    window.location.hash = '#/activities';
+};
+function _act_parseDate(s) {
+    if (!s) return null;
+    var m = String(s).match(/(\d{4})[.\-\/年](\d{1,2})[.\-\/月](\d{1,2})/);
+    if (!m) return null;
+    return new Date(+m[1], +m[2] - 1, +m[3]);
+}
+function _act_splitName(name) {
+    // 主名称（括号前） + 次名称（括号内），括号不显示
+    var main = String(name || ''), sub = '';
+    var m = main.match(/^(.*?)[（(](.*?)[)）](.*)$/);
+    if (m) { main = (m[1] + m[3]).trim(); sub = m[2].trim(); }
+    return { main: main, sub: sub };
+}
+function _act_status(a, today) {
+    // 返回 { key, label }：upcoming 即将上线 / active 进行中 / ended 已结束
+    var s = _act_parseDate(a.start), e = _act_parseDate(a.end);
+    if (s && e) {
+        if (today > e) return { key: 'ended', label: '已结束' };
+        if (today >= s) return { key: 'active', label: '进行中' };
+        return { key: 'upcoming', label: '即将上线' };
+    }
+    return { key: 'active', label: '进行中' };
+}
+function _act_isUpcomingSoon(a, today) {
+    // 距离上线 7 天内视为"即将上线"
+    var s = _act_parseDate(a.start);
+    if (!s) return false;
+    var diff = Math.round((s - today) / 86400000);
+    return diff >= 0 && diff <= 7;
+}
+window.renderActivities = function () {
+    var app = document.getElementById('app');
+    var html = '<div class="page">';
+    html += '<div class="page-header"><h1>游戏内活动排期及攻略</h1><p>按时间自动标记进行中 / 已结束 / 即将上线</p></div>';
+    html += '<div class="v-desktop-filter" id="actDesktopFilter">';
+    html += '<div class="v-search-box act-filter-row">';
+    html += '<input type="text" id="actSearchInput" placeholder="搜索活动名称...">';
+    html += '<span class="act-date-wrap" id="actDateWrap">';
+    html += '<span class="act-date-label">日期</span>';
+    html += '<input type="date" id="actDateInput" title="选择日期筛选当日已上线的活动">';
+    html += '</span>';
+    html += '<span class="act-date-clear" id="actDateClear" style="cursor:pointer;color:var(--accent-cyan);font-size:.78rem;display:none">清除</span>';
+    html += '</div>';
+    html += '</div>';
+    html += '<div class="v-stats-text" id="actStatsText">共 0 个活动</div>';
+    html += '<div class="act-grid" id="actGrid"></div>';
+    html += '</div>';
+    app.innerHTML = html;
+
+    var actKeyword = '';
+    var actDateVal = '';
+    var _si = document.getElementById('actSearchInput');
+    var _di = document.getElementById('actDateInput');
+    var _dc = document.getElementById('actDateClear');
+    // 从首页精选跳转：只做定位，不筛选——保留全部活动，滚动到目标活动卡片
+    // 注意：_actJumpName 不在这里清空，等定位成功后再清（防数据未加载导致二次渲染丢失定位）
+    var actJumpTarget = '';
+    if (window._actJumpName) {
+        actJumpTarget = window._actJumpName;
+    }
+
+    function renderActList() {
+        var data = window.DATA_ACTIVITIES || { activities: [] };
+        var list = (data.activities && Array.isArray(data.activities)) ? data.activities : [];
+        var today = new Date(); today.setHours(0, 0, 0, 0);
+        var f = list.filter(function(a) {
+            var nm = _act_splitName(a.name);
+            var nameMatch = !actKeyword
+                || (nm.main || '').toLowerCase().indexOf(actKeyword.toLowerCase()) >= 0
+                || actKeyword.toLowerCase().indexOf((nm.main || '').toLowerCase()) >= 0;
+            if (!nameMatch) return false;
+            if (actDateVal) {
+                var sel = _act_parseDate(actDateVal);
+                var s = _act_parseDate(a.start), e = _act_parseDate(a.end);
+                if (!sel || !s || !e) return false;
+                if (!(sel >= s && sel <= e)) return false; // 当日已上线（进行中）
+            }
+            return true;
+        });
+        // 排序：即将上线（越晚上线越前）→ 进行中（越晚开始越前）→ 已结束（越晚结束越前）
+        var rank = { upcoming: 0, active: 1, ended: 2 };
+        f.sort(function(a, b) {
+            var sa = _act_parseDate(a.start), ea = _act_parseDate(a.end);
+            var sb = _act_parseDate(b.start), eb = _act_parseDate(b.end);
+            var ra = rank[_act_status(a, today).key], rb = rank[_act_status(b, today).key];
+            if (ra !== rb) return ra - rb;
+            // 同状态：先按上线时间（越晚越前）；同一天上线则按结束时间（越早越前）
+            if ((sa - sb) !== 0) return (sb - sa);
+            return (ea - eb);
+        });
+        var grid = document.getElementById('actGrid');
+        var stats = document.getElementById('actStatsText');
+        if (!grid) return;
+        if (f.length === 0) {
+            grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);">暂无活动数据</div>';
+            if (stats) stats.textContent = '共 0 个活动';
+            return;
+        }
+        grid.innerHTML = f.map(function(a) {
+            var nm = _act_splitName(a.name);
+            var st = _act_status(a, today);
+            var nameHtml = '<div class="act-name">' + nm.main + (nm.sub ? '<div class="act-name-sub">' + nm.sub + '</div>' : '') + '</div>';
+            var imgHtml = a.image ? '<div class="act-img"><img src="' + a.image + '" referrerpolicy="no-referrer" loading="lazy" onerror="this.style.display=\'none\'"></div>' : '';
+            var timeHtml = '<div class="act-time"><span class="act-time-label">活动时间</span> ' + (a.start || '') + ' — ' + (a.end || '') + '</div>';
+            var introHtml = a.intro ? '<div class="act-sec"><span class="act-sec-title">活动介绍</span><div class="act-intro">' + String(a.intro).split('<br>').map(function(l){ return '<div>' + l + '</div>'; }).join('') + '</div></div>' : '';
+            var tipsHtml = a.tips ? '<div class="act-sec"><span class="act-sec-title">活动攻略</span><div class="act-tips">' + String(a.tips).split('<br>').map(function(l){ return '<div>' + l + '</div>'; }).join('') + '</div></div>' : '';
+            // 与奖池同名 → 加"查看保底价格"链接
+            var poolLink = '';
+            var pools = (window.DATA_POOLS && Array.isArray(window.DATA_POOLS.pools)) ? window.DATA_POOLS.pools : [];
+            var hit = pools.filter(function(p){ return String(p.name || '').indexOf(nm.main) >= 0 || nm.main.indexOf(String(p.name || '')) >= 0; })[0];
+            if (hit) {
+                poolLink = '<div class="act-pool-link"><a href="javascript:void(0)" onclick="_act_goPool(\'' + window._encName(hit.name) + '\')">查看保底价格 →</a></div>';
+            }
+            var badge = '<span class="act-badge ' + st.key + '">' + st.label + '</span>';
+            return '<div class="act-card" data-main="' + (nm.main||'').replace(/"/g,'&quot;') + '" data-name="' + String(a.name||'').replace(/"/g,'&quot;') + '">' +
+                '<div class="act-hd">' + imgHtml + '<div class="act-hd-info">' + nameHtml + timeHtml + badge + '</div></div>' +
+                introHtml + tipsHtml + poolLink +
+                '</div>';
+        }).join('');
+        if (stats) stats.textContent = '共 ' + f.length + ' 个活动';
+        // 活动内容里的视频转 GIF 效果：自动播放 + 静音 + 无限循环，不可点击暂停/全屏
+        // 性能优化：IntersectionObserver 视口懒播放——只播滚入视口的视频，滚出即暂停，避免多个视频同时解码卡顿
+        var videos = grid.querySelectorAll('.act-intro video, .act-tips video');
+        videos.forEach(function(v){
+            v.setAttribute('muted', '');
+            v.setAttribute('loop', '');
+            v.setAttribute('playsinline', '');
+            v.setAttribute('disablepictureinpicture', '');
+            v.setAttribute('controlslist', 'nodownload noplaybackrate nofullscreen noremoteplayback');
+            v.removeAttribute('controls');
+            v.setAttribute('preload', 'none');   // 不预下载视频数据
+            v.style.maxWidth = '100%';
+            v.style.borderRadius = '6px';
+            v.style.display = 'block';
+            v.style.pointerEvents = 'none';   // 点击穿透：无法暂停、无法点击放大/全屏
+            v.style.userSelect = 'none';
+            v.style.webkitUserSelect = 'none';
+            v.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+            v.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); });
+            v.addEventListener('error', function(){ try { v.pause(); } catch(e){} });   // 加载失败静默
+            v.dataset.actInit = '1';
+        });
+        // 每个活动只同时播放一个视频（同卡片内：新视频播放时暂停同卡片的其它视频）
+        function playOnly(video){
+            var card = video.closest('.act-card');
+            if (card) {
+                card.querySelectorAll('video').forEach(function(o){ if (o !== video) { try { o.pause(); } catch(e){} } });
+            }
+            video.setAttribute('preload', 'auto');
+            var p = video.play(); if (p && p.catch) p.catch(function(){});
+        }
+        if ('IntersectionObserver' in window && videos.length) {
+            var io = new IntersectionObserver(function(entries){
+                entries.forEach(function(en){
+                    var v = en.target;
+                    if (en.isIntersecting) { playOnly(v); }
+                    else { try { v.pause(); } catch(e){} }
+                });
+            }, { rootMargin: '120px 0px 120px 0px', threshold: 0.1 });
+            videos.forEach(function(v){ io.observe(v); });
+        } else {
+            videos.forEach(function(v){ playOnly(v); });  // 不支持 IO 时退化：全部播放
+        }
+    }
+    if (_si) _si.addEventListener('input', function() { actKeyword = this.value; renderActList(); });
+    if (_di) _di.addEventListener('change', function() {
+        actDateVal = this.value || '';
+        if (_dc) _dc.style.display = actDateVal ? '' : 'none';
+        renderActList();
+    });
+    var _dw = document.getElementById('actDateWrap');
+    if (_dw) _dw.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (_di && typeof _di.showPicker === 'function') { try { _di.showPicker(); } catch(err) { _di.focus(); } }
+        else if (_di) _di.focus();
+    });
+    if (_dc) _dc.addEventListener('click', function() { actDateVal = ''; if (_di) _di.value = ''; this.style.display = 'none'; renderActList(); });
+    renderActList();
+    // 从首页精选跳转：保留全部活动，精准定位到目标活动第一张图（轮询最多 5 秒）
+    if (actJumpTarget) {
+        var _tries = 0;
+        var _jumpName = actJumpTarget.trim();
+        (function _scrollAct(){
+            _tries++;
+            var card = null, fallback = null;
+            var cards = document.querySelectorAll('#actGrid .act-card');
+            for (var i = 0; i < cards.length; i++) {
+                var dn = (cards[i].getAttribute('data-name') || '').trim();
+                var dm = (cards[i].getAttribute('data-main') || '').trim();
+                if (dn === _jumpName) { card = cards[i]; break; }          // 完整名精确匹配
+                // 主名兜底：前缀匹配，避免任意包含导致误选（如「自选UP」误匹配「XX自选UP」）
+                if (!fallback && dm && (dm === _jumpName || dm.indexOf(_jumpName) === 0 || _jumpName.indexOf(dm) === 0)) fallback = cards[i];
+            }
+            if (!card) card = fallback;
+            if (card) {
+                window._actJumpName = null;  // 定位成功，清除跳转标记
+                // 滚动到目标卡（居中）。不用 scrollIntoView 而手动计算位置，便于多次校正：
+                // 目标在列表深处时，沿途其它卡片的懒加载图片会陆续加载并把目标往下顶，只滚一次会偏到上方其它活动上。
+                function scrollToCard() {
+                    var r = card.getBoundingClientRect();
+                    var sy = window.scrollY !== undefined ? window.scrollY : (document.documentElement.scrollTop || document.body.scrollTop || 0);
+                    var targetY = r.top + sy - Math.max(0, ((window.innerHeight || document.documentElement.clientHeight) - card.offsetHeight) / 2);
+                    try { window.scrollTo({ top: targetY, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, targetY); }
+                }
+                scrollToCard();
+                card.style.outline = '2px solid var(--accent-cyan)';
+                setTimeout(function(){ card.style.outline = 'none'; }, 1800);
+                var im = card.querySelector('.act-img img');
+                if (im && !im.complete) {
+                    var correct = function(){ scrollToCard(); };
+                    im.addEventListener('load', correct, { once: true });
+                    im.addEventListener('error', correct, { once: true });
+                }
+                // 沿途图片懒加载导致的布局漂移是持续性的，延迟多次兜底校正
+                [200, 600, 1200].forEach(function(d){ setTimeout(scrollToCard, d); });
+                return;
+            }
+            if (_tries < 50) setTimeout(_scrollAct, 100);
+        })();
+    }
 };
 
 // ----- achievements.js 免费称号获取（数据来自 achievements.json）-----
@@ -2737,7 +3081,7 @@ window.renderCalculator = function () {
   skins: ["https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/e3f8d81e-8562-4fae-b42a-005ad57f5e5b.png/webp",
           "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/6fde452b-1d36-4161-a0f0-2975b760b08e.png/webp"
 ]},
-    {name:"布加迪 LVN", chips:"446", start:27, nitro:27, type:"竞速",
+    {name:"布加迪 LVN", chips:"446", start:47, nitro:27, type:"竞速",
   img: "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/8d6a991f-3afe-42d9-a7df-22e9c026337b.png/webp",
   skins: ["https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/3f03bc60-8418-4eb6-9a07-f8c1006fc561.png/webp",
           "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/e164550e-6804-4f45-9a20-101fc63549f9.png/webp",
@@ -2849,7 +3193,7 @@ window.renderCalculator = function () {
           "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/1c0f8871-e5cd-40d3-9a11-f8cb7bf86b38.png/webp",
           "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/82720cd7-48ab-494b-b805-8143eed9a079.png/webp"
 ]},
-    {name:"迈凯伦 600LT", chips:"346", start:25, nitro:25, type:"竞速",
+    {name:"迈凯伦 600LT", chips:"344", start:25, nitro:29, type:"竞速",
   img: "https://a1.boltp.com/2026/06/12/6a2c16764522d.png",
   skins: ["https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/2c289d2a-ca7d-4b0d-97ca-b77717c42ab3.png/webp"]},
     {name:"踏雪白驹", chips:"344", start:31, nitro:31, type:"竞速",
@@ -2897,7 +3241,7 @@ window.renderCalculator = function () {
   skins: ["https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/2310fb15-c870-47e1-94d3-8c977d654841.png/webp",
           "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/4606c7b0-4087-4723-80a9-9efe0656ee93.png/webp"
 ]},
-    {name:"丰田 Corolla Sprinter Trueno GT Apex", chips:"346", start:25, nitro:25, type:"竞速",
+    {name:"丰田 Corolla Sprinter Trueno GT Apex", chips:"346", start:45, nitro:25, type:"竞速",
   img: "https://a1.boltp.com/2026/06/12/6a2bccd48c17e.png",
   skins: ["https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/d2b26c62-2f5d-45da-965e-2a2d7381152b.png/webp",
           "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/522320a2-af61-4b44-a646-81a3f6a0512e.png/webp",
@@ -3374,7 +3718,7 @@ window.renderCalculator = function () {
           "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/de15c77b-ac88-4f73-b9cc-0c61abff8c39.png/webp",
           "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/1d06309b-4035-4b48-9cd6-929746f357a6.png/webp"
 ]},
-    {name:"过载先锋", chips:"346", start:35, nitro:35, type:"竞速",
+    {name:"过载先锋", chips:"446", start:35, nitro:35, type:"竞速",
   img: "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/99edadb9-18b3-4211-8fb1-9d799af55a2f.png/webp",
   skins: ["https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/4c5778e2-ffbf-402c-b8f4-b6ef0f4a20c2.png/webp",
           "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/ed039670-73c1-4d30-a222-e87bbde5f3d5.png/webp",
@@ -4006,7 +4350,7 @@ window._calc_toggleDetail = function(btn) {
     var routes = {
         '':'renderHome', 'home':'renderHome', 'vehicles':'renderVehicles',
         'balance':'renderBalance', 'calculator':'renderCalculator', 'chips':'renderChips',
-        'empower':'renderEmpower', 'resources':'renderResources', 'pools':'renderPools',
+        'empower':'renderEmpower', 'resources':'renderResources', 'pools':'renderPools', 'activities':'renderActivities',
         'free-achievements':'renderAchievements',
         'wallpaper-static':'renderWallpaperStatic', 'wallpaper-live':'renderWallpaperLive',
         'cg':'renderCG', 'pv':'renderPV',
@@ -4020,16 +4364,19 @@ window._calc_toggleDetail = function(btn) {
         var calcSelect = document.getElementById('_calc_vehicleSelect');
         if (calcSelect) window._calcLastVehicle = calcSelect.value;
         var route = getRoute();
+        // 跳转定位场景（活动/奖池带目标名）不强制滚顶——必须在 fn() 执行前捕获，
+        // 因为渲染函数内部会消费并清空 _actJumpName/_poolJumpName
+        var hasJumpTarget = !!(window._actJumpName || window._poolJumpName);
         var fn = window[routes[route]];
         if (typeof fn === 'function') fn();
-        window.scrollTo(0, 0);
+        if (!hasJumpTarget) window.scrollTo(0, 0);
         document.querySelectorAll('.nav-links a').forEach(function (a) {
             a.classList.toggle('active', a.getAttribute('href') === '#/' + route || (route === 'home' && a.getAttribute('href') === '#/'));
         });
         document.getElementById('navLinks').classList.remove('open');
         document.getElementById('navToggle').classList.remove('open');
     }
-    window.addEventListener('hashchange', navigate);
+    // 注意：hashchange 统一由下方主逻辑监听处理（含数据加载判断 + modal 清理），这里不重复注册
     window.Router = { navigate: navigate, getRoute: getRoute };
 })();
 
@@ -4048,6 +4395,7 @@ window._calc_toggleDetail = function(btn) {
         { key:'DATA_EMPOWER', path:'energies.json' },
         { key:'DATA_RESOURCES', path:'resources.json' },
         { key:'DATA_POOLS', path:'pools.json' },
+        { key:'DATA_ACTIVITIES', path:'activities.json' },
         { key:'DATA_ACHIEVEMENTS', path:'achievements.json' },
         { key:'DATA_WALLPAPERS', path:'wallpapers.json' },
         { key:'DATA_MEDIA', path:'media.json' },
