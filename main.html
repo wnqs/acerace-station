@@ -329,8 +329,8 @@ main{max-width:var(--max-width);margin:0 auto;padding:calc(var(--nav-height) + 0
 .act-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);overflow:hidden;transition:all .3s;display:flex;flex-direction:column}
 .act-card:hover{border-color:var(--accent-cyan);transform:translateY(-2px);box-shadow:var(--shadow-glow)}
 .act-hd{display:flex;gap:12px;padding:12px 12px 10px;align-items:flex-start}
-.act-img{flex-shrink:0;width:140px;height:120px;border-radius:8px;overflow:hidden;background:rgba(0,0,0,.35)}
-.act-img img{width:100%;height:100%;display:block;object-fit:contain}
+.act-img{flex-shrink:0;width:140px;border-radius:8px;overflow:hidden;background:rgba(0,0,0,.35)}
+.act-img img{width:140px;height:auto;display:block;object-fit:contain}
 .act-hd-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
 .act-name{font-size:1.08rem;font-weight:800;color:#00e5ff;text-shadow:0 0 12px rgba(0,229,255,.35);line-height:1.35;word-break:break-word}
 .act-name-sub{font-size:.78rem;font-weight:400;color:var(--text-muted);margin-top:2px}
@@ -347,20 +347,63 @@ main{max-width:var(--max-width);margin:0 auto;padding:calc(var(--nav-height) + 0
 .act-intro .number-red,.act-tips .number-red{color:#ff4757;font-weight:700}
 .act-intro .act-red,.act-tips .act-red{color:#ff4757;font-weight:700}
 .act-intro .act-gold,.act-tips .act-gold{color:#f5c542;font-weight:700}
+.act-intro .act-pink,.act-tips .act-pink{color:#ff7eb6;font-weight:700}
 .act-pool-link{padding:10px 14px 14px;margin-top:auto}
 .act-pool-link a{display:inline-block;padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:600;color:#00e5ff;border:1px solid rgba(0,240,255,.35);background:rgba(0,240,255,.08);transition:all .25s}
 .act-pool-link a:hover{background:rgba(0,240,255,.18);box-shadow:0 0 14px rgba(0,240,255,.3)}
+/* 活动卡片"查看详情"按钮 */
+.act-view-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 14px;border-top:1px solid var(--border-color);cursor:pointer;color:var(--accent-cyan);font-size:.82rem;font-weight:600;transition:background .2s;user-select:none}
+.act-view-btn:hover{background:rgba(0,240,255,.06)}
+/* 活动详情下拉 */
+.act-detail{border-top:1px solid var(--border-color)}
+.act-detail-toggle{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;cursor:pointer;color:var(--accent-cyan);font-size:.8rem;font-weight:600;transition:background .2s;user-select:none}
+.act-detail-toggle:hover{background:rgba(0,240,255,.06)}
+.act-dt-arrow{width:8px;height:8px;border-right:2px solid var(--accent-cyan);border-bottom:2px solid var(--accent-cyan);transform:rotate(45deg);transition:transform .3s;margin-top:-3px}
+.act-detail.open .act-dt-arrow{transform:rotate(-135deg);margin-top:3px}
+.act-detail-body{display:none;padding:2px 0 6px}
+.act-detail.open .act-detail-body{display:block;animation:_actDlIn .25s ease}
+@keyframes _actDlIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:768px){
 .act-hd{flex-direction:column;align-items:stretch}
 .act-img,.act-img img{width:100%}
-.act-img{height:140px}
 .act-name{font-size:.95rem}
 .act-intro,.act-tips{font-size:.78rem}
 .act-time{font-size:.75rem}
 }
 
-/* ===== 免费称号获取 ===== */
-.ach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:12px 0 30px}
+/* ===== 活动详情弹窗 ===== */
+.act-modal{max-width:600px}
+.act-dm-img{width:100%;background:rgba(0,0,0,.35);border-bottom:1px solid var(--border-color)}
+.act-dm-img img{width:100%;height:auto;display:block;object-fit:contain}
+.act-dm-name{font-size:1.3rem;font-weight:800;color:#00e5ff;text-shadow:0 0 12px rgba(0,229,255,.4);margin-bottom:6px}
+.act-dm-sub{display:block;font-size:.8rem;font-weight:400;color:var(--text-muted);margin-top:2px}
+.act-dm-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.act-dm-time{font-size:.85rem;color:var(--text-primary)}
+.act-dm-intro{font-size:.88rem;color:var(--text-primary);line-height:1.75;word-break:break-word}
+.act-dm-intro img{max-width:100%;height:auto;border-radius:6px;margin:6px 0;display:block}
+.act-dm-intro .act-red,.act-dm-intro .number-red{color:#ff4757;font-weight:700}
+.act-dm-intro .act-gold{color:#f5c542;font-weight:700}
+.act-dm-intro .act-pink{color:#ff7eb6;font-weight:700}
+.act-dm-pool{margin-top:16px;padding-top:14px;border-top:1px solid var(--border-color)}
+.act-dm-pool a{display:inline-block;padding:8px 18px;border-radius:20px;font-size:.85rem;font-weight:700;color:#00e5ff;border:1px solid rgba(0,240,255,.4);background:rgba(0,240,255,.08);transition:all .25s}
+.act-dm-pool a:hover{background:rgba(0,240,255,.18);box-shadow:0 0 14px rgba(0,240,255,.35)}
+/* ===== 活动排期统计行 + 即将下线按钮 ===== */
+.act-stats-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:2px 0 10px}
+.act-end-btn{display:inline-block;padding:5px 14px;border-radius:16px;font-size:.78rem;font-weight:600;color:#ffd54f;border:1px solid rgba(255,213,79,.4);background:rgba(255,213,79,.08);transition:all .25s;white-space:nowrap;text-decoration:none}
+.act-end-btn:hover{background:rgba(255,213,79,.18);box-shadow:0 0 12px rgba(255,213,79,.3);color:#fff}
+/* ===== 即将下线活动列表 ===== */
+.act-end-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,430px),1fr));gap:14px;padding:12px 0 30px}
+@media(max-width:600px){.act-end-grid{grid-template-columns:1fr}}
+.act-end-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:14px 16px;transition:all .3s}
+.act-end-card:hover{border-color:rgba(255,213,79,.4);box-shadow:0 0 16px rgba(255,213,79,.12)}
+.act-end-name{font-size:1rem;font-weight:700;margin-bottom:10px}
+.act-end-name a{color:#00e5ff;cursor:pointer;text-decoration:none;word-break:break-word;text-shadow:0 0 10px rgba(0,229,255,.3)}
+.act-end-name a:hover{color:#fff;text-shadow:0 0 12px rgba(0,240,255,.5)}
+.act-end-row{display:flex;align-items:center;gap:14px}
+.act-end-img{flex-shrink:0;width:120px;border-radius:8px;overflow:hidden;background:rgba(0,0,0,.35)}
+.act-end-img img{width:120px;height:auto;display:block;object-fit:contain}
+.act-end-days{flex:1;color:#ffd54f;font-size:.95rem;font-weight:700;line-height:1.6}
+/* ===== 免费称号获取 ===== */.ach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:12px 0 30px}
 .ach-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);overflow:hidden;transition:all .3s;display:flex;flex-direction:column}
 .ach-card:hover{border-color:var(--accent-cyan);transform:translateY(-2px);box-shadow:var(--shadow-glow)}
 .ach-img{width:100%;background:rgba(0,0,0,.35);border-bottom:1px solid var(--border-color)}
@@ -1094,11 +1137,11 @@ window.renderHome = function () {
             var alist = (adata.activities && Array.isArray(adata.activities)) ? adata.activities : [];
             if (!alist.length) return;
             var today = new Date(); today.setHours(0,0,0,0);
-            function parseD(s){ if(!s)return null; var m=String(s).match(/(\d{4})[.\-\/年](\d{1,2})[.\-\/月](\d{1,2})/); return m?new Date(+m[1],+m[2]-1,+m[3]):null; }
+            function parseD(s, endOfDay){ return window._act_parseDate ? _act_parseDate(s, endOfDay) : null; }
             function splitN(name){ var main=String(name||''),sub=''; var m=main.match(/^(.*?)[（(](.*?)[)）](.*)$/); if(m){main=(m[1]+m[3]).trim();sub=m[2].trim();} return main+(sub?'（'+sub+'）':''); }
             var upcoming=[], active=[];
             alist.forEach(function(a){
-                var s=parseD(a.start), e=parseD(a.end);
+                var s=parseD(a.start), e=parseD(a.end, true);  // 上线当天0点，结束当天23:59:59
                 if(!s||!e)return;
                 if(today>e){ return; }
                 if(today>=s){ active.push({a:a,s:s,e:e}); }
@@ -1113,8 +1156,8 @@ window.renderHome = function () {
                 if(m){ main=(m[1]+m[3]).trim(); sub=m[2].trim(); }
                 return _esc(main)+(sub?'<span class="feat-name-sub">'+_esc(sub)+'</span>':'');
             }
-            if (up) cards += fCard(up.a.image, actNameHtml(up.a.name), '即将上线', "_act_jump('" + window._encName(up.a.name) + "')", false, true);
-            if (ac) cards += fCard(ac.a.image, actNameHtml(ac.a.name), '进行中', "_act_jump('" + window._encName(ac.a.name) + "')", false, true);
+            if (up) cards += fCard(up.a.image, actNameHtml(up.a.name), '即将上线', "_act_showDetail('" + window._encName(up.a.name) + "');event.stopPropagation();", false, true);
+            if (ac) cards += fCard(ac.a.image, actNameHtml(ac.a.name), '进行中', "_act_showDetail('" + window._encName(ac.a.name) + "');event.stopPropagation();", false, true);
         })();
         if (wsList.length) cards += fCard(wsList[0].thumbnail || wsList[0].url, wsList[0].name, '静态壁纸', "window.location.hash='#/wallpaper-static'");
         if (wlList.length) cards += fCard(wlList[0].thumbnail || wlList[0].url, wlList[0].name, '动态壁纸', "window.location.hash='#/wallpaper-live'");
@@ -2262,11 +2305,118 @@ window._act_jump = function(name) {
     window._actJumpName = window._decName(name);
     window.location.hash = '#/activities';
 };
-function _act_parseDate(s) {
+// ===== 活动详情弹窗（类似车辆详情页）=====
+// 打开活动详情弹窗：完整展示名称/图片/时间/介绍/攻略/保底链接
+window._act_showDetail = function(name) {
+    name = window._decName ? window._decName(name) : String(name || '');
+    // 关闭倒计时提醒弹窗（避免两个弹窗叠加）
+    var alertM = document.getElementById('actAlertOverlay'); if (alertM) alertM.remove();
+    var data = window.DATA_ACTIVITIES || { activities: [] };
+    var list = (data.activities && Array.isArray(data.activities)) ? data.activities : [];
+    var a = null;
+    for (var i = 0; i < list.length; i++) {
+        if (String(list[i].name || '') === String(name || '')) { a = list[i]; break; }
+    }
+    if (!a) return;
+    var old = document.getElementById('modal'); if (old) old.remove();
+    var today = new Date(); today.setHours(0,0,0,0);
+    var st = _act_status(a, today);
+    var nm = _act_splitName(a.name);
+    var html = '<div class="modal-overlay" id="modal"><div class="vd-modal-wrap"><button class="vd-back" id="modalClose" aria-label="返回"><span class="circle"><span class="icon arrow"></span></span><span class="button-text">返回</span></button><div class="vd-modal act-modal">';
+    // 顶部图片
+    if (a.image) {
+        html += '<div class="act-dm-img"><img src="' + a.image + '" referrerpolicy="no-referrer" onerror="this.parentNode.style.display=\'none\'"></div>';
+    }
+    html += '<div class="vd-body">';
+    // 名称
+    html += '<div class="act-dm-name">' + nm.main + (nm.sub ? '<span class="act-dm-sub">' + nm.sub + '</span>' : '') + '</div>';
+    // 时间 + 状态
+    html += '<div class="act-dm-meta"><span class="act-badge ' + st.key + '">' + st.label + '</span><span class="act-dm-time">' + (a.start || '') + ' — ' + (a.end || '') + '</span></div>';
+    // 活动介绍
+    if (a.intro) {
+        html += '<div class="vd-sec-title">活动介绍</div><div class="act-dm-intro">' + String(a.intro).split('<br>').map(function(l){ return l ? '<div>' + l + '</div>' : '<div style="height:1em"></div>'; }).join('') + '</div>';
+    }
+    // 活动攻略
+    if (a.tips) {
+        html += '<div class="vd-sec-title">活动攻略</div><div class="act-dm-intro">' + String(a.tips).split('<br>').map(function(l){ return l ? '<div>' + l + '</div>' : '<div style="height:1em"></div>'; }).join('') + '</div>';
+    }
+    // 与奖池同名 → 保底价格链接
+    var pools = (window.DATA_POOLS && Array.isArray(window.DATA_POOLS.pools)) ? window.DATA_POOLS.pools : [];
+    var hit = pools.filter(function(p){ return String(p.name || '').indexOf(nm.main) >= 0 || nm.main.indexOf(String(p.name || '')) >= 0; })[0];
+    if (hit) {
+        html += '<div class="act-dm-pool"><a href="javascript:void(0)" onclick="_act_goPool(\'' + window._encName(hit.name) + '\')">查看保底价格 →</a></div>';
+    }
+    html += '</div></div></div></div>';
+    // 挂载到 body
+    var holder = document.createElement('div');
+    holder.innerHTML = html;
+    document.body.appendChild(holder.firstChild);
+    // 关闭
+    function close() { var m = document.getElementById('modal'); if (m) m.remove(); }
+    document.getElementById('modalClose').addEventListener('click', close);
+    document.getElementById('modal').addEventListener('click', function(e) { if (e.target.id === 'modal') close(); });
+    // 弹窗内视频转 GIF 效果
+    var vs = document.querySelectorAll('#modal .act-dm-intro video');
+    vs.forEach(function(v){
+        v.setAttribute('muted',''); v.setAttribute('loop',''); v.setAttribute('playsinline','');
+        v.setAttribute('disablepictureinpicture',''); v.setAttribute('controlslist','nodownload noplaybackrate nofullscreen noremoteplayback');
+        v.removeAttribute('controls'); v.setAttribute('preload','none');
+        v.style.maxWidth='100%'; v.style.borderRadius='6px'; v.style.display='block';
+        v.style.pointerEvents='none'; v.style.userSelect='none'; v.style.webkitUserSelect='none';
+        v.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+        v.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); });
+        v.addEventListener('error', function(){ try { v.pause(); } catch(e2){} });
+        var p = v.play(); if (p && p.catch) p.catch(function(){});
+    });
+};
+// ===== 即将下线活动列表（3 天内结束）=====
+window.renderActEnding = function () {
+    var app = document.getElementById('app');
+    var html = '<div class="page">';
+    html += '<div class="page-header"><h1>即将下线活动</h1><p>以下活动即将结束，请合理安排时间完成并领取或抽取奖励</p></div>';
+    html += '<div class="v-stats-text" id="actEndStats">共 0 个活动即将下线</div>';
+    html += '<div class="act-end-grid" id="actEndGrid"></div>';
+    html += '</div>';
+    app.innerHTML = html;
+    var data = window.DATA_ACTIVITIES || { activities: [] };
+    var list = (data.activities && Array.isArray(data.activities)) ? data.activities : [];
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var soon = [];
+    list.forEach(function(a){
+        var e = _act_parseDate(a.end, true);
+        if (!e) return;
+        var ms = e - today;
+        if (ms < 0) return;                       // 已结束
+        var days = Math.ceil(ms / 86400000);
+        if (days <= 3) soon.push({ a: a, days: days });
+    });
+    soon.sort(function(x, y){ return x.days - y.days; });
+    var grid = document.getElementById('actEndGrid');
+    var stats = document.getElementById('actEndStats');
+    if (!grid) return;
+    if (soon.length === 0) {
+        grid.innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--text-muted);">近期暂无即将下线的活动</div>';
+        if (stats) stats.textContent = '共 0 个活动即将下线';
+        return;
+    }
+    grid.innerHTML = soon.map(function(it){
+        return '<div class="act-end-card">' +
+            '<div class="act-end-name"><a href="javascript:void(0)" onclick="_act_showDetail(\'' + window._encName(it.a.name) + '\')">' + it.a.name + '</a></div>' +
+            '<div class="act-end-row">' +
+                (it.a.image ? '<div class="act-end-img"><img src="' + it.a.image + '" referrerpolicy="no-referrer" loading="lazy" onerror="this.parentNode.style.display=\'none\'"></div>' : '') +
+                '<div class="act-end-days">下架时间：' + it.days + '天<br><span style="font-size:.72rem;color:var(--text-muted)">' + (it.a.start || '') + ' — ' + (it.a.end || '') + '</span></div>' +
+            '</div>' +
+            '</div>';
+    }).join('');
+    if (stats) stats.textContent = '共 ' + soon.length + ' 个活动即将下线';
+};
+function _act_parseDate(s, endOfDay) {
     if (!s) return null;
     var m = String(s).match(/(\d{4})[.\-\/年](\d{1,2})[.\-\/月](\d{1,2})/);
     if (!m) return null;
-    return new Date(+m[1], +m[2] - 1, +m[3]);
+    var d = new Date(+m[1], +m[2] - 1, +m[3]);
+    if (endOfDay) { d.setHours(23, 59, 59, 999); }  // 结束时间 = 当天 23:59:59
+    return d;
 }
 function _act_splitName(name) {
     // 主名称（括号前） + 次名称（括号内），括号不显示
@@ -2277,7 +2427,7 @@ function _act_splitName(name) {
 }
 function _act_status(a, today) {
     // 返回 { key, label }：upcoming 即将上线 / active 进行中 / ended 已结束
-    var s = _act_parseDate(a.start), e = _act_parseDate(a.end);
+    var s = _act_parseDate(a.start), e = _act_parseDate(a.end, true);  // 结束到当天 23:59:59
     if (s && e) {
         if (today > e) return { key: 'ended', label: '已结束' };
         if (today >= s) return { key: 'active', label: '进行中' };
@@ -2306,7 +2456,7 @@ window.renderActivities = function () {
     html += '<span class="act-date-clear" id="actDateClear" style="cursor:pointer;color:var(--accent-cyan);font-size:.78rem;display:none">清除</span>';
     html += '</div>';
     html += '</div>';
-    html += '<div class="v-stats-text" id="actStatsText">共 0 个活动</div>';
+    html += '<div class="act-stats-row"><div class="v-stats-text" id="actStatsText" style="padding:0">共 0 个活动</div><a class="act-end-btn" href="#/act-ending">即将下线活动查看 ›</a></div>';
     html += '<div class="act-grid" id="actGrid"></div>';
     html += '</div>';
     app.innerHTML = html;
@@ -2335,7 +2485,7 @@ window.renderActivities = function () {
             if (!nameMatch) return false;
             if (actDateVal) {
                 var sel = _act_parseDate(actDateVal);
-                var s = _act_parseDate(a.start), e = _act_parseDate(a.end);
+                var s = _act_parseDate(a.start), e = _act_parseDate(a.end, true);  // 结束到当天 23:59:59
                 if (!sel || !s || !e) return false;
                 if (!(sel >= s && sel <= e)) return false; // 当日已上线（进行中）
             }
@@ -2344,8 +2494,8 @@ window.renderActivities = function () {
         // 排序：即将上线（越晚上线越前）→ 进行中（越晚开始越前）→ 已结束（越晚结束越前）
         var rank = { upcoming: 0, active: 1, ended: 2 };
         f.sort(function(a, b) {
-            var sa = _act_parseDate(a.start), ea = _act_parseDate(a.end);
-            var sb = _act_parseDate(b.start), eb = _act_parseDate(b.end);
+            var sa = _act_parseDate(a.start), ea = _act_parseDate(a.end, true);  // 结束到当天 23:59:59
+            var sb = _act_parseDate(b.start), eb = _act_parseDate(b.end, true);
             var ra = rank[_act_status(a, today).key], rb = rank[_act_status(b, today).key];
             if (ra !== rb) return ra - rb;
             // 同状态：先按上线时间（越晚越前）；同一天上线则按结束时间（越早越前）
@@ -2366,8 +2516,8 @@ window.renderActivities = function () {
             var nameHtml = '<div class="act-name">' + nm.main + (nm.sub ? '<div class="act-name-sub">' + nm.sub + '</div>' : '') + '</div>';
             var imgHtml = a.image ? '<div class="act-img"><img src="' + a.image + '" referrerpolicy="no-referrer" loading="lazy" onerror="this.style.display=\'none\'"></div>' : '';
             var timeHtml = '<div class="act-time"><span class="act-time-label">活动时间</span> ' + (a.start || '') + ' — ' + (a.end || '') + '</div>';
-            var introHtml = a.intro ? '<div class="act-sec"><span class="act-sec-title">活动介绍</span><div class="act-intro">' + String(a.intro).split('<br>').map(function(l){ return '<div>' + l + '</div>'; }).join('') + '</div></div>' : '';
-            var tipsHtml = a.tips ? '<div class="act-sec"><span class="act-sec-title">活动攻略</span><div class="act-tips">' + String(a.tips).split('<br>').map(function(l){ return '<div>' + l + '</div>'; }).join('') + '</div></div>' : '';
+            var introHtml = a.intro ? '<div class="act-sec"><span class="act-sec-title">活动介绍</span><div class="act-intro">' + String(a.intro).split('<br>').map(function(l){ return l ? '<div>' + l + '</div>' : '<div style="height:1em"></div>'; }).join('') + '</div></div>' : '';
+            var tipsHtml = a.tips ? '<div class="act-sec"><span class="act-sec-title">活动攻略</span><div class="act-tips">' + String(a.tips).split('<br>').map(function(l){ return l ? '<div>' + l + '</div>' : '<div style="height:1em"></div>'; }).join('') + '</div></div>' : '';
             // 与奖池同名 → 加"查看保底价格"链接
             var poolLink = '';
             var pools = (window.DATA_POOLS && Array.isArray(window.DATA_POOLS.pools)) ? window.DATA_POOLS.pools : [];
@@ -2378,7 +2528,7 @@ window.renderActivities = function () {
             var badge = '<span class="act-badge ' + st.key + '">' + st.label + '</span>';
             return '<div class="act-card" data-main="' + (nm.main||'').replace(/"/g,'&quot;') + '" data-name="' + String(a.name||'').replace(/"/g,'&quot;') + '">' +
                 '<div class="act-hd">' + imgHtml + '<div class="act-hd-info">' + nameHtml + timeHtml + badge + '</div></div>' +
-                introHtml + tipsHtml + poolLink +
+                '<div class="act-view-btn" onclick="_act_showDetail(\'' + String(a.name||'').replace(/'/g,"\\'") + '\')">查看活动详情 ›</div>' +
                 '</div>';
         }).join('');
         if (stats) stats.textContent = '共 ' + f.length + ' 个活动';
@@ -2458,6 +2608,14 @@ window.renderActivities = function () {
             if (!card) card = fallback;
             if (card) {
                 window._actJumpName = null;  // 定位成功，清除跳转标记
+                // 自动展开该活动的详情下拉
+                var dt = card.querySelector('.act-detail-toggle');
+                if (dt) {
+                    var dd = dt.closest('.act-detail');
+                    document.querySelectorAll('#actGrid .act-detail.open').forEach(function(d){ if (d !== dd) d.classList.remove('open'); });
+                    if (dd) dd.classList.add('open');
+                    dt.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
                 // 滚动到目标卡（居中）。不用 scrollIntoView 而手动计算位置，便于多次校正：
                 // 目标在列表深处时，沿途其它卡片的懒加载图片会陆续加载并把目标往下顶，只滚一次会偏到上方其它活动上。
                 function scrollToCard() {
@@ -3087,6 +3245,11 @@ window.renderCalculator = function () {
           "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/e164550e-6804-4f45-9a20-101fc63549f9.png/webp",
           "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/b1ecbd4d-5859-4c5d-871f-78184089ac10.png/webp"
 ]},
+            {name:"布加迪 Chiron", chips:"346", start:58, nitro:38, type:"竞速",
+  img: "https://a1.boltp.com/2026/06/13/6a2ce23980a35.png",
+  skins: ["https://tc-new.z.wiki/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/7f91b956-92cb-4354-87ae-164bf4b2521a.png",
+          "https://tc-new.z.wiki/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/547d806b-ff56-4d76-ab89-00a4be85e5be.png"
+]},
     {name:"英菲尼迪 Prototype", chips:"346", start:25, nitro:25, type:"竞速",
   img: "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/c67f8959-a0a7-45a2-8db8-b91d5df511f4.png/webp"},
     {name:"玛莎拉蒂 Alfieri", chips:"334", start:30, nitro:30, type:"竞速",
@@ -3264,7 +3427,7 @@ window.renderCalculator = function () {
           "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/b265096b-943b-4f9c-9611-f22879f16fc6.png/webp"
 ]},
     {name:"阿斯顿马丁 Valkyrie AMR Pro", chips:"466", start:26, nitro:26, type:"竞速",
-  img: "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/41319ad8-4e7c-4dcd-840c-6e1bcb3144bb.png/webp/webp",
+  img: "https://tc-new.z.wiki/autoupload/q2nr6/20260811/NH20/660X298/12041_m.png/webp",
   skins: ["https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/b4848d96-d14c-4dbf-b1f3-04ef724d14aa.png/webp",
           "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/8c98f4da-dcb3-4eaf-8fb4-d4e626b2a5bc.png/webp",
           "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/04ce2cc6-0d4a-4864-8996-abd6058c75ea.png/webp"
@@ -3878,7 +4041,7 @@ window.renderCalculator = function () {
           "https://img.pagehost.cn/autoupload/q2nr6/default/projects/supabase316894448002838528/storage/v1/object/public/images/c3c00ad4-b785-46a5-b981-4b80982a958f.png/webp"
 ]},
   ];
-        var _calc_nickMap = {"月球车":"星际探路者","福特野马":"福特 Mustang","失灵":"闪灵","瑞哥":"柯尼塞格 Regera","名爵":"MG6 XPOWER TC","杰哥":"柯尼塞格 Jesko","泡椒虎":"机械咆哮虎","绿皮保时捷":"保时捷 Macan S","高尔夫":"一汽-大众 GOLF GTI","道奇挑战者":"道奇 Challenger SRT 392","铲车":"开拓铁铲","压路机":"承重钢轮","摩托车":"春风 450SR","摩托车":"绿箭骑士","兔子":"月宫圣使","科尔维特":"雪佛兰 Corvette ZR1","紫路虎":"路虎 Range Rover Evoque","河鱼":"鹤羽","大牛":"兰博基尼 Aventador SVJ","电奔":"梅赛德斯-奔驰 Biome","道奇蝰蛇":"道奇 Viper ACR","浴缸":"泡泡旅行者","墙建犯":"保时捷 Panamera Turbo S","帕拉梅拉":"保时捷 Panamera Turbo S","红牛":"兰博基尼 Aventador J","购物车":"大买特买号","电保时捷":"保时捷 Taycan Turbo S","第六元素":"兰博基尼 Sesto Elemento","御剑飞行":"清规·浩然","牛魔王":"丰田 GR SUPRA","比亚迪汉":"比亚迪·汉","大G":"梅赛德斯-AMG G 63","茶船":"茶韵行者","地狱猫":"道奇 Charger SRT Hellcat","小老虎":"摇尾萌萌虎","红马丁":"阿斯顿马丁 Vanquish","小飞机":"福特 Focus RS","拉法":"法拉利 LaFerrari","肥皂":"英菲尼迪 Prototype","塞纳":"迈凯伦 Senna","gtr":"日产 GT-R NISMO","GTR":"日产 GT-R NISMO","梅奔":"梅赛德斯-AMG GT Black Series","叙利亚战车":"阿斯顿马丁 DB11","毒药":"兰博基尼 Veneno","风之子":"帕加尼 Huayra","银剑":"梅赛德斯-奔驰 Silver Arrow","布加迪飞火流星":"布加迪 Bolide","女武神":"阿斯顿马丁 Valkyrie AMR Pro","布加迪威龙":"布加迪 Veyron","byd":"比亚迪·汉","sto":"兰博基尼 Huracán STO"};
+        var _calc_nickMap = {"ae86":"丰田 Corolla Sprinter Trueno GT Apex","凯龙":"布加迪 Chiron","肥龙":"布加迪 Chiron","月球车":"星际探路者","福特野马":"福特 Mustang","失灵":"闪灵","瑞哥":"柯尼塞格 Regera","名爵":"MG6 XPOWER TC","杰哥":"柯尼塞格 Jesko","泡椒虎":"机械咆哮虎","绿皮保时捷":"保时捷 Macan S","高尔夫":"一汽-大众 GOLF GTI","道奇挑战者":"道奇 Challenger SRT 392","铲车":"开拓铁铲","压路机":"承重钢轮","摩托车":"春风 450SR","摩托车":"绿箭骑士","兔子":"月宫圣使","科尔维特":"雪佛兰 Corvette ZR1","紫路虎":"路虎 Range Rover Evoque","河鱼":"鹤羽","大牛":"兰博基尼 Aventador SVJ","电奔":"梅赛德斯-奔驰 Biome","道奇蝰蛇":"道奇 Viper ACR","浴缸":"泡泡旅行者","墙建犯":"保时捷 Panamera Turbo S","帕拉梅拉":"保时捷 Panamera Turbo S","红牛":"兰博基尼 Aventador J","购物车":"大买特买号","电保时捷":"保时捷 Taycan Turbo S","第六元素":"兰博基尼 Sesto Elemento","御剑飞行":"清规·浩然","牛魔王":"丰田 GR SUPRA","比亚迪汉":"比亚迪·汉","大G":"梅赛德斯-AMG G 63","茶船":"茶韵行者","地狱猫":"道奇 Charger SRT Hellcat","小老虎":"摇尾萌萌虎","红马丁":"阿斯顿马丁 Vanquish","小飞机":"福特 Focus RS","拉法":"法拉利 LaFerrari","肥皂":"英菲尼迪 Prototype","塞纳":"迈凯伦 Senna","gtr":"日产 GT-R NISMO","GTR":"日产 GT-R NISMO","梅奔":"梅赛德斯-AMG GT Black Series","叙利亚战车":"阿斯顿马丁 DB11","毒药":"兰博基尼 Veneno","风之子":"帕加尼 Huayra","银剑":"梅赛德斯-奔驰 Silver Arrow","布加迪飞火流星":"布加迪 Bolide","女武神":"阿斯顿马丁 Valkyrie AMR Pro","布加迪威龙":"布加迪 Veyron","byd":"比亚迪·汉","sto":"兰博基尼 Huracán STO"};
         var _calc_specialFirstEnergy = {"月宫圣使":90,"爱玛 造梦师":70,"本田 Civic Type R":95,"布加迪 Bolide":75,"猫眠梦":70,"道奇 Charger SRT Hellcat":70,"特异点":70,"MINI JCW":70,"五菱宏光 MINI EV":70,"雪佛兰 Camaro ZL1":72,"乐道L60":85,"法拉利 LaFerrari":70,"终极·异形":50,"法拉利 812 Competizione":30,"保时捷 935":50,"蔚来ET9":90,"影豹R·ABT联名版":50};
         var _calc_startExtraMap = {"梅赛德斯-AMG GT Black Series":33,"兰博基尼 Veneno":20,"阿斯顿马丁 Valkyrie AMR Pro":20,"柯尼塞格 One:1":20,"MINI JCW":20,"兰博基尼 Huracán STO":25,"踏雪白驹":50,"保时捷 918 Spyder":15,"逍遥":20,"光天使":100,"兰博基尼 Revuelto":15,"宾利 Flying Spur Mulliner":40,"鹤羽":20,"萌星凯蒂":20,"捷豹 F-TYPE SVR Convertible":15,"狂飙":15,"保时捷 911 Turbo S":100,"星穹幻音":20,"保时捷 Panamera Turbo S":15,"洛基":15,"梅赛德斯-奔驰 Silver Arrow":25,"复仇者":20,"穿梭师":15,"空间漫游虎":15,"宝马 i8":30,"法拉第":30,"布加迪 Veyron":13};
         var _calc_vehicleFixedCharge = {"比亚迪·汉":15,"极狐阿尔法S 全新HI版":15,"梅赛德斯-AMG G 63":8,"踏雪白驹":40,"蔚来 EP9":20,"圣骑士":22,"玛莎拉蒂 Alfieri":37,"禅":24,"讴歌 NSX":100};
@@ -3942,6 +4105,7 @@ window.renderCalculator = function () {
         // ===== 浮动充能提示数据 =====
         var _calc_floatFirstOnly={"烛龙":"开局前12秒内每秒自充能3%","莱肯 HyperSport":"在开局30秒时额外获得200%大招能量"};
         var _calc_floatAfterFirst={"比亚迪·汉": "开局30秒后，每次使用氮气自充能5%",
+  "布加迪 Chiron": "SP期间每次进行氮气压缩时获得20%大招能量",
   "王牌方程式 EVO": "开局35秒后，每秒自充能1.2%",
   "圣骑士": "如携带专属芯片，请在从2大计算区域开始填入双倍自充能44%",
   "极狐阿尔法S 全新HI版": "开局30秒后，每次使用氮气自充能5%",
@@ -4104,9 +4268,16 @@ function _calc_togSub(skipUlt) {
         }
         function _calc_calcAll(vn,hui,xian,tuan) {
             var p=_calc_getParams(vn,hui,xian,tuan); if(!p)return null;
+            var isBC=(vn==='布加迪 Chiron'), nrMul=isBC?1.5:1;
             var prev=0,results=[];
             p.ults.forEach(function(ult){
-                var r=_calc_calcUlt(prev,{start:p.start,nitro:p.nitro,hui:hui,xianJi:xian,zhuan:p.zhuanjing,eff:ult.eff,antiVal:p.antiVal,nCount:ult.nCount,nRatio:p.nitroRatio,startExtra:p.startExtra,floatC:ult.floatC,fixedC:ult.fixedC,floatE:ult.floatE,tuanHun:tuan,assist:ult.assist,assistCore:p.assistCoreOn,liexin:p.liexinVal,isOdd:ult.isOdd,ultEnergy:p.ultEnergy,isFirst:ult.isFirst});
+                var r=_calc_calcUlt(prev,{start:p.start,nitro:p.nitro,hui:hui,xianJi:xian,zhuan:p.zhuanjing,eff:ult.eff,antiVal:p.antiVal,nCount:ult.nCount,nRatio:p.nitroRatio*nrMul,startExtra:p.startExtra,floatC:ult.floatC,fixedC:ult.fixedC,floatE:ult.floatE,tuanHun:tuan,assist:ult.assist,assistCore:p.assistCoreOn,liexin:p.liexinVal,isOdd:ult.isOdd,ultEnergy:p.ultEnergy,isFirst:ult.isFirst});
+                if (isBC && !ult.isFirst && ult.nCount>=1) {
+                var extra = p.nitroRatio*nrMul*(p.nitro*(1+hui/100)+p.zhuanjing)*0.2*(1-p.antiVal/100)*(1+ult.eff/100);
+                r.total += extra;
+                var maxE=document.getElementById('_calc_mainEnerg').value==='refuse'?300:200;
+               if(r.total>maxE)r.total=maxE;
+             }
                 var passed=r.total>=p.ultEnergy;
                 results.push({label:ult.label,total:r.total,surplus:passed?Math.max(0,r.total-100):0,passed:passed,eff:ult.eff,nitroCount:ult.nCount,floatCharge:ult.floatC,fixedCharge:ult.fixedC,floatEnerg:ult.floatE,queYiSec:ult.queYiSec||0,rhythmCount:ult.rhythmCount||0,assistCharge:ult.assist,isOdd:ult.isOdd,isFirst:ult.isFirst,ultEnergy:p.ultEnergy});
                 prev=passed?Math.max(0,r.total-100):0;
@@ -4350,7 +4521,7 @@ window._calc_toggleDetail = function(btn) {
     var routes = {
         '':'renderHome', 'home':'renderHome', 'vehicles':'renderVehicles',
         'balance':'renderBalance', 'calculator':'renderCalculator', 'chips':'renderChips',
-        'empower':'renderEmpower', 'resources':'renderResources', 'pools':'renderPools', 'activities':'renderActivities',
+        'empower':'renderEmpower', 'resources':'renderResources', 'pools':'renderPools', 'activities':'renderActivities', 'act-ending':'renderActEnding',
         'free-achievements':'renderAchievements',
         'wallpaper-static':'renderWallpaperStatic', 'wallpaper-live':'renderWallpaperLive',
         'cg':'renderCG', 'pv':'renderPV',
